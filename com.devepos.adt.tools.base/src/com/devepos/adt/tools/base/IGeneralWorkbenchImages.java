@@ -31,10 +31,6 @@ public interface IGeneralWorkbenchImages {
 	 */
 	String WAITING_INDICATOR = "IMG_WAITING_INDICATOR";
 	/**
-	 * Image for Save operation
-	 */
-	String SAVE_ACTION = "IMG_SAVE_ACTION";
-	/**
 	 * Image for Unlock operation
 	 */
 	String UNLOCK_ACTION = "IMG_UNLOCK_ACTION";

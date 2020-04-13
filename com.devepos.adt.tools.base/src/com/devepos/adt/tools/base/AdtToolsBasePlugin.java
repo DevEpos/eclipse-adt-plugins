@@ -53,7 +53,6 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 		registerImage(imageRegistry, IGeneralWorkbenchImages.COLLAPSE_ALL, "icons/full/elcl16/collapseall.png",
 			"org.eclipse.search");
 		registerImage(imageRegistry, IGeneralWorkbenchImages.WAITING_INDICATOR, "icons/WaitingIndicator.png");
-		registerImage(imageRegistry, IGeneralWorkbenchImages.SAVE_ACTION, "icons/Save.png");
 		registerImage(imageRegistry, IGeneralWorkbenchImages.EDIT_ACTION, "icons/EditMode.png");
 		registerImage(imageRegistry, IGeneralWorkbenchImages.UNLOCK_ACTION, "icons/Unlock.png");
 	}
