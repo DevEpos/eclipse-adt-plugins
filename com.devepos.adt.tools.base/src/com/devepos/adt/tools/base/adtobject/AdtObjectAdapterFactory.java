@@ -1,4 +1,4 @@
-package com.devepos.adt.tools.base.util;
+package com.devepos.adt.tools.base.adtobject;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Adapters;
@@ -8,7 +8,6 @@ import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.ui.IFileEditorInput;
 
 import com.devepos.adt.tools.base.ObjectType;
-import com.devepos.adt.tools.base.adtobject.AdtObject;
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
@@ -16,7 +15,7 @@ import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
-public class DataPreviewAdtObjectAdapterFactory implements IAdapterFactory {
+public class AdtObjectAdapterFactory implements IAdapterFactory {
 	private static final Class<?>[] ADAPTER_LIST;
 
 	static {
@@ -36,9 +35,6 @@ public class DataPreviewAdtObjectAdapterFactory implements IAdapterFactory {
 				return null;
 			}
 			final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
-			if (objectType == null || !objectType.supportsDataPreview()) {
-				return null;
-			}
 			return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, file.getProject()));
 		} else if (adaptableObject instanceof TreeNode) {
 			final IAdtObjectReference objRef = Adapters.adapt(adaptableObject, IAdtObjectReference.class);
@@ -46,21 +42,12 @@ public class DataPreviewAdtObjectAdapterFactory implements IAdapterFactory {
 				return null;
 			}
 			final ObjectType objType = ObjectType.getFromAdtType(objRef.getType());
-			if (objType == null || !objType.supportsDataPreview()) {
-				return null;
-			}
 			final IProjectProvider projectProvider = Adapters.adapt(adaptableObject, IProjectProvider.class);
 			return adapterType.cast(
 				new AdtObject(objRef.getName(), objRef, objType, projectProvider != null ? projectProvider.getProject() : null));
 		} else if (adaptableObject instanceof IAdtObjectReferenceNode) {
 			final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) adaptableObject;
 			final ObjectType objectType = objRefNode.getObjectType();
-			/*
-			 * Check for support data preview is not mandatory at this position
-			 */
-			if (objectType == null) {
-				return null;
-			}
 			final IDestinationProvider destProvider = objRefNode.getAdapter(IDestinationProvider.class);
 			if (destProvider != null && destProvider.getDestinationId() != null) {
 				final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor

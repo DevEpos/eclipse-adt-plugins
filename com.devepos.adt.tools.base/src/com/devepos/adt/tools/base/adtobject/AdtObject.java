@@ -3,7 +3,6 @@ package com.devepos.adt.tools.base.adtobject;
 import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.tools.base.ObjectType;
-import com.devepos.adt.tools.base.util.IAdtObject;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public final class AdtObject implements IAdtObject {
@@ -42,6 +41,11 @@ public final class AdtObject implements IAdtObject {
 	@Override
 	public IAdtObjectReference getReference() {
 		return this.reference;
+	}
+
+	@Override
+	public boolean supportsDataPreview() {
+		return this.objectType != null ? this.objectType.supportsDataPreview() : false;
 	}
 
 }

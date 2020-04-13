@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.WorkbenchPart;
 
+import com.devepos.adt.tools.base.adtobject.IAdtObject;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
 import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;

@@ -1,4 +1,4 @@
-package com.devepos.adt.tools.base.util;
+package com.devepos.adt.tools.base.adtobject;
 
 import org.eclipse.core.resources.IProject;
 
@@ -39,4 +39,11 @@ public interface IAdtObject {
 	 * @return
 	 */
 	IAdtObjectReference getReference();
+
+	/**
+	 * Returns {@code true} if the ADT object supports the Data Preview feature
+	 *
+	 * @return {@code true} if the ADT object supports the Data Preview feature
+	 */
+	boolean supportsDataPreview();
 }
