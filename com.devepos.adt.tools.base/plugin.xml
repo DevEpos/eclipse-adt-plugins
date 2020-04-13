@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+     <extension
+           point="org.eclipse.core.runtime.adapters">
+        <factory
+              adaptableType="java.lang.Object"
+              class="com.devepos.adt.tools.base.adtobject.AdtObjectAdapterFactory">
+           <adapter
+                 type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+           </adapter>
+        </factory>
+     </extension>
+     <extension
+           point="org.eclipse.core.expressions.propertyTesters">
+        <propertyTester
+              class="com.devepos.adt.tools.base.internal.propertytester.AdtObjectPropertyTester"
+              id="com.devepos.adt.abaptags.ui.IAdtObjectTester"
+              namespace="com.devepos.adt.tools.base.adtobject"
+              properties="supportsDataPreview,adtType"
+              type="com.devepos.adt.tools.base.adtobject.IAdtObject">
+        </propertyTester>
+     </extension>
+</plugin>
