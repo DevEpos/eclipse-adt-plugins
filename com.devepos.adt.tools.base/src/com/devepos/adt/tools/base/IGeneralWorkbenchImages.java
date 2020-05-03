@@ -38,4 +38,8 @@ public interface IGeneralWorkbenchImages {
 	 * Image for Edit operation
 	 */
 	String EDIT_ACTION = "IMG_EDIT_ACTION";
+	/**
+	 * Image for ADT object that can only be opened in SAP GUI
+	 */
+	String SAP_GUI_OBJECT = "IMG_SAP_GUI_OBJECT";
 }

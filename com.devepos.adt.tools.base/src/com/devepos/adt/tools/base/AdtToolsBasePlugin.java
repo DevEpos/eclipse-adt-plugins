@@ -55,6 +55,7 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 		registerImage(imageRegistry, IGeneralWorkbenchImages.WAITING_INDICATOR, "icons/WaitingIndicator.png");
 		registerImage(imageRegistry, IGeneralWorkbenchImages.EDIT_ACTION, "icons/EditMode.png");
 		registerImage(imageRegistry, IGeneralWorkbenchImages.UNLOCK_ACTION, "icons/Unlock.png");
+		registerImage(imageRegistry, IGeneralWorkbenchImages.SAP_GUI_OBJECT, "icons/SAPGUIObject.png");
 	}
 
 }
