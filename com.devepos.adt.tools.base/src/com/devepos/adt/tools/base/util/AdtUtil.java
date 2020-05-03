@@ -8,9 +8,12 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -20,7 +23,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.WorkbenchPart;
 
+import com.devepos.adt.tools.base.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.adtobject.IAdtObject;
+import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
 import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;
@@ -57,20 +62,20 @@ public class AdtUtil {
 		}
 		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 
-		final String newPartName = String.format("[%s] %s", abapProject.getSystemId(), partName);
+		final String newPartName = String.format("[%s] %s", abapProject.getSystemId(), partName); //$NON-NLS-1$
 		final String newTitleTooltip = titleToolTip != null
-			? String.format("%s [%s]", titleToolTip, abapProject.getDestinationDisplayText())
+			? String.format("%s [%s]", titleToolTip, abapProject.getDestinationDisplayText()) //$NON-NLS-1$
 			: null;
 
 		final IPropertyListener listener = (object, id) -> {
 			if (id == 1) {
-				Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, new Object[] { newPartName });
+				Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, new Object[] { newPartName }); //$NON-NLS-1$
 				if (newTitleTooltip != null) {
 					Reflection.forObject(part)
-						.invoke("setTitleToolTip", new Class[] { String.class }, new Object[] { newTitleTooltip });
+						.invoke("setTitleToolTip", new Class[] { String.class }, new Object[] { newTitleTooltip }); //$NON-NLS-1$
 				}
 				if (image != null) {
-					Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, new Object[] { image });
+					Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, new Object[] { image }); //$NON-NLS-1$
 				}
 			}
 		};
@@ -84,7 +89,7 @@ public class AdtUtil {
 	 */
 	public static IHeaders getHeaders() {
 		final IHeaders headers = HeadersFactory.newHeaders();
-		headers.addField(HeadersFactory.newField("Accept", "application/xml"));
+		headers.addField(HeadersFactory.newField("Accept", "application/xml")); //$NON-NLS-1$ //$NON-NLS-2$
 		return headers;
 	}
 
@@ -196,14 +201,19 @@ public class AdtUtil {
 	 * Ensures that the users is logged on to given project
 	 *
 	 * @param  project the ABAP Project to ensure the logged on status
-	 * @return         <code>true</code> if user is logged on to the given project
+	 * @return         Logged On Status for the given project
 	 */
-	public static boolean ensureLoggedOnToProject(final IProject project) {
+	public static IStatus ensureLoggedOnToProject(final IProject project) {
 		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 
-		return AdtLogonServiceUIFactory.createLogonServiceUI()
+		if (AdtLogonServiceUIFactory.createLogonServiceUI()
 			.ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench().getProgressService())
-			.isOK();
+			.isOK()) {
+			return Status.OK_STATUS;
+		} else {
+			return new Status(IStatus.ERROR, AdtToolsBasePlugin.PLUGIN_ID,
+				NLS.bind(Messages.AdtUtil_LogonToProjectFailed_xmsg, project.getName()));
+		}
 	}
 
 	/**
