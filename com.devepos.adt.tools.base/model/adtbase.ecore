@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="adtbase" nsURI="http://www.devepos.com/adt/base" nsPrefix="adtbase">
+  <eClassifiers xsi:type="ecore:EClass" name="AdtObjRef">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;Base class for ADT object references. It&#xA;&#x9;&#x9;&#x9;&#x9;encapsulates the data that&#xA;&#x9;&#x9;&#x9;&#x9;clients may want to access&#xA;&#x9;&#x9;&#x9;&#x9;without loading&#xA;&#x9;&#x9;&#x9;&#x9;the actual resource - e.g.&#xA;&#x9;&#x9;&#x9;&#x9;in order to display the name and&#xA;&#x9;&#x9;&#x9;&#x9;an icon.&#xA;&#x9;&#x9;&#x9;"/>
+    </eAnnotations>
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="name" value="adtObjRef"/>
+      <details key="kind" value="elementOnly"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The language dependent description text.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="description"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The logical name of the corresponding development&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;object.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="name"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The unique package the object is contained in.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="packageName"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The type of of the corresponding development&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;object.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="type"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnyURI">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The ADT URI of the corresponding&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;em>AdtObject&lt;/em>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;instance.&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The value represents a relative path to the resource&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;containing the&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;em>AdtObject&lt;/em>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;instance&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;and has to be resolved based on the URI of the enclosing&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;resource.&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;p>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Note: Although the attribute has been defined as optional it is&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;guaranteed&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;that it will always be set for data retrieved from the&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;backend.&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;/p>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="uri"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The logical name of the corresponding development&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;object.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="owner"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdtObjRefList">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A list of object references."/>
+    </eAnnotations>
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="name" value="adtObjRefs"/>
+      <details key="kind" value="elementOnly"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objectReferences" lowerBound="1"
+        upperBound="-1" eType="#//AdtObjRef" containment="true" resolveProxies="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Alternative root element for a single object&#xA;&#x9;&#x9;&#x9;&#x9;reference.&#xA;&#x9;&#x9;&#x9;"/>
+      </eAnnotations>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="element"/>
+        <details key="name" value="adtObjRef"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>
