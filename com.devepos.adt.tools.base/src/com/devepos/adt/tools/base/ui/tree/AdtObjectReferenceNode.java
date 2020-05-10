@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.graphics.Image;
+
 import com.devepos.adt.tools.base.ObjectType;
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
 import com.devepos.adt.tools.base.util.AdtWhereUsedAdapterFactory;
@@ -38,7 +40,7 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
 	}
 
 	@Override
-	public String getImageId() {
+	public Image getImage() {
 		return null;
 	}
 

@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.WorkbenchJob;
 
-import com.devepos.adt.tools.base.IGeneralWorkbenchImages;
 import com.devepos.adt.tools.base.elementinfo.ILazyLoadableContent;
 import com.devepos.adt.tools.base.elementinfo.LazyLoadingRefreshMode;
 import com.devepos.adt.tools.base.internal.messages.Messages;
@@ -104,7 +103,7 @@ public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(final Object parentElement) {
-		if (parentElement instanceof LoadingElement) {
+		if (parentElement instanceof LoadingTreeItemsNode) {
 			return null;
 		}
 		if (!(parentElement instanceof ICollectionTreeNode)) {
@@ -117,11 +116,11 @@ public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
 			if (lazyNode.isLoaded()) {
 				return getChildren(collectionNode);
 			} else if (lazyNode.isLoading()) {
-				return new Object[] { LoadingElement.INSTANCE };
+				return new Object[] { LoadingTreeItemsNode.INSTANCE };
 			} else {
 				// start retrieval of the children of the node
 				startChildNodeRetrieval(lazyNode);
-				return new Object[] { LoadingElement.INSTANCE };
+				return new Object[] { LoadingTreeItemsNode.INSTANCE };
 			}
 		} else if (parentElement instanceof ICollectionTreeNode) {
 			return getChildren((ICollectionTreeNode) parentElement);
@@ -164,7 +163,7 @@ public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(final Object element) {
-		if (element instanceof LoadingElement) {
+		if (element instanceof LoadingTreeItemsNode) {
 			return false;
 		} else if (element instanceof ICollectionTreeNode) {
 			if (element instanceof ILazyLoadingNode) {
@@ -184,29 +183,6 @@ public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
 	@Override
 	public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
 		this.viewer = (TreeViewer) viewer;
-	}
-
-	/**
-	 * Simple element for tree viewer to signal, that a loading process is occurring
-	 *
-	 * @author stockbal
-	 */
-	public static class LoadingElement extends TreeNodeBase {
-		private static LoadingElement INSTANCE;
-
-		static {
-			INSTANCE = new LoadingElement();
-		}
-
-		private LoadingElement() {
-			super(Messages.LazyLoadingTreeContentProvider_LoadingContent_xmsg, null);
-		}
-
-		@Override
-		public String getImageId() {
-			return IGeneralWorkbenchImages.WAITING_INDICATOR;
-		}
-
 	}
 
 	/**

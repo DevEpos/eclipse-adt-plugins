@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.elementinfo;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * Information of an element that supports lazy loading. The loading of the
  * elements is done via the passed {@link IElementInfoProvider}
@@ -11,13 +13,13 @@ public class LazyLoadingElementInfo extends ElementInfoBase implements ILazyLoad
 	private IElementInfoProvider provider;
 	private LazyLoadingRefreshMode refreshMode;
 
-	public LazyLoadingElementInfo(final String name, final String imageId, final IElementInfoProvider provider) {
-		this(name, name, imageId, provider);
+	public LazyLoadingElementInfo(final String name, final Image image, final IElementInfoProvider provider) {
+		this(name, name, image, provider);
 	}
 
-	public LazyLoadingElementInfo(final String name, final String displayName, final String imageId,
+	public LazyLoadingElementInfo(final String name, final String displayName, final Image image,
 		final IElementInfoProvider provider) {
-		super(name, displayName, imageId, null);
+		super(name, displayName, image, null);
 		this.provider = provider;
 	}
 

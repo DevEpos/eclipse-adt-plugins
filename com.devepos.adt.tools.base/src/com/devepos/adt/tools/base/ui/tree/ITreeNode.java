@@ -1,6 +1,7 @@
 package com.devepos.adt.tools.base.ui.tree;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.util.IPropertyBag;
 
@@ -39,7 +40,7 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
 	/**
 	 * @return the image id of the node
 	 */
-	String getImageId();
+	Image getImage();
 
 	/**
 	 * @return the internal name of the node

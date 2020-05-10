@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.elementinfo;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * Simple representation of an elements' information
  *
@@ -14,12 +16,11 @@ public class SimpleElementInfo extends ElementInfoBase {
 		super(name, name, null, null);
 	}
 
-	public SimpleElementInfo(final String name, final String imageId) {
-		super(name, name, imageId, null);
+	public SimpleElementInfo(final String name, final Image image) {
+		super(name, name, image, null);
 	}
 
-	public SimpleElementInfo(final String name, final String displayName, final String imageId,
-		final String description) {
-		super(name, displayName, imageId, description);
+	public SimpleElementInfo(final String name, final String displayName, final Image image, final String description) {
+		super(name, displayName, image, description);
 	}
 }

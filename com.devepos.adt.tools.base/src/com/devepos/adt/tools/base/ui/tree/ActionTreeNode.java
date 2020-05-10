@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.ui.tree;
 
+import org.eclipse.swt.graphics.Image;
+
 import com.devepos.adt.tools.base.IExecutable;
 
 /**
@@ -10,8 +12,8 @@ import com.devepos.adt.tools.base.IExecutable;
 public class ActionTreeNode extends SimpleInfoTreeNode {
 	private final IExecutable action;
 
-	public ActionTreeNode(final String name, final String imageId, final ITreeNode parent, final IExecutable action) {
-		super(name, imageId, parent);
+	public ActionTreeNode(final String name, final Image image, final ITreeNode parent, final IExecutable action) {
+		super(name, image, parent);
 		this.action = action;
 	}
 

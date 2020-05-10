@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.elementinfo;
 
+import org.eclipse.swt.graphics.Image;
+
 import com.devepos.adt.tools.base.IExecutable;
 
 /**
@@ -11,8 +13,8 @@ public class ActionElementInfo extends ElementInfoBase implements IExecutableEle
 
 	private final IExecutable action;
 
-	public ActionElementInfo(final String name, final String imageId, final IExecutable action) {
-		super(name, imageId);
+	public ActionElementInfo(final String name, final Image image, final IExecutable action) {
+		super(name, image);
 		this.action = action;
 	}
 

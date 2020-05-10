@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.ui.tree;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * Element which will be shown in tree viewer if an error occurred during the
  * loading of some child elements
@@ -23,7 +25,7 @@ public class LoadingErrorNode extends TreeNodeBase {
 	}
 
 	@Override
-	public String getImageId() {
+	public Image getImage() {
 		return null;
 	}
 

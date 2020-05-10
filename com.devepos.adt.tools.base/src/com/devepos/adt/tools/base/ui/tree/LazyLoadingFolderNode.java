@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.elementinfo.IElementInfo;
 import com.devepos.adt.tools.base.elementinfo.IElementInfoProvider;
@@ -23,14 +24,14 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
 	private final List<ILazyLoadingListener> lazyLoadingListeners = new ArrayList<>();
 
 	public LazyLoadingFolderNode(final String name, final IElementInfoProvider elementInfoProvider, final ITreeNode parent,
-		final String imageId) {
-		this(name, name, elementInfoProvider, imageId, null, parent);
+		final Image image) {
+		this(name, name, elementInfoProvider, image, null, parent);
 	}
 
 	public LazyLoadingFolderNode(final String name, final String displayName, final IElementInfoProvider elementInfoProvider,
-		final String imageId, final String description, final ITreeNode parent) {
+		final Image image, final String description, final ITreeNode parent) {
 
-		super(name, displayName, description, parent, imageId, null);
+		super(name, displayName, description, parent, image, null);
 		Assert.isNotNull(elementInfoProvider);
 		this.provider = elementInfoProvider;
 	}

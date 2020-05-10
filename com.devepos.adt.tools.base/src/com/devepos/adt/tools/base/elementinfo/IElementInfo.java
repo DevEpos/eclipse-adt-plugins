@@ -1,5 +1,7 @@
 package com.devepos.adt.tools.base.elementinfo;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * Information about a search result element
  *
@@ -19,16 +21,16 @@ public interface IElementInfo extends IPropertyBag {
 	void setName(String name);
 
 	/**
-	 * @return the image id of this element
+	 * @return the image of this element
 	 */
-	String getImageId();
+	Image getImage();
 
 	/**
-	 * Sets the image id to be associated with this element
-	 * 
+	 * Sets the image to be associated with this element
+	 *
 	 * @param imageId
 	 */
-	void setImageId(String imageId);
+	void setImage(Image image);
 
 	/**
 	 * @return the display name of the element

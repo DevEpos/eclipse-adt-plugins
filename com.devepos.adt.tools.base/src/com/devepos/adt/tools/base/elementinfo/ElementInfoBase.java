@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * Information about an element. Holds some basic information like the
@@ -15,7 +16,7 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
 	protected String name;
 	protected String displayName;
 	protected String description;
-	protected String imageId;
+	protected Image image;
 	private Object additionalInfo;
 	private final Map<String, String> properties;
 
@@ -27,16 +28,16 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
 		this(name, name, null, null);
 	}
 
-	public ElementInfoBase(final String name, final String imageId) {
-		this(name, name, imageId, null);
+	public ElementInfoBase(final String name, final Image image) {
+		this(name, name, image, null);
 	}
 
-	public ElementInfoBase(final String name, final String displayName, final String imageId, final String description) {
+	public ElementInfoBase(final String name, final String displayName, final Image image, final String description) {
 		this.name = name;
 		this.properties = new HashMap<>();
 		this.displayName = displayName;
 		this.description = description;
-		this.imageId = imageId;
+		this.image = image;
 	}
 
 	@Override
@@ -70,13 +71,13 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
 	}
 
 	@Override
-	public String getImageId() {
-		return this.imageId;
+	public Image getImage() {
+		return this.image;
 	}
 
 	@Override
-	public void setImageId(final String imageId) {
-		this.imageId = imageId;
+	public void setImage(final Image image) {
+		this.image = image;
 	}
 
 	@Override
