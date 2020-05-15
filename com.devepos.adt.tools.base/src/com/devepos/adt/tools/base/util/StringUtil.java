@@ -11,6 +11,29 @@ public class StringUtil {
 	public static final String NEGATION1 = "!"; //$NON-NLS-1$
 
 	/**
+	 * Returns {@code true} if, and only if, {@link value#length()} is {@code 0}.
+	 *
+	 * @return {@code true} if {@link value#length()} is {@code 0}, otherwise
+	 *         {@code false}
+	 */
+	public static boolean isEmpty(final String value) {
+		return value == null || value.isEmpty();
+	}
+
+	/**
+	 * Returns {@code true} if the string is null, empty or contains only
+	 * {@link Character#isWhitespace(int) white space} codepoints, otherwise
+	 * {@code false}.
+	 *
+	 * @return {@code true} if the string is null, empty or contains only
+	 *         {@link Character#isWhitespace(int) white space} codepoints, otherwise
+	 *         {@code false}
+	 */
+	public static boolean isBlank(final String value) {
+		return value == null || value.isBlank();
+	}
+
+	/**
 	 * Compiles pattern for the given query string
 	 *
 	 * @param  query the query to compile into Pattern

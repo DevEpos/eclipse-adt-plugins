@@ -1,6 +1,4 @@
-package com.devepos.adt.tools.base.util;
-
-import java.net.URI;
+package com.devepos.adt.tools.base.ui.project;
 
 import org.eclipse.core.resources.IProject;
 
@@ -8,42 +6,21 @@ import com.devepos.adt.tools.base.destinations.IDestinationProvider;
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.sap.adt.project.IProjectProvider;
-import com.sap.adt.tools.core.AdtObjectReference;
-import com.sap.adt.tools.core.IAdtObjectReference;
+import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
- * Adapter Factory which is necessary to get the correct types for executing a
- * Where-Used list
+ * Adapter Factory to adapt object to {@link IProjectProvider}
  *
  * @author stockbal
  */
-public class AdtWhereUsedAdapterFactory {
-
-	/**
-	 * Adapts an EMF ADT Object Reference to the ADT Object reference
-	 *
-	 * @param  adtObjectRef EMF ADT Object Reference
-	 * @return
-	 */
-	public static IAdtObjectReference adaptToNonEmfAdtObjectRef(
-		final com.sap.adt.tools.core.model.adtcore.IAdtObjectReference adtObjectRef) {
-		if (adtObjectRef == null) {
-			return null;
-		}
-		final String uriString = adtObjectRef.getUri();
-		final URI refUri = uriString != null ? URI.create(uriString) : null;
-		return new AdtObjectReference(refUri, adtObjectRef.getName(), adtObjectRef.getType(), null, adtObjectRef.getPackageName(),
-			adtObjectRef.getDescription());
-	}
-
+public class ProjectProviderAdapterFactory {
 	/**
 	 * Adapts destination provider to project provider
 	 *
 	 * @param  adtObjectRef EMF ADT Object Reference
 	 * @return              the adapted project provider
 	 */
-	public static IProjectProvider adaptToProjectProvider(
-		final com.sap.adt.tools.core.model.adtcore.IAdtObjectReference adtObjectRef) {
+	public static IProjectProvider adaptToProjectProvider(final IAdtObjectReference adtObjectRef) {
 		if (adtObjectRef == null || !(adtObjectRef instanceof IDestinationProvider)) {
 			return null;
 		}

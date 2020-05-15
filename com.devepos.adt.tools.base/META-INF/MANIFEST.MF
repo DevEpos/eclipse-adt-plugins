@@ -49,5 +49,5 @@ Export-Package: com.devepos.adt.tools.base;x-friends:="com.devepos.adt.abaptags,
  com.devepos.adt.tools.base.ui.celleditor;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.ui.project;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.ui.tree;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
- com.devepos.adt.tools.base.util;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
+ com.devepos.adt.tools.base.util;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui,com.devepos.adt.abaptags.model",
  com.devepos.adt.tools.base.wizard;x-friends:="com.devepos.adt.abaptags.ui"

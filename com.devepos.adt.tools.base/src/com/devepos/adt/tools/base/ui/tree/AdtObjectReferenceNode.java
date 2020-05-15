@@ -7,8 +7,9 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.ObjectType;
+import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceAdapterFactory;
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
-import com.devepos.adt.tools.base.util.AdtWhereUsedAdapterFactory;
+import com.devepos.adt.tools.base.ui.project.ProjectProviderAdapterFactory;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -85,12 +86,12 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
 		}
 		if (adapter == IProjectProvider.class) {
 			try {
-				return adapter.cast(AdtWhereUsedAdapterFactory.adaptToProjectProvider(this.objectReference));
+				return adapter.cast(ProjectProviderAdapterFactory.adaptToProjectProvider(this.objectReference));
 			} catch (final ClassCastException exc) {
 			}
 		} else if (adapter == com.sap.adt.tools.core.IAdtObjectReference.class) {
 			try {
-				return adapter.cast(AdtWhereUsedAdapterFactory.adaptToNonEmfAdtObjectRef(this.objectReference));
+				return adapter.cast(AdtObjectReferenceAdapterFactory.adaptToNonEmfAdtObjectRef(this.objectReference));
 			} catch (final ClassCastException exc) {
 			}
 		} else if (adapter == IDestinationProvider.class) {
