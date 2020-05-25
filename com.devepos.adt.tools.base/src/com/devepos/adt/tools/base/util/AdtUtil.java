@@ -12,7 +12,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ITreeSelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
@@ -23,8 +23,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.WorkbenchPart;
 
-import com.devepos.adt.tools.base.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.adtobject.IAdtObject;
+import com.devepos.adt.tools.base.internal.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
@@ -97,26 +97,58 @@ public class AdtUtil {
 	 * Returns a simple DB Browser Tools compatible ADT object from the current
 	 * selection
 	 *
+	 * @param  supportsDataPreview flag to indicate that only ADT objects that
+	 *                             support Data Preview should be considered
 	 * @return
 	 */
 	public static IAdtObject getAdtObjectFromSelection(final boolean supportsDataPreview) {
-		final List<IAdtObject> adtObjects = getAdtObjectsFromSelection(supportsDataPreview);
+		return getAdtObjectFromSelection(supportsDataPreview, null);
+	}
+
+	/**
+	 * Returns a simple DB Browser Tools compatible ADT object from the current
+	 * selection
+	 *
+	 * @param  supportsDataPreview flag to indicate that only ADT objects that
+	 *                             support Data Preview should be considered
+	 * @param  sel                 optional selection instance that should be used
+	 *                             to determine the selected ADT objects
+	 * @return
+	 */
+	public static IAdtObject getAdtObjectFromSelection(final boolean supportsDataPreview, final ISelection sel) {
+		final List<IAdtObject> adtObjects = getAdtObjectsFromSelection(supportsDataPreview, sel);
 		return adtObjects != null && !adtObjects.isEmpty() ? adtObjects.get(0) : null;
 	}
 
 	/**
 	 * Returns a List of simple DB Browser Tools compatible ADT objects from the
 	 * current selection
-	 *
+	 * 
+	 * @param  supportsDataPreview flag to indicate that only ADT objects that
+	 *                             support Data Preview should be considered
 	 * @return
 	 */
 	public static List<IAdtObject> getAdtObjectsFromSelection(final boolean supportsDataPreview) {
+		return getAdtObjectsFromSelection(supportsDataPreview, null);
+	}
+
+	/**
+	 * Returns a List of simple DB Browser Tools compatible ADT objects from the
+	 * current selection
+	 *
+	 * @param  supportsDataPreview flag to indicate that only ADT objects that
+	 *                             support Data Preview should be considered
+	 * @param  sel                 optional selection instance that should be used
+	 *                             to determine the selected ADT objects
+	 * @return
+	 */
+	public static List<IAdtObject> getAdtObjectsFromSelection(final boolean supportsDataPreview, final ISelection sel) {
 		List<IAdtObject> adtObjects = null;
-		final ISelection selection = SelectionUtil.getSelection();
+		final ISelection selection = sel != null ? sel : SelectionUtil.getSelection();
 
 		if (selection != null) {
-			if (selection instanceof ITreeSelection) {
-				adtObjects = getObjectFromTreeSelection((ITreeSelection) selection);
+			if (selection instanceof IStructuredSelection) {
+				adtObjects = getObjectFromTreeSelection((IStructuredSelection) selection);
 			} else if (selection instanceof ITextSelection) {
 				final IAdtObject adtObject = getObjectFromActiveEditor();
 				if (adtObject != null) {
@@ -252,7 +284,7 @@ public class AdtUtil {
 		return Adapters.adapt(input, IAdtObject.class);
 	}
 
-	private static List<IAdtObject> getObjectFromTreeSelection(final ITreeSelection selection) {
+	private static List<IAdtObject> getObjectFromTreeSelection(final IStructuredSelection selection) {
 		List<IAdtObject> adtObjects = null;
 		for (final Object selectionItem : selection.toList()) {
 			final IAdtObject adtObject = Adapters.adapt(selectionItem, IAdtObject.class);

@@ -34,6 +34,23 @@ public class StringUtil {
 	}
 
 	/**
+	 * Checks if {@code value} equals {@code value2}
+	 * 
+	 * @param  value  a String value
+	 * @param  value2 another String value
+	 * @return        {@code true} if both strings are equal
+	 */
+	public static boolean equals(final String value, final String value2) {
+		if (value == null && value2 == null) {
+			return true;
+		}
+		if (value == null || value2 == null) {
+			return false;
+		}
+		return value.equals(value2);
+	}
+
+	/**
 	 * Compiles pattern for the given query string
 	 *
 	 * @param  query the query to compile into Pattern

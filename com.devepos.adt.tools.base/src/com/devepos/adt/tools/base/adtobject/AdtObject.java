@@ -3,6 +3,7 @@ package com.devepos.adt.tools.base.adtobject;
 import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.tools.base.ObjectType;
+import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public final class AdtObject implements IAdtObject {
@@ -48,4 +49,21 @@ public final class AdtObject implements IAdtObject {
 		return this.objectType != null ? this.objectType.supportsDataPreview() : false;
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof AdtObject)) {
+			return super.equals(obj);
+		}
+		final AdtObject other = (AdtObject) obj;
+		if (this.reference == null && other.reference == null) {
+			return true;
+		} else if (this.reference == null || other.reference == null) {
+			return false;
+		} else {
+			return StringUtil.equals(this.reference.getUri(), other.reference.getUri());
+		}
+	}
 }

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.devepos.adt.tools.base.AdtToolsBasePlugin;
+import com.devepos.adt.tools.base.internal.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.devepos.adt.tools.base.project.AbapProjectProxy;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
@@ -57,6 +57,18 @@ public class ProjectInput {
 
 	public IAbapProjectProvider getProjectProvider() {
 		return this.projectProvider;
+	}
+
+	/**
+	 * Sets the given {@code projectName} in the project input field
+	 *
+	 * @param projectName the project name to be set in the project input field
+	 */
+	public void setProjectName(final String projectName) {
+		final String newProjectNameValue = projectName != null ? projectName : "";
+		if (this.projectField != null && !this.projectField.isDisposed()) {
+			this.projectField.setText(newProjectNameValue);
+		}
 	}
 
 	/**

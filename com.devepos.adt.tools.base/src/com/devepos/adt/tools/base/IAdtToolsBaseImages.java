@@ -5,7 +5,7 @@ package com.devepos.adt.tools.base;
  *
  * @author stockbal
  */
-public interface IGeneralWorkbenchImages {
+public interface IAdtToolsBaseImages {
 	/**
 	 * Image for Refresh action
 	 */
