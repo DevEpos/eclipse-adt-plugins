@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import com.devepos.adt.tools.base.ObjectType;
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
+import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.sap.adt.tools.core.model.adtcore.IAdtExtension;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -42,6 +43,17 @@ public class AdtObjectReferenceModelFactory {
 	 */
 	public static IAdtObjectReference createReference(final String destinationId) {
 		return createReference(destinationId, null, null, null);
+	}
+
+	/**
+	 * Creates ADT Object Reference from the given {@link IAdtObjRef}
+	 *
+	 * @param  destinationId destination Id of ABAP Project
+	 * @param  adtObjRef     instance of the internal adt object reference
+	 * @return
+	 */
+	public static IAdtObjectReference createReference(final String destinationId, final IAdtObjRef adtObjRef) {
+		return createReference(destinationId, adtObjRef.getName(), adtObjRef.getType(), adtObjRef.getUri());
 	}
 
 	/**
