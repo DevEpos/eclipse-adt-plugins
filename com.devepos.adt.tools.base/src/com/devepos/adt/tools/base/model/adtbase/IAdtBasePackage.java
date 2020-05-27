@@ -121,13 +121,22 @@ public interface IAdtBasePackage extends EPackage {
 	int ADT_OBJ_REF__OWNER = 5;
 
 	/**
+	 * The feature id for the '<em><b>Tadir Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADT_OBJ_REF__TADIR_TYPE = 6;
+
+	/**
 	 * The number of structural features of the '<em>Adt Obj Ref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADT_OBJ_REF_FEATURE_COUNT = 6;
+	int ADT_OBJ_REF_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Adt Obj Ref</em>' class.
@@ -253,6 +262,17 @@ public interface IAdtBasePackage extends EPackage {
 	EAttribute getAdtObjRef_Owner();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tadir Type</em>'.
+	 * @see com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getTadirType()
+	 * @see #getAdtObjRef()
+	 * @generated
+	 */
+	EAttribute getAdtObjRef_TadirType();
+
+	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList <em>Adt Obj Ref List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -353,6 +373,14 @@ public interface IAdtBasePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ADT_OBJ_REF__OWNER = eINSTANCE.getAdtObjRef_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Tadir Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADT_OBJ_REF__TADIR_TYPE = eINSTANCE.getAdtObjRef_TadirType();
 
 		/**
 		 * The meta object literal for the '{@link com.devepos.adt.tools.base.model.adtbase.impl.AdtObjRefList <em>Adt Obj Ref List</em>}' class.

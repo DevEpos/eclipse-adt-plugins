@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}</li>
  *   <li>{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}</li>
  *   <li>{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}</li>
+ *   <li>{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage#getAdtObjRef()
@@ -222,5 +223,34 @@ public interface IAdtObjRef extends EObject {
 	 * @generated
 	 */
 	void setOwner(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Tadir Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 					The TADIR type of of the corresponding development
+	 * 					object.
+	 * 				
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Tadir Type</em>' attribute.
+	 * @see #setTadirType(String)
+	 * @see com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage#getAdtObjRef_TadirType()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='tadirType' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	String getTadirType();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tadir Type</em>' attribute.
+	 * @see #getTadirType()
+	 * @generated
+	 */
+	void setTadirType(String value);
 
 } // IAdtObjRef

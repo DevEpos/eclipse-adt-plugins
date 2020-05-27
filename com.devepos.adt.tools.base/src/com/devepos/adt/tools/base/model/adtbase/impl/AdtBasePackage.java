@@ -177,6 +177,16 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getAdtObjRef_TadirType() {
+		return (EAttribute)adtObjRefEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAdtObjRefList() {
 		return adtObjRefListEClass;
 	}
@@ -227,6 +237,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 		createEAttribute(adtObjRefEClass, ADT_OBJ_REF__TYPE);
 		createEAttribute(adtObjRefEClass, ADT_OBJ_REF__URI);
 		createEAttribute(adtObjRefEClass, ADT_OBJ_REF__OWNER);
+		createEAttribute(adtObjRefEClass, ADT_OBJ_REF__TADIR_TYPE);
 
 		adtObjRefListEClass = createEClass(ADT_OBJ_REF_LIST);
 		createEReference(adtObjRefListEClass, ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
@@ -272,6 +283,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 		initEAttribute(getAdtObjRef_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjRef_Uri(), theXMLTypePackage.getAnyURI(), "uri", null, 0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdtObjRef_Owner(), theXMLTypePackage.getString(), "owner", null, 0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAdtObjRef_TadirType(), theXMLTypePackage.getString(), "tadirType", null, 0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(adtObjRefListEClass, IAdtObjRefList.class, "AdtObjRefList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAdtObjRefList_ObjectReferences(), this.getAdtObjRef(), null, "objectReferences", null, 1, -1, IAdtObjRefList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -345,6 +357,14 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 		   new String[] {
 			   "kind", "attribute",
 			   "name", "owner",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (getAdtObjRef_TadirType(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "tadirType",
 			   "namespace", "##targetNamespace"
 		   });
 		addAnnotation
