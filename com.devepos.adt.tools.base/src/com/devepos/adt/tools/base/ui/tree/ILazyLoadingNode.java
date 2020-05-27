@@ -8,7 +8,7 @@ import com.devepos.adt.tools.base.elementinfo.ILazyLoadableContent;
  *
  * @author stockbal
  */
-public interface ILazyLoadingNode extends ILazyLoadableContent {
+public interface ILazyLoadingNode extends ITreeNode, ILazyLoadableContent {
 
 	/**
 	 * Refresh the content of the lazy loading node
