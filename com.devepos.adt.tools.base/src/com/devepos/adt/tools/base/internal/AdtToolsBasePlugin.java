@@ -47,15 +47,19 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 
 	@Override
 	protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
-		registerImage(imageRegistry, IAdtToolsBaseImages.REFRESH, "icons/full/elcl16/refresh.png", "org.eclipse.search");
-		registerImage(imageRegistry, IAdtToolsBaseImages.IMPORT, "icons/full/etool16/import_wiz.png", "org.eclipse.ui");
-		registerImage(imageRegistry, IAdtToolsBaseImages.EXPORT, "icons/full/etool16/export_wiz.png", "org.eclipse.ui");
-		registerImage(imageRegistry, IAdtToolsBaseImages.EXPAND_ALL, "icons/full/elcl16/expandall.png", "org.eclipse.search");
-		registerImage(imageRegistry, IAdtToolsBaseImages.COLLAPSE_ALL, "icons/full/elcl16/collapseall.png", "org.eclipse.search");
+		registerImage(imageRegistry, IAdtToolsBaseImages.REFRESH, "icons/Refresh.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.IMPORT, "icons/ImportWizard.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.EXPORT, "icons/ExportWizard.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.EXPAND_ALL, "icons/ExpandAll.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.COLLAPSE_ALL, "icons/CollapseAll.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.WAITING_INDICATOR, "icons/WaitingIndicator.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.EDIT_ACTION, "icons/EditMode.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.UNLOCK_ACTION, "icons/Unlock.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.SAP_GUI_OBJECT, "icons/SAPGUIObject.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.DATA_PREVIEW, "icons/DataPreview.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.WHERE_USED_LIST, "icons/WhereUsed.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.SEARCH, "icons/Search.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.RUN_OBJECT, "icons/RunObject.png");
 	}
 
 }

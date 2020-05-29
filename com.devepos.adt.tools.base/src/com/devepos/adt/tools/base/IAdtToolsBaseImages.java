@@ -42,4 +42,20 @@ public interface IAdtToolsBaseImages {
 	 * Image for ADT object that can only be opened in SAP GUI
 	 */
 	String SAP_GUI_OBJECT = "IMG_SAP_GUI_OBJECT";
+	/**
+	 * Image for ADT object that can be opened in Data Preview
+	 */
+	String DATA_PREVIEW = "IMG_DATA_PREVIEW";
+	/**
+	 * Image for Where-Used List
+	 */
+	String WHERE_USED_LIST = "IMG_WHERE_USED";
+	/**
+	 * Image for Search
+	 */
+	String SEARCH = "IMG_SEARCH";
+	/**
+	 * Image for executing an object
+	 */
+	String RUN_OBJECT = "IMG_RUN_OBJECT";
 }

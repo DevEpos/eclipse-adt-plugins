@@ -53,7 +53,10 @@ public class AdtObjectReferenceModelFactory {
 	 * @return
 	 */
 	public static IAdtObjectReference createReference(final String destinationId, final IAdtObjRef adtObjRef) {
-		return createReference(destinationId, adtObjRef.getName(), adtObjRef.getType(), adtObjRef.getUri());
+		final IAdtObjectReference objectRef = createReference(destinationId, adtObjRef.getName(), adtObjRef.getType(),
+			adtObjRef.getUri());
+		objectRef.setPackageName(adtObjRef.getPackageName());
+		return objectRef;
 	}
 
 	/**

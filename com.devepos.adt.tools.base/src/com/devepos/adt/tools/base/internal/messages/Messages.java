@@ -4,6 +4,14 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "com.devepos.adt.tools.base.internal.messages.messages"; //$NON-NLS-1$
+	public static String CopyToClipboardAction_ErrorMessageTitle_xmsg;
+	public static String CopyToClipboardAction_ErrorMessageBody_xmsg;
+	public static String General_Copy_xtol;
+	public static String Actions_OpenWithADTDataPreview_xmit;
+	public static String Actions_OpenAdtObject_xmit;
+	public static String Actions_ExecuteAdtObject_xmit;
+	public static String Actions_CollapseNode_xtol;
+	public static String Actions_CollapseAllNodes_xmit;
 	public static String AdtUtil_LogonToProjectFailed_xmsg;
 	public static String LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg;
 	public static String LazyLoadingTreeContentProvider_LoadingContent_xmsg;
