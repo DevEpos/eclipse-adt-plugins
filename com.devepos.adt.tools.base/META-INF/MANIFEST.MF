@@ -31,7 +31,8 @@ Require-Bundle: com.sap.adt.communication,
  org.eclipse.jface.databinding,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
- org.junit
+ org.junit,
+ com.sap.adt.ris.search.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.devepos.adt.tools.base
 Bundle-ActivationPolicy: lazy
@@ -50,6 +51,7 @@ Export-Package: com.devepos.adt.tools.base;x-friends:="com.devepos.adt.abaptags,
  com.devepos.adt.tools.base.ui.celleditor;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.ui.menu;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.ui.project;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui",
+ com.devepos.adt.tools.base.ui.search;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.ui.tree;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.tools.base.util;x-friends:="com.devepos.adt.abaptags,com.devepos.adt.abaptags.ui,com.devepos.adt.abaptags.model",
  com.devepos.adt.tools.base.wizard;x-friends:="com.devepos.adt.abaptags.ui"

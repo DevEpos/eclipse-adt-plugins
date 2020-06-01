@@ -2,10 +2,11 @@ package com.devepos.adt.tools.base.ui.action;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 
 import com.devepos.adt.tools.base.internal.messages.Messages;
-import com.devepos.adt.tools.base.project.IAbapProjectProvider;
+import com.devepos.adt.tools.base.util.AdtUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
@@ -15,18 +16,18 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  */
 public class OpenAdtObjectAction extends Action {
 	private final List<IAdtObjectReference> adtObjectReferences;
-	private final IAbapProjectProvider projectProvider;
+	private final IProject project;
 
-	public OpenAdtObjectAction(final IAbapProjectProvider projectProvider, final List<IAdtObjectReference> adtObjectReferences) {
+	public OpenAdtObjectAction(final IProject project, final List<IAdtObjectReference> adtObjectReferences) {
 		super(Messages.Actions_OpenAdtObject_xmit);
 		this.adtObjectReferences = adtObjectReferences;
-		this.projectProvider = projectProvider;
+		this.project = project;
 	}
 
 	@Override
 	public void run() {
 		for (final IAdtObjectReference objectRef : this.adtObjectReferences) {
-			this.projectProvider.openObjectReference(objectRef);
+			AdtUtil.navigateWithObjectReference(objectRef, this.project);
 		}
 	}
 

@@ -60,6 +60,7 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 		registerImage(imageRegistry, IAdtToolsBaseImages.WHERE_USED_LIST, "icons/WhereUsed.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.SEARCH, "icons/Search.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.RUN_OBJECT, "icons/RunObject.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.OTHER_OBJECT, "icons/OtherObject.png");
 	}
 
 }

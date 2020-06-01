@@ -58,4 +58,8 @@ public interface IAdtToolsBaseImages {
 	 * Image for executing an object
 	 */
 	String RUN_OBJECT = "IMG_RUN_OBJECT";
+	/**
+	 * Image for choosing another object as focus object
+	 */
+	String OTHER_OBJECT = "IMG_OTHER_OBJECT";
 }

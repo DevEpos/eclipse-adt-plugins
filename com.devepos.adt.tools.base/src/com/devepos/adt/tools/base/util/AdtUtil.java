@@ -8,33 +8,19 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.WorkbenchPart;
 
 import com.devepos.adt.tools.base.adtobject.IAdtObject;
-import com.devepos.adt.tools.base.internal.AdtToolsBasePlugin;
-import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
-import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;
-import com.sap.adt.project.IAdtCoreProject;
 import com.sap.adt.project.IProjectProvider;
-import com.sap.adt.project.ui.util.ProjectUtil;
 import com.sap.adt.sapgui.ui.editors.AdtSapGuiEditorUtilityFactory;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
-import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
 import com.sap.adt.tools.core.ui.navigation.AdtNavigationServiceFactory;
 import com.sap.adt.tools.core.wbtyperegistry.WorkbenchAction;
@@ -123,7 +109,7 @@ public class AdtUtil {
 	/**
 	 * Returns a List of simple DB Browser Tools compatible ADT objects from the
 	 * current selection
-	 * 
+	 *
 	 * @param  supportsDataPreview flag to indicate that only ADT objects that
 	 *                             support Data Preview should be considered
 	 * @return
@@ -150,7 +136,7 @@ public class AdtUtil {
 			if (selection instanceof IStructuredSelection) {
 				adtObjects = getObjectFromTreeSelection((IStructuredSelection) selection);
 			} else if (selection instanceof ITextSelection) {
-				final IAdtObject adtObject = getObjectFromActiveEditor();
+				final IAdtObject adtObject = EditorUtil.getAdtObjectFromActiveEditor();
 				if (adtObject != null) {
 					adtObjects = Arrays.asList(adtObject);
 				}
@@ -174,22 +160,6 @@ public class AdtUtil {
 			return adaptedProject;
 		}
 		return null;
-	}
-
-	/**
-	 * Read destination id from the given project. If the project is not of type
-	 * {@link IAbapProject} <code>null</code> will be returned
-	 *
-	 * @param  project project instance which must be adaptable to type
-	 *                 {@link IAbapProject}
-	 * @return
-	 */
-	public static String getDestinationId(final IProject project) {
-		if (project == null) {
-			return null;
-		}
-		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-		return abapProject != null ? abapProject.getDestinationId() : null;
 	}
 
 	/**
@@ -218,70 +188,6 @@ public class AdtUtil {
 		AdtSapGuiEditorUtilityFactory.createSapGuiEditorUtility()
 			.openEditorForObject(project, objectReference, true, WorkbenchAction.DISPLAY.toString(), null,
 				Collections.<String, String>emptyMap());
-	}
-
-	/**
-	 * Retrieve a list of all ABAP projects in the current workspace
-	 *
-	 * @return List of ABAP projects
-	 */
-	public static IProject[] getAbapProjects() {
-		return AdtProjectServiceFactory.createProjectService().getAvailableAbapProjects();
-	}
-
-	/**
-	 * Ensures that the users is logged on to given project
-	 *
-	 * @param  project the ABAP Project to ensure the logged on status
-	 * @return         Logged On Status for the given project
-	 */
-	public static IStatus ensureLoggedOnToProject(final IProject project) {
-		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-		if (AdtLogonServiceUIFactory.createLogonServiceUI()
-			.ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench().getProgressService())
-			.isOK()) {
-			return Status.OK_STATUS;
-		} else {
-			return new Status(IStatus.ERROR, AdtToolsBasePlugin.PLUGIN_ID,
-				NLS.bind(Messages.AdtUtil_LogonToProjectFailed_xmsg, project.getName()));
-		}
-	}
-
-	/**
-	 * Retrieve the currently active ABAP Project
-	 *
-	 * @return
-	 */
-	public static IProject getCurrentAbapProject() {
-		final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
-		}
-		final ISelection selection = window.getSelectionService().getSelection();
-		return ProjectUtil.getActiveAdtCoreProject(selection, null, null, IAdtCoreProject.ABAP_PROJECT_NATURE);
-	}
-
-	/**
-	 * Returns the ADT object from currently active editor or <code>null</code> if
-	 * the editor content cannot be adapted to an instance of {@link IAdtObject}
-	 *
-	 * @return
-	 */
-	public static IAdtObject getObjectFromActiveEditor() {
-		final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		if (activePage == null) {
-			return null;
-		}
-		final IEditorPart activeEditor = activePage.getActiveEditor();
-		if (activeEditor == null) {
-			return null;
-		}
-		final IEditorInput input = activeEditor.getEditorInput();
-		if (input == null) {
-			return null;
-		}
-		return Adapters.adapt(input, IAdtObject.class);
 	}
 
 	private static List<IAdtObject> getObjectFromTreeSelection(final IStructuredSelection selection) {

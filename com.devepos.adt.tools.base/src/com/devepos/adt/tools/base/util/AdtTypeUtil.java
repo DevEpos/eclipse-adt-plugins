@@ -1,4 +1,4 @@
-package com.devepos.adt.tools.base.adtobject;
+package com.devepos.adt.tools.base.util;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -6,7 +6,6 @@ import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.AdtToolsBaseResources;
 import com.devepos.adt.tools.base.IAdtToolsBaseImages;
-import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.AbapCore;
 import com.sap.adt.tools.core.ui.AbapCoreUi;
 import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
@@ -53,7 +52,7 @@ public class AdtTypeUtil {
 	/**
 	 * Retrieves the description of the given {@code adtType} by accessing the
 	 * workbench type registry in the given project
-	 * 
+	 *
 	 * @param  adtType ADT type (e.g. DDLS/DF)
 	 * @param  project project to access workbench type registry
 	 * @return         the found type description or {@code null}
@@ -80,12 +79,7 @@ public class AdtTypeUtil {
 		}
 		final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry().getObjectTypeByGlobalWorkbenchType(adtType);
 		if (type != null) {
-//			final IAdtObjectTypeLabelProvider labelProvider = type.getLabelProvider();
-//			if (labelProvider != null) {
-//				return labelProvider.getRegisteredDisplayName();
-//			} else {
 			return type.getDisplayName();
-//			}
 		}
 		return null;
 	}
