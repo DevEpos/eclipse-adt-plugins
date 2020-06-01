@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.AdtToolsBaseResources;
+import com.devepos.adt.tools.base.IAdtObjectTypeConstants;
 import com.devepos.adt.tools.base.IAdtToolsBaseImages;
 import com.sap.adt.tools.core.AbapCore;
 import com.sap.adt.tools.core.ui.AbapCoreUi;
@@ -40,7 +41,11 @@ public class AdtTypeUtil {
 			return null;
 		}
 		Image image = null;
-		final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry().getObjectTypeByGlobalWorkbenchType(adtType);
+		String adtWbType = adtType;
+		if (adtType.startsWith("CLAS")) {
+			adtWbType = IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE;
+		}
+		final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry().getObjectTypeByGlobalWorkbenchType(adtWbType);
 		if (type != null) {
 			image = type.getImage();
 		} else {

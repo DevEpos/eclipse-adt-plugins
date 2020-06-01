@@ -21,17 +21,27 @@ public class EditorUtil {
 	 * @return
 	 */
 	public static IEditorInput getActiveEditorInput() {
+		final IEditorPart activePart = getActiveEditor();
+		if (activePart == null) {
+			return null;
+		}
+
+		return activePart.getEditorInput();
+	}
+
+	/**
+	 * Returns the active editor part of the current workbench window
+	 *
+	 * @return
+	 */
+	public static IEditorPart getActiveEditor() {
 		final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if (activePage == null) {
 			return null;
 		}
 
 		final IEditorPart activePart = activePage.getActiveEditor();
-		if (activePart == null) {
-			return null;
-		}
-
-		return activePart.getEditorInput();
+		return activePart;
 	}
 
 	/**
@@ -41,8 +51,8 @@ public class EditorUtil {
 	 * @return
 	 */
 	public static IAdtObject getAdtObjectFromActiveEditor() {
-		final IEditorInput input = getActiveEditorInput();
-		return input != null ? Adapters.adapt(input, IAdtObject.class) : null;
+		final IEditorPart activeEditor = getActiveEditor();
+		return activeEditor != null ? Adapters.adapt(activeEditor, IAdtObject.class) : null;
 	}
 
 	/**
@@ -52,7 +62,6 @@ public class EditorUtil {
 	 * @return            the ADT object instance of the editor or {@code null}
 	 */
 	public static IAdtObject getAdtObjectFromEditor(final IEditorPart editorPart) {
-		final IEditorInput input = editorPart.getEditorInput();
-		return input != null ? Adapters.adapt(input, IAdtObject.class) : null;
+		return Adapters.adapt(editorPart, IAdtObject.class);
 	}
 }

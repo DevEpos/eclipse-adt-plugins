@@ -14,6 +14,7 @@ import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.ui.tree.IAdtObjectReferenceNode;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
+import com.sap.adt.tools.core.ui.editors.IAdtFormEditor;
 
 public class AdtObjectAdapterFactory implements IAdapterFactory {
 	private static final Class<?>[] ADAPTER_LIST;
@@ -30,6 +31,14 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
 		if (adaptableObject instanceof ITextSelection) {
 		} else if (adaptableObject instanceof IFileEditorInput) {
 			final IFile file = ((IFileEditorInput) adaptableObject).getFile();
+			final IAdtObjectReference objRef = Adapters.adapt(file, IAdtObjectReference.class);
+			if (objRef == null) {
+				return null;
+			}
+			final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
+			return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, file.getProject()));
+		} else if (adaptableObject instanceof IAdtFormEditor) {
+			final IFile file = ((IAdtFormEditor) adaptableObject).getModelFile();
 			final IAdtObjectReference objRef = Adapters.adapt(file, IAdtObjectReference.class);
 			if (objRef == null) {
 				return null;
