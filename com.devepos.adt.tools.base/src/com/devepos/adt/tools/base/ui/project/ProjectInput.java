@@ -29,7 +29,7 @@ import com.devepos.adt.tools.base.internal.AdtToolsBasePlugin;
 import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.devepos.adt.tools.base.project.AbapProjectProxy;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
-import com.devepos.adt.tools.base.util.AdtUtil;
+import com.devepos.adt.tools.base.project.ProjectUtil;
 import com.sap.adt.tools.core.ui.AbapProjectProposalProvider;
 import com.sap.adt.tools.core.ui.dialogs.AbapProjectSelectionDialog;
 import com.sap.adt.util.ui.SWTUtil;
@@ -142,7 +142,7 @@ public class ProjectInput {
 					return null;
 				} else {
 					// check if there is an ABAP project which matches the entered name
-					final IProject[] abapProjects = AdtUtil.getAbapProjects();
+					final IProject[] abapProjects = ProjectUtil.getAbapProjects();
 					String availableProjectName = null;
 					for (final IProject project : abapProjects) {
 						if (project.getName().equalsIgnoreCase(projectName)) {

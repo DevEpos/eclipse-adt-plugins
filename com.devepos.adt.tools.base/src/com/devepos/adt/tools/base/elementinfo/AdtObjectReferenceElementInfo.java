@@ -17,7 +17,7 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements IA
 
 	private IAdtObjectReference objectReference;
 	private List<IElementInfo> children;
-	private boolean lazyLoading = true;
+	private boolean lazyLoading = false;
 	private IElementInfoProvider infoProvider;
 	private LazyLoadingRefreshMode refreshMode;
 
@@ -26,7 +26,7 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements IA
 	}
 
 	public AdtObjectReferenceElementInfo(final String name) {
-		this(name, null, null);
+		this(name, name, null);
 	}
 
 	public AdtObjectReferenceElementInfo(final String name, final String displayName, final String description) {
@@ -89,6 +89,7 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements IA
 	@Override
 	public void setElementInfoProvider(final IElementInfoProvider infoProvider) {
 		this.infoProvider = infoProvider;
+		this.lazyLoading = this.infoProvider != null;
 	}
 
 	@Override

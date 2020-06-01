@@ -11,4 +11,5 @@ public interface IAdtToolsBaseStrings {
 	String SearchUI_OneResult_xmsg = "SearchUI_OneResult_xmsg";
 	String SearchUI_SpecificResults_xmsg = "SearchUI_SpecificResults_xmsg";
 	String General_WhereUsedList_xmit = "General_WhereUsedList_xmit";
+	String Refresh = "Refresh";
 }

@@ -56,6 +56,7 @@ public class AdtObjectReferenceModelFactory {
 		final IAdtObjectReference objectRef = createReference(destinationId, adtObjRef.getName(), adtObjRef.getType(),
 			adtObjRef.getUri());
 		objectRef.setPackageName(adtObjRef.getPackageName());
+		objectRef.setDescription(adtObjRef.getDescription());
 		return objectRef;
 	}
 

@@ -1,6 +1,8 @@
 package com.devepos.adt.tools.base.ui.tree;
 
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Element which will be shown in tree viewer if an error occurred during the
@@ -26,7 +28,7 @@ public class LoadingErrorNode extends TreeNodeBase {
 
 	@Override
 	public Image getImage() {
-		return null;
+		return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
 	}
 
 }

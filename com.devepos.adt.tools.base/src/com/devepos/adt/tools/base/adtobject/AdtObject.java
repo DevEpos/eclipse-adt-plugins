@@ -1,8 +1,11 @@
 package com.devepos.adt.tools.base.adtobject;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.tools.base.ObjectType;
+import com.devepos.adt.tools.base.util.AdtTypeUtil;
+import com.devepos.adt.tools.base.util.ObjectUtil;
 import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -27,6 +30,14 @@ public final class AdtObject implements IAdtObject {
 	@Override
 	public IProject getProject() {
 		return this.project;
+	}
+
+	@Override
+	public Image getImage() {
+		if (this.reference == null || StringUtil.isEmpty(this.reference.getType())) {
+			return null;
+		}
+		return AdtTypeUtil.getInstance().getTypeImage(this.reference.getType());
 	}
 
 	@Override
@@ -63,7 +74,11 @@ public final class AdtObject implements IAdtObject {
 		} else if (this.reference == null || other.reference == null) {
 			return false;
 		} else {
-			return StringUtil.equals(this.reference.getUri(), other.reference.getUri());
+			if (!StringUtil.isEmpty(this.reference.getType()) && !StringUtil.isEmpty(this.reference.getName())) {
+				return StringUtil.equals(this.reference.getType(), other.reference.getType())
+					&& StringUtil.equals(this.reference.getName(), other.reference.getName());
+			}
+			return ObjectUtil.equals(this.reference.getUri(), other.reference.getUri());
 		}
 	}
 }
