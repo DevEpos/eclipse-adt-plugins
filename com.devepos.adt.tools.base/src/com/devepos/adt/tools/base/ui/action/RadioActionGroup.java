@@ -93,6 +93,7 @@ public class RadioActionGroup extends ActionGroup {
 		if (actionToEnable != null) {
 			actionToEnable.setEnabled(enable);
 			if (!enable && actionToEnable.isChecked()) {
+				actionToEnable.setChecked(false);
 				// search for another action to be toggled
 				final ToggleAction newToggleAction = this.actions.stream()
 					.filter(a -> !a.actionId.equals(actionId))
