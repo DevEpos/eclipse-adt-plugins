@@ -1,6 +1,6 @@
 package com.devepos.adt.tools.base.elementinfo;
 
-import com.devepos.adt.tools.base.IExecutable;
+import com.devepos.adt.tools.base.ui.action.IExecutable;
 
 /**
  * Element information that holds an Action

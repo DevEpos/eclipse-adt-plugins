@@ -2,7 +2,7 @@ package com.devepos.adt.tools.base.elementinfo;
 
 import org.eclipse.swt.graphics.Image;
 
-import com.devepos.adt.tools.base.IExecutable;
+import com.devepos.adt.tools.base.ui.action.IExecutable;
 
 /**
  * Represents the action which can be executed on an element information

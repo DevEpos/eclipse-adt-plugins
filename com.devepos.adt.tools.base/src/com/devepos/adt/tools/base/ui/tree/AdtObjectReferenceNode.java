@@ -9,7 +9,7 @@ import org.eclipse.swt.graphics.Image;
 import com.devepos.adt.tools.base.ObjectType;
 import com.devepos.adt.tools.base.adtobject.AdtObjectReferenceAdapterFactory;
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
-import com.devepos.adt.tools.base.ui.project.ProjectProviderAdapterFactory;
+import com.devepos.adt.tools.base.project.ProjectProviderAdapterFactory;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 

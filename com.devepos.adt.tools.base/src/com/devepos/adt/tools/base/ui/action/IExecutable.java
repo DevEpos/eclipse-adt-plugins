@@ -1,6 +1,7 @@
-package com.devepos.adt.tools.base;
+package com.devepos.adt.tools.base.ui.action;
 
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * An action represents an action that can be executed on an element
@@ -18,9 +19,9 @@ public interface IExecutable {
 	/**
 	 * Creates UI action from executable
 	 *
-	 * @param  name    the name for the action (tooltip or text)
-	 * @param  imageId the image id for the action or <code>null</code>
+	 * @param  name            the name for the action (tooltip or text)
+	 * @param  imageDescriptor the image descriptor for the action
 	 * @return
 	 */
-	IAction createAction(String name, String imageId);
+	IAction createAction(String name, ImageDescriptor imageDescriptor);
 }

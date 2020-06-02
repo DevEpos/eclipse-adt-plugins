@@ -2,7 +2,7 @@ package com.devepos.adt.tools.base.ui.tree;
 
 import org.eclipse.swt.graphics.Image;
 
-import com.devepos.adt.tools.base.IExecutable;
+import com.devepos.adt.tools.base.ui.action.IExecutable;
 
 /**
  * Represents a node in a {@link org.eclipse.jface.viewers.TreeViewer}

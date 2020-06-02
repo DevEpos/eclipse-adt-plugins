@@ -21,6 +21,10 @@ public class Messages extends NLS {
 	public static String ProjectInput_NoProjectEntered_xmsg;
 	public static String ProjectInput_Project_xfld;
 	public static String ProjectInput_ProjectDoesNotExist_xmsg;
+	public static String ToggleViewLayoutAction_AutomaticOrientation_xmit;
+	public static String ToggleViewLayoutAction_HorizontalOrientation_xmit;
+	public static String ToggleViewLayoutAction_TopLevelMenu_xmit;
+	public static String ToggleViewLayoutAction_VerticalOrientation_xmit;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -1,10 +1,8 @@
-package com.devepos.adt.tools.base.ui.project;
+package com.devepos.adt.tools.base.project;
 
 import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.tools.base.destinations.IDestinationProvider;
-import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
-import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 

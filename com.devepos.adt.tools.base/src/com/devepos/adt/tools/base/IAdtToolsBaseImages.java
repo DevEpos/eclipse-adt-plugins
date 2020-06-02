@@ -62,4 +62,16 @@ public interface IAdtToolsBaseImages {
 	 * Image for choosing another object as focus object
 	 */
 	String OTHER_OBJECT = "IMG_OTHER_OBJECT";
+	/**
+	 * Image for horizontal view layout
+	 */
+	String HORIZONTAL_LAYOUT = "IMG_HORIZONTAL_LAYOUT";
+	/**
+	 * Image for vertical view layout
+	 */
+	String VERTICAL_LAYOUT = "IMG_VERTICAL_LAYOUT";
+	/**
+	 * Image for automatic view layout
+	 */
+	String AUTOMATIC_LAYOUT = "IMG_AUTOMATIC_LAYOUT";
 }
