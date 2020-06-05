@@ -22,6 +22,11 @@ public class PreferenceToggleAction extends Action {
 		this.prefStore = prefStore;
 		this.preferenceKey = preferenceKey;
 		this.prefStore.setDefault(this.preferenceKey, defaultPreferenceValue);
+		this.prefStore.addPropertyChangeListener(e -> {
+			if (e.getProperty().equals(preferenceKey)) {
+				setChecked((boolean) e.getNewValue());
+			}
+		});
 		final boolean checked = this.prefStore.getBoolean(this.preferenceKey);
 		setChecked(checked);
 	}
