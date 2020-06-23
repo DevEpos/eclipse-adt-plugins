@@ -55,13 +55,12 @@ public class AdtUtil {
 
 		final IPropertyListener listener = (object, id) -> {
 			if (id == 1) {
-				Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, new Object[] { newPartName }); //$NON-NLS-1$
+				Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, newPartName); //$NON-NLS-1$
 				if (newTitleTooltip != null) {
-					Reflection.forObject(part)
-						.invoke("setTitleToolTip", new Class[] { String.class }, new Object[] { newTitleTooltip }); //$NON-NLS-1$
+					Reflection.forObject(part).invoke("setTitleToolTip", new Class[] { String.class }, newTitleTooltip); //$NON-NLS-1$
 				}
 				if (image != null) {
-					Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, new Object[] { image }); //$NON-NLS-1$
+					Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, image); //$NON-NLS-1$
 				}
 			}
 		};

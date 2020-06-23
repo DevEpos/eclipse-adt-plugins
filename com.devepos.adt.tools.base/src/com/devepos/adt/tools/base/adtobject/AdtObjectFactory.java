@@ -14,7 +14,7 @@ public class AdtObjectFactory {
 	 * @return
 	 */
 	public static IAdtObject create(final IAdtObjectReference objectReference, final IProject project) {
-		final ObjectType objType = ObjectType.getFromAdtType(objectReference.getType());
-		return new AdtObject(objectReference.getName(), objectReference, objType, project);
+		return new AdtObject(objectReference.getName(), objectReference,
+			ObjectType.getFromAdtType(objectReference.getType()), project);
 	}
 }

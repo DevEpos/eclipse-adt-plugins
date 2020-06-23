@@ -17,7 +17,8 @@ public enum ObjectType {
 	BUSINESS_OBJECT("", IAdtObjectTypeConstants.BUSINESS_OBJECT_TYPE),
 	METADATA_EXT("", IAdtObjectTypeConstants.METADATA_EXTENSION_TYPE),
 	ACCESS_CONTROL("", IAdtObjectTypeConstants.ACCESS_CONTROL_TYPE),
-	PACKAGE("", IAdtObjectTypeConstants.PACKAGE);
+	PACKAGE("", IAdtObjectTypeConstants.PACKAGE),
+	UNRECOGNIZED("", "");
 
 	private final String id;
 	private final String adtExecutionType;
@@ -87,7 +88,7 @@ public enum ObjectType {
 				return ot;
 			}
 		}
-		return null;
+		return ObjectType.UNRECOGNIZED;
 	}
 
 }
