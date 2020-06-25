@@ -1,8 +1,11 @@
 package com.devepos.adt.tools.base.destinations;
 
+import org.eclipse.core.resources.IProject;
+
 import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.sap.adt.destinations.model.IDestinationData;
+import com.sap.adt.tools.core.project.IAbapProject;
 
 /**
  * Util class for destinaion handling of ABAP projects
@@ -21,7 +24,8 @@ public final class DestinationUtil {
 		if (destinationId == null) {
 			return "";
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null || !projectProvider.hasProject()) {
 			return "";
 		}
@@ -38,10 +42,28 @@ public final class DestinationUtil {
 		if (destinationId == null) {
 			return null;
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
+		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
+			.getProviderForDestination(destinationId);
 		if (projectProvider == null || !projectProvider.hasProject()) {
 			return null;
 		}
 		return projectProvider.getDestinationData();
 	}
+
+	/**
+	 * Read destination id from the given project. If the project is not of type
+	 * {@link IAbapProject} <code>null</code> will be returned
+	 *
+	 * @param  project project instance which must be adaptable to type
+	 *                 {@link IAbapProject}
+	 * @return
+	 */
+	public static String getDestinationId(final IProject project) {
+		if (project == null) {
+			return null;
+		}
+		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+		return abapProject != null ? abapProject.getDestinationId() : null;
+	}
+
 }
