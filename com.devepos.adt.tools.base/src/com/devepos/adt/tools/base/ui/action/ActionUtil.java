@@ -26,17 +26,18 @@ public class ActionUtil {
 	 *
 	 * @param  text            the text/tooltip for the action
 	 * @param  imageDescriptor the optional image descriptor for the action
-	 * @param  actionRun       the implementation for the {@link Action#run()}
+	 * @param  actionRunner    the implementation for the {@link Action#run()}
 	 *                         method
 	 * @return                 the created Action instance
 	 */
-	public static Action createAction(final String text, final ImageDescriptor imageDescriptor, final IActionRun actionRun) {
-		Assert.isNotNull(actionRun, "Parameter 'runConsumer' must not be null");
+	public static Action createAction(final String text, final ImageDescriptor imageDescriptor,
+		final IActionRun actionRunner) {
+		Assert.isNotNull(actionRunner, "Parameter 'actionRunner' must not be null");
 
 		return new Action(text, imageDescriptor) {
 			@Override
 			public void run() {
-				actionRun.execute();
+				actionRunner.execute();
 			}
 		};
 	}
