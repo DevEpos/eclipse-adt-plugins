@@ -30,11 +30,23 @@ public class ProjectUtil {
 	 * @return
 	 */
 	public static IProject getCurrentAbapProject() {
-		final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
+		return getCurrentAbapProject(null);
+	}
+
+	/**
+	 * Retrieve the currently active ABAP Project
+	 * 
+	 * @param  selection selection in a workbench part
+	 * @return
+	 */
+	public static IProject getCurrentAbapProject(ISelection selection) {
+		if (selection == null) {
+			final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			if (window == null) {
+				return null;
+			}
+			selection = window.getSelectionService().getSelection();
 		}
-		final ISelection selection = window.getSelectionService().getSelection();
 		return com.sap.adt.project.ui.util.ProjectUtil.getActiveAdtCoreProject(selection, null, null,
 			IAdtCoreProject.ABAP_PROJECT_NATURE);
 	}
