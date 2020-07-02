@@ -11,7 +11,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.osgi.util.NLS;
@@ -29,7 +28,7 @@ import com.devepos.adt.tools.base.internal.messages.Messages;
  *
  * @author stockbal
  */
-public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
+public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
 	@FunctionalInterface
 	public interface IExpanderCheckFunction {
@@ -136,29 +135,6 @@ public class LazyLoadingTreeContentProvider implements ITreeContentProvider {
 		}
 		Job.create(jobName, new ChildElementLoader(this.viewer.getControl().getDisplay(), lazyNode)).schedule();
 
-	}
-
-	private Object[] getChildren(final ICollectionTreeNode collectionNode) {
-		final List<ITreeNode> children = collectionNode.getChildren();
-		if (children == null) {
-			return null;
-		} else {
-			return children.toArray(new Object[children.size()]);
-		}
-	}
-
-	@Override
-	public Object[] getElements(final Object inputElement) {
-		return (Object[]) inputElement;
-
-	}
-
-	@Override
-	public Object getParent(final Object element) {
-		if (element instanceof ITreeNode) {
-			return ((ITreeNode) element).getParent();
-		}
-		return null;
 	}
 
 	@Override
