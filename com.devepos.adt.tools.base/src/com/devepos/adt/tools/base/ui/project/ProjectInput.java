@@ -30,6 +30,7 @@ import com.devepos.adt.tools.base.internal.messages.Messages;
 import com.devepos.adt.tools.base.project.AbapProjectProxy;
 import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.devepos.adt.tools.base.project.ProjectUtil;
+import com.devepos.adt.tools.base.util.StringUtil;
 import com.sap.adt.tools.core.ui.AbapProjectProposalProvider;
 import com.sap.adt.tools.core.ui.dialogs.AbapProjectSelectionDialog;
 import com.sap.adt.util.ui.SWTUtil;
@@ -137,7 +138,7 @@ public class ProjectInput {
 		}
 
 		final IConverter<String, IProject> convertStringToProject = IConverter.create(String.class, IProject.class,
-			(projectName) -> {
+			projectName -> {
 				if (projectName == null || "".equals(projectName)) { //$NON-NLS-1$
 					return null;
 				} else {
@@ -157,21 +158,23 @@ public class ProjectInput {
 					}
 				}
 			});
-		final UpdateValueStrategy<IProject, String> targetUpdateStrategy = UpdateValueStrategy
-			.create(IConverter.create(IProject.class, String.class, project -> project != null ? project.getName() : ""));
-		final UpdateValueStrategy<String, IProject> modelUpdateStrategy = UpdateValueStrategy.create(convertStringToProject);
-		modelUpdateStrategy.setAfterGetValidator((projectName) -> {
-			if (projectName == null || projectName.isBlank()) {
+		final UpdateValueStrategy<IProject, String> targetUpdateStrategy = UpdateValueStrategy.create(
+			IConverter.create(IProject.class, String.class, project -> project != null ? project.getName() : ""));
+		final UpdateValueStrategy<String, IProject> modelUpdateStrategy = UpdateValueStrategy
+			.create(convertStringToProject);
+		modelUpdateStrategy.setAfterGetValidator(projectName -> {
+			if (StringUtil.isBlank(projectName)) {
 				return new Status(IStatus.ERROR, AdtToolsBasePlugin.PLUGIN_ID, IStatus.INFO,
 					Messages.ProjectInput_NoProjectEntered_xmsg, null);
 			}
 			return ValidationStatus.ok();
 		});
-		modelUpdateStrategy.setAfterConvertValidator((project) -> {
+		modelUpdateStrategy.setAfterConvertValidator(project -> {
 			return validateProject(project);
 		});
 
-		final IObservableValue<String> projectInputTarget = WidgetProperties.text(SWT.Modify).observe(this.projectField);
+		final IObservableValue<String> projectInputTarget = WidgetProperties.text(SWT.Modify)
+			.observe(this.projectField);
 		final IObservableValue<IProject> projectModel = PojoProperties.value("project", IProject.class) //$NON-NLS-1$
 			.observe(this.projectProvider);
 		dbc.bindValue(projectInputTarget, projectModel, modelUpdateStrategy, targetUpdateStrategy);
