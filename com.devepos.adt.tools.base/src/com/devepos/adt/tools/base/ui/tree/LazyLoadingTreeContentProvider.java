@@ -1,10 +1,9 @@
 package com.devepos.adt.tools.base.ui.tree;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -86,7 +85,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 	public LazyLoadingTreeContentProvider(final LazyLoadingRefreshMode refreshMode, final int refreshExpansionLevel) {
 		this.viewer = null;
 		this.refreshMode = refreshMode;
-		assertTrue(refreshExpansionLevel == TreeViewer.ALL_LEVELS || refreshExpansionLevel > 0);
+		Assert.isTrue(refreshExpansionLevel == TreeViewer.ALL_LEVELS || refreshExpansionLevel > 0);
 		this.refreshModeExpansionLevel = refreshExpansionLevel;
 	}
 

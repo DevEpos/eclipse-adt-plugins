@@ -31,7 +31,6 @@ Require-Bundle: com.sap.adt.communication,
  org.eclipse.jface.databinding,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
- org.junit,
  com.sap.adt.ris.search.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.devepos.adt.tools.base
