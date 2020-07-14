@@ -74,4 +74,8 @@ public interface IAdtToolsBaseImages {
 	 * Image for automatic view layout
 	 */
 	String AUTOMATIC_LAYOUT = "IMG_AUTOMATIC_LAYOUT";
+	/**
+	 * Image for Transport stuff
+	 */
+	String TRANSPORT = "IMG_TRANSPORT";
 }

@@ -64,6 +64,7 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 		registerImage(imageRegistry, IAdtToolsBaseImages.AUTOMATIC_LAYOUT, "icons/AutomaticOrientation.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.HORIZONTAL_LAYOUT, "icons/HorizontalOrientation.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.VERTICAL_LAYOUT, "icons/VerticalOrientation.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.TRANSPORT, "icons/Transport.png");
 	}
 
 }
