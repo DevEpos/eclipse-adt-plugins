@@ -20,5 +20,8 @@
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRefList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//AdtObjRefList/objectReferences"/>
     </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//User">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//User/name"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

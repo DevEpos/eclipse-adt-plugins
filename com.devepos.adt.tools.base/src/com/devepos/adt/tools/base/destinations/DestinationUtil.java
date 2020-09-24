@@ -2,17 +2,23 @@ package com.devepos.adt.tools.base.destinations;
 
 import org.eclipse.core.resources.IProject;
 
-import com.devepos.adt.tools.base.project.AbapProjectProviderAccessor;
-import com.devepos.adt.tools.base.project.IAbapProjectProvider;
 import com.sap.adt.destinations.model.IDestinationData;
+import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
+import com.sap.adt.tools.core.system.IAbapSystemInfo;
 
 /**
  * Util class for destinaion handling of ABAP projects
  *
  * @author stockbal
  */
+@SuppressWarnings("restriction")
 public final class DestinationUtil {
+
+	private static IAbapProject findProjectByDestination(final String destinationId) {
+		final IProject project = AdtProjectServiceFactory.createProjectService().findProject(destinationId);
+		return project != null ? project.getAdapter(IAbapProject.class) : null;
+	}
 
 	/**
 	 * Retrieves the system id from the given destination id
@@ -24,12 +30,9 @@ public final class DestinationUtil {
 		if (destinationId == null) {
 			return "";
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
-			.getProviderForDestination(destinationId);
-		if (projectProvider == null || !projectProvider.hasProject()) {
-			return "";
-		}
-		return projectProvider.getDestinationData().getSystemConfiguration().getSystemId();
+
+		final IAbapProject project = findProjectByDestination(destinationId);
+		return project != null ? project.getDestinationData().getSystemConfiguration().getSystemId() : null;
 	}
 
 	/**
@@ -42,12 +45,22 @@ public final class DestinationUtil {
 		if (destinationId == null) {
 			return null;
 		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
-			.getProviderForDestination(destinationId);
-		if (projectProvider == null || !projectProvider.hasProject()) {
+		final IAbapProject project = findProjectByDestination(destinationId);
+		return project != null ? project.getDestinationData() : null;
+	}
+
+	/**
+	 * Returns the owner of the destination behind the given ABAP project
+	 * 
+	 * @param  project an ABAP project
+	 * @return         the owner of the destination
+	 */
+	public static String getDestinationOwner(final IProject project) {
+		if (project == null) {
 			return null;
 		}
-		return projectProvider.getDestinationData();
+		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+		return abapProject.getDestinationData().getUser();
 	}
 
 	/**
@@ -64,6 +77,10 @@ public final class DestinationUtil {
 		}
 		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 		return abapProject != null ? abapProject.getDestinationId() : null;
+	}
+
+	public static IAbapSystemInfo getSystemInfo(final String destination) {
+		return null;
 	}
 
 }

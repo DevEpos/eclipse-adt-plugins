@@ -58,6 +58,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
 		switch (eClass.getClassifierID()) {
 			case IAdtBasePackage.ADT_OBJ_REF: return createAdtObjRef();
 			case IAdtBasePackage.ADT_OBJ_REF_LIST: return createAdtObjRefList();
+			case IAdtBasePackage.USER: return createUser();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -83,6 +84,17 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
 	public IAdtObjRefList createAdtObjRefList() {
 		AdtObjRefList adtObjRefList = new AdtObjRefList();
 		return adtObjRefList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public IUser createUser() {
+		User user = new User();
+		return user;
 	}
 
 	/**

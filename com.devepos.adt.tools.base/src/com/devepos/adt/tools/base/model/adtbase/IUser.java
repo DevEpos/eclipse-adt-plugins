@@ -1,0 +1,54 @@
+/**
+ */
+package com.devepos.adt.tools.base.model.adtbase;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>User</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * User
+ * 
+ * <!-- end-model-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link com.devepos.adt.tools.base.model.adtbase.IUser#getName <em>Name</em>}</li>
+ * </ul>
+ *
+ * @see com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage#getUser()
+ * @model extendedMetaData="name='user' kind='elementOnly'"
+ * @generated
+ */
+public interface IUser extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the user
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage#getUser_Name()
+	 * @model extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link com.devepos.adt.tools.base.model.adtbase.IUser#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
+
+} // IUser

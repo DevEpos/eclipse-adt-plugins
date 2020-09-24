@@ -14,7 +14,6 @@ import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 
@@ -115,14 +114,55 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
 	}
 
 	/**
+	 * Overlays the given image with the overlayImage
+	 * 
+	 * @param  image              the original image to be overlayed
+	 * @param  newImageId         the id for the overlayed image to be stored in the
+	 *                            image registry
+	 * @param  overlayImage       the overlay image
+	 * @param  decorationPosition the position where the image should be overlayed
+	 * @return
+	 */
+	public Image overlayImage(final Image image, final String newImageId, final Image overlayImage,
+		final int decorationPosition) {
+		if (overlayImage == null || newImageId == null) {
+			return image;
+		}
+		Image decoratedImage = getImageRegistry().get(newImageId);
+		if (decoratedImage == null) {
+			final ImageDescriptor[] overlays = new ImageDescriptor[4];
+			final ImageDescriptor overlay = ImageDescriptor.createFromImage(overlayImage);
+			if (overlay == null) {
+				return image;
+			}
+			switch (decorationPosition) {
+			case IDecoration.TOP_LEFT:
+				overlays[0] = overlay;
+				break;
+			case IDecoration.TOP_RIGHT:
+				overlays[1] = overlay;
+				break;
+			case IDecoration.BOTTOM_LEFT:
+				overlays[2] = overlay;
+				break;
+			case IDecoration.BOTTOM_RIGHT:
+				overlays[3] = overlay;
+				break;
+			}
+			final DecorationOverlayIcon doi = new DecorationOverlayIcon(image, overlays);
+			decoratedImage = doi.createImage();
+			getImageRegistry().put(newImageId, decoratedImage);
+		}
+		return decoratedImage;
+	}
+
+	/**
 	 * Returns a decorated {@link Image} with the <code>image</code> as the source
 	 * image, the <code>decoratorKey</code> as the key for the overlay image and the
 	 * <code>decorationPosition</code> as the
 	 *
-	 * @param  image              the image to be decorated
-	 * @param  overlayImageKey    the id for the overlay image
-	 * @param  decorationPosition the position where the overlay image should be
-	 *                            placed
+	 * @param  image           the image to be decorated
+	 * @param  overlayImageIds array with image id's to be overlayed
 	 * @return
 	 */
 	public Image overlayImage(final Image image, final String[] overlayImageIds) {
@@ -167,40 +207,18 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
 	 *
 	 * @param  image           the image to be decorated with overlays
 	 * @param  overlayImageIds an array of exactly 5 id of Images
-	 * @see                    IImages
 	 * @return
 	 */
 	public Image overlayImage(final Image image, final String overlayImageKey, final int decorationPosition) {
 		if (overlayImageKey == null) {
 			return image;
 		}
-		final String decoratedImageKey = String.valueOf(image.toString()) + overlayImageKey;
-		Image decoratedImage = getImageRegistry().get(decoratedImageKey);
-		if (decoratedImage == null) {
-			final ImageDescriptor[] overlays = new ImageDescriptor[4];
-			final ImageDescriptor overlay = getImageDescriptor(overlayImageKey);
-			if (overlay == null) {
-				return image;
-			}
-			switch (decorationPosition) {
-			case IDecoration.TOP_LEFT:
-				overlays[0] = overlay;
-				break;
-			case IDecoration.TOP_RIGHT:
-				overlays[1] = overlay;
-				break;
-			case IDecoration.BOTTOM_LEFT:
-				overlays[2] = overlay;
-				break;
-			case IDecoration.BOTTOM_RIGHT:
-				overlays[3] = overlay;
-				break;
-			}
-			final DecorationOverlayIcon doi = new DecorationOverlayIcon(image, overlays, new Point(21, 16));
-			decoratedImage = doi.createImage();
-			getImageRegistry().put(decoratedImageKey, decoratedImage);
+		if (decorationPosition < IDecoration.TOP_LEFT || decorationPosition > IDecoration.BOTTOM_RIGHT) {
+			return image;
 		}
-		return decoratedImage;
+		final String[] overlayImageIds = new String[4];
+		overlayImageIds[decorationPosition] = overlayImageKey;
+		return overlayImage(image, overlayImageIds);
 	}
 
 	/**

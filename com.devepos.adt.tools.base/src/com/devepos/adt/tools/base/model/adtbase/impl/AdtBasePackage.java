@@ -7,6 +7,7 @@ import com.devepos.adt.tools.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.tools.base.model.adtbase.IAdtObjRefList;
 
+import com.devepos.adt.tools.base.model.adtbase.IUser;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -36,6 +37,13 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 	 * @generated
 	 */
 	private EClass adtObjRefListEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -207,6 +215,26 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getUser() {
+		return userEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getUser_Name() {
+		return (EAttribute)userEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public IAdtBaseFactory getAdtBaseFactory() {
 		return (IAdtBaseFactory)getEFactoryInstance();
 	}
@@ -241,6 +269,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
 		adtObjRefListEClass = createEClass(ADT_OBJ_REF_LIST);
 		createEReference(adtObjRefListEClass, ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
+
+		userEClass = createEClass(USER);
+		createEAttribute(userEClass, USER__NAME);
 	}
 
 	/**
@@ -287,6 +318,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
 		initEClass(adtObjRefListEClass, IAdtObjRefList.class, "AdtObjRefList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAdtObjRefList_ObjectReferences(), this.getAdtObjRef(), null, "objectReferences", null, 1, -1, IAdtObjRefList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(userEClass, IUser.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getUser_Name(), ecorePackage.getEString(), "name", null, 0, 1, IUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -380,6 +414,21 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 		   new String[] {
 			   "kind", "element",
 			   "name", "adtObjRef",
+			   "namespace", "##targetNamespace"
+		   });
+		addAnnotation
+		  (userEClass,
+		   source,
+		   new String[] {
+			   "name", "user",
+			   "kind", "elementOnly"
+		   });
+		addAnnotation
+		  (getUser_Name(),
+		   source,
+		   new String[] {
+			   "kind", "attribute",
+			   "name", "name",
 			   "namespace", "##targetNamespace"
 		   });
 	}

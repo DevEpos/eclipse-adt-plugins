@@ -1,9 +1,7 @@
 package com.devepos.adt.tools.base.internal;
 
-import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
-import com.devepos.adt.tools.base.IAdtToolsBaseImages;
 import com.devepos.adt.tools.base.plugin.AbstractAdtUIPlugin;
 
 /**
@@ -44,27 +42,4 @@ public class AdtToolsBasePlugin extends AbstractAdtUIPlugin {
 	public static AdtToolsBasePlugin getDefault() {
 		return plugin;
 	}
-
-	@Override
-	protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
-		registerImage(imageRegistry, IAdtToolsBaseImages.REFRESH, "icons/Refresh.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.IMPORT, "icons/ImportWizard.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.EXPORT, "icons/ExportWizard.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.EXPAND_ALL, "icons/ExpandAll.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.COLLAPSE_ALL, "icons/CollapseAll.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.WAITING_INDICATOR, "icons/WaitingIndicator.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.EDIT_ACTION, "icons/EditMode.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.UNLOCK_ACTION, "icons/Unlock.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.SAP_GUI_OBJECT, "icons/SAPGUIObject.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.DATA_PREVIEW, "icons/DataPreview.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.WHERE_USED_LIST, "icons/WhereUsed.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.SEARCH, "icons/Search.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.RUN_OBJECT, "icons/RunObject.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.OTHER_OBJECT, "icons/OtherObject.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.AUTOMATIC_LAYOUT, "icons/AutomaticOrientation.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.HORIZONTAL_LAYOUT, "icons/HorizontalOrientation.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.VERTICAL_LAYOUT, "icons/VerticalOrientation.png");
-		registerImage(imageRegistry, IAdtToolsBaseImages.TRANSPORT, "icons/Transport.png");
-	}
-
 }

@@ -186,6 +186,44 @@ public interface IAdtBasePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link com.devepos.adt.tools.base.model.adtbase.impl.User <em>User</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.devepos.adt.tools.base.model.adtbase.impl.User
+	 * @see com.devepos.adt.tools.base.model.adtbase.impl.AdtBasePackage#getUser()
+	 * @generated
+	 */
+	int USER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>User</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>User</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link com.devepos.adt.tools.base.model.adtbase.IAdtObjRef <em>Adt Obj Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -294,6 +332,27 @@ public interface IAdtBasePackage extends EPackage {
 	EReference getAdtObjRefList_ObjectReferences();
 
 	/**
+	 * Returns the meta object for class '{@link com.devepos.adt.tools.base.model.adtbase.IUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>User</em>'.
+	 * @see com.devepos.adt.tools.base.model.adtbase.IUser
+	 * @generated
+	 */
+	EClass getUser();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.devepos.adt.tools.base.model.adtbase.IUser#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.devepos.adt.tools.base.model.adtbase.IUser#getName()
+	 * @see #getUser()
+	 * @generated
+	 */
+	EAttribute getUser_Name();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -399,6 +458,24 @@ public interface IAdtBasePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ADT_OBJ_REF_LIST__OBJECT_REFERENCES = eINSTANCE.getAdtObjRefList_ObjectReferences();
+
+		/**
+		 * The meta object literal for the '{@link com.devepos.adt.tools.base.model.adtbase.impl.User <em>User</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.devepos.adt.tools.base.model.adtbase.impl.User
+		 * @see com.devepos.adt.tools.base.model.adtbase.impl.AdtBasePackage#getUser()
+		 * @generated
+		 */
+		EClass USER = eINSTANCE.getUser();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute USER__NAME = eINSTANCE.getUser_Name();
 
 	}
 
