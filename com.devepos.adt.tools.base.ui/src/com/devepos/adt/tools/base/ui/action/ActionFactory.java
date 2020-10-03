@@ -6,13 +6,18 @@ import java.util.function.Consumer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class ActionUtil {
+/**
+ * Factory for creating anonymous action instances
+ * 
+ * @author stockbal
+ */
+public class ActionFactory {
 
 	/**
 	 * Represents a single run-action with no input parameters and no return values.
 	 */
 	@FunctionalInterface
-	public interface IActionRun {
+	public interface IActionRunner {
 
 		/**
 		 * Performs the run operation on an {@link Action}
@@ -21,7 +26,7 @@ public class ActionUtil {
 	}
 
 	@FunctionalInterface
-	public interface IActionRunWithData<T> {
+	public interface IActionRunnerWithData<T> {
 		void execute(T data);
 	}
 
@@ -36,7 +41,7 @@ public class ActionUtil {
 	 * @return                 the created Action instance
 	 */
 	public static Action createAction(final String text, final ImageDescriptor imageDescriptor,
-		final IActionRun actionRunner) {
+		final IActionRunner actionRunner) {
 		return createAction(text, imageDescriptor, Action.AS_PUSH_BUTTON, actionRunner);
 	}
 
@@ -55,7 +60,7 @@ public class ActionUtil {
 	 * @return                 the created Action instance
 	 */
 	public static Action createAction(final String text, final ImageDescriptor imageDescriptor, final int style,
-		final IActionRun actionRunner) {
+		final IActionRunner actionRunner) {
 		Objects.requireNonNull(actionRunner, "Parameter 'actionRunner' must not be null");
 
 		final Action action = new Action(text, style) {
@@ -81,7 +86,7 @@ public class ActionUtil {
 	 * @return                 the created Action instance
 	 */
 	public static <T> Action createActionWithData(final String text, final ImageDescriptor imageDescriptor,
-		final IActionRunWithData<T> actionRunner, final T actionData) {
+		final IActionRunnerWithData<T> actionRunner, final T actionData) {
 		Objects.requireNonNull(actionRunner, "Parameter 'actionRunner' must not be null");
 
 		return new Action(text, imageDescriptor) {
