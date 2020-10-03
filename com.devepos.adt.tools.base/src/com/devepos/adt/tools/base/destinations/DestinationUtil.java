@@ -5,14 +5,12 @@ import org.eclipse.core.resources.IProject;
 import com.sap.adt.destinations.model.IDestinationData;
 import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
-import com.sap.adt.tools.core.system.IAbapSystemInfo;
 
 /**
  * Util class for destinaion handling of ABAP projects
  *
  * @author stockbal
  */
-@SuppressWarnings("restriction")
 public final class DestinationUtil {
 
 	private static IAbapProject findProjectByDestination(final String destinationId) {
@@ -28,9 +26,8 @@ public final class DestinationUtil {
 	 */
 	public static String getSystemId(final String destinationId) {
 		if (destinationId == null) {
-			return "";
+			return null;
 		}
-
 		final IAbapProject project = findProjectByDestination(destinationId);
 		return project != null ? project.getDestinationData().getSystemConfiguration().getSystemId() : null;
 	}
@@ -77,10 +74,6 @@ public final class DestinationUtil {
 		}
 		final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 		return abapProject != null ? abapProject.getDestinationId() : null;
-	}
-
-	public static IAbapSystemInfo getSystemInfo(final String destination) {
-		return null;
 	}
 
 }
