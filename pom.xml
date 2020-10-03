@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.devepos.adt</groupId>
 	<artifactId>com.devepos.adt.tools.parent</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
-	<name>ADT Tools</name>
+	<version>1.0.4-SNAPSHOT</version>
+	<name>Base Plugins for ADT Extensions</name>
 	<packaging>pom</packaging>
 	<modules>
 		<module>com.devepos.adt.tools.base</module>
