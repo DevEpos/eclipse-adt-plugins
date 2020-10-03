@@ -7,6 +7,14 @@ package com.devepos.adt.tools.base.ui;
  */
 public interface IAdtToolsBaseImages {
 	/**
+	 * Image for Arrow Up
+	 */
+	String ARROW_UP = "IMG_ARROW_UP";
+	/**
+	 * Image for Arrow Down
+	 */
+	String ARROW_DOWN = "IMG_ARROW_DOWN";
+	/**
 	 * Image for Refresh action
 	 */
 	String REFRESH = "IMG_REFRESH";

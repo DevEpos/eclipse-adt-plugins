@@ -47,6 +47,8 @@ public class AdtToolsBaseUIPlugin extends AbstractAdtUIPlugin {
 
 	@Override
 	protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
+		registerImage(imageRegistry, IAdtToolsBaseImages.ARROW_DOWN, "icons/ArrowDown.png");
+		registerImage(imageRegistry, IAdtToolsBaseImages.ARROW_UP, "icons/ArrowUp.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.REFRESH, "icons/Refresh.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.IMPORT, "icons/ImportWizard.png");
 		registerImage(imageRegistry, IAdtToolsBaseImages.EXPORT, "icons/ExportWizard.png");
