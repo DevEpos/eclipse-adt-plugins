@@ -8,8 +8,8 @@
 	<name>Base Plugins for ADT Extensions</name>
 	<packaging>pom</packaging>
 	<modules>
-		<module>com.devepos.adt.tools.base</module>
-		<module>com.devepos.adt.tools.base.ui</module>
+		<module>com.devepos.adt.base</module>
+		<module>com.devepos.adt.base.ui</module>
 	</modules>
 	<profiles>
 		<profile>
