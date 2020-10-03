@@ -4,7 +4,7 @@ import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
 
 /**
- * ADT convenience methods for UI
+ * ADT convenience methods
  *
  * @author stockbal
  */
