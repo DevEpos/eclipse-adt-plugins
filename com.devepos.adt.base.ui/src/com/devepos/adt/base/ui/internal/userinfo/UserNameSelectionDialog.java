@@ -46,7 +46,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
 		setFilterLabel(Messages.UserNameSelectionDialog_FilterLabel);
 		setInitialJobDelay(0L);
 		setJobDelay(0L);
-		setInitialDialogSize(-1, -1);
+		setInitialDialogSize(360, 630);
 		if (selectedUsers != null) {
 			setInitialSelections(
 				selectedUsers.stream().map(id -> UserServiceFactory.createUser(id, null)).collect(Collectors.toList()));
