@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.devepos.adt</groupId>
-	<artifactId>com.devepos.adt.tools.parent</artifactId>
+	<artifactId>com.devepos.adt.base.parent</artifactId>
 	<version>1.0.4-SNAPSHOT</version>
 	<name>Base Plugins for ADT Extensions</name>
 	<packaging>pom</packaging>
@@ -105,8 +105,8 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>eclipse-2020-06</id>
-			<url>http://download.eclipse.org/releases/2020-06</url>
+			<id>eclipse-latest</id>
+			<url>http://download.eclipse.org/releases/latest</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
