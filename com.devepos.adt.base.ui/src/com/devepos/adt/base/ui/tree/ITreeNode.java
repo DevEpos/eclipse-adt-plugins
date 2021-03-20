@@ -16,74 +16,74 @@ import com.devepos.adt.base.util.IPropertyBag;
  * @author stockbal
  */
 public interface ITreeNode extends IPropertyBag, IAdaptable {
-	/**
-	 * Finds and returns the root node of this tree node. The root node is a node
-	 * which has no parent node. If this node has no parent than it automatically is
-	 * the root node
-	 *
-	 * @return
-	 */
-	ITreeNode getRoot();
+    /**
+     * Finds and returns the root node of this tree node. The root node is a node
+     * which has no parent node. If this node has no parent than it automatically is
+     * the root node
+     *
+     * @return
+     */
+    ITreeNode getRoot();
 
-	/**
-	 * @return the parent node of this node
-	 */
-	ITreeNode getParent();
+    /**
+     * @return the parent node of this node
+     */
+    ITreeNode getParent();
 
-	/**
-	 * Sets the parent of this node
-	 *
-	 * @param parent the parent node
-	 */
-	void setParent(ITreeNode parent);
+    /**
+     * Sets the parent of this node
+     *
+     * @param parent the parent node
+     */
+    void setParent(ITreeNode parent);
 
-	/**
-	 * @return the image id of the node
-	 */
-	Image getImage();
+    /**
+     * @return the image id of the node
+     */
+    Image getImage();
 
-	/**
-	 * @return the internal name of the node
-	 */
-	String getName();
+    /**
+     * @return the internal name of the node
+     */
+    String getName();
 
-	/**
-	 * Sets the name of the node
-	 *
-	 * @param name
-	 */
-	void setName(String name);
+    /**
+     * Sets the name of the node
+     *
+     * @param name
+     */
+    void setName(String name);
 
-	/**
-	 * @return the display name of the node
-	 */
-	String getDisplayName();
+    /**
+     * @return the display name of the node
+     */
+    String getDisplayName();
 
-	/**
-	 * Sets the display name of the node
-	 *
-	 * @param displayName
-	 */
-	void setDisplayName(String displayName);
+    /**
+     * Sets the display name of the node
+     *
+     * @param displayName
+     */
+    void setDisplayName(String displayName);
 
-	/**
-	 * @return the description for the node
-	 */
-	String getDescription();
+    /**
+     * @return the description for the node
+     */
+    String getDescription();
 
-	/**
-	 * Sets the description of the new
-	 *
-	 * @param description
-	 */
-	void setDescription(String description);
+    /**
+     * Sets the description of the new
+     *
+     * @param description
+     */
+    void setDescription(String description);
 
-	/**
-	 * Sets additional information which can be retrieved via
-	 * {@link IAdaptable#getAdapter(Class)}
-	 *
-	 * @param info object with additional information for this node
-	 */
-	void setAdditionalInfo(Object info);
+    /**
+     * Sets additional information which can be retrieved via
+     * {@link IAdaptable#getAdapter(Class)}
+     *
+     * @param info object with additional information for this node
+     */
+    void setAdditionalInfo(Object info);
 
 }

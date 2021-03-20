@@ -12,55 +12,55 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * @author stockbal
  */
 public class DummyPart implements IWorkbenchPart {
-	public DummyPart(final IWorkbenchPartSite site) {
-		this.site = site;
-	}
+    public DummyPart(final IWorkbenchPartSite site) {
+        this.site = site;
+    }
 
-	private IWorkbenchPartSite site;
+    private IWorkbenchPartSite site;
 
-	@Override
-	public void dispose() {
-		this.site = null;
-	}
+    @Override
+    public void dispose() {
+        site = null;
+    }
 
-	@Override
-	public IWorkbenchPartSite getSite() {
-		return this.site;
-	}
+    @Override
+    public IWorkbenchPartSite getSite() {
+        return site;
+    }
 
-	@Override
-	public void addPropertyListener(final IPropertyListener listener) {
-		/* dummy */}
+    @Override
+    public void addPropertyListener(final IPropertyListener listener) {
+        /* dummy */}
 
-	@Override
-	public void createPartControl(final Composite parent) {
-		/* dummy */}
+    @Override
+    public void createPartControl(final Composite parent) {
+        /* dummy */}
 
-	@Override
-	public String getTitle() {
-		return null;
-	}
+    @Override
+    public String getTitle() {
+        return null;
+    }
 
-	@Override
-	public Image getTitleImage() {
-		return null;
-	}
+    @Override
+    public Image getTitleImage() {
+        return null;
+    }
 
-	@Override
-	public String getTitleToolTip() {
-		return null;
-	}
+    @Override
+    public String getTitleToolTip() {
+        return null;
+    }
 
-	@Override
-	public void removePropertyListener(final IPropertyListener listener) {
-		/* dummy */}
+    @Override
+    public void removePropertyListener(final IPropertyListener listener) {
+        /* dummy */}
 
-	@Override
-	public void setFocus() {
-		/* dummy */}
+    @Override
+    public void setFocus() {
+        /* dummy */}
 
-	@Override
-	public <T> T getAdapter(final Class<T> adapter) {
-		return null;
-	}
+    @Override
+    public <T> T getAdapter(final Class<T> adapter) {
+        return null;
+    }
 }

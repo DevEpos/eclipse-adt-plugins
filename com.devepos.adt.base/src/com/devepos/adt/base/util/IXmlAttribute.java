@@ -7,34 +7,34 @@ package com.devepos.adt.base.util;
  */
 public interface IXmlAttribute {
 
-	/**
-	 * @return the name
-	 */
-	String getName();
+    /**
+     * @return the name
+     */
+    String getName();
 
-	/**
-	 * @param name the name to set
-	 */
-	void setName(String name);
+    /**
+     * @param name the name to set
+     */
+    void setName(String name);
 
-	/**
-	 * @return the value
-	 */
-	String getValue();
+    /**
+     * @return the value
+     */
+    String getValue();
 
-	/**
-	 * @param value the value to set
-	 */
-	void setValue(String value);
+    /**
+     * @param value the value to set
+     */
+    void setValue(String value);
 
-	/**
-	 * @return the namespace
-	 */
-	String getNamespace();
+    /**
+     * @return the namespace
+     */
+    String getNamespace();
 
-	/**
-	 * @param namespace the namespace to set
-	 */
-	void setNamespace(String namespace);
+    /**
+     * @param namespace the namespace to set
+     */
+    void setNamespace(String namespace);
 
 }

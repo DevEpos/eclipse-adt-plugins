@@ -23,141 +23,141 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
 
 public class SplitResultSelectionViewer extends DialogResultPart {
 
-	private TableViewer allElementsViewer;
-	private ToolItem selectButton;
-	private final List<Object> selectedElements = new ArrayList<>();
-	private TableViewer selectedResultsViewer;
-	private SashForm splitter;
-	private ToolBar toolbar;
-	private ToolItem unselectButton;
+    private TableViewer allElementsViewer;
+    private ToolItem selectButton;
+    private final List<Object> selectedElements = new ArrayList<>();
+    private TableViewer selectedResultsViewer;
+    private SashForm splitter;
+    private ToolBar toolbar;
+    private ToolItem unselectButton;
 
-	@Override
-	public ContentViewer getDetailViewer() {
-		return this.selectedResultsViewer;
-	}
+    @Override
+    public ContentViewer getDetailViewer() {
+        return selectedResultsViewer;
+    }
 
-	@Override
-	public StructuredViewer getResultViewer() {
-		return this.allElementsViewer;
-	}
+    @Override
+    public StructuredViewer getResultViewer() {
+        return allElementsViewer;
+    }
 
-	@Override
-	protected void createContent(final Composite parent) {
-		this.splitter = new SashForm(parent, SWT.VERTICAL | SWT.SMOOTH);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(this.splitter);
+    @Override
+    protected void createContent(final Composite parent) {
+        splitter = new SashForm(parent, SWT.VERTICAL | SWT.SMOOTH);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(splitter);
 
-		createResultViewer();
-		createSelectionViewer();
+        createResultViewer();
+        createSelectionViewer();
 
-		if (this.initialSelections != null) {
-			this.selectedElements.addAll(this.initialSelections);
-		}
+        if (initialSelections != null) {
+            selectedElements.addAll(initialSelections);
+        }
 
-		this.splitter.setWeights(new int[] { 70, 30 });
-	}
+        splitter.setWeights(70, 30);
+    }
 
-	@Override
-	protected int getSelectedElementCount() {
-		return this.selectedElements.size();
-	}
+    @Override
+    protected int getSelectedElementCount() {
+        return selectedElements.size();
+    }
 
-	private void createResultViewer() {
-		final Composite resultContainer = new Composite(this.splitter, SWT.NONE);
-		GridLayoutFactory.fillDefaults().applyTo(resultContainer);
+    private void createResultViewer() {
+        final Composite resultContainer = new Composite(splitter, SWT.NONE);
+        GridLayoutFactory.fillDefaults().applyTo(resultContainer);
 
-		final Label resultViewerLabel = new Label(resultContainer, SWT.NONE);
-		resultViewerLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
-		GridDataFactory.fillDefaults().grab(true, false).applyTo(resultViewerLabel);
+        final Label resultViewerLabel = new Label(resultContainer, SWT.NONE);
+        resultViewerLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
+        GridDataFactory.fillDefaults().grab(true, false).applyTo(resultViewerLabel);
 
-		this.allElementsViewer = new TableViewer(resultContainer, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
-		this.allElementsViewer.setContentProvider(ArrayContentProvider.getInstance());
-		GridDataFactory.fillDefaults()
-			.grab(true, true)
-			.hint(SWT.DEFAULT, this.allElementsViewer.getTable().getItemCount() * 15)
-			.applyTo(this.allElementsViewer.getTable());
+        allElementsViewer = new TableViewer(resultContainer, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+        allElementsViewer.setContentProvider(ArrayContentProvider.getInstance());
+        GridDataFactory.fillDefaults()
+                .grab(true, true)
+                .hint(SWT.DEFAULT, allElementsViewer.getTable().getItemCount() * 15)
+                .applyTo(allElementsViewer.getTable());
 
-		createSelectionToolbar(resultContainer);
+        createSelectionToolbar(resultContainer);
 
-		this.allElementsViewer.addSelectionChangedListener(l -> {
-			this.selectButton.setEnabled(l.getSelection() != null && !l.getSelection().isEmpty());
-		});
-		this.allElementsViewer.addDoubleClickListener(l -> {
-			selectElements();
-		});
-	}
+        allElementsViewer.addSelectionChangedListener(l -> {
+            selectButton.setEnabled(l.getSelection() != null && !l.getSelection().isEmpty());
+        });
+        allElementsViewer.addDoubleClickListener(l -> {
+            selectElements();
+        });
+    }
 
-	private void createSelectionToolbar(final Composite resultContainer) {
-		this.toolbar = new ToolBar(resultContainer, SWT.HORIZONTAL);
-		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).applyTo(this.toolbar);
+    private void createSelectionToolbar(final Composite resultContainer) {
+        toolbar = new ToolBar(resultContainer, SWT.HORIZONTAL);
+        GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).applyTo(toolbar);
 
-		this.selectButton = new ToolItem(this.toolbar, SWT.PUSH);
-		this.selectButton.setToolTipText(Messages.SplitResultSelectionViewer_AddItemButton);
-		this.selectButton.setEnabled(false);
-		this.selectButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.ARROW_DOWN));
-		this.selectButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
-			selectElements();
-		}));
+        selectButton = new ToolItem(toolbar, SWT.PUSH);
+        selectButton.setToolTipText(Messages.SplitResultSelectionViewer_AddItemButton);
+        selectButton.setEnabled(false);
+        selectButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.ARROW_DOWN));
+        selectButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
+            selectElements();
+        }));
 
-		this.unselectButton = new ToolItem(this.toolbar, SWT.PUSH);
-		this.unselectButton.setToolTipText(Messages.SplitResultSelectionViewer_RemoveItemButton);
-		this.unselectButton.setEnabled(false);
-		this.unselectButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.ARROW_UP));
-		this.unselectButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
-			removeSelectedElements();
-		}));
+        unselectButton = new ToolItem(toolbar, SWT.PUSH);
+        unselectButton.setToolTipText(Messages.SplitResultSelectionViewer_RemoveItemButton);
+        unselectButton.setEnabled(false);
+        unselectButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.ARROW_UP));
+        unselectButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
+            removeSelectedElements();
+        }));
 
-	}
+    }
 
-	private void createSelectionViewer() {
-		this.selectedResultsViewer = new TableViewer(this.splitter, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
-		this.selectedResultsViewer.setContentProvider(ArrayContentProvider.getInstance());
-		this.selectedResultsViewer.setInput(this.selectedElements);
-		GridDataFactory.fillDefaults()
-			.grab(true, false)
-			.hint(SWT.DEFAULT, this.selectedResultsViewer.getTable().getItemCount() * 5)
-			.applyTo(this.selectedResultsViewer.getTable());
+    private void createSelectionViewer() {
+        selectedResultsViewer = new TableViewer(splitter, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+        selectedResultsViewer.setContentProvider(ArrayContentProvider.getInstance());
+        selectedResultsViewer.setInput(selectedElements);
+        GridDataFactory.fillDefaults()
+                .grab(true, false)
+                .hint(SWT.DEFAULT, selectedResultsViewer.getTable().getItemCount() * 5)
+                .applyTo(selectedResultsViewer.getTable());
 
-		this.selectedResultsViewer.addSelectionChangedListener(l -> {
-			this.unselectButton.setEnabled(l.getSelection() != null && !l.getSelection().isEmpty());
-		});
-		this.selectedResultsViewer.addDoubleClickListener(l -> {
-			removeSelectedElements();
-		});
-	}
+        selectedResultsViewer.addSelectionChangedListener(l -> {
+            unselectButton.setEnabled(l.getSelection() != null && !l.getSelection().isEmpty());
+        });
+        selectedResultsViewer.addDoubleClickListener(l -> {
+            removeSelectedElements();
+        });
+    }
 
-	private void removeSelectedElements() {
-		final IStructuredSelection selection = this.selectedResultsViewer.getStructuredSelection();
-		int lastIndex = -1;
-		for (final Object selectedItem : selection.toList()) {
-			lastIndex = this.selectedElements.indexOf(selectedItem);
-			this.selectedElements.remove(selectedItem);
-		}
-		if (!this.selectedElements.isEmpty()) {
-			if (lastIndex > 0 && lastIndex <= this.selectedElements.size()) {
-				lastIndex--;
-			}
-			this.selectedResultsViewer.setSelection(new StructuredSelection(this.selectedElements.get(lastIndex)));
-		}
-		fireSelectedElementsChanged();
-		this.selectedResultsViewer.refresh();
+    private void removeSelectedElements() {
+        final IStructuredSelection selection = selectedResultsViewer.getStructuredSelection();
+        int lastIndex = -1;
+        for (final Object selectedItem : selection.toList()) {
+            lastIndex = selectedElements.indexOf(selectedItem);
+            selectedElements.remove(selectedItem);
+        }
+        if (!selectedElements.isEmpty()) {
+            if (lastIndex > 0 && lastIndex <= selectedElements.size()) {
+                lastIndex--;
+            }
+            selectedResultsViewer.setSelection(new StructuredSelection(selectedElements.get(lastIndex)));
+        }
+        fireSelectedElementsChanged();
+        selectedResultsViewer.refresh();
 
-	}
+    }
 
-	private void selectElements() {
-		final IStructuredSelection selection = this.allElementsViewer.getStructuredSelection();
-		boolean elementsAdded = false;
-		for (final Object selectedItem : selection.toList()) {
-			if (!this.selectedElements.contains(selectedItem)) {
-				this.selectedElements.add(selectedItem);
-				elementsAdded = true;
-			}
-		}
-		this.selectedResultsViewer.refresh();
-		if (elementsAdded) {
-			fireSelectedElementsChanged();
-			if (this.selectedResultsViewer.getStructuredSelection().isEmpty()) {
-				this.selectedResultsViewer.setSelection(new StructuredSelection(this.selectedElements.get(0)));
-			}
-		}
-	}
+    private void selectElements() {
+        final IStructuredSelection selection = allElementsViewer.getStructuredSelection();
+        boolean elementsAdded = false;
+        for (final Object selectedItem : selection.toList()) {
+            if (!selectedElements.contains(selectedItem)) {
+                selectedElements.add(selectedItem);
+                elementsAdded = true;
+            }
+        }
+        selectedResultsViewer.refresh();
+        if (elementsAdded) {
+            fireSelectedElementsChanged();
+            if (selectedResultsViewer.getStructuredSelection().isEmpty()) {
+                selectedResultsViewer.setSelection(new StructuredSelection(selectedElements.get(0)));
+            }
+        }
+    }
 }

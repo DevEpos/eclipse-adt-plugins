@@ -18,285 +18,285 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class XmlStreamParser {
 
-	private final XMLStreamReader xsr;
-	private final List<String> elementsWithText;
+    private final XMLStreamReader xsr;
+    private final List<String> elementsWithText;
 
-	public XmlStreamParser(final XMLStreamReader xsr, final String... elementsWithText) {
-		this.xsr = xsr;
-		this.elementsWithText = new ArrayList<>();
-		if (elementsWithText != null) {
-			this.elementsWithText.addAll(Arrays.asList(elementsWithText));
-		}
-	}
+    public XmlStreamParser(final XMLStreamReader xsr, final String... elementsWithText) {
+        this.xsr = xsr;
+        this.elementsWithText = new ArrayList<>();
+        if (elementsWithText != null) {
+            this.elementsWithText.addAll(Arrays.asList(elementsWithText));
+        }
+    }
 
-	/**
-	 * Parses the XML file from the given reader and returns the root element
-	 *
-	 * @param  xsr the reader to parse the XML
-	 * @return     the root element
-	 */
-	public IXmlElement parseXML() {
-		return parse();
-	}
+    /**
+     * Parses the XML file from the given reader and returns the root element
+     *
+     * @param xsr the reader to parse the XML
+     * @return the root element
+     */
+    public IXmlElement parseXML() {
+        return parse();
+    }
 
-	/**
-	 * Parse current element
-	 *
-	 * @return
-	 */
-	private Element parse() {
-		Element element = null;
+    /**
+     * Parse current element
+     *
+     * @return
+     */
+    private Element parse() {
+        Element element = null;
 
-		while (this.xsr.getEventType() != XMLStreamConstants.END_DOCUMENT) {
-			try {
-				if (this.xsr.getEventType() == XMLStreamConstants.START_ELEMENT) {
-					if (element != null) {
-						element.getChildren().add(parse());
-						this.xsr.next();
-					} else {
-						element = new Element();
-						final String elementName = this.xsr.getLocalName();
-						element.setName(elementName);
-						fillAttributes(element);
-						if (this.elementsWithText.contains(elementName)) {
-							try {
-								element.setText(this.xsr.getElementText());
-							} catch (final XMLStreamException e) {
-							}
-						}
-						fillNamespaces(element);
-						if (this.xsr.getEventType() == XMLStreamConstants.END_ELEMENT) {
-							return element;
-						}
-						this.xsr.next();
-					}
-				} else if (this.xsr.getEventType() == XMLStreamConstants.END_ELEMENT) {
-					return element;
-				} else {
-					this.xsr.next();
-				}
+        while (xsr.getEventType() != XMLStreamConstants.END_DOCUMENT) {
+            try {
+                if (xsr.getEventType() == XMLStreamConstants.START_ELEMENT) {
+                    if (element != null) {
+                        element.getChildren().add(parse());
+                        xsr.next();
+                    } else {
+                        element = new Element();
+                        final String elementName = xsr.getLocalName();
+                        element.setName(elementName);
+                        fillAttributes(element);
+                        if (elementsWithText.contains(elementName)) {
+                            try {
+                                element.setText(xsr.getElementText());
+                            } catch (final XMLStreamException e) {
+                            }
+                        }
+                        fillNamespaces(element);
+                        if (xsr.getEventType() == XMLStreamConstants.END_ELEMENT) {
+                            return element;
+                        }
+                        xsr.next();
+                    }
+                } else if (xsr.getEventType() == XMLStreamConstants.END_ELEMENT) {
+                    return element;
+                } else {
+                    xsr.next();
+                }
 
-			} catch (final XMLStreamException | NoSuchElementException e) {
-				e.printStackTrace();
-				if (this.xsr != null) {
-					try {
-						this.xsr.close();
-					} catch (final XMLStreamException e1) {
-					}
-				}
-			}
-		}
-		return element;
-	}
+            } catch (final XMLStreamException | NoSuchElementException e) {
+                e.printStackTrace();
+                if (xsr != null) {
+                    try {
+                        xsr.close();
+                    } catch (final XMLStreamException e1) {
+                    }
+                }
+            }
+        }
+        return element;
+    }
 
-	private void fillNamespaces(final IXmlElement element) {
-		element.setNamespace(this.xsr.getNamespaceURI());
-		element.setPrefix(this.xsr.getPrefix());
-		for (int i = 0; i < this.xsr.getNamespaceCount(); i++) {
-			final String prefix = this.xsr.getNamespacePrefix(i);
-			if (prefix != null) {
-				final String namespaceURI = this.xsr.getNamespaceURI(i);
-				element.getNamespaces().put(prefix, namespaceURI);
-			}
+    private void fillNamespaces(final IXmlElement element) {
+        element.setNamespace(xsr.getNamespaceURI());
+        element.setPrefix(xsr.getPrefix());
+        for (int i = 0; i < xsr.getNamespaceCount(); i++) {
+            final String prefix = xsr.getNamespacePrefix(i);
+            if (prefix != null) {
+                final String namespaceURI = xsr.getNamespaceURI(i);
+                element.getNamespaces().put(prefix, namespaceURI);
+            }
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Fill attributes at this element
-	 *
-	 * @param element
-	 */
-	private void fillAttributes(final IXmlElement element) {
-		for (int i = 0; i < this.xsr.getAttributeCount(); i++) {
-			final Attribute attribute = new Attribute();
-			attribute.setNamespace(this.xsr.getAttributeNamespace(i));
-			attribute.setName(this.xsr.getAttributeLocalName(i));
-			attribute.setValue(this.xsr.getAttributeValue(i));
-			element.getAttributes().add(attribute);
-		}
-	}
+    /**
+     * Fill attributes at this element
+     *
+     * @param element
+     */
+    private void fillAttributes(final IXmlElement element) {
+        for (int i = 0; i < xsr.getAttributeCount(); i++) {
+            final Attribute attribute = new Attribute();
+            attribute.setNamespace(xsr.getAttributeNamespace(i));
+            attribute.setName(xsr.getAttributeLocalName(i));
+            attribute.setValue(xsr.getAttributeValue(i));
+            element.getAttributes().add(attribute);
+        }
+    }
 
-	private static class Element implements IXmlElement {
-		private String text;
-		private String name;
-		private String namespacePrefix;
-		private String namespaceURI;
-		private Map<String, String> namespaces;
-		private List<IXmlAttribute> attributes;
-		private List<IXmlElement> children;
+    private static class Element implements IXmlElement {
+        private String text;
+        private String name;
+        private String namespacePrefix;
+        private String namespaceURI;
+        private Map<String, String> namespaces;
+        private List<IXmlAttribute> attributes;
+        private List<IXmlElement> children;
 
-		@Override
-		public List<IXmlElement> getChildren() {
-			if (this.children == null) {
-				this.children = new ArrayList<>();
-			}
-			return this.children;
-		}
+        @Override
+        public List<IXmlElement> getChildren() {
+            if (children == null) {
+                children = new ArrayList<>();
+            }
+            return children;
+        }
 
-		@Override
-		public IXmlElement getFirstChild() {
-			return getChildren().stream().findFirst().orElse(null);
-		}
+        @Override
+        public IXmlElement getFirstChild() {
+            return getChildren().stream().findFirst().orElse(null);
+        }
 
-		@Override
-		public boolean hasChildren() {
-			return !getChildren().isEmpty();
-		}
+        @Override
+        public boolean hasChildren() {
+            return !getChildren().isEmpty();
+        }
 
-		@Override
-		public boolean hasChild(final String tagName) {
-			if (this.children == null || this.children.isEmpty()) {
-				return false;
-			}
-			return this.children.stream().anyMatch(c -> c.getName().equals(tagName));
-		}
+        @Override
+        public boolean hasChild(final String tagName) {
+            if (children == null || children.isEmpty()) {
+                return false;
+            }
+            return children.stream().anyMatch(c -> c.getName().equals(tagName));
+        }
 
-		@Override
-		public String getAttributeValue(final String attributeName) {
-			return getAttributes().stream()
-				.filter(a -> a.getName().equals(attributeName))
-				.findFirst()
-				.orElse(new Attribute())
-				.getValue();
-		}
+        @Override
+        public String getAttributeValue(final String attributeName) {
+            return getAttributes().stream()
+                    .filter(a -> a.getName().equals(attributeName))
+                    .findFirst()
+                    .orElse(new Attribute())
+                    .getValue();
+        }
 
-		@Override
-		public String getAttributeValue(final String namespacePrefix, final String attributeName) {
-			return getAttributes().stream()
-				.filter(a -> a.getName().equals(attributeName) && a.getNamespace().equals(namespacePrefix))
-				.findFirst()
-				.orElse(new Attribute())
-				.getValue();
-		}
+        @Override
+        public String getAttributeValue(final String namespacePrefix, final String attributeName) {
+            return getAttributes().stream()
+                    .filter(a -> a.getName().equals(attributeName) && a.getNamespace().equals(namespacePrefix))
+                    .findFirst()
+                    .orElse(new Attribute())
+                    .getValue();
+        }
 
-		@Override
-		public void setPrefix(final String prefix) {
-			this.namespacePrefix = prefix;
-		}
+        @Override
+        public void setPrefix(final String prefix) {
+            namespacePrefix = prefix;
+        }
 
-		@Override
-		public void setNamespace(final String namespaceURI) {
-			this.namespaceURI = namespaceURI;
-		}
+        @Override
+        public void setNamespace(final String namespaceURI) {
+            this.namespaceURI = namespaceURI;
+        }
 
-		@Override
-		public List<IXmlAttribute> getAttributes() {
-			if (this.attributes == null) {
-				this.attributes = new ArrayList<>();
-			}
-			return this.attributes;
-		}
+        @Override
+        public List<IXmlAttribute> getAttributes() {
+            if (attributes == null) {
+                attributes = new ArrayList<>();
+            }
+            return attributes;
+        }
 
-		@Override
-		public boolean hasAttributes() {
-			return !getAttributes().isEmpty();
-		}
+        @Override
+        public boolean hasAttributes() {
+            return !getAttributes().isEmpty();
+        }
 
-		@Override
-		public Map<String, String> getNamespaces() {
-			if (this.namespaces == null) {
-				this.namespaces = new HashMap<>();
-			}
-			return this.namespaces;
-		}
+        @Override
+        public Map<String, String> getNamespaces() {
+            if (namespaces == null) {
+                namespaces = new HashMap<>();
+            }
+            return namespaces;
+        }
 
-		@Override
-		public String getPrefix() {
-			return this.namespacePrefix;
-		}
+        @Override
+        public String getPrefix() {
+            return namespacePrefix;
+        }
 
-		@Override
-		public String getNamespaceURI() {
-			return this.namespaceURI;
-		}
+        @Override
+        public String getNamespaceURI() {
+            return namespaceURI;
+        }
 
-		/**
-		 * @return the text
-		 */
-		@Override
-		public String getText() {
-			return this.text;
-		}
+        /**
+         * @return the text
+         */
+        @Override
+        public String getText() {
+            return text;
+        }
 
-		/**
-		 * @param text the text to set
-		 */
-		@Override
-		public void setText(final String text) {
-			this.text = text;
-		}
+        /**
+         * @param text the text to set
+         */
+        @Override
+        public void setText(final String text) {
+            this.text = text;
+        }
 
-		/**
-		 * @return the name
-		 */
-		@Override
-		public String getName() {
-			return this.name;
-		}
+        /**
+         * @return the name
+         */
+        @Override
+        public String getName() {
+            return name;
+        }
 
-		/**
-		 * @param name the name to set
-		 */
-		@Override
-		public void setName(final String name) {
-			this.name = name;
-		}
+        /**
+         * @param name the name to set
+         */
+        @Override
+        public void setName(final String name) {
+            this.name = name;
+        }
 
-	}
+    }
 
-	private static class Attribute implements IXmlAttribute {
-		private String name;
-		private String value;
-		private String namespace;
+    private static class Attribute implements IXmlAttribute {
+        private String name;
+        private String value;
+        private String namespace;
 
-		/**
-		 * @return the name
-		 */
-		@Override
-		public String getName() {
-			return this.name;
-		}
+        /**
+         * @return the name
+         */
+        @Override
+        public String getName() {
+            return name;
+        }
 
-		/**
-		 * @param name the name to set
-		 */
-		@Override
-		public void setName(final String name) {
-			this.name = name;
-		}
+        /**
+         * @param name the name to set
+         */
+        @Override
+        public void setName(final String name) {
+            this.name = name;
+        }
 
-		/**
-		 * @return the value
-		 */
-		@Override
-		public String getValue() {
-			return this.value;
-		}
+        /**
+         * @return the value
+         */
+        @Override
+        public String getValue() {
+            return value;
+        }
 
-		/**
-		 * @param value the value to set
-		 */
-		@Override
-		public void setValue(final String value) {
-			this.value = value;
-		}
+        /**
+         * @param value the value to set
+         */
+        @Override
+        public void setValue(final String value) {
+            this.value = value;
+        }
 
-		/**
-		 * @return the namespace
-		 */
-		@Override
-		public String getNamespace() {
-			return this.namespace;
-		}
+        /**
+         * @return the namespace
+         */
+        @Override
+        public String getNamespace() {
+            return namespace;
+        }
 
-		/**
-		 * @param namespace the namespace to set
-		 */
-		@Override
-		public void setNamespace(final String namespace) {
-			this.namespace = namespace;
-		}
+        /**
+         * @param namespace the namespace to set
+         */
+        @Override
+        public void setNamespace(final String namespace) {
+            this.namespace = namespace;
+        }
 
-	}
+    }
 }

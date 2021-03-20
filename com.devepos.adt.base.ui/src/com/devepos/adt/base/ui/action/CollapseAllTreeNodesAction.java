@@ -13,20 +13,21 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
  * @author stockbal
  */
 public class CollapseAllTreeNodesAction extends Action {
-	private final TreeViewer viewer;
+    private final TreeViewer viewer;
 
-	public CollapseAllTreeNodesAction(final TreeViewer viewer) {
-		super(Messages.Actions_CollapseAllNodes_xmit, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.COLLAPSE_ALL));
-		this.viewer = viewer;
-	}
+    public CollapseAllTreeNodesAction(final TreeViewer viewer) {
+        super(Messages.Actions_CollapseAllNodes_xmit, AdtBaseUIResources.getImageDescriptor(
+                IAdtBaseImages.COLLAPSE_ALL));
+        this.viewer = viewer;
+    }
 
-	@Override
-	public void run() {
-		this.viewer.getControl().setRedraw(false);
-		try {
-			this.viewer.collapseAll();
-		} finally {
-			this.viewer.getControl().setRedraw(true);
-		}
-	}
+    @Override
+    public void run() {
+        viewer.getControl().setRedraw(false);
+        try {
+            viewer.collapseAll();
+        } finally {
+            viewer.getControl().setRedraw(true);
+        }
+    }
 }

@@ -22,75 +22,77 @@ import com.sap.adt.tools.core.wbtyperegistry.IWbObjectType;
 @SuppressWarnings("restriction")
 public class AdtTypeUtil {
 
-	private static AdtTypeUtil INSTANCE;
+    private static AdtTypeUtil INSTANCE;
 
-	public static AdtTypeUtil getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new AdtTypeUtil();
-		}
-		return INSTANCE;
-	}
+    public static AdtTypeUtil getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new AdtTypeUtil();
+        }
+        return INSTANCE;
+    }
 
-	/**
-	 * Returns Image for the given ADT Type
-	 *
-	 * @param  adtType ADT type (e.g. DDLS/DF)
-	 * @return         the found image or null
-	 */
-	public Image getTypeImage(final String adtType) {
-		if (StringUtil.isEmpty(adtType)) {
-			return null;
-		}
-		Image image = null;
-		String adtWbType = adtType;
-		if (adtType.startsWith("CLAS")) {
-			adtWbType = IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE;
-		}
-		final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry().getObjectTypeByGlobalWorkbenchType(adtWbType);
-		if (type != null) {
-			image = type.getImage();
-		} else {
-			image = AdtBaseUIResources.getImage(IAdtBaseImages.SAP_GUI_OBJECT);
-		}
-		return image;
-	}
+    /**
+     * Returns Image for the given ADT Type
+     *
+     * @param adtType ADT type (e.g. DDLS/DF)
+     * @return the found image or null
+     */
+    public Image getTypeImage(final String adtType) {
+        if (StringUtil.isEmpty(adtType)) {
+            return null;
+        }
+        Image image = null;
+        String adtWbType = adtType;
+        if (adtType.startsWith("CLAS")) {
+            adtWbType = IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE;
+        }
+        final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
+                .getObjectTypeByGlobalWorkbenchType(adtWbType);
+        if (type != null) {
+            image = type.getImage();
+        } else {
+            image = AdtBaseUIResources.getImage(IAdtBaseImages.SAP_GUI_OBJECT);
+        }
+        return image;
+    }
 
-	/**
-	 * Retrieves the description of the given {@code adtType} by accessing the
-	 * workbench type registry in the given project
-	 *
-	 * @param  adtType ADT type (e.g. DDLS/DF)
-	 * @param  project project to access workbench type registry
-	 * @return         the found type description or {@code null}
-	 */
-	public String getTypeDescriptionByProject(final String adtType, final IProject project) {
-		final IWbObjectType type = AbapCore.getInstance()
-			.getWbTypeRegistry(project)
-			.getWbObjectType(new NullProgressMonitor(), adtType);
-		if (type != null) {
-			return type.getTypeLabel();
-		}
-		return null;
-	}
+    /**
+     * Retrieves the description of the given {@code adtType} by accessing the
+     * workbench type registry in the given project
+     *
+     * @param adtType ADT type (e.g. DDLS/DF)
+     * @param project project to access workbench type registry
+     * @return the found type description or {@code null}
+     */
+    public String getTypeDescriptionByProject(final String adtType, final IProject project) {
+        final IWbObjectType type = AbapCore.getInstance()
+                .getWbTypeRegistry(project)
+                .getWbObjectType(new NullProgressMonitor(), adtType);
+        if (type != null) {
+            return type.getTypeLabel();
+        }
+        return null;
+    }
 
-	/**
-	 * Retrieves the display name for the given ADT type
-	 *
-	 * @param  adtType ADT Type (e.g. DDLS/DF)
-	 * @return         the display name of the given type or {@code null}
-	 */
-	public String getTypeDescription(final String adtType) {
-		if (StringUtil.isEmpty(adtType)) {
-			return null;
-		}
-		final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry().getObjectTypeByGlobalWorkbenchType(adtType);
-		if (type != null) {
-			return type.getDisplayName();
-		}
-		return null;
-	}
+    /**
+     * Retrieves the display name for the given ADT type
+     *
+     * @param adtType ADT Type (e.g. DDLS/DF)
+     * @return the display name of the given type or {@code null}
+     */
+    public String getTypeDescription(final String adtType) {
+        if (StringUtil.isEmpty(adtType)) {
+            return null;
+        }
+        final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
+                .getObjectTypeByGlobalWorkbenchType(adtType);
+        if (type != null) {
+            return type.getDisplayName();
+        }
+        return null;
+    }
 
-	private AdtTypeUtil() {
-	}
+    private AdtTypeUtil() {
+    }
 
 }

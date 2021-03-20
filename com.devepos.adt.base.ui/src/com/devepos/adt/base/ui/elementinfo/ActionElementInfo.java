@@ -12,16 +12,16 @@ import com.devepos.adt.base.ui.action.IExecutable;
  */
 public class ActionElementInfo extends ElementInfoBase implements IExecutableElementInfo {
 
-	private final IExecutable action;
+    private final IExecutable action;
 
-	public ActionElementInfo(final String name, final Image image, final IExecutable action) {
-		super(name, image);
-		this.action = action;
-	}
+    public ActionElementInfo(final String name, final Image image, final IExecutable action) {
+        super(name, image);
+        this.action = action;
+    }
 
-	@Override
-	public IExecutable getExecutable() {
-		return this.action;
-	}
+    @Override
+    public IExecutable getExecutable() {
+        return action;
+    }
 
 }

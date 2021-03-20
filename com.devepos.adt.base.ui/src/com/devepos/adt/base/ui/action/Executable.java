@@ -6,15 +6,15 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 public abstract class Executable implements IExecutable {
 
-	@Override
-	public IAction createAction(final String name, final ImageDescriptor imageDescriptor) {
-		final Action action = new Action(name, imageDescriptor) {
-			@Override
-			public void run() {
-				execute();
-			}
-		};
-		return action;
-	}
+    @Override
+    public IAction createAction(final String name, final ImageDescriptor imageDescriptor) {
+        final Action action = new Action(name, imageDescriptor) {
+            @Override
+            public void run() {
+                execute();
+            }
+        };
+        return action;
+    }
 
 }

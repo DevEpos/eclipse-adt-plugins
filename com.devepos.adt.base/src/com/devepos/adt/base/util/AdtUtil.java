@@ -10,14 +10,14 @@ import com.sap.adt.communication.message.IHeaders;
  */
 public class AdtUtil {
 
-	/**
-	 * Retrieve headers for REST request
-	 *
-	 * @return headers for REST request
-	 */
-	public static IHeaders getHeaders() {
-		final IHeaders headers = HeadersFactory.newHeaders();
-		headers.addField(HeadersFactory.newField("Accept", "application/xml")); //$NON-NLS-1$ //$NON-NLS-2$
-		return headers;
-	}
+    /**
+     * Retrieve headers for REST request
+     *
+     * @return headers for REST request
+     */
+    public static IHeaders getHeaders() {
+        final IHeaders headers = HeadersFactory.newHeaders();
+        headers.addField(HeadersFactory.newField("Accept", "application/xml")); //$NON-NLS-1$ //$NON-NLS-2$
+        return headers;
+    }
 }

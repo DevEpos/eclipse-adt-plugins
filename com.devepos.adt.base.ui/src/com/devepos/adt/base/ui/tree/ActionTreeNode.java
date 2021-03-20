@@ -10,15 +10,15 @@ import com.devepos.adt.base.ui.action.IExecutable;
  * @author stockbal
  */
 public class ActionTreeNode extends SimpleInfoTreeNode {
-	private final IExecutable action;
+    private final IExecutable action;
 
-	public ActionTreeNode(final String name, final Image image, final ITreeNode parent, final IExecutable action) {
-		super(name, image, parent);
-		this.action = action;
-	}
+    public ActionTreeNode(final String name, final Image image, final ITreeNode parent, final IExecutable action) {
+        super(name, image, parent);
+        this.action = action;
+    }
 
-	public IExecutable getAction() {
-		return this.action;
-	}
+    public IExecutable getAction() {
+        return action;
+    }
 
 }

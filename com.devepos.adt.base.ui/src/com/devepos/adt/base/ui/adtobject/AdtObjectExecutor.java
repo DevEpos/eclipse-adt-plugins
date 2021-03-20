@@ -14,19 +14,18 @@ import com.sap.adt.tools.core.ui.AdtObjectExecutionUtilFactory;
  */
 public class AdtObjectExecutor {
 
-	/**
-	 * Executes the ADT object with the given name
-	 *
-	 * @param project    project where the object should be executed in
-	 * @param objectName the name of the object
-	 * @param objectUri  the URI string of the object
-	 * @param objectType the type of the object
-	 */
-	public static void executeObject(final IProject project, final IAdtObjectReference objectRef) {
-		AdtObjectExecutionUtilFactory.getInstance()
-			.executeObject(project,
-				AdtObjectReferenceModelFactory.createReference(null, objectRef.getName(), objectRef.getType(), objectRef.getUri()),
-				null, new NullProgressMonitor());
-	}
+    /**
+     * Executes the ADT object with the given name
+     *
+     * @param project    project where the object should be executed in
+     * @param objectName the name of the object
+     * @param objectUri  the URI string of the object
+     * @param objectType the type of the object
+     */
+    public static void executeObject(final IProject project, final IAdtObjectReference objectRef) {
+        AdtObjectExecutionUtilFactory.getInstance()
+                .executeObject(project, AdtObjectReferenceModelFactory.createReference(null, objectRef.getName(),
+                        objectRef.getType(), objectRef.getUri()), null, new NullProgressMonitor());
+    }
 
 }

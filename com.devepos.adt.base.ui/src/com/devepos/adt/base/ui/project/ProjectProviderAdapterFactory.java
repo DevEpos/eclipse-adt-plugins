@@ -12,39 +12,39 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author stockbal
  */
 public class ProjectProviderAdapterFactory {
-	/**
-	 * Adapts destination provider to project provider
-	 *
-	 * @param  adtObjectRef EMF ADT Object Reference
-	 * @return              the adapted project provider
-	 */
-	public static IProjectProvider adaptToProjectProvider(final IAdtObjectReference adtObjectRef) {
-		if (adtObjectRef == null || !(adtObjectRef instanceof IDestinationProvider)) {
-			return null;
-		}
-		final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
-			.getProviderForDestination(((IDestinationProvider) adtObjectRef).getDestinationId());
-		if (projectProvider != null && projectProvider.hasProject()) {
-			return new ProjectProvider(projectProvider.getProject());
-		}
-		return null;
-	}
+    /**
+     * Adapts destination provider to project provider
+     *
+     * @param adtObjectRef EMF ADT Object Reference
+     * @return the adapted project provider
+     */
+    public static IProjectProvider adaptToProjectProvider(final IAdtObjectReference adtObjectRef) {
+        if (adtObjectRef == null || !(adtObjectRef instanceof IDestinationProvider)) {
+            return null;
+        }
+        final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
+                ((IDestinationProvider) adtObjectRef).getDestinationId());
+        if (projectProvider != null && projectProvider.hasProject()) {
+            return new ProjectProvider(projectProvider.getProject());
+        }
+        return null;
+    }
 
-	/*
-	 * Simple implementation of a project provider
-	 */
-	private static final class ProjectProvider implements IProjectProvider {
+    /*
+     * Simple implementation of a project provider
+     */
+    private static final class ProjectProvider implements IProjectProvider {
 
-		private final IProject project;
+        private final IProject project;
 
-		public ProjectProvider(final IProject project) {
-			this.project = project;
-		}
+        public ProjectProvider(final IProject project) {
+            this.project = project;
+        }
 
-		@Override
-		public IProject getProject() {
-			return this.project;
-		}
+        @Override
+        public IProject getProject() {
+            return project;
+        }
 
-	}
+    }
 }

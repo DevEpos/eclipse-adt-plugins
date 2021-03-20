@@ -13,47 +13,47 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  */
 public interface IAdtObject {
 
-	/**
-	 * Returns the name of the object
-	 *
-	 * @return the name of the object
-	 */
-	String getName();
+    /**
+     * Returns the name of the object
+     *
+     * @return the name of the object
+     */
+    String getName();
 
-	/**
-	 * Returns the object type of the ADT object
-	 *
-	 * @return the type of the object
-	 */
-	ObjectType getObjectType();
+    /**
+     * Returns the object type of the ADT object
+     *
+     * @return the type of the object
+     */
+    ObjectType getObjectType();
 
-	/**
-	 * Returns the image for the type of the encapsulated ADT object reference, if
-	 * it can be determined, otherwise {@code null}
-	 * 
-	 * @return the image for the type of the encapsulated ADT object reference, if
-	 *         it can be determined, otherwise {@code null}
-	 */
-	Image getImage();
+    /**
+     * Returns the image for the type of the encapsulated ADT object reference, if
+     * it can be determined, otherwise {@code null}
+     * 
+     * @return the image for the type of the encapsulated ADT object reference, if
+     *         it can be determined, otherwise {@code null}
+     */
+    Image getImage();
 
-	/**
-	 * Returns the project connected to this object
-	 *
-	 * @return the ABAP project of the object
-	 */
-	IProject getProject();
+    /**
+     * Returns the project connected to this object
+     *
+     * @return the ABAP project of the object
+     */
+    IProject getProject();
 
-	/**
-	 * Returns the reference to the ADT object
-	 *
-	 * @return
-	 */
-	IAdtObjectReference getReference();
+    /**
+     * Returns the reference to the ADT object
+     *
+     * @return
+     */
+    IAdtObjectReference getReference();
 
-	/**
-	 * Returns {@code true} if the ADT object supports the Data Preview feature
-	 *
-	 * @return {@code true} if the ADT object supports the Data Preview feature
-	 */
-	boolean supportsDataPreview();
+    /**
+     * Returns {@code true} if the ADT object supports the Data Preview feature
+     *
+     * @return {@code true} if the ADT object supports the Data Preview feature
+     */
+    boolean supportsDataPreview();
 }

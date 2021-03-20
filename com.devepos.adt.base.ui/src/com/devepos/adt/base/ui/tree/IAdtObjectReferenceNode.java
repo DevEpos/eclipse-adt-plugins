@@ -12,37 +12,37 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  */
 public interface IAdtObjectReferenceNode extends ICollectionTreeNode, IAdaptable {
 
-	/**
-	 * Returns <code>true</code> if this ADT object reference can be opened in the
-	 * Data Preview
-	 *
-	 * @return <code>true</code> if Data Preview is supported
-	 */
-	boolean supportsDataPreview();
+    /**
+     * Returns <code>true</code> if this ADT object reference can be opened in the
+     * Data Preview
+     *
+     * @return <code>true</code> if Data Preview is supported
+     */
+    boolean supportsDataPreview();
 
-	/**
-	 * Returns the object type of the underlying ADT object reference
-	 *
-	 * @return
-	 */
-	ObjectType getObjectType();
+    /**
+     * Returns the object type of the underlying ADT object reference
+     *
+     * @return
+     */
+    ObjectType getObjectType();
 
-	/**
-	 * Returns the ADT object type of the underlying ADT object reference
-	 * 
-	 * @return
-	 */
-	String getAdtObjectType();
+    /**
+     * Returns the ADT object type of the underlying ADT object reference
+     * 
+     * @return
+     */
+    String getAdtObjectType();
 
-	/**
-	 * @return the object reference of the node
-	 */
-	IAdtObjectReference getObjectReference();
+    /**
+     * @return the object reference of the node
+     */
+    IAdtObjectReference getObjectReference();
 
-	/**
-	 * Sets the object reference of the node
-	 *
-	 * @param objectReference
-	 */
-	void setObjectReference(IAdtObjectReference objectReference);
+    /**
+     * Sets the object reference of the node
+     *
+     * @param objectReference
+     */
+    void setObjectReference(IAdtObjectReference objectReference);
 }
