@@ -10,7 +10,7 @@ public class SimpleInfoTreeNode extends TreeNodeBase {
     }
 
     public SimpleInfoTreeNode(final String name, final String displayName, final Image image, final String description,
-            final ITreeNode parent) {
+        final ITreeNode parent) {
         super(name, displayName, description, parent);
         this.image = image;
     }

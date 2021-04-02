@@ -53,7 +53,7 @@ public class SplitResultSelectionViewer extends DialogResultPart {
             selectedElements.addAll(initialSelections);
         }
 
-        splitter.setWeights(new int[] { 70, 30 });
+        splitter.setWeights(70, 30);
     }
 
     @Override
@@ -72,9 +72,9 @@ public class SplitResultSelectionViewer extends DialogResultPart {
         allElementsViewer = new TableViewer(resultContainer, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
         allElementsViewer.setContentProvider(ArrayContentProvider.getInstance());
         GridDataFactory.fillDefaults()
-                .grab(true, true)
-                .hint(SWT.DEFAULT, allElementsViewer.getTable().getItemCount() * 15)
-                .applyTo(allElementsViewer.getTable());
+            .grab(true, true)
+            .hint(SWT.DEFAULT, allElementsViewer.getTable().getItemCount() * 15)
+            .applyTo(allElementsViewer.getTable());
 
         createSelectionToolbar(resultContainer);
 
@@ -113,9 +113,9 @@ public class SplitResultSelectionViewer extends DialogResultPart {
         selectedResultsViewer.setContentProvider(ArrayContentProvider.getInstance());
         selectedResultsViewer.setInput(selectedElements);
         GridDataFactory.fillDefaults()
-                .grab(true, false)
-                .hint(SWT.DEFAULT, selectedResultsViewer.getTable().getItemCount() * 5)
-                .applyTo(selectedResultsViewer.getTable());
+            .grab(true, false)
+            .hint(SWT.DEFAULT, selectedResultsViewer.getTable().getItemCount() * 5)
+            .applyTo(selectedResultsViewer.getTable());
 
         selectedResultsViewer.addSelectionChangedListener(l -> {
             unselectButton.setEnabled(l.getSelection() != null && !l.getSelection().isEmpty());

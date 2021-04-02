@@ -96,7 +96,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Creates new instance of a Filtered selection dialog
-     * 
+     *
      * @param parent the parent shell
      * @param multi  if {@code true} multiple entries can be chosen
      */
@@ -107,14 +107,14 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Creates new instance of a Filtered selection dialog
-     * 
+     *
      * @param parent     the parent shell
      * @param multi      if {@code true} multiple entries can be chosen
      * @param filterPart the filter part of the dialog
      * @param resultPart the result part of the dialog
      */
     public SearchSelectionDialog(final Shell parent, final boolean multi, final IDialogFilterPart<F> filterPart,
-            final DialogResultPart resultPart) {
+        final DialogResultPart resultPart) {
         this(parent, multi);
         setResultViewPart(resultPart);
         setFilterViewPart(filterPart);
@@ -200,7 +200,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
             if (l.getProperty().equals(DialogResultPart.SELECTED_ELEMENTS_PROPERTY)) {
                 final int selectedElements = (int) l.getNewValue();
                 updateButtonsEnableState(selectedElements <= 0 ? new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
-                        "") : null); //$NON-NLS-1$
+                    "") : null); //$NON-NLS-1$
             }
         });
 
@@ -259,7 +259,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Returns the current filter
-     * 
+     *
      * @return the current filter
      */
     protected F getFilter() {
@@ -268,7 +268,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Returns the result part of the dialog
-     * 
+     *
      * @return the result part of the dialog
      */
     protected DialogResultPart getResultViewPart() {
@@ -302,7 +302,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Returns {@code true} if the result item matches the filter
-     * 
+     *
      * @param result the result item
      * @param filter the current filter
      * @return {@code true} if the result item matches the filter
@@ -317,7 +317,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Performs the actual search with the given search pattern
-     * 
+     *
      * @param filter  the currently entered filter
      * @param monitor the progress monitor of the underlying search job
      */
@@ -330,7 +330,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     /**
      * Sets the label provider for the detail viewer which highlights the currently
      * selected result item
-     * 
+     *
      * @param labelProvider the label provider for the detail viewer which
      *                      highlights the currently selected result item
      */
@@ -349,7 +349,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the view part which holds controls for filtering the results
-     * 
+     *
      * @param filterView the part which holds the filter controls
      */
     protected void setFilterViewPart(final IDialogFilterPart<F> filterView) {
@@ -358,7 +358,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the initial dialog size.
-     * 
+     *
      * @param width  the initial dialog width or -1 if the preferred width should be
      *               used
      * @param height the initial dialog height or -1 if the preferred height should
@@ -371,7 +371,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the initial filter
-     * 
+     *
      * @param filter the initial filter
      */
     protected final void setInitialFilter(final F filter) {
@@ -380,7 +380,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the initial job delay
-     * 
+     *
      * @param jobDelay the initial job delay
      */
     protected final void setInitialJobDelay(final long jobDelay) {
@@ -389,7 +389,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the given list as initial selection in the result viewer
-     * 
+     *
      * @param initialSelections list of initial selection
      */
     protected void setInitialSelections(final List<R> initialSelections) {
@@ -398,7 +398,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the delay which is to be used for the search job
-     * 
+     *
      * @param jobDelay the delay for the search job
      */
     protected final void setJobDelay(final long jobDelay) {
@@ -407,7 +407,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets new result from the given list
-     * 
+     *
      * @param newResult the new result list
      */
     protected void setResult(final List<R> newResult) {
@@ -419,7 +419,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the content provider for the result viewer
-     * 
+     *
      * @param contentProvider content provider for the result viewer
      */
     protected final void setResultContentProvider(final IStructuredContentProvider contentProvider) {
@@ -428,7 +428,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     /**
      * Sets the label provider for the result viewer
-     * 
+     *
      * @param labelProvider the label provider for the result viewer
      */
     protected final void setResultLabelProvider(final IBaseLabelProvider labelProvider) {
@@ -445,7 +445,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
      * <li>{@link #setDetailsLabelProvider(IBaseLabelProvider)}</li>
      * </ul>
      * will have no effect
-     * 
+     *
      * @param resultViewPart the part which holds the results
      */
     protected final void setResultViewPart(final DialogResultPart resultViewPart) {
@@ -458,7 +458,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     /**
      * Update the status of the ok button to reflect the given status. Subclasses
      * may override this method to update additional buttons.
-     * 
+     *
      * @param status
      */
     protected void updateButtonsEnableState(final IStatus status) {
@@ -478,7 +478,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
         }
         if (this.searchJob == null) {
             setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources.getString(
-                    IAdtBaseStrings.SearchUI_Searching_xmsg)));
+                IAdtBaseStrings.SearchUI_Searching_xmsg)));
             this.searchJob = newSearchJob;
             this.searchJob.addJobChangeListener(new JobChangeAdapter() {
                 @Override
@@ -590,16 +590,16 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
                 }
                 if (validResultsCount == 0) {
                     setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources.getString(
-                            IAdtBaseStrings.SearchUI_NoResults_xmsg)));
+                        IAdtBaseStrings.SearchUI_NoResults_xmsg)));
                 } else if (!searchResult.isResultComplete()) {
                     setSearchStatus(new Status(IStatus.WARNING, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources.format(
-                            IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg, validResultsCount)));
+                        IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg, validResultsCount)));
                 } else if (validResultsCount == 1) {
                     setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources.getString(
-                            IAdtBaseStrings.SearchUI_OneResult_xmsg)));
+                        IAdtBaseStrings.SearchUI_OneResult_xmsg)));
                 } else {
                     setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources.format(
-                            IAdtBaseStrings.SearchUI_SpecificResults_xmsg, validResultsCount)));
+                        IAdtBaseStrings.SearchUI_SpecificResults_xmsg, validResultsCount)));
                 }
             }
             Display.getDefault().asyncExec(() -> {
@@ -631,7 +631,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
             detailViewer.setInput(selection);
             if (selection.size() > 1) {
                 detailViewer.setInput(MessageFormat.format(Messages.SearchSelectionDialog_ItemsSelected, selection
-                        .size()));
+                    .size()));
             } else {
                 detailViewer.setInput(selection.getFirstElement());
             }
@@ -764,9 +764,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
             this.headerLabel = new Label(header, SWT.NONE);
             this.headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
-                    && SearchSelectionDialog.this.filterLabel.trim().length() > 0
-                            ? SearchSelectionDialog.this.filterLabel
-                            : Messages.SearchSelectionDialog_FilterLabel);
+                && SearchSelectionDialog.this.filterLabel.trim().length() > 0 ? SearchSelectionDialog.this.filterLabel
+                    : Messages.SearchSelectionDialog_FilterLabel);
             GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.headerLabel);
 //			createViewMenu(header);
         }
@@ -831,11 +830,11 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
         private void createViewer(final Composite parent) {
             this.tableViewer = new TableViewer(parent, (this.multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
-                    | SWT.V_SCROLL);
+                | SWT.V_SCROLL);
             GridDataFactory.fillDefaults()
-                    .grab(true, true)
-                    .hint(SWT.DEFAULT, this.tableViewer.getTable().getItemHeight() * 15)
-                    .applyTo(this.tableViewer.getTable());
+                .grab(true, true)
+                .hint(SWT.DEFAULT, this.tableViewer.getTable().getItemHeight() * 15)
+                .applyTo(this.tableViewer.getTable());
 
             this.tableViewer.addSelectionChangedListener(event -> {
                 handleSelected((StructuredSelection) event.getSelection());

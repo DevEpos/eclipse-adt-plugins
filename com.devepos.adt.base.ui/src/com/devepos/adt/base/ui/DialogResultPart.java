@@ -32,7 +32,7 @@ public abstract class DialogResultPart {
 
     /**
      * Adds property change listener to this view part
-     * 
+     *
      * @param l the property change listener to be added
      */
     public void addPropertyChangeListener(final IPropertyChangeListener l) {
@@ -41,7 +41,7 @@ public abstract class DialogResultPart {
 
     /**
      * Creates the dialog part
-     * 
+     *
      * @param parent the parent composite
      */
     public final void createDialogPart(final Composite parent) {
@@ -64,7 +64,7 @@ public abstract class DialogResultPart {
      * The viewer is first bound after the call of
      * {@link #createUI(org.eclipse.swt.widgets.Composite)}
      * </p>
-     * 
+     *
      * @return the Detail viewer of the part
      */
     public ContentViewer getDetailViewer() {
@@ -78,14 +78,14 @@ public abstract class DialogResultPart {
      * The viewer is first bound after the call of
      * {@link #createUI(org.eclipse.swt.widgets.Composite)}
      * </p>
-     * 
+     *
      * @return the results viewer of the dialog
      */
     public abstract StructuredViewer getResultViewer();
 
     /**
      * Removes property change listener from this view part
-     * 
+     *
      * @param l the property change listener to be removed
      */
     public void removePropertyChangeListener(final IPropertyChangeListener l) {
@@ -94,7 +94,7 @@ public abstract class DialogResultPart {
 
     /**
      * Sets the label provider for the detail viewer
-     * 
+     *
      * @param labelProvider the label provider for the detail viewer
      */
     public void setDetailsLabelProvider(final IBaseLabelProvider labelProvider) {
@@ -104,7 +104,7 @@ public abstract class DialogResultPart {
     /**
      * Sets initial selections for the result or detail depending on the
      * implementation
-     * 
+     *
      * @param initialSelection list of initial selections
      */
     public final void setInitialSelections(final List<?> initialSelection) {
@@ -113,7 +113,7 @@ public abstract class DialogResultPart {
 
     /**
      * Sets the label provider for the result viewer
-     * 
+     *
      * @param labelProvider the label provider for the result viewer
      */
     public void setResultLabelProvider(final IBaseLabelProvider labelProvider) {
@@ -122,7 +122,7 @@ public abstract class DialogResultPart {
 
     /**
      * Updates the results of this view part
-     * 
+     *
      * @param newResults list of new results
      */
     public void updateResults(final List<Object> newResults) {
@@ -140,7 +140,7 @@ public abstract class DialogResultPart {
 
     /**
      * Creates the content of the result part
-     * 
+     *
      * @param parent the parent composite
      */
     protected abstract void createContent(Composite parent);
@@ -152,7 +152,7 @@ public abstract class DialogResultPart {
     protected void fireSelectedElementsChanged() {
 
         final PropertyChangeEvent event = new PropertyChangeEvent(this, SELECTED_ELEMENTS_PROPERTY, null,
-                getSelectedElementCount());
+            getSelectedElementCount());
         for (final IPropertyChangeListener l : propertyChangeListeners) {
             l.propertyChange(event);
         }
@@ -160,7 +160,7 @@ public abstract class DialogResultPart {
 
     /**
      * Computes the current count of selected elements
-     * 
+     *
      * @return the current count of selected elements
      */
     protected abstract int getSelectedElementCount();

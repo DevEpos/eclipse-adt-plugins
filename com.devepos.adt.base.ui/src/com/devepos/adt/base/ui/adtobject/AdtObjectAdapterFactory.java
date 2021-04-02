@@ -54,18 +54,18 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
             final ObjectType objType = ObjectType.getFromAdtType(objRef.getType());
             final IProjectProvider projectProvider = Adapters.adapt(adaptableObject, IProjectProvider.class);
             return adapterType.cast(new AdtObject(objRef.getName(), objRef, objType, projectProvider != null
-                    ? projectProvider.getProject()
-                    : null));
+                ? projectProvider.getProject()
+                : null));
         } else if (adaptableObject instanceof IAdtObjectReferenceNode) {
             final IAdtObjectReferenceNode objRefNode = (IAdtObjectReferenceNode) adaptableObject;
             final ObjectType objectType = objRefNode.getObjectType();
             final IDestinationProvider destProvider = objRefNode.getAdapter(IDestinationProvider.class);
             if (destProvider != null && destProvider.getDestinationId() != null) {
                 final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                        destProvider.getDestinationId());
+                    destProvider.getDestinationId());
                 if (projectProvider != null) {
                     return adapterType.cast(new AdtObject(objRefNode.getName(), objRefNode.getObjectReference(),
-                            objectType, projectProvider.getProject()));
+                        objectType, projectProvider.getProject()));
                 }
             }
         }

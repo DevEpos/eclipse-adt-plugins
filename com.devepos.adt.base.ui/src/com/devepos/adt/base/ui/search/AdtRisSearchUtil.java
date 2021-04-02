@@ -22,15 +22,15 @@ public final class AdtRisSearchUtil {
      * @return the result from the search dialog
      */
     public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final String dialogTitle,
-            final boolean multipleSelection, final IProject fixedProject) {
+        final boolean multipleSelection, final IProject fixedProject) {
         final IAdtRepositorySearchServiceUIParameters parameters = AdtRepositorySearchServiceUIFactory
-                .createAdtRepositorySearchServiceUIParameters();
+            .createAdtRepositorySearchServiceUIParameters();
         parameters.setTitle(dialogTitle);
         parameters.setFixedProject(fixedProject);
         parameters.setMultiSelectionEnabled(multipleSelection);
         final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
-                .createAdtRepositorySearchServiceUI()
-                .openDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), parameters);
+            .createAdtRepositorySearchServiceUI()
+            .openDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), parameters);
 
         if (result == null) {
             return null;

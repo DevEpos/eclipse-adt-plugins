@@ -9,7 +9,7 @@ package com.devepos.adt.base.ui.tree;
 public interface ILazyLoadingListener {
     /**
      * Will be called after the content of the lazy loading object was loaded
-     * 
+     *
      * @param childCount
      */
     void loadingFinished(int childCount);

@@ -114,7 +114,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
             final ILazyLoadingNode lazyNode = (ILazyLoadingNode) parentElement;
             if (lazyNode.isLoaded()) {
                 return getChildren(collectionNode);
-            } else if (lazyNode.isLoading()) {
+            }
+            if (lazyNode.isLoading()) {
                 return new Object[] { LoadingTreeItemsNode.INSTANCE };
             } else {
                 // start retrieval of the children of the node
@@ -132,7 +133,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
         String jobName = lazyNode.getLazyLoadingJobName();
         if (jobName == null) {
             jobName = NLS.bind(Messages.LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg, ((ITreeNode) lazyNode)
-                    .getDisplayName());
+                .getDisplayName());
         }
         Job.create(jobName, new ChildElementLoader(viewer.getControl().getDisplay(), lazyNode)).schedule();
 
@@ -144,15 +145,14 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
             return false;
         }
         if (element instanceof ICollectionTreeNode) {
-            if (element instanceof ILazyLoadingNode) {
-                if (((ILazyLoadingNode) element).isLoaded()) {
-                    final List<ITreeNode> children = ((ICollectionTreeNode) element).getChildren();
-                    return children != null && !children.isEmpty();
-                }
-                return true;
-            } else {
+            if (!(element instanceof ILazyLoadingNode)) {
                 return ((ICollectionTreeNode) element).hasChildren();
             }
+            if (((ILazyLoadingNode) element).isLoaded()) {
+                final List<ITreeNode> children = ((ICollectionTreeNode) element).getChildren();
+                return children != null && !children.isEmpty();
+            }
+            return true;
         }
 
         return false;
@@ -186,7 +186,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
             }
             monitor.done();
             final WorkbenchJob treeUpdateJob = new WorkbenchJob(display,
-                    Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg) {
+                Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg) {
 
                 @Override
                 public IStatus runInUIThread(final IProgressMonitor monitor) {
@@ -207,8 +207,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
         private void refreshLazyNode() {
             final LazyLoadingRefreshMode refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
-                    ? LazyLoadingTreeContentProvider.this.refreshMode
-                    : lazyLoadingNode.getContentRefreshMode();
+                ? LazyLoadingTreeContentProvider.this.refreshMode
+                : lazyLoadingNode.getContentRefreshMode();
             if (refreshMode == LazyLoadingRefreshMode.ROOT_ONLY) {
                 return;
             }
@@ -220,19 +220,19 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
                 return;
             }
             for (final ITreeNode child : children.stream()
-                    .filter(child -> child instanceof ICollectionTreeNode)
-                    .collect(Collectors.toList())) {
+                .filter(child -> child instanceof ICollectionTreeNode)
+                .collect(Collectors.toList())) {
                 if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN) {
                     expandNode(child);
                 } else if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN
-                        && !(child instanceof ILazyLoadingNode)) {
+                    && !(child instanceof ILazyLoadingNode)) {
                     expandNode(child);
                 }
             }
         }
 
         private void expandNode(final ITreeNode child) {
-            if ((expansionCheck != null) && !expansionCheck.shouldExpandNode(child)) {
+            if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
                 return;
             }
             viewer.expandToLevel(child, refreshModeExpansionLevel, true);

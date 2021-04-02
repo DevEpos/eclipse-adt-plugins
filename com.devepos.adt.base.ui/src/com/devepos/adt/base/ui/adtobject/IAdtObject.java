@@ -30,7 +30,7 @@ public interface IAdtObject {
     /**
      * Returns the image for the type of the encapsulated ADT object reference, if
      * it can be determined, otherwise {@code null}
-     * 
+     *
      * @return the image for the type of the encapsulated ADT object reference, if
      *         it can be determined, otherwise {@code null}
      */

@@ -32,13 +32,13 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
     private final Control resizedControl;
 
     public ToggleViewLayoutAction(final SashForm sashForm, final Control resizedControl,
-            final IPreferenceStore prefStore, final String layoutPref) {
+        final IPreferenceStore prefStore, final String layoutPref) {
         this(sashForm, resizedControl, prefStore, layoutPref, true, true, true);
     }
 
     public ToggleViewLayoutAction(final SashForm sashForm, final Control resizedControl,
-            final IPreferenceStore prefStore, final String layoutPref, final boolean horizontal, final boolean vertical,
-            final boolean automatic) {
+        final IPreferenceStore prefStore, final String layoutPref, final boolean horizontal, final boolean vertical,
+        final boolean automatic) {
         super(Messages.ToggleViewLayoutAction_TopLevelMenu_xmit);
 
         this.prefStore = prefStore;
@@ -91,22 +91,22 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
     }
 
     private RadioActionGroup createActionGroup(final boolean horizontal, final boolean vertical,
-            final boolean automatic) {
+        final boolean automatic) {
         final RadioActionGroup actionGroup = new RadioActionGroup();
         if (horizontal) {
             actionGroup.addAction(ViewLayoutOrientation.HORIZONTAL.name(),
-                    Messages.ToggleViewLayoutAction_HorizontalOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
-                            IAdtBaseImages.HORIZONTAL_LAYOUT), false);
+                Messages.ToggleViewLayoutAction_HorizontalOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
+                    IAdtBaseImages.HORIZONTAL_LAYOUT), false);
         }
         if (vertical) {
             actionGroup.addAction(ViewLayoutOrientation.VERTICAL.name(),
-                    Messages.ToggleViewLayoutAction_VerticalOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
-                            IAdtBaseImages.VERTICAL_LAYOUT), false);
+                Messages.ToggleViewLayoutAction_VerticalOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
+                    IAdtBaseImages.VERTICAL_LAYOUT), false);
         }
         if (automatic) {
             actionGroup.addAction(ViewLayoutOrientation.AUTOMATIC.name(),
-                    Messages.ToggleViewLayoutAction_AutomaticOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
-                            IAdtBaseImages.AUTOMATIC_LAYOUT), false);
+                Messages.ToggleViewLayoutAction_AutomaticOrientation_xmit, AdtBaseUIResources.getImageDescriptor(
+                    IAdtBaseImages.AUTOMATIC_LAYOUT), false);
         }
         return actionGroup;
     }

@@ -41,7 +41,7 @@ public class StylerFactory {
      * @return the custom styler
      */
     public static CustomStyler createCustomStyler(final int style, final String foregroundColorName,
-            final String backgroundColorName) {
+        final String backgroundColorName) {
         final String stylerKey = String.format(STYLE_KEY, style, foregroundColorName, backgroundColorName);
 
         return getStyler(stylerKey, style, foregroundColorName, backgroundColorName);
@@ -59,7 +59,7 @@ public class StylerFactory {
     }
 
     private static CustomStyler getStyler(final String stylerKey, final int style, final String foregroundColorName,
-            final String backgroundColorName) {
+        final String backgroundColorName) {
         if (customStylerRegistry == null) {
             customStylerRegistry = new HashMap<>();
         }

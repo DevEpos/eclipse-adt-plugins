@@ -58,7 +58,7 @@ public interface IAbapProjectProvider {
 
     /**
      * Returns the destination data of the ABAP Project
-     * 
+     *
      * @return the destination data of the ABAP Project
      */
     IDestinationData getDestinationData();

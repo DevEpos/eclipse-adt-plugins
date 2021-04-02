@@ -151,8 +151,7 @@ public class TextControlUtil {
                 control.setSelection(lastSelection);
             } else {
                 // determine string after selection
-                final String rest = lastSelection.x < text.length() ? text.substring(lastSelection.x)
-                        : "";
+                final String rest = lastSelection.x < text.length() ? text.substring(lastSelection.x) : "";
                 // find the next word separator
                 final Pattern wordBorderPattern = Pattern.compile(wordBoundariesRegEx);
                 final Matcher matcher = wordBorderPattern.matcher(text.substring(0, lastSelection.x));

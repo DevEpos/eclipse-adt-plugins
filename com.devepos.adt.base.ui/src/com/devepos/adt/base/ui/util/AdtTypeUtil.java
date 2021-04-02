@@ -47,7 +47,7 @@ public class AdtTypeUtil {
             adtWbType = IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE;
         }
         final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
-                .getObjectTypeByGlobalWorkbenchType(adtWbType);
+            .getObjectTypeByGlobalWorkbenchType(adtWbType);
         if (type != null) {
             image = type.getImage();
         } else {
@@ -66,8 +66,8 @@ public class AdtTypeUtil {
      */
     public String getTypeDescriptionByProject(final String adtType, final IProject project) {
         final IWbObjectType type = AbapCore.getInstance()
-                .getWbTypeRegistry(project)
-                .getWbObjectType(new NullProgressMonitor(), adtType);
+            .getWbTypeRegistry(project)
+            .getWbObjectType(new NullProgressMonitor(), adtType);
         if (type != null) {
             return type.getTypeLabel();
         }
@@ -85,7 +85,7 @@ public class AdtTypeUtil {
             return null;
         }
         final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
-                .getObjectTypeByGlobalWorkbenchType(adtType);
+            .getObjectTypeByGlobalWorkbenchType(adtType);
         if (type != null) {
             return type.getDisplayName();
         }

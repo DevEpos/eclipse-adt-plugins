@@ -29,7 +29,7 @@ public interface IAdtObjectReferenceNode extends ICollectionTreeNode, IAdaptable
 
     /**
      * Returns the ADT object type of the underlying ADT object reference
-     * 
+     *
      * @return
      */
     String getAdtObjectType();

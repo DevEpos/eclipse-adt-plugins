@@ -64,9 +64,8 @@ public class AbapProjectProxy implements IAbapProjectProvider {
         final ObjectContainer<Boolean> isLoggedOncontainer = new ObjectContainer<>(Boolean.FALSE);
         Display.getDefault().syncExec(() -> {
             isLoggedOncontainer.setObject(AdtLogonServiceUIFactory.createLogonServiceUI()
-                    .ensureLoggedOn(getAbapProject().getDestinationData(), PlatformUI.getWorkbench()
-                            .getProgressService())
-                    .isOK());
+                .ensureLoggedOn(getAbapProject().getDestinationData(), PlatformUI.getWorkbench().getProgressService())
+                .isOK());
         });
         return isLoggedOncontainer.getObject();
     }

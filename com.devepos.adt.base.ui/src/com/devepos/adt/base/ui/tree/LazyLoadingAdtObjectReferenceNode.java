@@ -26,7 +26,7 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
     }
 
     public LazyLoadingAdtObjectReferenceNode(final String name, final String displayName, final String description,
-            final IAdtObjectReference objectReference, final ITreeNode parent) {
+        final IAdtObjectReference objectReference, final ITreeNode parent) {
         super(name, displayName, description, objectReference, parent);
     }
 
@@ -37,9 +37,8 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
         }
         if (children != null) {
             return new DecimalFormat("###,###").format(children.size());
-        } else {
-            return "0";
         }
+        return "0";
     }
 
     @Override

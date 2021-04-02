@@ -41,7 +41,7 @@ public class ActionFactory {
      * @return the created Action instance
      */
     public static Action createAction(final String text, final ImageDescriptor imageDescriptor,
-            final IActionRunner actionRunner) {
+        final IActionRunner actionRunner) {
         return createAction(text, imageDescriptor, IAction.AS_PUSH_BUTTON, actionRunner);
     }
 
@@ -59,7 +59,7 @@ public class ActionFactory {
      * @return the created Action instance
      */
     public static Action createAction(final String text, final ImageDescriptor imageDescriptor, final int style,
-            final IActionRunner actionRunner) {
+        final IActionRunner actionRunner) {
         Objects.requireNonNull(actionRunner, "Parameter 'actionRunner' must not be null");
 
         final Action action = new Action(text, style) {
@@ -75,7 +75,7 @@ public class ActionFactory {
     /**
      * Create anonymous {@link Action} class with the given {@link Consumer
      * runConsumer} as the implementation for the {@link Action#run()} method.
-     * 
+     *
      * @param text            the text/tooltip for the action
      * @param imageDescriptor the optional image descriptor for the action
      * @param actionRunner    the implementation for the {@link Action#run()} method
@@ -84,7 +84,7 @@ public class ActionFactory {
      * @return the created Action instance
      */
     public static <T> Action createActionWithData(final String text, final ImageDescriptor imageDescriptor,
-            final IActionRunnerWithData<T> actionRunner, final T actionData) {
+        final IActionRunnerWithData<T> actionRunner, final T actionData) {
         Objects.requireNonNull(actionRunner, "Parameter 'actionRunner' must not be null");
 
         return new Action(text, imageDescriptor) {

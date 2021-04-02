@@ -51,7 +51,7 @@ public class TreeContentProvider implements ITreeContentProvider {
 
     /**
      * Retrieves child nodes from the given collection node
-     * 
+     *
      * @param collectionNode collection node with child nodes
      * @return the retrieved child nodes as an array or {@code null}
      */

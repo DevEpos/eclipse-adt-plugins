@@ -16,17 +16,17 @@ public class FolderTreeNode extends TreeNodeBase implements ICollectionTreeNode 
     protected Image image;
 
     public FolderTreeNode(final String name, final ITreeNode parent, final Image image,
-            final List<ITreeNode> children) {
+        final List<ITreeNode> children) {
         this(name, name, parent, image, children);
     }
 
     public FolderTreeNode(final String name, final String displayName, final ITreeNode parent, final Image image,
-            final List<ITreeNode> children) {
+        final List<ITreeNode> children) {
         this(name, displayName, null, parent, image, children);
     }
 
     public FolderTreeNode(final String name, final String displayName, final String description, final ITreeNode parent,
-            final Image image, final List<ITreeNode> children) {
+        final Image image, final List<ITreeNode> children) {
         super(name, displayName, description, parent);
         this.image = image;
         this.children = children;

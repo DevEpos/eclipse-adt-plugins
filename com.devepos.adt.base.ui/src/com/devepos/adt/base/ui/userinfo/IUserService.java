@@ -15,7 +15,7 @@ public interface IUserService {
      * Shows dialog for selecting users. If {@code multi} is set to {@code true} a
      * split result viewer is used to collect and display the currently selected
      * users.
-     * 
+     *
      * @param parent        the parent shell
      * @param title         title for the dialog
      * @param initialUsers  contains list of user id's that should be selected
@@ -25,5 +25,5 @@ public interface IUserService {
      * @return a list of selected users
      */
     List<String> showUserSelectionDialog(Shell parent, String title, boolean multi, List<String> initialUsers,
-            String destinationId);
+        String destinationId);
 }

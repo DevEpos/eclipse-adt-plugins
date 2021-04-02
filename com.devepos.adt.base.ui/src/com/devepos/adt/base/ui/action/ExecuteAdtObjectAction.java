@@ -24,7 +24,7 @@ public class ExecuteAdtObjectAction extends Action {
     private final IProject project;
 
     public ExecuteAdtObjectAction(final IProject project, final List<IAdtObjectReference> adtObjectReferences,
-            final boolean isDataPreviewMode) {
+        final boolean isDataPreviewMode) {
         super();
         if (isDataPreviewMode) {
             setText(Messages.Actions_OpenWithADTDataPreview_xmit);

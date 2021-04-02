@@ -73,10 +73,10 @@ public class TreeNodeCreator {
     }
 
     protected void addLazyLoadingFolder(final ILazyLoadingElementInfo lazyLoadingElement,
-            final ICollectionTreeNode parent) {
+        final ICollectionTreeNode parent) {
         final ICollectionTreeNode lazyFolder = new LazyLoadingFolderNode(lazyLoadingElement.getName(),
-                lazyLoadingElement.getDisplayName(), lazyLoadingElement.getElementInfoProvider(), lazyLoadingElement
-                        .getImage(), null, parent);
+            lazyLoadingElement.getDisplayName(), lazyLoadingElement.getElementInfoProvider(), lazyLoadingElement
+                .getImage(), null, parent);
         lazyFolder.setAdditionalInfo(lazyLoadingElement.getAdditionalInfo());
         lazyFolder.getProperties().putAll(lazyLoadingElement.getProperties());
         ((ILazyLoadingNode) lazyFolder).setContentRefreshMode(lazyLoadingElement.getContentRefreshMode());
@@ -88,7 +88,7 @@ public class TreeNodeCreator {
 
     protected void addCollection(final IElementInfoCollection collection, final ICollectionTreeNode parentNode) {
         final ICollectionTreeNode collectionTreeNode = new FolderTreeNode(collection.getDisplayName(), parentNode,
-                collection.getImage(), null);
+            collection.getImage(), null);
         collectionTreeNode.setAdditionalInfo(collection.getAdditionalInfo());
         collectionTreeNode.getProperties().putAll(collection.getProperties());
         for (final IElementInfo collectionElement : collection.getChildren()) {
@@ -98,19 +98,19 @@ public class TreeNodeCreator {
     }
 
     protected void addAdtObjectRefNode(final IAdtObjectReferenceElementInfo adtObjElementInfo,
-            final ICollectionTreeNode collection) {
+        final ICollectionTreeNode collection) {
         IAdtObjectReferenceNode adtObjectRefNode = null;
         if (adtObjElementInfo.hasLazyLoadingSupport()) {
             adtObjectRefNode = new LazyLoadingAdtObjectReferenceNode(adtObjElementInfo.getName(), adtObjElementInfo
-                    .getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo.getAdtObjectReference(),
-                    collection);
+                .getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo.getAdtObjectReference(),
+                collection);
             final ILazyLoadingNode lazyLoadingNode = (ILazyLoadingNode) adtObjectRefNode;
             lazyLoadingNode.setContentRefreshMode(adtObjElementInfo.getContentRefreshMode());
             lazyLoadingNode.setElementInfoProvider(adtObjElementInfo.getElementInfoProvider());
         } else {
             adtObjectRefNode = new AdtObjectReferenceNode(adtObjElementInfo.getName(), adtObjElementInfo
-                    .getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo.getAdtObjectReference(),
-                    collection);
+                .getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo.getAdtObjectReference(),
+                collection);
             if (adtObjElementInfo.hasChildren()) {
                 for (final IElementInfo child : adtObjElementInfo.getChildren()) {
                     addNode(child, adtObjectRefNode);
@@ -124,7 +124,7 @@ public class TreeNodeCreator {
 
     protected void addSimpleNode(final IElementInfo elementInfo, final ICollectionTreeNode collection) {
         final ITreeNode simpleNode = new SimpleInfoTreeNode(elementInfo.getName(), elementInfo.getDisplayName(),
-                elementInfo.getImage(), elementInfo.getDescription(), collection);
+            elementInfo.getImage(), elementInfo.getDescription(), collection);
         simpleNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
         simpleNode.getProperties().putAll(elementInfo.getProperties());
         collection.getChildren().add(simpleNode);
@@ -133,7 +133,7 @@ public class TreeNodeCreator {
 
     protected void addActionNode(final IExecutableElementInfo elementInfo, final ICollectionTreeNode collection) {
         final ITreeNode actionNode = new ActionTreeNode(elementInfo.getName(), elementInfo.getImage(), collection,
-                elementInfo.getExecutable());
+            elementInfo.getExecutable());
         actionNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
         actionNode.getProperties().putAll(elementInfo.getProperties());
         collection.getChildren().add(actionNode);

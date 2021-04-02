@@ -13,7 +13,7 @@ public class UserServiceFactory {
 
     /**
      * Creates and returns instance of the User service
-     * 
+     *
      * @return instance of the User service
      */
     public static IUserService createUserService() {
@@ -22,7 +22,7 @@ public class UserServiceFactory {
 
     /**
      * Creates new User
-     * 
+     *
      * @param id   id of a user
      * @param text description/text of a user
      * @return instance of {@link IUser}

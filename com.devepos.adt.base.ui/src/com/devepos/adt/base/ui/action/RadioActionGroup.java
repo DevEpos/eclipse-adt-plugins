@@ -87,18 +87,18 @@ public class RadioActionGroup extends ActionGroup {
      */
     public void enableAction(final String actionId, final boolean enable) {
         final ToggleAction actionToEnable = actions.stream()
-                .filter(a -> a.actionId.equals(actionId))
-                .findFirst()
-                .orElse(null);
+            .filter(a -> a.actionId.equals(actionId))
+            .findFirst()
+            .orElse(null);
         if (actionToEnable != null) {
             actionToEnable.setEnabled(enable);
             if (!enable && actionToEnable.isChecked()) {
                 actionToEnable.setChecked(false);
                 // search for another action to be toggled
                 final ToggleAction newToggleAction = actions.stream()
-                        .filter(a -> !a.actionId.equals(actionId))
-                        .findFirst()
-                        .orElse(null);
+                    .filter(a -> !a.actionId.equals(actionId))
+                    .findFirst()
+                    .orElse(null);
                 if (newToggleAction != null) {
                     newToggleAction.setChecked(true);
                     toggledAction = newToggleAction;
@@ -120,7 +120,7 @@ public class RadioActionGroup extends ActionGroup {
      *                        toggled
      */
     public void addAction(final String actionId, final String tooltip, final ImageDescriptor imageDescriptor,
-            final boolean toggled) {
+        final boolean toggled) {
         final ToggleAction toggleAction = new ToggleAction(actionId, tooltip, imageDescriptor);
         toggleAction.setChecked(toggled);
         if (toggled) {

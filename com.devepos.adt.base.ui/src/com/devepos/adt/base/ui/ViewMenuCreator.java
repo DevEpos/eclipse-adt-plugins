@@ -36,7 +36,7 @@ public class ViewMenuCreator {
     /**
      * Creates toolbar with a single button that shows a menu upon a click. The menu
      * can be filled via the {@code menuFiller} parameter
-     * 
+     *
      * @param parent     the parent composite for the toolbar button that triggers
      *                   the view menu
      * @param menuFiller consumer to fill the menu
@@ -96,7 +96,7 @@ public class ViewMenuCreator {
                 }
             };
             showViewHandler = service.activateHandler(IWorkbenchCommandConstants.WINDOW_SHOW_VIEW_MENU, handler,
-                    new ActiveShellExpression(parent.getShell()));
+                new ActiveShellExpression(parent.getShell()));
         }
 
         private void showViewMenu() {

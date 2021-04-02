@@ -41,7 +41,7 @@ public class AdtUIUtil {
      * @param image        the new image of the part
      */
     public static void overrideSapGuiPartTitle(final WorkbenchPart part, final IProject project, final String partName,
-            final String titleToolTip, final Image image) {
+        final String titleToolTip, final Image image) {
         if (part == null) {
             return;
         }
@@ -49,7 +49,7 @@ public class AdtUIUtil {
 
         final String newPartName = String.format("[%s] %s", abapProject.getSystemId(), partName); //$NON-NLS-1$
         final String newTitleTooltip = titleToolTip != null ? String.format("%s [%s]", titleToolTip, abapProject //$NON-NLS-1$
-                .getDestinationDisplayText()) : null;
+            .getDestinationDisplayText()) : null;
 
         final IPropertyListener listener = (object, id) -> {
             if (id == 1) {
@@ -130,8 +130,8 @@ public class AdtUIUtil {
         }
         if (adtObjects != null && supportsDataPreview) {
             adtObjects = adtObjects.stream()
-                    .filter(obj -> obj.getObjectType().supportsDataPreview())
-                    .collect(Collectors.toList());
+                .filter(obj -> obj.getObjectType().supportsDataPreview())
+                .collect(Collectors.toList());
         }
         return adtObjects;
     }
@@ -172,8 +172,8 @@ public class AdtUIUtil {
      */
     public static void openAdtObjectRefInSapGui(final IAdtObjectReference objectReference, final IProject project) {
         AdtSapGuiEditorUtilityFactory.createSapGuiEditorUtility()
-                .openEditorForObject(project, objectReference, true, WorkbenchAction.DISPLAY.toString(), null,
-                        Collections.<String, String>emptyMap());
+            .openEditorForObject(project, objectReference, true, WorkbenchAction.DISPLAY.toString(), null, Collections
+                .<String, String>emptyMap());
     }
 
     private static List<IAdtObject> getObjectFromTreeSelection(final IStructuredSelection selection) {

@@ -35,7 +35,7 @@ public class ProjectUtil {
 
     /**
      * Retrieve the currently active ABAP Project
-     * 
+     *
      * @param selection selection in a workbench part
      * @return
      */
@@ -48,7 +48,7 @@ public class ProjectUtil {
             selection = window.getSelectionService().getSelection();
         }
         return com.sap.adt.project.ui.util.ProjectUtil.getActiveAdtCoreProject(selection, null, null,
-                IAdtCoreProject.ABAP_PROJECT_NATURE);
+            IAdtCoreProject.ABAP_PROJECT_NATURE);
     }
 
     /**
@@ -70,12 +70,12 @@ public class ProjectUtil {
         final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 
         if (AdtLogonServiceUIFactory.createLogonServiceUI()
-                .ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench().getProgressService())
-                .isOK()) {
+            .ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench().getProgressService())
+            .isOK()) {
             return Status.OK_STATUS;
         }
         return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(Messages.Project_LogonToProjectFailed_xmsg,
-                project.getName()));
+            project.getName()));
     }
 
     /**

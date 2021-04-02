@@ -23,7 +23,7 @@ public class ProjectProviderAdapterFactory {
             return null;
         }
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor.getProviderForDestination(
-                ((IDestinationProvider) adtObjectRef).getDestinationId());
+            ((IDestinationProvider) adtObjectRef).getDestinationId());
         if (projectProvider != null && projectProvider.hasProject()) {
             return new ProjectProvider(projectProvider.getProject());
         }

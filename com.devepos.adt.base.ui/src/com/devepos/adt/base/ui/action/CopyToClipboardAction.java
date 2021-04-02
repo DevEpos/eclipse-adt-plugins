@@ -134,11 +134,10 @@ public class CopyToClipboardAction extends Action {
         }
         if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
             return ((DelegatingStyledCellLabelProvider) labelProvider).getStyledStringProvider()
-                    .getStyledText(object)
-                    .toString();
-        } else {
-            return object.toString();
+                .getStyledText(object)
+                .toString();
         }
+        return object.toString();
     }
 
     private void copyToClipboard(String text, final Shell shell) {
@@ -167,7 +166,7 @@ public class CopyToClipboardAction extends Action {
                 throw ex;
             }
             if (MessageDialog.openQuestion(shell, Messages.CopyToClipboardAction_ErrorMessageTitle_xmsg,
-                    Messages.CopyToClipboardAction_ErrorMessageBody_xmsg)) {
+                Messages.CopyToClipboardAction_ErrorMessageBody_xmsg)) {
                 copyToClipboard(clipboard, str, shell);
             }
         }

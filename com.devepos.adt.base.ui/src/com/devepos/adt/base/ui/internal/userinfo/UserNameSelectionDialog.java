@@ -39,7 +39,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     private final String destination;
 
     public UserNameSelectionDialog(final Shell parent, final String title, final boolean multi,
-            final List<String> selectedUsers, final String destination) {
+        final List<String> selectedUsers, final String destination) {
         super(parent, multi);
         this.destination = destination;
         setTitle(title);
@@ -49,8 +49,8 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         setInitialDialogSize(360, 630);
         if (selectedUsers != null) {
             setInitialSelections(selectedUsers.stream()
-                    .map(id -> UserServiceFactory.createUser(id, null))
-                    .collect(Collectors.toList()));
+                .map(id -> UserServiceFactory.createUser(id, null))
+                .collect(Collectors.toList()));
         }
         final SplitResultSelectionViewer splitResultViewer = new SplitResultSelectionViewer();
         final IStyledLabelProvider resultLabelProvider = new ResultLabelProvider();
@@ -73,19 +73,19 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         if (Pattern.matches(filterPattern, result.getId().toLowerCase())) {
             return true;
         }
-        final String userText = result.getText();
-        if (!StringUtil.isEmpty(userText)) {
-            final List<String> userWords = Stream.of(userText.split("\\s+"))
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toList());
-            return userWords.stream().anyMatch(w -> Pattern.matches(filterPattern, w));
+        final String userName = result.getText();
+        if (!StringUtil.isEmpty(userName)) {
+            final List<String> userNameParts = Stream.of(userName.split("\\s+"))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+            return userNameParts.stream().anyMatch(w -> Pattern.matches(filterPattern, w));
         }
         return false;
     }
 
     @Override
     protected SearchSelectionDialog<IUser, String>.SearchResultObject performSearch(final String filter,
-            final IProgressMonitor monitor) throws CoreException {
+        final IProgressMonitor monitor) throws CoreException {
 
         if (users == null) {
             final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destination);
@@ -95,7 +95,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     }
 
     private class ResultLabelProvider extends LabelProvider implements
-            DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+        DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
         @Override
         public Image getImage(final Object element) {
@@ -115,7 +115,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
                 final String description = user.getText();
                 if (!StringUtil.isEmpty(description)) {
                     text.append("  " + user.getText(), //$NON-NLS-1$
-                            StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
+                        StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
                 }
             }
             return text != null ? text : new StyledString();

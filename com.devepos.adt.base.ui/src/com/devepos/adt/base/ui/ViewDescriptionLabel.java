@@ -62,11 +62,11 @@ public class ViewDescriptionLabel {
         descriptionComposite.moveAbove(null);
 
         GridLayoutFactory.fillDefaults()
-                .spacing(-1, 2)
-                .margins(0, 0)
-                .extendedMargins(2, 0, 4, 0)
-                .numColumns(2)
-                .applyTo(descriptionComposite);
+            .spacing(-1, 2)
+            .margins(0, 0)
+            .extendedMargins(2, 0, 4, 0)
+            .numColumns(2)
+            .applyTo(descriptionComposite);
         GridDataFactory.fillDefaults().grab(true, false).applyTo(descriptionComposite);
 
         image = new Label(descriptionComposite, SWT.NONE);

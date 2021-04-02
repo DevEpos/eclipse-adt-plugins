@@ -135,33 +135,32 @@ public class ProjectInput {
         }
 
         final IConverter<String, IProject> convertStringToProject = IConverter.create(String.class, IProject.class,
-                projectName -> {
-                    if (projectName == null || "".equals(projectName)) { //$NON-NLS-1$
-                        return null;
+            projectName -> {
+                if (projectName == null || "".equals(projectName)) { //$NON-NLS-1$
+                    return null;
+                }
+                // check if there is an ABAP project which matches the entered name
+                final IProject[] abapProjects = ProjectUtil.getAbapProjects();
+                String availableProjectName = null;
+                for (final IProject project : abapProjects) {
+                    if (project.getName().equalsIgnoreCase(projectName)) {
+                        availableProjectName = project.getName();
+                        break;
                     }
-                    // check if there is an ABAP project which matches the entered name
-                    final IProject[] abapProjects = ProjectUtil.getAbapProjects();
-                    String availableProjectName = null;
-                    for (final IProject project : abapProjects) {
-                        if (project.getName().equalsIgnoreCase(projectName)) {
-                            availableProjectName = project.getName();
-                            break;
-                        }
-                    }
-                    if (availableProjectName != null) {
-                        return ResourcesPlugin.getWorkspace().getRoot().getProject(availableProjectName);
-                    } else {
-                        return null;
-                    }
-                });
+                }
+                if (availableProjectName != null) {
+                    return ResourcesPlugin.getWorkspace().getRoot().getProject(availableProjectName);
+                }
+                return null;
+            });
         final UpdateValueStrategy<IProject, String> targetUpdateStrategy = UpdateValueStrategy.create(IConverter.create(
-                IProject.class, String.class, project -> project != null ? project.getName() : ""));
+            IProject.class, String.class, project -> project != null ? project.getName() : ""));
         final UpdateValueStrategy<String, IProject> modelUpdateStrategy = UpdateValueStrategy.create(
-                convertStringToProject);
+            convertStringToProject);
         modelUpdateStrategy.setAfterGetValidator(projectName -> {
             if (StringUtil.isBlank(projectName)) {
                 return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, IStatus.INFO,
-                        Messages.ProjectInput_NoProjectEntered_xmsg, null);
+                    Messages.ProjectInput_NoProjectEntered_xmsg, null);
             }
             return ValidationStatus.ok();
         });
@@ -169,7 +168,7 @@ public class ProjectInput {
 
         final IObservableValue<String> projectInputTarget = WidgetProperties.text(SWT.Modify).observe(projectField);
         final IObservableValue<IProject> projectModel = PojoProperties.value("project", IProject.class) //$NON-NLS-1$
-                .observe(projectProvider);
+            .observe(projectProvider);
         dbc.bindValue(projectInputTarget, projectModel, modelUpdateStrategy, targetUpdateStrategy);
         return dbc;
     }

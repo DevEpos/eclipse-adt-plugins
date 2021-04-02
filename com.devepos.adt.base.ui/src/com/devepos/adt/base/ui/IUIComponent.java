@@ -11,7 +11,7 @@ public interface IUIComponent {
 
     /**
      * Creates the UI of the component
-     * 
+     *
      * @param parent the parent composite
      */
     void createUI(Composite parent);

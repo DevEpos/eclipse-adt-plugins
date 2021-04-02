@@ -32,7 +32,7 @@ public interface ICollectionTreeNode extends ITreeNode {
 
     /**
      * Adds the given node as a child node
-     * 
+     *
      * @param child the child node to be added
      */
     void addChild(ITreeNode child);

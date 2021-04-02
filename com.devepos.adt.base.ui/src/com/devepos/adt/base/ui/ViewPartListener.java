@@ -24,7 +24,7 @@ public class ViewPartListener implements IPartListener2 {
     /**
      * Registers consumer for the method
      * {@link #partActivated(IWorkbenchPartReference)}
-     * 
+     *
      * @param partActivatedConsumer consumer for
      *                              {@link #partActivated(IWorkbenchPartReference)}
      */
@@ -35,7 +35,7 @@ public class ViewPartListener implements IPartListener2 {
     /**
      * Registers consumer for the method
      * {@link #partVisible(IWorkbenchPartReference)}
-     * 
+     *
      * @param partVisibleConsumer consumer for
      *                            {@link #partVisible(IWorkbenchPartReference)}
      */

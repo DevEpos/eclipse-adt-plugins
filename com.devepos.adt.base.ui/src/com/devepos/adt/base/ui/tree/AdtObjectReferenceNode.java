@@ -30,12 +30,12 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
     }
 
     public AdtObjectReferenceNode(final String name, final String displayName, final String description,
-            final IAdtObjectReference objectReference) {
+        final IAdtObjectReference objectReference) {
         this(name, displayName, description, objectReference, null);
     }
 
     public AdtObjectReferenceNode(final String name, final String displayName, final String description,
-            final IAdtObjectReference objectReference, final ITreeNode parent) {
+        final IAdtObjectReference objectReference, final ITreeNode parent) {
         super(name, displayName, description, parent);
         this.objectReference = objectReference;
     }

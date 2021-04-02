@@ -78,7 +78,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
 
     private void registerDeleteOvr(final ImageRegistry imageRegistry) {
         imageRegistry.put(IAdtBaseImages.UNSHARE, overlayImage(imageRegistry.get(IAdtBaseImages.SHARE), new String[] {
-                null, null, null, IAdtBaseImages.DELETE_OVR }));
+            null, null, null, IAdtBaseImages.DELETE_OVR }));
 
     }
 

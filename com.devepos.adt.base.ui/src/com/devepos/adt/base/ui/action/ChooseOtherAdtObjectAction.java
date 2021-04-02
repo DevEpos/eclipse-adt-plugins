@@ -21,9 +21,9 @@ public class ChooseOtherAdtObjectAction extends Action {
     private final Consumer<IAdtRisSearchResultProxy> runConsumer;
 
     public ChooseOtherAdtObjectAction(final boolean multipleSelection,
-            final Consumer<IAdtRisSearchResultProxy> runConsumer) {
+        final Consumer<IAdtRisSearchResultProxy> runConsumer) {
         super(Messages.ChooseOtherAdtObjectAction_ActionText_xtol, AdtBaseUIResources.getImageDescriptor(
-                IAdtBaseImages.OTHER_OBJECT));
+            IAdtBaseImages.OTHER_OBJECT));
         this.multipleSelection = multipleSelection;
         this.runConsumer = runConsumer;
     }
@@ -31,7 +31,7 @@ public class ChooseOtherAdtObjectAction extends Action {
     @Override
     public void run() {
         final IAdtRisSearchResultProxy resultProxy = AdtRisSearchUtil.searchAdtObjectViaDialog(getText(),
-                multipleSelection, null);
+            multipleSelection, null);
         if (resultProxy != null) {
             runConsumer.accept(resultProxy);
         }

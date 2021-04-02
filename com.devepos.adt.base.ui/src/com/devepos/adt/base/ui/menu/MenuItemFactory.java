@@ -34,9 +34,9 @@ public class MenuItemFactory {
      *                   command
      */
     public static void addCommandItem(final IMenuManager mgr, final String groupId, final String commandId,
-            final ImageDescriptor imageDescr, final String label, final String[][] params) {
+        final ImageDescriptor imageDescr, final String label, final String[][] params) {
         final IContributionItem commandItem = createCommandContributionItem(groupId, commandId, imageDescr, label, true,
-                params);
+            params);
         if (groupId != null) {
             mgr.appendToGroup(groupId, commandItem);
         } else {
@@ -59,11 +59,10 @@ public class MenuItemFactory {
      * @param params         an optional two dimensional array of command parameters
      */
     public static void addCommandItem(final IToolBarManager tbm, final String groupId, final String commandId,
-            final ImageDescriptor imageDescr, final String label, final boolean visibleEnabled,
-            final String[][] params) {
+        final ImageDescriptor imageDescr, final String label, final boolean visibleEnabled, final String[][] params) {
 
         final IContributionItem commandItem = createCommandContributionItem(groupId, commandId, imageDescr, label,
-                visibleEnabled, params);
+            visibleEnabled, params);
 
         if (groupId != null) {
             tbm.appendToGroup(groupId, commandItem);
@@ -73,16 +72,15 @@ public class MenuItemFactory {
     }
 
     private static IContributionItem createCommandContributionItem(final String groupId, final String commandId,
-            final ImageDescriptor imageDescr, final String label, final boolean visibleEnabled,
-            final String[][] params) {
+        final ImageDescriptor imageDescr, final String label, final boolean visibleEnabled, final String[][] params) {
         Map<String, String> paramMap = null;
         if (params != null) {
             paramMap = Stream.of(params).collect(Collectors.toMap(key -> key[0], data -> data[1]));
         }
         final CommandContributionItemParameter parameter = new CommandContributionItemParameter(PlatformUI
-                .getWorkbench()
-                .getActiveWorkbenchWindow(), commandId, commandId, paramMap, imageDescr, null, null, label, null, null,
-                CommandContributionItem.STYLE_PUSH, null, visibleEnabled);
+            .getWorkbench()
+            .getActiveWorkbenchWindow(), commandId, commandId, paramMap, imageDescr, null, null, label, null, null,
+            CommandContributionItem.STYLE_PUSH, null, visibleEnabled);
         return new CommandContributionItem(parameter);
     }
 }

@@ -17,7 +17,7 @@ public class PreferenceToggleAction extends Action {
     private final String preferenceKey;
 
     public PreferenceToggleAction(final String text, final ImageDescriptor imageDescriptor, final String preferenceKey,
-            final boolean defaultPreferenceValue, final IPreferenceStore prefStore) {
+        final boolean defaultPreferenceValue, final IPreferenceStore prefStore) {
         super(text, IAction.AS_CHECK_BOX);
         setImageDescriptor(imageDescriptor);
         this.prefStore = prefStore;

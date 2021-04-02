@@ -20,7 +20,7 @@ public final class AdtObject implements IAdtObject {
     }
 
     public AdtObject(final String name, final IAdtObjectReference reference, final ObjectType objectType,
-            final IProject project) {
+        final IProject project) {
         this.objectType = objectType;
         this.name = name;
         this.project = project;
@@ -74,12 +74,11 @@ public final class AdtObject implements IAdtObject {
         }
         if (reference == null || other.reference == null) {
             return false;
-        } else {
-            if (!StringUtil.isEmpty(reference.getType()) && !StringUtil.isEmpty(reference.getName())) {
-                return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(reference
-                        .getName(), other.reference.getName());
-            }
-            return ObjectUtil.equals(reference.getUri(), other.reference.getUri());
         }
+        if (!StringUtil.isEmpty(reference.getType()) && !StringUtil.isEmpty(reference.getName())) {
+            return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(reference
+                .getName(), other.reference.getName());
+        }
+        return ObjectUtil.equals(reference.getUri(), other.reference.getUri());
     }
 }
