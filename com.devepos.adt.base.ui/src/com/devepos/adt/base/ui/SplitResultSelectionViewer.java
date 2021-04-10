@@ -53,7 +53,7 @@ public class SplitResultSelectionViewer extends DialogResultPart {
             selectedElements.addAll(initialSelections);
         }
 
-        splitter.setWeights(70, 30);
+        splitter.setWeights(new int[] { 70, 30 });
     }
 
     @Override
