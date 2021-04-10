@@ -52,7 +52,8 @@ public class MessageLine extends CLabel {
         }
         if (status.matches(IStatus.WARNING)) {
             return JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_WARNING);
-        } else if (status.matches(IStatus.INFO)) {
+        }
+        if (status.matches(IStatus.INFO)) {
             return JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_INFO);
         }
         return null;

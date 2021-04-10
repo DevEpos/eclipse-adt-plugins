@@ -117,11 +117,10 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
             }
             if (lazyNode.isLoading()) {
                 return new Object[] { LoadingTreeItemsNode.INSTANCE };
-            } else {
-                // start retrieval of the children of the node
-                startChildNodeRetrieval(lazyNode);
-                return new Object[] { LoadingTreeItemsNode.INSTANCE };
             }
+            // start retrieval of the children of the node
+            startChildNodeRetrieval(lazyNode);
+            return new Object[] { LoadingTreeItemsNode.INSTANCE };
         }
         if (parentElement instanceof ICollectionTreeNode) {
             return getChildren((ICollectionTreeNode) parentElement);
