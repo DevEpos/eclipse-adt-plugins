@@ -34,7 +34,7 @@ Automatic-Module-Name: com.devepos.adt.tools.base.ui
 Bundle-ActivationPolicy: lazy
 Export-Package: com.devepos.adt.base.ui;x-friends:="com.devepos.adt.abaptags.backend,com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.action;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.base.ui.adtobject;x-friends:="com.devepos.adt.abaptags.ui",
+ com.devepos.adt.base.ui.adtobject;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.celleditor;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.dialogs;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.elementinfo;x-friends:="com.devepos.adt.searchandanalysistools.ui",
