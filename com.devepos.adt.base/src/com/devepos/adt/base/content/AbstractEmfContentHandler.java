@@ -5,11 +5,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.xml.sax.SAXParseException;
 
 import com.sap.adt.communication.content.ContentHandlerException;
@@ -29,6 +31,7 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
     private static final String SAVING_ERROR = "Error during saving the object"; //$NON-NLS-1$
     private static final String LOADING_ERROR = "Error during loading the object"; //$NON-NLS-1$
     private static final String INVALID_XML_CONTENT = "Invalid XML content - root model entity not found"; //$NON-NLS-1$
+    private static final String OUTDATED_PLUGIN_VERSION = "Potential reason: plug-in is outdated"; //$NON-NLS-1$
     private final String contentType;
     private final String fileExtension;
 
@@ -76,11 +79,13 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
                 try {
                     final Resource resource = createResource();
                     final String escaped = FileUtils.escapeSpecialChars(FileUtils.toString(getInputStream(body)));
-                    resource.load(new ByteArrayInputStream(escaped.getBytes("UTF-8")), null);
+                    resource.load(new ByteArrayInputStream(escaped.getBytes(StandardCharsets.UTF_8.name())), null);
                     return loadEmf(resource);
                 } catch (final IOException e1) {
                     throw new ContentHandlerException(LOADING_ERROR, e1);
                 }
+            } else if (cause instanceof FeatureNotFoundException) {
+                throw new ContentHandlerException(cause.getMessage() + "\n\n" + OUTDATED_PLUGIN_VERSION, e);
             }
             throw new ContentHandlerException(LOADING_ERROR, e);
         } catch (final IOException e) {
@@ -140,7 +145,7 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
      * @return
      */
     protected URI getVirtualResourceUri() {
-        return URI.createURI("resource." + this.fileExtension);
+        return URI.createURI("resource" + this.fileExtension);
     }
 
     private static class MessageBody extends AbstractMessageBody {
