@@ -20,10 +20,11 @@ public interface IUserService {
      * @param title         title for the dialog
      * @param initialUsers  contains list of user id's that should be selected
      *                      initially
+     * @param excludedUsers list of user id's that should not be filtered out
      * @param destinationId the destination of an ABAP project
      * @param multi         if {@code true} multi selection of users is possible
      * @return a list of selected users
      */
     List<String> showUserSelectionDialog(Shell parent, String title, boolean multi, List<String> initialUsers,
-        String destinationId);
+        List<String> excludedUsers, String destinationId);
 }

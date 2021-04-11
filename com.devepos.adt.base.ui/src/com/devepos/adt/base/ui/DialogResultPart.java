@@ -7,9 +7,11 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ContentViewer;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -29,6 +31,7 @@ public abstract class DialogResultPart {
     private IBaseLabelProvider detailsLabelProvider;
     private final List<IPropertyChangeListener> propertyChangeListeners = new ArrayList<>();
     private IBaseLabelProvider resultLabelProvider;
+    private ViewerFilter resultViewerFilter;
 
     /**
      * Adds property change listener to this view part
@@ -49,6 +52,9 @@ public abstract class DialogResultPart {
         final StructuredViewer resultViewer = getResultViewer();
         if (resultViewer != null) {
             resultViewer.setLabelProvider(getResultLabelProvider());
+            if (resultViewerFilter != null) {
+                resultViewer.setFilters(resultViewerFilter);
+            }
         }
         final ContentViewer detailsViewer = getDetailViewer();
         if (detailsViewer != null) {
@@ -82,6 +88,16 @@ public abstract class DialogResultPart {
      * @return the results viewer of the dialog
      */
     public abstract StructuredViewer getResultViewer();
+
+    /**
+     * Returns the selection of the main viewer
+     * 
+     * @return the selection of the main viewer
+     */
+    public IStructuredSelection getSelection() {
+        StructuredViewer resultViewer = getResultViewer();
+        return resultViewer != null ? resultViewer.getStructuredSelection() : StructuredSelection.EMPTY;
+    }
 
     /**
      * Removes property change listener from this view part
@@ -118,6 +134,15 @@ public abstract class DialogResultPart {
      */
     public void setResultLabelProvider(final IBaseLabelProvider labelProvider) {
         resultLabelProvider = labelProvider;
+    }
+
+    /**
+     * Sets a viewer filter for the result viewer
+     * 
+     * @param filter filter instance for the result viewer
+     */
+    public void setResultViewerFilter(ViewerFilter filter) {
+        resultViewerFilter = filter;
     }
 
     /**

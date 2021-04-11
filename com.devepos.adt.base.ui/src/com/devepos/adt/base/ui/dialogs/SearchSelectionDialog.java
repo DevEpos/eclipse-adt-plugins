@@ -170,7 +170,11 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     @Override
     protected Control createContents(final Composite parent) {
         final Control contents = super.createContents(parent);
-        updateButtonsEnableState(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, EMPTY_STRING));
+        if (!getResultViewPart().getSelection().isEmpty()) {
+            updateButtonsEnableState(null);
+        } else {
+            updateButtonsEnableState(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, EMPTY_STRING));
+        }
         if (this.initialFilter != null) {
             this.filterPart.setFilter(this.initialFilter);
         } else {
@@ -283,8 +287,9 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
      *
      * @return the current selection
      */
+    @SuppressWarnings("unchecked")
     protected List<R> getSelectedItems() {
-        final IStructuredSelection selection = this.resultViewPart.getResultViewer().getStructuredSelection();
+        final IStructuredSelection selection = this.resultViewPart.getSelection();
         if (selection == null || selection.isEmpty()) {
             return null;
         }
@@ -506,6 +511,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
         return this.detailsLabelProvider;
     }
 
+    @SuppressWarnings("unchecked")
     private IDialogFilterPart<F> getFilterViewPart() {
         if (this.filterPart == null) {
             this.filterPart = (IDialogFilterPart<F>) new FilterView();
@@ -566,6 +572,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void handleSearchJobDone() {
         final Exception resultException = this.searchJob.getResultException();
         if (resultException != null) {
@@ -672,6 +679,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
             this.result = result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public boolean equals(final Object o) {
             if (this == o) {
@@ -858,6 +866,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
             this.filter = filter;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public boolean equals(final Object obj) {
             if (obj == null || !(obj instanceof SearchSelectionDialog.SearchJob)) {

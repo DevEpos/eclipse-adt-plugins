@@ -42,6 +42,11 @@ public class SplitResultSelectionViewer extends DialogResultPart {
     }
 
     @Override
+    public IStructuredSelection getSelection() {
+        return new StructuredSelection(selectedElements);
+    }
+
+    @Override
     protected void createContent(final Composite parent) {
         splitter = new SashForm(parent, SWT.VERTICAL | SWT.SMOOTH);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(splitter);
@@ -140,7 +145,7 @@ public class SplitResultSelectionViewer extends DialogResultPart {
         }
         fireSelectedElementsChanged();
         selectedResultsViewer.refresh();
-
+        allElementsViewer.refresh();
     }
 
     private void selectElements() {
@@ -153,6 +158,7 @@ public class SplitResultSelectionViewer extends DialogResultPart {
             }
         }
         selectedResultsViewer.refresh();
+        allElementsViewer.refresh();
         if (elementsAdded) {
             fireSelectedElementsChanged();
             if (selectedResultsViewer.getStructuredSelection().isEmpty()) {

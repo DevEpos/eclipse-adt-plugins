@@ -1,5 +1,6 @@
 package com.devepos.adt.base.ui.internal.userinfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -14,6 +15,8 @@ import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
@@ -37,11 +40,14 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     private static final String DIALOG_SETTINGS_NAME = UserNameSelectionDialog.class.getCanonicalName();
     private List<IUser> users;
     private final String destination;
+    private final List<String> excludedUsers;
+    private SplitResultSelectionViewer splitResultViewer;
 
     public UserNameSelectionDialog(final Shell parent, final String title, final boolean multi,
-        final List<String> selectedUsers, final String destination) {
+        final List<String> selectedUsers, final List<String> excludedUsers, final String destination) {
         super(parent, multi);
         this.destination = destination;
+        this.excludedUsers = excludedUsers;
         setTitle(title);
         setFilterLabel(Messages.UserNameSelectionDialog_FilterLabel);
         setInitialJobDelay(0L);
@@ -52,8 +58,9 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
                 .map(id -> UserServiceFactory.createUser(id, null))
                 .collect(Collectors.toList()));
         }
-        final SplitResultSelectionViewer splitResultViewer = new SplitResultSelectionViewer();
+        splitResultViewer = new SplitResultSelectionViewer();
         final IStyledLabelProvider resultLabelProvider = new ResultLabelProvider();
+        splitResultViewer.setResultViewerFilter(new SelectedUsersFilter());
         splitResultViewer.setResultLabelProvider(new DelegatingStyledCellLabelProvider(resultLabelProvider));
         splitResultViewer.setDetailsLabelProvider(new DelegatingStyledCellLabelProvider(resultLabelProvider));
         setResultViewPart(splitResultViewer);
@@ -89,9 +96,43 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
 
         if (users == null) {
             final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destination);
-            users = systemInfo.getUsers(new NullProgressMonitor());
+            users = new ArrayList<>(systemInfo.getUsers(new NullProgressMonitor()));
+            if (excludedUsers != null && !excludedUsers.isEmpty()) {
+                users.removeIf(u -> excludedUsers.contains(u.getId()));
+            }
         }
         return new SearchResultObject(users, true);
+    }
+
+    private class SelectedUsersFilter extends ViewerFilter {
+
+        private List<IUser> selectedUsers = new ArrayList<>();
+
+        private void determineSelectedUsers() {
+            selectedUsers.clear();
+            for (Object selObj : splitResultViewer.getSelection()) {
+                selectedUsers.add((IUser) selObj);
+            }
+        }
+
+        @Override
+        public Object[] filter(Viewer viewer, Object parent, Object[] elements) {
+            determineSelectedUsers();
+            if (selectedUsers == null || selectedUsers.isEmpty()) {
+                return elements;
+            }
+            return super.filter(viewer, parent, elements);
+        }
+
+        @Override
+        public boolean select(Viewer viewer, Object parentElement, Object element) {
+            if (element instanceof IUser) {
+                IUser user = (IUser) element;
+                return !selectedUsers.stream().anyMatch(u -> ((IUser) u).getId().equals(user.getId()));
+            }
+            return true;
+        }
+
     }
 
     private class ResultLabelProvider extends LabelProvider implements

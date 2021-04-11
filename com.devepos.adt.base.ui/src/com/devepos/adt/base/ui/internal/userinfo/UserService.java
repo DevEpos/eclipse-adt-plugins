@@ -20,9 +20,9 @@ public class UserService implements IUserService {
 
     @Override
     public List<String> showUserSelectionDialog(final Shell parent, final String title, final boolean multi,
-        final List<String> initialUsers, final String destinationId) {
+        final List<String> initialUsers, final List<String> excludedUsers, final String destinationId) {
         final UserNameSelectionDialog userDialog = new UserNameSelectionDialog(parent, title, multi, initialUsers,
-            destinationId);
+            excludedUsers, destinationId);
         if (userDialog.open() == Window.OK) {
             if (multi) {
                 return userDialog.getResult().stream().map(IUser::getId).collect(Collectors.toList());
