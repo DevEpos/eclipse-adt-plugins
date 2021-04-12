@@ -91,7 +91,7 @@ public abstract class DialogResultPart {
 
     /**
      * Returns the selection of the main viewer
-     * 
+     *
      * @return the selection of the main viewer
      */
     public IStructuredSelection getSelection() {
@@ -138,10 +138,10 @@ public abstract class DialogResultPart {
 
     /**
      * Sets a viewer filter for the result viewer
-     * 
+     *
      * @param filter filter instance for the result viewer
      */
-    public void setResultViewerFilter(ViewerFilter filter) {
+    public void setResultViewerFilter(final ViewerFilter filter) {
         resultViewerFilter = filter;
     }
 
