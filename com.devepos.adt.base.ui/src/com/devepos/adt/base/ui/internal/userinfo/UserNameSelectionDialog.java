@@ -13,6 +13,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.Viewer;
@@ -110,13 +111,14 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
 
         private void determineSelectedUsers() {
             selectedUsers.clear();
-            for (Object selObj : splitResultViewer.getSelection()) {
+            IStructuredSelection sel = splitResultViewer.getSelection();
+            for (Object selObj : sel.toArray()) {
                 selectedUsers.add((IUser) selObj);
             }
         }
 
         @Override
-        public Object[] filter(Viewer viewer, Object parent, Object[] elements) {
+        public Object[] filter(final Viewer viewer, final Object parent, final Object[] elements) {
             determineSelectedUsers();
             if (selectedUsers == null || selectedUsers.isEmpty()) {
                 return elements;
@@ -125,10 +127,10 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         }
 
         @Override
-        public boolean select(Viewer viewer, Object parentElement, Object element) {
+        public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
             if (element instanceof IUser) {
                 IUser user = (IUser) element;
-                return !selectedUsers.stream().anyMatch(u -> ((IUser) u).getId().equals(user.getId()));
+                return !selectedUsers.stream().anyMatch(u -> u.getId().equals(user.getId()));
             }
             return true;
         }
