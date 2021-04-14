@@ -21,5 +21,44 @@
               type="com.devepos.adt.base.ui.adtobject.IAdtObject">
         </propertyTester>
      </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.devepos.adt.base.ui.internal.search.OpenQueryInSearchDialogHandler"
+            commandId="com.devepos.adt.base.ui.command.openQueryInSearchDialog">
+         <enabledWhen>
+            <with
+                  variable="activePart">
+               <instanceof
+                     value="org.eclipse.search2.internal.ui.SearchView">
+               </instanceof>
+            </with>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="com.devepos.adt.base.ui.commands.category"
+            name="%category.adtbaseui.name">
+      </category>
+      <command
+            categoryId="com.devepos.adt.base.ui.commands.category"
+            id="com.devepos.adt.base.ui.command.openQueryInSearchDialog"
+            name="%command.openQueryInSearchDialog.name">
+      </command>
+      <commandParameterType
+            id="com.devepos.adt.base.ui.commandParameterType1">
+      </commandParameterType>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.devepos.adt.base.ui.command.openQueryInSearchDialog"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+O">
+      </key>
+   </extension>
 
 </plugin>

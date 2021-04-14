@@ -10,6 +10,7 @@ public class Messages extends NLS {
     public static String General_Copy_xtol;
     public static String Actions_OpenWithADTDataPreview_xmit;
     public static String Actions_OpenAdtObject_xmit;
+    public static String Actions_OpenQueryInSearchDialog_xmit;
     public static String Actions_ExecuteAdtObject_xmit;
     public static String Actions_CollapseNode_xtol;
     public static String Actions_CollapseAllNodes_xmit;

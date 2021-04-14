@@ -27,6 +27,7 @@ Require-Bundle: com.devepos.adt.base,
  org.eclipse.jface.databinding,
  org.eclipse.jface.text,
  org.eclipse.ui,
+ org.eclipse.search,
  org.eclipse.ui.ide,
  org.eclipse.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
