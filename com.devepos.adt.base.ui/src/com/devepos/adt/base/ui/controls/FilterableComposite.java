@@ -107,7 +107,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     /**
      * Sets the value for the property {@code isQuickSelection}.<br>
      * If active the first matching element will be selected
-     * 
+     *
      * @param quickSelectionMode if {@code true} the first matching element will be
      *                           automatically selected
      */

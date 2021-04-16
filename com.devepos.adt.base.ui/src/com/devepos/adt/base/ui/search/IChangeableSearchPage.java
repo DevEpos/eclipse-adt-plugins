@@ -5,7 +5,7 @@ import org.eclipse.search.ui.ISearchQuery;
 
 /**
  * {@link ISearchPage} whose values can be changed after it was opened.
- * 
+ *
  * @author stockbal
  *
  */

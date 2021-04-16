@@ -7,7 +7,7 @@ import org.eclipse.search.ui.ISearchPage;
 
 /**
  * Utility for working with {@link ISearchPage}s
- * 
+ *
  * @author stockbal
  *
  */
@@ -16,19 +16,19 @@ public class SearchPageUtil {
 
     /**
      * Adds search page open listener
-     * 
+     *
      * @param l listener to be added
      */
-    public static void addSearchPageOpenListener(ISearchPageListener l) {
+    public static void addSearchPageOpenListener(final ISearchPageListener l) {
         searchPageOpenListeners.add(l);
     }
 
     /**
      * Removes the given listener
-     * 
+     *
      * @param l listener to be removed
      */
-    public static void removeSearchPageOpenListener(ISearchPageListener l) {
+    public static void removeSearchPageOpenListener(final ISearchPageListener l) {
         searchPageOpenListeners.remove(l);
     }
 
@@ -37,10 +37,10 @@ public class SearchPageUtil {
      * {@code searchPage} was opened. <br/>
      * After the listeners have been notified they are removed from the internal
      * registry.
-     * 
+     *
      * @param searchPage the search page that was opened
      */
-    public static void notifySearchPageListeners(ISearchPage searchPage) {
+    public static void notifySearchPageListeners(final ISearchPage searchPage) {
         if (searchPageOpenListeners.isEmpty()) {
             return;
         }

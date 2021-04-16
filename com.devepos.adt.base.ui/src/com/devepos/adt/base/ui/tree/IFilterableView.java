@@ -4,7 +4,7 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * Describes a {@link ViewPart} which holds a viewer that is filterable
- * 
+ *
  * @author stockbal
  *
  */

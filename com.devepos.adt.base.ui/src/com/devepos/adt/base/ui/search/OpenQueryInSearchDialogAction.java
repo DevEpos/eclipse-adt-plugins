@@ -27,7 +27,8 @@ public class OpenQueryInSearchDialogAction extends Action implements ISearchPage
     private String pageId;
 
     public OpenQueryInSearchDialogAction(final String pageId) {
-        super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH));
+        super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(
+            IAdtBaseImages.SEARCH));
         this.pageId = pageId;
     }
 

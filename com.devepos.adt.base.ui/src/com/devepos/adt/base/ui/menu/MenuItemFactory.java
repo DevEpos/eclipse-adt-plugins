@@ -30,8 +30,8 @@ public class MenuItemFactory {
      */
     public static void addCommandItem(final IMenuManager mgr, final String groupId, final String commandId,
         final ImageDescriptor imageDescr, final String label, final String[][] params) {
-        final IContributionItem commandItem = CommandFactory.createContribItem(commandId, imageDescr, label,
-            true, params);
+        final IContributionItem commandItem = CommandFactory.createContribItem(commandId, imageDescr, label, true,
+            params);
         if (groupId != null) {
             mgr.appendToGroup(groupId, commandItem);
         } else {

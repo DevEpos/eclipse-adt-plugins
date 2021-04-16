@@ -6,7 +6,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Utility handling some common workbench stuff
- * 
+ *
  * @author stockbal
  *
  */
@@ -14,10 +14,10 @@ public class WorkbenchUtil {
     /**
      * Brings the given part to the top of the active page, but only if the
      * {@code part} is visible in the active page
-     * 
+     *
      * @param part a workbench part
      */
-    public static void bringPartToFront(IWorkbenchPart part) {
+    public static void bringPartToFront(final IWorkbenchPart part) {
         if (part == null) {
             return;
         }

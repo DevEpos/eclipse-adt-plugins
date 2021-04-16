@@ -2,7 +2,7 @@ package com.devepos.adt.base.ui;
 
 /**
  * Holds constants to defined Contexts in this plugin
- * 
+ *
  * @author stockbal
  *
  */

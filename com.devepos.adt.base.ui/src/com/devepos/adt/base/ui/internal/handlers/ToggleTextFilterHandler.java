@@ -11,14 +11,14 @@ import com.devepos.adt.base.ui.tree.IFilterableView;
 /**
  * Command handler for toggling a text inline filer, i.e. a filter input above a
  * filterable viewer
- * 
+ *
  * @author stockbal
  *
  */
 public class ToggleTextFilterHandler extends AbstractHandler {
 
     @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException {
+    public Object execute(final ExecutionEvent event) throws ExecutionException {
         IWorkbenchPart activePart = HandlerUtil.getActivePart(event);
         if (activePart == null || !(activePart instanceof IFilterableView)) {
             return null;
