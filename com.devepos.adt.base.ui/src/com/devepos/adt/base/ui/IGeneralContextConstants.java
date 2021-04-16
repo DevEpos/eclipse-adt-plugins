@@ -16,4 +16,8 @@ public interface IGeneralContextConstants {
      * Context for Views which allow the filtering of a viewer via a text input
      */
     String FILTERABLE_VIEWS = "com.devepos.adt.base.ui.filterableView";
+    /**
+     * Context for Views which hold a search page from org.eclipse.search.ui
+     */
+    String SEARCH_PAGE_VIEWS = "com.devepos.adt.base.ui.searchPage";
 }

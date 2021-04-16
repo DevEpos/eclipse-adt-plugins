@@ -69,7 +69,7 @@
          point="org.eclipse.ui.bindings">
       <key
             commandId="com.devepos.adt.base.ui.command.openQueryInSearchDialog"
-            contextId="org.eclipse.ui.contexts.window"
+            contextId="com.devepos.adt.base.ui.searchPage"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+O">
       </key>
@@ -85,6 +85,11 @@
       <context
             id="com.devepos.adt.base.ui.filterableView"
             name="%contexts.FilterableView.name"
+            parentId="com.sap.adt.tools.core.ui.abap">
+      </context>
+      <context
+            id="com.devepos.adt.base.ui.searchPage"
+            name="%contexts.SearchPageView.name"
             parentId="com.sap.adt.tools.core.ui.abap">
       </context>
    </extension>

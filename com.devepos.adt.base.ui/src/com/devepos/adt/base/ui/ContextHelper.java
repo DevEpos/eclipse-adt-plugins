@@ -3,9 +3,9 @@ package com.devepos.adt.base.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.services.IServiceLocator;
 
 /**
  * Helper for easy context activation/ deactivation
@@ -19,19 +19,19 @@ public class ContextHelper {
     private Map<String, IContextActivation> activeContextsMap;
     private IContextService contextService;
 
-    private ContextHelper(final IWorkbenchPart part) {
-        contextService = part.getSite().getService(IContextService.class);
+    private ContextHelper(final IServiceLocator locator) {
+        contextService = locator.getService(IContextService.class);
         activeContextsMap = new HashMap<>();
     }
 
     /**
      * Creates new helper for activating/deactivating eclipse contexts.
      *
-     * @param part the part for the {@link IContextService}
+     * @param locator the service locator to retrieve the {@link IContextService}
      * @return the created helper
      */
-    public static ContextHelper createForPart(final IWorkbenchPart part) {
-        ContextHelper helper = new ContextHelper(part);
+    public static ContextHelper createForServiceLocator(final IServiceLocator locator) {
+        ContextHelper helper = new ContextHelper(locator);
         return helper;
     }
 
