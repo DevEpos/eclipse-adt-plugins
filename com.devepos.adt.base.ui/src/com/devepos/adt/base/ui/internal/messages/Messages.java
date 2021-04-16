@@ -12,6 +12,7 @@ public class Messages extends NLS {
     public static String Actions_OpenAdtObject_xmit;
     public static String Actions_OpenQueryInSearchDialog_xmit;
     public static String Actions_ExecuteAdtObject_xmit;
+    public static String Actions_ExpandAll_xmit;
     public static String Actions_CollapseNode_xtol;
     public static String Actions_ToggleViewerTextFilter_xmit;
     public static String Actions_CollapseAllNodes_xmit;
