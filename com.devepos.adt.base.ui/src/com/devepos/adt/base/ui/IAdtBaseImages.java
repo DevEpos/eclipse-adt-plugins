@@ -7,6 +7,10 @@ package com.devepos.adt.base.ui;
  */
 public interface IAdtBaseImages {
     /**
+     * Image for filtering
+     */
+    String FILTER = "IMG_FILTER";
+    /**
      * Image for Arrow Up
      */
     String ARROW_UP = "IMG_ARROW_UP";

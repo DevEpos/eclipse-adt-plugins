@@ -79,7 +79,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         registerImage(imageRegistry, IAdtBaseImages.USER, "icons/User.png");
         registerImage(imageRegistry, IAdtBaseImages.DELETE_OVR, "icons/ovr/Delete.png");
         registerImage(imageRegistry, IAdtBaseImages.VIEW_MENU, "icons/ViewMenu.png");
-
+        registerImage(imageRegistry, IAdtBaseImages.FILTER, "icons/full/elcl16/filter_ps.png", "org.eclipse.search");
         registerDeleteOvr(imageRegistry);
     }
 

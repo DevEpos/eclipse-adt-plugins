@@ -1,4 +1,4 @@
-package com.devepos.adt.base.ui.internal.search;
+package com.devepos.adt.base.ui.internal.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;

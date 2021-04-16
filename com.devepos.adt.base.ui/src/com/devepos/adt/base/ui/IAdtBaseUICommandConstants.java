@@ -16,4 +16,8 @@ public interface IAdtBaseUICommandConstants {
      * Command id for triggering the ADT Where-Used-List
      */
     String WHERE_USED_IN = "com.sap.adt.ris.whereused.ui.callWhereUsed";
+    /**
+     * Command id for toggling the viewer text filter
+     */
+    String TOGGLE_VIEWER_TEXT_FILTER = "com.devepos.adt.base.ui.command.toggleTextFilter";
 }

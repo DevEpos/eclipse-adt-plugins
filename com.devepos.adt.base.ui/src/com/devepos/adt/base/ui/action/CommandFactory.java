@@ -92,6 +92,10 @@ public class CommandFactory {
             label = AdtBaseUIResources.getString(IAdtBaseStrings.General_WhereUsedList_xmit);
             imageDescr = AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST);
             break;
+        case IAdtBaseUICommandConstants.TOGGLE_VIEWER_TEXT_FILTER:
+            label = Messages.Actions_ToggleViewerTextFilter_xmit;
+            imageDescr = AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.FILTER);
+            break;
         default:
             return null;
         }
