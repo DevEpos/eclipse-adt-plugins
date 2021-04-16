@@ -5,7 +5,7 @@ package com.devepos.adt.base.ui;
  *
  * @author stockbal
  */
-public interface IGeneralContextMenuConstants {
+public interface IGeneralMenuConstants {
     /**
      * Pop-up menu: name of group for filtering
      */
