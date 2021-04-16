@@ -26,16 +26,16 @@ public class ExpandAllAction extends Action {
 
     /**
      * Sets the tree viewer of this action
-     * 
+     *
      * @param treeViewer the new tree viewer
      */
-    public void setTreeViewer(TreeViewer treeViewer) {
+    public void setTreeViewer(final TreeViewer treeViewer) {
         this.treeViewer = treeViewer;
     }
 
     @Override
     public void run() {
-        if (treeViewer == null || treeViewer.getControl() == null || !treeViewer.getControl().isDisposed()) {
+        if (treeViewer == null || treeViewer.getControl() == null || treeViewer.getControl().isDisposed()) {
             return;
         }
         treeViewer.getControl().setRedraw(false);
