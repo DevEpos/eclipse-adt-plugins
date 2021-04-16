@@ -26,15 +26,12 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
      * control
      *
      * @param parent             the parent
-     * @param treeStyle          SWT bits used for the tree control
      * @param placeholderText    the placeholder text for the filter input
      * @param hideFilterControls if {@code true} the filter controls are hidden
      *                           initially
      */
-    public FilterableTree(final Composite parent, final int treeStyle, final String placeholderText,
-        final boolean hideFilterControls) {
+    public FilterableTree(final Composite parent, final String placeholderText, final boolean hideFilterControls) {
         super(parent, placeholderText, hideFilterControls);
-        setViewer(new TreeViewer(this, treeStyle));
     }
 
     /**

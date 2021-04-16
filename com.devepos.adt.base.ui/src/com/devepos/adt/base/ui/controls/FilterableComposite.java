@@ -198,6 +198,31 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     }
 
     /**
+     * Sets the viewer of this filterable composite
+     *
+     * @param viewer the viewer
+     */
+    public void setViewer(final V viewer) {
+        if (viewer == null || viewer.getControl().getParent() != this) {
+            throw new IllegalArgumentException(
+                "'viewer' must not be null and has to be instantiated with this composite as a parent"); //$NON-NLS-1$
+        }
+        this.viewer = viewer;
+        viewerControl = getViewerControl();
+        this.viewer.addFilter(patternFilter);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(viewerControl);
+    }
+
+    /**
+     * Returns the current string of the filter control
+     *
+     * @return the current string of the filter control
+     */
+    public String getFilterString() {
+        return filterText != null && !filterText.isDisposed() ? filterText.getText() : null;
+    }
+
+    /**
      * Retrieves the control of the viewer
      *
      * @return the control of the viewer
@@ -222,31 +247,6 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
      * Selects the first item in the viewer
      */
     protected abstract void selectFirstItem();
-
-    /**
-     * Sets the viewer of this filterable composite
-     *
-     * @param viewer the viewer
-     */
-    protected void setViewer(final V viewer) {
-        if (viewer == null || viewer.getControl().getParent() != this) {
-            throw new IllegalArgumentException(
-                "'viewer' must not be null and has to be instantiated with this composite as a parent"); //$NON-NLS-1$
-        }
-        this.viewer = viewer;
-        viewerControl = getViewerControl();
-        this.viewer.addFilter(patternFilter);
-        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(viewerControl);
-    }
-
-    /**
-     * Returns the current string of the filter control
-     *
-     * @return the current string of the filter control
-     */
-    protected String getFilterString() {
-        return filterText != null && !filterText.isDisposed() ? filterText.getText() : null;
-    }
 
     /**
      * Returns {@code true} if the given {@code element} matches the pattern filter
@@ -342,8 +342,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
                 String filterString = getFilterString();
                 patternFilter.setPattern(filterString);
                 viewer.refresh();
-                beforeUpdatingSelection();
                 if (getViewerItemsCount() > 0 && filterString != null && filterString.trim().length() > 0) {
+                    beforeUpdatingSelection();
                     if (isQuickSelection) {
                         updateSelection(false);
                     } else {
