@@ -13,7 +13,7 @@ import org.eclipse.ui.menus.CommandContributionItemParameter;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.IAdtBaseUICommandConstants;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 
 /**
@@ -76,7 +76,7 @@ public class CommandFactory {
      * @param params         an optional two dimensional array of command parameters
      * @return the created command contribution item
      *
-     * @see {@link IAdtBaseUICommandConstants}
+     * @see {@link IGeneralCommandConstants}
      */
     public static IContributionItem createContribItemById(final String commandId, final boolean visibleEnabled,
         final String[][] params) {
@@ -84,15 +84,15 @@ public class CommandFactory {
         ImageDescriptor imageDescr = null;
         String label = null;
         switch (commandId) {
-        case IAdtBaseUICommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG:
+        case IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG:
             label = Messages.Actions_OpenQueryInSearchDialog_xmit;
             imageDescr = AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH);
             break;
-        case IAdtBaseUICommandConstants.WHERE_USED_IN:
+        case IGeneralCommandConstants.WHERE_USED_IN:
             label = AdtBaseUIResources.getString(IAdtBaseStrings.General_WhereUsedList_xmit);
             imageDescr = AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.WHERE_USED_LIST);
             break;
-        case IAdtBaseUICommandConstants.TOGGLE_VIEWER_TEXT_FILTER:
+        case IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER:
             label = Messages.Actions_ToggleViewerTextFilter_xmit;
             imageDescr = AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.FILTER);
             break;

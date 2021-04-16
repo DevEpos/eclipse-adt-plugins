@@ -6,7 +6,7 @@ package com.devepos.adt.base.ui;
  * @author stockbal
  *
  */
-public interface IAdtBaseUICommandConstants {
+public interface IGeneralCommandConstants {
     /**
      * Command id to open the query behind the current search result in the search
      * dialog

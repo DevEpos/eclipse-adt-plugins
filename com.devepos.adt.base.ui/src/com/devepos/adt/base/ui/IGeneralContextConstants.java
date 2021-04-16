@@ -6,7 +6,7 @@ package com.devepos.adt.base.ui;
  * @author stockbal
  *
  */
-public interface IAdtBaseUIContextConstants {
+public interface IGeneralContextConstants {
 
     /**
      * Context id for ABAP Development

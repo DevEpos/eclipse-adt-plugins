@@ -39,7 +39,7 @@ public class ContextHelper {
      * Activates the ABAP context
      */
     public void activateAbapContext() {
-        contextService.activateContext(IAdtBaseUIContextConstants.ABAP);
+        contextService.activateContext(IGeneralContextConstants.ABAP);
     }
 
     /**
