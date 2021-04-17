@@ -1,6 +1,6 @@
 package com.devepos.adt.base.ui.userinfo;
 
-import com.devepos.adt.base.ui.internal.userinfo.UserService;
+import com.devepos.adt.base.ui.internal.userinfo.UserServiceUI;
 import com.sap.adt.tools.core.system.IUser;
 
 /**
@@ -9,15 +9,15 @@ import com.sap.adt.tools.core.system.IUser;
  * @author stockbal
  */
 @SuppressWarnings("restriction")
-public class UserServiceFactory {
+public class UserServiceUIFactory {
 
     /**
      * Creates and returns instance of the User service
      *
      * @return instance of the User service
      */
-    public static IUserService createUserService() {
-        return new UserService();
+    public static IUserServiceUI createUserService() {
+        return new UserServiceUI();
     }
 
     /**

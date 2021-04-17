@@ -204,13 +204,22 @@ public interface IAdtBasePackage extends EPackage {
     int USER__NAME = 0;
 
     /**
+     * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int USER__TEXT = 1;
+
+    /**
      * The number of structural features of the '<em>User</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 1;
+    int USER_FEATURE_COUNT = 2;
 
     /**
      * The number of operations of the '<em>User</em>' class. <!-- begin-user-doc
@@ -364,6 +373,18 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute getUser_Name();
 
     /**
+     * Returns the meta object for the attribute
+     * '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Text</em>'.
+     * @see com.devepos.adt.base.model.adtbase.IUser#getText()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_Text();
+
+    /**
      * Returns the factory that creates the instances of the model. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
@@ -491,6 +512,14 @@ public interface IAdtBasePackage extends EPackage {
          * @generated
          */
         EAttribute USER__NAME = eINSTANCE.getUser_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute USER__TEXT = eINSTANCE.getUser_Text();
 
     }
 

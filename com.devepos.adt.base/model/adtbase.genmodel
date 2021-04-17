@@ -24,6 +24,7 @@
     </genClasses>
     <genClasses ecoreClass="adtbase.ecore#//User">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//User/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//User/text"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

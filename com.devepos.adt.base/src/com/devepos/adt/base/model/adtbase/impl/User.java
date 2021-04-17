@@ -19,6 +19,8 @@ import com.devepos.adt.base.model.adtbase.IUser;
  * <ul>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getName
  * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getText
+ * <em>Text</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,6 +45,26 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
      * @ordered
      */
     protected String name = NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see #getText()
+     * @generated
+     * @ordered
+     */
+    protected static final String TEXT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getText() <em>Text</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see #getText()
+     * @generated
+     * @ordered
+     */
+    protected String text = TEXT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -93,10 +115,36 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
      * @generated
      */
     @Override
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setText(final String newText) {
+        String oldText = text;
+        text = newText;
+        if (eNotificationRequired()) {
+            eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__TEXT, oldText, text));
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
         switch (featureID) {
         case IAdtBasePackage.USER__NAME:
             return getName();
+        case IAdtBasePackage.USER__TEXT:
+            return getText();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -111,6 +159,9 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
         switch (featureID) {
         case IAdtBasePackage.USER__NAME:
             setName((String) newValue);
+            return;
+        case IAdtBasePackage.USER__TEXT:
+            setText((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -127,6 +178,9 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
         case IAdtBasePackage.USER__NAME:
             setName(NAME_EDEFAULT);
             return;
+        case IAdtBasePackage.USER__TEXT:
+            setText(TEXT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -141,6 +195,8 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
         switch (featureID) {
         case IAdtBasePackage.USER__NAME:
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        case IAdtBasePackage.USER__TEXT:
+            return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
         }
         return super.eIsSet(featureID);
     }
@@ -159,6 +215,8 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
         StringBuilder result = new StringBuilder(super.toString());
         result.append(" (name: ");
         result.append(name);
+        result.append(", text: ");
+        result.append(text);
         result.append(')');
         return result.toString();
     }

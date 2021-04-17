@@ -92,8 +92,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         // Obtain or create and register package
         Object registeredAdtBasePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
         AdtBasePackage theAdtBasePackage = registeredAdtBasePackage instanceof AdtBasePackage
-                ? (AdtBasePackage) registeredAdtBasePackage
-                : new AdtBasePackage();
+            ? (AdtBasePackage) registeredAdtBasePackage
+            : new AdtBasePackage();
 
         isInited = true;
 
@@ -240,6 +240,16 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
      * @generated
      */
     @Override
+    public EAttribute getUser_Text() {
+        return (EAttribute) userEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public IAdtBaseFactory getAdtBaseFactory() {
         return (IAdtBaseFactory) getEFactoryInstance();
     }
@@ -279,6 +289,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
         userEClass = createEClass(USER);
         createEAttribute(userEClass, USER__NAME);
+        createEAttribute(userEClass, USER__TEXT);
     }
 
     /**
@@ -308,7 +319,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
         // Obtain other dependent packages
         XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-                XMLTypePackage.eNS_URI);
+            XMLTypePackage.eNS_URI);
 
         // Create type parameters
 
@@ -318,34 +329,36 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
         // Initialize classes, features, and operations; add parameters
         initEClass(adtObjRefEClass, IAdtObjRef.class, "AdtObjRef", !IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
+            IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAdtObjRef_Description(), theXMLTypePackage.getString(), "description", null, 0, 1,
-                IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+            IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+            !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, IAdtObjRef.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_PackageName(), theXMLTypePackage.getString(), "packageName", null, 0, 1,
-                IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+            IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+            !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, IAdtObjRef.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_Uri(), theXMLTypePackage.getAnyURI(), "uri", null, 0, 1, IAdtObjRef.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_Owner(), theXMLTypePackage.getString(), "owner", null, 0, 1, IAdtObjRef.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAdtObjRef_TadirType(), theXMLTypePackage.getString(), "tadirType", null, 0, 1,
-                IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+            IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+            !IS_DERIVED, IS_ORDERED);
 
         initEClass(adtObjRefListEClass, IAdtObjRefList.class, "AdtObjRefList", !IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
+            IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAdtObjRefList_ObjectReferences(), getAdtObjRef(), null, "objectReferences", null, 1, -1,
-                IAdtObjRefList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            IAdtObjRefList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+            !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(userEClass, IUser.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getUser_Name(), ecorePackage.getEString(), "name", null, 0, 1, IUser.class, !IS_TRANSIENT,
-                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUser_Text(), ecorePackage.getEString(), "text", null, 0, 1, IUser.class, !IS_TRANSIENT,
+            !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
@@ -366,25 +379,27 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
         addAnnotation(adtObjRefEClass, source, new String[] { "name", "adtObjRef", "kind", "elementOnly" });
         addAnnotation(getAdtObjRef_Description(), source, new String[] { "kind", "attribute", "name", "description",
-                "namespace", "##targetNamespace" });
+            "namespace", "##targetNamespace" });
         addAnnotation(getAdtObjRef_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-                "##targetNamespace" });
+            "##targetNamespace" });
         addAnnotation(getAdtObjRef_PackageName(), source, new String[] { "kind", "attribute", "name", "packageName",
-                "namespace", "##targetNamespace" });
+            "namespace", "##targetNamespace" });
         addAnnotation(getAdtObjRef_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-                "##targetNamespace" });
+            "##targetNamespace" });
         addAnnotation(getAdtObjRef_Uri(), source, new String[] { "kind", "attribute", "name", "uri", "namespace",
-                "##targetNamespace" });
+            "##targetNamespace" });
         addAnnotation(getAdtObjRef_Owner(), source, new String[] { "kind", "attribute", "name", "owner", "namespace",
-                "##targetNamespace" });
+            "##targetNamespace" });
         addAnnotation(getAdtObjRef_TadirType(), source, new String[] { "kind", "attribute", "name", "tadirType",
-                "namespace", "##targetNamespace" });
+            "namespace", "##targetNamespace" });
         addAnnotation(adtObjRefListEClass, source, new String[] { "name", "adtObjRefs", "kind", "elementOnly" });
         addAnnotation(getAdtObjRefList_ObjectReferences(), source, new String[] { "kind", "element", "name",
-                "adtObjRef", "namespace", "##targetNamespace" });
+            "adtObjRef", "namespace", "##targetNamespace" });
         addAnnotation(userEClass, source, new String[] { "name", "user", "kind", "elementOnly" });
         addAnnotation(getUser_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-                "##targetNamespace" });
+            "##targetNamespace" });
+        addAnnotation(getUser_Text(), source, new String[] { "kind", "attribute", "name", "text", "namespace",
+            "##targetNamespace" });
     }
 
 } // AdtBasePackage

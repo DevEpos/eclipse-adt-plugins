@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
@@ -22,6 +21,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
+import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.system.SystemServiceFactory;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.SplitResultSelectionViewer;
@@ -29,13 +30,14 @@ import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.dialogs.SearchSelectionDialog;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
-import com.devepos.adt.base.ui.userinfo.UserServiceFactory;
 import com.devepos.adt.base.util.StringUtil;
-import com.sap.adt.tools.core.AbapCore;
-import com.sap.adt.tools.core.system.IAbapSystemInfo;
-import com.sap.adt.tools.core.system.IUser;
 
-@SuppressWarnings("restriction")
+/**
+ * Dialog for selecting one or several users
+ * 
+ * @author stockbal
+ *
+ */
 public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String> {
 
     private static final String DIALOG_SETTINGS_NAME = UserNameSelectionDialog.class.getCanonicalName();
@@ -45,7 +47,8 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     private SplitResultSelectionViewer splitResultViewer;
 
     public UserNameSelectionDialog(final Shell parent, final String title, final boolean multi,
-        final List<String> selectedUsers, final List<String> excludedUsers, final String destination) {
+        final List<com.devepos.adt.base.model.adtbase.IUser> selectedUsers, final List<String> excludedUsers,
+        final String destination) {
         super(parent, multi);
         this.destination = destination;
         this.excludedUsers = excludedUsers;
@@ -55,9 +58,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         setJobDelay(0L);
         setInitialDialogSize(360, 630);
         if (selectedUsers != null) {
-            setInitialSelections(selectedUsers.stream()
-                .map(id -> UserServiceFactory.createUser(id, null))
-                .collect(Collectors.toList()));
+            setInitialSelections(selectedUsers);
         }
         splitResultViewer = new SplitResultSelectionViewer();
         final IStyledLabelProvider resultLabelProvider = new ResultLabelProvider();
@@ -78,7 +79,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
             return true;
         }
         final String filterPattern = filter.replace("*", ".*").concat(".*");
-        if (Pattern.matches(filterPattern, result.getId().toLowerCase())) {
+        if (Pattern.matches(filterPattern, result.getName().toLowerCase())) {
             return true;
         }
         final String userName = result.getText();
@@ -96,10 +97,9 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         final IProgressMonitor monitor) throws CoreException {
 
         if (users == null) {
-            final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destination);
-            users = new ArrayList<>(systemInfo.getUsers(new NullProgressMonitor()));
+            users = SystemServiceFactory.createSystemService().getUsers(destination);
             if (excludedUsers != null && !excludedUsers.isEmpty()) {
-                users.removeIf(u -> excludedUsers.contains(u.getId()));
+                users.removeIf(u -> excludedUsers.contains(u.getName()));
             }
         }
         return new SearchResultObject(users, true);
@@ -130,7 +130,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
             if (element instanceof IUser) {
                 IUser user = (IUser) element;
-                return !selectedUsers.stream().anyMatch(u -> u.getId().equals(user.getId()));
+                return !selectedUsers.stream().anyMatch(u -> u.getName().equals(user.getName()));
             }
             return true;
         }
@@ -153,7 +153,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
             final StyledString text = new StyledString();
             if (element instanceof IUser) {
                 final IUser user = (IUser) element;
-                text.append(user.getId());
+                text.append(user.getName());
 
                 final String description = user.getText();
                 if (!StringUtil.isEmpty(description)) {
@@ -168,7 +168,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
         public String getText(final Object element) {
             if (element instanceof IUser) {
                 final IUser user = (IUser) element;
-                return user.getId();
+                return user.getName();
             }
             return super.getText(element);
         }

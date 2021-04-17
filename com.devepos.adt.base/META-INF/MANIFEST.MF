@@ -33,10 +33,7 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.base.ui",
- com.devepos.adt.base.content;
-  x-friends:="com.devepos.adt.abaptags.backend,
-   com.devepos.adt.abaptags.ui,
-   com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.content;x-friends:="com.devepos.adt.abaptags.backend,com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.destinations;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
@@ -60,6 +57,7 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.base.ui",
+ com.devepos.adt.base.system,
  com.devepos.adt.base.util;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.model,
