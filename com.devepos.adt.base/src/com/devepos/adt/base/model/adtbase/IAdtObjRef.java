@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * Base class for ADT object references. It encapsulates the data that clients
  * may want to access without loading the actual resource - e.g. in order to
  * display the name and an icon.
- * 
+ *
  * <!-- end-model-doc -->
  *
  * <p>
@@ -44,9 +44,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The language dependent description text.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Description</em>' attribute.
@@ -74,9 +74,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The logical name of the corresponding development object.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Name</em>' attribute.
@@ -103,9 +103,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Package Name</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The unique package the object is contained in.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Package Name</em>' attribute.
@@ -133,9 +133,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Type</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The type of of the corresponding development object.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Type</em>' attribute.
@@ -162,7 +162,7 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Uri</b></em>' attribute. <!-- begin-user-doc
      * --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The ADT URI of the corresponding <em>AdtObject</em> instance. The value
      * represents a relative path to the resource containing the <em>AdtObject</em>
      * instance and has to be resolved based on the URI of the enclosing resource.
@@ -170,7 +170,7 @@ public interface IAdtObjRef extends EObject {
      * Note: Although the attribute has been defined as optional it is guaranteed
      * that it will always be set for data retrieved from the backend.
      * </p>
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Uri</em>' attribute.
@@ -197,9 +197,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The logical name of the corresponding development object.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Owner</em>' attribute.
@@ -226,9 +226,9 @@ public interface IAdtObjRef extends EObject {
     /**
      * Returns the value of the '<em><b>Tadir Type</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-     * 
+     *
      * The TADIR type of of the corresponding development object.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Tadir Type</em>' attribute.

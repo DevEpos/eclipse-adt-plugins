@@ -34,7 +34,7 @@ public final class DestinationUtil {
 
     /**
      * Retrieves destination data for the given destination id
-     * 
+     *
      * @param destinationId destination id to an ABAP Project
      * @return the destination data
      */
@@ -48,7 +48,7 @@ public final class DestinationUtil {
 
     /**
      * Returns the owner of the destination behind the given ABAP project
-     * 
+     *
      * @param project an ABAP project
      * @return the owner of the destination
      */

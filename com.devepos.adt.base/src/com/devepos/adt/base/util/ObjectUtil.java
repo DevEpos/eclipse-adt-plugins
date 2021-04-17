@@ -20,10 +20,10 @@ public class ObjectUtil {
         }
         if (obj1 == null && obj2 != null) {
             return false;
-        } else if (obj2 == null && obj1 != null) {
-            return false;
-        } else {
-            return obj1.equals(obj2);
         }
+        if (obj2 == null && obj1 != null) {
+            return false;
+        }
+        return obj1.equals(obj2);
     }
 }

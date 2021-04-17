@@ -26,7 +26,7 @@ public class ElementInfoCollection extends ElementInfoBase implements IElementIn
     }
 
     public ElementInfoCollection(final String name, final String displayName, final Image image,
-            final String description) {
+        final String description) {
         super(name, displayName, image, description);
     }
 

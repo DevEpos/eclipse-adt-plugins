@@ -35,14 +35,14 @@ public interface IAdtObjectReferenceElementInfo extends IElementInfoCollection, 
 
     /**
      * Returns the URI of the ADT Object
-     * 
+     *
      * @return the URI of the ADT Object
      */
     String getUri();
 
     /**
      * Returns the ADT Object type of the ADT Object reference
-     * 
+     *
      * @return the ADT Object type of the ADT Object reference
      */
     String getAdtType();

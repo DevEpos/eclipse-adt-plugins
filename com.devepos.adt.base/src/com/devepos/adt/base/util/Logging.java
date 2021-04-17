@@ -61,7 +61,7 @@ public class Logging implements ILogger {
      * @return created Log Entry
      */
     private LogRecord toRecord(final Level level, final Throwable throwable, final String message,
-            final Object... args) {
+        final Object... args) {
         final LogRecord record = new LogRecord(level, message);
         record.setParameters(args);
         record.setThrown(throwable);

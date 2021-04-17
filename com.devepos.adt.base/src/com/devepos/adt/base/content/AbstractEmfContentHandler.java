@@ -84,7 +84,8 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
                 } catch (final IOException e1) {
                     throw new ContentHandlerException(LOADING_ERROR, e1);
                 }
-            } else if (cause instanceof FeatureNotFoundException) {
+            }
+            if (cause instanceof FeatureNotFoundException) {
                 throw new ContentHandlerException(cause.getMessage() + "\n\n" + OUTDATED_PLUGIN_VERSION, e);
             }
             throw new ContentHandlerException(LOADING_ERROR, e);

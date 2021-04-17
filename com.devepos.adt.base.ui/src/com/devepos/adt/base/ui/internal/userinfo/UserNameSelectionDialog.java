@@ -34,7 +34,7 @@ import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Dialog for selecting one or several users
- * 
+ *
  * @author stockbal
  *
  */

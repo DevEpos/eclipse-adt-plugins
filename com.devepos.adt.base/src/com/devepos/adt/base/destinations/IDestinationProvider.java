@@ -22,7 +22,7 @@ public interface IDestinationProvider {
 
     /**
      * Returns the system part from the destination
-     * 
+     *
      * @return
      */
     String getSystemId();

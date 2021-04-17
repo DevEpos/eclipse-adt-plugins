@@ -41,7 +41,7 @@ public interface IModificationListener<T> {
 
     /**
      * Notfies subscriber of modification.
-     * 
+     *
      * @param entry            the entry that has been modified
      * @param modificationKind the type of modification that took place
      */

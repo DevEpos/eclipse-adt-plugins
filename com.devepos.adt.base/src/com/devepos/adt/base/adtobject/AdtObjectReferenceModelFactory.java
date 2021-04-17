@@ -54,7 +54,7 @@ public class AdtObjectReferenceModelFactory {
      */
     public static IAdtObjectReference createReference(final String destinationId, final IAdtObjRef adtObjRef) {
         final IAdtObjectReference objectRef = createReference(destinationId, adtObjRef.getName(), adtObjRef.getType(),
-                adtObjRef.getUri());
+            adtObjRef.getUri());
         objectRef.setPackageName(adtObjRef.getPackageName());
         objectRef.setDescription(adtObjRef.getDescription());
         return objectRef;
@@ -71,7 +71,7 @@ public class AdtObjectReferenceModelFactory {
      * @return
      */
     public static IAdtObjectReference createReference(final String destinationId, final String name, final String type,
-            final String uri) {
+        final String uri) {
         return new AdtObjectRefImpl(destinationId, name, type, uri);
     }
 

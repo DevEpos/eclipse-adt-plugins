@@ -19,13 +19,13 @@ public class AdtObjectReferenceAdapterFactory {
      * @return
      */
     public static IAdtObjectReference adaptToNonEmfAdtObjectRef(
-            final com.sap.adt.tools.core.model.adtcore.IAdtObjectReference adtObjectRef) {
+        final com.sap.adt.tools.core.model.adtcore.IAdtObjectReference adtObjectRef) {
         if (adtObjectRef == null) {
             return null;
         }
         final String uriString = adtObjectRef.getUri();
         final URI refUri = uriString != null ? URI.create(uriString) : null;
         return new AdtObjectReference(refUri, adtObjectRef.getName(), adtObjectRef.getType(), null, adtObjectRef
-                .getPackageName(), adtObjectRef.getDescription());
+            .getPackageName(), adtObjectRef.getDescription());
     }
 }

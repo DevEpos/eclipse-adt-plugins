@@ -216,7 +216,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
         description = newDescription;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__DESCRIPTION,
-                    oldDescription, description));
+                oldDescription, description));
         }
     }
 
@@ -265,7 +265,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
         packageName = newPackageName;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__PACKAGE_NAME,
-                    oldPackageName, packageName));
+                oldPackageName, packageName));
         }
     }
 
@@ -362,7 +362,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
         tadirType = newTadirType;
         if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE, oldTadirType,
-                    tadirType));
+                tadirType));
         }
     }
 

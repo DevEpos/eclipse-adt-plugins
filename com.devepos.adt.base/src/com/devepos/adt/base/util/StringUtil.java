@@ -41,7 +41,7 @@ public class StringUtil {
 
     /**
      * Checks if {@code value} equals {@code value2}
-     * 
+     *
      * @param value  a String value
      * @param value2 another String value
      * @return {@code true} if both strings are equal
@@ -118,20 +118,20 @@ public class StringUtil {
             return "";
         }
         return escapedHtml.replace("&lt;", "<")
-                .replace("&gt;", ">")
-                .replace("&szlig;", "ß")
-                .replace("&amp;", "&")
-                .replace("&quot;", "\"")
-                .replace("&#39;", "'")
-                .replace("&agrave;", "à")
-                .replace("&Agrave;", "À")
-                .replace("&acirc;", "Â")
-                .replace("&auml;", "ä")
-                .replace("&Auml;", "Ä")
-                .replace("&ouml;", "ö")
-                .replace("&Ouml;", "Ö")
-                .replace("&uuml;", "ü")
-                .replace("&Uuml;", "Ü")
-                .replace("&nbsp;", " ");
+            .replace("&gt;", ">")
+            .replace("&szlig;", "ß")
+            .replace("&amp;", "&")
+            .replace("&quot;", "\"")
+            .replace("&#39;", "'")
+            .replace("&agrave;", "à")
+            .replace("&Agrave;", "À")
+            .replace("&acirc;", "Â")
+            .replace("&auml;", "ä")
+            .replace("&Auml;", "Ä")
+            .replace("&ouml;", "ö")
+            .replace("&Ouml;", "Ö")
+            .replace("&uuml;", "ü")
+            .replace("&Uuml;", "Ü")
+            .replace("&nbsp;", " ");
     }
 }

@@ -30,7 +30,7 @@ public interface IAdtObjRefList extends EObject {
      * {@link com.devepos.adt.base.model.adtbase.IAdtObjRef}. <!-- begin-user-doc
      * --> <!-- end-user-doc --> <!-- begin-model-doc --> Alternative root element
      * for a single object reference.
-     * 
+     *
      * <!-- end-model-doc -->
      *
      * @return the value of the '<em>Object References</em>' containment reference

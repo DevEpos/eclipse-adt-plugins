@@ -12,14 +12,14 @@ public interface ILogger {
 
     /**
      * Create error log entry from throwable
-     * 
+     *
      * @param throwable
      */
     void error(Throwable throwable);
 
     /**
      * Create error log entry from throwable
-     * 
+     *
      * @param throwable
      * @param messageText
      * @param args
@@ -28,7 +28,7 @@ public interface ILogger {
 
     /**
      * Create warning log entry from throwable
-     * 
+     *
      * @param throwable
      * @param messageText
      * @param args
@@ -37,7 +37,7 @@ public interface ILogger {
 
     /**
      * Create log entry from the given status
-     * 
+     *
      * @param status
      */
     void log(IStatus status);

@@ -18,8 +18,8 @@ public class ErrorElementInfo extends ElementInfoBase {
      */
     public ErrorElementInfo(final String message, final Throwable exception) {
         super(message != null ? message : "Error during content loading occurred", PlatformUI.getWorkbench()
-                .getSharedImages()
-                .getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+            .getSharedImages()
+            .getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
         this.exception = exception;
     }
 

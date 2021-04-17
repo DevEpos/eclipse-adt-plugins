@@ -115,7 +115,7 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
 
     /**
      * Overlays the given image with the overlayImage
-     * 
+     *
      * @param image              the original image to be overlayed
      * @param newImageId         the id for the overlayed image to be stored in the
      *                           image registry
@@ -124,7 +124,7 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
      * @return
      */
     public Image overlayImage(final Image image, final String newImageId, final Image overlayImage,
-            final int decorationPosition) {
+        final int decorationPosition) {
         if (overlayImage == null || newImageId == null) {
             return image;
         }
@@ -229,7 +229,7 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
      * @param fileName name of the image file to be registered
      */
     protected void registerImage(final ImageRegistry registry, final String imageId, final String fileName,
-            final String pluginId) {
+        final String pluginId) {
         final Bundle bundle = Platform.getBundle(pluginId);
         if (bundle == null) {
             return;

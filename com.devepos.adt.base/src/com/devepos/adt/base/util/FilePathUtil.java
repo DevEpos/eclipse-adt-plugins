@@ -32,7 +32,7 @@ public class FilePathUtil {
 
     /**
      * Returns the file name without the extension suffix
-     * 
+     *
      * @param filePath the file path
      * @return the file name without the extension
      */

@@ -91,7 +91,7 @@ public class AdtStaxContentHandlerUtility {
      * @throws XMLStreamException
      */
     public XMLStreamWriter getXMLStreamWriterAndStartDocument(Charset charset, final String version)
-            throws XMLStreamException {
+        throws XMLStreamException {
         stream = new ByteArrayOutputStream();
 
         charset = checkCharsetNotNull(charset);
@@ -112,7 +112,7 @@ public class AdtStaxContentHandlerUtility {
      * @throws XMLStreamException
      */
     public XMLStreamWriter getXMLStreamWriter(final OutputStream stream, final Charset charset)
-            throws XMLStreamException {
+        throws XMLStreamException {
         final XMLOutputFactory xof = XMLOutputFactory.newInstance();
 
         final XMLStreamWriter xsw = xof.createXMLStreamWriter(stream, charset.name());

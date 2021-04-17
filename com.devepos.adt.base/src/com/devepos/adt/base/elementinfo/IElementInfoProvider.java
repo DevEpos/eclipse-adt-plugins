@@ -19,7 +19,7 @@ public interface IElementInfoProvider {
 
     /**
      * Returns a descriptive text for the element information provider
-     * 
+     *
      * @return
      */
     String getProviderDescription();

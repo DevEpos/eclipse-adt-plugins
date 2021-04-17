@@ -30,7 +30,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
     public static IAdtBaseFactory init() {
         try {
             IAdtBaseFactory theAdtBaseFactory = (IAdtBaseFactory) EPackage.Registry.INSTANCE.getEFactory(
-                    IAdtBasePackage.eNS_URI);
+                IAdtBasePackage.eNS_URI);
             if (theAdtBaseFactory != null) {
                 return theAdtBaseFactory;
             }

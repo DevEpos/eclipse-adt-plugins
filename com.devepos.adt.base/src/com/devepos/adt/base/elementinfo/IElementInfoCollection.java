@@ -16,7 +16,7 @@ public interface IElementInfoCollection extends IElementInfo {
 
     /**
      * Returns the size of this element collection
-     * 
+     *
      * @return the size of this element collection
      */
     int size();

@@ -69,7 +69,7 @@ public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtO
     public EList<IAdtObjRef> getObjectReferences() {
         if (objectReferences == null) {
             objectReferences = new EObjectContainmentEList<>(IAdtObjRef.class, this,
-                    IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
+                IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
         }
         return objectReferences;
     }
@@ -81,7 +81,7 @@ public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtO
      */
     @Override
     public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
+        final NotificationChain msgs) {
         switch (featureID) {
         case IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES:
             return ((InternalEList<?>) getObjectReferences()).basicRemove(otherEnd, msgs);

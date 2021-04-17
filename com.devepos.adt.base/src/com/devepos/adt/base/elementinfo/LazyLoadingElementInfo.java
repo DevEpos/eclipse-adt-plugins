@@ -18,7 +18,7 @@ public class LazyLoadingElementInfo extends ElementInfoBase implements ILazyLoad
     }
 
     public LazyLoadingElementInfo(final String name, final String displayName, final Image image,
-            final IElementInfoProvider provider) {
+        final IElementInfoProvider provider) {
         super(name, displayName, image, null);
         this.provider = provider;
     }
