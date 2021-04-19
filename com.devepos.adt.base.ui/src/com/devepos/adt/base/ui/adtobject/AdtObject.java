@@ -1,11 +1,12 @@
 package com.devepos.adt.base.ui.adtobject;
 
+import java.util.Objects;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
-import com.devepos.adt.base.util.ObjectUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -79,6 +80,6 @@ public final class AdtObject implements IAdtObject {
             return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(reference
                 .getName(), other.reference.getName());
         }
-        return ObjectUtil.equals(reference.getUri(), other.reference.getUri());
+        return Objects.equals(reference.getUri(), other.reference.getUri());
     }
 }
