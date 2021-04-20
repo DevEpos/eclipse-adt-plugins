@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:help?after=com.sap.ide.support.ui.createSupportInfo">
+         <separator
+               name="com.devepos.adt.pdt.ui.sep1"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.devepos.adt.pdt.ui.clearDiscoveryCache"
+               icon="icons/ClearAdtCache.png"
+               label="%command.clearDiscoveryCache.name"
+               mnemonic="l"
+               style="push">
+         </command>
+         <separator
+               name="com.devepos.adt.pdt.ui.sep2"
+               visible="true">
+         </separator>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.devepos.adt.pdt.ui.internal.handler.ClearAdtDiscoveryCacheHandler"
+            commandId="com.devepos.adt.pdt.ui.clearDiscoveryCache">
+         <enabledWhen>
+            <reference
+                  definitionId="com.sap.adt.tools.core.ui.toolsActive">
+            </reference>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="com.devepos.adt.pdt.ui"
+            name="%category.name">
+      </category>
+      <command
+            categoryId="com.devepos.adt.pdt.ui"
+            id="com.devepos.adt.pdt.ui.clearDiscoveryCache"
+            name="%command.clearDiscoveryCache.name">
+         </command>
+   </extension>
+
+</plugin>
