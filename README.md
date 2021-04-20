@@ -1,10 +1,10 @@
 # abap-adt-tools-base
-ADT Base Plugin for Custom ADT Plugin Development
+Base Plugins for Custom ADT Plugin Development
 
 ## Update Sites
 
-- [Stable Releases](https://raw.githubusercontent.com/stockbal/EclipseReleaseUpdateSite/master)  
-- [Beta Releases](https://raw.githubusercontent.com/stockbal/EclipseDevUpdateSite/master)
+- [Stable Releases](https://eclipse.devepos.com/latest)  
+- [Beta Releases](https://eclipse.devepos.com/dev)
 
 ## Preconditions
 
