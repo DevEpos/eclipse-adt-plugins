@@ -1,4 +1,4 @@
-# Jave related
+# Java related
 target/**
 *.jar
 *.war
@@ -8,6 +8,7 @@ target/**
 # eclipse specific
 *.pydevproject
 .project
+/**/.project
 .metadata
 bin/**
 tmp/**
@@ -26,5 +27,5 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
-/target/
-/bin/
+/**/target/
+/**/bin/
