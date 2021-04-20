@@ -1,4 +1,4 @@
-# abap-adt-tools-base
+# adt-addons-base
 Base Plugins for Custom ADT Plugin Development
 
 ## Update Sites
