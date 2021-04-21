@@ -3,7 +3,8 @@
       id="com.devepos.adt.pdt"
       label="ADT Plugin Development Tools"
       version="1.0.0.qualifier"
-      provider-name="devepos">
+      provider-name="devepos"
+      plugin="com.devepos.adt.branding">
 
    <description>
       Utilities for ABAP Development Tools
@@ -36,6 +37,13 @@ SOFTWARE.
 
    <plugin
          id="com.devepos.adt.pdt.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.devepos.adt.branding"
          download-size="0"
          install-size="0"
          version="0.0.0"
