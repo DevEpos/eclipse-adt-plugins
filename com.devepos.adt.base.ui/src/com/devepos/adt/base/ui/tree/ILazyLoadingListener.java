@@ -7,10 +7,10 @@ package com.devepos.adt.base.ui.tree;
  * @author stockbal
  */
 public interface ILazyLoadingListener {
-    /**
-     * Will be called after the content of the lazy loading object was loaded
-     *
-     * @param childCount
-     */
-    void loadingFinished(int childCount);
+  /**
+   * Will be called after the content of the lazy loading object was loaded
+   *
+   * @param childCount
+   */
+  void loadingFinished(int childCount);
 }

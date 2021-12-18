@@ -9,18 +9,18 @@ import java.util.List;
  */
 public interface IElementInfoProvider {
 
-    /**
-     * Reads the elements considering the retrieval rules of this element
-     * information provider
-     *
-     * @return
-     */
-    List<IElementInfo> getElements();
+  /**
+   * Reads the elements considering the retrieval rules of this element
+   * information provider
+   *
+   * @return
+   */
+  List<IElementInfo> getElements();
 
-    /**
-     * Returns a descriptive text for the element information provider
-     *
-     * @return
-     */
-    String getProviderDescription();
+  /**
+   * Returns a descriptive text for the element information provider
+   *
+   * @return
+   */
+  String getProviderDescription();
 }

@@ -18,31 +18,31 @@ import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
  */
 public class AdtBaseXMLProcessor extends XMLProcessor {
 
-    /**
-     * Public constructor to instantiate the helper. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @generated
-     */
-    public AdtBaseXMLProcessor() {
-        super(EPackage.Registry.INSTANCE);
-        IAdtBasePackage.eINSTANCE.eClass();
-    }
+  /**
+   * Public constructor to instantiate the helper. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @generated
+   */
+  public AdtBaseXMLProcessor() {
+    super(EPackage.Registry.INSTANCE);
+    IAdtBasePackage.eINSTANCE.eClass();
+  }
 
-    /**
-     * Register for "*" and "xml" file extensions the AdtBaseResourceFactory
-     * factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    protected Map<String, Resource.Factory> getRegistrations() {
-        if (registrations == null) {
-            super.getRegistrations();
-            registrations.put(XML_EXTENSION, new AdtBaseResourceFactory());
-            registrations.put(STAR_EXTENSION, new AdtBaseResourceFactory());
-        }
-        return registrations;
+  /**
+   * Register for "*" and "xml" file extensions the AdtBaseResourceFactory
+   * factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected Map<String, Resource.Factory> getRegistrations() {
+    if (registrations == null) {
+      super.getRegistrations();
+      registrations.put(XML_EXTENSION, new AdtBaseResourceFactory());
+      registrations.put(STAR_EXTENSION, new AdtBaseResourceFactory());
     }
+    return registrations;
+  }
 
 } // AdtBaseXMLProcessor

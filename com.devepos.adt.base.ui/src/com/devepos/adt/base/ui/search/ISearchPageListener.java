@@ -11,10 +11,10 @@ import org.eclipse.search.ui.ISearchPage;
  */
 public interface ISearchPageListener {
 
-    /**
-     * Notification that the search page was opened
-     *
-     * @param searchPage the current page
-     */
-    void pageOpened(ISearchPage searchPage);
+  /**
+   * Notification that the search page was opened
+   *
+   * @param searchPage the current page
+   */
+  void pageOpened(ISearchPage searchPage);
 }

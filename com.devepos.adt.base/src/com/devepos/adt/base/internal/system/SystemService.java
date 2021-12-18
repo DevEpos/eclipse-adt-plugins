@@ -20,20 +20,21 @@ import com.sap.adt.tools.core.system.IAbapSystemInfo;
 @SuppressWarnings("restriction")
 public class SystemService implements ISystemService {
 
-    @Override
-    public List<IUser> getUsers(final String destinationId) {
-        if (destinationId == null) {
-            return null;
-        }
-        final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destinationId);
-        List<IUser> users = new ArrayList<>();
-        for (com.sap.adt.tools.core.system.IUser adtUser : systemInfo.getUsers(new NullProgressMonitor())) {
-            IUser user = IAdtBaseFactory.eINSTANCE.createUser();
-            user.setName(adtUser.getId());
-            user.setText(adtUser.getText());
-            users.add(user);
-        }
-        return users;
+  @Override
+  public List<IUser> getUsers(final String destinationId) {
+    if (destinationId == null) {
+      return null;
     }
+    final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destinationId);
+    List<IUser> users = new ArrayList<>();
+    for (com.sap.adt.tools.core.system.IUser adtUser : systemInfo.getUsers(
+        new NullProgressMonitor())) {
+      IUser user = IAdtBaseFactory.eINSTANCE.createUser();
+      user.setName(adtUser.getId());
+      user.setText(adtUser.getText());
+      users.add(user);
+    }
+    return users;
+  }
 
 }

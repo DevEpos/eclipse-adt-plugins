@@ -23,38 +23,35 @@ import com.devepos.adt.base.util.StringUtil;
  */
 public class OpenQueryInSearchDialogAction extends Action implements ISearchPageListener {
 
-    private ISearchResultPageExtension<?> resultPageExt;
-    private String pageId;
+  private ISearchResultPageExtension<?> resultPageExt;
+  private String pageId;
 
-    public OpenQueryInSearchDialogAction(final String pageId) {
-        super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(
-            IAdtBaseImages.SEARCH));
-        this.pageId = pageId;
-    }
+  public OpenQueryInSearchDialogAction(final String pageId) {
+    super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(
+        IAdtBaseImages.SEARCH));
+    this.pageId = pageId;
+  }
 
-    @Override
-    public void run() {
-        if (StringUtil.isEmpty(pageId)) {
-            return;
-        }
-        ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
-        if (resultViewPart == null) {
-            return;
-        }
-        if (!(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
-            return;
-        }
-        resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();
-        final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        SearchPageUtil.addSearchPageOpenListener(this);
-        NewSearchUI.openSearchDialog(window, pageId);
+  @Override
+  public void run() {
+    if (StringUtil.isEmpty(pageId)) {
+      return;
     }
+    ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
+    if ((resultViewPart == null) || !(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
+      return;
+    }
+    resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();
+    final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+    SearchPageUtil.addSearchPageOpenListener(this);
+    NewSearchUI.openSearchDialog(window, pageId);
+  }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public void pageOpened(final ISearchPage searchPage) {
-        if (searchPage instanceof IChangeableSearchPage) {
-            ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
-        }
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void pageOpened(final ISearchPage searchPage) {
+    if (searchPage instanceof IChangeableSearchPage) {
+      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
     }
+  }
 }

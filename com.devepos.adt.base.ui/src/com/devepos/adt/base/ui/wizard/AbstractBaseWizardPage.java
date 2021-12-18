@@ -9,20 +9,20 @@ import org.eclipse.jface.wizard.WizardPage;
  * @author stockbal
  */
 public abstract class AbstractBaseWizardPage extends WizardPage implements IBaseWizardPage {
-    private boolean isDirty = true;
+  private boolean isDirty = true;
 
-    protected AbstractBaseWizardPage(final String pageName) {
-        super(pageName);
-    }
+  protected AbstractBaseWizardPage(final String pageName) {
+    super(pageName);
+  }
 
-    @Override
-    public boolean isDirty() {
-        return isDirty;
-    }
+  @Override
+  public boolean isDirty() {
+    return isDirty;
+  }
 
-    @Override
-    public void setDirty(final boolean isDirty) {
-        this.isDirty = isDirty;
-    }
+  @Override
+  public void setDirty(final boolean isDirty) {
+    this.isDirty = isDirty;
+  }
 
 }

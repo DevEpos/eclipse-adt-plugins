@@ -9,8 +9,8 @@ import org.eclipse.jface.viewers.StyledString;
  */
 public interface IStyledTreeNode {
 
-    /**
-     * @return a styled String
-     */
-    StyledString getStyledText();
+  /**
+   * @return a styled String
+   */
+  StyledString getStyledText();
 }

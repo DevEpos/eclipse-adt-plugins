@@ -21,107 +21,107 @@ import org.eclipse.swt.widgets.Control;
  */
 public class LabelViewer extends ContentViewer {
 
-    private final CLabel label;
+  private final CLabel label;
 
-    /**
-     * Unfortunately, it was impossible to delegate displaying border to label. The
-     * <code>ViewForm</code> is used because <code>CLabel</code> displays shadow
-     * when border is present.
-     */
-    private final ViewForm viewForm;
+  /**
+   * Unfortunately, it was impossible to delegate displaying border to label. The
+   * <code>ViewForm</code> is used because <code>CLabel</code> displays shadow
+   * when border is present.
+   */
+  private final ViewForm viewForm;
 
-    /**
-     * Constructs a new instance of this class given its parent and a style value
-     * describing its behavior and appearance.
-     *
-     * @param parent the parent component
-     * @param style  SWT style bits
-     */
-    public LabelViewer(final Composite parent, final int style) {
-        viewForm = new ViewForm(parent, style);
+  /**
+   * Constructs a new instance of this class given its parent and a style value
+   * describing its behavior and appearance.
+   *
+   * @param parent the parent component
+   * @param style  SWT style bits
+   */
+  public LabelViewer(final Composite parent, final int style) {
+    viewForm = new ViewForm(parent, style);
 
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(viewForm);
-        label = new CLabel(viewForm, SWT.FLAT);
-        label.setFont(parent.getFont());
-        viewForm.setContent(label);
-        hookControl(viewForm);
-        setContentProvider(new IContentProvider() {
-            // intentionally left empty
-        });
+    GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(viewForm);
+    label = new CLabel(viewForm, SWT.FLAT);
+    label.setFont(parent.getFont());
+    viewForm.setContent(label);
+    hookControl(viewForm);
+    setContentProvider(new IContentProvider() {
+      // intentionally left empty
+    });
+  }
+
+  @Override
+  protected void inputChanged(final Object input, final Object oldInput) {
+    if (oldInput == null && input == null) {
+      return;
     }
+    refresh();
+  }
 
-    @Override
-    protected void inputChanged(final Object input, final Object oldInput) {
-        if (oldInput == null && input == null) {
-            return;
-        }
+  @Override
+  protected void handleLabelProviderChanged(final LabelProviderChangedEvent event) {
+    if (event != null) {
+      refresh(event.getElements());
+    }
+  }
+
+  @Override
+  public Control getControl() {
+    return viewForm;
+  }
+
+  @Override
+  public ISelection getSelection() {
+    // not supported
+    return null;
+  }
+
+  @Override
+  public void refresh() {
+    final Object input = getInput();
+    if (input != null) {
+      final ILabelProvider labelProvider = (ILabelProvider) getLabelProvider();
+      doRefresh(labelProvider.getText(input), labelProvider.getImage(input));
+    } else {
+      doRefresh(null, null);
+    }
+  }
+
+  /**
+   * Sets the given text and image to the label.
+   *
+   * @param text  the new text or null
+   * @param image the new image
+   */
+  private void doRefresh(String text, final Image image) {
+    if (text != null) {
+      text = LegacyActionTools.escapeMnemonics(text);
+    }
+    label.setText(text);
+    label.setImage(image);
+  }
+
+  @Override
+  public void setSelection(final ISelection selection, final boolean reveal) {
+    // not supported
+  }
+
+  /**
+   * Refreshes the label if currently chosen element is on the list.
+   *
+   * @param objs list of changed object
+   */
+  private void refresh(final Object[] objs) {
+    if (objs == null || getInput() == null) {
+      return;
+    }
+    final Object input = getInput();
+    for (final Object obj : objs) {
+      if (obj.equals(input)) {
         refresh();
+        break;
+      }
     }
-
-    @Override
-    protected void handleLabelProviderChanged(final LabelProviderChangedEvent event) {
-        if (event != null) {
-            refresh(event.getElements());
-        }
-    }
-
-    @Override
-    public Control getControl() {
-        return viewForm;
-    }
-
-    @Override
-    public ISelection getSelection() {
-        // not supported
-        return null;
-    }
-
-    @Override
-    public void refresh() {
-        final Object input = getInput();
-        if (input != null) {
-            final ILabelProvider labelProvider = (ILabelProvider) getLabelProvider();
-            doRefresh(labelProvider.getText(input), labelProvider.getImage(input));
-        } else {
-            doRefresh(null, null);
-        }
-    }
-
-    /**
-     * Sets the given text and image to the label.
-     *
-     * @param text  the new text or null
-     * @param image the new image
-     */
-    private void doRefresh(String text, final Image image) {
-        if (text != null) {
-            text = LegacyActionTools.escapeMnemonics(text);
-        }
-        label.setText(text);
-        label.setImage(image);
-    }
-
-    @Override
-    public void setSelection(final ISelection selection, final boolean reveal) {
-        // not supported
-    }
-
-    /**
-     * Refreshes the label if currently chosen element is on the list.
-     *
-     * @param objs list of changed object
-     */
-    private void refresh(final Object[] objs) {
-        if (objs == null || getInput() == null) {
-            return;
-        }
-        final Object input = getInput();
-        for (final Object obj : objs) {
-            if (obj.equals(input)) {
-                refresh();
-                break;
-            }
-        }
-    }
+  }
 
 }

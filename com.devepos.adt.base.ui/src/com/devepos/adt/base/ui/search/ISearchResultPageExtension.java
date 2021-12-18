@@ -15,19 +15,19 @@ import org.eclipse.search.ui.ISearchResultPage;
  */
 public interface ISearchResultPageExtension<Q extends ISearchQuery> {
 
-    /**
-     * Returns the query which was used to fill the {@link ISearchResult} of the
-     * page
-     *
-     * @return the query which was used to fill the {@link ISearchResult} of the
-     *         page
-     */
-    Q getSearchQuery();
+  /**
+   * Returns the query which was used to fill the {@link ISearchResult} of the
+   * page
+   *
+   * @return the query which was used to fill the {@link ISearchResult} of the
+   *         page
+   */
+  Q getSearchQuery();
 
-    /**
-     * Returns the Id for the corresponding {@link ISearchPage} in the search dialog
-     *
-     * @return id of search page
-     */
-    String getSearchPageId();
+  /**
+   * Returns the Id for the corresponding {@link ISearchPage} in the search dialog
+   *
+   * @return id of search page
+   */
+  String getSearchPageId();
 }

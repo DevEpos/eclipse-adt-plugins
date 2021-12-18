@@ -25,34 +25,32 @@ import com.devepos.adt.base.ui.search.SearchPageUtil;
  * @author stockbal
  *
  */
-public class OpenQueryInSearchDialogHandler extends AbstractHandler implements IHandler, ISearchPageListener {
-    public static final String PAGE_ID_PARAM = "com.devepos.adt.base.ui.command.openQueryInSearchDialog.pageId"; //$NON-NLS-1$
+public class OpenQueryInSearchDialogHandler extends AbstractHandler implements IHandler,
+    ISearchPageListener {
+  public static final String PAGE_ID_PARAM = "com.devepos.adt.base.ui.command.openQueryInSearchDialog.pageId"; //$NON-NLS-1$
 
-    private ISearchResultPageExtension<?> resultPageExt;
+  private ISearchResultPageExtension<?> resultPageExt;
 
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
-        ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
-        if (resultViewPart == null) {
-            return null;
-        }
-        if (!(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
-            return null;
-        }
-        resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();
-        final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        SearchPageUtil.addSearchPageOpenListener(this);
-        NewSearchUI.openSearchDialog(window, resultPageExt.getSearchPageId());
-
-        return null;
+  @Override
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
+    ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
+    if ((resultViewPart == null) || !(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
+      return null;
     }
+    resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();
+    final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+    SearchPageUtil.addSearchPageOpenListener(this);
+    NewSearchUI.openSearchDialog(window, resultPageExt.getSearchPageId());
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public void pageOpened(final ISearchPage searchPage) {
-        if (searchPage instanceof IChangeableSearchPage) {
-            ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
-        }
+    return null;
+  }
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void pageOpened(final ISearchPage searchPage) {
+    if (searchPage instanceof IChangeableSearchPage) {
+      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
     }
+  }
 
 }

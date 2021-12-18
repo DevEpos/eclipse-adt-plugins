@@ -17,14 +17,14 @@ import com.devepos.adt.base.ui.tree.IFilterableView;
  */
 public class ToggleTextFilterHandler extends AbstractHandler {
 
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
-        IWorkbenchPart activePart = HandlerUtil.getActivePart(event);
-        if (activePart == null || !(activePart instanceof IFilterableView)) {
-            return null;
-        }
-        ((IFilterableView) activePart).toggleInlineFilter();
-        return null;
+  @Override
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
+    IWorkbenchPart activePart = HandlerUtil.getActivePart(event);
+    if (activePart == null || !(activePart instanceof IFilterableView)) {
+      return null;
     }
+    ((IFilterableView) activePart).toggleInlineFilter();
+    return null;
+  }
 
 }

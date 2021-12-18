@@ -10,10 +10,10 @@ import org.eclipse.search.ui.ISearchQuery;
  *
  */
 public interface IChangeableSearchPage<Q extends ISearchQuery> {
-    /**
-     * Sets control input from the given {@link ISearchQuery}.
-     *
-     * @param query a search query
-     */
-    void setInputFromSearchQuery(final Q query);
+  /**
+   * Sets control input from the given {@link ISearchQuery}.
+   *
+   * @param query a search query
+   */
+  void setInputFromSearchQuery(final Q query);
 }

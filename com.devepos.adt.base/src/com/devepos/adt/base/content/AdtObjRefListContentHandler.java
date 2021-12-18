@@ -14,23 +14,23 @@ import com.sap.adt.communication.content.AdtMediaType;
  */
 public class AdtObjRefListContentHandler extends AbstractEmfContentHandler<IAdtObjRefList> {
 
-    public AdtObjRefListContentHandler() {
-        super(AdtMediaType.APPLICATION_XML, ".adtobjreflist");
-    }
+  public AdtObjRefListContentHandler() {
+    super(AdtMediaType.APPLICATION_XML, ".adtobjreflist");
+  }
 
-    @Override
-    public Class<IAdtObjRefList> getSupportedDataType() {
-        return IAdtObjRefList.class;
-    }
+  @Override
+  public Class<IAdtObjRefList> getSupportedDataType() {
+    return IAdtObjRefList.class;
+  }
 
-    @Override
-    protected Resource createResource() {
-        return new AdtBaseResourceFactory().createResource(getVirtualResourceUri());
-    }
+  @Override
+  protected Resource createResource() {
+    return new AdtBaseResourceFactory().createResource(getVirtualResourceUri());
+  }
 
-    @Override
-    protected IAdtObjRefList getRootElement(final EObject root) {
-        return (IAdtObjRefList) root;
-    }
+  @Override
+  protected IAdtObjRefList getRootElement(final EObject root) {
+    return (IAdtObjRefList) root;
+  }
 
 }

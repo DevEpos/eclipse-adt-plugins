@@ -11,27 +11,27 @@ import org.eclipse.swt.widgets.Control;
  * This uses a label provider to display a dialog cell editor.
  */
 public abstract class ExtendedDialogCellEditor extends DialogCellEditor {
-    private Button button;
+  private Button button;
 
-    public ExtendedDialogCellEditor(final Composite composite) {
-        super(composite);
-    }
+  public ExtendedDialogCellEditor(final Composite composite) {
+    super(composite);
+  }
 
-    @Override
-    protected Control createContents(final Composite cell) {
-        final Control control = super.createContents(cell);
-        control.addMouseListener(MouseListener.mouseUpAdapter(e -> {
-            if (button != null) {
-                button.notifyListeners(SWT.Selection, null);
-            }
-        }));
-        return control;
-    }
+  @Override
+  protected Control createContents(final Composite cell) {
+    final Control control = super.createContents(cell);
+    control.addMouseListener(MouseListener.mouseUpAdapter(e -> {
+      if (button != null) {
+        button.notifyListeners(SWT.Selection, null);
+      }
+    }));
+    return control;
+  }
 
-    @Override
-    protected Button createButton(final Composite parent) {
-        button = super.createButton(parent);
-        return button;
-    }
+  @Override
+  protected Button createButton(final Composite parent) {
+    button = super.createButton(parent);
+    return button;
+  }
 
 }

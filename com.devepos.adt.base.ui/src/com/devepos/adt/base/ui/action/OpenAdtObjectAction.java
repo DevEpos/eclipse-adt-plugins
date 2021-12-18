@@ -15,20 +15,21 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author stockbal
  */
 public class OpenAdtObjectAction extends Action {
-    private final List<IAdtObjectReference> adtObjectReferences;
-    private final IProject project;
+  private final List<IAdtObjectReference> adtObjectReferences;
+  private final IProject project;
 
-    public OpenAdtObjectAction(final IProject project, final List<IAdtObjectReference> adtObjectReferences) {
-        super(Messages.Actions_OpenAdtObject_xmit);
-        this.adtObjectReferences = adtObjectReferences;
-        this.project = project;
-    }
+  public OpenAdtObjectAction(final IProject project,
+      final List<IAdtObjectReference> adtObjectReferences) {
+    super(Messages.Actions_OpenAdtObject_xmit);
+    this.adtObjectReferences = adtObjectReferences;
+    this.project = project;
+  }
 
-    @Override
-    public void run() {
-        for (final IAdtObjectReference objectRef : adtObjectReferences) {
-            AdtUIUtil.navigateWithObjectReference(objectRef, project);
-        }
+  @Override
+  public void run() {
+    for (final IAdtObjectReference objectRef : adtObjectReferences) {
+      AdtUIUtil.navigateWithObjectReference(objectRef, project);
     }
+  }
 
 }

@@ -10,12 +10,12 @@ import com.devepos.adt.base.internal.system.SystemService;
  */
 public class SystemServiceFactory {
 
-    /**
-     * Creates new instance of {@link ISystemService}
-     *
-     * @return new instance of {@link ISystemService}
-     */
-    public static ISystemService createSystemService() {
-        return new SystemService();
-    }
+  /**
+   * Creates new instance of {@link ISystemService}
+   *
+   * @return new instance of {@link ISystemService}
+   */
+  public static ISystemService createSystemService() {
+    return new SystemService();
+  }
 }

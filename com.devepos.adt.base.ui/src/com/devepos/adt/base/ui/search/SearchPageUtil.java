@@ -12,43 +12,43 @@ import org.eclipse.search.ui.ISearchPage;
  *
  */
 public class SearchPageUtil {
-    private static final List<ISearchPageListener> searchPageOpenListeners = new ArrayList<>();
+  private static final List<ISearchPageListener> searchPageOpenListeners = new ArrayList<>();
 
-    /**
-     * Adds search page open listener
-     *
-     * @param l listener to be added
-     */
-    public static void addSearchPageOpenListener(final ISearchPageListener l) {
-        searchPageOpenListeners.add(l);
-    }
+  /**
+   * Adds search page open listener
+   *
+   * @param l listener to be added
+   */
+  public static void addSearchPageOpenListener(final ISearchPageListener l) {
+    searchPageOpenListeners.add(l);
+  }
 
-    /**
-     * Removes the given listener
-     *
-     * @param l listener to be removed
-     */
-    public static void removeSearchPageOpenListener(final ISearchPageListener l) {
-        searchPageOpenListeners.remove(l);
-    }
+  /**
+   * Removes the given listener
+   *
+   * @param l listener to be removed
+   */
+  public static void removeSearchPageOpenListener(final ISearchPageListener l) {
+    searchPageOpenListeners.remove(l);
+  }
 
-    /**
-     * Notifies the current list of {@link ISearchPageListener}s that the given
-     * {@code searchPage} was opened. <br/>
-     * After the listeners have been notified they are removed from the internal
-     * registry.
-     *
-     * @param searchPage the search page that was opened
-     */
-    public static void notifySearchPageListeners(final ISearchPage searchPage) {
-        if (searchPageOpenListeners.isEmpty()) {
-            return;
-        }
-        ISearchPageListener[] copiedListeners = searchPageOpenListeners.toArray(
-            new ISearchPageListener[searchPageOpenListeners.size()]);
-        searchPageOpenListeners.clear();
-        for (ISearchPageListener l : copiedListeners) {
-            l.pageOpened(searchPage);
-        }
+  /**
+   * Notifies the current list of {@link ISearchPageListener}s that the given
+   * {@code searchPage} was opened. <br/>
+   * After the listeners have been notified they are removed from the internal
+   * registry.
+   *
+   * @param searchPage the search page that was opened
+   */
+  public static void notifySearchPageListeners(final ISearchPage searchPage) {
+    if (searchPageOpenListeners.isEmpty()) {
+      return;
     }
+    ISearchPageListener[] copiedListeners = searchPageOpenListeners.toArray(
+        new ISearchPageListener[searchPageOpenListeners.size()]);
+    searchPageOpenListeners.clear();
+    for (ISearchPageListener l : copiedListeners) {
+      l.pageOpened(searchPage);
+    }
+  }
 }

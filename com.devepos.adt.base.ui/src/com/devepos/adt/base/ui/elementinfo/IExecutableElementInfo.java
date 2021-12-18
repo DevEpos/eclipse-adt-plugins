@@ -9,10 +9,10 @@ import com.devepos.adt.base.ui.action.IExecutable;
  * @author stockbal
  */
 public interface IExecutableElementInfo extends IElementInfo {
-    /**
-     * Returns the action of this element information
-     *
-     * @return
-     */
-    IExecutable getExecutable();
+  /**
+   * Returns the action of this element information
+   *
+   * @return
+   */
+  IExecutable getExecutable();
 }

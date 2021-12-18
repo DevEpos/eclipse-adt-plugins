@@ -10,10 +10,10 @@ import org.eclipse.core.runtime.IStatus;
  */
 public interface IStatusView {
 
-    /**
-     * Sets the given status in the view
-     *
-     * @param status the new status to be set in the view
-     */
-    void setViewStatus(IStatus status);
+  /**
+   * Sets the given status in the view
+   *
+   * @param status the new status to be set in the view
+   */
+  void setViewStatus(IStatus status);
 }

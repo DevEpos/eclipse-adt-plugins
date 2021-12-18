@@ -10,20 +10,21 @@ import org.eclipse.ui.PlatformUI;
  */
 public class ErrorElementInfo extends ElementInfoBase {
 
-    private final Throwable exception;
+  private final Throwable exception;
 
-    /**
-     * @param exception
-     * @param message
-     */
-    public ErrorElementInfo(final String message, final Throwable exception) {
-        super(message != null ? message : "Error during content loading occurred", PlatformUI.getWorkbench()
-            .getSharedImages()
-            .getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
-        this.exception = exception;
-    }
+  /**
+   * @param exception
+   * @param message
+   */
+  public ErrorElementInfo(final String message, final Throwable exception) {
+    super(message != null ? message : "Error during content loading occurred", PlatformUI
+        .getWorkbench()
+        .getSharedImages()
+        .getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+    this.exception = exception;
+  }
 
-    public Throwable getException() {
-        return exception;
-    }
+  public Throwable getException() {
+    return exception;
+  }
 }

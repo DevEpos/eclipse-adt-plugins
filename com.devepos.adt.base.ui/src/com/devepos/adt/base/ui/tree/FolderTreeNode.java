@@ -12,65 +12,65 @@ import org.eclipse.swt.graphics.Image;
  * @author stockbal
  */
 public class FolderTreeNode extends TreeNodeBase implements ICollectionTreeNode {
-    protected List<ITreeNode> children;
-    protected Image image;
+  protected List<ITreeNode> children;
+  protected Image image;
 
-    public FolderTreeNode(final String name, final ITreeNode parent, final Image image,
-        final List<ITreeNode> children) {
-        this(name, name, parent, image, children);
-    }
+  public FolderTreeNode(final String name, final ITreeNode parent, final Image image,
+      final List<ITreeNode> children) {
+    this(name, name, parent, image, children);
+  }
 
-    public FolderTreeNode(final String name, final String displayName, final ITreeNode parent, final Image image,
-        final List<ITreeNode> children) {
-        this(name, displayName, null, parent, image, children);
-    }
+  public FolderTreeNode(final String name, final String displayName, final ITreeNode parent,
+      final Image image, final List<ITreeNode> children) {
+    this(name, displayName, null, parent, image, children);
+  }
 
-    public FolderTreeNode(final String name, final String displayName, final String description, final ITreeNode parent,
-        final Image image, final List<ITreeNode> children) {
-        super(name, displayName, description, parent);
-        this.image = image;
-        this.children = children;
-    }
+  public FolderTreeNode(final String name, final String displayName, final String description,
+      final ITreeNode parent, final Image image, final List<ITreeNode> children) {
+    super(name, displayName, description, parent);
+    this.image = image;
+    this.children = children;
+  }
 
-    @Override
-    public Image getImage() {
-        return image;
-    }
+  @Override
+  public Image getImage() {
+    return image;
+  }
 
-    @Override
-    public List<ITreeNode> getChildren() {
-        if (children == null) {
-            children = new ArrayList<>();
-        }
-        return children;
+  @Override
+  public List<ITreeNode> getChildren() {
+    if (children == null) {
+      children = new ArrayList<>();
     }
+    return children;
+  }
 
-    @Override
-    public void setChildren(final List<ITreeNode> children) {
-        this.children = children;
-    }
+  @Override
+  public void setChildren(final List<ITreeNode> children) {
+    this.children = children;
+  }
 
-    @Override
-    public void addChild(final ITreeNode child) {
-        if (children == null) {
-            children = new ArrayList<>();
-        }
-        children.add(child);
+  @Override
+  public void addChild(final ITreeNode child) {
+    if (children == null) {
+      children = new ArrayList<>();
     }
+    children.add(child);
+  }
 
-    @Override
-    public String getSizeAsString() {
-        return new DecimalFormat("###,###").format(getChildren().size());
-    }
+  @Override
+  public String getSizeAsString() {
+    return new DecimalFormat("###,###").format(getChildren().size());
+  }
 
-    @Override
-    public boolean hasChildren() {
-        return children != null && !children.isEmpty();
-    }
+  @Override
+  public boolean hasChildren() {
+    return children != null && !children.isEmpty();
+  }
 
-    @Override
-    public int size() {
-        return getChildren().size();
-    }
+  @Override
+  public int size() {
+    return getChildren().size();
+  }
 
 }

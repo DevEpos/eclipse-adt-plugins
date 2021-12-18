@@ -15,21 +15,22 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
  * @author stockbal
  */
 public class CollapseTreeNodesAction extends Action {
-    private final TreeViewer viewer;
+  private final TreeViewer viewer;
 
-    public CollapseTreeNodesAction(final TreeViewer viewer) {
-        super(Messages.Actions_CollapseNode_xtol, AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.COLLAPSE_ALL));
-        this.viewer = viewer;
-    }
+  public CollapseTreeNodesAction(final TreeViewer viewer) {
+    super(Messages.Actions_CollapseNode_xtol, AdtBaseUIResources.getImageDescriptor(
+        IAdtBaseImages.COLLAPSE_ALL));
+    this.viewer = viewer;
+  }
 
-    @Override
-    public void run() {
-        final IStructuredSelection selection = viewer.getStructuredSelection();
-        if (selection == null) {
-            return;
-        }
-        for (final Object sel : selection.toList()) {
-            viewer.collapseToLevel(sel, AbstractTreeViewer.ALL_LEVELS);
-        }
+  @Override
+  public void run() {
+    final IStructuredSelection selection = viewer.getStructuredSelection();
+    if (selection == null) {
+      return;
     }
+    for (final Object sel : selection.toList()) {
+      viewer.collapseToLevel(sel, AbstractTreeViewer.ALL_LEVELS);
+    }
+  }
 }

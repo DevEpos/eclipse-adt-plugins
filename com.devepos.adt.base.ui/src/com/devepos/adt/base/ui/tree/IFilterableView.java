@@ -10,8 +10,8 @@ import org.eclipse.ui.part.ViewPart;
  */
 public interface IFilterableView {
 
-    /**
-     * Toggles an inline filter of viewer
-     */
-    void toggleInlineFilter();
+  /**
+   * Toggles an inline filter of viewer
+   */
+  void toggleInlineFilter();
 }

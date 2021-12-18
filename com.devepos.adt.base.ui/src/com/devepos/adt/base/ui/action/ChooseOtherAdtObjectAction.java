@@ -17,24 +17,24 @@ import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
  */
 public class ChooseOtherAdtObjectAction extends Action {
 
-    private final boolean multipleSelection;
-    private final Consumer<IAdtRisSearchResultProxy> runConsumer;
+  private final boolean multipleSelection;
+  private final Consumer<IAdtRisSearchResultProxy> runConsumer;
 
-    public ChooseOtherAdtObjectAction(final boolean multipleSelection,
-        final Consumer<IAdtRisSearchResultProxy> runConsumer) {
-        super(Messages.ChooseOtherAdtObjectAction_ActionText_xtol, AdtBaseUIResources.getImageDescriptor(
-            IAdtBaseImages.OTHER_OBJECT));
-        this.multipleSelection = multipleSelection;
-        this.runConsumer = runConsumer;
-    }
+  public ChooseOtherAdtObjectAction(final boolean multipleSelection,
+      final Consumer<IAdtRisSearchResultProxy> runConsumer) {
+    super(Messages.ChooseOtherAdtObjectAction_ActionText_xtol, AdtBaseUIResources
+        .getImageDescriptor(IAdtBaseImages.OTHER_OBJECT));
+    this.multipleSelection = multipleSelection;
+    this.runConsumer = runConsumer;
+  }
 
-    @Override
-    public void run() {
-        final IAdtRisSearchResultProxy resultProxy = AdtRisSearchUtil.searchAdtObjectViaDialog(getText(),
-            multipleSelection, null);
-        if (resultProxy != null) {
-            runConsumer.accept(resultProxy);
-        }
+  @Override
+  public void run() {
+    final IAdtRisSearchResultProxy resultProxy = AdtRisSearchUtil.searchAdtObjectViaDialog(
+        getText(), multipleSelection, null);
+    if (resultProxy != null) {
+      runConsumer.accept(resultProxy);
     }
+  }
 
 }

@@ -17,18 +17,19 @@ import com.devepos.adt.base.ui.userinfo.IUserServiceUI;
  */
 public class UserServiceUI implements IUserServiceUI {
 
-    @Override
-    public List<String> showUserSelectionDialog(final Shell parent, final String title, final boolean multi,
-        final List<IUser> initialUsers, final List<String> excludedUsers, final String destinationId) {
-        final UserNameSelectionDialog userDialog = new UserNameSelectionDialog(parent, title, multi, initialUsers,
-            excludedUsers, destinationId);
-        if (userDialog.open() == Window.OK) {
-            if (multi) {
-                return userDialog.getResult().stream().map(IUser::getName).collect(Collectors.toList());
-            }
-            return Arrays.asList(userDialog.getFirstResult().getName());
-        }
-        return null;
+  @Override
+  public List<String> showUserSelectionDialog(final Shell parent, final String title,
+      final boolean multi, final List<IUser> initialUsers, final List<String> excludedUsers,
+      final String destinationId) {
+    final UserNameSelectionDialog userDialog = new UserNameSelectionDialog(parent, title, multi,
+        initialUsers, excludedUsers, destinationId);
+    if (userDialog.open() == Window.OK) {
+      if (multi) {
+        return userDialog.getResult().stream().map(IUser::getName).collect(Collectors.toList());
+      }
+      return Arrays.asList(userDialog.getFirstResult().getName());
     }
+    return null;
+  }
 
 }

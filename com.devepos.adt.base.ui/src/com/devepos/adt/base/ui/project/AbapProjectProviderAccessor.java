@@ -14,51 +14,52 @@ import com.sap.adt.project.IAdtCoreProjectService;
  * @author stockbal
  */
 public class AbapProjectProviderAccessor {
-    private static Map<String, IAbapProjectProvider> projectProviderMap;
+  private static Map<String, IAbapProjectProvider> projectProviderMap;
 
-    /**
-     * Retrieves an abap project provider for the given destination id
-     *
-     * @param destinationId a valid destination id of a project
-     * @return
-     */
-    public static IAbapProjectProvider getProviderForDestination(final String destinationId) {
-        if (destinationId == null) {
-            return null;
-        }
-        IAbapProjectProvider projectProvider = null;
-        if (projectProviderMap != null) {
-            projectProvider = projectProviderMap.get(destinationId);
-        }
-        if (projectProvider == null) {
-            final IAdtCoreProjectService projectService = AdtCoreProjectServiceFactory.createCoreProjectService();
-            final IProject projectForDestination = projectService.findProject(destinationId);
-            if (projectForDestination != null) {
-                projectProvider = new AbapProjectProxy(projectForDestination);
-                registerProjectProvider(projectProvider);
-            }
-        }
-
-        return projectProvider;
+  /**
+   * Retrieves an abap project provider for the given destination id
+   *
+   * @param destinationId a valid destination id of a project
+   * @return
+   */
+  public static IAbapProjectProvider getProviderForDestination(final String destinationId) {
+    if (destinationId == null) {
+      return null;
+    }
+    IAbapProjectProvider projectProvider = null;
+    if (projectProviderMap != null) {
+      projectProvider = projectProviderMap.get(destinationId);
+    }
+    if (projectProvider == null) {
+      final IAdtCoreProjectService projectService = AdtCoreProjectServiceFactory
+          .createCoreProjectService();
+      final IProject projectForDestination = projectService.findProject(destinationId);
+      if (projectForDestination != null) {
+        projectProvider = new AbapProjectProxy(projectForDestination);
+        registerProjectProvider(projectProvider);
+      }
     }
 
-    /**
-     * Registers the given project provider to be globally accessible
-     *
-     * @param projectProvider the {@link IAbapProjectProvider} to be registered
-     */
-    public static void registerProjectProvider(final IAbapProjectProvider projectProvider) {
-        if (projectProvider == null) {
-            return;
-        }
+    return projectProvider;
+  }
 
-        if (projectProviderMap == null) {
-            projectProviderMap = new HashMap<>();
-        }
-
-        if (!projectProviderMap.containsKey(projectProvider.getDestinationId())) {
-            projectProviderMap.put(projectProvider.getDestinationId(), projectProvider.copy());
-        }
+  /**
+   * Registers the given project provider to be globally accessible
+   *
+   * @param projectProvider the {@link IAbapProjectProvider} to be registered
+   */
+  public static void registerProjectProvider(final IAbapProjectProvider projectProvider) {
+    if (projectProvider == null) {
+      return;
     }
+
+    if (projectProviderMap == null) {
+      projectProviderMap = new HashMap<>();
+    }
+
+    if (!projectProviderMap.containsKey(projectProvider.getDestinationId())) {
+      projectProviderMap.put(projectProvider.getDestinationId(), projectProvider.copy());
+    }
+  }
 
 }

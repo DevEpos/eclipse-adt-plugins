@@ -12,11 +12,11 @@ import com.devepos.adt.base.model.adtbase.IUser;
  */
 public interface ISystemService {
 
-    /**
-     * Retrieves list of users
-     *
-     * @param destinationId destination id for ABAP project
-     * @return list of users
-     */
-    List<IUser> getUsers(String destinationId);
+  /**
+   * Retrieves list of users
+   *
+   * @param destinationId destination id for ABAP project
+   * @return list of users
+   */
+  List<IUser> getUsers(String destinationId);
 }

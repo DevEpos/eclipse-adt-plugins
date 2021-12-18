@@ -10,23 +10,23 @@ import org.eclipse.jface.wizard.IWizardPage;
  */
 public interface IBaseWizardPage extends IWizardPage {
 
-    /**
-     * Call to complete this page so the next page can work properly
-     */
-    default void completePage() {
-    }
+  /**
+   * Call to complete this page so the next page can work properly
+   */
+  default void completePage() {
+  }
 
-    /**
-     * Returns flag if this page contains changed content
-     *
-     * @return flag if this page contains changed content
-     */
-    boolean isDirty();
+  /**
+   * Returns flag if this page contains changed content
+   *
+   * @return flag if this page contains changed content
+   */
+  boolean isDirty();
 
-    /**
-     * Sets the {@code isDirty} flag of this page
-     *
-     * @param isDirty the new value for the {@code isDirty} flag of this page
-     */
-    void setDirty(boolean isDirty);
+  /**
+   * Sets the {@code isDirty} flag of this page
+   *
+   * @param isDirty the new value for the {@code isDirty} flag of this page
+   */
+  void setDirty(boolean isDirty);
 }
