@@ -82,7 +82,7 @@ public class TreeNodeCreator {
     ((ILazyLoadingNode) lazyFolder).setContentRefreshMode(lazyLoadingElement
         .getContentRefreshMode());
     if (lazyFolder != null) {
-      parent.getChildren().add(lazyFolder);
+      parent.addChild(lazyFolder);
     }
 
   }
@@ -96,7 +96,7 @@ public class TreeNodeCreator {
     for (final IElementInfo collectionElement : collection.getChildren()) {
       addNode(collectionElement, collectionTreeNode);
     }
-    parentNode.getChildren().add(collectionTreeNode);
+    parentNode.addChild(collectionTreeNode);
   }
 
   protected void addAdtObjectRefNode(final IAdtObjectReferenceElementInfo adtObjElementInfo,
@@ -121,7 +121,7 @@ public class TreeNodeCreator {
     }
     adtObjectRefNode.setAdditionalInfo(adtObjElementInfo.getAdditionalInfo());
     adtObjectRefNode.getProperties().putAll(adtObjElementInfo.getProperties());
-    collection.getChildren().add(adtObjectRefNode);
+    collection.addChild(adtObjectRefNode);
   }
 
   protected void addSimpleNode(final IElementInfo elementInfo,
@@ -130,7 +130,7 @@ public class TreeNodeCreator {
         .getDisplayName(), elementInfo.getImage(), elementInfo.getDescription(), collection);
     simpleNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
     simpleNode.getProperties().putAll(elementInfo.getProperties());
-    collection.getChildren().add(simpleNode);
+    collection.addChild(simpleNode);
 
   }
 
@@ -140,7 +140,7 @@ public class TreeNodeCreator {
         collection, elementInfo.getExecutable());
     actionNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
     actionNode.getProperties().putAll(elementInfo.getProperties());
-    collection.getChildren().add(actionNode);
+    collection.addChild(actionNode);
 
   }
 }

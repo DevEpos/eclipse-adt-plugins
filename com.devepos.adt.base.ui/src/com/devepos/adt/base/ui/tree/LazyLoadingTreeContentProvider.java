@@ -104,8 +104,9 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
   @Override
   public Object[] getChildren(final Object parentElement) {
-    if ((parentElement instanceof LoadingTreeItemsNode) || !(parentElement instanceof ICollectionTreeNode)) {
-      return null;
+    if ((parentElement instanceof LoadingTreeItemsNode)
+        || !(parentElement instanceof ICollectionTreeNode)) {
+      return EMPTY_ARRAY;
     }
     final ICollectionTreeNode collectionNode = (ICollectionTreeNode) parentElement;
 
@@ -124,7 +125,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
     if (parentElement instanceof ICollectionTreeNode) {
       return getChildren((ICollectionTreeNode) parentElement);
     }
-    return null;
+    return EMPTY_ARRAY;
   }
 
   private void startChildNodeRetrieval(final ILazyLoadingNode lazyNode) {
@@ -148,8 +149,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
         return ((ICollectionTreeNode) element).hasChildren();
       }
       if (((ILazyLoadingNode) element).isLoaded()) {
-        final List<ITreeNode> children = ((ICollectionTreeNode) element).getChildren();
-        return children != null && !children.isEmpty();
+        return ((ICollectionTreeNode) element).hasChildren();
       }
       return true;
     }
@@ -208,7 +208,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       final LazyLoadingRefreshMode refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
           ? LazyLoadingTreeContentProvider.this.refreshMode
           : lazyLoadingNode.getContentRefreshMode();
-      if ((refreshMode == LazyLoadingRefreshMode.ROOT_ONLY) || !(lazyLoadingNode instanceof ICollectionTreeNode)) {
+      if ((refreshMode == LazyLoadingRefreshMode.ROOT_ONLY)
+          || !(lazyLoadingNode instanceof ICollectionTreeNode)) {
         return;
       }
       final List<ITreeNode> children = ((ICollectionTreeNode) lazyLoadingNode).getChildren();

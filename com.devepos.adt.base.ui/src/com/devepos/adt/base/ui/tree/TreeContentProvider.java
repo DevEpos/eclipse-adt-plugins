@@ -13,6 +13,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
  */
 public class TreeContentProvider implements ITreeContentProvider {
 
+  protected final Object[] EMPTY_ARRAY = new Object[0];
+
   @Override
   public Object[] getElements(final Object inputElement) {
     if (inputElement instanceof List<?>) {
@@ -29,7 +31,7 @@ public class TreeContentProvider implements ITreeContentProvider {
     if (parentElement instanceof ICollectionTreeNode) {
       return getChildren((ICollectionTreeNode) parentElement);
     }
-    return null;
+    return EMPTY_ARRAY;
   }
 
   @Override
