@@ -123,6 +123,13 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   @Override
+  public void removeChild(final ITreeNode child) {
+    if (children != null) {
+      children.remove(child);
+    }
+  }
+
+  @Override
   public String getSizeAsString() {
     return children != null ? new DecimalFormat("###,###").format(children.size()) : "0";
   }

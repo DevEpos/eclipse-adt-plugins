@@ -38,6 +38,13 @@ public interface ICollectionTreeNode extends ITreeNode {
   void addChild(ITreeNode child);
 
   /**
+   * Removes the given child node if possible
+   * 
+   * @param child the child node to be removed
+   */
+  void removeChild(ITreeNode child);
+
+  /**
    * Returns the number of <code>nodes</code> in this collection in a readable
    * format
    *
