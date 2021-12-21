@@ -116,4 +116,8 @@ public interface IAdtBaseImages {
    * Identifies the View Menu Image
    */
   String VIEW_MENU = "IMG_VIEW_MENU";
+  /**
+   * Identifies the image for a search match
+   */
+  String SEARCH_MATCH = "IMG_SEARCH_MATCH";
 }
