@@ -101,5 +101,12 @@
             name="%preferencesRoot.name">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.devepos.adt"
+            name="%views.category.root">
+      </category>
+   </extension>
 
 </plugin>
