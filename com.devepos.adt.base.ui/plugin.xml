@@ -93,5 +93,13 @@
             parentId="com.sap.adt.tools.core.ui.abap">
       </context>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.devepos.adt.base.ui.internal.preferences.PreferencesRoot"
+            id="com.devepos.adt.preferences"
+            name="%preferencesRoot.name">
+      </page>
+   </extension>
 
 </plugin>
