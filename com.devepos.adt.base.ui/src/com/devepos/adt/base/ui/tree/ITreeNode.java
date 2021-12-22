@@ -79,11 +79,11 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
   void setDescription(String description);
 
   /**
-   * Sets additional information which can be retrieved via
+   * Sets arbitrary object which can be retrieved via
    * {@link IAdaptable#getAdapter(Class)}
    *
-   * @param info object with additional information for this node
+   * @param value an arbitrary object value for the node
    */
-  void setAdditionalInfo(Object info);
+  void setNodeValue(Object value);
 
 }

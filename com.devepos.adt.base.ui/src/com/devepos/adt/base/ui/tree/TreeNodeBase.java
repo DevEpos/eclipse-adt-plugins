@@ -16,7 +16,7 @@ public abstract class TreeNodeBase implements ITreeNode {
   protected String description;
   protected ITreeNode parent;
   protected Map<String, String> properties;
-  private Object additionalInfo;
+  private Object nodeValue;
 
   public TreeNodeBase(final String name, final ITreeNode parent) {
     this(name, name, "", parent);
@@ -86,15 +86,15 @@ public abstract class TreeNodeBase implements ITreeNode {
   @Override
   public <T> T getAdapter(final Class<T> adapter) {
     try {
-      return adapter.cast(additionalInfo);
+      return adapter.cast(nodeValue);
     } catch (final ClassCastException exc) {
       return null;
     }
   }
 
   @Override
-  public void setAdditionalInfo(final Object info) {
-    additionalInfo = info;
+  public void setNodeValue(final Object value) {
+    nodeValue = value;
   }
 
   @Override

@@ -77,7 +77,7 @@ public class TreeNodeCreator {
     final ICollectionTreeNode lazyFolder = new LazyLoadingFolderNode(lazyLoadingElement.getName(),
         lazyLoadingElement.getDisplayName(), lazyLoadingElement.getElementInfoProvider(),
         lazyLoadingElement.getImage(), null, parent);
-    lazyFolder.setAdditionalInfo(lazyLoadingElement.getAdditionalInfo());
+    lazyFolder.setNodeValue(lazyLoadingElement.getAdditionalInfo());
     lazyFolder.getProperties().putAll(lazyLoadingElement.getProperties());
     ((ILazyLoadingNode) lazyFolder).setContentRefreshMode(lazyLoadingElement
         .getContentRefreshMode());
@@ -91,7 +91,7 @@ public class TreeNodeCreator {
       final ICollectionTreeNode parentNode) {
     final ICollectionTreeNode collectionTreeNode = new FolderTreeNode(collection.getDisplayName(),
         parentNode, collection.getImage(), null);
-    collectionTreeNode.setAdditionalInfo(collection.getAdditionalInfo());
+    collectionTreeNode.setNodeValue(collection.getAdditionalInfo());
     collectionTreeNode.getProperties().putAll(collection.getProperties());
     for (final IElementInfo collectionElement : collection.getChildren()) {
       addNode(collectionElement, collectionTreeNode);
@@ -119,7 +119,7 @@ public class TreeNodeCreator {
         }
       }
     }
-    adtObjectRefNode.setAdditionalInfo(adtObjElementInfo.getAdditionalInfo());
+    adtObjectRefNode.setNodeValue(adtObjElementInfo.getAdditionalInfo());
     adtObjectRefNode.getProperties().putAll(adtObjElementInfo.getProperties());
     collection.addChild(adtObjectRefNode);
   }
@@ -128,7 +128,7 @@ public class TreeNodeCreator {
       final ICollectionTreeNode collection) {
     final ITreeNode simpleNode = new SimpleInfoTreeNode(elementInfo.getName(), elementInfo
         .getDisplayName(), elementInfo.getImage(), elementInfo.getDescription(), collection);
-    simpleNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
+    simpleNode.setNodeValue(elementInfo.getAdditionalInfo());
     simpleNode.getProperties().putAll(elementInfo.getProperties());
     collection.addChild(simpleNode);
 
@@ -138,7 +138,7 @@ public class TreeNodeCreator {
       final ICollectionTreeNode collection) {
     final ITreeNode actionNode = new ActionTreeNode(elementInfo.getName(), elementInfo.getImage(),
         collection, elementInfo.getExecutable());
-    actionNode.setAdditionalInfo(elementInfo.getAdditionalInfo());
+    actionNode.setNodeValue(elementInfo.getAdditionalInfo());
     actionNode.getProperties().putAll(elementInfo.getProperties());
     collection.addChild(actionNode);
 
