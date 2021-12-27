@@ -108,6 +108,10 @@ public interface IAdtBaseImages {
    */
   String USER = "IMG_USER";
   /**
+   * Image for User properties
+   */
+  String USER_PROPS = "IMG_USER_PROPS";
+  /**
    * Image for deletion<br>
    * Note: for overlaying another image
    */
@@ -120,4 +124,8 @@ public interface IAdtBaseImages {
    * Identifies the image for a search match
    */
   String SEARCH_MATCH = "IMG_SEARCH_MATCH";
+  /**
+   * Identifies the image for a package
+   */
+  String PACKAGE_PARAM = "IMG_PACKAGE";
 }

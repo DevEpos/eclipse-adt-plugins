@@ -166,7 +166,8 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
    * @return
    */
   public Image overlayImage(final Image image, final String[] overlayImageIds) {
-    if (overlayImageIds == null || overlayImageIds.length > IDecoration.UNDERLAY || !Stream.of(overlayImageIds).anyMatch(id -> id != null)) {
+    if (overlayImageIds == null || overlayImageIds.length > IDecoration.UNDERLAY || !Stream.of(
+        overlayImageIds).anyMatch(id -> id != null)) {
       return image;
     }
     final StringBuffer overlayImageKeyBuffer = new StringBuffer(image.toString());
@@ -210,7 +211,7 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
    */
   public Image overlayImage(final Image image, final String overlayImageKey,
       final int decorationPosition) {
-    if ((overlayImageKey == null) || decorationPosition < IDecoration.TOP_LEFT
+    if (overlayImageKey == null || decorationPosition < IDecoration.TOP_LEFT
         || decorationPosition > IDecoration.BOTTOM_RIGHT) {
       return image;
     }

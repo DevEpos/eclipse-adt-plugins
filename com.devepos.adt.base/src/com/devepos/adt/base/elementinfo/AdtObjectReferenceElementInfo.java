@@ -96,7 +96,7 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements
 
   @Override
   public boolean equals(final Object obj) {
-    if ((obj == null) || !(obj instanceof AdtObjectReferenceElementInfo)) {
+    if (obj == null || !(obj instanceof AdtObjectReferenceElementInfo)) {
       return false;
     }
 

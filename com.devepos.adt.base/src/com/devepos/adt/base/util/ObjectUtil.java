@@ -18,7 +18,7 @@ public class ObjectUtil {
     if (obj1 == null && obj2 == null) {
       return true;
     }
-    if ((obj1 == null && obj2 != null) || (obj2 == null && obj1 != null)) {
+    if (obj1 == null && obj2 != null || obj2 == null && obj1 != null) {
       return false;
     }
     return obj1.equals(obj2);

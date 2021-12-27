@@ -30,7 +30,7 @@ public class StringUtil {
    *         {@code false}
    */
   public static boolean isBlank(final String value) {
-    if ((value == null) || value.isEmpty()) {
+    if (value == null || value.isEmpty()) {
       return true;
     }
     return value.trim().equals("");
