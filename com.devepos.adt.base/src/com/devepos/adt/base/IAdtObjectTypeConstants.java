@@ -6,10 +6,16 @@ package com.devepos.adt.base;
  * @author stockbal
  */
 public interface IAdtObjectTypeConstants {
-  String CDS_VIEW_DEFINITION_TYPE = "STOB/DO";
+  /**
+   * Global Workbench type for CDS Entity
+   */
+  String CDS_VIEW_GWT = "STOB/DO";
   String CDS_VIEW_FIELD_TYPE = "STOB/DOF";
 
-  String DDLS_DEFINITION_TYPE = "DDLS/DF";
+  /**
+   * Global Workbench Type for Data Definitions
+   */
+  String DATA_DEFINITION_GWT = "DDLS/DF";
 
   String TABLE_DEFINITION_TYPE = "TABL/DT";
   String TABLE_SIMPLE_TYPE = "TABL";
@@ -19,13 +25,47 @@ public interface IAdtObjectTypeConstants {
   String VIEW_DEFINITION_TYPE = "VIEW/DV";
   String VIEW_SIMPLE_TYPE = "VIEW";
 
-  String CLASS_DEFINITION_TYPE = "CLAS/OC";
-  String INTERFACE_DEFINITION = "INTF/OI";
+  /**
+   * Global Workbench Type for Classes
+   */
+  String CLASS_GWT = "CLAS/OC";
+  /**
+   * Global Workbench Type for Interfaces
+   */
+  String INTERFACE_GWT = "INTF/OI";
+  /**
+   * Global Workbench type for Programs
+   */
+  String PROGRAM_GWT = "PROG/P";
+  /**
+   * Global Workbench Type for Type Groups
+   */
+  String TYPE_GROUP_GWT = "TYPE/DG";
+  /**
+   * Global Workbench Type for Simple Transformations
+   */
+  String SIMPLE_TRANSFORMATION_GWT = "XSLT/VT";
+  /**
+   * Global Workbench Type for Behavior Definitions
+   */
+  String BEHAVIOR_DEFINITION_GWT = "BDEF/BDO";
 
   String BUSINESS_OBJECT_TYPE = "BOBF";
 
-  String METADATA_EXTENSION_TYPE = "DDLX/EX";
-  String ACCESS_CONTROL_TYPE = "DCLS/DL";
+  /**
+   * Global Workbench Type for Metadata Extensions
+   */
+  String METADATA_EXTENSION_GT = "DDLX/EX";
+
+  /**
+   * Global Workbench Type for Access Controls
+   */
+  String ACCESS_CONTROL_GT = "DCLS/DL";
 
   String PACKAGE = "DEVC/K";
+
+  /**
+   * Global workbench Type for Function Groups
+   */
+  String FUNCTION_GROUP_GWT = "FUGR/F";
 }

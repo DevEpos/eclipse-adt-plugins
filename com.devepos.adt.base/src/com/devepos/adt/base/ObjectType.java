@@ -6,17 +6,22 @@ package com.devepos.adt.base;
  * @author stockbal
  */
 public enum ObjectType {
-  CDS_VIEW("C", IAdtObjectTypeConstants.DDLS_DEFINITION_TYPE, true),
+  DATA_DEFINITION("C", IAdtObjectTypeConstants.DATA_DEFINITION_GWT, true),
   CDS_VIEW_FIELD("", IAdtObjectTypeConstants.CDS_VIEW_FIELD_TYPE),
   VIEW("V", IAdtObjectTypeConstants.VIEW_DEFINITION_TYPE, true),
   TABLE("T", IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE, true),
   TABLE_FIELD("", IAdtObjectTypeConstants.TABLE_FIELD_TYPE),
   TABLE_SETTINGS("", IAdtObjectTypeConstants.TABLE_SETTINGS_TYPE),
-  CLASS("", IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE),
-  INTERFACE("", IAdtObjectTypeConstants.INTERFACE_DEFINITION),
+  CLASS("", IAdtObjectTypeConstants.CLASS_GWT),
+  INTERFACE("", IAdtObjectTypeConstants.INTERFACE_GWT),
+  PROGRAM("", IAdtObjectTypeConstants.PROGRAM_GWT),
+  BEHAVIOR_DEFINITION("", IAdtObjectTypeConstants.BEHAVIOR_DEFINITION_GWT),
+  SIMPLE_TRANSFORMATION("", IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION_GWT),
+  TYPE_GROUP("", IAdtObjectTypeConstants.TYPE_GROUP_GWT),
+  FUNCTION_GROUP("", IAdtObjectTypeConstants.FUNCTION_GROUP_GWT),
   BUSINESS_OBJECT("", IAdtObjectTypeConstants.BUSINESS_OBJECT_TYPE),
-  METADATA_EXT("", IAdtObjectTypeConstants.METADATA_EXTENSION_TYPE),
-  ACCESS_CONTROL("", IAdtObjectTypeConstants.ACCESS_CONTROL_TYPE),
+  METADATA_EXT("", IAdtObjectTypeConstants.METADATA_EXTENSION_GT),
+  ACCESS_CONTROL("", IAdtObjectTypeConstants.ACCESS_CONTROL_GT),
   PACKAGE("", IAdtObjectTypeConstants.PACKAGE),
   UNRECOGNIZED("", "");
 

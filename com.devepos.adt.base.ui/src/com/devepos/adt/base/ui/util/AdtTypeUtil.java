@@ -44,7 +44,7 @@ public class AdtTypeUtil {
     Image image = null;
     String adtWbType = adtType;
     if (adtType.startsWith("CLAS")) {
-      adtWbType = IAdtObjectTypeConstants.CLASS_DEFINITION_TYPE;
+      adtWbType = IAdtObjectTypeConstants.CLASS_GWT;
     }
     final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
         .getObjectTypeByGlobalWorkbenchType(adtWbType);
