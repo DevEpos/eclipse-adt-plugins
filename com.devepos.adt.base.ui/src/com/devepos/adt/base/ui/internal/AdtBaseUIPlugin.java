@@ -80,10 +80,10 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IAdtBaseImages.TRANSPORT, "icons/Transport.png");
     registerImage(imageRegistry, IAdtBaseImages.SHARE, "icons/Share.png");
     registerImage(imageRegistry, IAdtBaseImages.SHARE_OVR, "icons/ovr/Share.png");
-    registerImage(imageRegistry, IAdtBaseImages.USER, "com.sap.adt.tools.core.ui",
-        "icons/obj/useredit.png");
-    registerImage(imageRegistry, IAdtBaseImages.USER_PROPS, "com.sap.adt.tools.core.ui",
-        "icons/obj/useredit.png");
+    registerImage(imageRegistry, IAdtBaseImages.USER, "icons/obj/facet_user.png",
+        "com.sap.adt.tools.core.ui");
+    registerImage(imageRegistry, IAdtBaseImages.USER_PROPS, "icons/obj/useredit.png",
+        "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IAdtBaseImages.DELETE_OVR, "icons/ovr/Delete.png");
     registerImage(imageRegistry, IAdtBaseImages.VIEW_MENU, "icons/ViewMenu.png");
     registerImage(imageRegistry, IAdtBaseImages.FILTER, "icons/full/elcl16/filter_ps.png",
