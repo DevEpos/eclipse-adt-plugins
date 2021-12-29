@@ -39,7 +39,7 @@ public interface ICollectionTreeNode extends ITreeNode {
 
   /**
    * Removes the given child node if possible
-   * 
+   *
    * @param child the child node to be removed
    */
   void removeChild(ITreeNode child);

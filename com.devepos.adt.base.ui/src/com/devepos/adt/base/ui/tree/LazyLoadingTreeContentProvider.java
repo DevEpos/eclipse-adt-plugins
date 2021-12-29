@@ -104,7 +104,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
   @Override
   public Object[] getChildren(final Object parentElement) {
-    if ((parentElement instanceof LoadingTreeItemsNode)
+    if (parentElement instanceof LoadingTreeItemsNode
         || !(parentElement instanceof ICollectionTreeNode)) {
       return EMPTY_ARRAY;
     }
@@ -145,10 +145,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       return false;
     }
     if (element instanceof ICollectionTreeNode) {
-      if (!(element instanceof ILazyLoadingNode)) {
-        return ((ICollectionTreeNode) element).hasChildren();
-      }
-      if (((ILazyLoadingNode) element).isLoaded()) {
+      if (!(element instanceof ILazyLoadingNode) || ((ILazyLoadingNode) element).isLoaded()) {
         return ((ICollectionTreeNode) element).hasChildren();
       }
       return true;
@@ -208,7 +205,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       final LazyLoadingRefreshMode refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
           ? LazyLoadingTreeContentProvider.this.refreshMode
           : lazyLoadingNode.getContentRefreshMode();
-      if ((refreshMode == LazyLoadingRefreshMode.ROOT_ONLY)
+      if (refreshMode == LazyLoadingRefreshMode.ROOT_ONLY
           || !(lazyLoadingNode instanceof ICollectionTreeNode)) {
         return;
       }

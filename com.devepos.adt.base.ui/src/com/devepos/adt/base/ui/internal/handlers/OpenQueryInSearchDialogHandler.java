@@ -34,7 +34,8 @@ public class OpenQueryInSearchDialogHandler extends AbstractHandler implements I
   @Override
   public Object execute(final ExecutionEvent event) throws ExecutionException {
     ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
-    if ((resultViewPart == null) || !(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
+    if (resultViewPart == null || !(resultViewPart
+        .getActivePage() instanceof ISearchResultPageExtension<?>)) {
       return null;
     }
     resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();

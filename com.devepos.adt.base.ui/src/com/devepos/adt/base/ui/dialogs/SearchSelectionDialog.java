@@ -898,7 +898,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     }
 
     public boolean isResultValid() {
-      if ((this.searchResult == null) || !this.isResultComplete) {
+      if (this.searchResult == null || !this.isResultComplete) {
         return false;
       }
       return true;

@@ -38,7 +38,8 @@ public class OpenQueryInSearchDialogAction extends Action implements ISearchPage
       return;
     }
     ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
-    if ((resultViewPart == null) || !(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
+    if (resultViewPart == null || !(resultViewPart
+        .getActivePage() instanceof ISearchResultPageExtension<?>)) {
       return;
     }
     resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();

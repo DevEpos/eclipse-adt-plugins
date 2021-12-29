@@ -12,11 +12,16 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.devepos.adt.base.ui.internal.messages.Messages;
 
+/**
+ * Root node for DevEpos plugin preferences
+ *
+ * @author Ludwig Stockbauer-Muhr
+ *
+ */
 public class PreferencesRoot extends PreferencePage implements IWorkbenchPreferencePage {
 
   @Override
   public void init(final IWorkbench workbench) {
-
   }
 
   @Override
