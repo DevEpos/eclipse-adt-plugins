@@ -25,6 +25,11 @@ public class PackageNode extends AdtObjectReferenceNode {
     super(name, name, description, objectReference);
   }
 
+  public PackageNode(final String name, final String description,
+      final IAdtObjectReference objectReference, final ITreeNode parent) {
+    super(name, name, description, objectReference, parent);
+  }
+
   @Override
   public String getSizeAsString() {
     if (childCountString == null) {
