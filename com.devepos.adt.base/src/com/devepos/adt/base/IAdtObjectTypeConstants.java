@@ -9,13 +9,13 @@ public interface IAdtObjectTypeConstants {
   /**
    * Global Workbench type for CDS Entity
    */
-  String CDS_VIEW_GWT = "STOB/DO";
+  String CDS_VIEW = "STOB/DO";
   String CDS_VIEW_FIELD_TYPE = "STOB/DOF";
 
   /**
    * Global Workbench Type for Data Definitions
    */
-  String DATA_DEFINITION_GWT = "DDLS/DF";
+  String DATA_DEFINITION = "DDLS/DF";
 
   String TABLE_DEFINITION_TYPE = "TABL/DT";
   String TABLE_SIMPLE_TYPE = "TABL";
@@ -28,44 +28,44 @@ public interface IAdtObjectTypeConstants {
   /**
    * Global Workbench Type for Classes
    */
-  String CLASS_GWT = "CLAS/OC";
+  String CLASS = "CLAS/OC";
   /**
    * Global Workbench Type for Interfaces
    */
-  String INTERFACE_GWT = "INTF/OI";
+  String INTERFACE = "INTF/OI";
   /**
    * Global Workbench type for Programs
    */
-  String PROGRAM_GWT = "PROG/P";
+  String PROGRAM = "PROG/P";
   /**
    * Global Workbench Type for Type Groups
    */
-  String TYPE_GROUP_GWT = "TYPE/DG";
+  String TYPE_GROUP = "TYPE/DG";
   /**
    * Global Workbench Type for Simple Transformations
    */
-  String SIMPLE_TRANSFORMATION_GWT = "XSLT/VT";
+  String SIMPLE_TRANSFORMATION = "XSLT/VT";
   /**
    * Global Workbench Type for Behavior Definitions
    */
-  String BEHAVIOR_DEFINITION_GWT = "BDEF/BDO";
+  String BEHAVIOR_DEFINITION = "BDEF/BDO";
 
   String BUSINESS_OBJECT_TYPE = "BOBF";
 
   /**
    * Global Workbench Type for Metadata Extensions
    */
-  String METADATA_EXTENSION_GT = "DDLX/EX";
+  String METADATA_EXTENSION = "DDLX/EX";
 
   /**
    * Global Workbench Type for Access Controls
    */
-  String ACCESS_CONTROL_GT = "DCLS/DL";
+  String ACCESS_CONTROL = "DCLS/DL";
 
   String PACKAGE = "DEVC/K";
 
   /**
    * Global workbench Type for Function Groups
    */
-  String FUNCTION_GROUP_GWT = "FUGR/F";
+  String FUNCTION_GROUP = "FUGR/F";
 }
