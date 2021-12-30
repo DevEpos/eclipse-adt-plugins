@@ -4,6 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
   private static final String BUNDLE_NAME = "com.devepos.adt.base.ui.internal.messages.messages"; //$NON-NLS-1$
+  public static String ContentProposalProvider_contentAssistTooltip_xtol;
   public static String ChooseOtherAdtObjectAction_ActionText_xtol;
   public static String CopyToClipboardAction_ErrorMessageTitle_xmsg;
   public static String CopyToClipboardAction_ErrorMessageBody_xmsg;
@@ -28,6 +29,20 @@ public class Messages extends NLS {
   public static String SearchSelectionDialog_FilterLabel;
   public static String SearchSelectionDialog_ItemsSelected;
   public static String SearchSelectionDialog_ResultItemsLabel;
+  public static String SearchPatternContentProvider_loadingJob_xmsg;
+  public static String SearchPatternProvider_loading_xmsg;
+  public static String SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg;
+  public static String SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg;
+  public static String SearchPatternAnalyzer_ErrorFilterAllowsOnlySingleValues_xmsg;
+  public static String SearchPatternAnalyzer_ErrorFilterDoesNotSupportNegation_xmsg;
+  public static String SearchPatternAnalyzer_ErrorFilterValueNotNumeric_xmsg;
+  public static String SearchPatternAnalyzer_ErrorUnsupportedFilterValue_xmsg;
+  public static String SearchPatternAnalyzer_ErrorWildcardsNotSupportedInFilter_xmsg;
+  public static String SearchPatternAnalyzer_NoValuePartPossibleIfKeyIsNegated_xmsg;
+  public static String SearchPatternContentAssist_ContentAssistDecorator_xtol;
+  public static String SearchFilter_DescriptionApplCompSearchFilter_xmsg;
+  public static String SearchFilter_DescriptionPackageFilter_xmsg;
+  public static String SearchFilter_DescriptionUserFilter_xmsg;
   public static String SplitResultSelectionViewer_AddItemButton;
   public static String SplitResultSelectionViewer_RemoveItemButton;
   public static String ToggleViewLayoutAction_AutomaticOrientation_xmit;
