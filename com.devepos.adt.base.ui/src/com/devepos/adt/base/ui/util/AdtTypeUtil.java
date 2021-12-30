@@ -44,7 +44,7 @@ public class AdtTypeUtil {
     Image image = null;
     String adtWbType = adtType;
     if (adtType.startsWith("CLAS")) {
-      adtWbType = IAdtObjectTypeConstants.CLASS_GWT;
+      adtWbType = IAdtObjectTypeConstants.CLASS;
     }
     final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
         .getObjectTypeByGlobalWorkbenchType(adtWbType);
@@ -93,6 +93,36 @@ public class AdtTypeUtil {
   }
 
   private AdtTypeUtil() {
+  }
+
+  /**
+   * Retrieves an ADT object type proxy for the given adt type name or
+   * <code>null</code>
+   *
+   * @param adtType the full name of a workbench type (e.g. CLASS/OC)
+   * @return an ADT object type proxy for the given adt type name or
+   *         <code>null</code>
+   */
+  public IAdtObjectTypeProxy getType(final String adtType) {
+    if (StringUtil.isEmpty(adtType)) {
+      return null;
+    }
+    final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
+        .getObjectTypeByGlobalWorkbenchType(adtType);
+    if (type != null) {
+      return new IAdtObjectTypeProxy() {
+        @Override
+        public Image getImage() {
+          return type.getImage();
+        }
+
+        @Override
+        public String getDescription() {
+          return type.getDisplayName();
+        }
+      };
+    }
+    return null;
   }
 
 }
