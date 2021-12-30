@@ -66,7 +66,7 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
    *
    * @generated
    */
-  protected AdtBaseSwitch<Adapter> modelSwitch = new AdtBaseSwitch<Adapter>() {
+  protected AdtBaseSwitch<Adapter> modelSwitch = new AdtBaseSwitch<>() {
     @Override
     public Adapter caseAdtObjRef(final IAdtObjRef object) {
       return createAdtObjRefAdapter();

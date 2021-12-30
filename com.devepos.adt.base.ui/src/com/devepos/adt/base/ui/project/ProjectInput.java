@@ -51,24 +51,24 @@ public class ProjectInput {
 
   /**
    * Creates new project input
-   * 
+   *
    * @param ensureLoggedOn ensures that the logged on status will also be checked
    *                       if a valid project was chosen
-   * 
+   *
    */
-  public ProjectInput(boolean ensureLoggedOn) {
+  public ProjectInput(final boolean ensureLoggedOn) {
     this(new AbapProjectProxy(null), ensureLoggedOn);
   }
 
   /**
    * Creates new project input
-   * 
+   *
    * @param projectProvider ABAP project provider which will be updated from the
    *                        text input of this control
    * @param ensureLoggedOn  ensures that the logged on status will also be checked
    *                        if a valid project was chosen
    */
-  public ProjectInput(final IAbapProjectProvider projectProvider, boolean ensureLoggedOn) {
+  public ProjectInput(final IAbapProjectProvider projectProvider, final boolean ensureLoggedOn) {
     if (projectProvider == null) {
       throw new IllegalArgumentException("Parameter 'projectProvider' cannot be null!");
     }
@@ -87,10 +87,10 @@ public class ProjectInput {
 
   /**
    * Adds the given status change listener
-   * 
+   *
    * @param l the listener to be added
    */
-  public void addStatusChangeListener(IStatusChangeListener l) {
+  public void addStatusChangeListener(final IStatusChangeListener l) {
     statusChangeListeners.add(l);
   }
 
@@ -124,7 +124,7 @@ public class ProjectInput {
 
     projectField.addModifyListener(l -> {
       IStatus projectStatus = validateProject(projectField.getText());
-      this.projectProvider.setProject(project);
+      projectProvider.setProject(project);
       fireStatusChange(projectStatus);
     });
 
@@ -143,7 +143,7 @@ public class ProjectInput {
 
   /**
    * Retrieves the project provider connected to the project input
-   * 
+   *
    * @return the project provider connected to the project input
    */
   public IAbapProjectProvider getProjectProvider() {
@@ -152,19 +152,19 @@ public class ProjectInput {
 
   /**
    * Removes the given project validator
-   * 
+   *
    * @param v the validator to be removed
    */
-  public void removeProjectValidator(IValidator<IProject> v) {
+  public void removeProjectValidator(final IValidator<IProject> v) {
     projectValidators.remove(v);
   }
 
   /**
    * Removes the given status change listener
-   * 
+   *
    * @param l the listener to be removed
    */
-  public void removeStatusChangeListener(IStatusChangeListener l) {
+  public void removeStatusChangeListener(final IStatusChangeListener l) {
     statusChangeListeners.remove(l);
   }
 
@@ -180,7 +180,7 @@ public class ProjectInput {
     }
   }
 
-  private IProject convertToProject(String projectName) {
+  private IProject convertToProject(final String projectName) {
     // check if there is an ABAP project which matches the entered name
     final IProject[] abapProjects = ProjectUtil.getAbapProjects();
     String availableProjectName = null;
@@ -196,7 +196,7 @@ public class ProjectInput {
     return null;
   }
 
-  private void fireStatusChange(IStatus projectStatus) {
+  private void fireStatusChange(final IStatus projectStatus) {
     for (IStatusChangeListener l : statusChangeListeners) {
       l.statusChanged(projectStatus);
     }
@@ -217,7 +217,7 @@ public class ProjectInput {
       return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
           Messages.ProjectInput_ProjectDoesNotExist_xmsg, null);
     }
-    if (this.ensureLoggedOn) {
+    if (ensureLoggedOn) {
       IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
       if (!loggedOnStatus.isOK()) {
         project = null;
