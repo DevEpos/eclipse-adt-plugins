@@ -2,6 +2,7 @@ package com.devepos.adt.base.ui.project;
 
 import org.eclipse.core.resources.IProject;
 
+import com.devepos.adt.base.util.IPropertyChangeSupport;
 import com.sap.adt.communication.session.ISystemSession;
 import com.sap.adt.destinations.model.IDestinationData;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -12,7 +13,12 @@ import com.sap.adt.tools.core.project.IAbapProject;
  *
  * @author stockbal
  */
-public interface IAbapProjectProvider {
+public interface IAbapProjectProvider extends IPropertyChangeSupport {
+
+  /**
+   * Identifies project property
+   */
+  String PROPERTY_PROJECT = "project";
 
   /**
    * Opens the given object reference in the ABAP project

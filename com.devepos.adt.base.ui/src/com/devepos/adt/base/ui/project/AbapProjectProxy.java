@@ -1,13 +1,17 @@
 package com.devepos.adt.base.ui.project;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.ui.util.AdtUIUtil;
+import com.devepos.adt.base.util.IPropertyChangeListener;
 import com.devepos.adt.base.util.ObjectContainer;
+import com.devepos.adt.base.util.PropertyChangeEvent;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 import com.sap.adt.communication.session.ISystemSession;
 import com.sap.adt.destinations.model.IDestinationData;
@@ -23,6 +27,7 @@ import com.sap.adt.tools.core.project.IAbapProject;
 public class AbapProjectProxy implements IAbapProjectProvider {
 
   private Optional<IProject> project;
+  private Set<IPropertyChangeListener> propertyChangeListeners = new HashSet<>();
 
   /**
    * @param project
@@ -38,6 +43,7 @@ public class AbapProjectProxy implements IAbapProjectProvider {
    */
   @Override
   public void setProject(final IProject project) {
+    fireProjectChanged(project, this.project.orElse(null));
     this.project = Optional.ofNullable(project);
   }
 
@@ -129,4 +135,26 @@ public class AbapProjectProxy implements IAbapProjectProvider {
     }
     return getAbapProject().getDestinationData();
   }
+
+  @Override
+  public void addPropertyChangeListener(final IPropertyChangeListener l) {
+    propertyChangeListeners.add(l);
+  }
+
+  @Override
+  public void removePropertyChangeListener(final IPropertyChangeListener l) {
+    propertyChangeListeners.remove(l);
+  }
+
+  private void fireProjectChanged(final IProject oldProject, final IProject newProject) {
+    if (propertyChangeListeners.isEmpty()) {
+      return;
+    }
+    var event = new PropertyChangeEvent(this, IAbapProjectProvider.PROPERTY_PROJECT, oldProject,
+        newProject);
+    for (var listener : propertyChangeListeners) {
+      listener.propertyChanged(event);
+    }
+  }
+
 }
