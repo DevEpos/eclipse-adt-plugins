@@ -90,8 +90,15 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.SEARCH_MATCH, "icons/full/obj16/searchm_obj.png",
         "org.eclipse.search");
-    registerImage(imageRegistry, IAdtBaseImages.PACKAGE_PARAM, "icons/obj/package_obj.png",
+    registerImage(imageRegistry, IAdtBaseImages.PACKAGE, "icons/obj/package_obj.png",
         "com.sap.adt.tools.core.ui");
+    registerImage(imageRegistry, IAdtBaseImages.APPLICATION_COMPONENT,
+        "icons/obj/facet_application_component.png", "com.sap.adt.ris.search.ui");
+    registerImage(imageRegistry, IAdtBaseImages.WB_OBJECT_TYPE, "icons/obj/facet_object_type.png",
+        "com.sap.adt.ris.search.ui");
+    registerImage(imageRegistry, IAdtBaseImages.CALENDAR, "icons/obj/facet_creation_date.png",
+        "com.sap.adt.ris.search.ui");
+
     registerDeleteOvr(imageRegistry);
   }
 

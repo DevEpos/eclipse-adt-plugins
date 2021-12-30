@@ -127,5 +127,17 @@ public interface IAdtBaseImages {
   /**
    * Identifies the image for a package
    */
-  String PACKAGE_PARAM = "IMG_PACKAGE";
+  String PACKAGE = "IMG_PACKAGE";
+  /**
+   * Identifies the image for an application component
+   */
+  String APPLICATION_COMPONENT = "IMG_APPL_COMP";
+  /**
+   * Identifies the image for a workbench object type
+   */
+  String WB_OBJECT_TYPE = "IMG_WB_OBECT_TYPE";
+  /**
+   * Identifies the image of a calendar sheet
+   */
+  String CALENDAR = "IMG_CALENDAR";
 }
