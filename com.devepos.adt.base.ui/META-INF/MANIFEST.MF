@@ -31,6 +31,7 @@ Require-Bundle: com.devepos.adt.base,
  org.eclipse.ui.ide,
  org.eclipse.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.tools.base.ui
 Bundle-ActivationPolicy: lazy
 Export-Package: com.devepos.adt.base.ui;x-friends:="com.devepos.adt.abaptags.backend,com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
