@@ -201,7 +201,8 @@ public abstract class FieldEditorPrefPageBase extends PreferencePage implements
    * @param oldValue the old value of the editor
    * @param newValue the new value of the editor
    */
-  protected void fieldValueChanged(FieldEditor field, Object oldValue, Object newValue) {
+  protected void fieldValueChanged(final FieldEditor field, final Object oldValue,
+      final Object newValue) {
   }
 
   protected void initFields() {

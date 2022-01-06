@@ -14,7 +14,7 @@ import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 
 /**
  * Proposal provider for named items.
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -22,7 +22,7 @@ public class NamedItemProposalProvider implements ITextQueryProposalProvider {
 
   private InternalNamedItemProposalProvider namedItemProposalProvider;
 
-  public NamedItemProposalProvider(Text text, final IAbapProjectProvider projectProvider,
+  public NamedItemProposalProvider(final Text text, final IAbapProjectProvider projectProvider,
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType,
       final String initialQuery) {
     namedItemProposalProvider = new InternalNamedItemProposalProvider(projectProvider,
@@ -37,7 +37,7 @@ public class NamedItemProposalProvider implements ITextQueryProposalProvider {
   /**
    * @see {@link InternalNamedItemProposalProvider#setProposalContentStyle(ProposalContentStyle)}
    */
-  public void setProposalContentStyle(ProposalContentStyle proposalContentStyle) {
+  public void setProposalContentStyle(final ProposalContentStyle proposalContentStyle) {
     namedItemProposalProvider.setProposalContentStyle(proposalContentStyle);
   }
 }

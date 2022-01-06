@@ -4,7 +4,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Proxy for accessing properties of an ADT object type
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
