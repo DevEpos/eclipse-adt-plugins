@@ -1,5 +1,5 @@
 # adt-addons-base
-Base Plugins for Custom ADT Plugin Development
+Base Plugins for DevEpos ADT Plugins
 
 ## Update Sites
 
