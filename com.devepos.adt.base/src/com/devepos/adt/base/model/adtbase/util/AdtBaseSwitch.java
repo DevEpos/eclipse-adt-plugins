@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.util.Switch;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.model.adtbase.IUser;
 
 /**
@@ -90,6 +92,22 @@ public class AdtBaseSwitch<T> extends Switch<T> {
       }
       return result;
     }
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE: {
+      IAdtPluginFeature adtPluginFeature = (IAdtPluginFeature) theEObject;
+      T result = caseAdtPluginFeature(adtPluginFeature);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST: {
+      IAdtPluginFeatureList adtPluginFeatureList = (IAdtPluginFeatureList) theEObject;
+      T result = caseAdtPluginFeatureList(adtPluginFeatureList);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
     default:
       return defaultCase(theEObject);
     }
@@ -137,6 +155,38 @@ public class AdtBaseSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseUser(final IUser object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Adt
+   * Plugin Feature</em>'. <!-- begin-user-doc --> This implementation returns
+   * null; returning a non-null result will terminate the switch. <!--
+   * end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Adt
+   *         Plugin Feature</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAdtPluginFeature(final IAdtPluginFeature object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Adt
+   * Plugin Feature List</em>'. <!-- begin-user-doc --> This implementation
+   * returns null; returning a non-null result will terminate the switch. <!--
+   * end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Adt
+   *         Plugin Feature List</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAdtPluginFeatureList(final IAdtPluginFeatureList object) {
     return null;
   }
 

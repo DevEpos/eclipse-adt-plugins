@@ -48,6 +48,24 @@ public interface IAdtBaseFactory extends EFactory {
   IUser createUser();
 
   /**
+   * Returns a new object of class '<em>Adt Plugin Feature</em>'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Adt Plugin Feature</em>'.
+   * @generated
+   */
+  IAdtPluginFeature createAdtPluginFeature();
+
+  /**
+   * Returns a new object of class '<em>Adt Plugin Feature List</em>'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Adt Plugin Feature List</em>'.
+   * @generated
+   */
+  IAdtPluginFeatureList createAdtPluginFeatureList();
+
+  /**
    * Returns the package supported by this factory. <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *

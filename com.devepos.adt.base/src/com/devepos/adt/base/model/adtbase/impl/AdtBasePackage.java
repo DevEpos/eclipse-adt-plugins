@@ -4,16 +4,24 @@ package com.devepos.adt.base.model.adtbase.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
+import com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory;
+import com.devepos.adt.base.model.adtbase.AdtPluginFeatureType;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
@@ -42,6 +50,41 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   private EClass userEClass = null;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass adtPluginFeatureEClass = null;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass adtPluginFeatureListEClass = null;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum adtPluginFeatureTypeEEnum = null;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum adtPluginFeatureCategoryEEnum = null;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EDataType iAdtPluginFeaturesEDataType = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -250,6 +293,136 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   @Override
+  public EClass getAdtPluginFeature() {
+    return adtPluginFeatureEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Name() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Endpoint() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Type() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Description() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Enabled() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtPluginFeature_Category() {
+    return (EAttribute) adtPluginFeatureEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getAdtPluginFeatureList() {
+    return adtPluginFeatureListEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAdtPluginFeatureList_Features() {
+    return (EReference) adtPluginFeatureListEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EOperation getAdtPluginFeatureList__GetFeaturesByEndpoint__String() {
+    return adtPluginFeatureListEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getAdtPluginFeatureType() {
+    return adtPluginFeatureTypeEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getAdtPluginFeatureCategory() {
+    return adtPluginFeatureCategoryEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EDataType getIAdtPluginFeatures() {
+    return iAdtPluginFeaturesEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public IAdtBaseFactory getAdtBaseFactory() {
     return (IAdtBaseFactory) getEFactoryInstance();
   }
@@ -290,6 +463,26 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     userEClass = createEClass(USER);
     createEAttribute(userEClass, USER__NAME);
     createEAttribute(userEClass, USER__TEXT);
+
+    adtPluginFeatureEClass = createEClass(ADT_PLUGIN_FEATURE);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__NAME);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__ENDPOINT);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__TYPE);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__ENABLED);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__CATEGORY);
+    createEAttribute(adtPluginFeatureEClass, ADT_PLUGIN_FEATURE__DESCRIPTION);
+
+    adtPluginFeatureListEClass = createEClass(ADT_PLUGIN_FEATURE_LIST);
+    createEReference(adtPluginFeatureListEClass, ADT_PLUGIN_FEATURE_LIST__FEATURES);
+    createEOperation(adtPluginFeatureListEClass,
+        ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING);
+
+    // Create enums
+    adtPluginFeatureTypeEEnum = createEEnum(ADT_PLUGIN_FEATURE_TYPE);
+    adtPluginFeatureCategoryEEnum = createEEnum(ADT_PLUGIN_FEATURE_CATEGORY);
+
+    // Create data types
+    iAdtPluginFeaturesEDataType = createEDataType(IADT_PLUGIN_FEATURES);
   }
 
   /**
@@ -367,6 +560,53 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
 
+    initEClass(adtPluginFeatureEClass, IAdtPluginFeature.class, "AdtPluginFeature", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAdtPluginFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1,
+        IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtPluginFeature_Endpoint(), ecorePackage.getEString(), "endpoint", null, 0,
+        1, IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtPluginFeature_Type(), getAdtPluginFeatureType(), "type", null, 0, 1,
+        IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtPluginFeature_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 0, 1,
+        IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtPluginFeature_Category(), getAdtPluginFeatureCategory(), "category",
+        "NoCategory", 0, 1, IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtPluginFeature_Description(), ecorePackage.getEString(), "description",
+        null, 0, 1, IAdtPluginFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(adtPluginFeatureListEClass, IAdtPluginFeatureList.class, "AdtPluginFeatureList",
+        !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAdtPluginFeatureList_Features(), getAdtPluginFeature(), null, "features",
+        null, 0, -1, IAdtPluginFeatureList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    EOperation op = initEOperation(getAdtPluginFeatureList__GetFeaturesByEndpoint__String(),
+        getIAdtPluginFeatures(), "getFeaturesByEndpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, ecorePackage.getEString(), "endpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+    // Initialize enums and add enum literals
+    initEEnum(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.class, "AdtPluginFeatureType");
+    addEEnumLiteral(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.BOOLEAN);
+    addEEnumLiteral(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.STRING);
+
+    initEEnum(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.class,
+        "AdtPluginFeatureCategory");
+    addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.NO_CATEGORY);
+    addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.REQUEST_ATTRIBUTE);
+    addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.RESPONSE_ATTRIBUTE);
+    addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.URI_PARAMETER);
+
+    // Initialize data types
+    initEDataType(iAdtPluginFeaturesEDataType, IAdtPluginFeatures.class, "IAdtPluginFeatures",
+        IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
     // Create resource
     createResource(eNS_URI);
 
@@ -409,6 +649,24 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         "namespace", "##targetNamespace" });
     addAnnotation(getUser_Text(), source, new String[] { "kind", "attribute", "name", "text",
         "namespace", "##targetNamespace" });
+    addAnnotation(adtPluginFeatureEClass, source, new String[] { "name", "pluginFeature", "kind",
+        "elementOnly" });
+    addAnnotation(getAdtPluginFeature_Name(), source, new String[] { "kind", "attribute", "name",
+        "name", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Endpoint(), source, new String[] { "kind", "attribute",
+        "name", "endpoint", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Type(), source, new String[] { "kind", "attribute", "name",
+        "type", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Enabled(), source, new String[] { "kind", "attribute", "name",
+        "enabled", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Category(), source, new String[] { "kind", "attribute",
+        "name", "category", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Description(), source, new String[] { "kind", "attribute",
+        "name", "description", "namespace", "##targetNamespace" });
+    addAnnotation(adtPluginFeatureListEClass, source, new String[] { "name", "pluginFeatures",
+        "kind", "elementOnly" });
+    addAnnotation(getAdtPluginFeatureList_Features(), source, new String[] { "kind", "element",
+        "name", "pluginFeature", "namespace", "##targetNamespace" });
   }
 
 } // AdtBasePackage

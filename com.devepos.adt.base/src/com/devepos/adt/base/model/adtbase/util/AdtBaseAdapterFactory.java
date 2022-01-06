@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EObject;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
+import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.model.adtbase.IUser;
 
 /**
@@ -83,6 +85,16 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
+    public Adapter caseAdtPluginFeature(final IAdtPluginFeature object) {
+      return createAdtPluginFeatureAdapter();
+    }
+
+    @Override
+    public Adapter caseAdtPluginFeatureList(final IAdtPluginFeatureList object) {
+      return createAdtPluginFeatureListAdapter();
+    }
+
+    @Override
     public Adapter defaultCase(final EObject object) {
       return createEObjectAdapter();
     }
@@ -143,6 +155,37 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createUserAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature <em>Adt Plugin
+   * Feature</em>}'. <!-- begin-user-doc --> This default implementation returns
+   * null so that we can easily ignore cases; it's useful to ignore a case when
+   * inheritance will catch all the cases anyway. <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature
+   * @generated
+   */
+  public Adapter createAdtPluginFeatureAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt
+   * Plugin Feature List</em>}'. <!-- begin-user-doc --> This default
+   * implementation returns null so that we can easily ignore cases; it's useful
+   * to ignore a case when inheritance will catch all the cases anyway. <!--
+   * end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList
+   * @generated
+   */
+  public Adapter createAdtPluginFeatureListAdapter() {
     return null;
   }
 

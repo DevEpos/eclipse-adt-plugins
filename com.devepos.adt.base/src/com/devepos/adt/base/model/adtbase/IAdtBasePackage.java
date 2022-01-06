@@ -4,6 +4,9 @@ package com.devepos.adt.base.model.adtbase;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -231,6 +234,171 @@ public interface IAdtBasePackage extends EPackage {
   int USER_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature <em>Adt
+   * Plugin Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeature()
+   * @generated
+   */
+  int ADT_PLUGIN_FEATURE = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
+   * --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Endpoint</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__ENDPOINT = 1;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc
+   * --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__TYPE = 2;
+
+  /**
+   * The feature id for the '<em><b>Enabled</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__ENABLED = 3;
+
+  /**
+   * The feature id for the '<em><b>Category</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__CATEGORY = 4;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE__DESCRIPTION = 5;
+
+  /**
+   * The number of structural features of the '<em>Adt Plugin Feature</em>' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_FEATURE_COUNT = 6;
+
+  /**
+   * The number of operations of the '<em>Adt Plugin Feature</em>' class. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeatureList <em>Adt
+   * Plugin Feature List</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeatureList
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureList()
+   * @generated
+   */
+  int ADT_PLUGIN_FEATURE_LIST = 4;
+
+  /**
+   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_LIST__FEATURES = 0;
+
+  /**
+   * The number of structural features of the '<em>Adt Plugin Feature List</em>'
+   * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_LIST_FEATURE_COUNT = 1;
+
+  /**
+   * The operation id for the '<em>Get Features By Endpoint</em>' operation. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING = 0;
+
+  /**
+   * The number of operations of the '<em>Adt Plugin Feature List</em>' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_PLUGIN_FEATURE_LIST_OPERATION_COUNT = 1;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
+   * Plugin Feature Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureType()
+   * @generated
+   */
+  int ADT_PLUGIN_FEATURE_TYPE = 5;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
+   * Plugin Feature Category</em>}' enum. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureCategory()
+   * @generated
+   */
+  int ADT_PLUGIN_FEATURE_CATEGORY = 6;
+
+  /**
+   * The meta object id for the '<em>IAdt Plugin Features</em>' data type. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIAdtPluginFeatures()
+   * @generated
+   */
+  int IADT_PLUGIN_FEATURES = 7;
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt Obj Ref</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -385,6 +553,160 @@ public interface IAdtBasePackage extends EPackage {
   EAttribute getUser_Text();
 
   /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature <em>Adt Plugin
+   * Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Plugin Feature</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature
+   * @generated
+   */
+  EClass getAdtPluginFeature();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName
+   * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Name();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint
+   * <em>Endpoint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Endpoint</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Endpoint();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType
+   * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription
+   * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Description();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled
+   * <em>Enabled</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Enabled</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Enabled();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory
+   * <em>Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Category</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Category();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt
+   * Plugin Feature List</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Plugin Feature List</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList
+   * @generated
+   */
+  EClass getAdtPluginFeatureList();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures
+   * <em>Features</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list
+   *         '<em>Features</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures()
+   * @see #getAdtPluginFeatureList()
+   * @generated
+   */
+  EReference getAdtPluginFeatureList_Features();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
+   * <em>Get Features By Endpoint</em>}' operation. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Features By Endpoint</em>'
+   *         operation.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
+   * @generated
+   */
+  EOperation getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
+   * Plugin Feature Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Adt Plugin Feature Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
+   * @generated
+   */
+  EEnum getAdtPluginFeatureType();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
+   * Plugin Feature Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Adt Plugin Feature Category</em>'.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * @generated
+   */
+  EEnum getAdtPluginFeatureCategory();
+
+  /**
+   * Returns the meta object for data type
+   * '{@link com.devepos.adt.base.plugin.features.IAdtPluginFeatures <em>IAdt
+   * Plugin Features</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for data type '<em>IAdt Plugin Features</em>'.
+   * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
+   * @model instanceClass="com.devepos.adt.base.plugin.features.IAdtPluginFeatures"
+   * @generated
+   */
+  EDataType getIAdtPluginFeatures();
+
+  /**
    * Returns the factory that creates the instances of the model. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -520,6 +842,128 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EAttribute USER__TEXT = eINSTANCE.getUser_Text();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature <em>Adt
+     * Plugin Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeature()
+     * @generated
+     */
+    EClass ADT_PLUGIN_FEATURE = eINSTANCE.getAdtPluginFeature();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__NAME = eINSTANCE.getAdtPluginFeature_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Endpoint</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__ENDPOINT = eINSTANCE.getAdtPluginFeature_Endpoint();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__TYPE = eINSTANCE.getAdtPluginFeature_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute
+     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__DESCRIPTION = eINSTANCE.getAdtPluginFeature_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__ENABLED = eINSTANCE.getAdtPluginFeature_Enabled();
+
+    /**
+     * The meta object literal for the '<em><b>Category</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_PLUGIN_FEATURE__CATEGORY = eINSTANCE.getAdtPluginFeature_Category();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeatureList <em>Adt
+     * Plugin Feature List</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeatureList
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureList()
+     * @generated
+     */
+    EClass ADT_PLUGIN_FEATURE_LIST = eINSTANCE.getAdtPluginFeatureList();
+
+    /**
+     * The meta object literal for the '<em><b>Features</b></em>' containment
+     * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ADT_PLUGIN_FEATURE_LIST__FEATURES = eINSTANCE.getAdtPluginFeatureList_Features();
+
+    /**
+     * The meta object literal for the '<em><b>Get Features By Endpoint</b></em>'
+     * operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING = eINSTANCE
+        .getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
+     * Plugin Feature Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureType()
+     * @generated
+     */
+    EEnum ADT_PLUGIN_FEATURE_TYPE = eINSTANCE.getAdtPluginFeatureType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
+     * Plugin Feature Category</em>}' enum. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureCategory()
+     * @generated
+     */
+    EEnum ADT_PLUGIN_FEATURE_CATEGORY = eINSTANCE.getAdtPluginFeatureCategory();
+
+    /**
+     * The meta object literal for the '<em>IAdt Plugin Features</em>' data type.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIAdtPluginFeatures()
+     * @generated
+     */
+    EDataType IADT_PLUGIN_FEATURES = eINSTANCE.getIAdtPluginFeatures();
 
   }
 
