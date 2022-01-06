@@ -60,11 +60,24 @@ public class StringUtil {
    * @return
    */
   public static Pattern getPatternForQuery(final String query) {
+    return getPatternForQuery(query, false);
+
+  }
+
+  /**
+   * Compiles pattern for the given query string
+   *
+   * @param query         the query to compile into Pattern
+   * @param caseSensitive if {@code true} the pattern will use case sensitive
+   *                      matching
+   * @return
+   */
+  public static Pattern getPatternForQuery(final String query, final boolean caseSensitive) {
     if (query == null || query.isEmpty()) {
       return Pattern.compile(".*");
     }
     final String pattern = query.replace(".", "\\.").replace("*", ".*").replace("+", ".") + ".*";
-    return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+    return Pattern.compile(pattern, !caseSensitive ? Pattern.CASE_INSENSITIVE : 0);
   }
 
   /**
