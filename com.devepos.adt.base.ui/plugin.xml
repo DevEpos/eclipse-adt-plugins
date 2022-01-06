@@ -20,6 +20,13 @@
               properties="supportsDataPreview,adtType"
               type="com.devepos.adt.base.ui.adtobject.IAdtObject">
         </propertyTester>
+        <propertyTester
+              class="com.devepos.adt.base.ui.internal.propertytester.PropertyPageExistenceTester"
+              id="com.devepos.adt.base.ui.PropertyPageExistenceTester"
+              namespace="com.devepos.adt.base.ui.project"
+              properties="pluginsWithPropertyPagesAvailable"
+              type="org.eclipse.core.resources.IProject">
+        </propertyTester>
      </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -98,15 +105,38 @@
       <page
             class="com.devepos.adt.base.ui.internal.preferences.PreferencesRoot"
             id="com.devepos.adt.preferences"
-            name="%preferencesRoot.name">
+            name="%provider.displayName">
       </page>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <category
             id="com.devepos.adt"
-            name="%views.category.root">
+            name="%provider.displayName">
       </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.devepos.adt.base.ui.internal.pages.DevEposProjectRootPropertyPage"
+            id="com.devepos.adt.base.ui.projectProperties.DevEpos"
+            name="%provider.displayName">
+         <filter
+               name="projectNature"
+               value="com.sap.adt.abapnature">
+         </filter>
+         <enabledWhen>
+            <and>
+               <adapt
+                     type="org.eclipse.core.resources.IProject">
+               </adapt>
+               <test
+                     property="com.devepos.adt.base.ui.project.pluginsWithPropertyPagesAvailable">
+               </test>
+            </and>
+            
+         </enabledWhen>
+      </page>
    </extension>
 
 </plugin>

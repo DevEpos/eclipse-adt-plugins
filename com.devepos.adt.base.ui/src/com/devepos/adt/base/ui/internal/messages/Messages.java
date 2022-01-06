@@ -26,6 +26,7 @@ public class Messages extends NLS {
   public static String ProjectInput_NoProjectEntered_xmsg;
   public static String ProjectInput_Project_xfld;
   public static String ProjectInput_ProjectDoesNotExist_xmsg;
+  public static String ProjectPropertyPagesRoot_infoLabel_xlbl;
   public static String SearchSelectionDialog_FilterLabel;
   public static String SearchSelectionDialog_ItemsSelected;
   public static String SearchSelectionDialog_ResultItemsLabel;

@@ -29,22 +29,34 @@ Require-Bundle: com.devepos.adt.base,
  org.eclipse.ui,
  org.eclipse.search,
  org.eclipse.ui.ide,
- org.eclipse.text
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.eclipse.text,
+ com.sap.adt.ris.search
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.tools.base.ui
 Bundle-ActivationPolicy: lazy
-Export-Package: com.devepos.adt.base.ui;x-friends:="com.devepos.adt.abaptags.backend,com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
+Export-Package: com.devepos.adt.base.ui;
+  x-friends:="com.devepos.adt.abaptags.backend,
+   com.devepos.adt.abaptags.ui,
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.action;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.adtobject;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.celleditor;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.ui.contentassist;x-friends:="com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.controls;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.dialogs;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.elementinfo;x-friends:="com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.menu;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.base.ui.project;x-friends:="com.devepos.adt.abaptags.backend,com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.base.ui.search;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.base.ui.tree;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.ui.preferences;x-friends:="com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.ui.project;
+  x-friends:="com.devepos.adt.abaptags.backend,
+   com.devepos.adt.abaptags.ui,
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.codesearch.ui,
+   com.devepos.adt.codesearch.backend",
+ com.devepos.adt.base.ui.search;x-friends:="com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui,com.devepos.adt.abaptags.ui",
+ com.devepos.adt.base.ui.search.contentassist;x-friends:="com.devepos.adt.codesearch.ui,com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.ui.tree;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.userinfo;x-friends:="com.devepos.adt.abaptags.ui",
- com.devepos.adt.base.ui.util;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.ui.util;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.wizard;x-friends:="com.devepos.adt.abaptags.ui"
