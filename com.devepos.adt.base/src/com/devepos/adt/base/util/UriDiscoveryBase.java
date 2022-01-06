@@ -30,10 +30,10 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
     return discovery != null && discovery.getStatus().isOK();
   }
 
-  protected UriDiscoveryBase(final String destination, final String discoveryPath,
+  protected UriDiscoveryBase(final String destinationId, final String discoveryPath,
       final String discoveryScheme) {
     this.discoveryScheme = discoveryScheme;
-    discovery = AdtDiscoveryFactory.createDiscovery(destination, URI.create(discoveryPath));
+    discovery = AdtDiscoveryFactory.createDiscovery(destinationId, URI.create(discoveryPath));
   }
 
   /**
