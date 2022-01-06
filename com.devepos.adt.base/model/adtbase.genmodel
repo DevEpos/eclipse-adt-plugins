@@ -3,13 +3,24 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.base/src" editDirectory="/com.devepos.adt.base.edit/src"
     editorDirectory="/com.devepos.adt.base.editor/src" modelPluginID="com.devepos.adt.base"
     modelName="ADT Base" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="11.0" copyrightFields="false"
     editPluginID="com.devepos.adt.base.edit" editorPluginID="com.devepos.adt.base.editor"
     runtimeVersion="2.10" interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true">
   <foreignModel>adtbase.ecore</foreignModel>
   <genPackages prefix="AdtBase" basePackage="com.devepos.adt.base.model" resource="XML"
       disposableProviderFactory="true" ecorePackage="adtbase.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="adtbase.ecore#//AdtPluginFeatureType">
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureType/STRING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="adtbase.ecore#//AdtPluginFeatureCategory">
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/NO_CATEGORY"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/REQUEST_ATTRIBUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/RESPONSE_ATTRIBUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/URI_PARAMETER"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="adtbase.ecore#//IAdtPluginFeatures"/>
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRef">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/name"/>
@@ -25,6 +36,20 @@
     <genClasses ecoreClass="adtbase.ecore#//User">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//User/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//User/text"/>
+    </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//AdtPluginFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/endpoint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/enabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtPluginFeature/description"/>
+    </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//AdtPluginFeatureList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//AdtPluginFeatureList/features"/>
+      <genOperations ecoreOperation="adtbase.ecore#//AdtPluginFeatureList/getFeaturesByEndpoint">
+        <genParameters ecoreParameter="adtbase.ecore#//AdtPluginFeatureList/getFeaturesByEndpoint/endpoint"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
