@@ -1,4 +1,4 @@
-package com.devepos.adt.base.ui.search.contentassist;
+package com.devepos.adt.base.ui.contentassist;
 
 import java.util.List;
 
@@ -6,12 +6,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.fieldassist.IContentProposal;
 
 /**
- * Provider for search proposals
+ * Provider for content proposals for a given text query
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  *
  */
-public interface ISearchProposalProvider {
+public interface ITextQueryProposalProvider {
   /**
    * Retrieves a list of filter proposals for the given query string
    *

@@ -29,7 +29,7 @@ public class Messages extends NLS {
   public static String SearchSelectionDialog_FilterLabel;
   public static String SearchSelectionDialog_ItemsSelected;
   public static String SearchSelectionDialog_ResultItemsLabel;
-  public static String SearchPatternContentProvider_loadingJob_xmsg;
+  public static String AsyncTextQueryProposalProvider_loadingJob_xmsg;
   public static String SearchPatternProvider_loading_xmsg;
   public static String SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg;
   public static String SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg;

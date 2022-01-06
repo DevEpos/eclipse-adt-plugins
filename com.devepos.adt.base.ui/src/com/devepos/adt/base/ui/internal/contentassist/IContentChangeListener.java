@@ -1,4 +1,4 @@
-package com.devepos.adt.base.ui.search.contentassist;
+package com.devepos.adt.base.ui.internal.contentassist;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public interface IContentChangeListener {
+interface IContentChangeListener {
 
   /**
    * Notify subscribers of the content change

@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.osgi.util.NLS;
 
+import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.search.ISearchFilter;
@@ -23,20 +24,20 @@ import com.devepos.adt.base.util.IValidator;
 import com.devepos.adt.base.util.StringUtil;
 
 /**
- * Analyzer for search pattern which retrieves
+ * Analyzer for search patterns
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  */
-public class SearchPatternAnalyzer {
-  private static final String FILTER_KEY_END = ":"; //$NON-NLS-1$
-
-  private static final String KEY_VALUE_SEP = "="; //$NON-NLS-1$
-  private static final String VALUE_LIST_SEP = ","; //$NON-NLS-1$
-  private static final String ANY_WHITESPACE = "\\s*"; //$NON-NLS-1$
-  private static final String SPACE = " "; //$NON-NLS-1$
-  private static final String EMPTY = ""; //$NON-NLS-1$
+public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
   private static final String ANY_VALUE_CHAR = "*"; //$NON-NLS-1$
+
+  private static final String ANY_WHITESPACE = "\\s*"; //$NON-NLS-1$
+  private static final String EMPTY = ""; //$NON-NLS-1$
+  private static final String FILTER_KEY_END = ":"; //$NON-NLS-1$
+  private static final String KEY_VALUE_SEP = "="; //$NON-NLS-1$
   private static final String SOME_VALUE_CHAR = "+"; //$NON-NLS-1$
+  private static final String SPACE = " "; //$NON-NLS-1$
+  private static final String VALUE_LIST_SEP = ","; //$NON-NLS-1$
   private final ISearchFilterProvider filterHandler;
   private List<ISearchFilter> filters;
   private boolean isSearchTermAllowed;
@@ -46,7 +47,7 @@ public class SearchPatternAnalyzer {
    *
    * @param filterHandler handler for retrieving search filters
    */
-  public SearchPatternAnalyzer(final ISearchFilterProvider filterHandler) {
+  private SearchPatternAnalyzer(final ISearchFilterProvider filterHandler) {
     this.filterHandler = filterHandler;
   }
 
@@ -54,8 +55,8 @@ public class SearchPatternAnalyzer {
    * Validates filter values
    */
   private class FilterValueValidator {
-    private String[] values;
     private ISearchFilter filter;
+    private String[] values;
 
     public FilterValueValidator(final ISearchFilter filter, final String[] filterValues) {
       values = filterValues;
@@ -118,10 +119,10 @@ public class SearchPatternAnalyzer {
 
     private void validateBufferedValues(final ISearchFilter filter, final String[] filterValues)
         throws CoreException {
-      if (filter.isBuffered() && filter instanceof ISearchProposalProvider) {
+      if (filter.isBuffered() && filter instanceof ITextQueryProposalProvider) {
         for (String value : filterValues) {
           value = removeNegation(filter, value);
-          final List<IContentProposal> proposalList = ((ISearchProposalProvider) filter)
+          final List<IContentProposal> proposalList = ((ITextQueryProposalProvider) filter)
               .getProposalList(value);
           if (!isValueInProposalList(proposalList, value)) {
             throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
@@ -131,6 +132,15 @@ public class SearchPatternAnalyzer {
         }
       }
     }
+  }
+
+  /**
+   * Creates new search pattern analyzer instance
+   *
+   * @param filterHandler handler for retrieving search filters
+   */
+  public static ISearchPatternAnalyzer createAnalyzer(final ISearchFilterProvider filterHandler) {
+    return new SearchPatternAnalyzer(filterHandler);
   }
 
   /*
@@ -175,6 +185,7 @@ public class SearchPatternAnalyzer {
    * @param searchPattern the pattern to analyze
    * @throws CoreException
    */
+  @Override
   public void checkFilters(final String searchPattern) throws CoreException {
     updateSearchFilters();
     final String condensedPattern = condense(searchPattern);
@@ -205,6 +216,7 @@ public class SearchPatternAnalyzer {
    *                      <code>searchPattern</code>
    * @return a list of filter values
    */
+  @Override
   public List<String> getContent(final String searchPattern, final String filterKey) {
     final List<String> result = new ArrayList<>();
     updateSearchFilters();
@@ -249,6 +261,7 @@ public class SearchPatternAnalyzer {
    * @param query
    * @return
    */
+  @Override
   public List<IContentProposal> getFilters(final String query) {
     final List<IContentProposal> filterProposals = new ArrayList<>();
     String lastPart = getStringToAnalyse(query);
@@ -258,12 +271,12 @@ public class SearchPatternAnalyzer {
       if (lastPart.isEmpty()) {
         filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
             .getImage(), searchFilter.getDescription(),
-            searchFilter instanceof ISearchProposalProvider));
+            searchFilter instanceof ITextQueryProposalProvider));
       } else {
         if (searchFilter.getLabel().startsWith(lastPart)) {
           filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
               .getImage(), searchFilter.getDescription(), lastPart,
-              searchFilter instanceof ISearchProposalProvider));
+              searchFilter instanceof ITextQueryProposalProvider));
         }
       }
     }
@@ -277,11 +290,12 @@ public class SearchPatternAnalyzer {
    * @return List of filter proposals
    * @throws CoreException
    */
+  @Override
   public List<IContentProposal> getFilterValueProposals(final String query) throws CoreException {
     List<IContentProposal> proposals = new ArrayList<>();
     final String lastPart = getStringToAnalyse(query);
     for (final ISearchFilter searchFilter : filters) {
-      if (!(searchFilter instanceof ISearchProposalProvider)) {
+      if (!(searchFilter instanceof ITextQueryProposalProvider)) {
         continue;
       }
       final String filterStart = searchFilter.getLabel() + FILTER_KEY_END;
@@ -295,7 +309,7 @@ public class SearchPatternAnalyzer {
       // if the filter supports negated values the the negation char should be
       // excluded during the determination of relevant proposals
       currentQuery = removeNegation(searchFilter, currentQuery);
-      proposals = ((ISearchProposalProvider) searchFilter).getProposalList(currentQuery);
+      proposals = ((ITextQueryProposalProvider) searchFilter).getProposalList(currentQuery);
     }
     return proposals;
   }
@@ -307,6 +321,7 @@ public class SearchPatternAnalyzer {
    * @return the determined proposals
    * @throws CoreException
    */
+  @Override
   public List<IContentProposal> getProposals(final String query) throws CoreException {
     List<IContentProposal> proposals = null;
     updateSearchFilters();
@@ -325,6 +340,7 @@ public class SearchPatternAnalyzer {
    * @param searchPattern the current search pattern to analyze
    * @return
    */
+  @Override
   public String getSearchTerm(final String searchPattern) {
     updateSearchFilters();
     /*
@@ -342,6 +358,7 @@ public class SearchPatternAnalyzer {
    *
    * @param allowSearchTermInPattern
    */
+  @Override
   public void setIsSearchTermAllowed(final boolean allowSearchTermInPattern) {
     isSearchTermAllowed = allowSearchTermInPattern;
   }
@@ -351,7 +368,7 @@ public class SearchPatternAnalyzer {
     // Error -> only filter key + ":" supplied
     if (part.length() <= (filter.getLabel() + FILTER_KEY_END).length()) {
       throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-          Messages.SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg, part)));
+          Messages.SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg, filter.getLabel())));
     }
 
     final String filterValuesString = part.substring(filter.getLabel().length() + 1);

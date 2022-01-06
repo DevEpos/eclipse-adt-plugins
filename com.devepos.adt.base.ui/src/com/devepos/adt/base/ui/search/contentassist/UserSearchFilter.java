@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.project.IAbapProjectProvider;
@@ -28,7 +29,7 @@ import com.sap.adt.tools.core.system.IUser;
  * @author stockbal
  */
 @SuppressWarnings("restriction")
-public class UserSearchFilter implements ISearchFilter, ISearchProposalProvider {
+public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
   public static final String FILTER_NAME = "owner";
   private final IAbapProjectProvider projectProvider;
@@ -63,8 +64,8 @@ public class UserSearchFilter implements ISearchFilter, ISearchProposalProvider 
       final List<IUser> users = getUsers(query);
       if (users != null) {
         for (final IUser user : users) {
-          proposals.add(new SearchFilterValueProposal(user.getId(), FILTER_NAME, user.getText(),
-              query, getProposalImage()));
+          proposals.add(new SearchFilterValueProposal(user.getId(), this, user.getText(), query,
+              getProposalImage()));
           if (proposals.size() >= 50) {
             break;
           }

@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Image;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.project.IAbapProjectProvider;
@@ -29,7 +30,7 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class PackageSearchFilter implements ISearchFilter, ISearchProposalProvider {
+public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
   public static final String FILTER_NAME = "package";
   private final Image image;
@@ -70,7 +71,7 @@ public class PackageSearchFilter implements ISearchFilter, ISearchProposalProvid
             IAdtObjectTypeConstants.PACKAGE);
         if (packageList != null) {
           for (final IAdtObjectReference objRef : packageList) {
-            result.add(new SearchFilterValueProposal(objRef.getName(), FILTER_NAME, objRef
+            result.add(new SearchFilterValueProposal(objRef.getName(), this, objRef
                 .getDescription(), query, getProposalImage()));
           }
         }

@@ -1,6 +1,7 @@
 package com.devepos.adt.base.ui.search.contentassist;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.ui.IImageProvider;
@@ -10,7 +11,7 @@ import com.devepos.adt.base.ui.IImageProvider;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class SearchFilterLabelProvider extends org.eclipse.jface.viewers.LabelProvider {
+public class SearchFilterLabelProvider extends LabelProvider {
 
   @Override
   public Image getImage(final Object element) {

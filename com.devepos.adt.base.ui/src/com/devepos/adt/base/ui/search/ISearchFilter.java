@@ -2,12 +2,14 @@ package com.devepos.adt.base.ui.search;
 
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.base.ui.IImageProvider;
+
 /**
  * Describes search filter
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public interface ISearchFilter {
+public interface ISearchFilter extends IImageProvider {
   String WILDCARD = "*";
 
   /**
@@ -15,6 +17,7 @@ public interface ISearchFilter {
    *
    * @return reference to Image
    */
+  @Override
   Image getImage();
 
   /**
@@ -60,4 +63,13 @@ public interface ISearchFilter {
    * @return <code>true</code> if filter supports negation of values
    */
   boolean supportsNegatedValues();
+
+  /**
+   * Checks if the filter supports values that are case sensitive
+   *
+   * @return {@code true} if this filter supports case sensitive values
+   */
+  default boolean isCaseSensitive() {
+    return false;
+  }
 }

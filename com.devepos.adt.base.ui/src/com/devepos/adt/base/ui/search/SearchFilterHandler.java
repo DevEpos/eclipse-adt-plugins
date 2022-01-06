@@ -8,9 +8,10 @@ import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Text;
 
-import com.devepos.adt.base.ui.search.contentassist.SearchFilterLabelProvider;
+import com.devepos.adt.base.ui.contentassist.ContentAssistSupport;
+import com.devepos.adt.base.ui.contentassist.IContentAssist;
+import com.devepos.adt.base.ui.search.contentassist.ISearchPatternAnalyzer;
 import com.devepos.adt.base.ui.search.contentassist.SearchPatternAnalyzer;
-import com.devepos.adt.base.ui.search.contentassist.SearchPatternContentAssist;
 
 /**
  * Provides search filter values that were entered in a text input
@@ -18,12 +19,12 @@ import com.devepos.adt.base.ui.search.contentassist.SearchPatternContentAssist;
  * @author Ludwig Stockbauer-Muhr
  */
 public class SearchFilterHandler {
-  private SearchPatternContentAssist contentAssist;
-  private final SearchPatternAnalyzer patternAnalyzer;
+  private IContentAssist contentAssist;
+  private final ISearchPatternAnalyzer patternAnalyzer;
   private ISearchFilterProvider filterProvider;
 
   public SearchFilterHandler(final ISearchFilterProvider filterProvider) {
-    patternAnalyzer = new SearchPatternAnalyzer(filterProvider);
+    patternAnalyzer = SearchPatternAnalyzer.createAnalyzer(filterProvider);
     this.filterProvider = filterProvider;
   }
 
@@ -35,16 +36,13 @@ public class SearchFilterHandler {
    * Adds content assistance to the given field. This provider currently supports
    * only one field
    *
-   * @param input
+   * @param input the text control which should get the content assist
    */
   public void addContentAssist(final Text input) {
-    // TODO: decouple content assist completely from the provider
     if (contentAssist != null) {
       contentAssist.dispose();
-      contentAssist = null;
     }
-    contentAssist = new SearchPatternContentAssist(input, patternAnalyzer);
-    contentAssist.setLabelProvider(new SearchFilterLabelProvider());
+    contentAssist = ContentAssistSupport.createSearchFilterContentAssist(input, patternAnalyzer);
   }
 
   /**

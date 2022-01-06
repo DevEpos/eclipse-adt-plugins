@@ -1,11 +1,11 @@
 package com.devepos.adt.base.ui.search.contentassist;
 
-import java.util.Locale;
-
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.ui.IImageProvider;
+import com.devepos.adt.base.ui.internal.contentassist.ContentProposalUtil;
+import com.devepos.adt.base.ui.search.ISearchFilter;
 
 /**
  * Describes a proposal of a value for a specific search filter <br>
@@ -15,7 +15,7 @@ import com.devepos.adt.base.ui.IImageProvider;
  */
 public class SearchFilterValueProposal implements IContentProposal, IImageProvider {
   private final String key;
-  private final String filterName;
+  private final ISearchFilter filter;
   private final String description;
   private final String wordToComplete;
   private final String longText;
@@ -26,63 +26,59 @@ public class SearchFilterValueProposal implements IContentProposal, IImageProvid
    * Creates new search filter value proposal with the given name and description
    *
    * @param key            the key of the proposal
-   * @param filterName     the filter name for the filter proposal e.g.
-   *                       <strong>owner</strong>
+   * @param filter         the filter for this filter value
    * @param description    the description of the proposal
    * @param wordToComplete the prefix that triggered the proposal
    * @param image          the image to be displayed for the proposal
    */
-  public SearchFilterValueProposal(final String key, final String filterName,
+  public SearchFilterValueProposal(final String key, final ISearchFilter filter,
       final String description, final String wordToComplete, final Image image) {
-    this(key, filterName, description, null, wordToComplete, image, null);
+    this(key, filter, description, null, wordToComplete, image, null);
   }
 
   /**
    * Creates new search filter value proposal with the given name and description
    *
    * @param key            the key of the proposal
-   * @param filterName     the filter name for the filter proposal e.g.
-   *                       <strong>owner</strong>
+   * @param filter         the filter for this filter value
    * @param description    the description of the proposal
    * @param wordToComplete the prefix that triggered the proposal
    * @param imageProvider  the provider to be queried for an image of the proposal
    */
-  public SearchFilterValueProposal(final String key, final String filterName,
+  public SearchFilterValueProposal(final String key, final ISearchFilter filter,
       final String description, final String wordToComplete, final IImageProvider imageProvider) {
-    this(key, filterName, description, null, wordToComplete, null, imageProvider);
+    this(key, filter, description, null, wordToComplete, null, imageProvider);
   }
 
   /**
    * Creates new search filter value proposal with the given name and description
    *
    * @param key            the key of the proposal
-   * @param filterName     the filter name for the filter proposal e.g.
-   *                       <strong>owner</strong>
+   * @param filter         the filter for this filter value
    * @param description    the description of the proposal
    * @param wordToComplete the prefix that triggered the proposal
    */
-  public SearchFilterValueProposal(final String key, final String filterName,
+  public SearchFilterValueProposal(final String key, final ISearchFilter filter,
       final String description, final String wordToComplete) {
-    this(key, filterName, description, null, wordToComplete, null, null);
+    this(key, filter, description, null, wordToComplete, null, null);
   }
 
   /**
    * Creates new search filter value proposal with the given name and description
    *
    * @param key            the key of the proposal
-   * @param filterName     the filter name for the filter proposal e.g.
-   *                       <strong>owner</strong>
+   * @param filter         the filter for this filter value
    * @param description    the description of the proposal
    * @param longText       the long text of the filter proposal
    * @param wordToComplete the prefix that triggered the proposal
    * @param image          the image for the proposal
    * @param imageProvider  the provider to be queried for an image of the proposal
    */
-  public SearchFilterValueProposal(final String key, final String filterName,
+  public SearchFilterValueProposal(final String key, final ISearchFilter filter,
       final String description, final String longText, final String wordToComplete,
       final Image image, final IImageProvider imageProvider) {
     this.key = key;
-    this.filterName = filterName;
+    this.filter = filter;
     this.longText = longText;
     this.description = description;
     this.wordToComplete = wordToComplete;
@@ -92,12 +88,7 @@ public class SearchFilterValueProposal implements IContentProposal, IImageProvid
 
   @Override
   public String getContent() {
-    String content = String.valueOf(key.toLowerCase(Locale.ENGLISH));
-    if (wordToComplete != null && !wordToComplete.isEmpty() && content.startsWith(wordToComplete
-        .toLowerCase())) {
-      content = content.substring(wordToComplete.length());
-    }
-    return content;
+    return ContentProposalUtil.getProposalContent(key, wordToComplete, filter.isCaseSensitive());
   }
 
   /**
@@ -157,7 +148,7 @@ public class SearchFilterValueProposal implements IContentProposal, IImageProvid
    * @return the search filter name
    */
   public String getFilterName() {
-    return filterName;
+    return filter.getLabel();
   }
 
   @Override
