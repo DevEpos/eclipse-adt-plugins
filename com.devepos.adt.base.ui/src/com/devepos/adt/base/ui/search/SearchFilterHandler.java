@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Text;
@@ -59,13 +61,52 @@ public class SearchFilterHandler {
 
   /**
    * Retrieves a map of all valid filters in the given search pattern and their
-   * entered values
+   * entered values. <br>
+   * Multiple values of the same filter will be concatenated
    *
-   * @param pattern
-   * @return
+   * @param pattern             the search pattern that should be parsed
+   * @param externalFilterNames a map of optional mappings between internal an
+   *                            external filter names
+   * @return a map of the found filters with their values
    */
-  public Map<String, Object> getSearchFilters(final String pattern,
+  public Map<String, Object> getSearchFiltersAsListMap(String pattern,
       final Map<String, String> externalFilterNames) {
+    return getSearchFilters(pattern, externalFilterNames, filterValues -> filterValues);
+  }
+
+  /**
+   * Retrieves a map of all valid filters in the given search pattern and their
+   * entered values.<br>
+   * Multiple values of the same filter will be concatenated into a single String
+   * using the given <code>delimiter</code>
+   *
+   * @param pattern             the search pattern that should be parsed
+   * @param externalFilterNames a map of optional mappings between internal an
+   *                            external filter names
+   * @param delimiter           the delimiter to be used for joining multiple
+   *                            values of a single filter together
+   * @return a map of the found filters with their values
+   */
+  public Map<String, Object> getSearchFiltersAsStringMap(String pattern,
+      final Map<String, String> externalFilterNames, CharSequence delimiter) {
+    if (delimiter == null) {
+      throw new IllegalArgumentException("Parameter 'delimiter' must not be null!");
+    }
+    return getSearchFilters(pattern, externalFilterNames, filterValues -> filterValues.stream()
+        .collect(Collectors.joining(delimiter)));
+  }
+
+  /*
+   * Creates a map of the search filters and their values from the given search
+   * pattern. The 'filterValueCollector' will be used for aggregation of the
+   * values of a single filter
+   */
+  private Map<String, Object> getSearchFilters(final String pattern,
+      final Map<String, String> externalFilterNames,
+      Function<List<String>, Object> filterValueCollector) {
+    if (filterValueCollector == null) {
+      throw new IllegalArgumentException("Parameter 'filterValueCollector' must not be null!");
+    }
     final Map<String, Object> filterMap = new HashMap<>();
     final List<ISearchFilter> filters = filterProvider.getFilters();
 
@@ -73,10 +114,12 @@ public class SearchFilterHandler {
       String filterName = externalFilterNames != null ? externalFilterNames.get(filter.getLabel())
           : filter.getLabel();
       if (filterName == null) {
-        filter.getLabel();
+        filterName = filter.getLabel();
       }
-      filterMap.put(filterName, getFilterValues(pattern, filter.getLabel()));
-
+      List<String> filterValues = getFilterValues(pattern, filter.getLabel());
+      if (filterValues != null && !filterValues.isEmpty()) {
+        filterMap.put(filterName, filterValueCollector.apply(filterValues));
+      }
     }
     return filterMap;
   }
