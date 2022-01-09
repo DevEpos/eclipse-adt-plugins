@@ -5,7 +5,7 @@ import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 /**
  * Service for accessing the features for plugins, i.e. services that are
  * implemented in the ABAP backend.
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
