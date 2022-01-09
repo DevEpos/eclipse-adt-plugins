@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * Base class for ADT object references. It encapsulates the data that clients
  * may want to access without loading the actual resource - e.g. in order to
  * display the name and an icon.
- *
+ * 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -28,12 +28,14 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Package Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
  * <em>Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
- * <em>Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
- * <em>Owner</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType
  * <em>Tadir Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
+ * <em>Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri
+ * <em>Parent Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
+ * <em>Owner</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef()
@@ -193,6 +195,33 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setUri(String value);
+
+  /**
+   * Returns the value of the '<em><b>Parent Uri</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The URI of
+   * the parent ADT object. This attribute may be null at time. <!-- end-model-doc
+   * -->
+   *
+   * @return the value of the '<em>Parent Uri</em>' attribute.
+   * @see #setParentUri(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentUri()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI"
+   *        extendedMetaData="kind='attribute' name='parentUri'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentUri();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent
+   * Uri</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Uri</em>' attribute.
+   * @see #getParentUri()
+   * @generated
+   */
+  void setParentUri(String value);
 
   /**
    * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--

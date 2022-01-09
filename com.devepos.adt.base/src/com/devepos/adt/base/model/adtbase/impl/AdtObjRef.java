@@ -25,12 +25,14 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * <em>Package Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getType
  * <em>Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getUri
- * <em>Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner
- * <em>Owner</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getTadirType
  * <em>Tadir Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getUri
+ * <em>Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentUri
+ * <em>Parent Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner
+ * <em>Owner</em>}</li>
  * </ul>
  *
  * @generated
@@ -117,6 +119,26 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected String type = TYPE_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getTadirType() <em>Tadir Type</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getTadirType()
+   * @generated
+   * @ordered
+   */
+  protected static final String TADIR_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getTadirType()
+   * @generated
+   * @ordered
+   */
+  protected String tadirType = TADIR_TYPE_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -137,6 +159,26 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected String uri = URI_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getParentUri() <em>Parent Uri</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getParentUri()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARENT_URI_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentUri() <em>Parent Uri</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getParentUri()
+   * @generated
+   * @ordered
+   */
+  protected String parentUri = PARENT_URI_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getOwner() <em>Owner</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -155,26 +197,6 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected String owner = OWNER_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTadirType() <em>Tadir Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getTadirType()
-   * @generated
-   * @ordered
-   */
-  protected static final String TADIR_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getTadirType()
-   * @generated
-   * @ordered
-   */
-  protected String tadirType = TADIR_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -326,6 +348,31 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @generated
    */
   @Override
+  public String getParentUri() {
+    return parentUri;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setParentUri(final String newParentUri) {
+    String oldParentUri = parentUri;
+    parentUri = newParentUri;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__PARENT_URI,
+          oldParentUri, parentUri));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public String getOwner() {
     return owner;
   }
@@ -386,12 +433,14 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return getPackageName();
     case IAdtBasePackage.ADT_OBJ_REF__TYPE:
       return getType();
-    case IAdtBasePackage.ADT_OBJ_REF__URI:
-      return getUri();
-    case IAdtBasePackage.ADT_OBJ_REF__OWNER:
-      return getOwner();
     case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
       return getTadirType();
+    case IAdtBasePackage.ADT_OBJ_REF__URI:
+      return getUri();
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
+      return getParentUri();
+    case IAdtBasePackage.ADT_OBJ_REF__OWNER:
+      return getOwner();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -416,14 +465,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__TYPE:
       setType((String) newValue);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
+      setTadirType((String) newValue);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__URI:
       setUri((String) newValue);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
+      setParentUri((String) newValue);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner((String) newValue);
-      return;
-    case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
-      setTadirType((String) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -449,14 +501,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__TYPE:
       setType(TYPE_EDEFAULT);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
+      setTadirType(TADIR_TYPE_EDEFAULT);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__URI:
       setUri(URI_EDEFAULT);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
+      setParentUri(PARENT_URI_EDEFAULT);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner(OWNER_EDEFAULT);
-      return;
-    case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
-      setTadirType(TADIR_TYPE_EDEFAULT);
       return;
     }
     super.eUnset(featureID);
@@ -480,13 +535,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
           : !PACKAGE_NAME_EDEFAULT.equals(packageName);
     case IAdtBasePackage.ADT_OBJ_REF__TYPE:
       return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-    case IAdtBasePackage.ADT_OBJ_REF__URI:
-      return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-    case IAdtBasePackage.ADT_OBJ_REF__OWNER:
-      return OWNER_EDEFAULT == null ? owner != null : !OWNER_EDEFAULT.equals(owner);
     case IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE:
       return TADIR_TYPE_EDEFAULT == null ? tadirType != null
           : !TADIR_TYPE_EDEFAULT.equals(tadirType);
+    case IAdtBasePackage.ADT_OBJ_REF__URI:
+      return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
+      return PARENT_URI_EDEFAULT == null ? parentUri != null
+          : !PARENT_URI_EDEFAULT.equals(parentUri);
+    case IAdtBasePackage.ADT_OBJ_REF__OWNER:
+      return OWNER_EDEFAULT == null ? owner != null : !OWNER_EDEFAULT.equals(owner);
     }
     return super.eIsSet(featureID);
   }
@@ -511,12 +569,14 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     result.append(packageName);
     result.append(", type: ");
     result.append(type);
-    result.append(", uri: ");
-    result.append(uri);
-    result.append(", owner: ");
-    result.append(owner);
     result.append(", tadirType: ");
     result.append(tadirType);
+    result.append(", uri: ");
+    result.append(uri);
+    result.append(", parentUri: ");
+    result.append(parentUri);
+    result.append(", owner: ");
+    result.append(owner);
     result.append(')');
     return result.toString();
   }

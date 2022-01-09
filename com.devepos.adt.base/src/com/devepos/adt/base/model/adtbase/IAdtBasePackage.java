@@ -104,13 +104,31 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__TYPE = 3;
 
   /**
+   * The feature id for the '<em><b>Tadir Type</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__TADIR_TYPE = 4;
+
+  /**
    * The feature id for the '<em><b>Uri</b></em>' attribute. <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__URI = 4;
+  int ADT_OBJ_REF__URI = 5;
+
+  /**
+   * The feature id for the '<em><b>Parent Uri</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__PARENT_URI = 6;
 
   /**
    * The feature id for the '<em><b>Owner</b></em>' attribute. <!-- begin-user-doc
@@ -119,16 +137,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__OWNER = 5;
-
-  /**
-   * The feature id for the '<em><b>Tadir Type</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   * @ordered
-   */
-  int ADT_OBJ_REF__TADIR_TYPE = 6;
+  int ADT_OBJ_REF__OWNER = 7;
 
   /**
    * The number of structural features of the '<em>Adt Obj Ref</em>' class. <!--
@@ -137,7 +146,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF_FEATURE_COUNT = 7;
+  int ADT_OBJ_REF_FEATURE_COUNT = 8;
 
   /**
    * The number of operations of the '<em>Adt Obj Ref</em>' class. <!--
@@ -471,6 +480,18 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent
+   * Uri</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Uri</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ParentUri();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
    * <em>Owner</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -779,6 +800,14 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EAttribute ADT_OBJ_REF__URI = eINSTANCE.getAdtObjRef_Uri();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Uri</b></em>' attribute
+     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__PARENT_URI = eINSTANCE.getAdtObjRef_ParentUri();
 
     /**
      * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.

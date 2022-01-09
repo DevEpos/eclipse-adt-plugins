@@ -26,9 +26,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/packageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/uri"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/owner"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/tadirType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/parentUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/owner"/>
     </genClasses>
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRefList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//AdtObjRefList/objectReferences"/>
