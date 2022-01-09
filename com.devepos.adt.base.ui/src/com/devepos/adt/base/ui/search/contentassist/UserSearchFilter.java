@@ -31,19 +31,20 @@ import com.sap.adt.tools.core.system.IUser;
 @SuppressWarnings("restriction")
 public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
-  public static final String FILTER_NAME = "owner";
   private final IAbapProjectProvider projectProvider;
   private final Image image;
   private Image proposalImage;
+  private String filterLabel;
 
-  public UserSearchFilter(final IAbapProjectProvider projectProvider) {
+  public UserSearchFilter(final IAbapProjectProvider projectProvider, String filterLabel) {
     this.projectProvider = projectProvider;
+    this.filterLabel = filterLabel;
     image = AdtBaseUIResources.getImage(IAdtBaseImages.USER);
   }
 
   @Override
   public String getDescription() {
-    return NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] { FILTER_NAME,
+    return NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] { filterLabel,
         "smith" });
   }
 
@@ -54,7 +55,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
   @Override
   public String getLabel() {
-    return FILTER_NAME;
+    return filterLabel;
   }
 
   @Override
