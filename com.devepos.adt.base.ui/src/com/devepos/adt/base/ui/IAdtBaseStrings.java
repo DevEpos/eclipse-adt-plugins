@@ -17,4 +17,6 @@ public interface IAdtBaseStrings {
   String Refresh = "Refresh";
 
   String Menu = "Menu";
+
+  String Destinations_DestinationNotValid_xmsg = "Destinations_DestinationNotValid_xmsg";
 }
