@@ -31,6 +31,11 @@ public class Messages extends NLS {
   public static String SearchSelectionDialog_ItemsSelected;
   public static String SearchSelectionDialog_ResultItemsLabel;
   public static String AsyncTextQueryProposalProvider_loadingJob_xmsg;
+  public static String DateSearchFilter_LowerLimitGreaterThanUpperLimit_xmsg;
+  public static String DateSearchFilter_MissingUpperLimitInRange_xmsg;
+  public static String DateSearchFilter_NoStringType_xmsg;
+  public static String DateSearchFilter_NotAValidDate_xmsg;
+  public static String DateSearchFilter_NotAValidDatePattern_xmsg;
   public static String SearchPatternProvider_loading_xmsg;
   public static String SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg;
   public static String SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg;
@@ -42,6 +47,7 @@ public class Messages extends NLS {
   public static String SearchPatternAnalyzer_NoValuePartPossibleIfKeyIsNegated_xmsg;
   public static String SearchPatternContentAssist_ContentAssistDecorator_xtol;
   public static String SearchFilter_DescriptionApplCompSearchFilter_xmsg;
+  public static String SearchFilter_DescriptionDateSearchFilter_xmsg;
   public static String SearchFilter_DescriptionPackageFilter_xmsg;
   public static String SearchFilter_DescriptionUserFilter_xmsg;
   public static String SplitResultSelectionViewer_AddItemButton;

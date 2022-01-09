@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests for ADT Base UI Plugin
+Bundle-SymbolicName: com.devepos.adt.base.ui.test
+Bundle-Version: 1.2.0.qualifier
+Bundle-Vendor: DevEpos
+Automatic-Module-Name: com.devepos.adt.base.ui.test
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: com.devepos.adt.base,
+ com.devepos.adt.base.ui,
+ org.junit,
+ org.junit.jupiter.api,
+ org.eclipse.core.runtime,
+ org.eclipse.ui
