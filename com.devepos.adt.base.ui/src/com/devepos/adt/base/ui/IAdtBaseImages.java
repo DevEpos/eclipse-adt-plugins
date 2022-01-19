@@ -140,4 +140,8 @@ public interface IAdtBaseImages {
    * Identifies the image of a calendar sheet
    */
   String CALENDAR = "IMG_CALENDAR";
+  /**
+   * Identifies the image for any method in a class/interface
+   */
+  String NEUTRAL_METHOD = "IMG_NEUTRAL_METHOD";
 }
