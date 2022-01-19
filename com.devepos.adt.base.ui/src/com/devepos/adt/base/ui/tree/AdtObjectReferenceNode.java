@@ -119,13 +119,16 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
     if (children == null) {
       children = new ArrayList<>();
     }
+    if (child.getParent() != this) {
+      child.setParent(this);
+    }
     children.add(child);
   }
 
   @Override
   public void removeChild(final ITreeNode child) {
-    if (children != null) {
-      children.remove(child);
+    if (children != null && children.remove(child)) {
+      child.setParent(null);
     }
   }
 
