@@ -98,6 +98,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.CALENDAR, "icons/obj/facet_creation_date.png",
         "com.sap.adt.ris.search.ui");
+    registerImage(imageRegistry, IAdtBaseImages.NEUTRAL_METHOD, "icons/obj/compare_method.png",
+        "com.sap.adt.oo.ui");
 
     registerDeleteOvr(imageRegistry);
   }
