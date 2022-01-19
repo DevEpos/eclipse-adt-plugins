@@ -4,7 +4,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.graphics.Image;
 
-import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.util.StringUtil;
@@ -42,12 +41,8 @@ public class AdtTypeUtil {
       return null;
     }
     Image image = null;
-    String adtWbType = adtType;
-    if (adtType.startsWith("CLAS")) {
-      adtWbType = IAdtObjectTypeConstants.CLASS;
-    }
     final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
-        .getObjectTypeByGlobalWorkbenchType(adtWbType);
+        .getObjectTypeByGlobalWorkbenchType(adtType);
     if (type != null) {
       image = type.getImage();
     } else {
@@ -101,7 +96,7 @@ public class AdtTypeUtil {
    *
    * @param adtType the full name of a workbench type (e.g. CLASS/OC)
    * @return an ADT object type proxy for the given adt type name or
-   *         <code>null</code>
+   *           <code>null</code>
    */
   public IAdtObjectTypeProxy getType(final String adtType) {
     if (StringUtil.isEmpty(adtType)) {
