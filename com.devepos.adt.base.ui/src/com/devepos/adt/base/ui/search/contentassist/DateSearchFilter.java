@@ -3,7 +3,7 @@ package com.devepos.adt.base.ui.search.contentassist;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -32,9 +32,8 @@ import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Search filter that allows the input of
- * 
- * @author Ludwig Stockbauer-Muhr
  *
+ * @author Ludwig Stockbauer-Muhr
  */
 public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvider, IImageProvider,
     IAdaptable {
@@ -82,10 +81,11 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private String description;
   private Image image;
   private IValidator validator;
-  private List<String> dateProposals = new ArrayList<>();
+  private List<String> dateProposals;
   private String label;
+  private List<String> relativeNumericDates;
 
-  public DateSearchFilter(String label) {
+  public DateSearchFilter(final String label) {
     this.label = label;
   }
 
@@ -95,11 +95,12 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     public String low;
     public String high;
 
-    public AbapDateRange(Sign sign) {
+    public AbapDateRange(final Sign sign) {
       this(sign, Option.EQUALS, "", "");
     }
 
-    public AbapDateRange(Sign sign, Option option, String low, String high) {
+    public AbapDateRange(final Sign sign, final Option option, final String low,
+        final String high) {
       this.sign = sign;
       this.option = option;
       this.low = low;
@@ -122,7 +123,6 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   /**
    * The validation will be a list of regex patterns that the passed possible date
    * pattern is validated against.
-   * 
    * <p>
    * 1) relative dates <br>
    * a) fixed values <br>
@@ -148,11 +148,11 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
    * e.g. 12.2021, 9.1987<br>
    * </p>
    */
-  private class DateValidator implements IValidator {
+  private static class DateValidator implements IValidator {
 
     private ExternalDateConverter converter;
 
-    public DateValidator(ExternalDateConverter converter) {
+    public DateValidator(final ExternalDateConverter converter) {
       this.converter = converter;
     }
 
@@ -171,29 +171,27 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
    * Converts date patterns into ABAP date ranges. <br>
    * The class operates under the assumption that a passed date string was already
    * properly validated with {@link DateValidator}.
-   * 
-   * @author Ludwig Stockbauer-Muhr
    *
+   * @author Ludwig Stockbauer-Muhr
    */
   private static class ExternalDateConverter implements IStringConverter {
     @Override
     public String convert(final Object value) {
-      if (value instanceof String) {
-        try {
-          return convertToSeloptRange((String) value);
-        } catch (CoreException e) {
-          return "";
-        }
-      } else {
+      if (!(value instanceof String)) {
         // dummy toString conversion of the given value
         return String.valueOf(value);
+      }
+      try {
+        return convertToSeloptRange((String) value);
+      } catch (CoreException e) {
+        return "";
       }
     }
 
     /**
      * Converts the given date pattern into a condensed version of a ABAP date type
      * range
-     * 
+     *
      * @param datePattern a string containing a date pattern
      * @return
      * @throws CoreException
@@ -208,20 +206,19 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       if (isRange) {
         abapDateRange.option = Option.BETWEEN;
         String[] rangeParts = datePattern.split(RANGE_SEPARATOR_PATTERN);
-        if (rangeParts != null && rangeParts.length == 2) {
-          LocalDate startDate = convertDateString(rangeParts[0]).start;
-          LocalDate endDate = convertDateString(rangeParts[1]).end;
-          // range is only valid if start date is lesser or equal the end date
-          if (startDate.compareTo(endDate) > 0) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-                Messages.DateSearchFilter_LowerLimitGreaterThanUpperLimit_xmsg, datePattern)));
-          }
-          abapDateRange.low = startDate.format(ABAP_DATE_FORMATTER);
-          abapDateRange.high = endDate.format(ABAP_DATE_FORMATTER);
-        } else {
+        if (rangeParts == null || rangeParts.length != 2) {
           throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
               Messages.DateSearchFilter_MissingUpperLimitInRange_xmsg, datePattern)));
         }
+        LocalDate startDate = convertDateString(rangeParts[0]).start;
+        LocalDate endDate = convertDateString(rangeParts[1]).end;
+        // range is only valid if start date is lesser or equal the end date
+        if (startDate.compareTo(endDate) > 0) {
+          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
+              Messages.DateSearchFilter_LowerLimitGreaterThanUpperLimit_xmsg, datePattern)));
+        }
+        abapDateRange.low = startDate.format(ABAP_DATE_FORMATTER);
+        abapDateRange.high = endDate.format(ABAP_DATE_FORMATTER);
       } else {
         Option option = getOptionFromPattern(datePattern);
         if (option != null) {
@@ -240,7 +237,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       return abapDateRange.toString();
     }
 
-    private LocalDateRange convertDateString(String datePattern) throws CoreException {
+    private LocalDateRange convertDateString(final String datePattern) throws CoreException {
       if (!datePattern.matches(DATE_VALIDATION_PATTERN)) {
         throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
             Messages.DateSearchFilter_NotAValidDatePattern_xmsg, datePattern)));
@@ -263,7 +260,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       Matcher relativeDatePattern = Pattern.compile(String.format("^%s$", RELATIVE_DATE_PATTERN))
           .matcher(datePattern);
       if (relativeDatePattern.find()) {
-        int numberOfTemporalUnit = Integer.valueOf(relativeDatePattern.group(1));
+        int numberOfTemporalUnit = Integer.parseInt(relativeDatePattern.group(1));
         String temporalUnit = relativeDatePattern.group(3);
 
         LocalDate relativeDate = LocalDate.now();
@@ -295,17 +292,17 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     /*
      * Converts array of date parts into a local date
      */
-    private LocalDate convertNumericDatePartsToDate(String[] dateParts,
-        NumericDatePatternType numericDatePatternType) throws DateTimeException {
+    private LocalDate convertNumericDatePartsToDate(final String[] dateParts,
+        final NumericDatePatternType numericDatePatternType) throws DateTimeException {
       switch (numericDatePatternType) {
       case FULL:
-        return LocalDate.of(Integer.valueOf(dateParts[2]), Integer.valueOf(dateParts[1]), Integer
-            .valueOf(dateParts[0]));
+        return LocalDate.of(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]), Integer
+            .parseInt(dateParts[0]));
       case DAY_MONTH:
-        return LocalDate.of(LocalDate.now().getYear(), Integer.valueOf(dateParts[1]), Integer
-            .valueOf(dateParts[0]));
+        return LocalDate.of(LocalDate.now().getYear(), Integer.parseInt(dateParts[1]), Integer
+            .parseInt(dateParts[0]));
       case MONTH_YEAR:
-        return LocalDate.of(Integer.valueOf(dateParts[1]), Integer.valueOf(dateParts[0]), 1);
+        return LocalDate.of(Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0]), 1);
       default:
         return null;
       }
@@ -316,7 +313,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
      * an exception if that is not possible.<br> <p> The method can handle the
      * following pattern types
      */
-    private LocalDate convertNumericDatePatternToDate(String datePattern) throws CoreException {
+    private LocalDate convertNumericDatePatternToDate(final String datePattern)
+        throws CoreException {
       String[] dateParts = datePattern.split(NUMERIC_DATE_PART_SEPARATOR);
       NumericDatePatternType patternType = getNumericDatePatternType(dateParts);
       if (patternType == null) {
@@ -331,24 +329,24 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       }
     }
 
-    private IStatus createErrorStatus(String message) throws CoreException {
+    private IStatus createErrorStatus(final String message) throws CoreException {
       return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, message);
     }
 
-    private NumericDatePatternType getNumericDatePatternType(String[] dateParts) {
+    private NumericDatePatternType getNumericDatePatternType(final String[] dateParts) {
       if (dateParts.length == 3) {
         return NumericDatePatternType.FULL;
-      } else if (dateParts.length == 2) {
+      }
+      if (dateParts.length == 2) {
         if (dateParts[1].length() == 4) {
           return NumericDatePatternType.MONTH_YEAR;
-        } else {
-          return NumericDatePatternType.DAY_MONTH;
         }
+        return NumericDatePatternType.DAY_MONTH;
       }
       return null;
     }
 
-    private Option getOptionFromPattern(String datePattern) {
+    private Option getOptionFromPattern(final String datePattern) {
       Matcher operatorsMatcher = DATE_OPERATORS_PATTERN.matcher(datePattern);
       if (operatorsMatcher.find()) {
         return Option.fromExternalSymbol(operatorsMatcher.group());
@@ -361,7 +359,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     LocalDate start;
     LocalDate end;
 
-    LocalDateRange(LocalDate date, boolean isStartEnd) {
+    LocalDateRange(final LocalDate date, final boolean isStartEnd) {
       start = date;
       if (isStartEnd) {
         end = date;
@@ -386,12 +384,12 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     private String symbol;
     private String externalSymbol;
 
-    private Option(String symbol, String externalSymbol) {
+    Option(final String symbol, final String externalSymbol) {
       this.symbol = symbol;
       this.externalSymbol = externalSymbol;
     }
 
-    public static Option fromExternalSymbol(String externalSymbol) {
+    public static Option fromExternalSymbol(final String externalSymbol) {
       return Stream.of(Option.values())
           .filter(option -> option.externalSymbol.equals(externalSymbol))
           .findFirst()
@@ -404,7 +402,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     @Override
     public String toString() {
-      return this.symbol;
+      return symbol;
     }
   }
 
@@ -414,13 +412,13 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     private String symbol;
 
-    private Sign(String symbol) {
+    Sign(final String symbol) {
       this.symbol = symbol;
     }
 
     @Override
     public String toString() {
-      return this.symbol;
+      return symbol;
     }
   }
 
@@ -461,13 +459,24 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   @Override
-  public List<IContentProposal> getProposalList(String query) throws CoreException {
-    if (dateProposals.isEmpty()) {
+  public List<IContentProposal> getProposalList(final String query) throws CoreException {
+    if (dateProposals == null) {
       initRelativeDates();
     }
 
     Predicate<String> queryPattern = StringUtil.getPatternForQuery(query).asPredicate();
 
+    Pattern numericRelativePattern = Pattern.compile("^(\\d+)-?");
+    Matcher numericRelativeMatcher = numericRelativePattern.matcher(query);
+    if (numericRelativeMatcher.find()) {
+      String numericValue = numericRelativeMatcher.group(1);
+      return relativeNumericDates.stream()
+          .map(relative -> numericValue + relative)
+          .filter(queryPattern)
+          .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, query,
+              getImage()))
+          .collect(Collectors.toList());
+    }
     return dateProposals.stream()
         .filter(queryPattern)
         .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, query,
@@ -503,8 +512,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   private void initRelativeDates() {
-    Stream.of("today", "yesterday", "last-week", "last-month", "last-year")
-        .forEach(dateProposals::add);
+    dateProposals = Arrays.asList("today", "yesterday", "last-week", "last-month", "last-year");
+    relativeNumericDates = Arrays.asList("-days-ago", "-weeks-ago", "-months-ago", "-years-ago");
   }
 
 }
