@@ -24,8 +24,35 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
  */
 public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvider {
   protected INamedItemType namedItemType;
+  /**
+   * Indicates if the filter supports pattern values. The default value is
+   * <code>true</code>
+   */
+  private boolean supportsPatternValues = true;
+  /**
+   * Indicates if the filter supports negated values. The default value is
+   * <code>false</code>
+   */
+  private boolean supportsNegatedValues = false;
+  /**
+   * Indicates if the filter supports multiple values. The default value is
+   * <code>true</code>
+   */
+  private boolean supportsMultipleValues = true;
+
+  /**
+   * The description of the filter, to be displayed in a side tooltip box in a
+   * proposal popup
+   */
   private String description;
+
+  /**
+   * The name of the filter
+   */
   private String filterName;
+  /**
+   * Image to be displayed alongside the filter in a proposal popup
+   */
   private Image image;
   private IImageProvider proposalImageProvider;
   private InternalNamedItemProposalProvider namedItemProposalProvider;
@@ -100,7 +127,7 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
    *
    * @param description the description to set
    */
-  public void setDescription(final String description) {
+  public final void setDescription(final String description) {
     this.description = description;
   }
 
@@ -113,27 +140,57 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
     this.image = image;
   }
 
-  @Override
-  public boolean supportsMultipleValues() {
-    return true;
-  }
-
-  @Override
-  public boolean supportsNegatedValues() {
-    return false;
-  }
-
-  @Override
-  public boolean supportsPatternValues() {
-    return true;
-  }
-
   /**
    * Sets the image provider to be used for new proposals
    *
    * @param imageProvider an image provider
    */
-  protected final void setProposalImageProvider(final IImageProvider imageProvider) {
+  public final void setProposalImageProvider(final IImageProvider imageProvider) {
     proposalImageProvider = imageProvider;
+  }
+
+  /**
+   * Sets the value for the <code>supportsMultipleValues</code> attribute.
+   *
+   * @param supportsMultipleValues if <code>true</code> the filter will support
+   *                               multiple values
+   */
+  public final void setSupportsMultipleValues(final boolean supportsMultipleValues) {
+    this.supportsMultipleValues = supportsMultipleValues;
+  }
+
+  /**
+   * Sets the value for the <code>supportsNegatedValues</code> attribute.
+   *
+   * @param supportsNegatedValues if <code>true</code> the filter will support
+   *                              negated values
+   */
+  public final void setSupportsNegatedValues(final boolean supportsNegatedValues) {
+    this.supportsNegatedValues = supportsNegatedValues;
+  }
+
+  /**
+   * Sets the value for the <code>supportsPatternValues</code> attribute.
+   *
+   * @param supportsPatternValues if <code>true</code> the filter will support
+   *                              pattern values
+   */
+  public final void setSupportsPatternValues(final boolean supportsPatternValues) {
+    this.supportsPatternValues = supportsPatternValues;
+  }
+
+  @Override
+  public final boolean supportsMultipleValues() {
+    return supportsMultipleValues;
+  }
+
+  @Override
+  public final boolean supportsNegatedValues() {
+    return supportsNegatedValues;
+  }
+
+  @Override
+  public final boolean supportsPatternValues() {
+    return supportsPatternValues;
   }
 }

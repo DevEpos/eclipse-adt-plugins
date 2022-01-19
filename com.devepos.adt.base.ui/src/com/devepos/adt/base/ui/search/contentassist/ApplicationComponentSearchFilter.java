@@ -26,6 +26,8 @@ public class ApplicationComponentSearchFilter extends NamedItemFilter {
     setProposalImageProvider(new ProposalImageProvider());
     setDescription(NLS.bind(Messages.SearchFilter_DescriptionApplCompSearchFilter_xmsg,
         new Object[] { getLabel(), "IS-TEST" })); //$NON-NLS-1$
+    setSupportsNegatedValues(true);
+    setSupportsPatternValues(false);
   }
 
   private class ProposalImageProvider implements IImageProvider {
