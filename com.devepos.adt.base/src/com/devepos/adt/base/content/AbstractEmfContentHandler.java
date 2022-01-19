@@ -56,9 +56,9 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
         final EObject documentRoot = ((EObject) dataObject).eContainer();
         resource.getContents().add(documentRoot);
       }
-//			if (resource == null) {
-//				throw new IllegalArgumentException("DocumentRoot object not found"); //$NON-NLS-1$
-//			}
+      // if (resource == null) {
+      // throw new IllegalArgumentException("DocumentRoot object not found"); //$NON-NLS-1$
+      // }
       resource.save(outputStream, null);
     } catch (final IOException e) {
       throw new ContentHandlerException(SAVING_ERROR, e);

@@ -69,7 +69,7 @@ public class SearchFilterHandler {
    *                            external filter names
    * @return a map of the found filters with their values
    */
-  public Map<String, Object> getSearchFiltersAsListMap(String pattern,
+  public Map<String, Object> getSearchFiltersAsListMap(final String pattern,
       final Map<String, String> externalFilterNames) {
     return getSearchFilters(pattern, externalFilterNames, filterValues -> filterValues);
   }
@@ -87,8 +87,8 @@ public class SearchFilterHandler {
    *                            values of a single filter together
    * @return a map of the found filters with their values
    */
-  public Map<String, Object> getSearchFiltersAsStringMap(String pattern,
-      final Map<String, String> externalFilterNames, CharSequence delimiter) {
+  public Map<String, Object> getSearchFiltersAsStringMap(final String pattern,
+      final Map<String, String> externalFilterNames, final CharSequence delimiter) {
     if (delimiter == null) {
       throw new IllegalArgumentException("Parameter 'delimiter' must not be null!");
     }
@@ -103,7 +103,7 @@ public class SearchFilterHandler {
    */
   private Map<String, Object> getSearchFilters(final String pattern,
       final Map<String, String> externalFilterNames,
-      Function<List<String>, Object> filterValueCollector) {
+      final Function<List<String>, Object> filterValueCollector) {
     if (filterValueCollector == null) {
       throw new IllegalArgumentException("Parameter 'filterValueCollector' must not be null!");
     }

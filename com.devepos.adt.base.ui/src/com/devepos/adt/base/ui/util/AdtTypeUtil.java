@@ -96,7 +96,7 @@ public class AdtTypeUtil {
    *
    * @param adtType the full name of a workbench type (e.g. CLASS/OC)
    * @return an ADT object type proxy for the given adt type name or
-   *           <code>null</code>
+   *         <code>null</code>
    */
   public IAdtObjectTypeProxy getType(final String adtType) {
     if (StringUtil.isEmpty(adtType)) {

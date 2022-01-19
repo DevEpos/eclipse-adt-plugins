@@ -99,7 +99,7 @@ abstract class AbstractContentProposalProvider implements IContentProposalProvid
     final ILabelProvider labelProvider = contentProposalAdapter.getLabelProvider();
     if (labelProvider != null) {
       contentProposalAdapter.setLabelProvider(null);
-//      labelProvider.dispose();
+      // labelProvider.dispose();
     }
   }
 

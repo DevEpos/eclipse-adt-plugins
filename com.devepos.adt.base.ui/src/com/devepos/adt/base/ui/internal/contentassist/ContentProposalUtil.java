@@ -38,9 +38,9 @@ public class ContentProposalUtil {
     String content = String.valueOf(caseSensitive ? proposalValue
         : proposalValue.toLowerCase(Locale.ENGLISH));
 
-    if ((proposalContentStyle == ProposalContentStyle.INSERT) && (wordToComplete != null
+    if (proposalContentStyle == ProposalContentStyle.INSERT && wordToComplete != null
         && !wordToComplete.isEmpty() && content.startsWith(caseSensitive ? wordToComplete
-            : wordToComplete.toLowerCase()))) {
+            : wordToComplete.toLowerCase())) {
       content = content.substring(wordToComplete.length());
     }
     return content;

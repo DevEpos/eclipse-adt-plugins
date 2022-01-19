@@ -36,7 +36,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private Image proposalImage;
   private String filterLabel;
 
-  public UserSearchFilter(final IAbapProjectProvider projectProvider, String filterLabel) {
+  public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel) {
     this.projectProvider = projectProvider;
     this.filterLabel = filterLabel;
     image = AdtBaseUIResources.getImage(IAdtBaseImages.USER);

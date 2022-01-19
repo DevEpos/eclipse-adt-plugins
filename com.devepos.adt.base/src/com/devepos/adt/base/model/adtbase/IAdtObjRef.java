@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * Base class for ADT object references. It encapsulates the data that clients
  * may want to access without loading the actual resource - e.g. in order to
  * display the name and an icon.
- * 
+ *
  * <!-- end-model-doc -->
  *
  * <p>

@@ -782,7 +782,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
           .align(SWT.FILL, SWT.CENTER)
           .grab(true, false)
           .applyTo(this.headerLabel);
-//			createViewMenu(header);
+      // createViewMenu(header);
     }
 
   }
