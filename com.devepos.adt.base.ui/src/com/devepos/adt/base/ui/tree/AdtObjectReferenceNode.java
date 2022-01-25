@@ -25,7 +25,7 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   protected List<ITreeNode> children = new ArrayList<>();
   protected String destinationId;
 
-  public AdtObjectReferenceNode(final ITreeNode parent) {
+  public AdtObjectReferenceNode(final ICollectionTreeNode parent) {
     super("", parent);
   }
 
@@ -35,44 +35,21 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   public AdtObjectReferenceNode(final String name, final String displayName,
-      final String description, final IAdtObjectReference objectReference, final ITreeNode parent) {
+      final String description, final IAdtObjectReference objectReference,
+      final ICollectionTreeNode parent) {
     super(name, displayName, description, parent);
     this.objectReference = objectReference;
   }
 
   @Override
-  public Image getImage() {
-    return null;
-  }
-
-  @Override
-  public ObjectType getObjectType() {
-    if (objectReference != null) {
-      return ObjectType.getFromAdtType(objectReference.getType());
+  public void addChild(final ITreeNode child) {
+    if (children == null) {
+      children = new ArrayList<>();
     }
-    return null;
-  }
-
-  @Override
-  public String getAdtObjectType() {
-    return objectReference != null ? objectReference.getType() : null;
-  }
-
-  @Override
-  public IAdtObjectReference getObjectReference() {
-    return objectReference;
-  }
-
-  @Override
-  public void setObjectReference(final IAdtObjectReference objectReference) {
-    this.objectReference = objectReference;
-
-  }
-
-  @Override
-  public boolean supportsDataPreview() {
-    final ObjectType objectType = getObjectType();
-    return objectType != null ? objectType.supportsDataPreview() : false;
+    if (child.getParent() != this) {
+      child.setParent(this);
+    }
+    children.add(child);
   }
 
   @Override
@@ -105,24 +82,48 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   @Override
+  public String getAdtObjectType() {
+    return objectReference != null ? objectReference.getType() : null;
+  }
+
+  @Override
   public List<ITreeNode> getChildren() {
     return children;
   }
 
   @Override
-  public void setChildren(final List<ITreeNode> children) {
-    this.children = children;
+  public Image getImage() {
+    return null;
   }
 
   @Override
-  public void addChild(final ITreeNode child) {
-    if (children == null) {
-      children = new ArrayList<>();
+  public IAdtObjectReference getObjectReference() {
+    return objectReference;
+  }
+
+  @Override
+  public ObjectType getObjectType() {
+    if (objectReference != null) {
+      return ObjectType.getFromAdtType(objectReference.getType());
     }
-    if (child.getParent() != this) {
-      child.setParent(this);
+    return null;
+  }
+
+  @Override
+  public String getSizeAsString() {
+    return children != null ? new DecimalFormat("###,###").format(children.size()) : "0";
+  }
+
+  @Override
+  public boolean hasChildren() {
+    return children != null && !children.isEmpty();
+  }
+
+  @Override
+  public void removeAllChildren() {
+    if (children != null) {
+      children.clear();
     }
-    children.add(child);
   }
 
   @Override
@@ -133,8 +134,14 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   @Override
-  public String getSizeAsString() {
-    return children != null ? new DecimalFormat("###,###").format(children.size()) : "0";
+  public void setChildren(final List<ITreeNode> children) {
+    this.children = children;
+  }
+
+  @Override
+  public void setObjectReference(final IAdtObjectReference objectReference) {
+    this.objectReference = objectReference;
+
   }
 
   @Override
@@ -143,7 +150,8 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   @Override
-  public boolean hasChildren() {
-    return children != null && !children.isEmpty();
+  public boolean supportsDataPreview() {
+    final ObjectType objectType = getObjectType();
+    return objectType != null ? objectType.supportsDataPreview() : false;
   }
 }

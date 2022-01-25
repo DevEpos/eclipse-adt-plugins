@@ -22,12 +22,13 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   private LazyLoadingRefreshMode refreshMode;
   private final List<ILazyLoadingListener> lazyLoadingListeners = new ArrayList<>();
 
-  public LazyLoadingAdtObjectReferenceNode(final ITreeNode parent) {
+  public LazyLoadingAdtObjectReferenceNode(final ICollectionTreeNode parent) {
     this("", "", "", null, parent);
   }
 
   public LazyLoadingAdtObjectReferenceNode(final String name, final String displayName,
-      final String description, final IAdtObjectReference objectReference, final ITreeNode parent) {
+      final String description, final IAdtObjectReference objectReference,
+      final ICollectionTreeNode parent) {
     super(name, displayName, description, objectReference, parent);
   }
 

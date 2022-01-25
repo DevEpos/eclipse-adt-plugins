@@ -28,14 +28,14 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
   /**
    * @return the parent node of this node
    */
-  ITreeNode getParent();
+  ICollectionTreeNode getParent();
 
   /**
    * Sets the parent of this node
    *
    * @param parent the parent node
    */
-  void setParent(ITreeNode parent);
+  void setParent(ICollectionTreeNode parent);
 
   /**
    * @return the image id of the node

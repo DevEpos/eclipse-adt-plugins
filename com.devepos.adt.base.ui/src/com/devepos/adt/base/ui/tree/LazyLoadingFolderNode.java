@@ -24,13 +24,13 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   private final List<ILazyLoadingListener> lazyLoadingListeners = new ArrayList<>();
 
   public LazyLoadingFolderNode(final String name, final IElementInfoProvider elementInfoProvider,
-      final ITreeNode parent, final Image image) {
+      final ICollectionTreeNode parent, final Image image) {
     this(name, name, elementInfoProvider, image, null, parent);
   }
 
   public LazyLoadingFolderNode(final String name, final String displayName,
       final IElementInfoProvider elementInfoProvider, final Image image, final String description,
-      final ITreeNode parent) {
+      final ICollectionTreeNode parent) {
 
     super(name, displayName, description, parent, image, null);
     Assert.isNotNull(elementInfoProvider);

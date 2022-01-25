@@ -10,11 +10,26 @@ import java.util.List;
 public interface ICollectionTreeNode extends ITreeNode {
 
   /**
+   * Adds the given node as a child node
+   *
+   * @param child the child node to be added
+   */
+  void addChild(ITreeNode child);
+
+  /**
    * Returns the list of child nodes of this node
    *
    * @return a {@link List} of child nodes of this collection node
    */
   List<ITreeNode> getChildren();
+
+  /**
+   * Returns the number of <code>nodes</code> in this collection in a readable
+   * format
+   *
+   * @return the current size as a String
+   */
+  String getSizeAsString();
 
   /**
    * Returns <code>true</code> if the node has children
@@ -24,18 +39,9 @@ public interface ICollectionTreeNode extends ITreeNode {
   boolean hasChildren();
 
   /**
-   * Sets the child nodes of this collection node
-   *
-   * @param children List of child nodes
+   * Removes all child nodes of this node
    */
-  void setChildren(List<ITreeNode> children);
-
-  /**
-   * Adds the given node as a child node
-   *
-   * @param child the child node to be added
-   */
-  void addChild(ITreeNode child);
+  void removeAllChildren();
 
   /**
    * Removes the given child node if possible
@@ -45,12 +51,11 @@ public interface ICollectionTreeNode extends ITreeNode {
   void removeChild(ITreeNode child);
 
   /**
-   * Returns the number of <code>nodes</code> in this collection in a readable
-   * format
+   * Sets the child nodes of this collection node
    *
-   * @return the current size as a String
+   * @param children List of child nodes
    */
-  String getSizeAsString();
+  void setChildren(List<ITreeNode> children);
 
   /**
    * Returns the size of this collection

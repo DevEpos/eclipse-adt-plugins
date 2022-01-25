@@ -17,7 +17,8 @@ public class LoadingErrorNode extends TreeNodeBase {
    * @param exception
    * @param message
    */
-  public LoadingErrorNode(final ITreeNode parent, final String message, final Throwable exception) {
+  public LoadingErrorNode(final ICollectionTreeNode parent, final String message,
+      final Throwable exception) {
     super(null, message != null ? message : "Error during content loading occurred", null, parent);
     this.exception = exception;
   }

@@ -26,7 +26,7 @@ public class PackageNode extends AdtObjectReferenceNode {
   }
 
   public PackageNode(final String name, final String description,
-      final IAdtObjectReference objectReference, final ITreeNode parent) {
+      final IAdtObjectReference objectReference, final ICollectionTreeNode parent) {
     super(name, name, description, objectReference, parent);
   }
 

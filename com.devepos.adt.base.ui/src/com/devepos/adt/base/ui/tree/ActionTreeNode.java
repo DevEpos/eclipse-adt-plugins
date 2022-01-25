@@ -12,7 +12,7 @@ import com.devepos.adt.base.ui.action.IExecutable;
 public class ActionTreeNode extends SimpleInfoTreeNode {
   private final IExecutable action;
 
-  public ActionTreeNode(final String name, final Image image, final ITreeNode parent,
+  public ActionTreeNode(final String name, final Image image, final ICollectionTreeNode parent,
       final IExecutable action) {
     super(name, image, parent);
     this.action = action;

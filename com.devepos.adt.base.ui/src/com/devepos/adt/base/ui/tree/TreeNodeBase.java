@@ -14,16 +14,16 @@ public abstract class TreeNodeBase implements ITreeNode {
   protected String name;
   protected String displayName;
   protected String description;
-  protected ITreeNode parent;
+  protected ICollectionTreeNode parent;
   protected Map<String, String> properties;
   private Object nodeValue;
 
-  public TreeNodeBase(final String name, final ITreeNode parent) {
+  public TreeNodeBase(final String name, final ICollectionTreeNode parent) {
     this(name, name, "", parent);
   }
 
   public TreeNodeBase(final String name, final String displayName, final String description,
-      final ITreeNode parent) {
+      final ICollectionTreeNode parent) {
     this.name = name;
     this.displayName = displayName;
     this.description = description;
@@ -62,12 +62,12 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public ITreeNode getParent() {
+  public ICollectionTreeNode getParent() {
     return parent;
   }
 
   @Override
-  public void setParent(final ITreeNode parent) {
+  public void setParent(final ICollectionTreeNode parent) {
     this.parent = parent;
   }
 
