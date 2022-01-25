@@ -86,4 +86,11 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
    */
   void setNodeValue(Object value);
 
+  /**
+   * Retrieves the arbitrary object of the node that was set with {@link #setNodeValue(Object)}
+   *
+   * @return the arbitrary object of the node or <code>null</code>
+   */
+  Object getNodeValue();
+
 }

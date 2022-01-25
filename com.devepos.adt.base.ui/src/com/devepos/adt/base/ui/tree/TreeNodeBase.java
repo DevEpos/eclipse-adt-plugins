@@ -93,6 +93,11 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
+  public Object getNodeValue() {
+    return nodeValue;
+  }
+
+  @Override
   public void setNodeValue(final Object value) {
     nodeValue = value;
   }
