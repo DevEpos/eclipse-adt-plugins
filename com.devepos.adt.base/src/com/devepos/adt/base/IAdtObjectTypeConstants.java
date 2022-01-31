@@ -47,6 +47,10 @@ public interface IAdtObjectTypeConstants {
    */
   String PROGRAM = "PROG/P";
   /**
+   * Program source of a Business Object Type
+   */
+  String BUSINESS_OBJ_TYPE_PROGRAM = "SOBJ/P";
+  /**
    * Global Workbench Type for Type Groups
    */
   String TYPE_GROUP = "TYPE/DG";
