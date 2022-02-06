@@ -37,8 +37,8 @@ import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 public class AdtPluginFeatureList extends MinimalEObjectImpl.Container implements
     IAdtPluginFeatureList {
   /**
-   * The cached value of the '{@link #getFeatures() <em>Features</em>}'
-   * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getFeatures()
    * @generated

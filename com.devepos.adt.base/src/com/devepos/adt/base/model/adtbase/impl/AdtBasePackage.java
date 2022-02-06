@@ -2,6 +2,7 @@
  */
 package com.devepos.adt.base.model.adtbase.impl;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -20,7 +21,10 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
+import com.devepos.adt.base.model.adtbase.IResponseMessageList;
 import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.model.adtbase.MesssageType;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
@@ -66,6 +70,22 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   private EClass adtPluginFeatureListEClass = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass responseMessageEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass responseMessageListEClass = null;
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -80,6 +100,14 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   private EEnum adtPluginFeatureCategoryEEnum = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum messsageTypeEEnum = null;
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -87,13 +115,23 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   private EDataType iAdtPluginFeaturesEDataType = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EDataType iStatusEDataType = null;
+
+  /**
    * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the
-   * package package URI value.
+   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+   * package URI value.
    * <p>
-   * Note: the correct way to create the package is via the static factory method
-   * {@link #init init()}, which also performs initialization of the package, or
-   * returns the registered package, if one already exists. <!-- begin-user-doc
+   * Note: the correct way to create the package is via the static
+   * factory method {@link #init init()}, which also performs
+   * initialization of the package, or returns the registered package,
+   * if one already exists.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see org.eclipse.emf.ecore.EPackage.Registry
@@ -113,13 +151,15 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   private static boolean isInited = false;
 
   /**
-   * Creates, registers, and initializes the <b>Package</b> for this model, and
-   * for any others upon which it depends.
+   * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon
+   * which it depends.
    *
    * <p>
-   * This method is used to initialize {@link IAdtBasePackage#eINSTANCE} when that
-   * field is accessed. Clients should not invoke it directly. Instead, they
-   * should simply access that field to obtain the package. <!-- begin-user-doc
+   * This method is used to initialize {@link IAdtBasePackage#eINSTANCE} when that field is
+   * accessed.
+   * Clients should not invoke it directly. Instead, they should simply access that field to obtain
+   * the package.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #eNS_URI
@@ -398,6 +438,94 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getResponseMessage() {
+    return responseMessageEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getResponseMessage_Type() {
+    return (EAttribute) responseMessageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getResponseMessage_Content() {
+    return (EAttribute) responseMessageEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getResponseMessage_Occurrences() {
+    return (EAttribute) responseMessageEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EOperation getResponseMessage__GetStatusType() {
+    return responseMessageEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getResponseMessageList() {
+    return responseMessageListEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getResponseMessageList_Messages() {
+    return (EReference) responseMessageListEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EOperation getResponseMessageList__ToStatus__String_String() {
+    return responseMessageListEClass.getEOperations().get(0);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -418,6 +546,17 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getMesssageType() {
+    return messsageTypeEEnum;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -425,6 +564,17 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   @Override
   public EDataType getIAdtPluginFeatures() {
     return iAdtPluginFeaturesEDataType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EDataType getIStatus() {
+    return iStatusEDataType;
   }
 
   /**
@@ -445,8 +595,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   private boolean isCreated = false;
 
   /**
-   * Creates the meta-model objects for the package. This method is guarded to
-   * have no affect on any invocation but its first. <!-- begin-user-doc --> <!--
+   * Creates the meta-model objects for the package. This method is
+   * guarded to have no affect on any invocation but its first.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -488,12 +639,24 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     createEOperation(adtPluginFeatureListEClass,
         ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING);
 
+    responseMessageEClass = createEClass(RESPONSE_MESSAGE);
+    createEAttribute(responseMessageEClass, RESPONSE_MESSAGE__TYPE);
+    createEAttribute(responseMessageEClass, RESPONSE_MESSAGE__CONTENT);
+    createEAttribute(responseMessageEClass, RESPONSE_MESSAGE__OCCURRENCES);
+    createEOperation(responseMessageEClass, RESPONSE_MESSAGE___GET_STATUS_TYPE);
+
+    responseMessageListEClass = createEClass(RESPONSE_MESSAGE_LIST);
+    createEReference(responseMessageListEClass, RESPONSE_MESSAGE_LIST__MESSAGES);
+    createEOperation(responseMessageListEClass, RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING);
+
     // Create enums
     adtPluginFeatureTypeEEnum = createEEnum(ADT_PLUGIN_FEATURE_TYPE);
     adtPluginFeatureCategoryEEnum = createEEnum(ADT_PLUGIN_FEATURE_CATEGORY);
+    messsageTypeEEnum = createEEnum(MESSSAGE_TYPE);
 
     // Create data types
     iAdtPluginFeaturesEDataType = createEDataType(IADT_PLUGIN_FEATURES);
+    iStatusEDataType = createEDataType(ISTATUS);
   }
 
   /**
@@ -605,6 +768,32 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         getIAdtPluginFeatures(), "getFeaturesByEndpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEString(), "endpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+    initEClass(responseMessageEClass, IResponseMessage.class, "ResponseMessage", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getResponseMessage_Type(), getMesssageType(), "type", null, 0, 1,
+        IResponseMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResponseMessage_Content(), theXMLTypePackage.getString(), "content", null, 0,
+        1, IResponseMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResponseMessage_Occurrences(), theXMLTypePackage.getInt(), "occurrences",
+        null, 0, 1, IResponseMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEOperation(getResponseMessage__GetStatusType(), theXMLTypePackage.getInt(), "getStatusType",
+        0, 1, IS_UNIQUE, IS_ORDERED);
+
+    initEClass(responseMessageListEClass, IResponseMessageList.class, "ResponseMessageList",
+        !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getResponseMessageList_Messages(), getResponseMessage(), null, "messages", null,
+        0, -1, IResponseMessageList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    op = initEOperation(getResponseMessageList__ToStatus__String_String(), getIStatus(), "toStatus",
+        0, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theXMLTypePackage.getString(), "pluginId", 0, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, theXMLTypePackage.getString(), "message", 0, 1, IS_UNIQUE, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.class, "AdtPluginFeatureType");
     addEEnumLiteral(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.BOOLEAN);
@@ -617,9 +806,17 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.RESPONSE_ATTRIBUTE);
     addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.URI_PARAMETER);
 
+    initEEnum(messsageTypeEEnum, MesssageType.class, "MesssageType");
+    addEEnumLiteral(messsageTypeEEnum, MesssageType.NONE);
+    addEEnumLiteral(messsageTypeEEnum, MesssageType.INFO);
+    addEEnumLiteral(messsageTypeEEnum, MesssageType.WARNING);
+    addEEnumLiteral(messsageTypeEEnum, MesssageType.ERROR);
+
     // Initialize data types
     initEDataType(iAdtPluginFeaturesEDataType, IAdtPluginFeatures.class, "IAdtPluginFeatures",
         IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+    initEDataType(iStatusEDataType, IStatus.class, "IStatus", IS_SERIALIZABLE,
+        !IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);
@@ -683,6 +880,18 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         "kind", "elementOnly" });
     addAnnotation(getAdtPluginFeatureList_Features(), source, new String[] { "kind", "element",
         "name", "pluginFeature", "namespace", "##targetNamespace" });
+    addAnnotation(responseMessageEClass, source, new String[] { "kind", "elementOnly", "name",
+        "responseMessage" });
+    addAnnotation(getResponseMessage_Type(), source, new String[] { "kind", "attribute", "name",
+        "type", "namespace", "##targetNamespace" });
+    addAnnotation(getResponseMessage_Content(), source, new String[] { "kind", "attribute", "name",
+        "content", "namespace", "##targetNamespace" });
+    addAnnotation(getResponseMessage_Occurrences(), source, new String[] { "kind", "attribute",
+        "name", "occurrences", "namespace", "##targetNamespace" });
+    addAnnotation(responseMessageListEClass, source, new String[] { "kind", "elementOnly", "name",
+        "responseMessages" });
+    addAnnotation(getResponseMessageList_Messages(), source, new String[] { "kind", "element",
+        "name", "responseMessage", "namespace", "##targetNamespace" });
   }
 
 } // AdtBasePackage

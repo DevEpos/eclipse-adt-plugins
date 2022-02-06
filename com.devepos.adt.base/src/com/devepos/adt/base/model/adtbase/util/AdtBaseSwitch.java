@@ -11,6 +11,8 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
+import com.devepos.adt.base.model.adtbase.IResponseMessageList;
 import com.devepos.adt.base.model.adtbase.IUser;
 
 /**
@@ -26,7 +28,8 @@ import com.devepos.adt.base.model.adtbase.IUser;
  */
 public class AdtBaseSwitch<T> extends Switch<T> {
   /**
-   * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached model package
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -45,7 +48,8 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Checks whether this is a switch for the given package. <!-- begin-user-doc
+   * Checks whether this is a switch for the given package.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @param ePackage the package in question.
@@ -58,8 +62,9 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Calls <code>caseXXX</code> for each class of the model until one returns a
-   * non null result; it yields that result. <!-- begin-user-doc --> <!--
+   * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it
+   * yields that result.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return the first non-null result returned by a <code>caseXXX</code> call.
@@ -108,19 +113,34 @@ public class AdtBaseSwitch<T> extends Switch<T> {
       }
       return result;
     }
+    case IAdtBasePackage.RESPONSE_MESSAGE: {
+      IResponseMessage responseMessage = (IResponseMessage) theEObject;
+      T result = caseResponseMessage(responseMessage);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAdtBasePackage.RESPONSE_MESSAGE_LIST: {
+      IResponseMessageList responseMessageList = (IResponseMessageList) theEObject;
+      T result = caseResponseMessageList(responseMessageList);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
     default:
       return defaultCase(theEObject);
     }
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Adt Obj
-   * Ref</em>'. <!-- begin-user-doc --> This implementation returns null;
+   * Returns the result of interpreting the object as an instance of '<em>Adt Obj Ref</em>'.
+   * <!-- begin-user-doc --> This implementation returns null;
    * returning a non-null result will terminate the switch. <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Adt Obj
-   *         Ref</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Adt Obj Ref</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -129,13 +149,12 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Adt Obj
-   * Ref List</em>'. <!-- begin-user-doc --> This implementation returns null;
+   * Returns the result of interpreting the object as an instance of '<em>Adt Obj Ref List</em>'.
+   * <!-- begin-user-doc --> This implementation returns null;
    * returning a non-null result will terminate the switch. <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Adt Obj
-   *         Ref List</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Adt Obj Ref List</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -144,13 +163,12 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of
-   * '<em>User</em>'. <!-- begin-user-doc --> This implementation returns null;
+   * Returns the result of interpreting the object as an instance of '<em>User</em>'.
+   * <!-- begin-user-doc --> This implementation returns null;
    * returning a non-null result will terminate the switch. <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of
-   *         '<em>User</em>'.
+   * @return the result of interpreting the object as an instance of '<em>User</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -159,14 +177,13 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Adt
-   * Plugin Feature</em>'. <!-- begin-user-doc --> This implementation returns
+   * Returns the result of interpreting the object as an instance of '<em>Adt Plugin Feature</em>'.
+   * <!-- begin-user-doc --> This implementation returns
    * null; returning a non-null result will terminate the switch. <!--
    * end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Adt
-   *         Plugin Feature</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Adt Plugin Feature</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -175,14 +192,15 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Adt
-   * Plugin Feature List</em>'. <!-- begin-user-doc --> This implementation
+   * Returns the result of interpreting the object as an instance of '<em>Adt Plugin Feature
+   * List</em>'.
+   * <!-- begin-user-doc --> This implementation
    * returns null; returning a non-null result will terminate the switch. <!--
    * end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Adt
-   *         Plugin Feature List</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Adt Plugin Feature
+   *         List</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -191,14 +209,47 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of
-   * '<em>EObject</em>'. <!-- begin-user-doc --> This implementation returns null;
+   * Returns the result of interpreting the object as an instance of '<em>Response Message</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Response Message</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResponseMessage(final IResponseMessage object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Response Message
+   * List</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Response Message
+   *         List</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResponseMessageList(final IResponseMessageList object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * <!-- begin-user-doc --> This implementation returns null;
    * returning a non-null result will terminate the switch, but this is the last
    * case anyway. <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of
-   *         '<em>EObject</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject)
    * @generated
    */

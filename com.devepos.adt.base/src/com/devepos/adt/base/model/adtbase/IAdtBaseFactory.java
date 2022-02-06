@@ -13,7 +13,8 @@ import org.eclipse.emf.ecore.EFactory;
  */
 public interface IAdtBaseFactory extends EFactory {
   /**
-   * The singleton instance of the factory. <!-- begin-user-doc --> <!--
+   * The singleton instance of the factory.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -21,7 +22,8 @@ public interface IAdtBaseFactory extends EFactory {
   IAdtBaseFactory eINSTANCE = com.devepos.adt.base.model.adtbase.impl.AdtBaseFactory.init();
 
   /**
-   * Returns a new object of class '<em>Adt Obj Ref</em>'. <!-- begin-user-doc -->
+   * Returns a new object of class '<em>Adt Obj Ref</em>'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Adt Obj Ref</em>'.
@@ -39,7 +41,8 @@ public interface IAdtBaseFactory extends EFactory {
   IAdtObjRefList createAdtObjRefList();
 
   /**
-   * Returns a new object of class '<em>User</em>'. <!-- begin-user-doc --> <!--
+   * Returns a new object of class '<em>User</em>'.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return a new object of class '<em>User</em>'.
@@ -66,7 +69,28 @@ public interface IAdtBaseFactory extends EFactory {
   IAdtPluginFeatureList createAdtPluginFeatureList();
 
   /**
-   * Returns the package supported by this factory. <!-- begin-user-doc --> <!--
+   * Returns a new object of class '<em>Response Message</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Response Message</em>'.
+   * @generated
+   */
+  IResponseMessage createResponseMessage();
+
+  /**
+   * Returns a new object of class '<em>Response Message List</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Response Message List</em>'.
+   * @generated
+   */
+  IResponseMessageList createResponseMessageList();
+
+  /**
+   * Returns the package supported by this factory.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @return the package supported by this factory.

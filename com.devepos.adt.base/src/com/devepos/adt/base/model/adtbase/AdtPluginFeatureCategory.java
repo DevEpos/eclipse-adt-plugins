@@ -19,7 +19,8 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum AdtPluginFeatureCategory implements Enumerator {
   /**
-   * The '<em><b>NO CATEGORY</b></em>' literal object. <!-- begin-user-doc -->
+   * The '<em><b>NO CATEGORY</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #NO_CATEGORY_VALUE
@@ -28,7 +29,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
    */
   NO_CATEGORY(0, "NO_CATEGORY", "NoCategory"),
   /**
-   * The '<em><b>REQUEST ATTRIBUTE</b></em>' literal object. <!-- begin-user-doc
+   * The '<em><b>REQUEST ATTRIBUTE</b></em>' literal object.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #REQUEST_ATTRIBUTE_VALUE
@@ -37,7 +39,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
    */
   REQUEST_ATTRIBUTE(1, "REQUEST_ATTRIBUTE", "RequestAttribute"),
   /**
-   * The '<em><b>RESPONSE ATTRIBUTE</b></em>' literal object. <!-- begin-user-doc
+   * The '<em><b>RESPONSE ATTRIBUTE</b></em>' literal object.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #RESPONSE_ATTRIBUTE_VALUE
@@ -46,7 +49,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
    */
   RESPONSE_ATTRIBUTE(2, "RESPONSE_ATTRIBUTE", "ResponseAttribute"),
   /**
-   * The '<em><b>URI PARAMETER</b></em>' literal object. <!-- begin-user-doc -->
+   * The '<em><b>URI PARAMETER</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #URI_PARAMETER_VALUE
@@ -56,7 +60,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   URI_PARAMETER(3, "URI_PARAMETER", "UriParameter");
 
   /**
-   * The '<em><b>NO CATEGORY</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>NO CATEGORY</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #NO_CATEGORY
@@ -67,7 +72,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   public static final int NO_CATEGORY_VALUE = 0;
 
   /**
-   * The '<em><b>REQUEST ATTRIBUTE</b></em>' literal value. <!-- begin-user-doc
+   * The '<em><b>REQUEST ATTRIBUTE</b></em>' literal value.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #REQUEST_ATTRIBUTE
@@ -78,7 +84,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   public static final int REQUEST_ATTRIBUTE_VALUE = 1;
 
   /**
-   * The '<em><b>RESPONSE ATTRIBUTE</b></em>' literal value. <!-- begin-user-doc
+   * The '<em><b>RESPONSE ATTRIBUTE</b></em>' literal value.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @see #RESPONSE_ATTRIBUTE
@@ -89,7 +96,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   public static final int RESPONSE_ATTRIBUTE_VALUE = 2;
 
   /**
-   * The '<em><b>URI PARAMETER</b></em>' literal value. <!-- begin-user-doc -->
+   * The '<em><b>URI PARAMETER</b></em>' literal value.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @see #URI_PARAMETER
@@ -100,8 +108,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   public static final int URI_PARAMETER_VALUE = 3;
 
   /**
-   * An array of all the '<em><b>Adt Plugin Feature Category</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * An array of all the '<em><b>Adt Plugin Feature Category</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -109,8 +117,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
       NO_CATEGORY, REQUEST_ATTRIBUTE, RESPONSE_ATTRIBUTE, URI_PARAMETER, };
 
   /**
-   * A public read-only list of all the '<em><b>Adt Plugin Feature
-   * Category</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Adt Plugin Feature Category</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -118,8 +126,9 @@ public enum AdtPluginFeatureCategory implements Enumerator {
       .asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the
-   * specified literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified literal
+   * value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -135,8 +144,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the
-   * specified name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param name the name.
    * @return the matching enumerator or <code>null</code>.
@@ -152,8 +161,9 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the
-   * specified integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified integer
+   * value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -195,7 +205,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -237,8 +248,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

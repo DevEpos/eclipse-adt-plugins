@@ -19,12 +19,10 @@ import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getName
- * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getName <em>Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getEndpoint
  * <em>Endpoint</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getType
- * <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getType <em>Type</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#isEnabled
  * <em>Enabled</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature#getCategory
@@ -57,8 +55,8 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getEndpoint() <em>Endpoint</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getEndpoint()
    * @generated
@@ -117,8 +115,8 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected boolean enabled = ENABLED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getCategory() <em>Category</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getCategory()
    * @generated
@@ -137,8 +135,8 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected AdtPluginFeatureCategory category = CATEGORY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated
@@ -147,8 +145,8 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected static final String DESCRIPTION_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated

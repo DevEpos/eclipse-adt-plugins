@@ -19,7 +19,8 @@ import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 public class AdtBaseXMLProcessor extends XMLProcessor {
 
   /**
-   * Public constructor to instantiate the helper. <!-- begin-user-doc --> <!--
+   * Public constructor to instantiate the helper.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -30,8 +31,8 @@ public class AdtBaseXMLProcessor extends XMLProcessor {
   }
 
   /**
-   * Register for "*" and "xml" file extensions the AdtBaseResourceFactory
-   * factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Register for "*" and "xml" file extensions the AdtBaseResourceFactory factory.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

@@ -23,16 +23,17 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList#getObjectReferences
- * <em>Object References</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList#getObjectReferences <em>Object
+ * References</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtObjRefList {
   /**
-   * The cached value of the '{@link #getObjectReferences() <em>Object
-   * References</em>}' containment reference list. <!-- begin-user-doc --> <!--
+   * The cached value of the '{@link #getObjectReferences() <em>Object References</em>}' containment
+   * reference list.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #getObjectReferences()

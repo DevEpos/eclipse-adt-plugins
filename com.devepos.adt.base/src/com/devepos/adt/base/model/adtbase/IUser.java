@@ -8,7 +8,8 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc --> A representation of the model object
  * '<em><b>User</b></em>'. <!-- end-user-doc -->
  *
- * <!-- begin-model-doc --> User
+ * <!-- begin-model-doc -->
+ * User
  *
  * <!-- end-model-doc -->
  *
@@ -16,10 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.IUser#getName
- * <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IUser#getText
- * <em>Text</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getUser()
@@ -42,9 +41,9 @@ public interface IUser extends EObject {
   String getName();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Name</em>' attribute.
    * @see #getName()
@@ -67,9 +66,9 @@ public interface IUser extends EObject {
   String getText();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Text</em>' attribute.
    * @see #getText()

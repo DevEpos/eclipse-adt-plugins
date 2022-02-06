@@ -17,10 +17,8 @@ import com.devepos.adt.base.model.adtbase.IUser;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getName
- * <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getText
- * <em>Text</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.User#getText <em>Text</em>}</li>
  * </ul>
  *
  * @generated

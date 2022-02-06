@@ -19,7 +19,8 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum AdtPluginFeatureType implements Enumerator {
   /**
-   * The '<em><b>BOOLEAN</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>BOOLEAN</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #BOOLEAN_VALUE
@@ -29,7 +30,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   BOOLEAN(0, "BOOLEAN", "Boolean"),
 
   /**
-   * The '<em><b>STRING</b></em>' literal object. <!-- begin-user-doc --> <!--
+   * The '<em><b>STRING</b></em>' literal object.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #STRING_VALUE
@@ -39,7 +41,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   STRING(1, "STRING", "String");
 
   /**
-   * The '<em><b>BOOLEAN</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>BOOLEAN</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #BOOLEAN
@@ -50,7 +53,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   public static final int BOOLEAN_VALUE = 0;
 
   /**
-   * The '<em><b>STRING</b></em>' literal value. <!-- begin-user-doc --> <!--
+   * The '<em><b>STRING</b></em>' literal value.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see #STRING
@@ -70,8 +74,8 @@ public enum AdtPluginFeatureType implements Enumerator {
       STRING, };
 
   /**
-   * A public read-only list of all the '<em><b>Adt Plugin Feature Type</b></em>'
-   * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * A public read-only list of all the '<em><b>Adt Plugin Feature Type</b></em>' enumerators.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -79,8 +83,8 @@ public enum AdtPluginFeatureType implements Enumerator {
       .asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the
-   * specified literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
@@ -96,8 +100,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the
-   * specified name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param name the name.
    * @return the matching enumerator or <code>null</code>.
@@ -113,8 +117,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the
-   * specified integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
@@ -152,7 +156,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   private final String literal;
 
   /**
-   * Only this class can construct instances. <!-- begin-user-doc --> <!--
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -194,8 +199,8 @@ public enum AdtPluginFeatureType implements Enumerator {
   }
 
   /**
-   * Returns the literal value of the enumerator, which is its string
-   * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */

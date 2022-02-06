@@ -12,14 +12,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName
- * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName <em>Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint
  * <em>Endpoint</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType
- * <em>Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled
- * <em>Enabled</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled <em>Enabled</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory
  * <em>Category</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription

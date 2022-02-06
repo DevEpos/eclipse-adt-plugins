@@ -19,28 +19,24 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * <ul>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getDescription
  * <em>Description</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getName
- * <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getPackageName
- * <em>Package Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getType
- * <em>Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getTadirType
- * <em>Tadir Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getUri
- * <em>Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentUri
- * <em>Parent Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner
- * <em>Owner</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getPackageName <em>Package
+ * Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getType <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getTadirType <em>Tadir
+ * Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getUri <em>Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentUri <em>Parent
+ * Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner <em>Owner</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRef {
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated
@@ -49,8 +45,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String DESCRIPTION_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDescription()
    * @generated
@@ -79,8 +75,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getPackageName() <em>Package Name</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getPackageName()
    * @generated
@@ -89,8 +85,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String PACKAGE_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getPackageName() <em>Package Name</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getPackageName()
    * @generated
@@ -119,8 +115,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected String type = TYPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTadirType() <em>Tadir Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getTadirType() <em>Tadir Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTadirType()
    * @generated
@@ -129,8 +125,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String TADIR_TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getTadirType()
    * @generated
@@ -159,8 +155,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected String uri = URI_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParentUri() <em>Parent Uri</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParentUri() <em>Parent Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentUri()
    * @generated
@@ -169,8 +165,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String PARENT_URI_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getParentUri() <em>Parent Uri</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParentUri() <em>Parent Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParentUri()
    * @generated

@@ -9,14 +9,16 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Adt Obj
  * Ref List</b></em>'. <!-- end-user-doc -->
  *
- * <!-- begin-model-doc --> A list of object references. <!-- end-model-doc -->
+ * <!-- begin-model-doc -->
+ * A list of object references.
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences
- * <em>Object References</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences <em>Object
+ * References</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRefList()

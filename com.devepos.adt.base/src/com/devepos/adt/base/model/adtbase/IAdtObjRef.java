@@ -10,9 +10,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <!-- begin-model-doc -->
  *
- * Base class for ADT object references. It encapsulates the data that clients
- * may want to access without loading the actual resource - e.g. in order to
- * display the name and an icon.
+ * Base class for ADT object references. It
+ * encapsulates the data that
+ * clients may want to access
+ * without loading
+ * the actual resource - e.g.
+ * in order to display the name and
+ * an icon.
  *
  * <!-- end-model-doc -->
  *
@@ -22,20 +26,14 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription
  * <em>Description</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName
- * <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName
- * <em>Package Name</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
- * <em>Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType
- * <em>Tadir Type</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
- * <em>Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri
- * <em>Parent Uri</em>}</li>
- * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
- * <em>Owner</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package
+ * Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef()
@@ -92,9 +90,9 @@ public interface IAdtObjRef extends EObject {
   String getName();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName
+   * <em>Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Name</em>' attribute.
    * @see #getName()
@@ -151,9 +149,9 @@ public interface IAdtObjRef extends EObject {
   String getType();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
+   * <em>Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Type</em>' attribute.
    * @see #getType()
@@ -186,9 +184,9 @@ public interface IAdtObjRef extends EObject {
   String getUri();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}'
-   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
+   * <em>Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Uri</em>' attribute.
    * @see #getUri()
@@ -213,9 +211,9 @@ public interface IAdtObjRef extends EObject {
   String getParentUri();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent
-   * Uri</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri
+   * <em>Parent Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Parent Uri</em>' attribute.
    * @see #getParentUri()
@@ -242,9 +240,9 @@ public interface IAdtObjRef extends EObject {
   String getOwner();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
-   * <em>Owner</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
+   * <em>Owner</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Owner</em>' attribute.
    * @see #getOwner()
@@ -271,9 +269,9 @@ public interface IAdtObjRef extends EObject {
   String getTadirType();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir
-   * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType
+   * <em>Tadir Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value the new value of the '<em>Tadir Type</em>' attribute.
    * @see #getTadirType()

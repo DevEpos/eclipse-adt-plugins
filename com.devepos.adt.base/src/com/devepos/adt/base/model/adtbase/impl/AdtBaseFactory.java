@@ -2,6 +2,7 @@
  */
 package com.devepos.adt.base.model.adtbase.impl;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -17,7 +18,10 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
+import com.devepos.adt.base.model.adtbase.IResponseMessageList;
 import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.model.adtbase.MesssageType;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
@@ -28,7 +32,8 @@ import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
  */
 public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   /**
-   * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+   * Creates the default factory implementation.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -74,6 +79,10 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return createAdtPluginFeature();
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST:
       return createAdtPluginFeatureList();
+    case IAdtBasePackage.RESPONSE_MESSAGE:
+      return createResponseMessage();
+    case IAdtBasePackage.RESPONSE_MESSAGE_LIST:
+      return createResponseMessageList();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -92,8 +101,12 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return createAdtPluginFeatureTypeFromString(eDataType, initialValue);
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
       return createAdtPluginFeatureCategoryFromString(eDataType, initialValue);
+    case IAdtBasePackage.MESSSAGE_TYPE:
+      return createMesssageTypeFromString(eDataType, initialValue);
     case IAdtBasePackage.IADT_PLUGIN_FEATURES:
       return createIAdtPluginFeaturesFromString(eDataType, initialValue);
+    case IAdtBasePackage.ISTATUS:
+      return createIStatusFromString(eDataType, initialValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
           + "' is not a valid classifier");
@@ -112,8 +125,12 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return convertAdtPluginFeatureTypeToString(eDataType, instanceValue);
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
       return convertAdtPluginFeatureCategoryToString(eDataType, instanceValue);
+    case IAdtBasePackage.MESSSAGE_TYPE:
+      return convertMesssageTypeToString(eDataType, instanceValue);
     case IAdtBasePackage.IADT_PLUGIN_FEATURES:
       return convertIAdtPluginFeaturesToString(eDataType, instanceValue);
+    case IAdtBasePackage.ISTATUS:
+      return convertIStatusToString(eDataType, instanceValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
           + "' is not a valid classifier");
@@ -176,6 +193,30 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IResponseMessage createResponseMessage() {
+    ResponseMessage responseMessage = new ResponseMessage();
+    return responseMessage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IResponseMessageList createResponseMessageList() {
+    ResponseMessageList responseMessageList = new ResponseMessageList();
+    return responseMessageList;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -226,6 +267,32 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public MesssageType createMesssageTypeFromString(final EDataType eDataType,
+      final String initialValue) {
+    MesssageType result = MesssageType.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    }
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertMesssageTypeToString(final EDataType eDataType, final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -242,6 +309,26 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public String convertIAdtPluginFeaturesToString(final EDataType eDataType,
       final Object instanceValue) {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public IStatus createIStatusFromString(final EDataType eDataType, final String initialValue) {
+    return (IStatus) super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertIStatusToString(final EDataType eDataType, final Object instanceValue) {
     return super.convertToString(eDataType, instanceValue);
   }
 

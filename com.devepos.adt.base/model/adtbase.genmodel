@@ -3,10 +3,10 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.base/src" editDirectory="/com.devepos.adt.base.edit/src"
     editorDirectory="/com.devepos.adt.base.editor/src" modelPluginID="com.devepos.adt.base"
     modelName="ADT Base" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="11.0" copyrightFields="false"
-    editPluginID="com.devepos.adt.base.edit" editorPluginID="com.devepos.adt.base.editor"
-    runtimeVersion="2.10" interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
-    importOrganizing="true">
+    codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" editPluginID="com.devepos.adt.base.edit"
+    editorPluginID="com.devepos.adt.base.editor" runtimeVersion="2.10" interfaceNamePattern="I{0}"
+    classNamePattern="{0}" operationReflection="true" importOrganizing="true" cleanup="true">
   <foreignModel>adtbase.ecore</foreignModel>
   <genPackages prefix="AdtBase" basePackage="com.devepos.adt.base.model" resource="XML"
       disposableProviderFactory="true" ecorePackage="adtbase.ecore#/">
@@ -20,7 +20,14 @@
       <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/RESPONSE_ATTRIBUTE"/>
       <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/URI_PARAMETER"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="adtbase.ecore#//MesssageType">
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/ERROR"/>
+    </genEnums>
     <genDataTypes ecoreDataType="adtbase.ecore#//IAdtPluginFeatures"/>
+    <genDataTypes ecoreDataType="adtbase.ecore#//IStatus"/>
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRef">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/name"/>
@@ -50,6 +57,19 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//AdtPluginFeatureList/features"/>
       <genOperations ecoreOperation="adtbase.ecore#//AdtPluginFeatureList/getFeaturesByEndpoint">
         <genParameters ecoreParameter="adtbase.ecore#//AdtPluginFeatureList/getFeaturesByEndpoint/endpoint"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//ResponseMessage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//ResponseMessage/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//ResponseMessage/content"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//ResponseMessage/occurrences"/>
+      <genOperations ecoreOperation="adtbase.ecore#//ResponseMessage/getStatusType"/>
+    </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//ResponseMessageList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//ResponseMessageList/messages"/>
+      <genOperations ecoreOperation="adtbase.ecore#//ResponseMessageList/toStatus">
+        <genParameters ecoreParameter="adtbase.ecore#//ResponseMessageList/toStatus/pluginId"/>
+        <genParameters ecoreParameter="adtbase.ecore#//ResponseMessageList/toStatus/message"/>
       </genOperations>
     </genClasses>
   </genPackages>

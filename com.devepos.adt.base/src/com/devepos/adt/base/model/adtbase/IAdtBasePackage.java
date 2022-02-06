@@ -28,28 +28,32 @@ import org.eclipse.emf.ecore.EReference;
  */
 public interface IAdtBasePackage extends EPackage {
   /**
-   * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The package name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   String eNAME = "adtbase";
 
   /**
-   * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The package namespace URI.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   String eNS_URI = "http://www.devepos.com/adt/base";
 
   /**
-   * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The package namespace name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   String eNS_PREFIX = "adtbase";
 
   /**
-   * The singleton instance of the package. <!-- begin-user-doc --> <!--
+   * The singleton instance of the package.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @generated
@@ -57,9 +61,9 @@ public interface IAdtBasePackage extends EPackage {
   IAdtBasePackage eINSTANCE = com.devepos.adt.base.model.adtbase.impl.AdtBasePackage.init();
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef <em>Adt Obj
-   * Ref</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef <em>Adt
+   * Obj Ref</em>}' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see com.devepos.adt.base.model.adtbase.impl.AdtObjRef
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtObjRef()
@@ -77,7 +81,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__DESCRIPTION = 0;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -95,7 +100,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__PACKAGE_NAME = 2;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -113,7 +119,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__TADIR_TYPE = 4;
 
   /**
-   * The feature id for the '<em><b>Uri</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Uri</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -131,7 +138,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__PARENT_URI = 6;
 
   /**
-   * The feature id for the '<em><b>Owner</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Owner</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -158,9 +166,9 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList <em>Adt Obj Ref
-   * List</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList
+   * <em>Adt Obj Ref List</em>}' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see com.devepos.adt.base.model.adtbase.impl.AdtObjRefList
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtObjRefList()
@@ -169,8 +177,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF_LIST = 1;
 
   /**
-   * The feature id for the '<em><b>Object References</b></em>' containment
-   * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Object References</b></em>' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
@@ -196,8 +204,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF_LIST_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.base.model.adtbase.impl.User <em>User</em>}' class.
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.User <em>User</em>}'
+   * class.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see com.devepos.adt.base.model.adtbase.impl.User
@@ -207,7 +215,8 @@ public interface IAdtBasePackage extends EPackage {
   int USER = 2;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -216,7 +225,8 @@ public interface IAdtBasePackage extends EPackage {
   int USER__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Text</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -234,7 +244,8 @@ public interface IAdtBasePackage extends EPackage {
   int USER_FEATURE_COUNT = 2;
 
   /**
-   * The number of operations of the '<em>User</em>' class. <!-- begin-user-doc
+   * The number of operations of the '<em>User</em>' class.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -243,9 +254,9 @@ public interface IAdtBasePackage extends EPackage {
   int USER_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature <em>Adt
-   * Plugin Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature
+   * <em>Adt Plugin Feature</em>}' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeature()
@@ -254,7 +265,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_PLUGIN_FEATURE = 3;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -272,7 +284,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_PLUGIN_FEATURE__ENDPOINT = 1;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
    *
    * @generated
@@ -347,8 +360,8 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_PLUGIN_FEATURE_LIST__FEATURES = 0;
 
   /**
-   * The number of structural features of the '<em>Adt Plugin Feature List</em>'
-   * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The number of structural features of the '<em>Adt Plugin Feature List</em>' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
@@ -374,6 +387,130 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_PLUGIN_FEATURE_LIST_OPERATION_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.ResponseMessage
+   * <em>Response Message</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.impl.ResponseMessage
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getResponseMessage()
+   * @generated
+   */
+  int RESPONSE_MESSAGE = 5;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE__CONTENT = 1;
+
+  /**
+   * The feature id for the '<em><b>Occurrences</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE__OCCURRENCES = 2;
+
+  /**
+   * The number of structural features of the '<em>Response Message</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_FEATURE_COUNT = 3;
+
+  /**
+   * The operation id for the '<em>Get Status Type</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE___GET_STATUS_TYPE = 0;
+
+  /**
+   * The number of operations of the '<em>Response Message</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_OPERATION_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.ResponseMessageList
+   * <em>Response Message List</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.impl.ResponseMessageList
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getResponseMessageList()
+   * @generated
+   */
+  int RESPONSE_MESSAGE_LIST = 6;
+
+  /**
+   * The feature id for the '<em><b>Messages</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_LIST__MESSAGES = 0;
+
+  /**
+   * The number of structural features of the '<em>Response Message List</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_LIST_FEATURE_COUNT = 1;
+
+  /**
+   * The operation id for the '<em>To Status</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING = 0;
+
+  /**
+   * The number of operations of the '<em>Response Message List</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RESPONSE_MESSAGE_LIST_OPERATION_COUNT = 1;
+
+  /**
    * The meta object id for the
    * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
    * Plugin Feature Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
@@ -383,19 +520,31 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureType()
    * @generated
    */
-  int ADT_PLUGIN_FEATURE_TYPE = 5;
+  int ADT_PLUGIN_FEATURE_TYPE = 7;
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
-   * Plugin Feature Category</em>}' enum. <!-- begin-user-doc --> <!--
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * <em>Adt Plugin Feature Category</em>}' enum.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
    * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureCategory()
    * @generated
    */
-  int ADT_PLUGIN_FEATURE_CATEGORY = 6;
+  int ADT_PLUGIN_FEATURE_CATEGORY = 8;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.MesssageType <em>Messsage
+   * Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.MesssageType
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMesssageType()
+   * @generated
+   */
+  int MESSSAGE_TYPE = 9;
 
   /**
    * The meta object id for the '<em>IAdt Plugin Features</em>' data type. <!--
@@ -405,11 +554,22 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIAdtPluginFeatures()
    * @generated
    */
-  int IADT_PLUGIN_FEATURES = 7;
+  int IADT_PLUGIN_FEATURES = 10;
 
   /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt Obj Ref</em>}'.
+   * The meta object id for the '<em>IStatus</em>' data type.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see org.eclipse.core.runtime.IStatus
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIStatus()
+   * @generated
+   */
+  int ISTATUS = 11;
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt
+   * Obj Ref</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Adt Obj Ref</em>'.
@@ -420,8 +580,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription
-   * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Description</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription()
@@ -432,8 +592,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName
-   * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getName()
@@ -444,8 +604,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName
-   * <em>Package Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Package Name</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName()
@@ -456,8 +616,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
-   * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Type</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getType()
@@ -480,8 +640,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent
-   * Uri</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Parent Uri</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri()
@@ -492,8 +652,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
-   * <em>Owner</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Owner</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner()
@@ -504,8 +664,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir
-   * Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Tadir Type</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType()
@@ -515,9 +675,9 @@ public interface IAdtBasePackage extends EPackage {
   EAttribute getAdtObjRef_TadirType();
 
   /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList <em>Adt Obj Ref
-   * List</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList
+   * <em>Adt Obj Ref List</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Adt Obj Ref List</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList
@@ -527,11 +687,11 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences
-   * <em>Object References</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences <em>Object
+   * References</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
-   * @return the meta object for the containment reference list '<em>Object
-   *         References</em>'.
+   * @return the meta object for the containment reference list '<em>Object References</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences()
    * @see #getAdtObjRefList()
    * @generated
@@ -574,9 +734,9 @@ public interface IAdtBasePackage extends EPackage {
   EAttribute getUser_Text();
 
   /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature <em>Adt Plugin
-   * Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature
+   * <em>Adt Plugin Feature</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Adt Plugin Feature</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature
@@ -586,8 +746,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName
-   * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName <em>Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName()
@@ -598,8 +758,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint
-   * <em>Endpoint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint <em>Endpoint</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Endpoint</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint()
@@ -610,8 +770,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType
-   * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType <em>Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Type</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType()
@@ -623,7 +783,8 @@ public interface IAdtBasePackage extends EPackage {
   /**
    * Returns the meta object for the attribute
    * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription
-   * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Description</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription()
@@ -634,8 +795,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled
-   * <em>Enabled</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled <em>Enabled</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Enabled</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled()
@@ -646,8 +807,8 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory
-   * <em>Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory <em>Category</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Category</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory()
@@ -658,8 +819,9 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt
-   * Plugin Feature List</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt Plugin Feature
+   * List</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Adt Plugin Feature List</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList
@@ -670,10 +832,10 @@ public interface IAdtBasePackage extends EPackage {
   /**
    * Returns the meta object for the containment reference list
    * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures
-   * <em>Features</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <em>Features</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
-   * @return the meta object for the containment reference list
-   *         '<em>Features</em>'.
+   * @return the meta object for the containment reference list '<em>Features</em>'.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures()
    * @see #getAdtPluginFeatureList()
    * @generated
@@ -683,20 +845,127 @@ public interface IAdtBasePackage extends EPackage {
   /**
    * Returns the meta object for the
    * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
-   * <em>Get Features By Endpoint</em>}' operation. <!-- begin-user-doc --> <!--
+   * <em>Get Features By Endpoint</em>}' operation.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
    *
-   * @return the meta object for the '<em>Get Features By Endpoint</em>'
-   *         operation.
+   * @return the meta object for the '<em>Get Features By Endpoint</em>' operation.
    * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
    * @generated
    */
   EOperation getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
 
   /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IResponseMessage
+   * <em>Response Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Response Message</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage
+   * @generated
+   */
+  EClass getResponseMessage();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getType()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getContent <em>Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Content</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getContent()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Content();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences
+   * <em>Occurrences</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Occurrences</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Occurrences();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType() <em>Get Status
+   * Type</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Status Type</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType()
+   * @generated
+   */
+  EOperation getResponseMessage__GetStatusType();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList <em>Response Message
+   * List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Response Message List</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList
+   * @generated
+   */
+  EClass getResponseMessageList();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages
+   * <em>Messages</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Messages</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages()
+   * @see #getResponseMessageList()
+   * @generated
+   */
+  EReference getResponseMessageList_Messages();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String, java.lang.String)
+   * <em>To Status</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>To Status</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String,
+   *      java.lang.String)
+   * @generated
+   */
+  EOperation getResponseMessageList__ToStatus__String_String();
+
+  /**
    * Returns the meta object for enum
-   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
-   * Plugin Feature Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt Plugin Feature
+   * Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for enum '<em>Adt Plugin Feature Type</em>'.
    * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
@@ -706,8 +975,9 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for enum
-   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
-   * Plugin Feature Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt Plugin Feature
+   * Category</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for enum '<em>Adt Plugin Feature Category</em>'.
    * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
@@ -716,9 +986,22 @@ public interface IAdtBasePackage extends EPackage {
   EEnum getAdtPluginFeatureCategory();
 
   /**
+   * Returns the meta object for enum '{@link com.devepos.adt.base.model.adtbase.MesssageType
+   * <em>Messsage Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Messsage Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.MesssageType
+   * @generated
+   */
+  EEnum getMesssageType();
+
+  /**
    * Returns the meta object for data type
-   * '{@link com.devepos.adt.base.plugin.features.IAdtPluginFeatures <em>IAdt
-   * Plugin Features</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * '{@link com.devepos.adt.base.plugin.features.IAdtPluginFeatures <em>IAdt Plugin
+   * Features</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for data type '<em>IAdt Plugin Features</em>'.
    * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
@@ -726,6 +1009,19 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    */
   EDataType getIAdtPluginFeatures();
+
+  /**
+   * Returns the meta object for data type '{@link org.eclipse.core.runtime.IStatus
+   * <em>IStatus</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for data type '<em>IStatus</em>'.
+   * @see org.eclipse.core.runtime.IStatus
+   * @model instanceClass="org.eclipse.core.runtime.IStatus"
+   * @generated
+   */
+  EDataType getIStatus();
 
   /**
    * Returns the factory that creates the instances of the model. <!--
@@ -751,9 +1047,9 @@ public interface IAdtBasePackage extends EPackage {
    */
   interface Literals {
     /**
-     * The meta object literal for the
-     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef <em>Adt Obj
-     * Ref</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef
+     * <em>Adt Obj Ref</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see com.devepos.adt.base.model.adtbase.impl.AdtObjRef
      * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtObjRef()
@@ -762,8 +1058,8 @@ public interface IAdtBasePackage extends EPackage {
     EClass ADT_OBJ_REF = eINSTANCE.getAdtObjRef();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute
-     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
@@ -778,8 +1074,8 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute ADT_OBJ_REF__NAME = eINSTANCE.getAdtObjRef_Name();
 
     /**
-     * The meta object literal for the '<em><b>Package Name</b></em>' attribute
-     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Package Name</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
@@ -802,8 +1098,8 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute ADT_OBJ_REF__URI = eINSTANCE.getAdtObjRef_Uri();
 
     /**
-     * The meta object literal for the '<em><b>Parent Uri</b></em>' attribute
-     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Parent Uri</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
@@ -818,17 +1114,17 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute ADT_OBJ_REF__OWNER = eINSTANCE.getAdtObjRef_Owner();
 
     /**
-     * The meta object literal for the '<em><b>Tadir Type</b></em>' attribute
-     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Tadir Type</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
     EAttribute ADT_OBJ_REF__TADIR_TYPE = eINSTANCE.getAdtObjRef_TadirType();
 
     /**
-     * The meta object literal for the
-     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList <em>Adt Obj Ref
-     * List</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList
+     * <em>Adt Obj Ref List</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see com.devepos.adt.base.model.adtbase.impl.AdtObjRefList
      * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtObjRefList()
@@ -846,8 +1142,8 @@ public interface IAdtBasePackage extends EPackage {
     EReference ADT_OBJ_REF_LIST__OBJECT_REFERENCES = eINSTANCE.getAdtObjRefList_ObjectReferences();
 
     /**
-     * The meta object literal for the
-     * '{@link com.devepos.adt.base.model.adtbase.impl.User <em>User</em>}' class.
+     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.impl.User
+     * <em>User</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see com.devepos.adt.base.model.adtbase.impl.User
@@ -874,8 +1170,9 @@ public interface IAdtBasePackage extends EPackage {
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature <em>Adt
-     * Plugin Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature <em>Adt Plugin
+     * Feature</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see com.devepos.adt.base.model.adtbase.impl.AdtPluginFeature
      * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeature()
@@ -908,8 +1205,8 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute ADT_PLUGIN_FEATURE__TYPE = eINSTANCE.getAdtPluginFeature_Type();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute
-     * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
@@ -944,21 +1241,104 @@ public interface IAdtBasePackage extends EPackage {
     EClass ADT_PLUGIN_FEATURE_LIST = eINSTANCE.getAdtPluginFeatureList();
 
     /**
-     * The meta object literal for the '<em><b>Features</b></em>' containment
-     * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Features</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
     EReference ADT_PLUGIN_FEATURE_LIST__FEATURES = eINSTANCE.getAdtPluginFeatureList_Features();
 
     /**
-     * The meta object literal for the '<em><b>Get Features By Endpoint</b></em>'
-     * operation. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Get Features By Endpoint</b></em>' operation.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
     EOperation ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING = eINSTANCE
         .getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.impl.ResponseMessage <em>Response Message</em>}'
+     * class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.impl.ResponseMessage
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getResponseMessage()
+     * @generated
+     */
+    EClass RESPONSE_MESSAGE = eINSTANCE.getResponseMessage();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute RESPONSE_MESSAGE__TYPE = eINSTANCE.getResponseMessage_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute RESPONSE_MESSAGE__CONTENT = eINSTANCE.getResponseMessage_Content();
+
+    /**
+     * The meta object literal for the '<em><b>Occurrences</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute RESPONSE_MESSAGE__OCCURRENCES = eINSTANCE.getResponseMessage_Occurrences();
+
+    /**
+     * The meta object literal for the '<em><b>Get Status Type</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation RESPONSE_MESSAGE___GET_STATUS_TYPE = eINSTANCE.getResponseMessage__GetStatusType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.impl.ResponseMessageList <em>Response Message
+     * List</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.impl.ResponseMessageList
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getResponseMessageList()
+     * @generated
+     */
+    EClass RESPONSE_MESSAGE_LIST = eINSTANCE.getResponseMessageList();
+
+    /**
+     * The meta object literal for the '<em><b>Messages</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference RESPONSE_MESSAGE_LIST__MESSAGES = eINSTANCE.getResponseMessageList_Messages();
+
+    /**
+     * The meta object literal for the '<em><b>To Status</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING = eINSTANCE
+        .getResponseMessageList__ToStatus__String_String();
 
     /**
      * The meta object literal for the
@@ -974,8 +1354,9 @@ public interface IAdtBasePackage extends EPackage {
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt
-     * Plugin Feature Category</em>}' enum. <!-- begin-user-doc --> <!--
+     * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt Plugin Feature
+     * Category</em>}' enum.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
      * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
@@ -983,6 +1364,18 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EEnum ADT_PLUGIN_FEATURE_CATEGORY = eINSTANCE.getAdtPluginFeatureCategory();
+
+    /**
+     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.MesssageType
+     * <em>Messsage Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.MesssageType
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMesssageType()
+     * @generated
+     */
+    EEnum MESSSAGE_TYPE = eINSTANCE.getMesssageType();
 
     /**
      * The meta object literal for the '<em>IAdt Plugin Features</em>' data type.
@@ -993,6 +1386,17 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EDataType IADT_PLUGIN_FEATURES = eINSTANCE.getIAdtPluginFeatures();
+
+    /**
+     * The meta object literal for the '<em>IStatus</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see org.eclipse.core.runtime.IStatus
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIStatus()
+     * @generated
+     */
+    EDataType ISTATUS = eINSTANCE.getIStatus();
 
   }
 
