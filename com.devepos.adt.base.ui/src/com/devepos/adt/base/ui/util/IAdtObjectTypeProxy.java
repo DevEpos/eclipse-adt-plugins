@@ -11,6 +11,11 @@ import org.eclipse.swt.graphics.Image;
 public interface IAdtObjectTypeProxy {
 
   /**
+   * Retrieves the Id of the object type
+   */
+  String getId();
+
+  /**
    * Retrieves the image of the workbench type
    */
   Image getImage();
@@ -19,4 +24,5 @@ public interface IAdtObjectTypeProxy {
    * Retrieves the description for the workbench type
    */
   String getDescription();
+
 }

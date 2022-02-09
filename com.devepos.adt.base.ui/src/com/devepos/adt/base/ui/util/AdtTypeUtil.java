@@ -107,6 +107,11 @@ public class AdtTypeUtil {
     if (type != null) {
       return new IAdtObjectTypeProxy() {
         @Override
+        public String getId() {
+          return type.getId();
+        }
+
+        @Override
         public Image getImage() {
           return type.getImage();
         }
@@ -115,6 +120,7 @@ public class AdtTypeUtil {
         public String getDescription() {
           return type.getDisplayName();
         }
+
       };
     }
     return null;
