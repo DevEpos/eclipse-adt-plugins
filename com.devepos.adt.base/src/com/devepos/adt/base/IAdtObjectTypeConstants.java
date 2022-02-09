@@ -47,6 +47,10 @@ public interface IAdtObjectTypeConstants {
    */
   String PROGRAM = "PROG/P";
   /**
+   * Global Workbench type for Include programs
+   */
+  String PROGRAM_INCLUDE = "PROG/I";
+  /**
    * Program source of a Business Object Type
    */
   String BUSINESS_OBJ_TYPE_PROGRAM = "SOBJ/P";
@@ -81,4 +85,12 @@ public interface IAdtObjectTypeConstants {
    * Global workbench Type for Function Groups
    */
   String FUNCTION_GROUP = "FUGR/F";
+  /**
+   * Global workbench Type for Function modules
+   */
+  String FUNCTION_MODULE = "FUGR/FF";
+  /**
+   * Global workbench Type for Function Group includes
+   */
+  String FUNCTION_INCLUDE = "FUGR/I";
 }
