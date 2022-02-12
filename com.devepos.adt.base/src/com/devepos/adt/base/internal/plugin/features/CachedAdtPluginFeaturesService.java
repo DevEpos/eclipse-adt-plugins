@@ -26,7 +26,7 @@ import com.sap.adt.communication.session.ISystemSession;
  */
 public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService {
 
-  private Map<String, IAdtPluginFeatureList> cache = new HashMap<>();
+  private Map<String, Map<String, IAdtPluginFeatureList>> cache = new HashMap<>();
 
   @Override
   public IAdtPluginFeatureList getFeatures(final String destinationId, final String uri) {
@@ -36,8 +36,18 @@ public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService
     if (uri == null || uri.isEmpty()) {
       throw new IllegalArgumentException("Parameter 'uri' must not be empty");
     }
-    if (cache.containsKey(uri)) {
-      return cache.get(uri);
+    return getCachedFeatures(destinationId, uri);
+  }
+
+  private IAdtPluginFeatureList getCachedFeatures(final String destinationId, final String uri) {
+    if (!cache.containsKey(destinationId)) {
+      cache.put(destinationId, new HashMap<>());
+    }
+
+    Map<String, IAdtPluginFeatureList> destinationCache = cache.get(destinationId);
+
+    if (destinationCache.containsKey(uri)) {
+      return destinationCache.get(uri);
     }
     IAdtPluginFeatureList featureList = null;
     final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
@@ -51,8 +61,7 @@ public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService
     } catch (final ResourceException exc) {
       exc.printStackTrace();
     }
-    cache.put(uri, featureList);
+    destinationCache.put(uri, featureList);
     return featureList;
   }
-
 }
