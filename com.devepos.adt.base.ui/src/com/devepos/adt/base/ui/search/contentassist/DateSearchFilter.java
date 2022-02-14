@@ -43,7 +43,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private static final String RANGE_SEPARATOR_PATTERN = "\\.{3}";
   private static final String DATE_COMPARISON_OPERATORS_PATTERN = "(<=|>=|>|<)";
   private static final String RELATIVE_FIXED_DATE_PATTERN = "(to|yester)day|last-(week|month|year)";
-  private static final String RELATIVE_DATE_PATTERN = "([1-9](\\d*))?-(days|weeks|months|years)-ago";
+  private static final String RELATIVE_DATE_PATTERN = "([1-9](\\d*))-(days|weeks|months|years)-ago";
   private static final String NUMERIC_FULL_DATE_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
       "[1-9]\\d?", "(1[0-2]|[1-9])", "[1-9]\\d{3}");
   private static final String NUMERIC_DAY_MONTH_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
