@@ -13,6 +13,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -100,9 +101,19 @@ public class ProjectInput {
    * @param parent the parent composite
    */
   public void createControl(final Composite parent) {
+    createControl(parent, new Point(0, 0));
+  }
+
+  /**
+   * Creates the controls for the project input
+   *
+   * @param parent  the parent composite
+   * @param margins the margins for the container that will hold the controls of the project input
+   */
+  public void createControl(final Composite parent, final Point margins) {
     IAdtSWTUtil swtUtil = AdtSWTUtilFactory.getOrCreateSWTUtil();
     final Composite projectInputRoot = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.swtDefaults().numColumns(3).applyTo(projectInputRoot);
+    GridLayoutFactory.swtDefaults().margins(margins).numColumns(3).applyTo(projectInputRoot);
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.FILL)
         .grab(true, false)
