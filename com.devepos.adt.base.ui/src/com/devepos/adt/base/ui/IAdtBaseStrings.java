@@ -15,8 +15,9 @@ public interface IAdtBaseStrings {
   String General_WhereUsedList_xmit = "General_WhereUsedList_xmit";
 
   String Refresh = "Refresh";
-
   String Menu = "Menu";
+  String CollapseTree_xlbl = "CollapseTree_xlbl";
+  String ExpandTree_xlbl = "ExpandTree_xlbl";
 
   String Destinations_DestinationNotValid_xmsg = "Destinations_DestinationNotValid_xmsg";
 }
