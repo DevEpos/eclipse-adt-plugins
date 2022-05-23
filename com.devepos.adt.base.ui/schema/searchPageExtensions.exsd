@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.devepos.adt.base.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="com.devepos.adt.base.ui" id="searchPageExtensions" name="Search Page Extensions"/>
+      </appinfo>
+      <documentation>
+         This extension point allows a plug-in to register UI extensions for search pages.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="parameterSection" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="parameterSection">
+      <annotation>
+         <documentation>
+            Extension to an exisisting search page that was created via extension point &lt;amp&gt;org.eclipse.search.searchPages&lt;/amp&gt;.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="pageId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a unique name that will be used to identify the search page that should be extended
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.search.searchPages/page/@id"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="parameterId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a unique identifier of the search parameter this section provides
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a name of the class which implements &lt;amp&gt;com.devepos.adt.base.ui.search.ext.ISearchPageParameterSection&lt;/amp&gt;
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":com.devepos.adt.base.ui.search.ext.ISearchPageParameterSection"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+
+
+
+</schema>

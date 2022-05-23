@@ -56,6 +56,7 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.codesearch.backend",
  com.devepos.adt.base.ui.search;x-friends:="com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui,com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.search.contentassist;x-friends:="com.devepos.adt.codesearch.ui,com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.base.ui.search.ext;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.tree;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.userinfo;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.util;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
