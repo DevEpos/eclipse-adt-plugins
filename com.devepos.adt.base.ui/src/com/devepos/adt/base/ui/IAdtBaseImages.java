@@ -144,4 +144,8 @@ public interface IAdtBaseImages {
    * Identifies the image for any method in a class/interface
    */
   String NEUTRAL_METHOD = "IMG_NEUTRAL_METHOD";
+  /**
+   * Identifies the image to close something like a tab in a tabbed view
+   */
+  String CLOSE = "IMG_CLOSE";
 }

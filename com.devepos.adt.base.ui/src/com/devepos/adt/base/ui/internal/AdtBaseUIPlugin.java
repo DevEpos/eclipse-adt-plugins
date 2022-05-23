@@ -100,6 +100,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.NEUTRAL_METHOD, "icons/obj/compare_method.png",
         "com.sap.adt.oo.ui");
+    registerImage(imageRegistry, IAdtBaseImages.CLOSE, "icons/full/elcl16/close_view.png",
+        "org.eclipse.ui");
 
     registerDeleteOvr(imageRegistry);
   }
