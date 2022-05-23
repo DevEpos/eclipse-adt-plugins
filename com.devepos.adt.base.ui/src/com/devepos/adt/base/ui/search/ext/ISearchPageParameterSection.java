@@ -58,7 +58,7 @@ public interface ISearchPageParameterSection {
 
   /**
    * Sets status to indicate if the parameter section is enabled or not
-   * 
+   *
    * @param status enablement status of this section
    */
   void setEnabledStatus(IStatus status);

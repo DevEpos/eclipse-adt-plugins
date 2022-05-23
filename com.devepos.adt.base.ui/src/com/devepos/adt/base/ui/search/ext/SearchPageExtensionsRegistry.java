@@ -12,7 +12,7 @@ import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Registry for search page extensions
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -28,12 +28,12 @@ public class SearchPageExtensionsRegistry {
 
   /**
    * Retrieves all registered parameter sections for a given search page
-   * 
+   *
    * @param pageId id that uniquely identifies a search page
    * @return list of registered parameter sections for the given page
    * @throws CoreException
    */
-  public static List<ISearchPageParameterSection> getParameterSections(String pageId)
+  public static List<ISearchPageParameterSection> getParameterSections(final String pageId)
       throws CoreException {
     if (StringUtil.isEmpty(pageId)) {
       throw new IllegalArgumentException("Parameter 'pageId' must be a valid String");
