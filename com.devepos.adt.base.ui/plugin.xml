@@ -11,6 +11,13 @@
                  type="com.devepos.adt.base.ui.adtobject.IAdtObject">
            </adapter>
         </factory>
+        <factory
+              adaptableType="java.lang.Object"
+              class="com.devepos.adt.base.ui.internal.virtualfolders.VirtualFolderAdapterFactory">
+           <adapter
+                 type="com.devepos.adt.base.ui.virtualfolders.IVirtualFolderNode">
+           </adapter>
+        </factory>
    </extension>
    <extension
            point="org.eclipse.core.expressions.propertyTesters">

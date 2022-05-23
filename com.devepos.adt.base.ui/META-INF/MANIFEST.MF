@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.base.ui;singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.3.0.qualifier
 Bundle-Activator: com.devepos.adt.base.ui.internal.AdtBaseUIPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: com.devepos.adt.base,
@@ -10,6 +10,7 @@ Require-Bundle: com.devepos.adt.base,
  com.sap.adt.destinations.ui,
  com.sap.adt.destinations.model,
  com.sap.adt.project.ui,
+ com.sap.adt.projectexplorer.ui,
  com.sap.adt.ris.search.ui,
  com.sap.adt.sapgui.ui,
  com.sap.adt.tools.core,
@@ -60,4 +61,5 @@ Export-Package: com.devepos.adt.base.ui;
  com.devepos.adt.base.ui.tree;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.userinfo;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.util;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.ui.virtualfolders;x-friends:="com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.wizard;x-friends:="com.devepos.adt.abaptags.ui"
