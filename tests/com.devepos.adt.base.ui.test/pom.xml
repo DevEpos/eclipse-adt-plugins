@@ -11,10 +11,6 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <properties>
-        <tycho-version>1.4.0</tycho-version>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
