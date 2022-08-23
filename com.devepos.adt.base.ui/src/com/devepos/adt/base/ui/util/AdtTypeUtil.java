@@ -8,6 +8,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.AbapCore;
+import com.sap.adt.tools.core.objecttype.IAdtObjectTypeInfo.IResourceInfo;
 import com.sap.adt.tools.core.ui.AbapCoreUi;
 import com.sap.adt.tools.core.ui.IAdtObjectTypeInfoUi;
 import com.sap.adt.tools.core.ui.IAdtObjectTypeRegistryUi;
@@ -119,6 +120,12 @@ public class AdtTypeUtil {
         @Override
         public String getDescription() {
           return type.getDisplayName();
+        }
+
+        @Override
+        public String getAdtResourceUriPath() {
+          IResourceInfo resourceInfo = type.getResourceInfo();
+          return resourceInfo != null ? resourceInfo.getAdtResourceUriPath() : "";
         }
 
       };

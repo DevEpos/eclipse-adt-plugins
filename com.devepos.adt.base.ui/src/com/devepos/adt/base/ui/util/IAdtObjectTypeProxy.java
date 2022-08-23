@@ -25,4 +25,8 @@ public interface IAdtObjectTypeProxy {
    */
   String getDescription();
 
+  /**
+   * Retrieves ADT resource URI path of the type
+   */
+  String getAdtResourceUriPath();
 }
