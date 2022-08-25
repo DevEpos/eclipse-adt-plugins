@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.sap.adt.project.AdtCoreProjectServiceFactory;
 import com.sap.adt.project.IAdtCoreProjectService;
 

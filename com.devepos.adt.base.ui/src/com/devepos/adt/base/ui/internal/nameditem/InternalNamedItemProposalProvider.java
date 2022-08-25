@@ -18,11 +18,11 @@ import com.devepos.adt.base.nameditem.INamedItem;
 import com.devepos.adt.base.nameditem.INamedItemService;
 import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.nameditem.NamedItemServiceFactory;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.contentassist.ContentProposalUtil;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 import com.devepos.adt.base.util.StringUtil;
 
 /**

@@ -5,9 +5,9 @@ import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItemType;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
 import com.devepos.adt.base.ui.internal.messages.Messages;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 
 public class ApplicationComponentSearchFilter extends NamedItemFilter {
 

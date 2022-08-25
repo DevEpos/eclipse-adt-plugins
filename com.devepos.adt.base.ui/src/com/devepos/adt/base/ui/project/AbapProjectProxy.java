@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.util.IPropertyChangeListener;
 import com.devepos.adt.base.util.ObjectContainer;

@@ -9,11 +9,11 @@ import org.eclipse.swt.graphics.Image;
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItemService;
 import com.devepos.adt.base.nameditem.INamedItemType;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
 import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
 import com.devepos.adt.base.ui.internal.nameditem.InternalNamedItemProposalProvider;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.search.ISearchFilter;
 
 /**

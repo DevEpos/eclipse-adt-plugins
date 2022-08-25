@@ -6,12 +6,12 @@ import org.eclipse.swt.widgets.Text;
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItem;
 import com.devepos.adt.base.nameditem.INamedItemType;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.internal.contentassist.AsyncContentAssist;
 import com.devepos.adt.base.ui.internal.contentassist.ContentAssist;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
 import com.devepos.adt.base.ui.internal.nameditem.NamedItemProposalProvider;
 import com.devepos.adt.base.ui.internal.search.SearchPatternContentAssist;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.search.contentassist.ISearchPatternAnalyzer;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterLabelProvider;
 

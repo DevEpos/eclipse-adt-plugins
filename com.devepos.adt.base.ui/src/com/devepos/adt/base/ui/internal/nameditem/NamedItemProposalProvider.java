@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Text;
 
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItemType;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
-import com.devepos.adt.base.ui.project.IAbapProjectProvider;
 
 /**
  * Proposal provider for named items.
