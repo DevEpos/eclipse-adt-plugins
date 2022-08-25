@@ -10,6 +10,7 @@ import com.sap.adt.compatibility.discovery.AdtDiscoveryFactory;
 import com.sap.adt.compatibility.discovery.IAdtDiscovery;
 import com.sap.adt.compatibility.discovery.IAdtDiscoveryCollectionMember;
 import com.sap.adt.compatibility.model.templatelink.IAdtTemplateLink;
+import com.sap.adt.compatibility.uritemplate.AdtUriTemplateFactory;
 import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
 /**
@@ -19,16 +20,9 @@ import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
  */
 public abstract class UriDiscoveryBase implements IUriDiscovery {
 
+  private static final String NAMED_ITEM_TEMPLATE = "{?maxItemCount,name,description,data}";
   private final String discoveryScheme;
   protected final IAdtDiscovery discovery;
-
-  /**
-   * @return <code>true</code> if the resource discovery has been successful
-   */
-  @Override
-  public boolean isResourceDiscoverySuccessful() {
-    return discovery != null && discovery.getStatus().isOK();
-  }
 
   protected UriDiscoveryBase(final String destinationId, final String discoveryPath,
       final String discoveryScheme) {
@@ -36,24 +30,42 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
     discovery = AdtDiscoveryFactory.createDiscovery(destinationId, URI.create(discoveryPath));
   }
 
+  @Override
+  public IAdtUriTemplate getNamedItemTemplate(final String discoveryTerm) {
+    final URI uri = getUriFromCollectionMember(discoveryTerm);
+    return uri != null ? getNamedItemTemplateForUri(uri) : null;
+  }
+
+  @Override
+  public boolean isResourceDiscoverySuccessful() {
+    return discovery != null && discovery.getStatus().isOK();
+  }
+
   /**
-   * Retrieves URI of a collection member for the given term
+   * Fills the template with parameters in provided {@link Map}
    *
-   * @param discoveryTerm the term to be used to find the collection member
-   * @return
+   * @param template the ADT URI template
+   * @param params   a Map of parameters for the template
    */
-  protected URI getUriFromCollectionMember(final String discoveryTerm) {
-    URI uri = null;
-    try {
-      final IAdtDiscoveryCollectionMember collectionMember = discovery.getCollectionMember(
-          discoveryScheme, discoveryTerm, null);
-      if (collectionMember != null) {
-        uri = collectionMember.getUri();
-      }
-    } catch (final ResourceForbiddenException e) {
-      e.printStackTrace();
+  protected void fillTemplateWithParams(final IAdtUriTemplate template,
+      final Map<String, Object> params) {
+    if (params == null || template == null) {
+      return;
     }
-    return uri;
+
+    for (final String key : params.keySet()) {
+      if (template.containsVariable(key)) {
+        fillTemplateValue(template, key, params.get(key));
+      }
+    }
+  }
+
+  protected IAdtUriTemplate getNamedItemTemplateForUri(final URI uri) {
+    IAdtUriTemplate uriTemplate = null;
+    if (uri != null) {
+      uriTemplate = AdtUriTemplateFactory.createUriTemplate(uri.toString() + NAMED_ITEM_TEMPLATE);
+    }
+    return uriTemplate;
   }
 
   /**
@@ -78,22 +90,23 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
   }
 
   /**
-   * Fills the template with parameters in provided {@link Map}
+   * Retrieves URI of a collection member for the given term
    *
-   * @param template the ADT URI template
-   * @param params   a Map of parameters for the template
+   * @param discoveryTerm the term to be used to find the collection member
+   * @return
    */
-  protected void fillTemplateWithParams(final IAdtUriTemplate template,
-      final Map<String, Object> params) {
-    if (params == null || template == null) {
-      return;
-    }
-
-    for (final String key : params.keySet()) {
-      if (template.containsVariable(key)) {
-        fillTemplateValue(template, key, params.get(key));
+  protected URI getUriFromCollectionMember(final String discoveryTerm) {
+    URI uri = null;
+    try {
+      final IAdtDiscoveryCollectionMember collectionMember = discovery.getCollectionMember(
+          discoveryScheme, discoveryTerm, null);
+      if (collectionMember != null) {
+        uri = collectionMember.getUri();
       }
+    } catch (final ResourceForbiddenException e) {
+      e.printStackTrace();
     }
+    return uri;
   }
 
   private void fillTemplateValue(final IAdtUriTemplate template, final String paramater,
