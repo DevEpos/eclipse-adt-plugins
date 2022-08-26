@@ -20,6 +20,8 @@ public class Messages extends NLS {
   public static String LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg;
   public static String LazyLoadingTreeContentProvider_LoadingContent_xmsg;
   public static String LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg;
+  public static String PinViewAction_actionLabel_xlbl;
+  public static String PinViewAction_actionTooltip_xtol;
   public static String PreferencesRoot_infoText_xlbl;
   public static String Project_LogonToProjectFailed_xmsg;
   public static String ProjectInput_BrowseProjects_xbut;

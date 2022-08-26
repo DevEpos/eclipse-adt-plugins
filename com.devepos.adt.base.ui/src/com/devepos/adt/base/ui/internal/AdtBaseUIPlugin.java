@@ -102,6 +102,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "com.sap.adt.oo.ui");
     registerImage(imageRegistry, IAdtBaseImages.CLOSE, "icons/full/elcl16/close_view.png",
         "org.eclipse.ui");
+    registerImage(imageRegistry, IAdtBaseImages.PIN_VIEW, "icons/full/etool16/pin_editor.png",
+        "org.eclipse.ui");
 
     registerDeleteOvr(imageRegistry);
   }
