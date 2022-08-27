@@ -1,6 +1,9 @@
 package com.devepos.adt.base.ui.search;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 import com.sap.adt.ris.search.ui.AdtRepositorySearchServiceUIFactory;
@@ -15,7 +18,8 @@ public final class AdtRisSearchUtil {
   }
 
   /**
-   * Retrieves result from ADT Repository Quick search dialog
+   * Retrieves result from ADT Repository Quick search dialog. The used shell for the dialog is the
+   * shell of the active workbench window
    *
    * @param dialogTitle       title for the search dialog
    * @param multipleSelection if {@code true} multiple object can be selected
@@ -23,14 +27,33 @@ public final class AdtRisSearchUtil {
    */
   public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final String dialogTitle,
       final boolean multipleSelection, final IProject fixedProject) {
+    return searchAdtObjectViaDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+        dialogTitle, multipleSelection, null, fixedProject);
+  }
+
+  /**
+   * Retrieves result from ADT Repository Quick search dialog
+   *
+   * @param shell             the shell to be used
+   * @param dialogTitle       title for the search dialog
+   * @param multipleSelection if {@code true} multiple object can be selected
+   * @param types             list of types that can be used
+   * @return the result from the search dialog
+   */
+  public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(Shell shell,
+      final String dialogTitle, final boolean multipleSelection, List<String> types,
+      final IProject fixedProject) {
     final IAdtRepositorySearchServiceUIParameters parameters = AdtRepositorySearchServiceUIFactory
         .createAdtRepositorySearchServiceUIParameters();
     parameters.setTitle(dialogTitle);
     parameters.setFixedProject(fixedProject);
+    if (types != null) {
+      parameters.setObjectTypes(types);
+    }
     parameters.setMultiSelectionEnabled(multipleSelection);
     final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
         .createAdtRepositorySearchServiceUI()
-        .openDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), parameters);
+        .openDialog(shell, parameters);
 
     if (result == null) {
       return null;
