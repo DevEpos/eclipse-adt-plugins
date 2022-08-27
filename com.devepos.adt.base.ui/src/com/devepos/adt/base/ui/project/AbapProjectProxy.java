@@ -1,7 +1,6 @@
 package com.devepos.adt.base.ui.project;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -27,14 +26,14 @@ import com.sap.adt.tools.core.project.IAbapProject;
  */
 public class AbapProjectProxy implements IAbapProjectProvider {
 
-  private Optional<IProject> project;
-  private Set<IPropertyChangeListener> propertyChangeListeners = new HashSet<>();
+  private IProject project;
+  private final Set<IPropertyChangeListener> propertyChangeListeners = new HashSet<>();
 
   /**
    * @param project
    */
   public AbapProjectProxy(final IProject project) {
-    this.project = Optional.ofNullable(project);
+    this.project = project;
   }
 
   /**
@@ -44,8 +43,11 @@ public class AbapProjectProxy implements IAbapProjectProvider {
    */
   @Override
   public void setProject(final IProject project) {
-    fireProjectChanged(project, this.project.orElse(null));
-    this.project = Optional.ofNullable(project);
+    if (this.project != project && (this.project != null && !this.project.equals(project)
+        || project != null)) {
+      fireProjectChanged(this.project, project);
+    }
+    this.project = project;
   }
 
   /**
@@ -55,7 +57,7 @@ public class AbapProjectProxy implements IAbapProjectProvider {
    */
   @Override
   public IAbapProject getAbapProject() {
-    return project.get().getAdapter(IAbapProject.class);
+    return project.getAdapter(IAbapProject.class);
   }
 
   /**
@@ -95,27 +97,27 @@ public class AbapProjectProxy implements IAbapProjectProvider {
    */
   @Override
   public String getProjectName() {
-    return project.get().getName();
+    return project.getName();
   }
 
   @Override
   public boolean hasProject() {
-    return project.isPresent() && getAbapProject() != null;
+    return project != null && getAbapProject() != null;
   }
 
   @Override
   public IProject getProject() {
-    return project.orElse(null);
+    return project;
   }
 
   @Override
   public void openObjectReference(final IAdtObjectReference objectReference) {
-    AdtUIUtil.navigateWithObjectReference(objectReference, project.get());
+    AdtUIUtil.navigateWithObjectReference(objectReference, project);
   }
 
   @Override
   public void openObjectReferenceInSapGui(final IAdtObjectReference objectReference) {
-    AdtUIUtil.openAdtObjectRefInSapGui(objectReference, project.get());
+    AdtUIUtil.openAdtObjectRefInSapGui(objectReference, project);
   }
 
   @Override
@@ -126,7 +128,7 @@ public class AbapProjectProxy implements IAbapProjectProvider {
 
   @Override
   public IAbapProjectProvider copy() {
-    return new AbapProjectProxy(project.orElse(null));
+    return new AbapProjectProxy(project);
   }
 
   @Override
@@ -151,9 +153,9 @@ public class AbapProjectProxy implements IAbapProjectProvider {
     if (propertyChangeListeners.isEmpty()) {
       return;
     }
-    var event = new PropertyChangeEvent(this, IAbapProjectProvider.PROPERTY_PROJECT, oldProject,
-        newProject);
-    for (var listener : propertyChangeListeners) {
+    PropertyChangeEvent event = new PropertyChangeEvent(this, IAbapProjectProvider.PROPERTY_PROJECT,
+        oldProject, newProject);
+    for (IPropertyChangeListener listener : propertyChangeListeners) {
       listener.propertyChanged(event);
     }
   }
