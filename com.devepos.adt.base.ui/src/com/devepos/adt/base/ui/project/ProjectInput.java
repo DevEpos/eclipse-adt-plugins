@@ -43,6 +43,7 @@ public class ProjectInput {
   private final Set<IValidator<IProject>> projectValidators = new HashSet<>();
   private final Set<IStatusChangeListener> statusChangeListeners = new HashSet<>();
   private boolean ensureLoggedOn;
+  private boolean useDedicatedComposite;
 
   /**
    * Creates new project input
@@ -76,6 +77,7 @@ public class ProjectInput {
     }
     this.projectProvider = projectProvider;
     this.ensureLoggedOn = ensureLoggedOn;
+    useDedicatedComposite = true;
   }
 
   /**
@@ -113,12 +115,17 @@ public class ProjectInput {
    */
   public void createControl(final Composite parent, final Point margins) {
     IAdtSWTUtil swtUtil = AdtSWTUtilFactory.getOrCreateSWTUtil();
-    final Composite projectInputRoot = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.swtDefaults().margins(margins).numColumns(3).applyTo(projectInputRoot);
-    GridDataFactory.fillDefaults()
-        .align(SWT.FILL, SWT.FILL)
-        .grab(true, false)
-        .applyTo(projectInputRoot);
+    Composite projectInputRoot = null;
+    if (useDedicatedComposite) {
+      projectInputRoot = new Composite(parent, SWT.NONE);
+      GridLayoutFactory.swtDefaults().margins(margins).numColumns(3).applyTo(projectInputRoot);
+      GridDataFactory.fillDefaults()
+          .align(SWT.FILL, SWT.FILL)
+          .grab(true, false)
+          .applyTo(projectInputRoot);
+    } else {
+      projectInputRoot = parent;
+    }
 
     final Label projectInputLabel = new Label(projectInputRoot, SWT.NONE);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(projectInputLabel);
@@ -163,6 +170,14 @@ public class ProjectInput {
   }
 
   /**
+   * @return {@code true} if a dedicated composite should be used for the controls of the project
+   *         input
+   */
+  public boolean isUseDedicatedComposite() {
+    return useDedicatedComposite;
+  }
+
+  /**
    * Removes the given project validator
    *
    * @param v the validator to be removed
@@ -190,6 +205,17 @@ public class ProjectInput {
     if (projectField != null && !projectField.isDisposed()) {
       projectField.setText(newProjectNameValue);
     }
+  }
+
+  /**
+   * Controls whether or not a dedicated composite should be used during the creation of the
+   * controls
+   * 
+   * @param useDedicatedComposite new value for {@code dedicatedComposite}
+   * @see #createControl(Composite)
+   */
+  public void setUseDedicatedComposite(boolean useDedicatedComposite) {
+    this.useDedicatedComposite = useDedicatedComposite;
   }
 
   private IProject convertToProject(final String projectName) {
