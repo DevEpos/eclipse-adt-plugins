@@ -31,7 +31,7 @@ public class ChooseOtherAdtObjectAction extends Action {
   @Override
   public void run() {
     final IAdtRisSearchResultProxy resultProxy = AdtRisSearchUtil.searchAdtObjectViaDialog(
-        getText(), multipleSelection, null);
+        getText(), this.getClass().getCanonicalName() + ".dialog", multipleSelection, null);
     if (resultProxy != null) {
       runConsumer.accept(resultProxy);
     }

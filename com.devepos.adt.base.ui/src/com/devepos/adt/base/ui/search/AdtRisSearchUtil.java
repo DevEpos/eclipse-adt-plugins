@@ -22,13 +22,14 @@ public final class AdtRisSearchUtil {
    * shell of the active workbench window
    *
    * @param dialogTitle       title for the search dialog
+   * @param dialogStorageId   id to store the dialog settings under
    * @param multipleSelection if {@code true} multiple object can be selected
    * @return the result from the search dialog
    */
   public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final String dialogTitle,
-      final boolean multipleSelection, final IProject fixedProject) {
+      final String dialogStorageId, final boolean multipleSelection, final IProject fixedProject) {
     return searchAdtObjectViaDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        dialogTitle, multipleSelection, null, fixedProject);
+        dialogTitle, dialogStorageId, multipleSelection, null, fixedProject);
   }
 
   /**
@@ -36,13 +37,14 @@ public final class AdtRisSearchUtil {
    *
    * @param shell             the shell to be used
    * @param dialogTitle       title for the search dialog
+   * @param dialogStorageId   id to store the dialog settings under
    * @param multipleSelection if {@code true} multiple object can be selected
    * @param types             list of types that can be used
    * @return the result from the search dialog
    */
-  public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(Shell shell,
-      final String dialogTitle, final boolean multipleSelection, List<String> types,
-      final IProject fixedProject) {
+  public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final Shell shell,
+      final String dialogTitle, final String dialogStorageId, final boolean multipleSelection,
+      final List<String> types, final IProject fixedProject) {
     final IAdtRepositorySearchServiceUIParameters parameters = AdtRepositorySearchServiceUIFactory
         .createAdtRepositorySearchServiceUIParameters();
     parameters.setTitle(dialogTitle);
@@ -51,6 +53,9 @@ public final class AdtRisSearchUtil {
       parameters.setObjectTypes(types);
     }
     parameters.setMultiSelectionEnabled(multipleSelection);
+    if (dialogStorageId != null) {
+      parameters.setDialogStorageId(dialogStorageId);
+    }
     final IAdtRepositorySearchServiceUIResult result = AdtRepositorySearchServiceUIFactory
         .createAdtRepositorySearchServiceUI()
         .openDialog(shell, parameters);
