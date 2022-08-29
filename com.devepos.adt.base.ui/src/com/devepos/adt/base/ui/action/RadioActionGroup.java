@@ -17,6 +17,16 @@ import org.eclipse.ui.actions.ActionGroup;
  * @author stockbal
  */
 public class RadioActionGroup extends ActionGroup {
+  private ToggleAction toggledAction;
+
+  private final List<ToggleAction> actions;
+  private final List<IRadioActionToggleListener> actionListener;
+
+  public RadioActionGroup() {
+    actions = new ArrayList<>();
+    actionListener = new ArrayList<>();
+  }
+
   /**
    * Listener which notifies the subscriber when an action in the Radio Action
    * Group was toggled
@@ -34,51 +44,65 @@ public class RadioActionGroup extends ActionGroup {
     void toggled(String actionId);
   }
 
-  private ToggleAction toggledAction;
-  private final List<ToggleAction> actions;
-  private final List<IRadioActionToggleListener> actionListener;
+  private final class ToggleAction extends Action {
+    private final String actionId;
 
-  public RadioActionGroup() {
-    actions = new ArrayList<>();
-    actionListener = new ArrayList<>();
-  }
-
-  /**
-   * Returns <code>true</code> if the action with the given id
-   * <code>actionId</code>
-   *
-   * @param actionId the action Id to be checked for the toggled state
-   * @return <code>true</code> if the action with the given id
-   *         <code>actionId</code>
-   */
-  public boolean isActionToggled(final String actionId) {
-    final Action action = actions.stream()
-        .filter(a -> a.actionId.equals(actionId))
-        .findFirst()
-        .orElse(null);
-    if (action != null) {
-      return action.isChecked();
+    public ToggleAction(final String actionId, final String tooltip,
+        final ImageDescriptor imageDescriptor) {
+      super(tooltip, AS_RADIO_BUTTON);
+      setImageDescriptor(imageDescriptor);
+      this.actionId = actionId;
     }
-    return false;
+
+    @Override
+    public void run() {
+      if (isChecked()) {
+        toggleAction(actionId, false, true);
+      }
+    }
   }
 
   /**
-   * Sets the action with the given id to the isChecked state. <br>
-   * It does not notfiy any listeners of the update
+   * Adds new action to the Radio Action Group
    *
-   * @param actionId the id of an action in this group
+   * @param actionId        the Id of the Action to be added to the group
+   * @param tooltip         the tool tip of the action
+   * @param imageDescriptor the image descriptor of the action
+   * @param toggled         if <code>true</code> the created action will be
+   *                        toggled
    */
-  public void setActionChecked(final String actionId) {
-    toggleAction(actionId, true, false);
+  public void addAction(final String actionId, final String tooltip,
+      final ImageDescriptor imageDescriptor, final boolean toggled) {
+    final ToggleAction toggleAction = new ToggleAction(actionId, tooltip, imageDescriptor);
+    toggleAction.setChecked(toggled);
+    if (toggled) {
+      toggledAction = toggleAction;
+    }
+    actions.add(toggleAction);
   }
 
   /**
-   * Returns the Id of currently toggled action
+   * Adds the given action toggled listener to this <code>RadioActionGroup</code>
+   * <br>
+   * Has no effect if the same listener was already added
    *
-   * @return the Id of currently toggled action
+   * @param l the listener to be added
    */
-  public String getToggledActionId() {
-    return toggledAction != null ? toggledAction.actionId : null;
+  public void addActionToggledListener(final IRadioActionToggleListener l) {
+    actionListener.add(l);
+  }
+
+  public void contributeToMenuManager(final MenuManager menuManager) {
+    actions.forEach(a -> menuManager.add(a));
+  }
+
+  /**
+   * Adds the items of this Radio Action Group to the provided tool bar manager
+   *
+   * @param tbm a tool bar manager where the radio actions should be added to
+   */
+  public void contributeToToolbar(final IToolBarManager tbm) {
+    actions.forEach(a -> tbm.add(a));
   }
 
   /**
@@ -113,52 +137,37 @@ public class RadioActionGroup extends ActionGroup {
 
   }
 
-  /**
-   * Adds new action to the Radio Action Group
-   *
-   * @param actionId        the Id of the Action to be added to the group
-   * @param tooltip         the tool tip of the action
-   * @param imageDescriptor the image descriptor of the action
-   * @param toggled         if <code>true</code> the created action will be
-   *                        toggled
-   */
-  public void addAction(final String actionId, final String tooltip,
-      final ImageDescriptor imageDescriptor, final boolean toggled) {
-    final ToggleAction toggleAction = new ToggleAction(actionId, tooltip, imageDescriptor);
-    toggleAction.setChecked(toggled);
-    if (toggled) {
-      toggledAction = toggleAction;
-    }
-    actions.add(toggleAction);
-  }
-
-  /**
-   * Adds the items of this Radio Action Group to the provided tool bar manager
-   *
-   * @param tbm a tool bar manager where the radio actions should be added to
-   */
-  public void contributeToToolbar(final IToolBarManager tbm) {
-    actions.forEach(a -> tbm.add(a));
-  }
-
-  public void contributeToMenuManager(final MenuManager menuManager) {
-    actions.forEach(a -> menuManager.add(a));
-  }
-
   @Override
   public void fillActionBars(final IActionBars actionBars) {
     contributeToToolbar(actionBars.getToolBarManager());
   }
 
   /**
-   * Adds the given action toggled listener to this <code>RadioActionGroup</code>
-   * <br>
-   * Has no effect if the same listener was already added
+   * Returns the Id of currently toggled action
    *
-   * @param l the listener to be added
+   * @return the Id of currently toggled action
    */
-  public void addActionToggledListener(final IRadioActionToggleListener l) {
-    actionListener.add(l);
+  public String getToggledActionId() {
+    return toggledAction != null ? toggledAction.actionId : null;
+  }
+
+  /**
+   * Returns <code>true</code> if the action with the given id
+   * <code>actionId</code>
+   *
+   * @param actionId the action Id to be checked for the toggled state
+   * @return <code>true</code> if the action with the given id
+   *         <code>actionId</code>
+   */
+  public boolean isActionToggled(final String actionId) {
+    final Action action = actions.stream()
+        .filter(a -> a.actionId.equals(actionId))
+        .findFirst()
+        .orElse(null);
+    if (action != null) {
+      return action.isChecked();
+    }
+    return false;
   }
 
   /**
@@ -170,6 +179,28 @@ public class RadioActionGroup extends ActionGroup {
    */
   public void removeActionToggledListener(final IRadioActionToggleListener l) {
     actionListener.remove(l);
+  }
+
+  /**
+   * Sets the action with the given id to the isChecked state. <br>
+   * It does not notfiy any listeners of the update
+   *
+   * @param actionId the id of an action in this group
+   */
+  public void setActionChecked(final String actionId) {
+    for (ToggleAction action : actions) {
+      if (actionId.equals(action.actionId)) {
+        action.setChecked(true);
+      } else {
+        action.setChecked(false);
+      }
+    }
+  }
+
+  private void fireToggled(final String actionId) {
+    for (final IRadioActionToggleListener l : actionListener) {
+      l.toggled(actionId);
+    }
   }
 
   private void toggleAction(final String actionId, final boolean setChecked,
@@ -187,30 +218,6 @@ public class RadioActionGroup extends ActionGroup {
     }
     if (notifyListeners) {
       fireToggled(actionId);
-    }
-  }
-
-  private void fireToggled(final String actionId) {
-    for (final IRadioActionToggleListener l : actionListener) {
-      l.toggled(actionId);
-    }
-  }
-
-  private final class ToggleAction extends Action {
-    private final String actionId;
-
-    public ToggleAction(final String actionId, final String tooltip,
-        final ImageDescriptor imageDescriptor) {
-      super(tooltip, AS_RADIO_BUTTON);
-      setImageDescriptor(imageDescriptor);
-      this.actionId = actionId;
-    }
-
-    @Override
-    public void run() {
-      if (isChecked()) {
-        toggleAction(actionId, false, true);
-      }
     }
   }
 
