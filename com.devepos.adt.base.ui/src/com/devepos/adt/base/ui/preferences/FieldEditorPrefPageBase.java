@@ -1,7 +1,9 @@
 package com.devepos.adt.base.ui.preferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -31,6 +33,7 @@ public abstract class FieldEditorPrefPageBase extends PreferencePage implements
     IPropertyChangeListener {
 
   protected final List<FieldEditor> fields = new ArrayList<>();
+  protected final Map<String, FieldEditor> fieldMap = new HashMap<>();
 
   @Override
   public void dispose() {
@@ -110,7 +113,7 @@ public abstract class FieldEditorPrefPageBase extends PreferencePage implements
       final String tooltip, final Composite parent, final int colSpan, final int rowSpan) {
     final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(preferenceId, labelText,
         parent);
-    fields.add(booleanEditor);
+    addEditor(booleanEditor);
 
     Control editorControl = booleanEditor.getDescriptionControl(parent);
 
@@ -131,6 +134,7 @@ public abstract class FieldEditorPrefPageBase extends PreferencePage implements
    */
   protected void addEditor(final FieldEditor editor) {
     fields.add(editor);
+    fieldMap.put(editor.getPreferenceName(), editor);
   }
 
   protected void adjustMargins(final Composite composite) {
