@@ -15,10 +15,9 @@ Display the call hierarchy for a
 
 ## Update Sites
 
-- [Stable Releases](https://eclipse.devepos.com/latest)
 - [Beta Releases](https://eclipse.devepos.com/dev)
 
 ## Preconditions
 
 - The ABAP Development Tools Plugin is installed [ADT Plugin](https://tools.hana.ondemand.com/)
-- The ADT Backend for the _ABAP Code Search Tools_ is installed [abap-code-search-tools](https://github.com/stockbal/abap-call-hierarchy)
+- The ADT Backend for the _ABAP Call Hierarchy_ is installed [abap-call-hierarchy](https://github.com/stockbal/abap-call-hierarchy)
