@@ -6,10 +6,18 @@ import org.eclipse.jface.viewers.TreePath;
 /**
  * UI State for e.g. Search View Result Pages
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  */
-public class UIState {
+public class ViewerState {
+  private TreePath[] expandedPaths;
   private ISelection selection;
+
+  /**
+   * @return the expandedPaths
+   */
+  public TreePath[] getExpandedPaths() {
+    return expandedPaths;
+  }
 
   /**
    * @return the stored selection
@@ -26,26 +34,17 @@ public class UIState {
   }
 
   /**
-   * @param selection the selectedObject to set
-   */
-  public void setSelection(final ISelection selection) {
-    this.selection = selection;
-  }
-
-  private TreePath[] expandedPaths;
-
-  /**
-   * @return the expandedPaths
-   */
-  public TreePath[] getExpandedPaths() {
-    return expandedPaths;
-  }
-
-  /**
    * @param expandedPaths the expandedPaths to set
    */
   public void setExpandedPaths(final TreePath[] expandedPaths) {
     this.expandedPaths = expandedPaths;
+  }
+
+  /**
+   * @param selection the selectedObject to set
+   */
+  public void setSelection(final ISelection selection) {
+    this.selection = selection;
   }
 
 }
