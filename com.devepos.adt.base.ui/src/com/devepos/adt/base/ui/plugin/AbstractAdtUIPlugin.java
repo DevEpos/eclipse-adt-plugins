@@ -1,4 +1,4 @@
-package com.devepos.adt.base.plugin;
+package com.devepos.adt.base.ui.plugin;
 
 import java.net.URL;
 import java.util.stream.Stream;

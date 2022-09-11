@@ -1,13 +1,12 @@
 package com.devepos.adt.base.internal;
 
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class AdtBasePlugin extends AbstractAdtUIPlugin {
+public class AdtBasePlugin extends AbstractUIPlugin {
 
   // The plug-in ID
   public static final String PLUGIN_ID = "com.devepos.adt.base"; //$NON-NLS-1$
@@ -19,7 +18,6 @@ public class AdtBasePlugin extends AbstractAdtUIPlugin {
    * The constructor
    */
   public AdtBasePlugin() {
-    super(PLUGIN_ID);
   }
 
   @Override
