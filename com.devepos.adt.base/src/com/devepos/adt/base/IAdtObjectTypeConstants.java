@@ -51,6 +51,10 @@ public interface IAdtObjectTypeConstants {
    */
   String PROGRAM_INCLUDE = "PROG/I";
   /**
+   * Subroutine in program
+   */
+  String PROGRAM_SUBROUTINE = "PROG/PU";
+  /**
    * Program source of a Business Object Type
    */
   String BUSINESS_OBJ_TYPE_PROGRAM = "SOBJ/P";
