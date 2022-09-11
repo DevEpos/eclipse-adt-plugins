@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionGroup;
@@ -92,7 +92,7 @@ public class RadioActionGroup extends ActionGroup {
     actionListener.add(l);
   }
 
-  public void contributeToMenuManager(final MenuManager menuManager) {
+  public void contributeToMenuManager(final IMenuManager menuManager) {
     actions.forEach(a -> menuManager.add(a));
   }
 
