@@ -94,7 +94,7 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
     isLoading = false;
     isLoaded = true;
     for (final ILazyLoadingListener l : lazyLoadingListeners) {
-      l.loadingFinished(children.size());
+      l.loadingFinished(children != null ? children.size() : 0);
     }
   }
 
