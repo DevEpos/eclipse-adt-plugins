@@ -37,11 +37,11 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.IPinnableView;
-import com.devepos.adt.base.ui.UIState;
 import com.devepos.adt.base.ui.ViewPartListener;
+import com.devepos.adt.base.ui.ViewerState;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
-import com.devepos.adt.base.ui.action.IToggleViewerLayoutActionSettings;
+import com.devepos.adt.base.ui.action.IToggleViewLayoutActionSettings;
 import com.devepos.adt.base.ui.action.OpenPreferencesAction;
 import com.devepos.adt.base.ui.action.PinViewAction;
 import com.devepos.adt.base.ui.action.RadioActionGroup;
@@ -103,7 +103,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
 
   private final ViewPartListener viewPartListener;
 
-  private final Map<CallHierarchyInput, UIState> viewStates;
+  private final Map<CallHierarchyInput, ViewerState> viewStates;
   private ViewerSelectionProviderAdapter viewerAdapter;
   private MenuManager menuMgr;
   private final IPreferenceStore prefStore;
@@ -316,8 +316,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   }
 
   private void createActions() {
-    IToggleViewerLayoutActionSettings viewLayoutActionSettings = ViewLayoutActionFactory
-        .getInstance()
+    IToggleViewLayoutActionSettings viewLayoutActionSettings = ViewLayoutActionFactory.getInstance()
         .createDefaultSettings();
     viewLayoutActionSettings.setSingleEnabled(true);
     viewLayoutActionSettings.setSingleActionLabel("Hierarchy only");
@@ -467,7 +466,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   }
 
   private void restoreViewState() {
-    UIState savedState = viewStates.get(currentHierarchy);
+    ViewerState savedState = viewStates.get(currentHierarchy);
     if (savedState != null) {
       TreePath[] savedPaths = savedState.getExpandedPaths();
       if (savedPaths != null) {
@@ -486,7 +485,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     if (currentHierarchy == null) {
       return;
     }
-    UIState currentUiState = new UIState();
+    ViewerState currentUiState = new ViewerState();
     currentUiState.setExpandedPaths(hierarchyViewer.getExpandedTreePaths());
     currentUiState.setSelection(hierarchyViewer.getSelection());
     viewStates.put(currentHierarchy, currentUiState);
