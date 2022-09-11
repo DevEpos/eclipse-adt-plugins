@@ -14,8 +14,14 @@ public interface IAdtBaseStrings {
 
   String General_WhereUsedList_xmit = "General_WhereUsedList_xmit";
 
+  String OpenHistory_xmit = "OpenHistory_xmit";
+  String ClearHistory_xmit = "ClearHistory_xmit";
+  String OpenInNew_xbtn = "OpenInNew_xbtn";
+
   String Refresh = "Refresh";
   String Menu = "Menu";
+  String Remove = "Remove";
+
   String CollapseTree_xlbl = "CollapseTree_xlbl";
   String ExpandTree_xlbl = "ExpandTree_xlbl";
 
