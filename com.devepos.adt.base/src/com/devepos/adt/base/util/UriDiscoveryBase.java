@@ -30,6 +30,23 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
     discovery = AdtDiscoveryFactory.createDiscovery(destinationId, URI.create(discoveryPath));
   }
 
+  /**
+   * Creates URI from the given URI template
+   *
+   * @param template URI template
+   * @param paramMap map of template parameters
+   * @return expanded URI from template
+   */
+  public URI createUriFromTemplate(final IAdtUriTemplate template,
+      final Map<String, Object> paramMap) {
+    URI uri = null;
+    if (template != null) {
+      fillTemplateWithParams(template, paramMap);
+      uri = URI.create(template.expand());
+    }
+    return uri;
+  }
+
   @Override
   public IAdtUriTemplate getNamedItemTemplate(final String discoveryTerm) {
     final URI uri = getUriFromCollectionMember(discoveryTerm);
