@@ -3,8 +3,8 @@ package com.devepos.adt.base.ui.internal;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
-import com.devepos.adt.base.plugin.AbstractAdtUIPlugin;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -47,6 +47,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
 
   @Override
   protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
+    registerImage(imageRegistry, IAdtBaseImages.HISTORY_LIST, "icons/HistoryList.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_DOWN, "icons/ArrowDown.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_UP, "icons/ArrowUp.png");
     registerImage(imageRegistry, IAdtBaseImages.REFRESH, "icons/full/elcl16/refresh.png",
@@ -77,6 +78,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "icons/full/elcl16/horizontalOrientation.png", "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.VERTICAL_LAYOUT,
         "icons/full/elcl16/verticalOrientation.png", "org.eclipse.search");
+    registerImage(imageRegistry, IAdtBaseImages.SINGLE_LAYOUT,
+        "icons/full/elcl16/singleOrientation.png", "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.TRANSPORT, "icons/Transport.png");
     registerImage(imageRegistry, IAdtBaseImages.SHARE, "icons/Share.png");
     registerImage(imageRegistry, IAdtBaseImages.SHARE_OVR, "icons/ovr/Share.png");

@@ -156,4 +156,8 @@ public interface IAdtBaseImages {
    * Identifies the image to pin a view
    */
   String PIN_VIEW = "IMG_PIN_VIEW";
+  /**
+   * Image for history list command
+   */
+  String HISTORY_LIST = "IMG_HISTORY_LIST";
 }
