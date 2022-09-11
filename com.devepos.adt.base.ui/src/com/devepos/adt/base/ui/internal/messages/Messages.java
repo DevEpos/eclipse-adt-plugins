@@ -59,6 +59,7 @@ public class Messages extends NLS {
   public static String ToggleViewLayoutAction_HorizontalOrientation_xmit;
   public static String ToggleViewLayoutAction_TopLevelMenu_xmit;
   public static String ToggleViewLayoutAction_VerticalOrientation_xmit;
+  public static String ToggleViewLayoutAction_SingleOrientation_xmit;
   public static String UserNameSelectionDialog_FilterLabel;
   static {
     // initialize resource bundle

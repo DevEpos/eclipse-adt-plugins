@@ -87,6 +87,10 @@ public interface IAdtBaseImages {
    */
   String AUTOMATIC_LAYOUT = "IMG_AUTOMATIC_LAYOUT";
   /**
+   * Image for single control view layout
+   */
+  String SINGLE_LAYOUT = "IMG_SINGLE_LAYOUT";
+  /**
    * Image for Transport stuff
    */
   String TRANSPORT = "IMG_TRANSPORT";
