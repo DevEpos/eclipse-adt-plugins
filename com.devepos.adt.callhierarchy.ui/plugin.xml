@@ -65,6 +65,7 @@
             name="%commands.category.name">
       </category>
       <command
+            categoryId="com.devepos.adt.callhierarchy.ui.commands.category"
             id="com.devepos.adt.callhierarchy.ui.commands.executeCallHierarchy"
             name="%commands.executeCallHierarchy.name">
       </command>
