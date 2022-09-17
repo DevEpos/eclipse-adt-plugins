@@ -49,6 +49,8 @@ import com.devepos.adt.callhierarchy.model.callhierarchy.IMethodProperties;
  * <em>Call Positions</em>}</li>
  * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.impl.HierarchyResultEntry#getMethodProperties
  * <em>Method Properties</em>}</li>
+ * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.impl.HierarchyResultEntry#getObjectIdentifier
+ * <em>Object Identifier</em>}</li>
  * </ul>
  *
  * @generated
@@ -280,6 +282,28 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected IMethodProperties methodProperties;
+
+  /**
+   * The default value of the '{@link #getObjectIdentifier() <em>Object Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getObjectIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected static final String OBJECT_IDENTIFIER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getObjectIdentifier() <em>Object Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getObjectIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected String objectIdentifier = OBJECT_IDENTIFIER_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -622,6 +646,33 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
+  public String getObjectIdentifier() {
+    return objectIdentifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setObjectIdentifier(final String newObjectIdentifier) {
+    String oldObjectIdentifier = objectIdentifier;
+    objectIdentifier = newObjectIdentifier;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER, oldObjectIdentifier,
+          objectIdentifier));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
@@ -664,6 +715,8 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
       return getCallPositions();
     case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES:
       return getMethodProperties();
+    case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER:
+      return getObjectIdentifier();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -712,6 +765,9 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
     case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES:
       setMethodProperties((IMethodProperties) newValue);
       return;
+    case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER:
+      setObjectIdentifier((String) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -758,6 +814,9 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
     case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES:
       setMethodProperties((IMethodProperties) null);
       return;
+    case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER:
+      setObjectIdentifier(OBJECT_IDENTIFIER_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -798,6 +857,9 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
       return callPositions != null && !callPositions.isEmpty();
     case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES:
       return methodProperties != null;
+    case ICallhierarchyPackage.HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER:
+      return OBJECT_IDENTIFIER_EDEFAULT == null ? objectIdentifier != null
+          : !OBJECT_IDENTIFIER_EDEFAULT.equals(objectIdentifier);
     }
     return super.eIsSet(featureID);
   }
@@ -833,6 +895,8 @@ public class HierarchyResultEntry extends MinimalEObjectImpl.Container implement
     result.append(uri);
     result.append(", parentUri: ");
     result.append(parentUri);
+    result.append(", objectIdentifier: ");
+    result.append(objectIdentifier);
     result.append(')');
     return result.toString();
   }

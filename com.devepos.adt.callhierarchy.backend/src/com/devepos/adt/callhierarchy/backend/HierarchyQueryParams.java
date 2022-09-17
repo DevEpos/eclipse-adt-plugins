@@ -7,16 +7,17 @@ package com.devepos.adt.callhierarchy.backend;
  *
  */
 public enum HierarchyQueryParams {
-  URI("uri"),
+  PATH("path"),
+  PATH_TYPE("pathType"),
   AUTO_RESOLVE_INTF_METHOD("autoResolveIntfMethod");
 
-  private String queryParamName;
+  private String literal;
 
-  private HierarchyQueryParams(String queryParamName) {
-    this.queryParamName = queryParamName;
+  private HierarchyQueryParams(String literal) {
+    this.literal = literal;
   }
 
-  public String getQueryParamName() {
-    return queryParamName;
+  public String getLiteral() {
+    return literal;
   }
 }

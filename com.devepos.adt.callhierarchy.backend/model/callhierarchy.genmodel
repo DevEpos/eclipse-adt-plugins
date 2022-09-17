@@ -19,6 +19,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originObjectName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originEnclObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originObjectIdentifier"/>
     </genClasses>
     <genClasses ecoreClass="callhierarchy.ecore#//CallPosition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//CallPosition/uri"/>
@@ -47,6 +48,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/parentUri"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference callhierarchy.ecore#//HierarchyResultEntry/callPositions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference callhierarchy.ecore#//HierarchyResultEntry/methodProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/objectIdentifier"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

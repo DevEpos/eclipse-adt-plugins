@@ -27,13 +27,14 @@ import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.callhierarchy.backend.CallHierarchyServiceFactory;
 import com.devepos.adt.callhierarchy.backend.HierarchyQueryParams;
 import com.devepos.adt.callhierarchy.backend.ICallHierarchyService;
+import com.devepos.adt.callhierarchy.backend.PathType;
 import com.devepos.adt.callhierarchy.model.callhierarchy.ICallPosition;
 import com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult;
 import com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry;
 import com.devepos.adt.callhierarchy.ui.internal.preferences.IPreferences;
 
 /**
- * Result of a Call hierarchy
+ * Input Object for a call hierarchy for an ABAP element
  *
  * @author Ludwig Stockbauer-Muhr
  *
@@ -50,15 +51,15 @@ public class CallHierarchyInput {
 
   private boolean resultLoaded;
   private boolean resultHasError;
-  private IPreferenceStore prefStore;
+  private final IPreferenceStore prefStore;
 
   public CallHierarchyInput(final IProject project, final String elementUri) {
     this.project = project;
-    this.prefStore = Activator.getDefault().getPreferenceStore();
+    prefStore = Activator.getDefault().getPreferenceStore();
     destinationId = DestinationUtil.getDestinationId(project);
     hierarchyService = CallHierarchyServiceFactory.getHierarchyService();
     NextLevelHierarchyElementLoader rootHierarchyLoader = new NextLevelHierarchyElementLoader(
-        elementUri, false);
+        elementUri, null, false);
     treeResult = new LazyLoadingFolderNode("", rootHierarchyLoader, null, null);
 
     treeResult.addLazyLoadingListener(l -> {
@@ -69,30 +70,32 @@ public class CallHierarchyInput {
     });
   }
 
+  /**
+   * Element loader for a one-level call tree of an ABAP element specified either by URI or ABAP
+   * fullname
+   * 
+   * @author Ludwig Stockbauer-Muhr
+   *
+   */
   private class NextLevelHierarchyElementLoader implements IElementInfoProvider {
 
     private final String uri;
     private final boolean ignoreRootNode;
     private IHierarchyResult hierarchyResult;
+    private String hierarchyObjectIdentifier;
     private boolean hasError;
 
-    public NextLevelHierarchyElementLoader(final String uri, final boolean ignoreRootNode) {
+    public NextLevelHierarchyElementLoader(final String uri, final String objectIdentifier,
+        final boolean ignoreRootNode) {
       this.uri = uri;
+      hierarchyObjectIdentifier = objectIdentifier;
       this.ignoreRootNode = ignoreRootNode;
     }
 
     @Override
     public List<IElementInfo> getElements() {
       try {
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put(HierarchyQueryParams.URI.getQueryParamName(), uri);
-
-        if (prefStore.getString(IPreferences.CALL_HIERARCHY_INTF_METHOD_RESOLUTION)
-            .equals(InterfaceMethodResolution.FIND_FIRST_IMPLEMENTER.name())) {
-          queryParams.put(HierarchyQueryParams.AUTO_RESOLVE_INTF_METHOD.getQueryParamName(),
-              "true");
-        }
-        hierarchyResult = hierarchyService.getCallHierarchy(destinationId, queryParams);
+        getCallHierarchy();
       } catch (Exception e) {
         e.printStackTrace();
         hasError = true;
@@ -100,14 +103,14 @@ public class CallHierarchyInput {
             "Error during loading the call hierarchy at ''{0}''", new Object[] { uri }), e));
       }
 
-      if ((hierarchyResult == null) || hierarchyResult.getEntries().isEmpty()) {
+      if (hierarchyResult == null || hierarchyResult.getEntries().isEmpty()) {
         return null;
       }
       List<IElementInfo> childElements = new ArrayList<>();
       IElementInfoCollection rootNode = null;
 
       for (IHierarchyResultEntry entry : hierarchyResult.getEntries()) {
-        if ((entry.getParentUri() == null) && ignoreRootNode) {
+        if (entry.getParentUri() == null && ignoreRootNode) {
           continue;
         }
         AdtObjectReferenceElementInfo wrapperInfo = new AdtObjectReferenceElementInfo(entry
@@ -116,14 +119,13 @@ public class CallHierarchyInput {
         wrapperInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
             destinationId, entry.getName(), entry.getType(), entry.getUri()));
 
-        if (entry.getParentUri() != null) {
-          wrapperInfo.setElementInfoProvider(new NextLevelHierarchyElementLoader(entry.getUri(),
-              true));
-        } else {
+        if (entry.getParentUri() == null) {
           rootNode = wrapperInfo;
           childElements.add(rootNode);
           continue;
         }
+        wrapperInfo.setElementInfoProvider(new NextLevelHierarchyElementLoader(entry.getUri(), entry
+            .getObjectIdentifier(), true));
 
         if (entry.getParentUri() != null && rootNode != null) {
           rootNode.getChildren().add(wrapperInfo);
@@ -143,11 +145,33 @@ public class CallHierarchyInput {
     public String getProviderDescription() {
       return "Loading Call Hierarchy...";
     }
+
+    private void getCallHierarchy() {
+      Map<String, Object> queryParams = new HashMap<>();
+      if (hierarchyObjectIdentifier != null) {
+        queryParams.put(HierarchyQueryParams.PATH_TYPE.getLiteral(), PathType.FULL_NAME
+            .getLiteral());
+        queryParams.put(HierarchyQueryParams.PATH.getLiteral(), hierarchyObjectIdentifier);
+      } else {
+        queryParams.put(HierarchyQueryParams.PATH_TYPE.getLiteral(), PathType.URI.getLiteral());
+        queryParams.put(HierarchyQueryParams.PATH.getLiteral(), uri);
+      }
+
+      if (prefStore.getString(IPreferences.CALL_HIERARCHY_INTF_METHOD_RESOLUTION)
+          .equals(InterfaceMethodResolution.FIND_FIRST_IMPLEMENTER.name())) {
+        queryParams.put(HierarchyQueryParams.AUTO_RESOLVE_INTF_METHOD.getLiteral(), "true");
+      }
+      hierarchyResult = hierarchyService.getCallHierarchy(destinationId, queryParams);
+
+      if (hierarchyResult != null && hierarchyObjectIdentifier == null) {
+        hierarchyObjectIdentifier = hierarchyResult.getOriginObjectIdentifier();
+      }
+    }
   }
 
   /**
    * Adds listener which will be notified when the result is loaded
-   * 
+   *
    * @param l the listener to add
    */
   public void addResultLoadedListener(final ILazyLoadingListener l) {
@@ -157,7 +181,7 @@ public class CallHierarchyInput {
   }
 
   /**
-   * 
+   *
    * @return the image for the root entry
    */
   public Image getImage() {
@@ -186,10 +210,9 @@ public class CallHierarchyInput {
         || IAdtObjectTypeConstants.PROGRAM_SUBROUTINE.equals(originType)) {
       return NLS.bind("Calls from ''{0}'' in {1}", new Object[] { result.getOriginObjectName(),
           project.getName() });
-    } else {
-      return NLS.bind("Calls from ''{0}->{1}'' in {2}", new Object[] { result
-          .getOriginEnclObjectName(), result.getOriginObjectName(), project.getName() });
     }
+    return NLS.bind("Calls from ''{0}->{1}'' in {2}", new Object[] { result
+        .getOriginEnclObjectName(), result.getOriginObjectName(), project.getName() });
   }
 
   /**
@@ -203,10 +226,9 @@ public class CallHierarchyInput {
     if (IAdtObjectTypeConstants.FUNCTION_MODULE.equals(originType)
         || IAdtObjectTypeConstants.PROGRAM_SUBROUTINE.equals(originType)) {
       return String.format("%s [%s]", result.getOriginObjectName(), project.getName());
-    } else {
-      return String.format("%s - %s [%s]", result.getOriginObjectName(), result
-          .getOriginEnclObjectName(), project.getName());
     }
+    return String.format("%s - %s [%s]", result.getOriginObjectName(), result
+        .getOriginEnclObjectName(), project.getName());
   }
 
   public Object getResult() {
@@ -219,10 +241,10 @@ public class CallHierarchyInput {
 
   /**
    * Navigate to the source position of the given call position reference
-   * 
+   *
    * @param callPosition call position in call hierarchy
    */
-  public void navigateToCallPosition(ICallPosition callPosition) {
+  public void navigateToCallPosition(final ICallPosition callPosition) {
     AdtUIUtil.navigateWithObjectReference(AdtObjectReferenceModelFactory.createReference(
         destinationId, "", "", callPosition.getUri()), project);
   }
@@ -239,10 +261,10 @@ public class CallHierarchyInput {
 
   /**
    * Removes the listener for result loaded notifications
-   * 
+   *
    * @param l the listener to remove
    */
-  public void removeResultLoadedListener(ILazyLoadingListener l) {
+  public void removeResultLoadedListener(final ILazyLoadingListener l) {
     if (treeResult != null) {
       treeResult.removeLazyLoadingListener(l);
     }
@@ -251,9 +273,8 @@ public class CallHierarchyInput {
   private String getNoResultLabel() {
     if (resultLoaded) {
       return resultHasError ? "Loading of Call Hierarchy failed" : "No Call Hierarchy possible";
-    } else {
-      return "Loading Call Hierarchy...";
     }
+    return "Loading Call Hierarchy...";
   }
 
   private void setImageDescr() {

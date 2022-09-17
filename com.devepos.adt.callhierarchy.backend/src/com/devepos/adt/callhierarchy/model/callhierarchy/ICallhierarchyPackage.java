@@ -117,6 +117,16 @@ public interface ICallhierarchyPackage extends EPackage {
   int HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME = 3;
 
   /**
+   * The feature id for the '<em><b>Origin Object Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER = 4;
+
+  /**
    * The number of structural features of the '<em>Hierarchy Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -124,7 +134,7 @@ public interface ICallhierarchyPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int HIERARCHY_RESULT_FEATURE_COUNT = 4;
+  int HIERARCHY_RESULT_FEATURE_COUNT = 5;
 
   /**
    * The number of operations of the '<em>Hierarchy Result</em>' class.
@@ -436,6 +446,16 @@ public interface ICallhierarchyPackage extends EPackage {
   int HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES = 10;
 
   /**
+   * The feature id for the '<em><b>Object Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER = 11;
+
+  /**
    * The number of structural features of the '<em>Hierarchy Result Entry</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -443,7 +463,7 @@ public interface ICallhierarchyPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int HIERARCHY_RESULT_ENTRY_FEATURE_COUNT = 11;
+  int HIERARCHY_RESULT_ENTRY_FEATURE_COUNT = 12;
 
   /**
    * The number of operations of the '<em>Hierarchy Result Entry</em>' class.
@@ -536,6 +556,20 @@ public interface ICallhierarchyPackage extends EPackage {
    * @generated
    */
   EAttribute getHierarchyResult_OriginEnclObjectName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult#getOriginObjectIdentifier
+   * <em>Origin Object Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Origin Object Identifier</em>'.
+   * @see com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult#getOriginObjectIdentifier()
+   * @see #getHierarchyResult()
+   * @generated
+   */
+  EAttribute getHierarchyResult_OriginObjectIdentifier();
 
   /**
    * Returns the meta object for class
@@ -884,6 +918,20 @@ public interface ICallhierarchyPackage extends EPackage {
   EReference getHierarchyResultEntry_MethodProperties();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry#getObjectIdentifier
+   * <em>Object Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Object Identifier</em>'.
+   * @see com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry#getObjectIdentifier()
+   * @see #getHierarchyResultEntry()
+   * @generated
+   */
+  EAttribute getHierarchyResultEntry_ObjectIdentifier();
+
+  /**
    * Returns the meta object for enum
    * '{@link com.devepos.adt.callhierarchy.model.callhierarchy.MethodVisibility <em>Method
    * Visibility</em>}'.
@@ -971,6 +1019,16 @@ public interface ICallhierarchyPackage extends EPackage {
      */
     EAttribute HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME = eINSTANCE
         .getHierarchyResult_OriginEnclObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Origin Object Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER = eINSTANCE
+        .getHierarchyResult_OriginObjectIdentifier();
 
     /**
      * The meta object literal for the
@@ -1217,6 +1275,16 @@ public interface ICallhierarchyPackage extends EPackage {
      */
     EReference HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES = eINSTANCE
         .getHierarchyResultEntry_MethodProperties();
+
+    /**
+     * The meta object literal for the '<em><b>Object Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER = eINSTANCE
+        .getHierarchyResultEntry_ObjectIdentifier();
 
     /**
      * The meta object literal for the

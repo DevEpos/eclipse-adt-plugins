@@ -36,6 +36,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Call Positions</em>}</li>
  * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry#getMethodProperties
  * <em>Method Properties</em>}</li>
+ * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry#getObjectIdentifier
+ * <em>Object Identifier</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.callhierarchy.model.callhierarchy.ICallhierarchyPackage#getHierarchyResultEntry()
@@ -188,5 +190,19 @@ public interface IHierarchyResultEntry extends EObject {
    * @generated
    */
   IMethodProperties getMethodProperties();
+
+  /**
+   * Returns the value of the '<em><b>Object Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Object Identifier</em>' attribute.
+   * @see com.devepos.adt.callhierarchy.model.callhierarchy.ICallhierarchyPackage#getHierarchyResultEntry_ObjectIdentifier()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='objectIdentifier'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getObjectIdentifier();
 
 } // IHierarchyResultEntry

@@ -205,6 +205,17 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
    * @generated
    */
   @Override
+  public EAttribute getHierarchyResult_OriginObjectIdentifier() {
+    return (EAttribute) hierarchyResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getCallPosition() {
     return callPositionEClass;
   }
@@ -480,6 +491,17 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
    * @generated
    */
   @Override
+  public EAttribute getHierarchyResultEntry_ObjectIdentifier() {
+    return (EAttribute) hierarchyResultEntryEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EEnum getMethodVisibility() {
     return methodVisibilityEEnum;
   }
@@ -523,6 +545,7 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
     createEAttribute(hierarchyResultEClass, HIERARCHY_RESULT__ORIGIN_TYPE);
     createEAttribute(hierarchyResultEClass, HIERARCHY_RESULT__ORIGIN_OBJECT_NAME);
     createEAttribute(hierarchyResultEClass, HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME);
+    createEAttribute(hierarchyResultEClass, HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER);
 
     callPositionEClass = createEClass(CALL_POSITION);
     createEAttribute(callPositionEClass, CALL_POSITION__URI);
@@ -552,6 +575,7 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
     createEAttribute(hierarchyResultEntryEClass, HIERARCHY_RESULT_ENTRY__PARENT_URI);
     createEReference(hierarchyResultEntryEClass, HIERARCHY_RESULT_ENTRY__CALL_POSITIONS);
     createEReference(hierarchyResultEntryEClass, HIERARCHY_RESULT_ENTRY__METHOD_PROPERTIES);
+    createEAttribute(hierarchyResultEntryEClass, HIERARCHY_RESULT_ENTRY__OBJECT_IDENTIFIER);
 
     // Create enums
     methodVisibilityEEnum = createEEnum(METHOD_VISIBILITY);
@@ -608,6 +632,9 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getHierarchyResult_OriginEnclObjectName(), theXMLTypePackage.getString(),
         "originEnclObjectName", null, 0, 1, IHierarchyResult.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHierarchyResult_OriginObjectIdentifier(), theXMLTypePackage.getString(),
+        "originObjectIdentifier", null, 0, 1, IHierarchyResult.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(callPositionEClass, ICallPosition.class, "CallPosition", !IS_ABSTRACT, !IS_INTERFACE,
@@ -687,6 +714,9 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
         "methodProperties", null, 0, 1, IHierarchyResultEntry.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
+    initEAttribute(getHierarchyResultEntry_ObjectIdentifier(), theXMLTypePackage.getString(),
+        "objectIdentifier", null, 0, 1, IHierarchyResultEntry.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(methodVisibilityEEnum, MethodVisibility.class, "MethodVisibility");
@@ -722,6 +752,8 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
         "name", "originObjectName", "namespace", "##targetNamespace" });
     addAnnotation(getHierarchyResult_OriginEnclObjectName(), source, new String[] { "kind",
         "attribute", "name", "originEnclObjectName", "namespace", "##targetNamespace" });
+    addAnnotation(getHierarchyResult_OriginObjectIdentifier(), source, new String[] { "kind",
+        "attribute", "name", "originObjectIdentifier", "namespace", "##targetNamespace" });
     addAnnotation(callPositionEClass, source, new String[] { "kind", "elementOnly", "name",
         "callPosition" });
     addAnnotation(getCallPosition_Uri(), source, new String[] { "kind", "attribute", "name", "uri",
@@ -772,6 +804,8 @@ public class CallhierarchyPackage extends EPackageImpl implements ICallhierarchy
         "name", "callPosition", "namespace", "##targetNamespace" });
     addAnnotation(getHierarchyResultEntry_MethodProperties(), source, new String[] { "kind",
         "element", "name", "methodProperties", "namespace", "##targetNamespace" });
+    addAnnotation(getHierarchyResultEntry_ObjectIdentifier(), source, new String[] { "kind",
+        "attribute", "name", "objectIdentifier", "namespace", "##targetNamespace" });
   }
 
 } // CallhierarchyPackage

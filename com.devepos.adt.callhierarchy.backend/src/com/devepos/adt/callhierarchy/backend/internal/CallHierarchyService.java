@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
-import com.devepos.adt.callhierarchy.backend.HierarchyQueryParams;
 import com.devepos.adt.callhierarchy.backend.ICallHierarchyService;
 import com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
@@ -28,12 +27,11 @@ public class CallHierarchyService implements ICallHierarchyService {
 
   @Override
   public IHierarchyResult getCallHierarchy(final String destinationId,
-      Map<String, Object> queryParams) {
+      final Map<String, Object> queryParams) {
     CallHierarchyUriDiscovery uriDiscovery = new CallHierarchyUriDiscovery(destinationId);
 
-    if (queryParams == null || !queryParams.containsKey(HierarchyQueryParams.URI
-        .getQueryParamName())) {
-      throw new IllegalArgumentException("Mandatory query parameter 'uri' was not supplied");
+    if (queryParams == null) {
+      throw new IllegalArgumentException("No query parameters not supplied");
     }
     URI hierarchyUri = uriDiscovery.createUriFromTemplate(uriDiscovery
         .getCallHierarchyUriTemplate(), queryParams);

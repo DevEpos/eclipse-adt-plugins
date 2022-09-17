@@ -17,7 +17,7 @@ public class CallHierarchyUriDiscovery extends UriDiscoveryBase {
       + SCHEME_SUFFIX;
   private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/aht" + SCHEME_SUFFIX; //$NON-NLS-1$
   private static final String DISCOVERY_PATH = "/devepos/adt/aht/discovery"; //$NON-NLS-1$
-  private static final String DISCOVERY_TERM_CALL_HIERARCHY = "callHierarchy"; //$NON-NLS-1$
+  private static final String TERM_CALL_HIERARCHY = "callHierarchy"; //$NON-NLS-1$
 
   public CallHierarchyUriDiscovery(final String destinationId) {
     super(destinationId, DISCOVERY_PATH, DISCOVERY_SCHEME);
@@ -29,7 +29,7 @@ public class CallHierarchyUriDiscovery extends UriDiscoveryBase {
    * @return URI
    */
   public URI getCallHierarchyUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM_CALL_HIERARCHY);
+    return getUriFromCollectionMember(TERM_CALL_HIERARCHY);
   }
 
   /**
@@ -38,7 +38,7 @@ public class CallHierarchyUriDiscovery extends UriDiscoveryBase {
    * @return URI template
    */
   public IAdtUriTemplate getCallHierarchyUriTemplate() {
-    return getTemplate(DISCOVERY_TERM_CALL_HIERARCHY, DISCOVERY_RELATION_CALL_HIERARCHY);
+    return getTemplate(TERM_CALL_HIERARCHY, DISCOVERY_RELATION_CALL_HIERARCHY);
   }
 
 }

@@ -34,6 +34,8 @@ import com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry;
  * <em>Origin Object Name</em>}</li>
  * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.impl.HierarchyResult#getOriginEnclObjectName
  * <em>Origin Encl Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.impl.HierarchyResult#getOriginObjectIdentifier
+ * <em>Origin Object Identifier</em>}</li>
  * </ul>
  *
  * @generated
@@ -118,6 +120,30 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
    * @ordered
    */
   protected String originEnclObjectName = ORIGIN_ENCL_OBJECT_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getOriginObjectIdentifier() <em>Origin Object
+   * Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getOriginObjectIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected static final String ORIGIN_OBJECT_IDENTIFIER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOriginObjectIdentifier() <em>Origin Object
+   * Identifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getOriginObjectIdentifier()
+   * @generated
+   * @ordered
+   */
+  protected String originObjectIdentifier = ORIGIN_OBJECT_IDENTIFIER_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -242,6 +268,33 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
    * @generated
    */
   @Override
+  public String getOriginObjectIdentifier() {
+    return originObjectIdentifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setOriginObjectIdentifier(final String newOriginObjectIdentifier) {
+    String oldOriginObjectIdentifier = originObjectIdentifier;
+    originObjectIdentifier = newOriginObjectIdentifier;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER,
+          oldOriginObjectIdentifier, originObjectIdentifier));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
@@ -268,6 +321,8 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
       return getOriginObjectName();
     case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME:
       return getOriginEnclObjectName();
+    case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER:
+      return getOriginObjectIdentifier();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -295,6 +350,9 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
     case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME:
       setOriginEnclObjectName((String) newValue);
       return;
+    case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER:
+      setOriginObjectIdentifier((String) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -320,6 +378,9 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
     case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME:
       setOriginEnclObjectName(ORIGIN_ENCL_OBJECT_NAME_EDEFAULT);
       return;
+    case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER:
+      setOriginObjectIdentifier(ORIGIN_OBJECT_IDENTIFIER_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -344,6 +405,9 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
     case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_ENCL_OBJECT_NAME:
       return ORIGIN_ENCL_OBJECT_NAME_EDEFAULT == null ? originEnclObjectName != null
           : !ORIGIN_ENCL_OBJECT_NAME_EDEFAULT.equals(originEnclObjectName);
+    case ICallhierarchyPackage.HIERARCHY_RESULT__ORIGIN_OBJECT_IDENTIFIER:
+      return ORIGIN_OBJECT_IDENTIFIER_EDEFAULT == null ? originObjectIdentifier != null
+          : !ORIGIN_OBJECT_IDENTIFIER_EDEFAULT.equals(originObjectIdentifier);
     }
     return super.eIsSet(featureID);
   }
@@ -367,6 +431,8 @@ public class HierarchyResult extends MinimalEObjectImpl.Container implements IHi
     result.append(originObjectName);
     result.append(", originEnclObjectName: ");
     result.append(originEnclObjectName);
+    result.append(", originObjectIdentifier: ");
+    result.append(originObjectIdentifier);
     result.append(')');
     return result.toString();
   }

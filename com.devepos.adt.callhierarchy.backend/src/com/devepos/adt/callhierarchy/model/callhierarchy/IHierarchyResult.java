@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Origin Object Name</em>}</li>
  * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult#getOriginEnclObjectName
  * <em>Origin Encl Object Name</em>}</li>
+ * <li>{@link com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResult#getOriginObjectIdentifier
+ * <em>Origin Object Identifier</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.callhierarchy.model.callhierarchy.ICallhierarchyPackage#getHierarchyResult()
@@ -84,5 +86,19 @@ public interface IHierarchyResult extends EObject {
    * @generated
    */
   String getOriginEnclObjectName();
+
+  /**
+   * Returns the value of the '<em><b>Origin Object Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Origin Object Identifier</em>' attribute.
+   * @see com.devepos.adt.callhierarchy.model.callhierarchy.ICallhierarchyPackage#getHierarchyResult_OriginObjectIdentifier()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='originObjectIdentifier'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getOriginObjectIdentifier();
 
 } // IHierarchyResult
