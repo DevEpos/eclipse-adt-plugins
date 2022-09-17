@@ -2,7 +2,7 @@
 <feature
       id="com.devepos.adt.pdt"
       label="ADT Plugin Development Tools"
-      version="1.2.0.qualifier"
+      version="1.2.1.qualifier"
       provider-name="devepos"
       plugin="com.devepos.adt.branding">
 
