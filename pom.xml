@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.devepos.adt</groupId>
     <artifactId>com.devepos.adt.base.parent</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
     <name>Base Plugins for ADT Extensions</name>
     <packaging>pom</packaging>
     <modules>
@@ -112,6 +112,11 @@
         <repository>
             <id>adt-latest</id>
             <url>https://tools.hana.ondemand.com/latest</url>
+            <layout>p2</layout>
+        </repository>
+        <repository>
+            <id>eclipse-orbit</id>
+            <url>https://download.eclipse.org/tools/orbit/downloads/drops/R20220830213456/repository</url>
             <layout>p2</layout>
         </repository>
     </repositories>
