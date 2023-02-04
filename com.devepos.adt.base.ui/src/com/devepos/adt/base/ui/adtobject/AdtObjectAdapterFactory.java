@@ -1,7 +1,9 @@
 package com.devepos.adt.base.ui.adtobject;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.TreeNode;
@@ -70,6 +72,18 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
               .getObjectReference(), objectType, projectProvider.getProject()));
         }
       }
+    } else if (adaptableObject instanceof IAdaptable) {
+      IAdaptable adaptable = (IAdaptable) adaptableObject;
+      final IAdtObjectReference objRef = adaptable.getAdapter(IAdtObjectReference.class);
+      if (objRef == null) {
+        return null;
+      }
+      final IProject project = adaptable.getAdapter(IProject.class);
+      if (project == null) {
+        return null;
+      }
+      final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
+      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, project));
     }
     return null;
   }
