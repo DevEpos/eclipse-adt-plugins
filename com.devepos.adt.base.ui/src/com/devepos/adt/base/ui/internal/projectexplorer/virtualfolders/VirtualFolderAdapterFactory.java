@@ -1,9 +1,9 @@
-package com.devepos.adt.base.ui.internal.virtualfolders;
+package com.devepos.adt.base.ui.internal.projectexplorer.virtualfolders;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 
-import com.devepos.adt.base.ui.virtualfolders.IVirtualFolderNode;
-import com.sap.adt.projectexplorer.ui.internal.virtualfolders.VirtualTreeNode;
+import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode;
+import com.sap.adt.projectexplorer.ui.internal.virtualfolders.VirtualFolderNode;
 
 @SuppressWarnings("restriction")
 public class VirtualFolderAdapterFactory implements IAdapterFactory {
@@ -18,8 +18,8 @@ public class VirtualFolderAdapterFactory implements IAdapterFactory {
     if (adapterType != IVirtualFolderNode.class) {
       return null;
     }
-    if (adaptableObject instanceof VirtualTreeNode) {
-      return adapterType.cast(new VirtualFolderProxy((VirtualTreeNode) adaptableObject));
+    if (adaptableObject instanceof VirtualFolderNode) {
+      return adapterType.cast(new VirtualFolderProxy((VirtualFolderNode) adaptableObject));
     }
     return null;
   }

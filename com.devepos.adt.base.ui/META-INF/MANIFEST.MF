@@ -72,6 +72,8 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.callhierarchy.ui",
+ com.devepos.adt.base.ui.projectexplorer.node;x-friends:="com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.ui.projectexplorer.virtualfolders;x-friends:="com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.search;
   x-friends:="com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.codesearch.ui,
@@ -91,5 +93,4 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.ui",
  com.devepos.adt.base.ui.viewsupport;x-friends:="com.devepos.adt.callhierarchy.ui",
- com.devepos.adt.base.ui.virtualfolders;x-friends:="com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.ui.wizard;x-friends:="com.devepos.adt.abaptags.ui"

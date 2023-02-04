@@ -12,10 +12,17 @@
            </adapter>
         </factory>
         <factory
-              adaptableType="java.lang.Object"
-              class="com.devepos.adt.base.ui.internal.virtualfolders.VirtualFolderAdapterFactory">
+              adaptableType="com.sap.adt.projectexplorer.ui.internal.virtualfolders.VirtualFolderNode"
+              class="com.devepos.adt.base.ui.internal.projectexplorer.virtualfolders.VirtualFolderAdapterFactory">
            <adapter
-                 type="com.devepos.adt.base.ui.virtualfolders.IVirtualFolderNode">
+                 type="com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode">
+           </adapter>
+        </factory>
+        <factory
+              adaptableType="com.sap.adt.projectexplorer.ui.node.AbapRepositoryBaseNode"
+              class="com.devepos.adt.base.ui.internal.projectexplorer.node.AbapRepositoryFolderAdapterFactory">
+           <adapter
+                 type="com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode">
            </adapter>
         </factory>
    </extension>
