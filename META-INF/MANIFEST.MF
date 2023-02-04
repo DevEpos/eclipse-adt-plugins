@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DevEpos ADT Add-Ons
 Bundle-SymbolicName: com.devepos.adt.branding
-Bundle-Version: 1.0.1
+Bundle-Version: 1.0.2
 Bundle-Vendor: DevEpos
 Automatic-Module-Name: com.devepos.adt.branding
 Bundle-RequiredExecutionEnvironment: JavaSE-11
