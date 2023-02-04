@@ -69,6 +69,8 @@ public class DateSearchFilterTest {
     assertEquals(converter.convert("<today"), String.format("ILT%s%s%s", now.getYear(), month,
         day));
     assertEquals(converter.convert("!>=28.2.2020"), "EGE20200228");
-    assertEquals(converter.convert("1.1...5.2022"), "IBT2022010120220531");
+    String toYear = String.valueOf(LocalDate.now().getYear() + 1);
+    assertEquals(converter.convert("1.1...5." + toYear), "IBT" + LocalDate.now().getYear() + "0101"
+        + toYear + "0531");
   }
 }
