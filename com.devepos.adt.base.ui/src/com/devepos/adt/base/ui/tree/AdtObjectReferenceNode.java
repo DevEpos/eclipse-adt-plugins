@@ -72,6 +72,8 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
             objectReference));
       } catch (final ClassCastException exc) {
       }
+    } else if (adapter == IAdtObjectReference.class) {
+      return adapter.cast(objectReference);
     } else if (adapter == IDestinationProvider.class) {
       try {
         return adapter.cast(objectReference);
