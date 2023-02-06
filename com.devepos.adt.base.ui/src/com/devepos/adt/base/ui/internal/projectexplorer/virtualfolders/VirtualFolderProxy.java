@@ -41,8 +41,8 @@ class VirtualFolderProxy implements IVirtualFolderNode {
     facetFilter = node.getFacetFilter();
     if (node.getParent() != null) {
       ILabel folderLabel = node.getFolder().getLabel();
-      folderType = folderLabel.getFacet().getKey();
-      folderKey = folderLabel.getKey();
+      folderType = folderLabel.getFacet().getKey().toLowerCase();
+      folderKey = folderLabel.getKey().toLowerCase();
     }
   }
 
