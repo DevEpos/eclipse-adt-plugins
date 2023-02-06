@@ -18,9 +18,11 @@ public interface IVirtualFolderNode {
   String FOLDER_TYPE_MONTH = "month";
   String FOLDER_TYPE_DATE = "date";
   String FOLDER_TYPE_TYPE = "type";
+  String FOLDER_TYPE_GROUP = "group";
 
-  String FOLDER_KEY_SOURCE_LIBRARY = "SOURCE_LIBRARY";
-  String FOLDER_KEY_CORE_DATA_SERVICES = "CORE_DATA_SERVICES";
+  String FOLDER_KEY_SOURCE_LIBRARY = "source_library";
+  String FOLDER_KEY_CORE_DATA_SERVICES = "core_data_services";
+  String FOLDER_KEY_TRANSFORMATIONS = "transformations";
 
   /**
    * Retrieves the filter values of the <code>appl</code> filter facet of this virtual folder
