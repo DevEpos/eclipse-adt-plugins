@@ -16,6 +16,7 @@ public interface IAbapRepositoryFolderNode {
   String CATEGORY_SOURCE_LIB = "source_library";
   String CATEGORY_DICTIONARY = "dictionary";
   String CATEGORY_CORE_DATA_SERVICES = "core_data_services";
+  String CATEGORY_ACCESS_CONTROL_MGMT = "acm_object_type";
 
   /**
    * Returns type category of the repository node
