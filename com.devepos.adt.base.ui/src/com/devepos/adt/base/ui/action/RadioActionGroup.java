@@ -99,10 +99,27 @@ public class RadioActionGroup extends ActionGroup {
   /**
    * Adds the items of this Radio Action Group to the provided tool bar manager
    *
-   * @param tbm a tool bar manager where the radio actions should be added to
+   * @param tbm tool bar manager where the radio actions should be added to
    */
   public void contributeToToolbar(final IToolBarManager tbm) {
-    actions.forEach(a -> tbm.add(a));
+    contributeToToolbar(tbm, null);
+  }
+
+  /**
+   * Adds the items of this Radio Action Group to the provided tool bar manager at the specified
+   * group
+   *
+   * @param tbm   tool bar manager where the radio actions should be added to
+   * @param group name of the group where the action should be added
+   */
+  public void contributeToToolbar(final IToolBarManager tbm, final String group) {
+    actions.forEach(a -> {
+      if (group != null) {
+        tbm.appendToGroup(group, a);
+      } else {
+        tbm.add(a);
+      }
+    });
   }
 
   /**
