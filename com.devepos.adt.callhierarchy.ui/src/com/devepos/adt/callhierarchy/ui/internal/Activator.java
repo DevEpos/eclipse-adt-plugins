@@ -48,6 +48,8 @@ public class Activator extends AbstractAdtUIPlugin {
   protected void initializeImageRegistry(final ImageRegistry reg) {
     registerImage(reg, IImages.CALL_POSITION, "icons/full/obj16/line_match.png",
         "org.eclipse.search");
+    registerImage(reg, IImages.CALLEE_HIERARCHY_MODE, "icons/HierarchyCallees.png");
+    registerImage(reg, IImages.CALLER_HIERARCHY_MODE, "icons/HierarchyCallers.png");
   }
 
 }

@@ -65,6 +65,7 @@ import com.devepos.adt.callhierarchy.ui.internal.HierarchyTreeViewerLabelProvide
 import com.devepos.adt.callhierarchy.ui.internal.HierarchyViewerType;
 import com.devepos.adt.callhierarchy.ui.internal.HistoryDropDownAction;
 import com.devepos.adt.callhierarchy.ui.internal.ICallHierarchyListener;
+import com.devepos.adt.callhierarchy.ui.internal.IImages;
 import com.devepos.adt.callhierarchy.ui.internal.preferences.CallHierarchyPreferencesPage;
 import com.devepos.adt.callhierarchy.ui.internal.preferences.IPreferences;
 
@@ -79,8 +80,13 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
 
   public static final String VIEW_ID = "com.devepos.adt.callhierarchy.ui.views.CallHierarchy";
 
+  private static final String CALLER_HIERARCHY_VIEW_MODE = "callerHierarchy";
+  private static final String CALLEE_HIERARCHY_VIEW_MODE = "calleeHierarchy";
+
   private static final int PAGE_EMPTY = 0;
   private static final int PAGE_VIEWER = 1;
+
+  private static final String GROUP_VIEW_MODE = "group.viewModel";
 
   private CollapseAllTreeNodesAction collapseAllNodesAction;
   private CallHierarchyInput currentHierarchy;
@@ -100,6 +106,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   private ToggleViewLayoutAction viewLayoutAction;
   private Action showDescriptionsAction;
   private OpenPreferencesAction openPreferencesAction;
+  private RadioActionGroup viewModeActionGroup;
 
   private final ViewPartListener viewPartListener;
 
@@ -167,6 +174,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_NEW));
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_NODE_ACTIONS));
+    toolbar.add(new Separator(GROUP_VIEW_MODE));
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_SEARCH));
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_GOTO));
     toolbar.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
@@ -355,6 +363,16 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
         IPreferences.CALL_HIERARCHY_SHOW_OBJECT_DESCRIPTIONS));
 
     openPreferencesAction = new OpenPreferencesAction(CallHierarchyPreferencesPage.PAGE_ID);
+
+    viewModeActionGroup = new RadioActionGroup();
+    viewModeActionGroup.addAction(CALLEE_HIERARCHY_VIEW_MODE, "Show Callee Hierarchy", Activator
+        .getDefault()
+        .getImageDescriptor(IImages.CALLEE_HIERARCHY_MODE), true);
+    viewModeActionGroup.addAction(CALLER_HIERARCHY_VIEW_MODE, "Show Caller Hierarchy", Activator
+        .getDefault()
+        .getImageDescriptor(IImages.CALLER_HIERARCHY_MODE), false);
+
+    viewModeActionGroup.addActionToggledListener(this::viewModeChanged);
   }
 
   private void createHierarchySplitter(final Composite parent) {
@@ -436,10 +454,11 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
         refreshAction);
 
     createToolBarGroups(tbm);
-    tbm.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, pinViewAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, refreshAction);
-    tbm.appendToGroup(IGeneralMenuConstants.GROUP_GOTO, historyDropDownAction);
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, historyDropDownAction);
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, pinViewAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, collapseAllNodesAction);
+    viewModeActionGroup.contributeToToolbar(tbm, GROUP_VIEW_MODE);
 
     IMenuManager viewMenuMgr = actionBars.getMenuManager();
     createViewMenuGroups(viewMenuMgr);
@@ -535,6 +554,14 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     }
     if (collapseAllNodesAction != null) {
       collapseAllNodesAction.setEnabled(!isEmpty);
+    }
+  }
+
+  private void viewModeChanged(String actionId) {
+    if (actionId == CALLER_HIERARCHY_VIEW_MODE) {
+      // TODO: switch to caller hierarchy
+    } else {
+      // TODO: switch to callee hierarchy
     }
   }
 }
