@@ -11,8 +11,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Tree;
 
 /**
  * Result part of a dialog which consists of a Structured Viewer that holds the
@@ -51,7 +55,10 @@ public abstract class DialogResultPart {
     createContent(parent);
     final StructuredViewer resultViewer = getResultViewer();
     if (resultViewer != null) {
-      resultViewer.setLabelProvider(getResultLabelProvider());
+      // do not set a label provider if the result viewer
+      if (!hasColumns(resultViewer)) {
+        resultViewer.setLabelProvider(getResultLabelProvider());
+      }
       if (resultViewerFilter != null) {
         resultViewer.setFilters(resultViewerFilter);
       }
@@ -202,5 +209,17 @@ public abstract class DialogResultPart {
       resultLabelProvider = new LabelProvider();
     }
     return resultLabelProvider;
+  }
+
+  private boolean hasColumns(final StructuredViewer resultViewer) {
+    if (resultViewer instanceof TreeViewer) {
+      Tree tree = ((TreeViewer) resultViewer).getTree();
+      return tree.getColumnCount() > 0;
+    }
+    if (resultViewer instanceof TableViewer) {
+      Table table = ((TableViewer) resultViewer).getTable();
+      return table.getColumnCount() > 0;
+    }
+    return false;
   }
 }

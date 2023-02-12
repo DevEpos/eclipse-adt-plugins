@@ -120,6 +120,274 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     setFilterViewPart(filterPart);
   }
 
+  public final class SearchResultObject {
+    private final boolean resultComplete;
+    private final List<R> resultObjects;
+
+    public SearchResultObject(final List<R> resultObjects, final boolean resultComplete) {
+      this.resultObjects = resultObjects == null ? new ArrayList<>() : resultObjects;
+      this.resultComplete = resultComplete;
+    }
+
+    @Override
+    public String toString() {
+      final StringBuilder sb = new StringBuilder("is complete: "); //$NON-NLS-1$
+      sb.append(isResultComplete());
+      sb.append(", result: "); //$NON-NLS-1$
+      sb.append(this.resultObjects);
+      return sb.toString();
+    }
+
+    protected List<R> getResultObjects() {
+      return this.resultObjects;
+    }
+
+    protected boolean isResultComplete() {
+      return this.resultComplete;
+    }
+  }
+
+  protected final class SearchResult {
+    private final R result;
+
+    public SearchResult(final R result) {
+      this.result = result;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean equals(final Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof SearchSelectionDialog.SearchResult)) {
+        return false;
+      }
+      final SearchSelectionDialog<R, F>.SearchResult other = (SearchSelectionDialog<R, F>.SearchResult) o;
+      if (this.result == null && other.result == null) {
+        return true;
+      }
+      if (this.result == null || other.result == null) {
+        return false;
+      }
+      return other.result.equals(this.result);
+    }
+
+    public R getResult() {
+      return this.result;
+    }
+
+    @Override
+    public int hashCode() {
+      return this.result == null ? 0 : this.result.hashCode();
+    }
+  }
+
+  private class FilterView implements IDialogFilterPart<String> {
+
+    private Label headerLabel;
+    private Text pattern;
+
+    @Override
+    public void createUI(final Composite parent) {
+      createFilterHeader(parent);
+      createFilter(parent);
+
+      SWTUtil.setLabelForControl(this.headerLabel, this.pattern);
+    }
+
+    @Override
+    public String getFilter() {
+      if (this.pattern != null && !this.pattern.isDisposed()) {
+        return this.pattern.getText();
+      }
+      return null;
+    }
+
+    @Override
+    public Control[] getFilterControls() {
+      return new Control[] { this.pattern };
+    }
+
+    @Override
+    public boolean isFilterEmpty() {
+      if (this.pattern != null && !this.pattern.isDisposed()) {
+        return StringUtil.isEmpty(this.pattern.getText());
+      }
+      return true;
+    }
+
+    @Override
+    public void setFilter(final String filter) {
+      if (this.pattern == null || this.pattern.isDisposed()) {
+        return;
+      }
+      this.pattern.setText(filter);
+    }
+
+    @Override
+    public void setFocus(final boolean selectText) {
+      this.pattern.setFocus();
+      if (selectText) {
+        this.pattern.setSelection(0, this.pattern.getText().length());
+      } else {
+        this.pattern.setSelection(this.pattern.getText().length());
+      }
+    }
+
+    private void createFilter(final Composite parent) {
+      this.pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
+      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.pattern);
+    }
+
+    private void createFilterHeader(final Composite parent) {
+      final Composite header = new Composite(parent, SWT.NONE);
+      GridLayoutFactory.fillDefaults().numColumns(2).applyTo(header);
+      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(header);
+
+      this.headerLabel = new Label(header, SWT.NONE);
+      this.headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
+          && SearchSelectionDialog.this.filterLabel.trim().length() > 0
+              ? SearchSelectionDialog.this.filterLabel
+              : Messages.SearchSelectionDialog_FilterLabel);
+      GridDataFactory.swtDefaults()
+          .align(SWT.FILL, SWT.CENTER)
+          .grab(true, false)
+          .applyTo(this.headerLabel);
+      // createViewMenu(header);
+    }
+
+  }
+
+  private class ResultView extends DialogResultPart {
+
+    private LabelViewer details;
+    private Label listLabel;
+    private final boolean multi;
+    private TableViewer tableViewer;
+
+    public ResultView(final boolean multi) {
+      this.multi = multi;
+      setDetailsLabelProvider(getDetailsLabelProvider());
+      setResultLabelProvider(getResultLabelProvider());
+    }
+
+    @Override
+    public ContentViewer getDetailViewer() {
+      return this.details;
+    }
+
+    @Override
+    public StructuredViewer getResultViewer() {
+      return this.tableViewer;
+    }
+
+    @Override
+    protected void createContent(final Composite parent) {
+      createLabels(parent);
+      createViewer(parent);
+      createStatusLine(parent);
+      this.details = new LabelViewer(parent, SWT.BORDER | SWT.FLAT);
+      if (initialSelections != null) {
+        this.tableViewer.setSelection(new StructuredSelection(initialSelections));
+      }
+
+      SWTUtil.setLabelForControl(this.listLabel, this.tableViewer.getControl());
+    }
+
+    @Override
+    protected int getSelectedElementCount() {
+      if (this.tableViewer == null || this.tableViewer.getTable().isDisposed()) {
+        return 0;
+      }
+      return this.tableViewer.getStructuredSelection().size();
+    }
+
+    private void createLabels(final Composite parent) {
+      final Composite labels = new Composite(parent, SWT.NONE);
+
+      GridLayoutFactory.fillDefaults().numColumns(2).applyTo(labels);
+
+      this.listLabel = new Label(labels, SWT.NONE);
+      this.listLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
+
+      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.listLabel);
+      GridDataFactory.fillDefaults().grab(true, false).applyTo(labels);
+    }
+
+    private void createViewer(final Composite parent) {
+      this.tableViewer = new TableViewer(parent, (this.multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
+          | SWT.V_SCROLL | SWT.FULL_SELECTION);
+      GridDataFactory.fillDefaults()
+          .grab(true, true)
+          .hint(SWT.DEFAULT, this.tableViewer.getTable().getItemHeight() * 15)
+          .applyTo(this.tableViewer.getTable());
+
+      this.tableViewer.addSelectionChangedListener(event -> {
+        handleSelected((StructuredSelection) event.getSelection());
+        fireSelectedElementsChanged();
+      });
+      this.tableViewer.setContentProvider(getResultContentProvider());
+      this.tableViewer.addDoubleClickListener(event -> okPressed());
+      configureDefaultResultViewer(tableViewer);
+    }
+
+  }
+
+  private final class SearchJob extends Job {
+    private final F filter;
+    private boolean isResultComplete;
+    private Exception searchJobException;
+    private SearchResultObject searchResult;
+
+    public SearchJob(final F filter) {
+      super(AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_Searching_xmsg));
+      setSystem(true);
+      this.filter = filter;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == null || !(obj instanceof SearchSelectionDialog.SearchJob)) {
+        return false;
+      }
+      return ((SearchSelectionDialog<R, F>.SearchJob) obj).filter.equals(this.filter);
+    }
+
+    public F getFilter() {
+      return this.filter;
+    }
+
+    public Exception getResultException() {
+      return this.searchJobException;
+    }
+
+    /**
+     * @return the search result
+     */
+    public SearchResultObject getSearchResult() {
+      return this.searchResult;
+    }
+
+    public boolean isResultValid() {
+      if (this.searchResult == null || !this.isResultComplete) {
+        return false;
+      }
+      return true;
+    }
+
+    @Override
+    protected IStatus run(final IProgressMonitor monitor) {
+      try {
+        this.searchResult = performSearch(this.filter, monitor);
+      } catch (final CoreException e) {
+        this.searchJobException = e;
+      }
+      return this.searchJobException != null ? Status.CANCEL_STATUS : Status.OK_STATUS;
+    }
+  }
+
   @Override
   public boolean close() {
     if (this.contextMenuManager != null) {
@@ -157,6 +425,18 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
   protected void computeResult() {
     setResult(getSelectedItems());
+  }
+
+  /**
+   * Configures of default table viewer.<br>
+   * Default implementation does nothing. Subclasses may override. <br>
+   * <br>
+   *
+   * <strong>Note</strong>: if a custom result part was set this method will not be called
+   *
+   * @param tableViewer the table viewer of the result part
+   */
+  protected void configureDefaultResultViewer(final TableViewer tableViewer) {
   }
 
   @Override
@@ -645,273 +925,6 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       } else {
         detailViewer.setInput(selection.getFirstElement());
       }
-    }
-  }
-
-  public final class SearchResultObject {
-    private final boolean resultComplete;
-    private final List<R> resultObjects;
-
-    public SearchResultObject(final List<R> resultObjects, final boolean resultComplete) {
-      this.resultObjects = resultObjects == null ? new ArrayList<>() : resultObjects;
-      this.resultComplete = resultComplete;
-    }
-
-    @Override
-    public String toString() {
-      final StringBuilder sb = new StringBuilder("is complete: "); //$NON-NLS-1$
-      sb.append(isResultComplete());
-      sb.append(", result: "); //$NON-NLS-1$
-      sb.append(this.resultObjects);
-      return sb.toString();
-    }
-
-    protected List<R> getResultObjects() {
-      return this.resultObjects;
-    }
-
-    protected boolean isResultComplete() {
-      return this.resultComplete;
-    }
-  }
-
-  protected final class SearchResult {
-    private final R result;
-
-    public SearchResult(final R result) {
-      this.result = result;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(final Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (!(o instanceof SearchSelectionDialog.SearchResult)) {
-        return false;
-      }
-      final SearchSelectionDialog<R, F>.SearchResult other = (SearchSelectionDialog<R, F>.SearchResult) o;
-      if (this.result == null && other.result == null) {
-        return true;
-      }
-      if (this.result == null || other.result == null) {
-        return false;
-      }
-      return other.result.equals(this.result);
-    }
-
-    public R getResult() {
-      return this.result;
-    }
-
-    @Override
-    public int hashCode() {
-      return this.result == null ? 0 : this.result.hashCode();
-    }
-  }
-
-  private class FilterView implements IDialogFilterPart<String> {
-
-    private Label headerLabel;
-    private Text pattern;
-
-    @Override
-    public void createUI(final Composite parent) {
-      createFilterHeader(parent);
-      createFilter(parent);
-
-      SWTUtil.setLabelForControl(this.headerLabel, this.pattern);
-    }
-
-    @Override
-    public String getFilter() {
-      if (this.pattern != null && !this.pattern.isDisposed()) {
-        return this.pattern.getText();
-      }
-      return null;
-    }
-
-    @Override
-    public Control[] getFilterControls() {
-      return new Control[] { this.pattern };
-    }
-
-    @Override
-    public boolean isFilterEmpty() {
-      if (this.pattern != null && !this.pattern.isDisposed()) {
-        return StringUtil.isEmpty(this.pattern.getText());
-      }
-      return true;
-    }
-
-    @Override
-    public void setFilter(final String filter) {
-      if (this.pattern == null || this.pattern.isDisposed()) {
-        return;
-      }
-      this.pattern.setText(filter);
-    }
-
-    @Override
-    public void setFocus(final boolean selectText) {
-      this.pattern.setFocus();
-      if (selectText) {
-        this.pattern.setSelection(0, this.pattern.getText().length());
-      } else {
-        this.pattern.setSelection(this.pattern.getText().length());
-      }
-    }
-
-    private void createFilter(final Composite parent) {
-      this.pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.pattern);
-    }
-
-    private void createFilterHeader(final Composite parent) {
-      final Composite header = new Composite(parent, SWT.NONE);
-      GridLayoutFactory.fillDefaults().numColumns(2).applyTo(header);
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(header);
-
-      this.headerLabel = new Label(header, SWT.NONE);
-      this.headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
-          && SearchSelectionDialog.this.filterLabel.trim().length() > 0
-              ? SearchSelectionDialog.this.filterLabel
-              : Messages.SearchSelectionDialog_FilterLabel);
-      GridDataFactory.swtDefaults()
-          .align(SWT.FILL, SWT.CENTER)
-          .grab(true, false)
-          .applyTo(this.headerLabel);
-      // createViewMenu(header);
-    }
-
-  }
-
-  private class ResultView extends DialogResultPart {
-
-    private LabelViewer details;
-    private Label listLabel;
-    private final boolean multi;
-    private TableViewer tableViewer;
-
-    public ResultView(final boolean multi) {
-      this.multi = multi;
-      setDetailsLabelProvider(getDetailsLabelProvider());
-      setResultLabelProvider(getResultLabelProvider());
-    }
-
-    @Override
-    public ContentViewer getDetailViewer() {
-      return this.details;
-    }
-
-    @Override
-    public StructuredViewer getResultViewer() {
-      return this.tableViewer;
-    }
-
-    @Override
-    protected void createContent(final Composite parent) {
-      createLabels(parent);
-      createViewer(parent);
-      createStatusLine(parent);
-      this.details = new LabelViewer(parent, SWT.BORDER | SWT.FLAT);
-      if (initialSelections != null) {
-        this.tableViewer.setSelection(new StructuredSelection(initialSelections));
-      }
-
-      SWTUtil.setLabelForControl(this.listLabel, this.tableViewer.getControl());
-    }
-
-    @Override
-    protected int getSelectedElementCount() {
-      if (this.tableViewer == null || this.tableViewer.getTable().isDisposed()) {
-        return 0;
-      }
-      return this.tableViewer.getStructuredSelection().size();
-    }
-
-    private void createLabels(final Composite parent) {
-      final Composite labels = new Composite(parent, SWT.NONE);
-
-      GridLayoutFactory.fillDefaults().numColumns(2).applyTo(labels);
-
-      this.listLabel = new Label(labels, SWT.NONE);
-      this.listLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
-
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.listLabel);
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(labels);
-    }
-
-    private void createViewer(final Composite parent) {
-      this.tableViewer = new TableViewer(parent, (this.multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
-          | SWT.V_SCROLL);
-      GridDataFactory.fillDefaults()
-          .grab(true, true)
-          .hint(SWT.DEFAULT, this.tableViewer.getTable().getItemHeight() * 15)
-          .applyTo(this.tableViewer.getTable());
-
-      this.tableViewer.addSelectionChangedListener(event -> {
-        handleSelected((StructuredSelection) event.getSelection());
-        fireSelectedElementsChanged();
-      });
-      this.tableViewer.setContentProvider(getResultContentProvider());
-      this.tableViewer.addDoubleClickListener(event -> okPressed());
-    }
-
-  }
-
-  private final class SearchJob extends Job {
-    private final F filter;
-    private boolean isResultComplete;
-    private Exception searchJobException;
-    private SearchResultObject searchResult;
-
-    public SearchJob(final F filter) {
-      super(AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_Searching_xmsg));
-      setSystem(true);
-      this.filter = filter;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj == null || !(obj instanceof SearchSelectionDialog.SearchJob)) {
-        return false;
-      }
-      return ((SearchSelectionDialog<R, F>.SearchJob) obj).filter.equals(this.filter);
-    }
-
-    public F getFilter() {
-      return this.filter;
-    }
-
-    public Exception getResultException() {
-      return this.searchJobException;
-    }
-
-    /**
-     * @return the search result
-     */
-    public SearchResultObject getSearchResult() {
-      return this.searchResult;
-    }
-
-    public boolean isResultValid() {
-      if (this.searchResult == null || !this.isResultComplete) {
-        return false;
-      }
-      return true;
-    }
-
-    @Override
-    protected IStatus run(final IProgressMonitor monitor) {
-      try {
-        this.searchResult = performSearch(this.filter, monitor);
-      } catch (final CoreException e) {
-        this.searchJobException = e;
-      }
-      return this.searchJobException != null ? Status.CANCEL_STATUS : Status.OK_STATUS;
     }
   }
 }
