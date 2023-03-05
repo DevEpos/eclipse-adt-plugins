@@ -141,15 +141,12 @@
                value="com.sap.adt.abapnature">
          </filter>
          <enabledWhen>
-            <and>
-               <adapt
-                     type="org.eclipse.core.resources.IProject">
-               </adapt>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
                <test
                      property="com.devepos.adt.base.ui.project.pluginsWithPropertyPagesAvailable">
                </test>
-            </and>
-            
+            </adapt>
          </enabledWhen>
       </page>
    </extension>
