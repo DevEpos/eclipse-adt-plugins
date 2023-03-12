@@ -31,6 +31,7 @@ Require-Bundle: com.devepos.adt.base,
  org.eclipse.search,
  org.eclipse.ui.ide,
  org.eclipse.text,
+ org.eclipse.debug.ui,
  com.sap.adt.ris.search
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.tools.base.ui

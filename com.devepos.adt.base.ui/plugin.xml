@@ -25,6 +25,13 @@
                  type="com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode">
            </adapter>
         </factory>
+        <factory
+              adaptableType="com.devepos.adt.base.ui.tree.launchable.ILaunchableNode"
+              class="com.devepos.adt.base.ui.internal.LaunchableAdapterFactory">
+           <adapter
+                 type="org.eclipse.debug.ui.actions.ILaunchable">
+           </adapter>
+        </factory>
    </extension>
    <extension
            point="org.eclipse.core.expressions.propertyTesters">
