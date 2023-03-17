@@ -262,7 +262,7 @@
         <details key="documentation" value="Converts message type to status type"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MesssageType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//MessageType">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="type"/>
@@ -293,7 +293,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="MesssageType">
+  <eClassifiers xsi:type="ecore:EEnum" name="MessageType">
     <eLiterals name="NONE" literal="NONE"/>
     <eLiterals name="INFO" value="1" literal="INFO"/>
     <eLiterals name="WARNING" value="2" literal="WARNING"/>

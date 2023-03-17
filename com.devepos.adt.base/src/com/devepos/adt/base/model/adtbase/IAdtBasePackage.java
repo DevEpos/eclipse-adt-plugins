@@ -535,16 +535,16 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_PLUGIN_FEATURE_CATEGORY = 8;
 
   /**
-   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.MesssageType <em>Messsage
+   * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.MessageType <em>Message
    * Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see com.devepos.adt.base.model.adtbase.MesssageType
-   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMesssageType()
+   * @see com.devepos.adt.base.model.adtbase.MessageType
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMessageType()
    * @generated
    */
-  int MESSSAGE_TYPE = 9;
+  int MESSAGE_TYPE = 9;
 
   /**
    * The meta object id for the '<em>IAdt Plugin Features</em>' data type. <!--
@@ -986,16 +986,16 @@ public interface IAdtBasePackage extends EPackage {
   EEnum getAdtPluginFeatureCategory();
 
   /**
-   * Returns the meta object for enum '{@link com.devepos.adt.base.model.adtbase.MesssageType
-   * <em>Messsage Type</em>}'.
+   * Returns the meta object for enum '{@link com.devepos.adt.base.model.adtbase.MessageType
+   * <em>Message Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for enum '<em>Messsage Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.MesssageType
+   * @return the meta object for enum '<em>Message Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.MessageType
    * @generated
    */
-  EEnum getMesssageType();
+  EEnum getMessageType();
 
   /**
    * Returns the meta object for data type
@@ -1366,16 +1366,16 @@ public interface IAdtBasePackage extends EPackage {
     EEnum ADT_PLUGIN_FEATURE_CATEGORY = eINSTANCE.getAdtPluginFeatureCategory();
 
     /**
-     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.MesssageType
-     * <em>Messsage Type</em>}' enum.
+     * The meta object literal for the '{@link com.devepos.adt.base.model.adtbase.MessageType
+     * <em>Message Type</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
-     * @see com.devepos.adt.base.model.adtbase.MesssageType
-     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMesssageType()
+     * @see com.devepos.adt.base.model.adtbase.MessageType
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMessageType()
      * @generated
      */
-    EEnum MESSSAGE_TYPE = eINSTANCE.getMesssageType();
+    EEnum MESSAGE_TYPE = eINSTANCE.getMessageType();
 
     /**
      * The meta object literal for the '<em>IAdt Plugin Features</em>' data type.

@@ -26,18 +26,18 @@ import org.eclipse.emf.ecore.EObject;
 public interface IResponseMessage extends EObject {
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
-   * The literals are from the enumeration {@link com.devepos.adt.base.model.adtbase.MesssageType}.
+   * The literals are from the enumeration {@link com.devepos.adt.base.model.adtbase.MessageType}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Type</em>' attribute.
-   * @see com.devepos.adt.base.model.adtbase.MesssageType
+   * @see com.devepos.adt.base.model.adtbase.MessageType
    * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getResponseMessage_Type()
    * @model suppressedSetVisibility="true"
    *        extendedMetaData="kind='attribute' name='type' namespace='##targetNamespace'"
    * @generated
    */
-  MesssageType getType();
+  MessageType getType();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' attribute.

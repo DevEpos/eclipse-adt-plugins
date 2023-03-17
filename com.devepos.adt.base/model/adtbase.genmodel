@@ -20,11 +20,11 @@
       <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/RESPONSE_ATTRIBUTE"/>
       <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//AdtPluginFeatureCategory/URI_PARAMETER"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="adtbase.ecore#//MesssageType">
-      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/NONE"/>
-      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/INFO"/>
-      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/WARNING"/>
-      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MesssageType/ERROR"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="adtbase.ecore#//MessageType">
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MessageType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MessageType/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MessageType/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="adtbase.ecore#//MessageType/ERROR"/>
     </genEnums>
     <genDataTypes ecoreDataType="adtbase.ecore#//IAdtPluginFeatures"/>
     <genDataTypes ecoreDataType="adtbase.ecore#//IStatus"/>

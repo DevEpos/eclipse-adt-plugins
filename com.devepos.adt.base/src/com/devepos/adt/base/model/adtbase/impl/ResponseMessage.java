@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IResponseMessage;
-import com.devepos.adt.base.model.adtbase.MesssageType;
+import com.devepos.adt.base.model.adtbase.MessageType;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,7 +42,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    * @ordered
    */
-  protected static final MesssageType TYPE_EDEFAULT = MesssageType.NONE;
+  protected static final MessageType TYPE_EDEFAULT = MessageType.NONE;
 
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -53,7 +53,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    * @ordered
    */
-  protected MesssageType type = TYPE_EDEFAULT;
+  protected MessageType type = TYPE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
@@ -127,7 +127,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   @Override
-  public MesssageType getType() {
+  public MessageType getType() {
     return type;
   }
 
@@ -137,8 +137,8 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    *
    * @generated
    */
-  public void setType(final MesssageType newType) {
-    MesssageType oldType = type;
+  public void setType(final MessageType newType) {
+    MessageType oldType = type;
     type = newType == null ? TYPE_EDEFAULT : newType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.RESPONSE_MESSAGE__TYPE,
@@ -241,7 +241,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
     case IAdtBasePackage.RESPONSE_MESSAGE__TYPE:
-      setType((MesssageType) newValue);
+      setType((MessageType) newValue);
       return;
     case IAdtBasePackage.RESPONSE_MESSAGE__CONTENT:
       setContent((String) newValue);

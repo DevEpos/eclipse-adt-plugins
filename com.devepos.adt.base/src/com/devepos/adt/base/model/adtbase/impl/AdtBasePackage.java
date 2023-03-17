@@ -24,7 +24,7 @@ import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.model.adtbase.IResponseMessage;
 import com.devepos.adt.base.model.adtbase.IResponseMessageList;
 import com.devepos.adt.base.model.adtbase.IUser;
-import com.devepos.adt.base.model.adtbase.MesssageType;
+import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
@@ -105,7 +105,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    *
    * @generated
    */
-  private EEnum messsageTypeEEnum = null;
+  private EEnum messageTypeEEnum = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -552,8 +552,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   @Override
-  public EEnum getMesssageType() {
-    return messsageTypeEEnum;
+  public EEnum getMessageType() {
+    return messageTypeEEnum;
   }
 
   /**
@@ -652,7 +652,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     // Create enums
     adtPluginFeatureTypeEEnum = createEEnum(ADT_PLUGIN_FEATURE_TYPE);
     adtPluginFeatureCategoryEEnum = createEEnum(ADT_PLUGIN_FEATURE_CATEGORY);
-    messsageTypeEEnum = createEEnum(MESSSAGE_TYPE);
+    messageTypeEEnum = createEEnum(MESSAGE_TYPE);
 
     // Create data types
     iAdtPluginFeaturesEDataType = createEDataType(IADT_PLUGIN_FEATURES);
@@ -770,7 +770,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
 
     initEClass(responseMessageEClass, IResponseMessage.class, "ResponseMessage", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getResponseMessage_Type(), getMesssageType(), "type", null, 0, 1,
+    initEAttribute(getResponseMessage_Type(), getMessageType(), "type", null, 0, 1,
         IResponseMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResponseMessage_Content(), theXMLTypePackage.getString(), "content", null, 0,
@@ -806,11 +806,11 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.RESPONSE_ATTRIBUTE);
     addEEnumLiteral(adtPluginFeatureCategoryEEnum, AdtPluginFeatureCategory.URI_PARAMETER);
 
-    initEEnum(messsageTypeEEnum, MesssageType.class, "MesssageType");
-    addEEnumLiteral(messsageTypeEEnum, MesssageType.NONE);
-    addEEnumLiteral(messsageTypeEEnum, MesssageType.INFO);
-    addEEnumLiteral(messsageTypeEEnum, MesssageType.WARNING);
-    addEEnumLiteral(messsageTypeEEnum, MesssageType.ERROR);
+    initEEnum(messageTypeEEnum, MessageType.class, "MessageType");
+    addEEnumLiteral(messageTypeEEnum, MessageType.NONE);
+    addEEnumLiteral(messageTypeEEnum, MessageType.INFO);
+    addEEnumLiteral(messageTypeEEnum, MessageType.WARNING);
+    addEEnumLiteral(messageTypeEEnum, MessageType.ERROR);
 
     // Initialize data types
     initEDataType(iAdtPluginFeaturesEDataType, IAdtPluginFeatures.class, "IAdtPluginFeatures",

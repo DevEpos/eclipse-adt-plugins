@@ -21,7 +21,7 @@ import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.model.adtbase.IResponseMessage;
 import com.devepos.adt.base.model.adtbase.IResponseMessageList;
 import com.devepos.adt.base.model.adtbase.IUser;
-import com.devepos.adt.base.model.adtbase.MesssageType;
+import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
@@ -101,8 +101,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return createAdtPluginFeatureTypeFromString(eDataType, initialValue);
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
       return createAdtPluginFeatureCategoryFromString(eDataType, initialValue);
-    case IAdtBasePackage.MESSSAGE_TYPE:
-      return createMesssageTypeFromString(eDataType, initialValue);
+    case IAdtBasePackage.MESSAGE_TYPE:
+      return createMessageTypeFromString(eDataType, initialValue);
     case IAdtBasePackage.IADT_PLUGIN_FEATURES:
       return createIAdtPluginFeaturesFromString(eDataType, initialValue);
     case IAdtBasePackage.ISTATUS:
@@ -125,8 +125,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return convertAdtPluginFeatureTypeToString(eDataType, instanceValue);
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
       return convertAdtPluginFeatureCategoryToString(eDataType, instanceValue);
-    case IAdtBasePackage.MESSSAGE_TYPE:
-      return convertMesssageTypeToString(eDataType, instanceValue);
+    case IAdtBasePackage.MESSAGE_TYPE:
+      return convertMessageTypeToString(eDataType, instanceValue);
     case IAdtBasePackage.IADT_PLUGIN_FEATURES:
       return convertIAdtPluginFeaturesToString(eDataType, instanceValue);
     case IAdtBasePackage.ISTATUS:
@@ -272,9 +272,9 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    *
    * @generated
    */
-  public MesssageType createMesssageTypeFromString(final EDataType eDataType,
+  public MessageType createMessageTypeFromString(final EDataType eDataType,
       final String initialValue) {
-    MesssageType result = MesssageType.get(initialValue);
+    MessageType result = MessageType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue
           + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -288,7 +288,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    *
    * @generated
    */
-  public String convertMesssageTypeToString(final EDataType eDataType, final Object instanceValue) {
+  public String convertMessageTypeToString(final EDataType eDataType, final Object instanceValue) {
     return instanceValue == null ? null : instanceValue.toString();
   }
 
