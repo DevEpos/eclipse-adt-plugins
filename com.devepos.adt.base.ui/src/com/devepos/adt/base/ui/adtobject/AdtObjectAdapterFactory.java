@@ -1,7 +1,6 @@
 package com.devepos.adt.base.ui.adtobject;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterFactory;
@@ -74,16 +73,18 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
       }
     } else if (adaptableObject instanceof IAdaptable) {
       IAdaptable adaptable = (IAdaptable) adaptableObject;
-      final IAdtObjectReference objRef = adaptable.getAdapter(IAdtObjectReference.class);
+      final var objRef = adaptable.getAdapter(IAdtObjectReference.class);
       if (objRef == null) {
         return null;
       }
-      final IProject project = adaptable.getAdapter(IProject.class);
-      if (project == null) {
+
+      var projectProvider = adaptable.getAdapter(IProjectProvider.class);
+      if (projectProvider == null || projectProvider.getProject() == null) {
         return null;
       }
       final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
-      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, project));
+      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, projectProvider
+          .getProject()));
     }
     return null;
   }
