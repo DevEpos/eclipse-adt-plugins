@@ -29,7 +29,6 @@ public interface IAdtObjectTypeConstants {
    * Global Workbench Type for Classes
    */
   String CLASS = "CLAS/OC";
-
   /**
    * Type for Include of a Global Class
    */
@@ -38,6 +37,14 @@ public interface IAdtObjectTypeConstants {
    * Type for a method implementation include
    */
   String METHOD_IMPLEMENTATION = "CLAS/OM";
+  /**
+   * Type for Local Class in Global Class
+   */
+  String LOCAL_CLASS = "CLAS/OCL";
+  /**
+   * Type for Local Interface in Global Class
+   */
+  String LOCAL_INTERFACE = "CLAS/ON";
   /**
    * Global Workbench Type for Interfaces
    */
