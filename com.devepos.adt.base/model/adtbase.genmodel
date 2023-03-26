@@ -36,6 +36,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/tadirType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/uri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/parentUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/parentName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/owner"/>
     </genClasses>
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRefList">

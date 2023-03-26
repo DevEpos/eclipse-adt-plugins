@@ -138,6 +138,16 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__PARENT_URI = 6;
 
   /**
+   * The feature id for the '<em><b>Parent Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__PARENT_NAME = 7;
+
+  /**
    * The feature id for the '<em><b>Owner</b></em>' attribute.
    * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
@@ -145,7 +155,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__OWNER = 7;
+  int ADT_OBJ_REF__OWNER = 8;
 
   /**
    * The number of structural features of the '<em>Adt Obj Ref</em>' class. <!--
@@ -154,7 +164,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF_FEATURE_COUNT = 8;
+  int ADT_OBJ_REF_FEATURE_COUNT = 9;
 
   /**
    * The number of operations of the '<em>Adt Obj Ref</em>' class. <!--
@@ -652,6 +662,19 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName <em>Parent Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ParentName();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -1104,6 +1127,15 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EAttribute ADT_OBJ_REF__PARENT_URI = eINSTANCE.getAdtObjRef_ParentUri();
+
+    /**
+     * The meta object literal for the '<em><b>Parent Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__PARENT_NAME = eINSTANCE.getAdtObjRef_ParentName();
 
     /**
      * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.

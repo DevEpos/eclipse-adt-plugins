@@ -268,13 +268,24 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtObjRef_ParentName() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public EAttribute getAdtObjRef_Owner() {
-    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(7);
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -617,6 +628,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__TADIR_TYPE);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__URI);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_URI);
+    createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_NAME);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__OWNER);
 
     adtObjRefListEClass = createEClass(ADT_OBJ_REF_LIST);
@@ -717,6 +729,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAdtObjRef_ParentUri(), theXMLTypePackage.getAnyURI(), "parentUri", null, 0, 1,
         IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtObjRef_ParentName(), theXMLTypePackage.getString(), "parentName", null, 0,
+        1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAdtObjRef_Owner(), theXMLTypePackage.getString(), "owner", null, 0, 1,
         IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
@@ -851,6 +866,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_ParentUri(), source, new String[] { "kind", "attribute", "name",
         "parentUri", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_ParentName(), source, new String[] { "kind", "attribute", "name",
+        "parentName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_Owner(), source, new String[] { "kind", "attribute", "name", "owner",
         "namespace", "##targetNamespace" });
     addAnnotation(adtObjRefListEClass, source, new String[] { "name", "adtObjRefs", "kind",

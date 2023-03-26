@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName <em>Parent Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}</li>
  * </ul>
  *
@@ -220,6 +221,38 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setParentUri(String value);
+
+  /**
+   * Returns the value of the '<em><b>Parent Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   *
+   * The logical name of the corresponding development
+   * object.
+   *
+   * <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Parent Name</em>' attribute.
+   * @see #setParentName(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentName()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='parentName' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentName();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName
+   * <em>Parent Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Name</em>' attribute.
+   * @see #getParentName()
+   * @generated
+   */
+  void setParentName(String value);
 
   /**
    * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--

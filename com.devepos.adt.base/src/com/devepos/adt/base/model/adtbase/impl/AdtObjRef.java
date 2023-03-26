@@ -28,6 +28,8 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getUri <em>Uri</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentUri <em>Parent
  * Uri</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentName <em>Parent
+ * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner <em>Owner</em>}</li>
  * </ul>
  *
@@ -173,6 +175,28 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected String parentUri = PARENT_URI_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getParentName() <em>Parent Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentName()
+   * @generated
+   * @ordered
+   */
+  protected static final String PARENT_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentName() <em>Parent Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentName()
+   * @generated
+   * @ordered
+   */
+  protected String parentName = PARENT_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getOwner() <em>Owner</em>}' attribute. <!--
@@ -364,6 +388,33 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getParentName() {
+    return parentName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setParentName(final String newParentName) {
+    String oldParentName = parentName;
+    parentName = newParentName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_OBJ_REF__PARENT_NAME, oldParentName, parentName));
+    }
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -435,6 +486,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return getUri();
     case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
       return getParentUri();
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_NAME:
+      return getParentName();
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       return getOwner();
     }
@@ -469,6 +522,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return;
     case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
       setParentUri((String) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_NAME:
+      setParentName((String) newValue);
       return;
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner((String) newValue);
@@ -506,6 +562,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
       setParentUri(PARENT_URI_EDEFAULT);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_NAME:
+      setParentName(PARENT_NAME_EDEFAULT);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner(OWNER_EDEFAULT);
       return;
@@ -539,6 +598,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__PARENT_URI:
       return PARENT_URI_EDEFAULT == null ? parentUri != null
           : !PARENT_URI_EDEFAULT.equals(parentUri);
+    case IAdtBasePackage.ADT_OBJ_REF__PARENT_NAME:
+      return PARENT_NAME_EDEFAULT == null ? parentName != null
+          : !PARENT_NAME_EDEFAULT.equals(parentName);
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       return OWNER_EDEFAULT == null ? owner != null : !OWNER_EDEFAULT.equals(owner);
     }
@@ -571,6 +633,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     result.append(uri);
     result.append(", parentUri: ");
     result.append(parentUri);
+    result.append(", parentName: ");
+    result.append(parentName);
     result.append(", owner: ");
     result.append(owner);
     result.append(')');
