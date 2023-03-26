@@ -18,6 +18,11 @@ public class LaunchableAdtObjectReferenceNode extends AdtObjectReferenceNode imp
   }
 
   public LaunchableAdtObjectReferenceNode(final String name, final String displayName,
+      final String description, final IAdtObjectReference objectReference) {
+    this(name, displayName, description, objectReference, null);
+  }
+
+  public LaunchableAdtObjectReferenceNode(final String name, final String displayName,
       final String description, final IAdtObjectReference adtObjectReference,
       final ICollectionTreeNode collection) {
     super(name, displayName, description, adtObjectReference, collection);

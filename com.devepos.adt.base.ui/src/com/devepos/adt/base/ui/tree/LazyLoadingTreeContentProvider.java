@@ -45,7 +45,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
     boolean shouldExpandNode(ITreeNode node);
   }
 
-  private TreeViewer viewer;
+  protected TreeViewer viewer;
   private final int refreshModeExpansionLevel;
   private final LazyLoadingRefreshMode refreshMode;
   private IExpanderCheckFunction expansionCheck;
@@ -158,6 +158,17 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
   @Override
   public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
     this.viewer = (TreeViewer) viewer;
+  }
+
+  protected void refreshViewer() {
+    if (viewer == null) {
+      return;
+    }
+    var tree = viewer.getTree();
+    if (tree == null || tree.isDisposed()) {
+      return;
+    }
+    viewer.refresh();
   }
 
   /**

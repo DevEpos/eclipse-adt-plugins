@@ -8,6 +8,7 @@ import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoCollection;
 import com.devepos.adt.base.elementinfo.ILazyLoadingElementInfo;
 import com.devepos.adt.base.ui.elementinfo.IExecutableElementInfo;
+import com.devepos.adt.base.ui.tree.launchable.ILaunchableNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchableAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchableLazyLoadingAdtObjectReferenceNode;
 
@@ -175,6 +176,7 @@ public class TreeNodeCreator {
   }
 
   private boolean isNodeLaunchable(final IAdtObjectReferenceElementInfo adtObjElementInfo) {
-    return Boolean.TRUE.toString().equals(adtObjElementInfo.getPropertyValue("LAUNCHABLE"));
+    return Boolean.TRUE.toString()
+        .equals(adtObjElementInfo.getPropertyValue(ILaunchableNode.class.getName()));
   }
 }
