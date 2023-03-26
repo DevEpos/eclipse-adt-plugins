@@ -10,7 +10,7 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<properties>
-		<tycho-version>2.7.0</tycho-version>
+		<tycho-version>2.7.5</tycho-version>
 	</properties>
 	<build>
 		<pluginManagement>
