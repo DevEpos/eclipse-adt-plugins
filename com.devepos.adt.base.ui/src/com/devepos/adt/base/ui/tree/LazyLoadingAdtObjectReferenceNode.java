@@ -4,9 +4,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
+import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
+import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
@@ -68,13 +74,22 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   }
 
   @Override
-  public void loadChildren() {
+  public void loadChildren() throws CoreException {
     isLoading = true;
-    loadChildrenInternal();
+    CoreException loadingError = null;
+    try {
+      loadChildrenInternal();
+    } catch (CoreException exc) {
+      loadingError = exc;
+    }
     isLoading = false;
     isLoaded = true;
     for (final ILazyLoadingListener l : lazyLoadingListeners) {
       l.loadingFinished(children != null ? children.size() : 0);
+    }
+
+    if (loadingError != null) {
+      throw loadingError;
     }
   }
 
@@ -101,17 +116,23 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   /**
    * Internal logic for loading the child nodes of this tree node
    */
-  protected void loadChildrenInternal() {
+  protected void loadChildrenInternal() throws CoreException {
     if (provider == null) {
       return;
     }
-    final List<IElementInfo> elements = provider.getElements();
-    if (elements == null || elements.isEmpty()) {
-      return;
-    }
+    try {
+      final List<IElementInfo> elements = provider.getElements();
+      if (elements == null || elements.isEmpty()) {
+        return;
+      }
 
-    // create the sub nodes
-    new TreeNodeCreator(this).createSubNodes(elements);
+      // create the sub nodes
+      new TreeNodeCreator(this).createSubNodes(elements);
+    } catch (Throwable t) {
+      addChild(new LoadingErrorNode(this, Messages.LazyLoadingNode_ErrorDuringLoading_xmsg, t));
+      throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t.getMessage(),
+          t));
+    }
   }
 
   @Override

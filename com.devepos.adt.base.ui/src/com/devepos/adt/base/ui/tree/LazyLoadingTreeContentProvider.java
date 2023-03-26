@@ -21,6 +21,7 @@ import org.eclipse.ui.progress.WorkbenchJob;
 import com.devepos.adt.base.elementinfo.ILazyLoadableContent;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
 import com.devepos.adt.base.ui.internal.messages.Messages;
+import com.devepos.adt.base.util.ObjectContainer;
 
 /**
  * Tree content provider which implements a lazy loading mechanism to fetch
@@ -176,9 +177,11 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
     @Override
     public void run(final IProgressMonitor monitor) throws CoreException {
+      var wrappedLoadingError = new ObjectContainer<CoreException>(null);
       try {
         lazyLoadingNode.loadChildren();
-      } catch (final Throwable t) {
+      } catch (final CoreException exc) {
+        wrappedLoadingError.setObject(exc);
       }
       monitor.done();
       final WorkbenchJob treeUpdateJob = new WorkbenchJob(display,
@@ -194,6 +197,10 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
           viewer.refresh(lazyLoadingNode);
           refreshLazyNode();
           monitor.done();
+          var loadingError = wrappedLoadingError.getObject();
+          if (loadingError != null) {
+            return loadingError.getStatus();
+          }
           return Status.OK_STATUS;
         }
       };

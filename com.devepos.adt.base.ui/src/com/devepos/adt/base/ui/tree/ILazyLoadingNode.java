@@ -1,5 +1,7 @@
 package com.devepos.adt.base.ui.tree;
 
+import org.eclipse.core.runtime.CoreException;
+
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.ILazyLoadableContent;
 
@@ -22,8 +24,10 @@ public interface ILazyLoadingNode extends ICollectionTreeNode, ILazyLoadableCont
 
   /**
    * Loads the child nodes of the node
+   * 
+   * @throws CoreException
    */
-  void loadChildren();
+  void loadChildren() throws CoreException;
 
   /**
    * @return <code>true</code> if this node is currently loading it's content

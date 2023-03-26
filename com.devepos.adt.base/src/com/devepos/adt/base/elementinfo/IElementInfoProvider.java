@@ -2,6 +2,8 @@ package com.devepos.adt.base.elementinfo;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+
 /**
  * Provider for Retrieving element information
  *
@@ -15,7 +17,7 @@ public interface IElementInfoProvider {
    *
    * @return
    */
-  List<IElementInfo> getElements();
+  List<IElementInfo> getElements() throws CoreException;
 
   /**
    * Returns a descriptive text for the element information provider

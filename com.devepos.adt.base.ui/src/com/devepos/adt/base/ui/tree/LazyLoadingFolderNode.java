@@ -5,11 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
+import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
+import com.devepos.adt.base.ui.internal.messages.Messages;
 
 /**
  * Simple folder node that supports lazy loading
@@ -83,18 +88,29 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
-  public void loadChildren() {
+  public void loadChildren() throws CoreException {
     isLoading = true;
-    final List<IElementInfo> elementInfos = provider.getElements();
+    CoreException loadingError = null;
+    try {
+      final List<IElementInfo> elementInfos = provider.getElements();
 
-    if (elementInfos != null) {
-      // create the sub nodes
-      new TreeNodeCreator(this).createSubNodes(elementInfos);
+      if (elementInfos != null) {
+        // create the sub nodes
+        new TreeNodeCreator(this).createSubNodes(elementInfos);
+      }
+    } catch (Throwable t) {
+      addChild(new LoadingErrorNode(this, Messages.LazyLoadingNode_ErrorDuringLoading_xmsg, t));
+      loadingError = new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t
+          .getMessage(), t));
     }
     isLoading = false;
     isLoaded = true;
     for (final ILazyLoadingListener l : lazyLoadingListeners) {
       l.loadingFinished(children != null ? children.size() : 0);
+    }
+
+    if (loadingError != null) {
+      throw loadingError;
     }
   }
 
