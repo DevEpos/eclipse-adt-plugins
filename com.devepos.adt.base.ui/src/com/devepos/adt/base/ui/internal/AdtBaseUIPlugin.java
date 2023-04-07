@@ -47,6 +47,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
 
   @Override
   protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
+    registerImage(imageRegistry, IAdtBaseImages.CHECK_ALL, "icons/CheckAll.png");
+    registerImage(imageRegistry, IAdtBaseImages.UNCHECK_ALL, "icons/UncheckAll.png");
     registerImage(imageRegistry, IAdtBaseImages.HISTORY_LIST, "icons/HistoryList.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_DOWN, "icons/ArrowDown.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_UP, "icons/ArrowUp.png");

@@ -160,4 +160,12 @@ public interface IAdtBaseImages {
    * Image for history list command
    */
   String HISTORY_LIST = "IMG_HISTORY_LIST";
+  /**
+   * Image for unchecking all items in e.g. a checkbox viewer
+   */
+  String UNCHECK_ALL = "IMG_UNCHECK_ALL";
+  /**
+   * Image for checking all items in e.g. a checkbox viewer
+   */
+  String CHECK_ALL = "IMG_CHECK_ALL";
 }
