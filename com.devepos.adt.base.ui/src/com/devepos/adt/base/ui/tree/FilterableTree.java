@@ -13,7 +13,7 @@ import com.devepos.adt.base.ui.controls.FilterableComposite;
 /**
  * Filterable Tree
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  *
  */
 public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
@@ -36,6 +36,23 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   }
 
   /**
+   * Creates new Filtered Tree control.<br/>
+   * It is a composite control comprised of a {@link Text} and {@link Tree}
+   * control
+   *
+   * @param parent             the parent
+   * @param placeholderText    the placeholder text for the filter input
+   * @param hideFilterControls if {@code true} the filter controls are hidden
+   *                           initially
+   * @param enableToolbarMode  if {@code true} then the filter control will not occupy the fullwidth
+   *                           of the viewer
+   */
+  public FilterableTree(final Composite parent, final String placeholderText,
+      final boolean hideFilterControls, boolean enableToolbarMode) {
+    super(parent, placeholderText, hideFilterControls, enableToolbarMode);
+  }
+
+  /**
    * Sets field {@code expandAllOnEmptyFilter}. <br>
    * If {@code true} all nodes of the tree are expanded if the filter
    *
@@ -43,6 +60,11 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
    */
   public void setExpandAllOnFilterEmpty(final boolean expandAllOnEmptyFilter) {
     this.expandAllOnEmptyFilter = expandAllOnEmptyFilter;
+  }
+
+  @Override
+  protected void beforeUpdatingSelection() {
+    viewer.expandAll();
   }
 
   @Override
@@ -57,11 +79,6 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   }
 
   @Override
-  protected void beforeUpdatingSelection() {
-    viewer.expandAll();
-  }
-
-  @Override
   protected Tree getViewerControl() {
     return viewer != null ? viewer.getTree() : null;
   }
@@ -69,6 +86,14 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   @Override
   protected int getViewerItemsCount() {
     return viewerControl != null ? viewerControl.getItemCount() : 0;
+  }
+
+  @Override
+  protected void selectFirstItem() {
+    if (viewerControl.getItemCount() > 0) {
+      viewerControl.setSelection(viewerControl.getItem(0));
+      viewer.setSelection(viewer.getSelection(), true);
+    }
   }
 
   @Override
@@ -83,14 +108,6 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
       if (item != null) {
         viewer.setSelection(new StructuredSelection(item), true);
       }
-    }
-  }
-
-  @Override
-  protected void selectFirstItem() {
-    if (viewerControl.getItemCount() > 0) {
-      viewerControl.setSelection(viewerControl.getItem(0));
-      viewer.setSelection(viewer.getSelection(), true);
     }
   }
 
