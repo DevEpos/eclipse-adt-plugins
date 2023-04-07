@@ -25,5 +25,11 @@ public interface IAdtBaseStrings {
   String CollapseTree_xlbl = "CollapseTree_xlbl";
   String ExpandTree_xlbl = "ExpandTree_xlbl";
 
+  String SelectAll_xlbl = "SelectAll_xlbl";
+  String DeselectAll_xlbl = "DeselectAll_xlbl";
+
+  String CheckAll_xlbl = "CheckAll_xlbl";
+  String UncheckAll_xlbl = "UncheckAll_xlbl";
+
   String Destinations_DestinationNotValid_xmsg = "Destinations_DestinationNotValid_xmsg";
 }
