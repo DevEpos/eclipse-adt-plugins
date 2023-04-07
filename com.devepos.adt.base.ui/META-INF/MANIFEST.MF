@@ -82,6 +82,11 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.base.ui.test",
  com.devepos.adt.base.ui.search.contentassist;x-friends:="com.devepos.adt.codesearch.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.base.ui.test",
  com.devepos.adt.base.ui.search.ext;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.ui.table;
+  x-friends:="com.devepos.adt.abaptags.ui,
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.codesearch.ui,
+   com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.tree;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
