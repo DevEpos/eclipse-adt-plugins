@@ -4,7 +4,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -21,14 +20,9 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   private boolean expandAllOnEmptyFilter = true;
 
   /**
-   * Creates new Filtered Tree control.<br/>
-   * It is a composite control comprised of a {@link Text} and {@link Tree}
-   * control
-   *
-   * @param parent             the parent
-   * @param placeholderText    the placeholder text for the filter input
-   * @param hideFilterControls if {@code true} the filter controls are hidden
-   *                           initially
+   * Creates new Filtered Tree control.
+   * 
+   * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean)
    */
   public FilterableTree(final Composite parent, final String placeholderText,
       final boolean hideFilterControls) {
@@ -36,16 +30,9 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   }
 
   /**
-   * Creates new Filtered Tree control.<br/>
-   * It is a composite control comprised of a {@link Text} and {@link Tree}
-   * control
-   *
-   * @param parent             the parent
-   * @param placeholderText    the placeholder text for the filter input
-   * @param hideFilterControls if {@code true} the filter controls are hidden
-   *                           initially
-   * @param enableToolbarMode  if {@code true} then the filter control will not occupy the fullwidth
-   *                           of the viewer
+   * Creates new Filtered Tree control.
+   * 
+   * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean, boolean)
    */
   public FilterableTree(final Composite parent, final String placeholderText,
       final boolean hideFilterControls, boolean enableToolbarMode) {

@@ -17,11 +17,7 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
   /**
    * Creates a new filterable Table control
    * 
-   * @param parent             the parent composite
-   * @param placeholderText    the placeholder text for the filter control
-   * @param hideFilterControls flag to control initial visibility of the filter control
-   * @param enableToolbarMode  if {@code true} then the filter control will not occupy the fullwidth
-   *                           of the viewer
+   * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean, boolean)}
    * 
    */
   public FilterableTable(Composite parent, String placeholderText, boolean hideFilterControls,
