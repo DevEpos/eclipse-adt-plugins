@@ -17,6 +17,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.progress.UIJob;
 
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+
 /**
  * Composite with a hideable filter text at the top and a {@link ColumnViewer}
  * which fills the rest of the space.
@@ -49,7 +52,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    * {@link ColumnViewer} control
    *
    * @param parent             the parent
-   * @param placeholderText    the placeholder text for the filter input
+   * @param placeholderText    the placeholder text for the filter input. If {@code null} a default
+   *                           filter text will be used
    * @param hideFilterControls if {@code true} the filter controls are initially
    *                           hidden
    */
@@ -64,7 +68,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    * {@link ColumnViewer} control
    *
    * @param parent             the parent
-   * @param placeholderText    the placeholder text for the filter input
+   * @param placeholderText    the placeholder text for the filter input. If {@code null} a default
+   *                           filter text will be used
    * @param hideFilterControls if {@code true} the filter controls are initially
    *                           hidden
    * @param enableToolbarMode  if {@code true} then the filter control will not occupy the full
@@ -74,7 +79,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
       final boolean hideFilterControls, final boolean enableToolbarMode) {
     super(parent, SWT.NONE);
 
-    filterPlaceHolderText = placeholderText;
+    filterPlaceHolderText = placeholderText != null ? placeholderText
+        : AdtBaseUIResources.getString(IAdtBaseStrings.FilterPlaceHolder_xmsg);
     filterJob = createFilterJob();
     this.toolbarMode = enableToolbarMode;
     createControl(parent);

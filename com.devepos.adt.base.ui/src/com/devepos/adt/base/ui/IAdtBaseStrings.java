@@ -21,6 +21,7 @@ public interface IAdtBaseStrings {
   String Refresh = "Refresh";
   String Menu = "Menu";
   String Remove = "Remove";
+  String FilterPlaceHolder_xmsg = "FilterPlaceHolder_xmsg";
 
   String CollapseTree_xlbl = "CollapseTree_xlbl";
   String ExpandTree_xlbl = "ExpandTree_xlbl";
