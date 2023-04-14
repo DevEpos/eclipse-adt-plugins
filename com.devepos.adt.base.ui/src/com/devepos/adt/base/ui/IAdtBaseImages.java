@@ -168,4 +168,12 @@ public interface IAdtBaseImages {
    * Image for checking all items in e.g. a checkbox viewer
    */
   String CHECK_ALL = "IMG_CHECK_ALL";
+  /**
+   * Image for checking a selected item
+   */
+  String CHECK = "IMG_CHECK";
+  /**
+   * Image for unchecking a selected item
+   */
+  String UNCHECK = "IMG_UCHECK";
 }
