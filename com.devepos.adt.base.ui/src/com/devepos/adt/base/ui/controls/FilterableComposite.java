@@ -419,11 +419,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
     filterText = new Text(filterComposite, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
     if (toolbarMode) {
-      GridDataFactory.fillDefaults()
-          .hint(250, SWT.DEFAULT)
-          .align(SWT.END, SWT.FILL)
-          .grab(true, false)
-          .applyTo(filterText);
+      GridDataFactory.fillDefaults().hint(250, SWT.DEFAULT).grab(true, false).applyTo(filterText);
     } else {
       GridDataFactory.fillDefaults().grab(true, false).applyTo(filterText);
     }
