@@ -176,4 +176,14 @@ public interface IAdtBaseImages {
    * Image for unchecking a selected item
    */
   String UNCHECK = "IMG_UCHECK";
+  /**
+   * Image for searching/browsing/opening an ABAP Repository Object<br>
+   * Used in the Strg+Shift+A Dialog
+   */
+  String OPEN_ABAP_REPO_TYPE = "IMG_OPEN_ABAP_REPO_TYPE";
+  /**
+   * Image for deleting a row in a viewer control<br>
+   * Imported from com.sap.adt.ddic.ui plug-in
+   */
+  String DELETE_ROW = "IMG_DELETE_ROW";
 }
