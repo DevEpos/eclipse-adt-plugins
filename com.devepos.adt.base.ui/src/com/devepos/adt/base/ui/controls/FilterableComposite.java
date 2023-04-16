@@ -19,6 +19,7 @@ import org.eclipse.ui.progress.UIJob;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.event.KeyEventUtil;
 
 /**
  * Composite with a hideable filter text at the top and a {@link ColumnViewer}
@@ -153,6 +154,23 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
   }
 
+  /**
+   * Adds key listener to viewer control to set the focus on the filter field
+   */
+  public void addKeyListenerForFilterFocus() {
+    if (viewerControl == null || viewerControl.isDisposed()) {
+      return;
+    }
+    viewerControl.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (KeyEventUtil.isDefaultFindKeyStroke(e)) {
+          setFocusToFilter();
+        }
+      }
+    });
+  }
+
   public Composite getFilterComposite() {
     return filterComposite;
   }
@@ -242,6 +260,15 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
       }
     } else if (viewerControl != null && !viewerControl.isFocusControl()) {
       viewerControl.setFocus();
+    }
+  }
+
+  /**
+   * Sets focus to the filter control - if it is visible
+   */
+  public void setFocusToFilter() {
+    if (isFilterVisible && filterText != null && !filterText.isDisposed()) {
+      filterText.setFocus();
     }
   }
 
@@ -412,7 +439,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   private void createFilterText(final Composite parent) {
     filterComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.swtDefaults()
-        .margins(0, 0)
+        .margins(toolbarMode ? 0 : 5, 0)
         .numColumns(toolbarMode ? 2 : 1)
         .applyTo(filterComposite);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(filterComposite);
