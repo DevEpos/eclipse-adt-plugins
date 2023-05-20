@@ -20,4 +20,4 @@ Display the call hierarchy for a
 ## Preconditions
 
 - The ABAP Development Tools Plugin is installed [ADT Plugin](https://tools.hana.ondemand.com/)
-- The ADT Backend for the _ABAP Call Hierarchy_ is installed [abap-call-hierarchy](https://github.com/stockbal/abap-call-hierarchy)
+- The ADT Backend for the _ABAP Call Hierarchy_ is installed [abap-call-hierarchy](https://github.com/DevEpos/abap-call-hierarchy)
