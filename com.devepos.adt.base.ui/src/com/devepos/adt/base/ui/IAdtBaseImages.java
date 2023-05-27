@@ -23,6 +23,10 @@ public interface IAdtBaseImages {
    */
   String REFRESH = "IMG_REFRESH";
   /**
+   * Image for Continue action
+   */
+  String CONTINUE = "IMG_CONTINUE";
+  /**
    * Image for Import action
    */
   String IMPORT = "IMG_IMPORT";

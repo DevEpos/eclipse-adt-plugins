@@ -56,6 +56,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IAdtBaseImages.HISTORY_LIST, "icons/HistoryList.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_DOWN, "icons/ArrowDown.png");
     registerImage(imageRegistry, IAdtBaseImages.ARROW_UP, "icons/ArrowUp.png");
+    registerImage(imageRegistry, IAdtBaseImages.CONTINUE, "icons/Continue.png");
     registerImage(imageRegistry, IAdtBaseImages.REFRESH, "icons/full/elcl16/refresh.png",
         "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.EXPORT, "icons/full/etool16/export_wiz.png",
