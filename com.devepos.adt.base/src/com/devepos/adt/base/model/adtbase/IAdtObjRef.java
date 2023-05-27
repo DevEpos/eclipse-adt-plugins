@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription
  * <em>Description</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName <em>Alternative
+ * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package
  * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}</li>
@@ -100,6 +102,32 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Alternative Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Alternative Name</em>' attribute.
+   * @see #setAlternativeName(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_AlternativeName()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='alternativeName' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getAlternativeName();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName
+   * <em>Alternative Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Alternative Name</em>' attribute.
+   * @see #getAlternativeName()
+   * @generated
+   */
+  void setAlternativeName(String value);
 
   /**
    * Returns the value of the '<em><b>Package Name</b></em>' attribute. <!--
@@ -282,6 +310,26 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setOwner(String value);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Retrieves display name<br>
+   *
+   * Prio
+   * <ol>
+   * <li>Alternative Display Name</li>
+   *
+   * <li>Name</li>
+   *
+   * </ol>
+   * <!-- end-model-doc -->
+   *
+   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
+   * @generated
+   */
+  String getDisplayName();
 
   /**
    * Returns the value of the '<em><b>Tadir Type</b></em>' attribute. <!--

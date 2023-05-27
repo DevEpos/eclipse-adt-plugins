@@ -9,6 +9,11 @@
       <details key="name" value="adtObjRef"/>
       <details key="kind" value="elementOnly"/>
     </eAnnotations>
+    <eOperations name="getDisplayName" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Retrieves display name&lt;br>&#xA;&#xA;Prio&#xA;&lt;ol>&#xA;  &lt;li>Alternative Display Name&lt;/li>&#xA;&#xA;  &lt;li>Name&lt;/li> &#xA;&#xA;&lt;/ol>"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;The language dependent description text.&#xA;&#x9;&#x9;&#x9;&#x9;"/>
@@ -26,6 +31,13 @@
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="name"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alternativeName" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="alternativeName"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>

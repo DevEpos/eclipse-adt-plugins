@@ -91,13 +91,23 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__NAME = 1;
 
   /**
+   * The feature id for the '<em><b>Alternative Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__ALTERNATIVE_NAME = 2;
+
+  /**
    * The feature id for the '<em><b>Package Name</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__PACKAGE_NAME = 2;
+  int ADT_OBJ_REF__PACKAGE_NAME = 3;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -107,7 +117,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__TYPE = 3;
+  int ADT_OBJ_REF__TYPE = 4;
 
   /**
    * The feature id for the '<em><b>Tadir Type</b></em>' attribute. <!--
@@ -116,7 +126,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__TADIR_TYPE = 4;
+  int ADT_OBJ_REF__TADIR_TYPE = 5;
 
   /**
    * The feature id for the '<em><b>Uri</b></em>' attribute.
@@ -126,7 +136,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__URI = 5;
+  int ADT_OBJ_REF__URI = 6;
 
   /**
    * The feature id for the '<em><b>Parent Uri</b></em>' attribute. <!--
@@ -135,7 +145,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__PARENT_URI = 6;
+  int ADT_OBJ_REF__PARENT_URI = 7;
 
   /**
    * The feature id for the '<em><b>Parent Name</b></em>' attribute.
@@ -145,7 +155,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__PARENT_NAME = 7;
+  int ADT_OBJ_REF__PARENT_NAME = 8;
 
   /**
    * The feature id for the '<em><b>Owner</b></em>' attribute.
@@ -155,7 +165,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF__OWNER = 8;
+  int ADT_OBJ_REF__OWNER = 9;
 
   /**
    * The number of structural features of the '<em>Adt Obj Ref</em>' class. <!--
@@ -164,7 +174,17 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF_FEATURE_COUNT = 9;
+  int ADT_OBJ_REF_FEATURE_COUNT = 10;
+
+  /**
+   * The operation id for the '<em>Get Display Name</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF___GET_DISPLAY_NAME = 0;
 
   /**
    * The number of operations of the '<em>Adt Obj Ref</em>' class. <!--
@@ -173,7 +193,7 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF_OPERATION_COUNT = 0;
+  int ADT_OBJ_REF_OPERATION_COUNT = 1;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRefList
@@ -614,6 +634,20 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName <em>Alternative
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Alternative Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_AlternativeName();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package Name</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -684,6 +718,19 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    */
   EAttribute getAdtObjRef_Owner();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName() <em>Get Display
+   * Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Display Name</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName()
+   * @generated
+   */
+  EOperation getAdtObjRef__GetDisplayName();
 
   /**
    * Returns the meta object for the attribute
@@ -1097,6 +1144,15 @@ public interface IAdtBasePackage extends EPackage {
     EAttribute ADT_OBJ_REF__NAME = eINSTANCE.getAdtObjRef_Name();
 
     /**
+     * The meta object literal for the '<em><b>Alternative Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__ALTERNATIVE_NAME = eINSTANCE.getAdtObjRef_AlternativeName();
+
+    /**
      * The meta object literal for the '<em><b>Package Name</b></em>' attribute feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
@@ -1144,6 +1200,15 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EAttribute ADT_OBJ_REF__OWNER = eINSTANCE.getAdtObjRef_Owner();
+
+    /**
+     * The meta object literal for the '<em><b>Get Display Name</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EOperation ADT_OBJ_REF___GET_DISPLAY_NAME = eINSTANCE.getAdtObjRef__GetDisplayName();
 
     /**
      * The meta object literal for the '<em><b>Tadir Type</b></em>' attribute feature.

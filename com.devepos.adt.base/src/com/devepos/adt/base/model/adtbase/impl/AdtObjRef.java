@@ -2,7 +2,10 @@
  */
 package com.devepos.adt.base.model.adtbase.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -20,6 +23,8 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getDescription
  * <em>Description</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getName <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getAlternativeName <em>Alternative
+ * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getPackageName <em>Package
  * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getType <em>Type</em>}</li>
@@ -75,6 +80,28 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getAlternativeName() <em>Alternative Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getAlternativeName()
+   * @generated
+   * @ordered
+   */
+  protected static final String ALTERNATIVE_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getAlternativeName() <em>Alternative Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getAlternativeName()
+   * @generated
+   * @ordered
+   */
+  protected String alternativeName = ALTERNATIVE_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -288,6 +315,33 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getAlternativeName() {
+    return alternativeName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setAlternativeName(final String newAlternativeName) {
+    String oldAlternativeName = alternativeName;
+    alternativeName = newAlternativeName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_OBJ_REF__ALTERNATIVE_NAME, oldAlternativeName, alternativeName));
+    }
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -440,6 +494,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   */
+  @Override
+  public String getDisplayName() {
+    var displayName = getAlternativeName();
+    return displayName == null ? getName() : displayName;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -476,6 +540,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return getDescription();
     case IAdtBasePackage.ADT_OBJ_REF__NAME:
       return getName();
+    case IAdtBasePackage.ADT_OBJ_REF__ALTERNATIVE_NAME:
+      return getAlternativeName();
     case IAdtBasePackage.ADT_OBJ_REF__PACKAGE_NAME:
       return getPackageName();
     case IAdtBasePackage.ADT_OBJ_REF__TYPE:
@@ -507,6 +573,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return;
     case IAdtBasePackage.ADT_OBJ_REF__NAME:
       setName((String) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__ALTERNATIVE_NAME:
+      setAlternativeName((String) newValue);
       return;
     case IAdtBasePackage.ADT_OBJ_REF__PACKAGE_NAME:
       setPackageName((String) newValue);
@@ -547,6 +616,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__NAME:
       setName(NAME_EDEFAULT);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__ALTERNATIVE_NAME:
+      setAlternativeName(ALTERNATIVE_NAME_EDEFAULT);
+      return;
     case IAdtBasePackage.ADT_OBJ_REF__PACKAGE_NAME:
       setPackageName(PACKAGE_NAME_EDEFAULT);
       return;
@@ -585,6 +657,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
           : !DESCRIPTION_EDEFAULT.equals(description);
     case IAdtBasePackage.ADT_OBJ_REF__NAME:
       return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    case IAdtBasePackage.ADT_OBJ_REF__ALTERNATIVE_NAME:
+      return ALTERNATIVE_NAME_EDEFAULT == null ? alternativeName != null
+          : !ALTERNATIVE_NAME_EDEFAULT.equals(alternativeName);
     case IAdtBasePackage.ADT_OBJ_REF__PACKAGE_NAME:
       return PACKAGE_NAME_EDEFAULT == null ? packageName != null
           : !PACKAGE_NAME_EDEFAULT.equals(packageName);
@@ -608,6 +683,22 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAdtBasePackage.ADT_OBJ_REF___GET_DISPLAY_NAME:
+      return getDisplayName();
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -623,6 +714,8 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     result.append(description);
     result.append(", name: ");
     result.append(name);
+    result.append(", alternativeName: ");
+    result.append(alternativeName);
     result.append(", packageName: ");
     result.append(packageName);
     result.append(", type: ");

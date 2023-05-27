@@ -228,12 +228,13 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
-  public EAttribute getAdtObjRef_PackageName() {
+  public EAttribute getAdtObjRef_AlternativeName() {
     return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(2);
   }
 
@@ -243,7 +244,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   @Override
-  public EAttribute getAdtObjRef_Type() {
+  public EAttribute getAdtObjRef_PackageName() {
     return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(3);
   }
 
@@ -253,8 +254,18 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   @Override
+  public EAttribute getAdtObjRef_Type() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EAttribute getAdtObjRef_Uri() {
-    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(5);
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -264,7 +275,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    */
   @Override
   public EAttribute getAdtObjRef_ParentUri() {
-    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(6);
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -275,16 +286,6 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    */
   @Override
   public EAttribute getAdtObjRef_ParentName() {
-    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getAdtObjRef_Owner() {
     return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(8);
   }
 
@@ -294,8 +295,29 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   @Override
+  public EAttribute getAdtObjRef_Owner() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EOperation getAdtObjRef__GetDisplayName() {
+    return adtObjRefEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EAttribute getAdtObjRef_TadirType() {
-    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(4);
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -623,6 +645,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     adtObjRefEClass = createEClass(ADT_OBJ_REF);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__DESCRIPTION);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__NAME);
+    createEAttribute(adtObjRefEClass, ADT_OBJ_REF__ALTERNATIVE_NAME);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PACKAGE_NAME);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__TYPE);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__TADIR_TYPE);
@@ -630,6 +653,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_URI);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_NAME);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__OWNER);
+    createEOperation(adtObjRefEClass, ADT_OBJ_REF___GET_DISPLAY_NAME);
 
     adtObjRefListEClass = createEClass(ADT_OBJ_REF_LIST);
     createEReference(adtObjRefListEClass, ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
@@ -715,6 +739,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     initEAttribute(getAdtObjRef_Name(), theXMLTypePackage.getString(), "name", null, 0, 1,
         IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtObjRef_AlternativeName(), theXMLTypePackage.getString(), "alternativeName",
+        null, 0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAdtObjRef_PackageName(), theXMLTypePackage.getString(), "packageName", null,
         0, 1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -736,6 +763,9 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     initEAttribute(getAdtObjRef_Owner(), theXMLTypePackage.getString(), "owner", null, 0, 1,
         IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEOperation(getAdtObjRef__GetDisplayName(), theXMLTypePackage.getString(), "getDisplayName",
+        0, 1, IS_UNIQUE, IS_ORDERED);
 
     initEClass(adtObjRefListEClass, IAdtObjRefList.class, "AdtObjRefList", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -856,6 +886,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         "description", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_Name(), source, new String[] { "kind", "attribute", "name", "name",
         "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_AlternativeName(), source, new String[] { "kind", "attribute",
+        "name", "alternativeName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_PackageName(), source, new String[] { "kind", "attribute", "name",
         "packageName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_Type(), source, new String[] { "kind", "attribute", "name", "type",
