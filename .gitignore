@@ -6,9 +6,8 @@ target/**
 *.class
 
 # eclipse specific
-*.pydevproject
 .project
-/**/.project
+*.pydevproject
 .metadata
 bin/**
 tmp/**
