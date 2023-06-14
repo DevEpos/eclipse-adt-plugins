@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.devepos.adt.playground.ui.internal.editor.CodePlaygroundEditor"
+            contributorClass="com.sap.adt.tools.abapsource.ui.sources.editors.AdtSourceEditorActionBarContributor"
+            default="false"
+            extensions="codeplayground"
+            icon="platform:/plugin/org.eclipse.ui.console/icons/full/eview16/console_view.png"
+            id="com.devepos.adt.playground.editors.CodePlaygroundEditor"
+            name="%editors.playground.name">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="com.devepos.adt.playground.general"
+            name="%commands.category.name">
+      </category>
+      <command
+            categoryId="com.devepos.adt.playground.general"
+            id="com.devepos.adt.playground.commands.openCodePlayground"
+            name="%commands.openPlayground.name">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="%commands.openPlayground.name"
+            commandId="com.devepos.adt.playground.commands.openCodePlayground">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+         <command
+               commandId="com.devepos.adt.playground.ui.command1"
+               icon="platform:/plugin/org.eclipse.ui.console/icons/full/eview16/console_view.png"
+               label="%commands.openPlayground.name"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
