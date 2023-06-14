@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.callhierarchy.backend/src" modelPluginID="com.devepos.adt.callhierarchy.backend"
+    modelName="Callhierarchy" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" interfaceNamePattern="I{0}" classNamePattern="{0}"
+    operationReflection="true" importOrganizing="true" cleanup="true">
+  <foreignModel>../../abap-call-hierarchy-ui/com.devepos.adt.aht.model/model/callhierarchy.ecore</foreignModel>
+  <genPackages prefix="Callhierarchy" basePackage="com.devepos.adt.callhierarchy.model"
+      resource="XML" disposableProviderFactory="true" ecorePackage="callhierarchy.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="callhierarchy.ecore#//MethodVisibility">
+      <genEnumLiterals ecoreEnumLiteral="callhierarchy.ecore#//MethodVisibility/PRIVATE"/>
+      <genEnumLiterals ecoreEnumLiteral="callhierarchy.ecore#//MethodVisibility/PROTECTED"/>
+      <genEnumLiterals ecoreEnumLiteral="callhierarchy.ecore#//MethodVisibility/PUBLIC"/>
+      <genEnumLiterals ecoreEnumLiteral="callhierarchy.ecore#//MethodVisibility/UNKNOWN"/>
+    </genEnums>
+    <genClasses ecoreClass="callhierarchy.ecore#//HierarchyResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference callhierarchy.ecore#//HierarchyResult/entries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originEnclObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResult/originObjectIdentifier"/>
+    </genClasses>
+    <genClasses ecoreClass="callhierarchy.ecore#//CallPosition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//CallPosition/uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//CallPosition/line"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//CallPosition/column"/>
+    </genClasses>
+    <genClasses ecoreClass="callhierarchy.ecore#//MethodProperties">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/final"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/abstract"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/redefined"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/handler"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/constructor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/static"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/visibility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//MethodProperties/testMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="callhierarchy.ecore#//HierarchyResultEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/enclosedObjectName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/enclosedObjectDisplayName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/parentUri"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference callhierarchy.ecore#//HierarchyResultEntry/callPositions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference callhierarchy.ecore#//HierarchyResultEntry/methodProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute callhierarchy.ecore#//HierarchyResultEntry/objectIdentifier"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

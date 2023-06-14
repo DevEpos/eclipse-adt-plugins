@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated callhierarchy -->
+      <package
+            uri="http://www.devepos.com/adt/aht/callhierarchy"
+            class="com.devepos.adt.callhierarchy.model.callhierarchy.ICallhierarchyPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated callhierarchy -->
+      <parser
+            type="callhierarchy"
+            class="com.devepos.adt.callhierarchy.model.callhierarchy.util.CallhierarchyResourceFactory"/>
+   </extension>
+
+</plugin>
