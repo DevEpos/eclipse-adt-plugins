@@ -14,7 +14,7 @@
 - New View to manage Tags of a Repository Object
    </description>
 
-   <license url="https://github.com/stockbal/abap-tags-ui/blob/main/LICENSE">
+   <license url="https://github.com/DevEpos/eclipse-adt-plugins/blob/main/features/tags/LICENSE">
       The MIT License (MIT)
 
 Copyright (c) 2019 Ludwig Stockbauer-Muhr
