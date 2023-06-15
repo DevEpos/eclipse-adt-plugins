@@ -1,8 +1,8 @@
 ![](https://img.shields.io/badge/Java-SE11+-green) ![](https://img.shields.io/badge/eclipse-2020--09+-green)
 
-# abap-call-hierarchy-ui
+# ABAP Call Hierarchy Plug-in
 
-ABAP Call Hierarchy eclipse plugin
+Contains source code of the ABAP Call Hierarch Eclipse Plug-in
 
 ## Description
 

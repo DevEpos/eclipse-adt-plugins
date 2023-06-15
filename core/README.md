@@ -1,5 +1,8 @@
-# adt-addons-base
-Base Plugins for DevEpos ADT Plugins
+![](https://img.shields.io/badge/Java-SE11+-green) ![](https://img.shields.io/badge/eclipse-2020--09+-green)
+
+# Base (UI) Plug-ins
+
+Contains source code for reuse plug-ins.
 
 ## Update Sites
 

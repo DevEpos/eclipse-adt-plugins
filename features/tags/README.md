@@ -1,5 +1,8 @@
-# abap-tags-ui
-ABAP Tags eclipse plugin
+![](https://img.shields.io/badge/Java-SE11+-green) ![](https://img.shields.io/badge/eclipse-2020--09+-green)
+
+# ABAP Tags Plug-in
+
+Contains the source code for the ABAP Tags Plug-in.
 
 ## Update Sites
 

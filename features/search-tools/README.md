@@ -1,7 +1,8 @@
-# abap-search-tools-ui
-ABAP Search and Analysis Tools eclipse plugin
+![](https://img.shields.io/badge/Java-SE11+-green) ![](https://img.shields.io/badge/eclipse-2020--09+-green)
 
-This repository contains code for ABAP Search and Analyis Tools Plugin
+# ABAP Search and Analysis Tools Plug-in
+
+Contains code for ABAP Search and Analyis Tools Plugin
 
 ## Update Sites
 
