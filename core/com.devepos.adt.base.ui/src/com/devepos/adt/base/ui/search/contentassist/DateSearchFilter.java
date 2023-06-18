@@ -44,6 +44,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private static final String DATE_COMPARISON_OPERATORS_PATTERN = "(<=|>=|>|<)";
   private static final String RELATIVE_FIXED_DATE_PATTERN = "(to|yester)day|last-(week|month|year)";
   private static final String RELATIVE_DATE_PATTERN = "([1-9](\\d*))-(days|weeks|months|years)-ago";
+  private static final String NUMERIC_YEAR_PATTERN = "\\d{4}";
   private static final String NUMERIC_FULL_DATE_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
       "[1-9]\\d?", "(1[0-2]|[1-9])", "[1-9]\\d{3}");
   private static final String NUMERIC_DAY_MONTH_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
@@ -56,7 +57,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
    */
   private static final String COMBINED_DATE_REGEX_GROUP = "(" + String.join("|",
       RELATIVE_FIXED_DATE_PATTERN, RELATIVE_DATE_PATTERN, NUMERIC_FULL_DATE_PATTERN,
-      NUMERIC_DAY_MONTH_PATTERN, NUMERIC_MONTH_YEAR_PATTERN) + ")";
+      NUMERIC_DAY_MONTH_PATTERN, NUMERIC_MONTH_YEAR_PATTERN, NUMERIC_YEAR_PATTERN) + ")";
 
   /**
    * RegEx pattern which will match any valid date pattern.
@@ -283,6 +284,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         LocalDateRange dateRange = new LocalDateRange(date, true);
         if (numericPatternType == NumericDatePatternType.MONTH_YEAR) {
           dateRange.end = date.withDayOfMonth(date.lengthOfMonth());
+        } else if (numericPatternType == NumericDatePatternType.YEAR) {
+          dateRange.end = date.withMonth(12).withDayOfMonth(date.lengthOfMonth());
         }
         return dateRange;
       }
@@ -303,6 +306,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
             .parseInt(dateParts[0]));
       case MONTH_YEAR:
         return LocalDate.of(Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0]), 1);
+      case YEAR:
+        return LocalDate.of(Integer.parseInt(dateParts[0]), 1, 1);
       default:
         return null;
       }
@@ -343,6 +348,9 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         }
         return NumericDatePatternType.DAY_MONTH;
       }
+      if (dateParts.length == 1) {
+        return NumericDatePatternType.YEAR;
+      }
       return null;
     }
 
@@ -370,7 +378,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private enum NumericDatePatternType {
     DAY_MONTH,
     MONTH_YEAR,
-    FULL;
+    FULL,
+    YEAR;
   }
 
   private enum Option {
@@ -466,7 +475,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     Predicate<String> queryPattern = StringUtil.getPatternForQuery(query).asPredicate();
 
-    Pattern numericRelativePattern = Pattern.compile("^(\\d+)-?");
+    Pattern numericRelativePattern = Pattern.compile("^(\\d{1,3})-?");
     Matcher numericRelativeMatcher = numericRelativePattern.matcher(query);
     if (numericRelativeMatcher.find()) {
       String numericValue = numericRelativeMatcher.group(1);
