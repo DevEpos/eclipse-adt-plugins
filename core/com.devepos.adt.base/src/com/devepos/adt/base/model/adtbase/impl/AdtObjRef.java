@@ -4,11 +4,19 @@ package com.devepos.adt.base.model.adtbase.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -36,6 +44,14 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getParentName <em>Parent
  * Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getOwner <em>Owner</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getCreatedOn <em>Created
+ * On</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getChangedBy <em>Changed
+ * By</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getChangedOn <em>Changed
+ * On</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.impl.AdtObjRef#getProperties
+ * <em>Properties</em>}</li>
  * </ul>
  *
  * @generated
@@ -244,6 +260,83 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected String owner = OWNER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getCreatedOn() <em>Created On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getCreatedOn()
+   * @generated
+   * @ordered
+   */
+  protected static final XMLGregorianCalendar CREATED_ON_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCreatedOn() <em>Created On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getCreatedOn()
+   * @generated
+   * @ordered
+   */
+  protected XMLGregorianCalendar createdOn = CREATED_ON_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedBy()
+   * @generated
+   * @ordered
+   */
+  protected static final String CHANGED_BY_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedBy()
+   * @generated
+   * @ordered
+   */
+  protected String changedBy = CHANGED_BY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getChangedOn() <em>Changed On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedOn()
+   * @generated
+   * @ordered
+   */
+  protected static final XMLGregorianCalendar CHANGED_ON_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getChangedOn() <em>Changed On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedOn()
+   * @generated
+   * @ordered
+   */
+  protected XMLGregorianCalendar changedOn = CHANGED_ON_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getProperties() <em>Properties</em>}' map.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getProperties()
+   * @generated
+   * @ordered
+   */
+  protected EMap<String, String> properties;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -496,11 +589,124 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public XMLGregorianCalendar getCreatedOn() {
+    return createdOn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setCreatedOn(final XMLGregorianCalendar newCreatedOn) {
+    XMLGregorianCalendar oldCreatedOn = createdOn;
+    createdOn = newCreatedOn;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CREATED_ON,
+          oldCreatedOn, createdOn));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getChangedBy() {
+    return changedBy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setChangedBy(final String newChangedBy) {
+    String oldChangedBy = changedBy;
+    changedBy = newChangedBy;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY,
+          oldChangedBy, changedBy));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public XMLGregorianCalendar getChangedOn() {
+    return changedOn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setChangedOn(final XMLGregorianCalendar newChangedOn) {
+    XMLGregorianCalendar oldChangedOn = changedOn;
+    changedOn = newChangedOn;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON,
+          oldChangedOn, changedOn));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EMap<String, String> getProperties() {
+    if (properties == null) {
+      properties = new EcoreEMap<>(
+          IAdtBasePackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class, this,
+          IAdtBasePackage.ADT_OBJ_REF__PROPERTIES);
+    }
+    return properties;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    */
   @Override
   public String getDisplayName() {
     var displayName = getAlternativeName();
     return displayName == null ? getName() : displayName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
+    switch (featureID) {
+    case IAdtBasePackage.ADT_OBJ_REF__PROPERTIES:
+      return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -556,6 +762,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return getParentName();
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       return getOwner();
+    case IAdtBasePackage.ADT_OBJ_REF__CREATED_ON:
+      return getCreatedOn();
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY:
+      return getChangedBy();
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON:
+      return getChangedOn();
+    case IAdtBasePackage.ADT_OBJ_REF__PROPERTIES:
+      if (coreType) {
+        return getProperties();
+      }
+      return getProperties().map();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -597,6 +814,18 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return;
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner((String) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__CREATED_ON:
+      setCreatedOn((XMLGregorianCalendar) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY:
+      setChangedBy((String) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON:
+      setChangedOn((XMLGregorianCalendar) newValue);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__PROPERTIES:
+      ((EStructuralFeature.Setting) getProperties()).set(newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -640,6 +869,18 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       setOwner(OWNER_EDEFAULT);
       return;
+    case IAdtBasePackage.ADT_OBJ_REF__CREATED_ON:
+      setCreatedOn(CREATED_ON_EDEFAULT);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY:
+      setChangedBy(CHANGED_BY_EDEFAULT);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON:
+      setChangedOn(CHANGED_ON_EDEFAULT);
+      return;
+    case IAdtBasePackage.ADT_OBJ_REF__PROPERTIES:
+      getProperties().clear();
+      return;
     }
     super.eUnset(featureID);
   }
@@ -678,6 +919,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
           : !PARENT_NAME_EDEFAULT.equals(parentName);
     case IAdtBasePackage.ADT_OBJ_REF__OWNER:
       return OWNER_EDEFAULT == null ? owner != null : !OWNER_EDEFAULT.equals(owner);
+    case IAdtBasePackage.ADT_OBJ_REF__CREATED_ON:
+      return CREATED_ON_EDEFAULT == null ? createdOn != null
+          : !CREATED_ON_EDEFAULT.equals(createdOn);
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY:
+      return CHANGED_BY_EDEFAULT == null ? changedBy != null
+          : !CHANGED_BY_EDEFAULT.equals(changedBy);
+    case IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON:
+      return CHANGED_ON_EDEFAULT == null ? changedOn != null
+          : !CHANGED_ON_EDEFAULT.equals(changedOn);
+    case IAdtBasePackage.ADT_OBJ_REF__PROPERTIES:
+      return properties != null && !properties.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -730,6 +982,12 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
     result.append(parentName);
     result.append(", owner: ");
     result.append(owner);
+    result.append(", createdOn: ");
+    result.append(createdOn);
+    result.append(", changedBy: ");
+    result.append(changedBy);
+    result.append(", changedOn: ");
+    result.append(changedOn);
     result.append(')');
     return result.toString();
   }

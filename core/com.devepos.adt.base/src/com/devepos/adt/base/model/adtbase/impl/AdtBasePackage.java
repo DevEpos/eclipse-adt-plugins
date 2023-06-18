@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.base.model.adtbase.impl;
 
+import java.util.Map;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -84,6 +86,14 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   private EClass responseMessageListEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass stringToStringMapEntryEClass = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -297,6 +307,50 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   @Override
   public EAttribute getAdtObjRef_Owner() {
     return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtObjRef_CreatedOn() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtObjRef_ChangedBy() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtObjRef_ChangedOn() {
+    return (EAttribute) adtObjRefEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAdtObjRef_Properties() {
+    return (EReference) adtObjRefEClass.getEStructuralFeatures().get(13);
   }
 
   /**
@@ -559,6 +613,39 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getStringToStringMapEntry() {
+    return stringToStringMapEntryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getStringToStringMapEntry_Key() {
+    return (EAttribute) stringToStringMapEntryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getStringToStringMapEntry_Value() {
+    return (EAttribute) stringToStringMapEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -653,6 +740,10 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_URI);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__PARENT_NAME);
     createEAttribute(adtObjRefEClass, ADT_OBJ_REF__OWNER);
+    createEAttribute(adtObjRefEClass, ADT_OBJ_REF__CREATED_ON);
+    createEAttribute(adtObjRefEClass, ADT_OBJ_REF__CHANGED_BY);
+    createEAttribute(adtObjRefEClass, ADT_OBJ_REF__CHANGED_ON);
+    createEReference(adtObjRefEClass, ADT_OBJ_REF__PROPERTIES);
     createEOperation(adtObjRefEClass, ADT_OBJ_REF___GET_DISPLAY_NAME);
 
     adtObjRefListEClass = createEClass(ADT_OBJ_REF_LIST);
@@ -684,6 +775,10 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     responseMessageListEClass = createEClass(RESPONSE_MESSAGE_LIST);
     createEReference(responseMessageListEClass, RESPONSE_MESSAGE_LIST__MESSAGES);
     createEOperation(responseMessageListEClass, RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING);
+
+    stringToStringMapEntryEClass = createEClass(STRING_TO_STRING_MAP_ENTRY);
+    createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__KEY);
+    createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__VALUE);
 
     // Create enums
     adtPluginFeatureTypeEEnum = createEEnum(ADT_PLUGIN_FEATURE_TYPE);
@@ -763,6 +858,18 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     initEAttribute(getAdtObjRef_Owner(), theXMLTypePackage.getString(), "owner", null, 0, 1,
         IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtObjRef_CreatedOn(), theXMLTypePackage.getDate(), "createdOn", null, 0, 1,
+        IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtObjRef_ChangedBy(), theXMLTypePackage.getString(), "changedBy", null, 0, 1,
+        IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdtObjRef_ChangedOn(), theXMLTypePackage.getDate(), "changedOn", null, 0, 1,
+        IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAdtObjRef_Properties(), getStringToStringMapEntry(), null, "properties", null,
+        0, -1, IAdtObjRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEOperation(getAdtObjRef__GetDisplayName(), theXMLTypePackage.getString(), "getDisplayName",
         0, 1, IS_UNIQUE, IS_ORDERED);
@@ -839,6 +946,15 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     addEParameter(op, theXMLTypePackage.getString(), "pluginId", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, theXMLTypePackage.getString(), "message", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+    initEClass(stringToStringMapEntryEClass, Map.Entry.class, "StringToStringMapEntry",
+        !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getStringToStringMapEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1,
+        Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStringToStringMapEntry_Value(), ecorePackage.getEString(), "value", null, 0,
+        1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.class, "AdtPluginFeatureType");
     addEEnumLiteral(adtPluginFeatureTypeEEnum, AdtPluginFeatureType.BOOLEAN);
@@ -902,6 +1018,14 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         "parentName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_Owner(), source, new String[] { "kind", "attribute", "name", "owner",
         "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_CreatedOn(), source, new String[] { "kind", "attribute", "name",
+        "createdOn", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_ChangedBy(), source, new String[] { "kind", "attribute", "name",
+        "changedBy", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_ChangedOn(), source, new String[] { "kind", "attribute", "name",
+        "changedOn", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Properties(), source, new String[] { "kind", "element", "namespace",
+        "##targetNamespace", "name", "property" });
     addAnnotation(adtObjRefListEClass, source, new String[] { "name", "adtObjRefs", "kind",
         "elementOnly" });
     addAnnotation(getAdtObjRefList_ObjectReferences(), source, new String[] { "kind", "element",

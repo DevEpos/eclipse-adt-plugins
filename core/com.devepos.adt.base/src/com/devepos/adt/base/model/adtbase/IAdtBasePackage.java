@@ -168,13 +168,53 @@ public interface IAdtBasePackage extends EPackage {
   int ADT_OBJ_REF__OWNER = 9;
 
   /**
+   * The feature id for the '<em><b>Created On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__CREATED_ON = 10;
+
+  /**
+   * The feature id for the '<em><b>Changed By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__CHANGED_BY = 11;
+
+  /**
+   * The feature id for the '<em><b>Changed On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__CHANGED_ON = 12;
+
+  /**
+   * The feature id for the '<em><b>Properties</b></em>' map.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_OBJ_REF__PROPERTIES = 13;
+
+  /**
    * The number of structural features of the '<em>Adt Obj Ref</em>' class. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int ADT_OBJ_REF_FEATURE_COUNT = 10;
+  int ADT_OBJ_REF_FEATURE_COUNT = 14;
 
   /**
    * The operation id for the '<em>Get Display Name</em>' operation.
@@ -542,6 +582,59 @@ public interface IAdtBasePackage extends EPackage {
 
   /**
    * The meta object id for the
+   * '{@link com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry <em>String To String Map
+   * Entry</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry
+   * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getStringToStringMapEntry()
+   * @generated
+   */
+  int STRING_TO_STRING_MAP_ENTRY = 7;
+
+  /**
+   * The feature id for the '<em><b>Key</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY__KEY = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>String To String Map Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>String To String Map Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
    * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt
    * Plugin Feature Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
    * -->
@@ -550,7 +643,7 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureType()
    * @generated
    */
-  int ADT_PLUGIN_FEATURE_TYPE = 7;
+  int ADT_PLUGIN_FEATURE_TYPE = 8;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
@@ -562,7 +655,7 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getAdtPluginFeatureCategory()
    * @generated
    */
-  int ADT_PLUGIN_FEATURE_CATEGORY = 8;
+  int ADT_PLUGIN_FEATURE_CATEGORY = 9;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.base.model.adtbase.MessageType <em>Message
@@ -574,7 +667,7 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getMessageType()
    * @generated
    */
-  int MESSAGE_TYPE = 9;
+  int MESSAGE_TYPE = 10;
 
   /**
    * The meta object id for the '<em>IAdt Plugin Features</em>' data type. <!--
@@ -584,7 +677,7 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIAdtPluginFeatures()
    * @generated
    */
-  int IADT_PLUGIN_FEATURES = 10;
+  int IADT_PLUGIN_FEATURES = 11;
 
   /**
    * The meta object id for the '<em>IStatus</em>' data type.
@@ -595,7 +688,7 @@ public interface IAdtBasePackage extends EPackage {
    * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getIStatus()
    * @generated
    */
-  int ISTATUS = 11;
+  int ISTATUS = 12;
 
   /**
    * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt
@@ -718,6 +811,58 @@ public interface IAdtBasePackage extends EPackage {
    * @generated
    */
   EAttribute getAdtObjRef_Owner();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn <em>Created On</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Created On</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_CreatedOn();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy <em>Changed By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Changed By</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ChangedBy();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn <em>Changed On</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Changed On</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ChangedOn();
+
+  /**
+   * Returns the meta object for the map
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties <em>Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the map '<em>Properties</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EReference getAdtObjRef_Properties();
 
   /**
    * Returns the meta object for the
@@ -1032,6 +1177,44 @@ public interface IAdtBasePackage extends EPackage {
   EOperation getResponseMessageList__ToStatus__String_String();
 
   /**
+   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>String To String Map Entry</em>'.
+   * @see java.util.Map.Entry
+   * @model keyDataType="org.eclipse.emf.ecore.EString"
+   *        valueDataType="org.eclipse.emf.ecore.EString"
+   * @generated
+   */
+  EClass getStringToStringMapEntry();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Key();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Value();
+
+  /**
    * Returns the meta object for enum
    * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt Plugin Feature
    * Type</em>}'.
@@ -1200,6 +1383,42 @@ public interface IAdtBasePackage extends EPackage {
      * @generated
      */
     EAttribute ADT_OBJ_REF__OWNER = eINSTANCE.getAdtObjRef_Owner();
+
+    /**
+     * The meta object literal for the '<em><b>Created On</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__CREATED_ON = eINSTANCE.getAdtObjRef_CreatedOn();
+
+    /**
+     * The meta object literal for the '<em><b>Changed By</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__CHANGED_BY = eINSTANCE.getAdtObjRef_ChangedBy();
+
+    /**
+     * The meta object literal for the '<em><b>Changed On</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_OBJ_REF__CHANGED_ON = eINSTANCE.getAdtObjRef_ChangedOn();
+
+    /**
+     * The meta object literal for the '<em><b>Properties</b></em>' map feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ADT_OBJ_REF__PROPERTIES = eINSTANCE.getAdtObjRef_Properties();
 
     /**
      * The meta object literal for the '<em><b>Get Display Name</b></em>' operation.
@@ -1436,6 +1655,37 @@ public interface IAdtBasePackage extends EPackage {
      */
     EOperation RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING = eINSTANCE
         .getResponseMessageList__ToStatus__String_String();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry <em>String To String
+     * Map Entry</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry
+     * @see com.devepos.adt.base.model.adtbase.impl.AdtBasePackage#getStringToStringMapEntry()
+     * @generated
+     */
+    EClass STRING_TO_STRING_MAP_ENTRY = eINSTANCE.getStringToStringMapEntry();
+
+    /**
+     * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute STRING_TO_STRING_MAP_ENTRY__KEY = eINSTANCE.getStringToStringMapEntry_Key();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute STRING_TO_STRING_MAP_ENTRY__VALUE = eINSTANCE.getStringToStringMapEntry_Value();
 
     /**
      * The meta object literal for the
