@@ -2,6 +2,9 @@
  */
 package com.devepos.adt.base.model.adtbase;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -37,6 +40,10 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName <em>Parent Name</em>}</li>
  * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn <em>Created On</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy <em>Changed By</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn <em>Changed On</em>}</li>
+ * <li>{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef()
@@ -310,6 +317,100 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setOwner(String value);
+
+  /**
+   * Returns the value of the '<em><b>Created On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Created On</em>' attribute.
+   * @see #setCreatedOn(XMLGregorianCalendar)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_CreatedOn()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
+   *        extendedMetaData="kind='attribute' name='createdOn' namespace='##targetNamespace'"
+   * @generated
+   */
+  XMLGregorianCalendar getCreatedOn();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn
+   * <em>Created On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Created On</em>' attribute.
+   * @see #getCreatedOn()
+   * @generated
+   */
+  void setCreatedOn(XMLGregorianCalendar value);
+
+  /**
+   * Returns the value of the '<em><b>Changed By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Changed By</em>' attribute.
+   * @see #setChangedBy(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedBy()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='changedBy' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getChangedBy();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy
+   * <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Changed By</em>' attribute.
+   * @see #getChangedBy()
+   * @generated
+   */
+  void setChangedBy(String value);
+
+  /**
+   * Returns the value of the '<em><b>Changed On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Changed On</em>' attribute.
+   * @see #setChangedOn(XMLGregorianCalendar)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedOn()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
+   *        extendedMetaData="kind='attribute' name='changedOn' namespace='##targetNamespace'"
+   * @generated
+   */
+  XMLGregorianCalendar getChangedOn();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn
+   * <em>Changed On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Changed On</em>' attribute.
+   * @see #getChangedOn()
+   * @generated
+   */
+  void setChangedOn(XMLGregorianCalendar value);
+
+  /**
+   * Returns the value of the '<em><b>Properties</b></em>' map.
+   * The key is of type {@link java.lang.String},
+   * and the value is of type {@link java.lang.String},
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Properties</em>' map.
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_Properties()
+   * @model mapType="com.devepos.adt.base.model.adtbase.StringToStringMapEntry&lt;org.eclipse.emf.ecore.EString,
+   *        org.eclipse.emf.ecore.EString&gt;"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='property'"
+   * @generated
+   */
+  EMap<String, String> getProperties();
 
   /**
    * <!-- begin-user-doc -->

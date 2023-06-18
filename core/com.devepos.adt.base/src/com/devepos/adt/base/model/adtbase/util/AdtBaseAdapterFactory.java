@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.base.model.adtbase.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -106,6 +108,11 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseResponseMessageList(final IResponseMessageList object) {
       return createResponseMessageListAdapter();
+    }
+
+    @Override
+    public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
+      return createStringToStringMapEntryAdapter();
     }
 
     @Override
@@ -235,6 +242,22 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createResponseMessageListAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To String
+   * Map Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see java.util.Map.Entry
+   * @generated
+   */
+  public Adapter createStringToStringMapEntryAdapter() {
     return null;
   }
 

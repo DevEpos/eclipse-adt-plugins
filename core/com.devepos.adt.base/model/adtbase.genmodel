@@ -39,6 +39,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/parentUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/parentName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/createdOn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/changedBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//AdtObjRef/changedOn"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adtbase.ecore#//AdtObjRef/properties"/>
       <genOperations ecoreOperation="adtbase.ecore#//AdtObjRef/getDisplayName"/>
     </genClasses>
     <genClasses ecoreClass="adtbase.ecore#//AdtObjRefList">
@@ -74,6 +78,10 @@
         <genParameters ecoreParameter="adtbase.ecore#//ResponseMessageList/toStatus/pluginId"/>
         <genParameters ecoreParameter="adtbase.ecore#//ResponseMessageList/toStatus/message"/>
       </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="adtbase.ecore#//StringToStringMapEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//StringToStringMapEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adtbase.ecore#//StringToStringMapEntry/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

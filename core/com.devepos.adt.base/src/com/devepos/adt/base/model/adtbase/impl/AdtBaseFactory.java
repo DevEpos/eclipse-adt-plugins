@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.base.model.adtbase.impl;
 
+import java.util.Map;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -83,6 +85,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       return createResponseMessage();
     case IAdtBasePackage.RESPONSE_MESSAGE_LIST:
       return createResponseMessageList();
+    case IAdtBasePackage.STRING_TO_STRING_MAP_ENTRY:
+      return (EObject) createStringToStringMapEntry();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -214,6 +218,17 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   public IResponseMessageList createResponseMessageList() {
     ResponseMessageList responseMessageList = new ResponseMessageList();
     return responseMessageList;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public Map.Entry<String, String> createStringToStringMapEntry() {
+    com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry stringToStringMapEntry = new com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry();
+    return stringToStringMapEntry;
   }
 
   /**

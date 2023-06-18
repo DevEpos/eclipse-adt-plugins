@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.base.model.adtbase.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
@@ -129,6 +131,15 @@ public class AdtBaseSwitch<T> extends Switch<T> {
       }
       return result;
     }
+    case IAdtBasePackage.STRING_TO_STRING_MAP_ENTRY: {
+      @SuppressWarnings("unchecked")
+      Map.Entry<String, String> stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
+      T result = caseStringToStringMapEntry(stringToStringMapEntry);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
     default:
       return defaultCase(theEObject);
     }
@@ -239,6 +250,24 @@ public class AdtBaseSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseResponseMessageList(final IResponseMessageList object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>String To String Map
+   * Entry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>String To String Map
+   *         Entry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStringToStringMapEntry(final Map.Entry<String, String> object) {
     return null;
   }
 
