@@ -11,7 +11,7 @@
                id="com.devepos.adt.saat.openindbbrowser.skipSelscreenParam"
                name="skipSelscreen"
                optional="false"
-               values="com.devepos.adt.saat.internal.handlers.OpenInDbBrowserParamValues">
+               values="com.devepos.adt.saat.ui.internal.handlers.OpenInDbBrowserParamValues">
          </commandParameter>
       </command>
       <category
@@ -76,43 +76,43 @@
          id="com.devepos.adt.saat.search.command.runWhereUsedForObject"
          point="org.eclipse.ui.handlers">
       <handler
-            class="com.devepos.adt.saat.internal.handlers.OpenInDbBrowserHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.OpenInDbBrowserHandler"
             commandId="com.devepos.adt.saat.dbbrowser.command.openInDbBrowser">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.OpenDbBrowserHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.OpenDbBrowserHandler"
             commandId="com.devepos.adt.saat.dbbrowser.command.openDbBrowser">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.PerformCdsTopDownAnalysisHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.PerformCdsTopDownAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.performCdsTopDown">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.PerformCdsUsedEntitiesAnalysisHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.PerformCdsUsedEntitiesAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.performCdsUsedEntities">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.PerformWhereUsedInCdsAnalysisHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.PerformWhereUsedInCdsAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.performWhereUsedInCds">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.PerformFieldAnalysisHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.PerformFieldAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.performFieldAnalysis">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.RunWhereUsedQueryHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.RunWhereUsedQueryHandler"
             commandId="com.devepos.adt.saat.search.command.runWhereUsedForObject">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.OpenObjectSearchDialogHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.OpenObjectSearchDialogHandler"
             commandId="com.devepos.adt.saat.objectsearch.command.openSearchDialog">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.OpenObjectSearchFavoritesHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.OpenObjectSearchFavoritesHandler"
             commandId="com.devepos.adt.saat.objectsearch.command.manageFavorites">
       </handler>
       <handler
-            class="com.devepos.adt.saat.internal.handlers.RunCdsAnalysisHandler"
+            class="com.devepos.adt.saat.ui.internal.handlers.RunCdsAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.runCdsAnalysis">
       </handler>
    </extension>
@@ -158,7 +158,7 @@
             allPopups="false"
             locationURI="popup:#EditorContext?after=group.open">
          <dynamic
-               class="com.devepos.adt.saat.internal.menu.DynamicOpenInMenu"
+               class="com.devepos.adt.saat.ui.internal.menu.DynamicOpenInMenu"
                id="com.devepos.adt.saat.editor.openInDynamicMenu">
             <visibleWhen
                   checkEnabled="false">
@@ -175,7 +175,7 @@
             allPopups="false"
             locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.open">
          <dynamic
-               class="com.devepos.adt.saat.internal.menu.DynamicOpenInMenu"
+               class="com.devepos.adt.saat.ui.internal.menu.DynamicOpenInMenu"
                id="com.devepos.adt.saat.projectExplorer.openInDynamicMenu">
             <visibleWhen
                   checkEnabled="false">
@@ -251,7 +251,7 @@
             allPopups="false"
             locationURI="menu:com.devepos.adt.saat.objectsearch.command.manageFavorites">
          <dynamic
-               class="com.devepos.adt.saat.internal.menu.ManageSearchFavoritesMenu"
+               class="com.devepos.adt.saat.ui.internal.menu.ManageSearchFavoritesMenu"
                id="com.devepos.adt.saat.objectsearch.dynamicFavoriteMenu">
          </dynamic>
       </menuContribution>
@@ -259,7 +259,7 @@
             allPopups="false"
             locationURI="menu:com.devepos.adt.saat.objectsearch.command.openSearchDialog">
          <dynamic
-               class="com.devepos.adt.saat.internal.menu.ObjectSearchModesMenu"
+               class="com.devepos.adt.saat.ui.internal.menu.ObjectSearchModesMenu"
                id="com.devepos.adt.saat.objectsearch.dynamicSearchMenu">
          </dynamic>
       </menuContribution>
@@ -268,19 +268,19 @@
            point="org.eclipse.ui.preferencePages">
         <page
               category="com.devepos.adt.preferences"
-              class="com.devepos.adt.saat.internal.preferences.MainPreferencePage"
+              class="com.devepos.adt.saat.ui.internal.preferences.MainPreferencePage"
               id="com.devepos.adt.saat.ui.prefs.MainPreferences"
               name="%preferencepage.main.name">
         </page>
         <page
               category="com.devepos.adt.saat.ui.prefs.MainPreferences"
-              class="com.devepos.adt.saat.internal.preferences.ObjectSearchPreferencePage"
+              class="com.devepos.adt.saat.ui.internal.preferences.ObjectSearchPreferencePage"
               id="com.devepos.adt.saat.ui.prefs.ObjectSearchPreferences"
               name="%preferencepage.search.name">
         </page>
         <page
               category="com.devepos.adt.saat.ui.prefs.MainPreferences"
-              class="com.devepos.adt.saat.internal.preferences.CdsAnalysisPreferencePage"
+              class="com.devepos.adt.saat.ui.internal.preferences.CdsAnalysisPreferencePage"
               id="com.devepos.adt.saat.ui.prefs.CdsAnalysisPreferences"
               name="%preferencepage.cdsanalysis.name">
         </page>
@@ -288,14 +288,14 @@
      <extension
            point="org.eclipse.core.runtime.preferences">
         <initializer
-              class="com.devepos.adt.saat.internal.preferences.PreferenceInitializer">
+              class="com.devepos.adt.saat.ui.internal.preferences.PreferenceInitializer">
         </initializer>
      </extension>
      <extension
            point="org.eclipse.ui.views">
         <view
               category="com.devepos.adt"
-              class="com.devepos.adt.saat.internal.cdsanalysis.ui.CdsAnalysisView"
+              class="com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysisView"
               icon="icons/CdsAnalyzerView.png"
               id="com.devepos.adt.saat.views.cdsanalyzer"
               name="%view.cdsanalysis.name"
@@ -305,7 +305,7 @@
      <extension
            point="org.eclipse.search.searchPages">
         <page
-              class="com.devepos.adt.saat.internal.search.ui.ObjectSearchPage"
+              class="com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage"
               icon="icons/ABAPSearch.png"
               id="com.devepos.adt.saat.ObjectSearchPage"
               label="%searchpage.objectsearch.name"
@@ -316,11 +316,11 @@
      <extension
            point="org.eclipse.search.searchResultViewPages">
         <viewPage
-              class="com.devepos.adt.saat.internal.search.ui.ObjectSearchResultPage"
+              class="com.devepos.adt.saat.ui.internal.search.view.ObjectSearchResultPage"
               helpContextId="com.devepos.adt.searchandanalysistools.doc.object_search"
               icon="icons/ABAPSearch.png"
               id="com.devepos.adt.saat.internal.search.ui.ObjectSearchResultPage"
-              searchResultClass="com.devepos.adt.saat.internal.search.ui.ObjectSearchResult">
+              searchResultClass="com.devepos.adt.saat.ui.internal.search.view.ObjectSearchResult">
         </viewPage>
      </extension>
      <extension
