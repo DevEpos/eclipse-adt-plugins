@@ -20,4 +20,19 @@
             type="objectsearchfavorites"
             class="com.devepos.adt.saat.model.objectsearchfavorites.util.ObjectSearchFavoritesResourceFactoryImpl"/>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated objectsearch -->
+      <package
+            uri="http://www.devepos.com/adt/objectsearch"
+            class="com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage"
+            genModel="model/objectsearch.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated objectsearch -->
+      <parser
+            type="objectsearch"
+            class="com.devepos.adt.saat.model.objectsearch.util.ObjectSearchResourceFactory"/>
+   </extension>
+
 </plugin>
