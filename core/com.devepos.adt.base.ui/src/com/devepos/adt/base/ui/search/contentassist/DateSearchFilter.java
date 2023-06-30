@@ -448,6 +448,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public String getDescription() {
     if (description == null) {
+      // TODO: adjust message to use for different kinds of date filter.
+      // right now it is hardcoded to "created"
       description = NLS.bind(Messages.SearchFilter_DescriptionDateSearchFilter_xmsg, new Object[] {
           label, "8.2021, today, 1.4.2021...yesterday" });
     }
