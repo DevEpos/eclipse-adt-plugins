@@ -161,6 +161,40 @@ public class CdsAnalysisService implements ICdsAnalysisService {
   public IStatus testCdsAnalysisFeatureAvailability(final CdsAnalysisFeature feature,
       final IProject project) {
     final var destinationId = DestinationUtil.getDestinationId(project);
+    return testCdsAnalysisFeatureAvailable(destinationId, project.getName(), feature);
+  }
+
+  @Override
+  public IStatus testCdsAnalysisFeatureAvailability(final CdsAnalysisFeature feature,
+      final String destinationId) {
+    return testCdsAnalysisFeatureAvailable(destinationId, destinationId, feature);
+  }
+
+  /*
+   * Retrieves the field analysis result with GET
+   */
+  private IEntityFieldInfoResult getFieldAnalysis(final String destinationId,
+      final URI resourceUri) {
+
+    if (resourceUri == null) {
+      return null;
+    }
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(resourceUri, session);
+    restResource.addContentHandler(new EntityFieldInfoResultContentHandler());
+
+    try {
+      return restResource.get(null, IEntityFieldInfoResult.class);
+    } catch (final ResourceException exc) {
+      exc.printStackTrace();
+    }
+    return null;
+  }
+
+  private IStatus testCdsAnalysisFeatureAvailable(String destinationId, String projectName,
+      CdsAnalysisFeature feature) {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
     if (!discovery.isResourceDiscoverySuccessful()) {
@@ -190,30 +224,7 @@ public class CdsAnalysisService implements ICdsAnalysisService {
 
     return isFeatureAvailable ? Status.OK_STATUS
         : new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-            Messages.FeatureStatus_GeneralFeatureNotAvailable_xmsg, feature.getName(), project
-                .getName()));
-  }
-
-  /*
-   * Retrieves the field analysis result with GET
-   */
-  private IEntityFieldInfoResult getFieldAnalysis(final String destinationId,
-      final URI resourceUri) {
-
-    if (resourceUri == null) {
-      return null;
-    }
-    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
-        .createStatelessSession(destinationId);
-    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
-        .createRestResource(resourceUri, session);
-    restResource.addContentHandler(new EntityFieldInfoResultContentHandler());
-
-    try {
-      return restResource.get(null, IEntityFieldInfoResult.class);
-    } catch (final ResourceException exc) {
-      exc.printStackTrace();
-    }
-    return null;
+            Messages.FeatureStatus_GeneralFeatureNotAvailable_xmsg, feature.getName(),
+            projectName));
   }
 }

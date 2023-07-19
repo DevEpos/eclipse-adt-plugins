@@ -72,8 +72,8 @@ public interface ICdsAnalysisService {
    * @param destinationId    the destination id of an ABAP project
    * @return the found field hierarchy information
    */
-  IEntityFieldInfoResult loadWhereUsedFieldAnalysis(final String objectName, final String field,
-      ICdsFieldAnalysisSettings settings, final String destinationId);
+  IEntityFieldInfoResult loadWhereUsedFieldAnalysis(String objectName, String field,
+      ICdsFieldAnalysisSettings settings, String destinationId);
 
   /**
    * Tests if the passed CDS Analysis feature is available in the given project
@@ -83,4 +83,14 @@ public interface ICdsAnalysisService {
    * @return {@link Status#OK_STATUS} if feature is available
    */
   IStatus testCdsAnalysisFeatureAvailability(CdsAnalysisFeature feature, IProject project);
+
+  /**
+   * Tests if the passed CDS Analysis feature is available in the given destination
+   *
+   * @param feature       identifier for CDS Analysis feature
+   * @param destinationId destination of ABAP project
+   * @return {@link Status#OK_STATUS} if feature is available
+   */
+  IStatus testCdsAnalysisFeatureAvailability(CdsAnalysisFeature feature, String destinationId);
+
 }
