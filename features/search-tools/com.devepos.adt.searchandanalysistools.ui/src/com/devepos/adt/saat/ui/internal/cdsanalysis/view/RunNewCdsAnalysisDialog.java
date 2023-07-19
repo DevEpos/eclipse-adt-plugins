@@ -14,7 +14,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -25,16 +24,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
-import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.AdtRisSearchUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisFeature;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisUriDiscovery;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
+import com.devepos.adt.saat.ui.internal.util.FeatureTester;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 import com.sap.adt.util.ui.swt.IAdtSWTUtil;
@@ -57,7 +57,6 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
   private Text selectObjectText;
 
   private IAbapProjectProvider projectProvider;
-  private CdsAnalysisUriDiscovery uriDiscovery;
   private final List<CdsAnalysisType> validTypesForObject;
   private final List<CdsAnalysisType> validTypesForProject;
 
@@ -112,13 +111,17 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
   }
 
   @Override
-  protected Control createContents(final Composite parent) {
-    Control contents = super.createContents(parent);
-
+  public void create() {
+    super.create();
     IProject project = ProjectUtil.getCurrentAbapProject();
     if (project != null) {
       projectInput.setProjectName(project.getName());
     }
+  }
+
+  @Override
+  protected Control createContents(final Composite parent) {
+    Control contents = super.createContents(parent);
     return contents;
   }
 
@@ -191,21 +194,18 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
     projectProvider = projectInput.getProjectProvider();
     projectInput.setUseDedicatedComposite(false);
     projectInput.createControl(root);
-    projectInput.addProjectValidator(project -> {
-      uriDiscovery = new CdsAnalysisUriDiscovery(DestinationUtil.getDestinationId(project));
-      if (!uriDiscovery.isResourceDiscoverySuccessful() || uriDiscovery
-          .getCdsAnalysisUri() == null) {
-        return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, NLS.bind(
-            Messages.CdsAnalysis_FeatureIsNotSupported_xmsg, new Object[] { project.getName() }));
-      }
-      return Status.OK_STATUS;
-    });
+    projectInput.addProjectValidator(project -> CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.GENERAL, project));
     projectInput.addStatusChangeListener(status -> {
       if (status == null || status.isOK()) {
         updateStatus(new Status(IStatus.INFO, SearchAndAnalysisPlugin.PLUGIN_ID,
             Messages.RunNewCdsAnalysisDialog_noObjectSelectedStatus_xmsg));
       } else {
         updateStatus(status != null && status.isOK() ? null : status);
+      }
+
+      if (browseObjectsButton != null) {
+        browseObjectsButton.setEnabled(status == null || status.isOK());
       }
     });
     projectProvider.addPropertyChangeListener(l -> {
@@ -276,7 +276,7 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
   private void fillValidAnalysisTypesForProject(final IProject project) {
     validTypesForProject.add(CdsAnalysisType.TOP_DOWN);
     validTypesForProject.add(CdsAnalysisType.WHERE_USED);
-    if (uriDiscovery.isUsedEntitiesAnalysisAvailable()) {
+    if (FeatureTester.isCdsUsedEntitiesAnalysisAvailable(project)) {
       validTypesForProject.add(CdsAnalysisType.DEPENDENCY_TREE_USAGES);
     }
     validTypesForProject.add(CdsAnalysisType.FIELD_ANALYSIS);

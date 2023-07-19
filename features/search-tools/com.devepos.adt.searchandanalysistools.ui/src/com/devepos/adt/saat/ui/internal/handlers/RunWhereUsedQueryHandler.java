@@ -19,10 +19,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.destinations.DestinationUtil;
-import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.ui.search.AdtRisSearchUtil;
 import com.devepos.adt.base.ui.search.IAdtRisSearchResultProxy;
-import com.devepos.adt.saat.ui.internal.elementinfo.ElementInfoRetrievalServiceFactory;
+import com.devepos.adt.saat.elementinfo.ElementInfoRetrievalServiceFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.sap.adt.ris.search.ui.usagereferences.AdtRisUsageReferencesSearchQuery;
 import com.sap.adt.ris.search.ui.usagereferences.AdtRisUsageReferencesSearchQueryParameters;
@@ -73,8 +72,7 @@ public class RunWhereUsedQueryHandler extends AbstractHandler {
 
     final Job readDdlsUriJob = Job.create(
         Messages.ElementInfoProvider_RetrievingElementInfoDescription_xmsg, monitor -> {
-          final IAdtObjectReferenceElementInfo ddlsObjectInfo = ElementInfoRetrievalServiceFactory
-              .createService()
+          var ddlsObjectInfo = ElementInfoRetrievalServiceFactory.createService()
               .retrieveBasicElementInformation(DestinationUtil.getDestinationId(project),
                   adtObjectRef.getName(), ObjectType.DATA_DEFINITION);
           if (ddlsObjectInfo != null) {

@@ -6,8 +6,8 @@ import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
-import com.devepos.adt.saat.ui.internal.ddicaccess.DdicRepositoryAccessFactory;
-import com.devepos.adt.saat.ui.internal.ddicaccess.IDdicRepositoryAccess;
+import com.devepos.adt.saat.ddicaccess.DdicRepositoryAccessFactory;
+import com.devepos.adt.saat.ddicaccess.IDdicRepositoryAccess;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class NavigationUtil {
@@ -24,7 +24,7 @@ public class NavigationUtil {
     final Job loadFieldUriJob = Job.create(NLS.bind("Load Field URI for ''{0}.{1}''", entityName,
         fieldName), monitor -> {
           final IDdicRepositoryAccess ddicRepoAccess = DdicRepositoryAccessFactory
-              .createDdicAccess();
+              .getDdicAccess();
           final IAdtObjectReference adtObjectRef = ddicRepoAccess.getColumnUri(destinationId,
               entityName, fieldName);
           if (adtObjectRef != null) {

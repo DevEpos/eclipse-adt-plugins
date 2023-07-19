@@ -26,11 +26,12 @@ import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
-import com.devepos.adt.saat.ui.internal.IDataSourceType;
+import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
+import com.devepos.adt.saat.ui.internal.CdsSourceType;
+import com.devepos.adt.saat.ui.internal.IExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisConstants;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.search.IExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
@@ -159,15 +160,14 @@ public class FieldHierarchyViewer extends TreeViewer {
         break;
       case 1:
         if (!(node instanceof LoadingTreeItemsNode)) {
-          final String cellText = node.getPropertyValue(ICdsAnalysisConstants.FIELD_PROP);
-          if (cellText != null) {
-            final String calculated = node.getPropertyValue(
-                ICdsAnalysisConstants.IS_CALCULATED_PROP);
-            if ("X".equals(calculated)) {
-              styledString.append(cellText, StylerFactory.BOLD_STYLER);
+          var fieldInfo = node.getAdapter(IEntityFieldInfo.class);
+          if (fieldInfo != null && !StringUtil.isEmpty(fieldInfo.getFieldName())) {
+            if (fieldInfo.isCalculated()) {
+              styledString.append(fieldInfo.getFieldName(), StylerFactory.BOLD_STYLER);
             } else {
-              styledString.append(cellText);
+              styledString.append(fieldInfo.getFieldName());
             }
+
           }
         }
         break;
@@ -178,45 +178,48 @@ public class FieldHierarchyViewer extends TreeViewer {
     @Override
     public Image getImage(final Object element) {
       IAdtObjectReferenceNode adtObjectRefNode = null;
+      IEntityFieldInfo fieldInfo = null;
       if (element instanceof IAdtObjectReferenceNode) {
         adtObjectRefNode = (IAdtObjectReferenceNode) element;
+        fieldInfo = adtObjectRefNode.getAdapter(IEntityFieldInfo.class);
       }
-      if (columnIndex != 0) {
-        if (adtObjectRefNode != null) {
-          final String calculated = adtObjectRefNode.getPropertyValue(
-              ICdsAnalysisConstants.IS_CALCULATED_PROP);
-          if ("X".equals(calculated)) {
+      switch (columnIndex) {
+      case 0:
+        final ITreeNode node = (ITreeNode) element;
+        Image image = node.getImage();
+        if (image == null && adtObjectRefNode != null) {
+          image = AdtTypeUtil.getInstance()
+              .getTypeImage(adtObjectRefNode.getObjectType() == ObjectType.DATA_DEFINITION
+                  ? IAdtObjectTypeConstants.CDS_VIEW
+                  : adtObjectRefNode.getAdtObjectType());
+        }
+        if (image == null) {
+          return null;
+        }
+        // check if image should have overlay
+        if (fieldInfo != null) {
+          final String[] overlayImageIds = new String[4];
+          if (IExtendedAdtObjectInfo.API_STATE_RELEASED.equals(fieldInfo.getApiState())) {
+            overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+          }
+          var sourceType = fieldInfo.getSourceType() != null ? CdsSourceType.getFromId(fieldInfo
+              .getSourceType()) : null;
+          if (sourceType != null) {
+            overlayImageIds[IDecoration.BOTTOM_RIGHT] = sourceType.getImageId();
+          }
+          image = SearchAndAnalysisPlugin.getDefault().overlayImage(image, overlayImageIds);
+        }
+        return image;
+
+      case 1:
+        if (adtObjectRefNode != null && fieldInfo != null) {
+          if (fieldInfo.isCalculated()) {
             return SearchAndAnalysisPlugin.getDefault().getImage(IImages.FUNCTION);
           }
         }
-
         return null;
       }
-      final ITreeNode node = (ITreeNode) element;
-      Image image = node.getImage();
-      if (image == null && adtObjectRefNode != null) {
-        image = AdtTypeUtil.getInstance()
-            .getTypeImage(adtObjectRefNode.getObjectType() == ObjectType.DATA_DEFINITION
-                ? IAdtObjectTypeConstants.CDS_VIEW
-                : adtObjectRefNode.getAdtObjectType());
-      }
-      if (image == null) {
-        return null;
-      }
-      // check if image should have overlay
-      final IExtendedAdtObjectInfo extendedAdtInfo = node.getAdapter(IExtendedAdtObjectInfo.class);
-      if (extendedAdtInfo != null) {
-        final String[] overlayImageIds = new String[4];
-        if (extendedAdtInfo.isReleased()) {
-          overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
-        }
-        final IDataSourceType sourceType = extendedAdtInfo.getSourceType();
-        if (sourceType != null) {
-          overlayImageIds[IDecoration.BOTTOM_RIGHT] = sourceType.getImageId();
-        }
-        image = SearchAndAnalysisPlugin.getDefault().overlayImage(image, overlayImageIds);
-      }
-      return image;
+      return null;
     }
   }
 

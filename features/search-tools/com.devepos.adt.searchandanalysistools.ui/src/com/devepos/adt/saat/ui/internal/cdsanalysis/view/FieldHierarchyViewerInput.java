@@ -5,8 +5,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.FieldWhereUsedInCdsElementInfoProvider;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsFieldAnalysisSettings;
 
 /**
  * Input for the Field Hierarchy Tree Viewer
@@ -83,6 +83,7 @@ public class FieldHierarchyViewerInput {
   public void createWhereUsedNode(final ICdsFieldAnalysisSettings settings) {
     whereUsedProvider = new FieldWhereUsedInCdsElementInfoProvider(destinationProvider
         .getDestinationId(), baseEntityName, baseFieldName, settings);
+    whereUsedProvider.setRoot(true);
     whereUsedNode = new FieldHierarchyViewerNode(new LazyLoadingFolderNode(baseFieldName,
         whereUsedProvider, null, null));
   }

@@ -1,6 +1,6 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsFieldAnalysisSettings;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.IWhereUsedInCdsSettings;
 
 public class CdsAnalysisSettingsFactory {
