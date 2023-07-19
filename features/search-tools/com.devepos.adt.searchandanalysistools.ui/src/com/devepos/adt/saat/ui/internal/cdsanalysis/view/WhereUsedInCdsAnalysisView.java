@@ -23,6 +23,8 @@ import com.devepos.adt.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
+import com.devepos.adt.saat.cdsanalysis.IWhereUsedInCdsAnalysisConstants;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
@@ -32,9 +34,6 @@ import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.IWhereUsedInCdsSettings;
 import com.devepos.adt.saat.ui.internal.menu.SaatMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.search.ObjectSearchUriDiscovery;
-import com.devepos.adt.saat.ui.internal.search.QueryParameterName;
-import com.devepos.adt.saat.ui.internal.search.SearchType;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
@@ -227,13 +226,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private void checkFeatureState() {
     final IAdtObjectReferenceElementInfo adtObjElemInfo = analysisResult.getAdtObjectInfo();
     final IDestinationProvider destProvider = adtObjElemInfo.getAdapter(IDestinationProvider.class);
-    final ObjectSearchUriDiscovery uriDiscovery = new ObjectSearchUriDiscovery(destProvider
-        .getDestinationId());
-    isLocalAssocOnlyFeatureAvailable = uriDiscovery.isParameterSupported(
-        QueryParameterName.LOCAL_DECLARED_ASSOC_ONLY, SearchType.CDS_VIEW);
+    var whereUsedInTemplate = CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .getWhereUsedInCdsAnalysisTemplate(destProvider.getDestinationId());
+
+    isLocalAssocOnlyFeatureAvailable = whereUsedInTemplate != null && whereUsedInTemplate
+        .containsVariable(
+            IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_LOCAL_DECLARED_ASSOCIATIONS_ONLY);
     localAssociationsOnly.setEnabled(isLocalAssocOnlyFeatureAvailable);
-    releasedUsagesOnly.setEnabled(uriDiscovery.isParameterSupported(
-        QueryParameterName.RELEASE_STATE, SearchType.CDS_VIEW));
+    releasedUsagesOnly.setEnabled(whereUsedInTemplate != null && whereUsedInTemplate
+        .containsVariable(IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_RELEASED_ENTITIES_ONLY));
   }
 
   private void initActionState() {

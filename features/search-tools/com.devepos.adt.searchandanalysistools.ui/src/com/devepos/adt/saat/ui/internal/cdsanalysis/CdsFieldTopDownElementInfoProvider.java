@@ -1,13 +1,20 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.osgi.util.NLS;
 
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
-import com.devepos.adt.base.elementinfo.IElementInfoCollection;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
+import com.devepos.adt.base.elementinfo.SimpleElementInfo;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
+import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
+import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
+import com.devepos.adt.saat.ui.internal.util.IImages;
 
 public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider {
 
@@ -24,12 +31,41 @@ public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider 
 
   @Override
   public List<IElementInfo> getElements() {
-    final IElementInfo cdsTopDownInfo = CdsAnalysisServiceFactory.createCdsAnalysisService()
+    var topDownResult = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .loadTopDownFieldAnalysis(cdsViewName, field, destinationId);
-    if (cdsTopDownInfo != null) {
-      return ((IElementInfoCollection) cdsTopDownInfo).getChildren();
+    if (topDownResult != null) {
+      if (topDownResult.getFieldInfos().isEmpty() && topDownResult.getSourceFieldInfo() != null
+          && topDownResult.getSourceFieldInfo().isCalculated()) {
+        var elementInfos = new ArrayList<IElementInfo>();
+        elementInfos.add(new SimpleElementInfo(
+            Messages.FieldAnalysisContentHandler_CalculatedField_xmsg, SearchAndAnalysisPlugin
+                .getDefault()
+                .getImage(IImages.FUNCTION)));
+        return elementInfos;
+      } else {
+        return convertToElemInfoList(topDownResult.getFieldInfos());
+      }
     }
     return null;
+  }
+
+  private List<IElementInfo> convertToElemInfoList(List<IEntityFieldInfo> topDownResult) {
+    var elementInfos = new ArrayList<IElementInfo>();
+    for (var fieldInfo : topDownResult) {
+      var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(), fieldInfo
+          .getAltEntityName() == null ? fieldInfo.getEntityName() : fieldInfo.getAltEntityName(),
+          null);
+      objRefElemInfo.setAdditionalInfo(fieldInfo);
+      objRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+          destinationId, fieldInfo.getEntityName(), fieldInfo.getType(), fieldInfo.getUri()));
+      elementInfos.add(objRefElemInfo);
+
+      if (!fieldInfo.getChildren().isEmpty()) {
+        var childElements = convertToElemInfoList(fieldInfo.getChildren());
+        childElements.forEach(c -> objRefElemInfo.getChildren().add(c));
+      }
+    }
+    return elementInfos;
   }
 
   @Override

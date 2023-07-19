@@ -19,11 +19,12 @@ import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
+import com.devepos.adt.saat.elementinfo.ElementInfoRetrievalServiceFactory;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.AdtObjRefToElemInfoConverter;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysis;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysisKey;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysisManager;
-import com.devepos.adt.saat.ui.internal.elementinfo.ElementInfoRetrievalServiceFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.FeatureTester;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -105,11 +106,11 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
       final Job adtObjectRetrievalJob = Job.create(Messages.CdsAnalysis_LoadAdtObjectJobName_xmsg,
           (ICoreRunnable) monitor -> {
             // check if search is possible in selected project
-            final IAdtObjectReferenceElementInfo adtObjectRefElemInfo = ElementInfoRetrievalServiceFactory
-                .createService()
+            var adtObjRef = ElementInfoRetrievalServiceFactory.createService()
                 .retrieveBasicElementInformation(destinationId, objectRef.getUri());
-            if (adtObjectRefElemInfo != null) {
-              final CdsAnalysis newAnalysis = createTypedAnalysis(adtObjectRefElemInfo);
+            if (adtObjRef != null) {
+              final CdsAnalysis newAnalysis = createTypedAnalysis(AdtObjRefToElemInfoConverter
+                  .convert(destinationId, adtObjRef));
               PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                 analysisManager.addAnalysis(newAnalysis);
                 analysisManager.registerAnalysis(analysisKey, newAnalysis);

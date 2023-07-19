@@ -20,15 +20,13 @@ import org.eclipse.ui.PlatformUI;
 import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
-import com.devepos.adt.base.util.ObjectContainer;
+import com.devepos.adt.saat.model.cdsanalysis.ICdsQueryNavTargets;
+import com.devepos.adt.saat.navtargets.NavigationTargetServiceFactory;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.analytics.OpenWithAnalysisForOfficeExecutable;
 import com.devepos.adt.saat.ui.internal.analytics.OpenWithQueryMonitorExecutable;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.navtargets.INavigationTarget;
-import com.devepos.adt.saat.ui.internal.navtargets.INavigationTargetService;
-import com.devepos.adt.saat.ui.internal.navtargets.NavigationTargetServiceFactory;
 import com.devepos.adt.saat.ui.internal.util.FeatureTester;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
@@ -51,7 +49,7 @@ public class DynamicOpenInMenuUtility {
       return null;
     }
     final IProject project = adtObjects.get(0).getProject();
-    if (project == null || !FeatureTester.isObjectSearchAvailable(project)) {
+    if (project == null || !FeatureTester.isCdsAnalysisAvailable(project)) {
       return null;
     }
     return new DynamicOpenInMenuManager(adtObjects, project);
@@ -92,13 +90,18 @@ public class DynamicOpenInMenuUtility {
           SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
         }
-        SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
-            ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
+        if (FeatureTester.isWhereUsedInCdsAnalysisAvailable(project)) {
+          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+              ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
+        }
         if (isCdsView && FeatureTester.isCdsUsedEntitiesAnalysisAvailable(project)) {
           SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.USED_ENTITIES_ANALYSIS);
         }
-        SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null, ICommandConstants.FIELD_ANALYSIS);
+        if (FeatureTester.isFieldAnalysisAvailable(project)) {
+          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+              ICommandConstants.FIELD_ANALYSIS);
+        }
         // Additional actions only exist for CDS view at the moment
         if (isCdsView && FeatureTester.isNavigationTargetsFeatureAvailable(project)) {
           add(new Separator());
@@ -141,18 +144,14 @@ public class DynamicOpenInMenuUtility {
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
 
-          final INavigationTargetService service = NavigationTargetServiceFactory.createService(
-              project);
-          final ObjectContainer<INavigationTarget[]> targetsWrapper = new ObjectContainer<>(null);
-          if (service != null) {
-            final INavigationTarget[] targets = service.getTargets(objectName, objectType);
-            targetsWrapper.setObject(targets);
-          }
+          final var service = NavigationTargetServiceFactory.getService();
+          final var targets = service.getTargets(DestinationUtil.getDestinationId(project),
+              objectName, objectType);
           monitor.done();
+
           // update menu after targets are loaded
           PlatformUI.getWorkbench().getDisplay().asyncExec((Runnable) () -> {
             ExternalNavigationTargetsMenu.this.remove(loadingIndicator);
-            final INavigationTarget[] targets = targetsWrapper.getObject();
             if (targets != null) {
               addNavigationTargetActions(targets);
             } else {
@@ -167,20 +166,21 @@ public class DynamicOpenInMenuUtility {
 
     }
 
-    private void addNavigationTargetActions(final INavigationTarget[] targets) {
-      for (final INavigationTarget target : targets) {
-        switch (target.getName()) {
-        case "EXCEL": //$NON-NLS-1$
+    private void addNavigationTargetActions(final ICdsQueryNavTargets targets) {
+      for (final var target : targets.getNavigationTargets()) {
+        switch (target) {
+        case EXCEL:
           add(new OpenWithAnalysisForOfficeExecutable(DestinationUtil.getDestinationId(project),
-              adtObject.getName()).createAction(target.getDisplayName(), SearchAndAnalysisPlugin
-                  .getDefault()
-                  .getImageDescriptor(target.getImageId())));
+              adtObject.getName()).createAction(
+                  Messages.ElementInformation_AnalysisForOfficeTarget_xtit, SearchAndAnalysisPlugin
+                      .getDefault()
+                      .getImageDescriptor(IImages.EXCEL_APPLICATION)));
           break;
-        case "QUERY_MONITOR": //$NON-NLS-1$
+        case QUERY_MONITOR:
           add(new OpenWithQueryMonitorExecutable(DestinationUtil.getDestinationId(project),
-              adtObject.getName()).createAction(target.getDisplayName(), SearchAndAnalysisPlugin
-                  .getDefault()
-                  .getImageDescriptor(target.getImageId())));
+              adtObject.getName()).createAction(Messages.ElementInformation_QueryMonitorTarget_xtit,
+                  SearchAndAnalysisPlugin.getDefault()
+                      .getImageDescriptor(IImages.ANALYTICAL_QUERY)));
           break;
         }
       }

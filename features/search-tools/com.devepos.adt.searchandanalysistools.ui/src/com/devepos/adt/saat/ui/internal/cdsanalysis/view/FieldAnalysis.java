@@ -1,5 +1,6 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -10,12 +11,13 @@ import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
+import com.devepos.adt.base.elementinfo.SimpleElementInfo;
 import com.devepos.adt.base.ui.tree.LazyLoadingAdtObjectReferenceNode;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
+import com.devepos.adt.saat.ddicaccess.DdicRepositoryAccessFactory;
+import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsFieldAnalysisSettings;
-import com.devepos.adt.saat.ui.internal.ddicaccess.DdicRepositoryAccessFactory;
-import com.devepos.adt.saat.ui.internal.ddicaccess.IDdicRepositoryAccess;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
@@ -25,7 +27,6 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  * @author stockbal
  */
 public class FieldAnalysis extends CdsAnalysis {
-
   private ICdsFieldAnalysisSettings settings;
   private LazyLoadingAdtObjectReferenceNode node;
 
@@ -38,9 +39,9 @@ public class FieldAnalysis extends CdsAnalysis {
     node.setElementInfoProvider(new IElementInfoProvider() {
       @Override
       public List<IElementInfo> getElements() {
-        final IDdicRepositoryAccess ddicRepoAccess = DdicRepositoryAccessFactory.createDdicAccess();
-        return ddicRepoAccess.getElementColumnInformation(destProvider.getDestinationId(),
-            adtObjectInfo.getUri());
+        return enrichColumnInfo(destProvider.getDestinationId(), DdicRepositoryAccessFactory
+            .getDdicAccess()
+            .getColumnInformation(destProvider.getDestinationId(), adtObjectInfo.getUri()));
       }
 
       @Override
@@ -87,6 +88,26 @@ public class FieldAnalysis extends CdsAnalysis {
   @Override
   protected String getLabelPrefix() {
     return Messages.FieldAnalysisView_ViewLabel_xfld;
+  }
+
+  private List<IElementInfo> enrichColumnInfo(final String destinationId,
+      final List<IEntityFieldInfo> objRefList) {
+    if (objRefList == null || objRefList.isEmpty()) {
+      return null;
+    }
+    List<IElementInfo> columnElemList = new ArrayList<>();
+
+    for (var columnInfo : objRefList) {
+      var columnElemInfo = new SimpleElementInfo(columnInfo.getFieldName().toLowerCase(), columnInfo
+          .getFieldName(), null, columnInfo.getDescription());
+      if (columnInfo.isKey()) {
+        columnElemInfo.setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.KEY_COLUMN));
+      } else {
+        columnElemInfo.setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.COLUMN));
+      }
+      columnElemList.add(columnElemInfo);
+    }
+    return columnElemList;
   }
 
 }

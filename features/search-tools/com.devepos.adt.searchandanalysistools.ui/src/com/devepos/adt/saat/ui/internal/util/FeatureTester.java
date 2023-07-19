@@ -8,42 +8,16 @@ import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.util.IUriDiscovery;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisUriDiscovery;
-import com.devepos.adt.saat.ui.internal.dbbrowserintegration.DbBrowserIntegrationUriDiscovery;
-import com.devepos.adt.saat.ui.internal.navtargets.NavigationTargetsUriDiscovery;
-import com.devepos.adt.saat.ui.internal.search.ObjectSearchUriDiscovery;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisFeature;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
+import com.devepos.adt.saat.dbbrowserintegration.DbBrowserIntegrationUriDiscovery;
+import com.devepos.adt.saat.navtargets.NavigationTargetServiceFactory;
+import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
 
 public final class FeatureTester {
 
   private FeatureTester() {
-  }
-
-  /**
-   * Checks if the object search is available in the given project
-   *
-   * @param project ABAP Project
-   * @return <code>true</code> if feature is available
-   */
-  public static boolean isObjectSearchAvailable(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-    final ObjectSearchUriDiscovery uriDiscovery = new ObjectSearchUriDiscovery(abapProject
-        .getDestinationId());
-    return uriDiscovery.getObjectSearchUri() != null;
-  }
-
-  /**
-   * Checks if navigation targets for an ADT object can be determined
-   *
-   * @param project ABAP Project
-   * @return <code>true</code> if feature is available
-   */
-  public static boolean isNavigationTargetsFeatureAvailable(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-    final NavigationTargetsUriDiscovery uriDiscovery = new NavigationTargetsUriDiscovery(abapProject
-        .getDestinationId());
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getNavTargetsUri() != null;
   }
 
   /**
@@ -53,11 +27,9 @@ public final class FeatureTester {
    * @return <code>true</code> if feature is available
    */
   public static boolean isCdsAnalysisAvailable(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-    final CdsAnalysisUriDiscovery uriDiscovery = new CdsAnalysisUriDiscovery(abapProject
-        .getDestinationId());
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getCdsAnalysisUri() != null;
+    return CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.GENERAL, project)
+        .isOK();
   }
 
   /**
@@ -67,12 +39,9 @@ public final class FeatureTester {
    * @return <code>true</code> if feature is available
    */
   public static boolean isCdsTopDownAnalysisAvailable(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-    final CdsAnalysisUriDiscovery uriDiscovery = new CdsAnalysisUriDiscovery(abapProject
-        .getDestinationId());
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .isTopDownAnalysisAvailable();
+    return CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.TOP_DOWN, project)
+        .isOK();
   }
 
   /**
@@ -83,12 +52,39 @@ public final class FeatureTester {
    * @return <code>true</code> if feature is available
    */
   public static boolean isCdsUsedEntitiesAnalysisAvailable(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+    return CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.USED_ENTITIES, project)
+        .isOK();
+  }
 
-    final CdsAnalysisUriDiscovery uriDiscovery = new CdsAnalysisUriDiscovery(abapProject
-        .getDestinationId());
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .isUsedEntitiesAnalysisAvailable();
+  public static boolean isFieldAnalysisAvailable(IProject project) {
+    return CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.FIELD_ANALYSIS, project)
+        .isOK();
+  }
+
+  /**
+   * Checks if navigation targets for an ADT object can be determined
+   *
+   * @param project ABAP Project
+   * @return <code>true</code> if feature is available
+   */
+  public static boolean isNavigationTargetsFeatureAvailable(final IProject project) {
+    return NavigationTargetServiceFactory.getService()
+        .testNavigationTargetsAvailable(project)
+        .isOK();
+  }
+
+  /**
+   * Checks if the object search is available in the given project
+   *
+   * @param project ABAP Project
+   * @return <code>true</code> if feature is available
+   */
+  public static boolean isObjectSearchAvailable(final IProject project) {
+    return ObjectSearchServiceFactory.getSearchService()
+        .testObjectSearchFeatureAvailability(project)
+        .isOK();
   }
 
   /**
@@ -134,6 +130,12 @@ public final class FeatureTester {
       }
     }
     return true;
+  }
+
+  public static boolean isWhereUsedInCdsAnalysisAvailable(IProject project) {
+    return CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.WHERE_USED, project)
+        .isOK();
   }
 
 }

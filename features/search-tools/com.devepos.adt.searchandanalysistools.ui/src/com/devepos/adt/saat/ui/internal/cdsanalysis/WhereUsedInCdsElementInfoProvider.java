@@ -2,27 +2,17 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.osgi.util.NLS;
 
-import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingElementInfo;
-import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
-import com.devepos.adt.base.util.ObjectContainer;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.search.QueryParameterName;
-import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchQuery;
-import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchRequest;
-import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchResult;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
@@ -34,7 +24,7 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
 public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
   private final String destinationId;
   private final String adtObjectName;
-  private QueryParameterName searchParameter;
+  private Boolean isSelectFrom;
   private IWhereUsedInCdsSettings settings;
 
   /**
@@ -71,50 +61,33 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
    *                           search
    */
   private WhereUsedInCdsElementInfoProvider(final String destinationId, final String adtObjectName,
-      IWhereUsedInCdsSettings settings, final QueryParameterName searchParameter) {
+      IWhereUsedInCdsSettings settings, final Boolean selectFrom) {
     Assert.isNotNull(settings);
     this.destinationId = destinationId;
     this.adtObjectName = adtObjectName;
     this.settings = settings;
-    updateSearchParameters(searchParameter);
+    updateSearchParameters(selectFrom);
   }
 
   @Override
   public List<IElementInfo> getElements() {
-    final ObjectContainer<List<IElementInfo>> elementInfoWrapper = new ObjectContainer<>(
-        new ArrayList<IElementInfo>());
-    if (settings.isSearchAssociations() && settings.isSearchFromPart() && searchParameter == null) {
+    if (settings.isSearchAssociations() && settings.isSearchFromPart() && isSelectFrom == null) {
       return Arrays.asList(createLazyWhereUsedProviderElement(true),
           createLazyWhereUsedProviderElement(false));
     }
-    final ObjectSearchRequest searchRequest = new ObjectSearchRequest();
-    searchRequest.setProjectProvider(AbapProjectProviderAccessor.getProviderForDestination(
-        destinationId));
-    final Map<String, Object> parameters = new HashMap<>();
-    parameters.put(searchParameter.toString(), adtObjectName);
-    if (settings.isLocalAssociationsOnly()) {
-      parameters.put(QueryParameterName.LOCAL_DECLARED_ASSOC_ONLY.toString(), "X"); //$NON-NLS-1$
-    }
-    if (settings.isReleasedUsagesOnly()) {
-      parameters.put(QueryParameterName.RELEASE_STATE.toString(), "RELEASED");
-    }
-    searchRequest.setParameters(parameters, null);
-    searchRequest.setReadAllEntries(true);
-    searchRequest.setReadApiState(true);
-    final ObjectSearchQuery searchQuery = new ObjectSearchQuery(searchRequest);
-    final IStatus queryRunStatus = searchQuery.run(new NullProgressMonitor());
-    if (queryRunStatus.isOK()) {
-      final List<IAdtObjectReferenceElementInfo> result = ((ObjectSearchResult) searchQuery
-          .getSearchResult()).getResult();
-      for (final IAdtObjectReferenceElementInfo elementInfo : result) {
-        final WhereUsedInCdsElementInfoProvider elemInfoProvider = new WhereUsedInCdsElementInfoProvider(
-            destinationId, elementInfo.getName(), settings);
-        elementInfo.setElementInfoProvider(elemInfoProvider);
-        elementInfoWrapper.getObject().add(elementInfo);
+    var elementInfoResult = new ArrayList<IElementInfo>();
+    var result = CdsAnalysisServiceFactory.getCdsAnalysisService()
+        .getWhereUsedInResultsForEntity(destinationId, adtObjectName, isSelectFrom, settings
+            .isLocalAssociationsOnly(), settings.isReleasedUsagesOnly());
+    if (result != null && result.getResultCount() > 0) {
+      for (var resultObj : result.getResultObjects()) {
+        var objectRefElemInfo = AdtObjRefToElemInfoConverter.convert(destinationId, resultObj);
+        objectRefElemInfo.setElementInfoProvider(new WhereUsedInCdsElementInfoProvider(
+            destinationId, objectRefElemInfo.getName(), settings));
+        elementInfoResult.add(objectRefElemInfo);
       }
     }
-
-    return elementInfoWrapper.getObject();
+    return elementInfoResult;
   }
 
   @Override
@@ -140,8 +113,7 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
       name = Messages.CdsAnalysis_UsesInAssociationsTreeNode_xlfd;
     }
     final WhereUsedInCdsElementInfoProvider provider = new WhereUsedInCdsElementInfoProvider(
-        destinationId, adtObjectName, settings, searchFrom ? QueryParameterName.SELECT_SOURCE_IN
-            : QueryParameterName.ASSOCIATED_IN);
+        destinationId, adtObjectName, settings, searchFrom);
     return new LazyLoadingElementInfo(name, name, SearchAndAnalysisPlugin.getDefault()
         .getImage(imageId), provider);
   }
@@ -152,20 +124,20 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
    * @param searchParameter the concrete parameter value for a where used
    *                        search
    */
-  private void updateSearchParameters(final QueryParameterName searchParameter) {
+  private void updateSearchParameters(final Boolean isSelectFrom) {
     Assert.isTrue(settings.isSearchAssociations() || settings.isSearchFromPart());
-    if (searchParameter == null) {
+    if (isSelectFrom == null) {
       if (!settings.isSearchAssociations() || !settings.isSearchFromPart()) {
         if (settings.isSearchFromPart()) {
-          this.searchParameter = QueryParameterName.SELECT_SOURCE_IN;
+          this.isSelectFrom = true;
         } else {
-          this.searchParameter = QueryParameterName.ASSOCIATED_IN;
+          this.isSelectFrom = false;
         }
       } else {
-        this.searchParameter = null;
+        this.isSelectFrom = null;
       }
     } else {
-      this.searchParameter = searchParameter;
+      this.isSelectFrom = isSelectFrom;
     }
   }
 

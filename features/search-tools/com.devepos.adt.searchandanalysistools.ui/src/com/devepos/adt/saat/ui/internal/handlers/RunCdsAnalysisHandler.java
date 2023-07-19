@@ -12,6 +12,8 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
+import com.devepos.adt.saat.elementinfo.ElementInfoRetrievalServiceFactory;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.AdtObjRefToElemInfoConverter;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysis;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsAnalysisKey;
@@ -21,7 +23,6 @@ import com.devepos.adt.saat.ui.internal.cdsanalysis.view.CdsUsedEntitiesAnalysis
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.FieldAnalysis;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.RunNewCdsAnalysisDialog;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.view.WhereUsedInCdsAnalysis;
-import com.devepos.adt.saat.ui.internal.elementinfo.ElementInfoRetrievalServiceFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -49,12 +50,12 @@ public class RunCdsAnalysisHandler extends AbstractHandler {
         Job adtObjectRetrievalJob = Job.create(Messages.CdsAnalysis_LoadAdtObjectJobName_xmsg,
             (ICoreRunnable) monitor -> {
               // check if search is possible in selected project
-              final IAdtObjectReferenceElementInfo adtObjectRefElemInfo = ElementInfoRetrievalServiceFactory
-                  .createService()
+              var adtObjRef = ElementInfoRetrievalServiceFactory.createService()
                   .retrieveBasicElementInformation(destinationId, objectRef.getUri());
-              if (adtObjectRefElemInfo != null) {
-                final CdsAnalysis newAnalysis = createAnalysisForType(adtObjectRefElemInfo, dialog
-                    .getSelectedAnalysisType());
+              if (adtObjRef != null) {
+                final CdsAnalysis newAnalysis = createAnalysisForType(AdtObjRefToElemInfoConverter
+                    .convert(destinationId, adtObjRef), dialog
+                        .getSelectedAnalysisType());
                 PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                   analysisManager.addAnalysis(newAnalysis);
                   analysisManager.registerAnalysis(analysisKey, newAnalysis);
@@ -71,17 +72,17 @@ public class RunCdsAnalysisHandler extends AbstractHandler {
     return null;
   }
 
-  private CdsAnalysis createAnalysisForType(final IAdtObjectReferenceElementInfo objRefElemInfo,
+  private CdsAnalysis createAnalysisForType(final IAdtObjectReferenceElementInfo adtObjRef,
       final CdsAnalysisType type) {
     switch (type) {
     case DEPENDENCY_TREE_USAGES:
-      return new CdsUsedEntitiesAnalysis(objRefElemInfo);
+      return new CdsUsedEntitiesAnalysis(adtObjRef);
     case FIELD_ANALYSIS:
-      return new FieldAnalysis(objRefElemInfo);
+      return new FieldAnalysis(adtObjRef);
     case TOP_DOWN:
-      return new CdsTopDownAnalysis(objRefElemInfo);
+      return new CdsTopDownAnalysis(adtObjRef);
     case WHERE_USED:
-      return new WhereUsedInCdsAnalysis(objRefElemInfo);
+      return new WhereUsedInCdsAnalysis(adtObjRef);
     default:
       throw new UnsupportedOperationException(String.format("CDS Analysis type %s is not supported", //$NON-NLS-1$
           type));

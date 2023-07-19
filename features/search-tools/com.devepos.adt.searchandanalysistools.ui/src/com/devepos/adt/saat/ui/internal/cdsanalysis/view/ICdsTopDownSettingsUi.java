@@ -1,6 +1,6 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsTopDownSettings;
+import com.devepos.adt.saat.cdsanalysis.ICdsTopDownSettings;
 
 /**
  * UI settings enhancement for CDS Top down analysis

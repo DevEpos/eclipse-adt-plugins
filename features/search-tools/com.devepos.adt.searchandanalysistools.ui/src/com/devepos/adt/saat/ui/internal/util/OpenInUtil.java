@@ -3,29 +3,19 @@ package com.devepos.adt.saat.ui.internal.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.part.WorkbenchPart;
 
-import com.devepos.adt.base.project.IAbapProjectProvider;
-import com.devepos.adt.base.ui.project.AbapProjectProxy;
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
-import com.devepos.adt.base.util.AdtUtil;
+import com.devepos.adt.saat.analytics.AnalysisForOfficeServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
-import com.devepos.adt.saat.ui.internal.analytics.AnalysisForOfficeLauncherContentHandler;
-import com.devepos.adt.saat.ui.internal.analytics.AnalysisForOfficeUriDiscovery;
-import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.sap.adt.communication.resources.AdtRestResourceFactory;
-import com.sap.adt.communication.resources.IRestResource;
 import com.sap.adt.sapgui.ui.editors.AdtSapGuiEditorUtilityFactory;
 
 /**
@@ -82,34 +72,24 @@ public class OpenInUtil {
    * @param cdsViewName the name of the CDS view
    */
   public static void openCDSInAnalysisForOffice(final IProject project, final String cdsViewName) {
-    final Job openInAnalysisForOfficeJob = Job.create("Open In Analysis for Office", monitor -> { //$NON-NLS-1$
-      final IAbapProjectProvider projectProvider = new AbapProjectProxy(project);
+    final Job openInAnalysisForOfficeJob = Job.create("Open In Analysis for Office", monitor -> {
+      final String launcherContent = AnalysisForOfficeServiceFactory.getService()
+          .getSapAoxLauncherContent(DestinationUtil.getDestinationId(project), monitor,
+              cdsViewName);
 
-      final AnalysisForOfficeUriDiscovery aoxUriDiscovery = new AnalysisForOfficeUriDiscovery(
-          projectProvider.getDestinationId());
-      final URI launcherResourceURI = aoxUriDiscovery.createAnalysisForOfficeLauncherURI(cdsViewName
-          .toUpperCase());
-      if (launcherResourceURI == null) {
-        throw new CoreException(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
-            Messages.OpenInUtil_AnalysisForOfficeNotActive_xmsg));
+      if (launcherContent == null) {
+        return;
       }
-      final IRestResource launcherResource = AdtRestResourceFactory.createRestResourceFactory()
-          .createRestResource(launcherResourceURI, projectProvider.createStatelessSession());
-      launcherResource.addContentHandler(new AnalysisForOfficeLauncherContentHandler());
-      final String launcherContent = launcherResource.get(monitor, AdtUtil.getHeaders(),
-          String.class);
 
       Display.getDefault().asyncExec(() -> {
-        if (launcherContent != null) {
-          try {
-            final File launcherFile = File.createTempFile("sapaoxlauncher", ".sapaox"); //$NON-NLS-1$ //$NON-NLS-2$
-            final FileWriter launcherFileWriter = new FileWriter(launcherFile);
-            launcherFileWriter.write(launcherContent);
-            launcherFileWriter.close();
-            Program.launch(launcherFile.getAbsolutePath());
-          } catch (final IOException e1) {
-            e1.printStackTrace();
-          }
+        try {
+          final File launcherFile = File.createTempFile("sapaoxlauncher", ".sapaox"); //$NON-NLS-1$ //$NON-NLS-2$
+          final FileWriter launcherFileWriter = new FileWriter(launcherFile);
+          launcherFileWriter.write(launcherContent);
+          launcherFileWriter.close();
+          Program.launch(launcherFile.getAbsolutePath());
+        } catch (final IOException e1) {
+          e1.printStackTrace();
         }
       });
 

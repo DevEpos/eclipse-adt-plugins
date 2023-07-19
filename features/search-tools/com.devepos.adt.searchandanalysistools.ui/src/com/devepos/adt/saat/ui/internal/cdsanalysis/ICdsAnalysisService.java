@@ -2,6 +2,8 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis;
 
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
+import com.devepos.adt.saat.cdsanalysis.ICdsTopDownSettings;
 
 /**
  * Service for analyzing CDS Views

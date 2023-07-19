@@ -242,42 +242,12 @@ public class Messages extends NLS {
   public static String RunNewCdsAnalysisDialog_selectObject_xbtn;
   public static String RunNewCdsAnalysisDialog_selectObjectDialog_xtit;
   public static String RunWhereUsedQueryHandler_openObjectDialog_xtit;
-  public static String SearchPatternAnalyzer_ErrorInvalidSearchParameter_xmsg;
-  public static String SearchPatternAnalyzer_ErrorIncompleteSearchParameter_xmsg;
-  public static String SearchPatternAnalyzer_ErrorParamAllowsOnlySingleValues_xmsg;
-  public static String SearchPatternAnalyzer_ErrorParameterValueNotNumeric_xmsg;
-  public static String SearchPatternAnalyzer_ErrorUnsupportedParamValue_xmsg;
-  public static String SearchPatternAnalyzer_ErrorWildcardsNotSupportedInParam_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionCdsTypeParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionClassTypeParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionDescriptionParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionPackageParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionUserParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionReleaseStateParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionAnnotationParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionFieldParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionFromParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionAssociationParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionCdsExtendedByParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionParamParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionParamsParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionMaxRowsParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionTableTypeParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionFlagParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionAttributeParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionMethodParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionSuperTypeParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionInterfaceParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionAbapLangParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionClassCategoryParameter_xmsg;
-  public static String SearchPatternAnalyzer_DescriptionFriendParameter_xmsg;
-  public static String SearchPatternAnalyzer_NoValuePartPossibleIfKeyIsNegated_xmsg;
   public static String TreeContentProvider_FallbackNodeLoadingJobText_xmsg;
   public static String TreeContentProvider_LoadingText_xtit;
   public static String TreeContentProvider_TreeUpdateJobName_xmsg;
   public static String TreeContentProvider_TreeUpdateJobTaskName_xmsg;
 
   static {
-    NLS.initializeMessages("com.devepos.adt.saat.internal.messages.messages", Messages.class);
+    NLS.initializeMessages("com.devepos.adt.saat.ui.internal.messages.messages", Messages.class);
   }
 }

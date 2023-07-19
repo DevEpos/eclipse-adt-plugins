@@ -48,6 +48,7 @@ public class WhereUsedInCdsAnalysis extends CdsAnalysis {
     node = new LazyLoadingAdtObjectReferenceNode(adtObjectInfo.getName(), adtObjectInfo
         .getDisplayName(), adtObjectInfo.getDescription(), adtObjectInfo.getAdtObjectReference(),
         null);
+    node.setNodeValue(adtObjectInfo.getAdditionalInfo());
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
     rootWhereUsedProvider = new WhereUsedInCdsElementInfoProvider(destProvider != null
         ? destProvider.getDestinationId()
