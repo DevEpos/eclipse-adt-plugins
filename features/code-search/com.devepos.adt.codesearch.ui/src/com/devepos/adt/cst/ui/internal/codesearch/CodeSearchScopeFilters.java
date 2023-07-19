@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.search.ISearchFilter;
 import com.devepos.adt.base.ui.search.ISearchFilterProvider;
 import com.devepos.adt.base.ui.search.contentassist.ApplicationComponentSearchFilter;
@@ -39,7 +41,9 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
       parameters.add(new ApplicationComponentSearchFilter(projectProvider, CodeSearchFactory
           .getCodeSearchService()
           .getNamedItemUriTemplateProvider(projectProvider), NamedItem.APPLICATION_COMPONENT));
-      parameters.add(new DateSearchFilter(FilterName.CREATED_DATE.getContentAssistName()));
+      parameters.add(new DateSearchFilter(FilterName.CREATED_DATE.getContentAssistName(),
+          AdtBaseUIResources.format(IAdtBaseStrings.SearchFilter_CreatedDateFilterDescription_xmsg,
+              FilterName.CREATED_DATE.getContentAssistName()), null));
     }
 
     if (!projectProvider.ensureLoggedOn()) {
