@@ -33,4 +33,6 @@ public interface IAdtBaseStrings {
   String UncheckAll_xlbl = "UncheckAll_xlbl";
 
   String Destinations_DestinationNotValid_xmsg = "Destinations_DestinationNotValid_xmsg";
+
+  String SearchFilter_CreatedDateFilterDescription_xmsg = "SearchFilter_CreatedDateFilterDescription_xmsg";
 }

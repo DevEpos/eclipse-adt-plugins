@@ -23,7 +23,9 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
  * @author Ludwig Stockbauer-Muhr
  */
 public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvider {
-  protected INamedItemType namedItemType;
+  protected IImageProvider proposalImageProvider;
+  private INamedItemType namedItemType;
+  private InternalNamedItemProposalProvider namedItemProposalProvider;
   /**
    * Indicates if the filter supports pattern values. The default value is
    * <code>true</code>
@@ -54,8 +56,6 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
    * Image to be displayed alongside the filter in a proposal popup
    */
   private Image image;
-  private IImageProvider proposalImageProvider;
-  private InternalNamedItemProposalProvider namedItemProposalProvider;
 
   /**
    * Creates a search filter instance that uses the {@link INamedItemService} to
@@ -81,11 +81,8 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
       final String filterName, final String initialQuery) {
     this.namedItemType = namedItemType;
     this.filterName = filterName;
-    namedItemProposalProvider = new InternalNamedItemProposalProvider(projectProvider,
-        uriTemplateProvider, namedItemType, initialQuery);
-    namedItemProposalProvider.setNamedItemConverter((item, query) -> new SearchFilterValueProposal(
-        item.getName(), this, item.getDescription(), query, proposalImageProvider));
-    namedItemProposalProvider.setProposalContentStyle(ProposalContentStyle.INSERT);
+
+    initProposalProvider(projectProvider, uriTemplateProvider, initialQuery);
 
     if (namedItemType instanceof IImageProvider) {
       image = ((IImageProvider) namedItemType).getImage();
@@ -193,4 +190,38 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   public final boolean supportsPatternValues() {
     return supportsPatternValues;
   }
+
+  /*
+   * Retrieve long text information from description
+   */
+  private String getDescriptionFromItem(final String description) {
+    if (description == null || description.isEmpty()) {
+      return null;
+    }
+    final String[] itemDescrComponents = description.split("@@##@@"); //$NON-NLS-1$
+    if (itemDescrComponents.length < 2) {
+      return null;
+    }
+
+    final String longText = itemDescrComponents[1];
+    final String[] longTextParts = longText.split("="); //$NON-NLS-1$
+    if (longTextParts == null || longTextParts.length < 2) {
+      return null;
+    }
+    return longTextParts[1];
+  }
+
+  private void initProposalProvider(final IAbapProjectProvider projectProvider,
+      final IAdtUriTemplateProvider uriTemplateProvider, final String initialQuery) {
+    namedItemProposalProvider = new InternalNamedItemProposalProvider(projectProvider,
+        uriTemplateProvider, namedItemType, initialQuery);
+    namedItemProposalProvider.setNamedItemConverter((item, query) -> {
+      var proposal = new SearchFilterValueProposal(item.getName(), this, item.getDescription(),
+          getDescriptionFromItem(item.getData()), query, null, proposalImageProvider);
+      proposal.setData(item);
+      return proposal;
+    });
+    namedItemProposalProvider.setProposalContentStyle(ProposalContentStyle.INSERT);
+  }
+
 }

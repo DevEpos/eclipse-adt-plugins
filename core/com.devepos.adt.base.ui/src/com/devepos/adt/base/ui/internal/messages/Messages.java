@@ -54,6 +54,7 @@ public class Messages extends NLS {
   public static String SearchFilter_DescriptionApplCompSearchFilter_xmsg;
   public static String SearchFilter_DescriptionDateSearchFilter_xmsg;
   public static String SearchFilter_DescriptionPackageFilter_xmsg;
+  public static String SearchFilter_DescriptionRisQuickSearchFilter_xmsg;
   public static String SearchFilter_DescriptionUserFilter_xmsg;
   public static String SplitResultSelectionViewer_AddItemButton;
   public static String SplitResultSelectionViewer_RemoveItemButton;

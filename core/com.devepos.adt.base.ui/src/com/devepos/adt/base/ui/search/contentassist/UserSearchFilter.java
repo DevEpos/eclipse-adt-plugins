@@ -32,9 +32,9 @@ import com.sap.adt.tools.core.system.IUser;
 public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
   private final IAbapProjectProvider projectProvider;
-  private final Image image;
+  private Image image;
   private Image proposalImage;
-  private String filterLabel;
+  private final String filterLabel;
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel) {
     this.projectProvider = projectProvider;
@@ -82,6 +82,14 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public boolean isBuffered() {
     return false;
+  }
+
+  public void setImage(final Image image) {
+    this.image = image;
+  }
+
+  public void setProposalImage(final Image image) {
+    proposalImage = image;
   }
 
   @Override
