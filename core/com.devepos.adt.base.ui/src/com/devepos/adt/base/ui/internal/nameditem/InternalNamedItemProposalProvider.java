@@ -1,10 +1,8 @@
 package com.devepos.adt.base.ui.internal.nameditem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -45,7 +43,6 @@ public class InternalNamedItemProposalProvider {
   protected String destinationId;
   protected final INamedItemType namedItemType;
   protected final IAbapProjectProvider projectProvider;
-  private Map<String, INamedItem[]> cache;
   private INamedItemConverter namedItemConverter;
   private INamedItemResultFilter namedItemResultFilter;
   private INamedItemService namedItemService;
@@ -192,15 +189,17 @@ public class InternalNamedItemProposalProvider {
 
     try {
       if (getNamedItemService()) {
-        INamedItem[] namedItems = null;
-        if (namedItemType.isBuffered()) {
-          namedItems = getNamedItemsFromCache(initialQuery, query, dataFilter);
-        } else {
-          namedItems = namedItemService.getNamedItems(namedItemType, MAX_ITEMS, getQueryString(
-              query), null, dataFilter);
-        }
-        if (namedItems != null) {
-          for (final INamedItem item : namedItems) {
+        var namedItemResult = namedItemService.getNamedItems(namedItemType, MAX_ITEMS,
+            getQueryString(query), null, dataFilter);
+
+        if (namedItemResult != null) {
+          if (namedItemType.isBuffered()) {
+            namedItemResult = namedItemResult.stream()
+                .filter(namedItem -> filterResult(namedItem, query))
+                .collect(Collectors.toList());
+          }
+
+          for (final INamedItem item : namedItemResult) {
             result.add(createProposalFromNamedItem(item, query));
           }
         }
@@ -293,43 +292,8 @@ public class InternalNamedItemProposalProvider {
       }
       destinationId = currentDestinationId;
       namedItemService = NamedItemServiceFactory.createService(destinationId, uriTemplateProvider);
-      // cache is only relevant for one condition at the moment
-      if (cache != null) {
-        cache.clear();
-      }
-      cache = null;
     }
     return namedItemService != null;
-  }
-
-  /**
-   * Reads a list of named items for the given query from cache. If there are not
-   * yet in the cache, retrieval from server will be attempted
-   *
-   * @param query      query to be used for data retrieval
-   * @param cacheQuery the query string to be used to further filter the found
-   *                   results from the cache
-   * @param dataFilter additional filter value
-   * @return
-   */
-  private INamedItem[] getNamedItemsFromCache(final String query, final String cacheQuery,
-      final String dataFilter) {
-
-    INamedItem[] namedItems = null;
-    if (cache == null) {
-      cache = new HashMap<>();
-    }
-    if (cache.containsKey(query)) {
-      namedItems = cache.get(query);
-    } else {
-      namedItems = namedItemService.getNamedItems(namedItemType, MAX_ITEMS, getQueryString(query),
-          null, dataFilter);
-      cache.put(query, namedItems);
-    }
-    // filter results from cache before returning them
-    return namedItems != null ? Stream.of(namedItems)
-        .filter(namedItem -> filterResult(namedItem, cacheQuery))
-        .toArray(INamedItem[]::new) : null;
   }
 
   private String getQueryString(final String query) {

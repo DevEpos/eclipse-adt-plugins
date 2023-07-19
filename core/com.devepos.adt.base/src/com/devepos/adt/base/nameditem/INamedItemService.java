@@ -1,5 +1,7 @@
 package com.devepos.adt.base.nameditem;
 
+import java.util.List;
+
 /**
  * Service for retrieving named items from the backend
  *
@@ -15,7 +17,7 @@ public interface INamedItemService {
    * @param maxResults number of results to be retrieved from the service
    * @return an array of the found named items
    */
-  INamedItem[] getNamedItems(final INamedItemType type, final int maxResults);
+  List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults);
 
   /**
    * Retrieves a list of named items for the given type. Results can be restricted
@@ -26,7 +28,8 @@ public interface INamedItemService {
    * @param name       optional filter for a specific named item
    * @return an array of the found named items
    */
-  INamedItem[] getNamedItems(final INamedItemType type, final int maxResults, final String name);
+  List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
+      final String name);
 
   /**
    * Retrieves a list of named items for the given type. Results can be restricted
@@ -39,7 +42,7 @@ public interface INamedItemService {
    *                    description
    * @return an array of the found named items
    */
-  INamedItem[] getNamedItems(final INamedItemType type, final int maxResults, final String name,
+  List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults, final String name,
       final String description);
 
   /**
@@ -56,7 +59,7 @@ public interface INamedItemService {
    *                    data string
    * @return
    */
-  INamedItem[] getNamedItems(final INamedItemType type, final int maxResults, final String name,
+  List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults, final String name,
       final String description, final String data);
 
 }
