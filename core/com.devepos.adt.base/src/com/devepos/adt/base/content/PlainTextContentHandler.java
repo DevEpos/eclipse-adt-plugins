@@ -1,21 +1,23 @@
-package com.devepos.adt.saat.ui.internal.analytics;
+package com.devepos.adt.base.content;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import com.sap.adt.communication.content.AdtMediaType;
 import com.sap.adt.communication.content.IContentHandler;
+import com.sap.adt.communication.message.ByteArrayMessageBody;
 import com.sap.adt.communication.message.IMessageBody;
 
 /**
- * Content handler to deserialize an Analysis for Office launcher file
+ * Content Handler for plain text (i.e. text/plain)
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  */
-public class AnalysisForOfficeLauncherContentHandler implements IContentHandler<String> {
+public class PlainTextContentHandler implements IContentHandler<String> {
 
   @Override
   public String deserialize(final IMessageBody body, final Class<? extends String> clazz) {
@@ -38,7 +40,7 @@ public class AnalysisForOfficeLauncherContentHandler implements IContentHandler<
 
   @Override
   public String getSupportedContentType() {
-    return AdtMediaType.APPLICATION_XML;
+    return AdtMediaType.TEXT_PLAIN;
   }
 
   @Override
@@ -47,8 +49,9 @@ public class AnalysisForOfficeLauncherContentHandler implements IContentHandler<
   }
 
   @Override
-  public IMessageBody serialize(final String arg0, final Charset arg1) {
-    return null;
+  public IMessageBody serialize(final String dataObject, final Charset charset) {
+    return new ByteArrayMessageBody(AdtMediaType.TEXT_PLAIN, charset != null ? dataObject.getBytes(
+        charset) : dataObject.getBytes(StandardCharsets.UTF_8));
   }
 
 }
