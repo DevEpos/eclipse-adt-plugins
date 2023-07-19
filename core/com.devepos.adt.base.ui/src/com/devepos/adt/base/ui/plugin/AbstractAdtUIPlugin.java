@@ -1,6 +1,8 @@
 package com.devepos.adt.base.ui.plugin;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.util.Base64;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.FileLocator;
@@ -14,6 +16,7 @@ import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 
@@ -51,6 +54,38 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
   }
 
   /**
+   * Retrieves Image from registry
+   *
+   * @param key the identifier of the image to retrieve
+   * @return the found image
+   */
+  public Image getImage(final String key) {
+    return getImageRegistry().get(key);
+  }
+
+  /**
+   * Gets the image for the given key from the image registry
+   *
+   * @param key          the identifier of the image to get
+   * @param useGrayScale if <code>true</code> a grayscale version of the image is
+   *                     returned
+   * @return the found image descriptor or <code>null</code>
+   */
+  public Image getImage(final String key, final boolean useGrayScale) {
+    String fullImageKey = key;
+    if (useGrayScale) {
+      fullImageKey += "_GrayScale"; //$NON-NLS-1$
+    }
+    final ImageRegistry registry = getImageRegistry();
+    final Image image = registry.get(fullImageKey);
+    if (image == null) {
+      final ImageDescriptor imgDescrOriginal = registry.getDescriptor(key);
+      registerGrayScaleImageDescr(fullImageKey, imgDescrOriginal);
+    }
+    return registry.get(fullImageKey);
+  }
+
+  /**
    * Gets the image descriptor for the given key from the image registry
    *
    * @param key the identifier of the image to get
@@ -79,38 +114,6 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
       descr = registerGrayScaleImageDescr(fullImageKey, descr);
     }
     return descr;
-  }
-
-  /**
-   * Gets the image for the given key from the image registry
-   *
-   * @param key          the identifier of the image to get
-   * @param useGrayScale if <code>true</code> a grayscale version of the image is
-   *                     returned
-   * @return the found image descriptor or <code>null</code>
-   */
-  public Image getImage(final String key, final boolean useGrayScale) {
-    String fullImageKey = key;
-    if (useGrayScale) {
-      fullImageKey += "_GrayScale"; //$NON-NLS-1$
-    }
-    final ImageRegistry registry = getImageRegistry();
-    final Image image = registry.get(fullImageKey);
-    if (image == null) {
-      final ImageDescriptor imgDescrOriginal = registry.getDescriptor(key);
-      registerGrayScaleImageDescr(fullImageKey, imgDescrOriginal);
-    }
-    return registry.get(fullImageKey);
-  }
-
-  /**
-   * Retrieves Image from registry
-   *
-   * @param key the identifier of the image to retrieve
-   * @return the found image
-   */
-  public Image getImage(final String key) {
-    return getImageRegistry().get(key);
   }
 
   /**
@@ -161,6 +164,26 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
    * image, the <code>decoratorKey</code> as the key for the overlay image and the
    * <code>decorationPosition</code> as the
    *
+   * @param image           the image to be decorated with overlays
+   * @param overlayImageIds an array of exactly 5 id of Images
+   * @return
+   */
+  public Image overlayImage(final Image image, final String overlayImageKey,
+      final int decorationPosition) {
+    if (overlayImageKey == null || decorationPosition < IDecoration.TOP_LEFT
+        || decorationPosition > IDecoration.BOTTOM_RIGHT) {
+      return image;
+    }
+    final String[] overlayImageIds = new String[4];
+    overlayImageIds[decorationPosition] = overlayImageKey;
+    return overlayImage(image, overlayImageIds);
+  }
+
+  /**
+   * Returns a decorated {@link Image} with the <code>image</code> as the source
+   * image, the <code>decoratorKey</code> as the key for the overlay image and the
+   * <code>decorationPosition</code> as the
+   *
    * @param image           the image to be decorated
    * @param overlayImageIds array with image id's to be overlayed
    * @return
@@ -201,23 +224,55 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
   }
 
   /**
-   * Returns a decorated {@link Image} with the <code>image</code> as the source
-   * image, the <code>decoratorKey</code> as the key for the overlay image and the
-   * <code>decorationPosition</code> as the
-   *
-   * @param image           the image to be decorated with overlays
-   * @param overlayImageIds an array of exactly 5 id of Images
-   * @return
+   * Registers base64 encoded image under the given id in the image registry
+   * 
+   * @param imageId      the id for image
+   * @param encodedImage base64 encoded image
    */
-  public Image overlayImage(final Image image, final String overlayImageKey,
-      final int decorationPosition) {
-    if (overlayImageKey == null || decorationPosition < IDecoration.TOP_LEFT
-        || decorationPosition > IDecoration.BOTTOM_RIGHT) {
-      return image;
+  public Image registerEncodedImage(String imageId, final String encodedImage) {
+    var imageBytes = Base64.getDecoder().decode(encodedImage);
+    var imageDescr = ImageDescriptor.createFromImageDataProvider(d -> new ImageData(
+        new ByteArrayInputStream(imageBytes)));
+    var registry = getImageRegistry();
+    if (registry.get(imageId) != null) {
+      throw new IllegalStateException("duplicate imageId in image registry.");
     }
-    final String[] overlayImageIds = new String[4];
-    overlayImageIds[decorationPosition] = overlayImageKey;
-    return overlayImage(image, overlayImageIds);
+    registry.put(imageId, imageDescr);
+    return registry.get(imageId);
+  }
+
+  /**
+   * Registers the given image descriptor with a gray scale filter under the given
+   * image key in the image registry
+   *
+   * @param fullImageKey full key of the image
+   * @param descr        the image descriptor to be registered
+   * @return the image descriptor of the registered gray scale image
+   */
+  protected ImageDescriptor registerGrayScaleImageDescr(final String fullImageKey,
+      final ImageDescriptor descr) {
+    if (descr == null) {
+      return null;
+    }
+    final ImageDescriptor grayScaled = ImageDescriptor.createWithFlags(descr, SWT.IMAGE_GRAY);
+    if (grayScaled != null) {
+      getImageRegistry().put(fullImageKey, grayScaled);
+      return grayScaled;
+    }
+    return null;
+  }
+
+  /**
+   * Registers an image with the given id
+   *
+   * @param registry image registry
+   * @param imageId  id of an image in the given bundle
+   * @param fileName name of the image file
+   * @param pluginId id of a bundle where the image exists
+   */
+  protected void registerImage(final ImageRegistry registry, final String imageId,
+      final String fileName) {
+    registerImage(registry, imageId, fileName, pluginId);
   }
 
   /**
@@ -244,39 +299,5 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
       throw new IllegalStateException("duplicate imageId in image registry.");
     }
     registry.put(imageId, desc);
-  }
-
-  /**
-   * Registers an image with the given id
-   *
-   * @param registry image registry
-   * @param imageId  id of an image in the given bundle
-   * @param fileName name of the image file
-   * @param pluginId id of a bundle where the image exists
-   */
-  protected void registerImage(final ImageRegistry registry, final String imageId,
-      final String fileName) {
-    registerImage(registry, imageId, fileName, pluginId);
-  }
-
-  /**
-   * Registers the given image descriptor with a gray scale filter under the given
-   * image key in the image registry
-   *
-   * @param fullImageKey full key of the image
-   * @param descr        the image descriptor to be registered
-   * @return the image descriptor of the registered gray scale image
-   */
-  protected ImageDescriptor registerGrayScaleImageDescr(final String fullImageKey,
-      final ImageDescriptor descr) {
-    if (descr == null) {
-      return null;
-    }
-    final ImageDescriptor grayScaled = ImageDescriptor.createWithFlags(descr, SWT.IMAGE_GRAY);
-    if (grayScaled != null) {
-      getImageRegistry().put(fullImageKey, grayScaled);
-      return grayScaled;
-    }
-    return null;
   }
 }
