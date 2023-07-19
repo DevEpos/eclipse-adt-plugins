@@ -23,6 +23,7 @@ public interface IAdtObjectTypeConstants {
   String TABLE_SETTINGS_TYPE = "TABL/DTT";
 
   String VIEW_DEFINITION_TYPE = "VIEW/DV";
+  String VIEW_FIELD_TYPE = "VIEW/DVF";
   String VIEW_SIMPLE_TYPE = "VIEW";
 
   /**
