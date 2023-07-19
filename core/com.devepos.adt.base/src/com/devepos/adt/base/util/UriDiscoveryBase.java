@@ -77,6 +77,16 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
     }
   }
 
+  /**
+   * Retrieves the collection member for the given category term
+   *
+   * @param term category term
+   * @return the found collection member or {@code null}
+   */
+  protected IAdtDiscoveryCollectionMember getCollectionMember(final String term) {
+    return discovery.getCollectionMember(discoveryScheme, term, new NullProgressMonitor());
+  }
+
   protected IAdtUriTemplate getNamedItemTemplateForUri(final URI uri) {
     IAdtUriTemplate uriTemplate = null;
     if (uri != null) {
