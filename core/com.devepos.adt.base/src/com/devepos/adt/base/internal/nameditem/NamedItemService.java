@@ -1,6 +1,8 @@
 package com.devepos.adt.base.internal.nameditem;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItem;
@@ -8,7 +10,6 @@ import com.devepos.adt.base.nameditem.INamedItemService;
 import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.util.AdtUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
-import com.sap.adt.communication.resources.IRestResource;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
@@ -20,7 +21,7 @@ import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 public class NamedItemService implements INamedItemService {
 
   private final String destination;
-  private IAdtUriTemplateProvider uriTemplateProvider;
+  private final IAdtUriTemplateProvider uriTemplateProvider;
 
   public NamedItemService(final String destination,
       final IAdtUriTemplateProvider uriTemplateProvider) {
@@ -29,38 +30,38 @@ public class NamedItemService implements INamedItemService {
   }
 
   @Override
-  public INamedItem[] getNamedItems(final INamedItemType type, final int maxResults) {
+  public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults) {
     return getNamedItems(type, maxResults, null, null, null);
   }
 
   @Override
-  public INamedItem[] getNamedItems(final INamedItemType type, final int maxResults,
+  public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
       final String name) {
     return getNamedItems(type, maxResults, name, null, null);
   }
 
   @Override
-  public INamedItem[] getNamedItems(final INamedItemType type, final int maxResults,
+  public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
       final String name, final String description) {
     return getNamedItems(type, maxResults, name, description, null);
   }
 
   @Override
-  public INamedItem[] getNamedItems(final INamedItemType type, final int maxResults,
+  public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
       final String name, final String description, final String data) {
-    INamedItem[] namedItems = null;
+
+    List<INamedItem> namedItems = null;
+
     final IAdtUriTemplate template = uriTemplateProvider.getTemplateByDiscoveryTerm(type
         .getDiscoveryTerm());
     if (template != null) {
-      fillTemplate(template, maxResults, name, description, data);
-      final URI resourceUri = URI.create(template.expand());
-      // create resource and fire request
-      final IRestResource resource = AdtRestResourceFactory.createRestResourceFactory()
-          .createRestResource(resourceUri, AdtSystemSessionFactory.createSystemSessionFactory()
-              .createStatelessSession(destination));
-      resource.addContentHandler(new NamedItemContentHandler());
-      namedItems = resource.get(null, AdtUtil.getHeaders(), INamedItem[].class);
+      if (type.isBuffered()) {
+        namedItems = getCachedNamedItems(type, maxResults, template);
+      } else {
+        namedItems = getFilteredItemsFromBackend(maxResults, name, description, data, template);
+      }
     }
+
     return namedItems;
   }
 
@@ -81,5 +82,43 @@ public class NamedItemService implements INamedItemService {
     if (data != null) {
       template.set("data", data);
     }
+  }
+
+  private List<INamedItem> getAllItemsFromBackend(final INamedItemType type, final int maxResults,
+      final IAdtUriTemplate template) {
+    return getFilteredItemsFromBackend(maxResults, null, null, null, template);
+  }
+
+  private List<INamedItem> getCachedNamedItems(final INamedItemType type, final int maxResults,
+      final IAdtUriTemplate template) {
+    List<INamedItem> namedItems;
+    var cache = NamedItemCache.getInstance();
+    var uri = template.expand();
+    synchronized (cache) {
+      if (cache.containsKey(destination, uri)) {
+        namedItems = cache.get(destination, uri);
+      } else {
+        namedItems = getAllItemsFromBackend(type, maxResults, template);
+        if (namedItems != null) {
+          cache.insert(destination, uri, namedItems);
+        }
+      }
+    }
+    return namedItems;
+  }
+
+  private List<INamedItem> getFilteredItemsFromBackend(final int maxResults, final String name,
+      final String description, final String data, final IAdtUriTemplate template) {
+
+    fillTemplate(template, maxResults, name, description, data);
+
+    final var resourceUri = URI.create(template.expand());
+    final var resource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(resourceUri, AdtSystemSessionFactory.createSystemSessionFactory()
+            .createStatelessSession(destination));
+    resource.addContentHandler(new NamedItemContentHandler());
+    var namedItems = resource.get(null, AdtUtil.getHeaders(), INamedItem[].class);
+
+    return Arrays.asList(namedItems);
   }
 }
