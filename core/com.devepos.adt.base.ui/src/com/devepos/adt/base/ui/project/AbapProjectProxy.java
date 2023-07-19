@@ -43,11 +43,13 @@ public class AbapProjectProxy implements IAbapProjectProvider {
    */
   @Override
   public void setProject(final IProject project) {
-    if (this.project != project && (this.project != null && !this.project.equals(project)
-        || project != null)) {
-      fireProjectChanged(this.project, project);
-    }
+    var oldProject = this.project;
     this.project = project;
+
+    if (oldProject != project && (oldProject != null && !oldProject.equals(project)
+        || project != null)) {
+      fireProjectChanged(oldProject, project);
+    }
   }
 
   /**
@@ -141,22 +143,30 @@ public class AbapProjectProxy implements IAbapProjectProvider {
 
   @Override
   public void addPropertyChangeListener(final IPropertyChangeListener l) {
-    propertyChangeListeners.add(l);
+    synchronized (propertyChangeListeners) {
+      propertyChangeListeners.add(l);
+    }
   }
 
   @Override
   public void removePropertyChangeListener(final IPropertyChangeListener l) {
-    propertyChangeListeners.remove(l);
+    synchronized (propertyChangeListeners) {
+      propertyChangeListeners.remove(l);
+    }
   }
 
   private void fireProjectChanged(final IProject oldProject, final IProject newProject) {
     if (propertyChangeListeners.isEmpty()) {
       return;
     }
+    Set<IPropertyChangeListener> copiedListeners = new HashSet<>();
+    synchronized (propertyChangeListeners) {
+      copiedListeners.addAll(propertyChangeListeners);
+    }
     PropertyChangeEvent event = new PropertyChangeEvent(this, IAbapProjectProvider.PROPERTY_PROJECT,
         oldProject, newProject);
-    for (IPropertyChangeListener listener : propertyChangeListeners) {
-      listener.propertyChanged(event);
+    for (var l : copiedListeners) {
+      l.propertyChanged(event);
     }
   }
 
