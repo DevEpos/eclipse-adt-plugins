@@ -34,15 +34,14 @@ import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.SimpleInfoTreeNode;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.FieldAnalysisType;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.FieldAnalysisUriDiscovery;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.ui.internal.menu.SaatMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
@@ -64,7 +63,6 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   private String currentEntity;
   private IDestinationProvider destProvider;
   private Action searchDbViewUsages;
-  FieldAnalysisUriDiscovery uriDiscovery;
   private ToggleViewLayoutAction viewLayoutToggleAction;
 
   public FieldAnalysisView(final CdsAnalysisView viewPart) {
@@ -171,8 +169,7 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
         Messages.FieldAnalysisView_SearchDbViewsInWhereUsed_xmit, null, Action.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setSearchInDatabaseViews(searchDbViewUsages.isChecked());
         });
-    IToggleViewLayoutActionSettings viewLayoutActionSettings = ViewLayoutActionFactory
-        .getInstance()
+    IToggleViewLayoutActionSettings viewLayoutActionSettings = ViewLayoutActionFactory.getInstance()
         .createDefaultSettings();
     viewLayoutActionSettings.setLayoutPrefOptions(prefStore, VIEW_LAYOUT_PREF_KEY);
     viewLayoutToggleAction = ViewLayoutActionFactory.getInstance()
@@ -238,7 +235,6 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
     final ObjectType type = ObjectType.getFromAdtType(adtObjectInfo.getAdtObjectReference()
         .getType());
-    uriDiscovery = new FieldAnalysisUriDiscovery(destProvider.getDestinationId());
     currentEntity = adtObjectInfo.getDisplayName();
     this.destProvider = destProvider;
     hierarchyView.setEntityInformation(adtObjectInfo.getDisplayName(), destProvider, type);

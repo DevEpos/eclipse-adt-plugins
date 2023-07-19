@@ -31,12 +31,16 @@ import com.devepos.adt.base.ui.action.RadioActionGroup;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
+import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisFeature;
+import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
+import com.devepos.adt.saat.cdsanalysis.ICdsAnalysisConstants;
+import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
+import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsFieldTopDownElementInfoProvider;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisConstants;
-import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.ui.internal.menu.SaatMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -174,8 +178,10 @@ public class FieldHierarchyView implements IDestinationProvider {
       // check if top down is possible
       // create new input
       LazyLoadingFolderNode topDownNode = null;
-      if (parentView.uriDiscovery.isHierarchyAnalysisAvailable()
-          && currentInputObjectType == ObjectType.DATA_DEFINITION) {
+      if (CdsAnalysisServiceFactory.getCdsAnalysisService()
+          .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.FIELD_ANALYSIS_TOP_DOWN,
+              destinationProvider.getDestinationId())
+          .isOK() && currentInputObjectType == ObjectType.DATA_DEFINITION) {
         topDownNode = new LazyLoadingFolderNode(currentEntityName, currentEntityName,
             new CdsFieldTopDownElementInfoProvider(getDestinationId(), currentEntityName,
                 fieldName), node.getParent().getImage(), null, null);
@@ -254,11 +260,12 @@ public class FieldHierarchyView implements IDestinationProvider {
         return;
       }
       final String entityName = adtObjRefNode.getDisplayName();
-      final String fieldName = adtObjRefNode.getPropertyValue(ICdsAnalysisConstants.FIELD_PROP);
-      if (entityName == null || fieldName == null) {
+      var fieldInfo = adtObjRefNode.getAdapter(IEntityFieldInfo.class);
+      if (fieldInfo != null && StringUtil.isEmpty(fieldInfo.getFieldName())) {
         return;
       }
-      NavigationUtil.navigateToEntityColumn(entityName, fieldName, getDestinationId());
+      NavigationUtil.navigateToEntityColumn(entityName, fieldInfo.getFieldName(),
+          getDestinationId());
 
     });
   }
