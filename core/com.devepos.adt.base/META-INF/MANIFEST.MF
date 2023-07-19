@@ -31,21 +31,24 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.callhierarchy.backend,
-   com.devepos.adt.callhierarchy.ui",
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.adtobject;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.base.ui,
    com.devepos.adt.codesearch.ui,
-   com.devepos.adt.callhierarchy.ui",
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.content;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.codesearch.ui,
-   com.devepos.adt.callhierarchy.backend",
+   com.devepos.adt.callhierarchy.backend,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.destinations;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
@@ -54,13 +57,15 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.backend,
-   com.devepos.adt.callhierarchy.ui",
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.elementinfo;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.base.ui,
-   com.devepos.adt.callhierarchy.ui",
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.model.adtbase;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.model,
@@ -69,17 +74,18 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.base.ui,
    com.devepos.adt.codesearch.model,
    com.devepos.adt.codesearch.backend,
-   com.devepos.adt.codesearch.ui",
+   com.devepos.adt.codesearch.ui,
+   com.devepos.adt.searchandanalysistools.backend,
+   com.devepos.adt.searchandanalysistools.model",
  com.devepos.adt.base.model.adtbase.impl;x-internal:=true,
  com.devepos.adt.base.model.adtbase.util;x-internal:=true,
  com.devepos.adt.base.nameditem;
   x-friends:="com.devepos.adt.base.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.codesearch.ui,
-   com.devepos.adt.codesearch.backend",
- com.devepos.adt.base.plugin.features;
-  x-friends:="com.devepos.adt.codesearch.backend,
-   com.devepos.adt.codesearch.ui",
+   com.devepos.adt.codesearch.backend,
+   com.devepos.adt.searchandanalysistools.backend",
+ com.devepos.adt.base.plugin.features;x-friends:="com.devepos.adt.codesearch.backend,com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.project;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
@@ -88,7 +94,8 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.backend,
    com.devepos.adt.callhierarchy.ui,
-   com.devepos.adt.searchandanalysistools.ui",
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.searchandanalysistools.backend",
  com.devepos.adt.base.system;x-internal:=true,
  com.devepos.adt.base.util;
   x-friends:="com.devepos.adt.abaptags.backend,
@@ -99,5 +106,6 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.backend,
-   com.devepos.adt.base.ui.test"
+   com.devepos.adt.base.ui.test,
+   com.devepos.adt.searchandanalysistools.backend"
 
