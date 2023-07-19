@@ -107,8 +107,14 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
 
     private void doFilterSpecificValidation(final ISearchFilter filter, final String[] filterValues)
         throws CoreException {
+      IValidator filterValidator = null;
       if (filter instanceof IAdaptable) {
-        IValidator filterValidator = ((IAdaptable) filter).getAdapter(IValidator.class);
+        filterValidator = ((IAdaptable) filter).getAdapter(IValidator.class);
+      } else if (filter instanceof IValidator) {
+        filterValidator = (IValidator) filter;
+      }
+
+      if (filterValidator != null) {
         if (filterValidator != null) {
           for (final String value : filterValues) {
             filterValidator.validate(value);

@@ -83,11 +83,27 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private Image image;
   private IValidator validator;
   private List<String> dateProposals;
-  private String label;
+  private final String label;
+  private final String descriptionIntro;
   private List<String> relativeNumericDates;
 
-  public DateSearchFilter(final String label) {
+  /**
+   * Creates new date search filter with the given label.<br>
+   * The description and image are preconfigured
+   * 
+   * @param label       the name of the filter (e.g. {@code created}
+   * @param description the description to be prefixed to the explanation of the date filter
+   *                    features
+   * @param image       the image to be shown besided the filter name
+   * 
+   */
+  public DateSearchFilter(final String label, final String description, final Image image) {
+    if (StringUtil.isEmpty(description)) {
+      throw new IllegalArgumentException("description must not be null or an empty String");
+    }
     this.label = label;
+    this.descriptionIntro = description;
+    this.image = image;
   }
 
   private static class AbapDateRange {
@@ -151,7 +167,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
    */
   private static class DateValidator implements IValidator {
 
-    private ExternalDateConverter converter;
+    private final ExternalDateConverter converter;
 
     public DateValidator(final ExternalDateConverter converter) {
       this.converter = converter;
@@ -448,10 +464,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public String getDescription() {
     if (description == null) {
-      // TODO: adjust message to use for different kinds of date filter.
-      // right now it is hardcoded to "created"
       description = NLS.bind(Messages.SearchFilter_DescriptionDateSearchFilter_xmsg, new Object[] {
-          label, "8.2021, today, 1.4.2021...yesterday" });
+          descriptionIntro, label, });
     }
     return description;
   }

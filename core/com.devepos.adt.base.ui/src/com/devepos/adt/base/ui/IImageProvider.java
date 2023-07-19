@@ -13,7 +13,17 @@ public interface IImageProvider {
   /**
    * Returns the image of this provider
    *
-   * @return the image of the provider
+   * @return the provided image
    */
   Image getImage();
+
+  /**
+   * Returns image depending on the given input
+   * 
+   * @param data input object to decide which image to return
+   * @return the provided image
+   */
+  default Image getImage(Object data) {
+    return getImage();
+  }
 }
