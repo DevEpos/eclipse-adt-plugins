@@ -35,34 +35,64 @@ public interface IObjectSearchFactory extends EFactory {
   ISearchConfig createSearchConfig();
 
   /**
-   * Returns a new object of class '<em>Search Type</em>'.
+   * Returns a new object of class '<em>Search Type Config</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Search Type</em>'.
+   * @return a new object of class '<em>Search Type Config</em>'.
    * @generated
    */
-  ISearchType createSearchType();
+  ISearchTypeConfig createSearchTypeConfig();
 
   /**
-   * Returns a new object of class '<em>Search Type Input</em>'.
+   * Returns a new object of class '<em>Search Type Input Field Config</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Search Type Input</em>'.
+   * @return a new object of class '<em>Search Type Input Field Config</em>'.
    * @generated
    */
-  ISearchTypeInput createSearchTypeInput();
+  ISearchTypeInputFieldConfig createSearchTypeInputFieldConfig();
 
   /**
-   * Returns a new object of class '<em>Search Filter</em>'.
+   * Returns a new object of class '<em>Search Filter Config</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Search Filter</em>'.
+   * @return a new object of class '<em>Search Filter Config</em>'.
    * @generated
    */
-  ISearchFilter createSearchFilter();
+  ISearchFilterConfig createSearchFilterConfig();
+
+  /**
+   * Returns a new object of class '<em>Image Info</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Image Info</em>'.
+   * @generated
+   */
+  IImageInfo createImageInfo();
+
+  /**
+   * Returns a new object of class '<em>Simple Content Proposal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Simple Content Proposal</em>'.
+   * @generated
+   */
+  ISimpleContentProposal createSimpleContentProposal();
+
+  /**
+   * Returns a new object of class '<em>Fixed Values Content Assist</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Fixed Values Content Assist</em>'.
+   * @generated
+   */
+  IFixedValuesContentAssist createFixedValuesContentAssist();
 
   /**
    * Returns a new object of class '<em>Ris Content Assist</em>'.
@@ -125,14 +155,14 @@ public interface IObjectSearchFactory extends EFactory {
   ISearchQueryFilter createSearchQueryFilter();
 
   /**
-   * Returns a new object of class '<em>Search Result</em>'.
+   * Returns a new object of class '<em>Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Search Result</em>'.
+   * @return a new object of class '<em>Result</em>'.
    * @generated
    */
-  ISearchResult createSearchResult();
+  IObjectSearchResult createObjectSearchResult();
 
   /**
    * Returns the package supported by this factory.

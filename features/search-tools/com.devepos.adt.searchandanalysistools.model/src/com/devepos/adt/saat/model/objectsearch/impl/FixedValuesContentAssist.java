@@ -9,40 +9,39 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
-import com.devepos.adt.saat.model.objectsearch.ISearchResult;
+import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Search Result</b></em>'.
+ * An implementation of the model object '<em><b>Fixed Values Content Assist</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResult#getResultObject <em>Result
- * Object</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.FixedValuesContentAssist#getProposals
+ * <em>Proposals</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SearchResult extends MinimalEObjectImpl.Container implements ISearchResult {
+public class FixedValuesContentAssist extends ContentAssist implements IFixedValuesContentAssist {
   /**
-   * The cached value of the '{@link #getResultObject() <em>Result Object</em>}' containment
-   * reference list.
+   * The cached value of the '{@link #getProposals() <em>Proposals</em>}' containment reference
+   * list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see #getResultObject()
+   * @see #getProposals()
    * @generated
    * @ordered
    */
-  protected EList<IAdtObjRef> resultObject;
+  protected EList<ISimpleContentProposal> proposals;
 
   /**
    * <!-- begin-user-doc -->
@@ -50,7 +49,7 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
    *
    * @generated
    */
-  protected SearchResult() {
+  protected FixedValuesContentAssist() {
     super();
   }
 
@@ -62,7 +61,7 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
    */
   @Override
   protected EClass eStaticClass() {
-    return IObjectSearchPackage.Literals.SEARCH_RESULT;
+    return IObjectSearchPackage.Literals.FIXED_VALUES_CONTENT_ASSIST;
   }
 
   /**
@@ -72,12 +71,12 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
    * @generated
    */
   @Override
-  public List<IAdtObjRef> getResultObject() {
-    if (resultObject == null) {
-      resultObject = new EObjectContainmentEList<>(IAdtObjRef.class, this,
-          IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT);
+  public List<ISimpleContentProposal> getProposals() {
+    if (proposals == null) {
+      proposals = new EObjectContainmentEList<>(ISimpleContentProposal.class,
+          this, IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS);
     }
-    return resultObject;
+    return proposals;
   }
 
   /**
@@ -90,8 +89,8 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT:
-      return ((InternalEList<?>) getResultObject()).basicRemove(otherEnd, msgs);
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS:
+      return ((InternalEList<?>) getProposals()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -105,8 +104,8 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT:
-      return getResultObject();
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS:
+      return getProposals();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -121,9 +120,9 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT:
-      getResultObject().clear();
-      getResultObject().addAll((Collection<? extends IAdtObjRef>) newValue);
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS:
+      getProposals().clear();
+      getProposals().addAll((Collection<? extends ISimpleContentProposal>) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -138,8 +137,8 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public void eUnset(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT:
-      getResultObject().clear();
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS:
+      getProposals().clear();
       return;
     }
     super.eUnset(featureID);
@@ -154,10 +153,10 @@ public class SearchResult extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public boolean eIsSet(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_RESULT__RESULT_OBJECT:
-      return resultObject != null && !resultObject.isEmpty();
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS:
+      return proposals != null && !proposals.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} // SearchResult
+} // FixedValuesContentAssist

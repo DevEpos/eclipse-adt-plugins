@@ -35,4 +35,18 @@
             class="com.devepos.adt.saat.model.objectsearch.util.ObjectSearchResourceFactory"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated cds-analysis -->
+      <package
+            uri="http://www.devepos.com/adt/cdsanalysis"
+            class="com.devepos.adt.saat.model.cdsanalysis.ICdsAnalysisPackage"
+            genModel="model/cds-analysis.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated cds-analysis -->
+      <parser
+            type="cdsanalysis"
+            class="com.devepos.adt.saat.model.cdsanalysis.util.CdsAnalysisResourceFactory"/>
+   </extension>
 </plugin>

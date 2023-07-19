@@ -106,16 +106,17 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_CONFIG_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchType
-   * <em>Search Type</em>}' class.
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig <em>Search Type
+   * Config</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchType
-   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchType()
+   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeConfig()
    * @generated
    */
-  int SEARCH_TYPE = 1;
+  int SEARCH_TYPE_CONFIG = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -125,7 +126,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE__NAME = 0;
+  int SEARCH_TYPE_CONFIG__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -135,7 +136,17 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE__LABEL = 1;
+  int SEARCH_TYPE_CONFIG__LABEL = 1;
+
+  /**
+   * The feature id for the '<em><b>Image Info</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_TYPE_CONFIG__IMAGE_INFO = 2;
 
   /**
    * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -145,39 +156,40 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE__INPUTS = 2;
+  int SEARCH_TYPE_CONFIG__INPUTS = 3;
 
   /**
-   * The number of structural features of the '<em>Search Type</em>' class.
+   * The number of structural features of the '<em>Search Type Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_FEATURE_COUNT = 3;
+  int SEARCH_TYPE_CONFIG_FEATURE_COUNT = 4;
 
   /**
-   * The number of operations of the '<em>Search Type</em>' class.
+   * The number of operations of the '<em>Search Type Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_OPERATION_COUNT = 0;
+  int SEARCH_TYPE_CONFIG_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInput
-   * <em>Search Type Input</em>}' class.
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInputFieldConfig <em>Search Type
+   * Input Field Config</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInput
-   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeInput()
+   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInputFieldConfig
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeInputFieldConfig()
    * @generated
    */
-  int SEARCH_TYPE_INPUT = 2;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -187,7 +199,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_INPUT__NAME = 0;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -197,7 +209,17 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_INPUT__LABEL = 1;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG__LABEL = 1;
+
+  /**
+   * The feature id for the '<em><b>Mixed</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG__MIXED = 2;
 
   /**
    * The feature id for the '<em><b>Filters</b></em>' containment reference list.
@@ -207,39 +229,40 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_INPUT__FILTERS = 2;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG__FILTERS = 3;
 
   /**
-   * The number of structural features of the '<em>Search Type Input</em>' class.
+   * The number of structural features of the '<em>Search Type Input Field Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_INPUT_FEATURE_COUNT = 3;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG_FEATURE_COUNT = 4;
 
   /**
-   * The number of operations of the '<em>Search Type Input</em>' class.
+   * The number of operations of the '<em>Search Type Input Field Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_INPUT_OPERATION_COUNT = 0;
+  int SEARCH_TYPE_INPUT_FIELD_CONFIG_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter
-   * <em>Search Filter</em>}' class.
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig <em>Search Filter
+   * Config</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchFilter
-   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchFilterConfig()
    * @generated
    */
-  int SEARCH_FILTER = 3;
+  int SEARCH_FILTER_CONFIG = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -249,7 +272,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__NAME = 0;
+  int SEARCH_FILTER_CONFIG__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Data Type</b></em>' attribute.
@@ -259,7 +282,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__DATA_TYPE = 1;
+  int SEARCH_FILTER_CONFIG__DATA_TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Max Length</b></em>' attribute.
@@ -269,7 +292,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__MAX_LENGTH = 2;
+  int SEARCH_FILTER_CONFIG__MAX_LENGTH = 2;
 
   /**
    * The feature id for the '<em><b>Multiple</b></em>' attribute.
@@ -279,7 +302,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__MULTIPLE = 3;
+  int SEARCH_FILTER_CONFIG__MULTIPLE = 3;
 
   /**
    * The feature id for the '<em><b>Negatable</b></em>' attribute.
@@ -289,7 +312,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__NEGATABLE = 4;
+  int SEARCH_FILTER_CONFIG__NEGATABLE = 4;
 
   /**
    * The feature id for the '<em><b>Key Value Pair</b></em>' attribute.
@@ -299,7 +322,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__KEY_VALUE_PAIR = 5;
+  int SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR = 5;
 
   /**
    * The feature id for the '<em><b>Long Description</b></em>' attribute.
@@ -309,17 +332,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__LONG_DESCRIPTION = 6;
-
-  /**
-   * The feature id for the '<em><b>Image Key</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   * @ordered
-   */
-  int SEARCH_FILTER__IMAGE_KEY = 7;
+  int SEARCH_FILTER_CONFIG__LONG_DESCRIPTION = 6;
 
   /**
    * The feature id for the '<em><b>Internal</b></em>' attribute.
@@ -329,7 +342,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__INTERNAL = 8;
+  int SEARCH_FILTER_CONFIG__INTERNAL = 7;
 
   /**
    * The feature id for the '<em><b>Wildcards Allowed</b></em>' attribute.
@@ -339,17 +352,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__WILDCARDS_ALLOWED = 9;
-
-  /**
-   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   * @ordered
-   */
-  int SEARCH_FILTER__CACHING_POSSIBLE = 10;
+  int SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = 8;
 
   /**
    * The feature id for the '<em><b>Content Assist</b></em>' containment reference.
@@ -359,27 +362,99 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER__CONTENT_ASSIST = 11;
+  int SEARCH_FILTER_CONFIG__CONTENT_ASSIST = 9;
 
   /**
-   * The number of structural features of the '<em>Search Filter</em>' class.
+   * The feature id for the '<em><b>Image Info</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_FEATURE_COUNT = 12;
+  int SEARCH_FILTER_CONFIG__IMAGE_INFO = 10;
 
   /**
-   * The number of operations of the '<em>Search Filter</em>' class.
+   * The number of structural features of the '<em>Search Filter Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_OPERATION_COUNT = 0;
+  int SEARCH_FILTER_CONFIG_FEATURE_COUNT = 11;
+
+  /**
+   * The number of operations of the '<em>Search Filter Config</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_FILTER_CONFIG_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.ImageInfo
+   * <em>Image Info</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ImageInfo
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageInfo()
+   * @generated
+   */
+  int IMAGE_INFO = 4;
+
+  /**
+   * The feature id for the '<em><b>Image Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int IMAGE_INFO__IMAGE_ID = 0;
+
+  /**
+   * The feature id for the '<em><b>Image Encoded</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int IMAGE_INFO__IMAGE_ENCODED = 1;
+
+  /**
+   * The feature id for the '<em><b>Image Registry Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int IMAGE_INFO__IMAGE_REGISTRY_ID = 2;
+
+  /**
+   * The number of structural features of the '<em>Image Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int IMAGE_INFO_FEATURE_COUNT = 3;
+
+  /**
+   * The number of operations of the '<em>Image Info</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int IMAGE_INFO_OPERATION_COUNT = 0;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.ContentAssist
@@ -391,17 +466,47 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getContentAssist()
    * @generated
    */
-  int CONTENT_ASSIST = 4;
+  int CONTENT_ASSIST = 5;
 
   /**
-   * The feature id for the '<em><b>Entry Img Key</b></em>' attribute.
+   * The feature id for the '<em><b>Proposal Image Source</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int CONTENT_ASSIST__ENTRY_IMG_KEY = 0;
+  int CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = 0;
+
+  /**
+   * The feature id for the '<em><b>Proposal Image Registry Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = 1;
+
+  /**
+   * The feature id for the '<em><b>Proposal Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CONTENT_ASSIST__PROPOSAL_IMAGES = 2;
+
+  /**
+   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CONTENT_ASSIST__CACHING_POSSIBLE = 3;
 
   /**
    * The number of structural features of the '<em>Content Assist</em>' class.
@@ -411,7 +516,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CONTENT_ASSIST_FEATURE_COUNT = 1;
+  int CONTENT_ASSIST_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Content Assist</em>' class.
@@ -425,6 +530,142 @@ public interface IObjectSearchPackage extends EPackage {
 
   /**
    * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal <em>Simple Content
+   * Proposal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSimpleContentProposal()
+   * @generated
+   */
+  int SIMPLE_CONTENT_PROPOSAL = 6;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_CONTENT_PROPOSAL__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_CONTENT_PROPOSAL__DESCRIPTION = 1;
+
+  /**
+   * The number of structural features of the '<em>Simple Content Proposal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_CONTENT_PROPOSAL_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Simple Content Proposal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_CONTENT_PROPOSAL_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.FixedValuesContentAssist <em>Fixed Values
+   * Content Assist</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.FixedValuesContentAssist
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getFixedValuesContentAssist()
+   * @generated
+   */
+  int FIXED_VALUES_CONTENT_ASSIST = 7;
+
+  /**
+   * The feature id for the '<em><b>Proposal Image Source</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE;
+
+  /**
+   * The feature id for the '<em><b>Proposal Image Registry Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID;
+
+  /**
+   * The feature id for the '<em><b>Proposal Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST__PROPOSAL_IMAGES = CONTENT_ASSIST__PROPOSAL_IMAGES;
+
+  /**
+   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST__CACHING_POSSIBLE = CONTENT_ASSIST__CACHING_POSSIBLE;
+
+  /**
+   * The feature id for the '<em><b>Proposals</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST__PROPOSALS = CONTENT_ASSIST_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Fixed Values Content Assist</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST_FEATURE_COUNT = CONTENT_ASSIST_FEATURE_COUNT + 1;
+
+  /**
+   * The number of operations of the '<em>Fixed Values Content Assist</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int FIXED_VALUES_CONTENT_ASSIST_OPERATION_COUNT = CONTENT_ASSIST_OPERATION_COUNT + 0;
+
+  /**
+   * The meta object id for the
    * '{@link com.devepos.adt.saat.model.objectsearch.impl.RisContentAssist <em>Ris Content
    * Assist</em>}' class.
    * <!-- begin-user-doc -->
@@ -434,27 +675,57 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getRisContentAssist()
    * @generated
    */
-  int RIS_CONTENT_ASSIST = 5;
+  int RIS_CONTENT_ASSIST = 8;
 
   /**
-   * The feature id for the '<em><b>Entry Img Key</b></em>' attribute.
+   * The feature id for the '<em><b>Proposal Image Source</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int RIS_CONTENT_ASSIST__ENTRY_IMG_KEY = CONTENT_ASSIST__ENTRY_IMG_KEY;
+  int RIS_CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE;
 
   /**
-   * The feature id for the '<em><b>Adt Object Type</b></em>' attribute.
+   * The feature id for the '<em><b>Proposal Image Registry Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE = CONTENT_ASSIST_FEATURE_COUNT + 0;
+  int RIS_CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID;
+
+  /**
+   * The feature id for the '<em><b>Proposal Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RIS_CONTENT_ASSIST__PROPOSAL_IMAGES = CONTENT_ASSIST__PROPOSAL_IMAGES;
+
+  /**
+   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RIS_CONTENT_ASSIST__CACHING_POSSIBLE = CONTENT_ASSIST__CACHING_POSSIBLE;
+
+  /**
+   * The feature id for the '<em><b>Object Types</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int RIS_CONTENT_ASSIST__OBJECT_TYPES = CONTENT_ASSIST_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Ris Content Assist</em>' class.
@@ -487,17 +758,47 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getNamedItemContentAssist()
    * @generated
    */
-  int NAMED_ITEM_CONTENT_ASSIST = 6;
+  int NAMED_ITEM_CONTENT_ASSIST = 9;
 
   /**
-   * The feature id for the '<em><b>Entry Img Key</b></em>' attribute.
+   * The feature id for the '<em><b>Proposal Image Source</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int NAMED_ITEM_CONTENT_ASSIST__ENTRY_IMG_KEY = CONTENT_ASSIST__ENTRY_IMG_KEY;
+  int NAMED_ITEM_CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE;
+
+  /**
+   * The feature id for the '<em><b>Proposal Image Registry Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int NAMED_ITEM_CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID;
+
+  /**
+   * The feature id for the '<em><b>Proposal Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int NAMED_ITEM_CONTENT_ASSIST__PROPOSAL_IMAGES = CONTENT_ASSIST__PROPOSAL_IMAGES;
+
+  /**
+   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int NAMED_ITEM_CONTENT_ASSIST__CACHING_POSSIBLE = CONTENT_ASSIST__CACHING_POSSIBLE;
 
   /**
    * The feature id for the '<em><b>Category Scheme</b></em>' attribute.
@@ -560,17 +861,47 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getUserContentAssist()
    * @generated
    */
-  int USER_CONTENT_ASSIST = 7;
+  int USER_CONTENT_ASSIST = 10;
 
   /**
-   * The feature id for the '<em><b>Entry Img Key</b></em>' attribute.
+   * The feature id for the '<em><b>Proposal Image Source</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int USER_CONTENT_ASSIST__ENTRY_IMG_KEY = CONTENT_ASSIST__ENTRY_IMG_KEY;
+  int USER_CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE;
+
+  /**
+   * The feature id for the '<em><b>Proposal Image Registry Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int USER_CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID;
+
+  /**
+   * The feature id for the '<em><b>Proposal Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int USER_CONTENT_ASSIST__PROPOSAL_IMAGES = CONTENT_ASSIST__PROPOSAL_IMAGES;
+
+  /**
+   * The feature id for the '<em><b>Caching Possible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int USER_CONTENT_ASSIST__CACHING_POSSIBLE = CONTENT_ASSIST__CACHING_POSSIBLE;
 
   /**
    * The number of structural features of the '<em>User Content Assist</em>' class.
@@ -603,7 +934,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchQueryInput()
    * @generated
    */
-  int SEARCH_QUERY_INPUT = 8;
+  int SEARCH_QUERY_INPUT = 11;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -636,6 +967,26 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND = 2;
 
   /**
+   * The feature id for the '<em><b>With Api State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_INPUT__WITH_API_STATE = 3;
+
+  /**
+   * The feature id for the '<em><b>Row Limit Disabled</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED = 4;
+
+  /**
    * The feature id for the '<em><b>Fields</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -643,7 +994,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__FIELDS = 3;
+  int SEARCH_QUERY_INPUT__FIELDS = 5;
 
   /**
    * The number of structural features of the '<em>Search Query Input</em>' class.
@@ -653,7 +1004,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT_FEATURE_COUNT = 4;
+  int SEARCH_QUERY_INPUT_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Search Query Input</em>' class.
@@ -676,7 +1027,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchQueryField()
    * @generated
    */
-  int SEARCH_QUERY_FIELD = 9;
+  int SEARCH_QUERY_FIELD = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -709,6 +1060,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_QUERY_FIELD__FILTERS = 2;
 
   /**
+   * The feature id for the '<em><b>Raw Input</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_FIELD__RAW_INPUT = 3;
+
+  /**
    * The number of structural features of the '<em>Search Query Field</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -716,7 +1077,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD_FEATURE_COUNT = 3;
+  int SEARCH_QUERY_FIELD_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Search Query Field</em>' class.
@@ -739,7 +1100,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchQueryFilter()
    * @generated
    */
-  int SEARCH_QUERY_FILTER = 10;
+  int SEARCH_QUERY_FILTER = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -782,46 +1143,69 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_QUERY_FILTER_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResult
-   * <em>Search Result</em>}' class.
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchResult <em>Result</em>}'
+   * class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchResult
-   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchResult()
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchResult
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getObjectSearchResult()
    * @generated
    */
-  int SEARCH_RESULT = 11;
+  int OBJECT_SEARCH_RESULT = 14;
 
   /**
-   * The feature id for the '<em><b>Result Object</b></em>' containment reference list.
+   * The feature id for the '<em><b>Result Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_RESULT__RESULT_OBJECT = 0;
+  int OBJECT_SEARCH_RESULT__RESULT_COUNT = 0;
 
   /**
-   * The number of structural features of the '<em>Search Result</em>' class.
+   * The feature id for the '<em><b>Result Objects</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_RESULT_FEATURE_COUNT = 1;
+  int OBJECT_SEARCH_RESULT__RESULT_OBJECTS = 1;
 
   /**
-   * The number of operations of the '<em>Search Result</em>' class.
+   * The number of structural features of the '<em>Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int SEARCH_RESULT_OPERATION_COUNT = 0;
+  int OBJECT_SEARCH_RESULT_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SEARCH_RESULT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource
+   * <em>Proposal Image Source</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.ProposalImageSource
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getProposalImageSource()
+   * @generated
+   */
+  int PROPOSAL_IMAGE_SOURCE = 15;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.FilterType
@@ -833,7 +1217,19 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getFilterType()
    * @generated
    */
-  int FILTER_TYPE = 12;
+  int FILTER_TYPE = 16;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ImageRegistryId
+   * <em>Image Registry Id</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.ImageRegistryId
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageRegistryId()
+   * @generated
+   */
+  int IMAGE_REGISTRY_ID = 17;
 
   /**
    * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchConfig
@@ -862,280 +1258,358 @@ public interface IObjectSearchPackage extends EPackage {
   EReference getSearchConfig_SearchTypes();
 
   /**
-   * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchType
-   * <em>Search Type</em>}'.
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig <em>Search Type
+   * Config</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for class '<em>Search Type</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchType
+   * @return the meta object for class '<em>Search Type Config</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig
    * @generated
    */
-  EClass getSearchType();
+  EClass getSearchTypeConfig();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchType#getName <em>Name</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchType#getName()
-   * @see #getSearchType()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getName()
+   * @see #getSearchTypeConfig()
    * @generated
    */
-  EAttribute getSearchType_Name();
+  EAttribute getSearchTypeConfig_Name();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchType#getLabel <em>Label</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getLabel <em>Label</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Label</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchType#getLabel()
-   * @see #getSearchType()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getLabel()
+   * @see #getSearchTypeConfig()
    * @generated
    */
-  EAttribute getSearchType_Label();
+  EAttribute getSearchTypeConfig_Label();
+
+  /**
+   * Returns the meta object for the reference
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getImageInfo <em>Image
+   * Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the reference '<em>Image Info</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getImageInfo()
+   * @see #getSearchTypeConfig()
+   * @generated
+   */
+  EReference getSearchTypeConfig_ImageInfo();
 
   /**
    * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchType#getInputs <em>Inputs</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getInputs <em>Inputs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the containment reference list '<em>Inputs</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchType#getInputs()
-   * @see #getSearchType()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getInputs()
+   * @see #getSearchTypeConfig()
    * @generated
    */
-  EReference getSearchType_Inputs();
+  EReference getSearchTypeConfig_Inputs();
 
   /**
    * Returns the meta object for class
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInput <em>Search Type Input</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig <em>Search Type
+   * Input Field Config</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for class '<em>Search Type Input</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInput
+   * @return the meta object for class '<em>Search Type Input Field Config</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig
    * @generated
    */
-  EClass getSearchTypeInput();
+  EClass getSearchTypeInputFieldConfig();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getName <em>Name</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getName
+   * <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getName()
-   * @see #getSearchTypeInput()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getName()
+   * @see #getSearchTypeInputFieldConfig()
    * @generated
    */
-  EAttribute getSearchTypeInput_Name();
+  EAttribute getSearchTypeInputFieldConfig_Name();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getLabel <em>Label</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getLabel
+   * <em>Label</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Label</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getLabel()
-   * @see #getSearchTypeInput()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getLabel()
+   * @see #getSearchTypeInputFieldConfig()
    * @generated
    */
-  EAttribute getSearchTypeInput_Label();
+  EAttribute getSearchTypeInputFieldConfig_Label();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#isMixed
+   * <em>Mixed</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Mixed</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#isMixed()
+   * @see #getSearchTypeInputFieldConfig()
+   * @generated
+   */
+  EAttribute getSearchTypeInputFieldConfig_Mixed();
 
   /**
    * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getFilters <em>Filters</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getFilters
+   * <em>Filters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the containment reference list '<em>Filters</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInput#getFilters()
-   * @see #getSearchTypeInput()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig#getFilters()
+   * @see #getSearchTypeInputFieldConfig()
    * @generated
    */
-  EReference getSearchTypeInput_Filters();
+  EReference getSearchTypeInputFieldConfig_Filters();
 
   /**
-   * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter
-   * <em>Search Filter</em>}'.
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig <em>Search Filter
+   * Config</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for class '<em>Search Filter</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter
+   * @return the meta object for class '<em>Search Filter Config</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig
    * @generated
    */
-  EClass getSearchFilter();
+  EClass getSearchFilterConfig();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getName <em>Name</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getName()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getName()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_Name();
+  EAttribute getSearchFilterConfig_Name();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getDataType <em>Data Type</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDataType <em>Data
+   * Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Data Type</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getDataType()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDataType()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_DataType();
+  EAttribute getSearchFilterConfig_DataType();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getMaxLength <em>Max
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getMaxLength <em>Max
    * Length</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Max Length</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getMaxLength()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getMaxLength()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_MaxLength();
+  EAttribute getSearchFilterConfig_MaxLength();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isMultiple <em>Multiple</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isMultiple
+   * <em>Multiple</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Multiple</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isMultiple()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isMultiple()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_Multiple();
+  EAttribute getSearchFilterConfig_Multiple();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isNegatable <em>Negatable</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isNegatable
+   * <em>Negatable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Negatable</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isNegatable()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isNegatable()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_Negatable();
+  EAttribute getSearchFilterConfig_Negatable();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isKeyValuePair <em>Key Value
-   * Pair</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isKeyValuePair <em>Key
+   * Value Pair</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Key Value Pair</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isKeyValuePair()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isKeyValuePair()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_KeyValuePair();
+  EAttribute getSearchFilterConfig_KeyValuePair();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getLongDescription <em>Long
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getLongDescription <em>Long
    * Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Long Description</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getLongDescription()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getLongDescription()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_LongDescription();
+  EAttribute getSearchFilterConfig_LongDescription();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getImageKey <em>Image Key</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Image Key</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getImageKey()
-   * @see #getSearchFilter()
-   * @generated
-   */
-  EAttribute getSearchFilter_ImageKey();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isInternal <em>Internal</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isInternal
+   * <em>Internal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Internal</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isInternal()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isInternal()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_Internal();
+  EAttribute getSearchFilterConfig_Internal();
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isWildcardsAllowed <em>Wildcards
-   * Allowed</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isWildcardsAllowed
+   * <em>Wildcards Allowed</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Wildcards Allowed</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isWildcardsAllowed()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isWildcardsAllowed()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EAttribute getSearchFilter_WildcardsAllowed();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#isCachingPossible <em>Caching
-   * Possible</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Caching Possible</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#isCachingPossible()
-   * @see #getSearchFilter()
-   * @generated
-   */
-  EAttribute getSearchFilter_CachingPossible();
+  EAttribute getSearchFilterConfig_WildcardsAllowed();
 
   /**
    * Returns the meta object for the containment reference
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter#getContentAssist <em>Content
-   * Assist</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getContentAssist
+   * <em>Content Assist</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the meta object for the containment reference '<em>Content Assist</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter#getContentAssist()
-   * @see #getSearchFilter()
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getContentAssist()
+   * @see #getSearchFilterConfig()
    * @generated
    */
-  EReference getSearchFilter_ContentAssist();
+  EReference getSearchFilterConfig_ContentAssist();
+
+  /**
+   * Returns the meta object for the reference
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getImageInfo <em>Image
+   * Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the reference '<em>Image Info</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getImageInfo()
+   * @see #getSearchFilterConfig()
+   * @generated
+   */
+  EReference getSearchFilterConfig_ImageInfo();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.IImageInfo
+   * <em>Image Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Image Info</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IImageInfo
+   * @generated
+   */
+  EClass getImageInfo();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageId <em>Image Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Image Id</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageId()
+   * @see #getImageInfo()
+   * @generated
+   */
+  EAttribute getImageInfo_ImageId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageEncoded <em>Image
+   * Encoded</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Image Encoded</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageEncoded()
+   * @see #getImageInfo()
+   * @generated
+   */
+  EAttribute getImageInfo_ImageEncoded();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageRegistryId <em>Image
+   * Registry Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Image Registry Id</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IImageInfo#getImageRegistryId()
+   * @see #getImageInfo()
+   * @generated
+   */
+  EAttribute getImageInfo_ImageRegistryId();
 
   /**
    * Returns the meta object for class
@@ -1151,17 +1625,126 @@ public interface IObjectSearchPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.IContentAssist#getEntryImgKey <em>Entry Img
-   * Key</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImageSource
+   * <em>Proposal Image Source</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for the attribute '<em>Entry Img Key</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.IContentAssist#getEntryImgKey()
+   * @return the meta object for the attribute '<em>Proposal Image Source</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImageSource()
    * @see #getContentAssist()
    * @generated
    */
-  EAttribute getContentAssist_EntryImgKey();
+  EAttribute getContentAssist_ProposalImageSource();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImageRegistryId
+   * <em>Proposal Image Registry Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Proposal Image Registry Id</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImageRegistryId()
+   * @see #getContentAssist()
+   * @generated
+   */
+  EAttribute getContentAssist_ProposalImageRegistryId();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImages <em>Proposal
+   * Images</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Proposal Images</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IContentAssist#getProposalImages()
+   * @see #getContentAssist()
+   * @generated
+   */
+  EReference getContentAssist_ProposalImages();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IContentAssist#isCachingPossible <em>Caching
+   * Possible</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Caching Possible</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IContentAssist#isCachingPossible()
+   * @see #getContentAssist()
+   * @generated
+   */
+  EAttribute getContentAssist_CachingPossible();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal <em>Simple Content
+   * Proposal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Simple Content Proposal</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal
+   * @generated
+   */
+  EClass getSimpleContentProposal();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getName()
+   * @see #getSimpleContentProposal()
+   * @generated
+   */
+  EAttribute getSimpleContentProposal_Name();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getDescription()
+   * @see #getSimpleContentProposal()
+   * @generated
+   */
+  EAttribute getSimpleContentProposal_Description();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist <em>Fixed Values
+   * Content Assist</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Fixed Values Content Assist</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist
+   * @generated
+   */
+  EClass getFixedValuesContentAssist();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist#getProposals
+   * <em>Proposals</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Proposals</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist#getProposals()
+   * @see #getFixedValuesContentAssist()
+   * @generated
+   */
+  EReference getFixedValuesContentAssist_Proposals();
 
   /**
    * Returns the meta object for class
@@ -1177,18 +1760,18 @@ public interface IObjectSearchPackage extends EPackage {
   EClass getRisContentAssist();
 
   /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.objectsearch.IRisContentAssist#getAdtObjectType <em>Adt
-   * Object Type</em>}'.
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.saat.model.objectsearch.IRisContentAssist#getObjectTypes <em>Object
+   * Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for the attribute '<em>Adt Object Type</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.IRisContentAssist#getAdtObjectType()
+   * @return the meta object for the attribute list '<em>Object Types</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IRisContentAssist#getObjectTypes()
    * @see #getRisContentAssist()
    * @generated
    */
-  EAttribute getRisContentAssist_AdtObjectType();
+  EAttribute getRisContentAssist_ObjectTypes();
 
   /**
    * Returns the meta object for class
@@ -1313,6 +1896,34 @@ public interface IObjectSearchPackage extends EPackage {
   EAttribute getSearchQueryInput_CombineFiltersWithAnd();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isWithApiState <em>With Api
+   * State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>With Api State</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isWithApiState()
+   * @see #getSearchQueryInput()
+   * @generated
+   */
+  EAttribute getSearchQueryInput_WithApiState();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isRowLimitDisabled <em>Row
+   * Limit Disabled</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Row Limit Disabled</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isRowLimitDisabled()
+   * @see #getSearchQueryInput()
+   * @generated
+   */
+  EAttribute getSearchQueryInput_RowLimitDisabled();
+
+  /**
    * Returns the meta object for the containment reference list
    * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getFields <em>Fields</em>}'.
    * <!-- begin-user-doc -->
@@ -1379,6 +1990,20 @@ public interface IObjectSearchPackage extends EPackage {
   EReference getSearchQueryField_Filters();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getRawInput <em>Raw
+   * Input</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Raw Input</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getRawInput()
+   * @see #getSearchQueryField()
+   * @generated
+   */
+  EAttribute getSearchQueryField_RawInput();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter <em>Search Query
    * Filter</em>}'.
@@ -1418,30 +2043,57 @@ public interface IObjectSearchPackage extends EPackage {
   EAttribute getSearchQueryFilter_Values();
 
   /**
-   * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchResult
-   * <em>Search Result</em>}'.
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IObjectSearchResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for class '<em>Search Result</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchResult
+   * @return the meta object for class '<em>Result</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchResult
    * @generated
    */
-  EClass getSearchResult();
+  EClass getObjectSearchResult();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IObjectSearchResult#getResultCount <em>Result
+   * Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Result Count</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchResult#getResultCount()
+   * @see #getObjectSearchResult()
+   * @generated
+   */
+  EAttribute getObjectSearchResult_ResultCount();
 
   /**
    * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResult#getResultObject <em>Result
-   * Object</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.IObjectSearchResult#getResultObjects <em>Result
+   * Objects</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for the containment reference list '<em>Result Object</em>'.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchResult#getResultObject()
-   * @see #getSearchResult()
+   * @return the meta object for the containment reference list '<em>Result Objects</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchResult#getResultObjects()
+   * @see #getObjectSearchResult()
    * @generated
    */
-  EReference getSearchResult_ResultObject();
+  EReference getObjectSearchResult_ResultObjects();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource <em>Proposal Image
+   * Source</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Proposal Image Source</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ProposalImageSource
+   * @generated
+   */
+  EEnum getProposalImageSource();
 
   /**
    * Returns the meta object for enum '{@link com.devepos.adt.saat.model.objectsearch.FilterType
@@ -1454,6 +2106,18 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EEnum getFilterType();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.saat.model.objectsearch.ImageRegistryId <em>Image Registry Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Image Registry Id</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ImageRegistryId
+   * @generated
+   */
+  EEnum getImageRegistryId();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1505,15 +2169,16 @@ public interface IObjectSearchPackage extends EPackage {
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchType <em>Search Type</em>}' class.
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig <em>Search Type
+     * Config</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
-     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchType
-     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchType()
+     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeConfig()
      * @generated
      */
-    EClass SEARCH_TYPE = eINSTANCE.getSearchType();
+    EClass SEARCH_TYPE_CONFIG = eINSTANCE.getSearchTypeConfig();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1522,7 +2187,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_TYPE__NAME = eINSTANCE.getSearchType_Name();
+    EAttribute SEARCH_TYPE_CONFIG__NAME = eINSTANCE.getSearchTypeConfig_Name();
 
     /**
      * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -1531,7 +2196,16 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_TYPE__LABEL = eINSTANCE.getSearchType_Label();
+    EAttribute SEARCH_TYPE_CONFIG__LABEL = eINSTANCE.getSearchTypeConfig_Label();
+
+    /**
+     * The meta object literal for the '<em><b>Image Info</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_TYPE_CONFIG__IMAGE_INFO = eINSTANCE.getSearchTypeConfig_ImageInfo();
 
     /**
      * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
@@ -1540,20 +2214,20 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EReference SEARCH_TYPE__INPUTS = eINSTANCE.getSearchType_Inputs();
+    EReference SEARCH_TYPE_CONFIG__INPUTS = eINSTANCE.getSearchTypeConfig_Inputs();
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInput <em>Search Type
-     * Input</em>}' class.
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInputFieldConfig <em>Search
+     * Type Input Field Config</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
-     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInput
-     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeInput()
+     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchTypeInputFieldConfig
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchTypeInputFieldConfig()
      * @generated
      */
-    EClass SEARCH_TYPE_INPUT = eINSTANCE.getSearchTypeInput();
+    EClass SEARCH_TYPE_INPUT_FIELD_CONFIG = eINSTANCE.getSearchTypeInputFieldConfig();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1562,7 +2236,8 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_TYPE_INPUT__NAME = eINSTANCE.getSearchTypeInput_Name();
+    EAttribute SEARCH_TYPE_INPUT_FIELD_CONFIG__NAME = eINSTANCE
+        .getSearchTypeInputFieldConfig_Name();
 
     /**
      * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -1571,7 +2246,18 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_TYPE_INPUT__LABEL = eINSTANCE.getSearchTypeInput_Label();
+    EAttribute SEARCH_TYPE_INPUT_FIELD_CONFIG__LABEL = eINSTANCE
+        .getSearchTypeInputFieldConfig_Label();
+
+    /**
+     * The meta object literal for the '<em><b>Mixed</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_TYPE_INPUT_FIELD_CONFIG__MIXED = eINSTANCE
+        .getSearchTypeInputFieldConfig_Mixed();
 
     /**
      * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
@@ -1580,20 +2266,21 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EReference SEARCH_TYPE_INPUT__FILTERS = eINSTANCE.getSearchTypeInput_Filters();
+    EReference SEARCH_TYPE_INPUT_FIELD_CONFIG__FILTERS = eINSTANCE
+        .getSearchTypeInputFieldConfig_Filters();
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter <em>Search Filter</em>}'
-     * class.
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig <em>Search Filter
+     * Config</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
-     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchFilter
-     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchFilter()
+     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchFilterConfig()
      * @generated
      */
-    EClass SEARCH_FILTER = eINSTANCE.getSearchFilter();
+    EClass SEARCH_FILTER_CONFIG = eINSTANCE.getSearchFilterConfig();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1602,7 +2289,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__NAME = eINSTANCE.getSearchFilter_Name();
+    EAttribute SEARCH_FILTER_CONFIG__NAME = eINSTANCE.getSearchFilterConfig_Name();
 
     /**
      * The meta object literal for the '<em><b>Data Type</b></em>' attribute feature.
@@ -1611,7 +2298,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__DATA_TYPE = eINSTANCE.getSearchFilter_DataType();
+    EAttribute SEARCH_FILTER_CONFIG__DATA_TYPE = eINSTANCE.getSearchFilterConfig_DataType();
 
     /**
      * The meta object literal for the '<em><b>Max Length</b></em>' attribute feature.
@@ -1620,7 +2307,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__MAX_LENGTH = eINSTANCE.getSearchFilter_MaxLength();
+    EAttribute SEARCH_FILTER_CONFIG__MAX_LENGTH = eINSTANCE.getSearchFilterConfig_MaxLength();
 
     /**
      * The meta object literal for the '<em><b>Multiple</b></em>' attribute feature.
@@ -1629,7 +2316,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__MULTIPLE = eINSTANCE.getSearchFilter_Multiple();
+    EAttribute SEARCH_FILTER_CONFIG__MULTIPLE = eINSTANCE.getSearchFilterConfig_Multiple();
 
     /**
      * The meta object literal for the '<em><b>Negatable</b></em>' attribute feature.
@@ -1638,7 +2325,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__NEGATABLE = eINSTANCE.getSearchFilter_Negatable();
+    EAttribute SEARCH_FILTER_CONFIG__NEGATABLE = eINSTANCE.getSearchFilterConfig_Negatable();
 
     /**
      * The meta object literal for the '<em><b>Key Value Pair</b></em>' attribute feature.
@@ -1647,7 +2334,8 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__KEY_VALUE_PAIR = eINSTANCE.getSearchFilter_KeyValuePair();
+    EAttribute SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR = eINSTANCE
+        .getSearchFilterConfig_KeyValuePair();
 
     /**
      * The meta object literal for the '<em><b>Long Description</b></em>' attribute feature.
@@ -1656,16 +2344,8 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__LONG_DESCRIPTION = eINSTANCE.getSearchFilter_LongDescription();
-
-    /**
-     * The meta object literal for the '<em><b>Image Key</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute SEARCH_FILTER__IMAGE_KEY = eINSTANCE.getSearchFilter_ImageKey();
+    EAttribute SEARCH_FILTER_CONFIG__LONG_DESCRIPTION = eINSTANCE
+        .getSearchFilterConfig_LongDescription();
 
     /**
      * The meta object literal for the '<em><b>Internal</b></em>' attribute feature.
@@ -1674,7 +2354,7 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__INTERNAL = eINSTANCE.getSearchFilter_Internal();
+    EAttribute SEARCH_FILTER_CONFIG__INTERNAL = eINSTANCE.getSearchFilterConfig_Internal();
 
     /**
      * The meta object literal for the '<em><b>Wildcards Allowed</b></em>' attribute feature.
@@ -1683,16 +2363,8 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EAttribute SEARCH_FILTER__WILDCARDS_ALLOWED = eINSTANCE.getSearchFilter_WildcardsAllowed();
-
-    /**
-     * The meta object literal for the '<em><b>Caching Possible</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute SEARCH_FILTER__CACHING_POSSIBLE = eINSTANCE.getSearchFilter_CachingPossible();
+    EAttribute SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = eINSTANCE
+        .getSearchFilterConfig_WildcardsAllowed();
 
     /**
      * The meta object literal for the '<em><b>Content Assist</b></em>' containment reference
@@ -1702,7 +2374,56 @@ public interface IObjectSearchPackage extends EPackage {
      *
      * @generated
      */
-    EReference SEARCH_FILTER__CONTENT_ASSIST = eINSTANCE.getSearchFilter_ContentAssist();
+    EReference SEARCH_FILTER_CONFIG__CONTENT_ASSIST = eINSTANCE
+        .getSearchFilterConfig_ContentAssist();
+
+    /**
+     * The meta object literal for the '<em><b>Image Info</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_FILTER_CONFIG__IMAGE_INFO = eINSTANCE.getSearchFilterConfig_ImageInfo();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.ImageInfo <em>Image Info</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ImageInfo
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageInfo()
+     * @generated
+     */
+    EClass IMAGE_INFO = eINSTANCE.getImageInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Image Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute IMAGE_INFO__IMAGE_ID = eINSTANCE.getImageInfo_ImageId();
+
+    /**
+     * The meta object literal for the '<em><b>Image Encoded</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute IMAGE_INFO__IMAGE_ENCODED = eINSTANCE.getImageInfo_ImageEncoded();
+
+    /**
+     * The meta object literal for the '<em><b>Image Registry Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute IMAGE_INFO__IMAGE_REGISTRY_ID = eINSTANCE.getImageInfo_ImageRegistryId();
 
     /**
      * The meta object literal for the
@@ -1718,13 +2439,100 @@ public interface IObjectSearchPackage extends EPackage {
     EClass CONTENT_ASSIST = eINSTANCE.getContentAssist();
 
     /**
-     * The meta object literal for the '<em><b>Entry Img Key</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Proposal Image Source</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    EAttribute CONTENT_ASSIST__ENTRY_IMG_KEY = eINSTANCE.getContentAssist_EntryImgKey();
+    EAttribute CONTENT_ASSIST__PROPOSAL_IMAGE_SOURCE = eINSTANCE
+        .getContentAssist_ProposalImageSource();
+
+    /**
+     * The meta object literal for the '<em><b>Proposal Image Registry Id</b></em>' attribute
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CONTENT_ASSIST__PROPOSAL_IMAGE_REGISTRY_ID = eINSTANCE
+        .getContentAssist_ProposalImageRegistryId();
+
+    /**
+     * The meta object literal for the '<em><b>Proposal Images</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference CONTENT_ASSIST__PROPOSAL_IMAGES = eINSTANCE.getContentAssist_ProposalImages();
+
+    /**
+     * The meta object literal for the '<em><b>Caching Possible</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CONTENT_ASSIST__CACHING_POSSIBLE = eINSTANCE.getContentAssist_CachingPossible();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal <em>Simple Content
+     * Proposal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSimpleContentProposal()
+     * @generated
+     */
+    EClass SIMPLE_CONTENT_PROPOSAL = eINSTANCE.getSimpleContentProposal();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SIMPLE_CONTENT_PROPOSAL__NAME = eINSTANCE.getSimpleContentProposal_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SIMPLE_CONTENT_PROPOSAL__DESCRIPTION = eINSTANCE
+        .getSimpleContentProposal_Description();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.FixedValuesContentAssist <em>Fixed
+     * Values Content Assist</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.FixedValuesContentAssist
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getFixedValuesContentAssist()
+     * @generated
+     */
+    EClass FIXED_VALUES_CONTENT_ASSIST = eINSTANCE.getFixedValuesContentAssist();
+
+    /**
+     * The meta object literal for the '<em><b>Proposals</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference FIXED_VALUES_CONTENT_ASSIST__PROPOSALS = eINSTANCE
+        .getFixedValuesContentAssist_Proposals();
 
     /**
      * The meta object literal for the
@@ -1740,13 +2548,13 @@ public interface IObjectSearchPackage extends EPackage {
     EClass RIS_CONTENT_ASSIST = eINSTANCE.getRisContentAssist();
 
     /**
-     * The meta object literal for the '<em><b>Adt Object Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Object Types</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    EAttribute RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE = eINSTANCE.getRisContentAssist_AdtObjectType();
+    EAttribute RIS_CONTENT_ASSIST__OBJECT_TYPES = eINSTANCE.getRisContentAssist_ObjectTypes();
 
     /**
      * The meta object literal for the
@@ -1846,6 +2654,25 @@ public interface IObjectSearchPackage extends EPackage {
         .getSearchQueryInput_CombineFiltersWithAnd();
 
     /**
+     * The meta object literal for the '<em><b>With Api State</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_QUERY_INPUT__WITH_API_STATE = eINSTANCE.getSearchQueryInput_WithApiState();
+
+    /**
+     * The meta object literal for the '<em><b>Row Limit Disabled</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED = eINSTANCE
+        .getSearchQueryInput_RowLimitDisabled();
+
+    /**
      * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1895,6 +2722,15 @@ public interface IObjectSearchPackage extends EPackage {
     EReference SEARCH_QUERY_FIELD__FILTERS = eINSTANCE.getSearchQueryField_Filters();
 
     /**
+     * The meta object literal for the '<em><b>Raw Input</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_QUERY_FIELD__RAW_INPUT = eINSTANCE.getSearchQueryField_RawInput();
+
+    /**
      * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryFilter <em>Search Query
      * Filter</em>}' class.
@@ -1927,26 +2763,49 @@ public interface IObjectSearchPackage extends EPackage {
 
     /**
      * The meta object literal for the
-     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResult <em>Search Result</em>}'
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchResult <em>Result</em>}'
      * class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
-     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchResult
-     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchResult()
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchResult
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getObjectSearchResult()
      * @generated
      */
-    EClass SEARCH_RESULT = eINSTANCE.getSearchResult();
+    EClass OBJECT_SEARCH_RESULT = eINSTANCE.getObjectSearchResult();
 
     /**
-     * The meta object literal for the '<em><b>Result Object</b></em>' containment reference list
+     * The meta object literal for the '<em><b>Result Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute OBJECT_SEARCH_RESULT__RESULT_COUNT = eINSTANCE.getObjectSearchResult_ResultCount();
+
+    /**
+     * The meta object literal for the '<em><b>Result Objects</b></em>' containment reference list
      * feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    EReference SEARCH_RESULT__RESULT_OBJECT = eINSTANCE.getSearchResult_ResultObject();
+    EReference OBJECT_SEARCH_RESULT__RESULT_OBJECTS = eINSTANCE
+        .getObjectSearchResult_ResultObjects();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource <em>Proposal Image
+     * Source</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.ProposalImageSource
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getProposalImageSource()
+     * @generated
+     */
+    EEnum PROPOSAL_IMAGE_SOURCE = eINSTANCE.getProposalImageSource();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.saat.model.objectsearch.FilterType
@@ -1959,6 +2818,19 @@ public interface IObjectSearchPackage extends EPackage {
      * @generated
      */
     EEnum FILTER_TYPE = eINSTANCE.getFilterType();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.ImageRegistryId <em>Image Registry Id</em>}'
+     * enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.ImageRegistryId
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageRegistryId()
+     * @generated
+     */
+    EEnum IMAGE_REGISTRY_ID = eINSTANCE.getImageRegistryId();
 
   }
 

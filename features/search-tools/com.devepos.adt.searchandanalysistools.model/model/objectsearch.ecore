@@ -8,7 +8,7 @@
       <details key="name" value="searchConfig"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="searchTypes" upperBound="-1"
-        eType="#//SearchType" containment="true">
+        eType="#//SearchTypeConfig" containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="searchType"/>
         <details key="kind" value="element"/>
@@ -16,7 +16,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SearchType">
+  <eClassifiers xsi:type="ecore:EClass" name="SearchTypeConfig">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="kind" value="elementOnly"/>
       <details key="name" value="searchType"/>
@@ -35,8 +35,15 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imageInfo" eType="#//ImageInfo">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageInfo"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
-        eType="#//SearchTypeInput" containment="true">
+        eType="#//SearchTypeInputFieldConfig" containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="input"/>
         <details key="kind" value="element"/>
@@ -44,7 +51,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SearchTypeInput">
+  <eClassifiers xsi:type="ecore:EClass" name="SearchTypeInputFieldConfig">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="kind" value="elementOnly"/>
       <details key="name" value="input"/>
@@ -63,8 +70,15 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mixed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="mixed"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="#//SearchFilter" containment="true">
+        eType="#//SearchFilterConfig" containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="filter"/>
         <details key="kind" value="element"/>
@@ -72,7 +86,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SearchFilter">
+  <eClassifiers xsi:type="ecore:EClass" name="SearchFilterConfig">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="kind" value="elementOnly"/>
       <details key="name" value="filter"/>
@@ -122,14 +136,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="longDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="longDescription"/>
-        <details key="kind" value="attribute"/>
-        <details key="namespace" value="##targetNamespace"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="imageKey"/>
-        <details key="kind" value="attribute"/>
+        <details key="kind" value="element"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -147,6 +154,78 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentAssist" eType="#//ContentAssist"
+        containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="contentAssist"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imageInfo" eType="#//ImageInfo">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageInfo"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ProposalImageSource">
+    <eLiterals name="FIXED" literal="FIXED"/>
+    <eLiterals name="PROPOSAL" value="1" literal="PROPOSAL"/>
+    <eLiterals name="SAME_AS_FILTER" value="2" literal="SAME_AS_FILTER"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImageInfo">
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="kind" value="elementOnly"/>
+      <details key="name" value="proposalImage"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageId"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageEncoded" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageEncoded"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageRegistryId" eType="#//ImageRegistryId">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageRegistryId"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentAssist" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="proposalImageSource" eType="#//ProposalImageSource">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="proposalImageSource"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="proposalImageRegistryId"
+        eType="#//ImageRegistryId">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="proposalImageRegistryId"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proposalImages" upperBound="-1"
+        eType="#//ImageInfo" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="proposalImage"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cachingPossible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="caching"/>
@@ -154,36 +233,46 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contentAssist" eType="#//ContentAssist"
-        containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ContentAssist" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="entryImgKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleContentProposal">
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="kind" value="elementOnly"/>
+      <details key="name" value="contentProposal"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="entryImgKey"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RisContentAssist" eSuperTypes="#//ContentAssist">
-    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="kind" value="elementOnly"/>
-      <details key="name" value="risContentAssist"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="adtObjectType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+  <eClassifiers xsi:type="ecore:EClass" name="FixedValuesContentAssist" eSuperTypes="#//ContentAssist">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="proposals" upperBound="-1"
+        eType="#//SimpleContentProposal" containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="adtObjectType"/>
-        <details key="kind" value="attribute"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+        <details key="name" value="proposal"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RisContentAssist" eSuperTypes="#//ContentAssist">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectTypes" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="objectType"/>
+        <details key="kind" value="element"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedItemContentAssist" eSuperTypes="#//ContentAssist">
-    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="kind" value="elementOnly"/>
-      <details key="name" value="namedItemContentAssist"/>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="categoryScheme" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="categoryScheme"/>
@@ -207,12 +296,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UserContentAssist" eSuperTypes="#//ContentAssist">
-    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-      <details key="kind" value="elementOnly"/>
-      <details key="name" value="userContentAssist"/>
-    </eAnnotations>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserContentAssist" eSuperTypes="#//ContentAssist"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FilterType">
     <eLiterals name="DEFAULT" literal="DEFAULT"/>
     <eLiterals name="DATE" value="1" literal="DATE"/>
@@ -241,6 +325,20 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="combineFiltersWithAnd"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="withApiState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="withApiState"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rowLimitDisabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="rowLimitDisabled"/>
         <details key="kind" value="attribute"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
@@ -282,6 +380,8 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawInput" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SearchQueryFilter">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -304,19 +404,29 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SearchResult">
+  <eClassifiers xsi:type="ecore:EClass" name="ObjectSearchResult">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="kind" value="elementOnly"/>
       <details key="name" value="searchResult"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="resultObject" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultObjects" upperBound="-1"
         eType="ecore:EClass ../../com.devepos.adt.base/model/adtbase.ecore#//AdtObjRef"
         containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="resultObject"/>
+        <details key="name" value="adtObjRef"/>
         <details key="kind" value="element"/>
         <details key="namespace" value="http://www.devepos.com/adt/base"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ImageRegistryId">
+    <eLiterals name="CALLING_PLUGIN" literal="CALLING_PLUGIN"/>
+    <eLiterals name="ADT_OBJECT_TYPE" value="1" literal="ADT_OBJECT_TYPE"/>
   </eClassifiers>
 </ecore:EPackage>

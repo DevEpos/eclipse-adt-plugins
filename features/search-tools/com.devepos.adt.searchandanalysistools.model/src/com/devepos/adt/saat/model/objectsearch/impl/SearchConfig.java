@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
 import com.devepos.adt.saat.model.objectsearch.ISearchConfig;
-import com.devepos.adt.saat.model.objectsearch.ISearchType;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,7 +42,7 @@ public class SearchConfig extends MinimalEObjectImpl.Container implements ISearc
    * @generated
    * @ordered
    */
-  protected EList<ISearchType> searchTypes;
+  protected EList<ISearchTypeConfig> searchTypes;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,9 +72,9 @@ public class SearchConfig extends MinimalEObjectImpl.Container implements ISearc
    * @generated
    */
   @Override
-  public List<ISearchType> getSearchTypes() {
+  public List<ISearchTypeConfig> getSearchTypes() {
     if (searchTypes == null) {
-      searchTypes = new EObjectContainmentEList<>(ISearchType.class, this,
+      searchTypes = new EObjectContainmentEList<>(ISearchTypeConfig.class, this,
           IObjectSearchPackage.SEARCH_CONFIG__SEARCH_TYPES);
     }
     return searchTypes;
@@ -123,7 +123,7 @@ public class SearchConfig extends MinimalEObjectImpl.Container implements ISearc
     switch (featureID) {
     case IObjectSearchPackage.SEARCH_CONFIG__SEARCH_TYPES:
       getSearchTypes().clear();
-      getSearchTypes().addAll((Collection<? extends ISearchType>) newValue);
+      getSearchTypes().addAll((Collection<? extends ISearchTypeConfig>) newValue);
       return;
     }
     super.eSet(featureID, newValue);

@@ -40,6 +40,7 @@ public enum FilterType implements Enumerator {
    * @ordered
    */
   DATE(1, "DATE", "DATE"),
+
   /**
    * The '<em><b>BOOLEAN</b></em>' literal object.
    * <!-- begin-user-doc -->

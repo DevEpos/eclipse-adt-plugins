@@ -34,6 +34,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
  * <em>Values</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField#getFilters
  * <em>Filters</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField#getRawInput <em>Raw
+ * Input</em>}</li>
  * </ul>
  *
  * @generated
@@ -82,6 +84,28 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
    * @ordered
    */
   protected EList<ISearchQueryFilter> filters;
+
+  /**
+   * The default value of the '{@link #getRawInput() <em>Raw Input</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getRawInput()
+   * @generated
+   * @ordered
+   */
+  protected static final String RAW_INPUT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRawInput() <em>Raw Input</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getRawInput()
+   * @generated
+   * @ordered
+   */
+  protected String rawInput = RAW_INPUT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -168,6 +192,33 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
    * @generated
    */
   @Override
+  public String getRawInput() {
+    return rawInput;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setRawInput(final String newRawInput) {
+    String oldRawInput = rawInput;
+    rawInput = newRawInput;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_QUERY_FIELD__RAW_INPUT, oldRawInput, rawInput));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
@@ -192,6 +243,8 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
       return getValues();
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__FILTERS:
       return getFilters();
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__RAW_INPUT:
+      return getRawInput();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -217,6 +270,9 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
       getFilters().clear();
       getFilters().addAll((Collection<? extends ISearchQueryFilter>) newValue);
       return;
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__RAW_INPUT:
+      setRawInput((String) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -239,6 +295,9 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__FILTERS:
       getFilters().clear();
       return;
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__RAW_INPUT:
+      setRawInput(RAW_INPUT_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -258,6 +317,8 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
       return values != null && !values.isEmpty();
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__FILTERS:
       return filters != null && !filters.isEmpty();
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__RAW_INPUT:
+      return RAW_INPUT_EDEFAULT == null ? rawInput != null : !RAW_INPUT_EDEFAULT.equals(rawInput);
     }
     return super.eIsSet(featureID);
   }
@@ -279,6 +340,8 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
     result.append(name);
     result.append(", values: ");
     result.append(values);
+    result.append(", rawInput: ");
+    result.append(rawInput);
     result.append(')');
     return result.toString();
   }

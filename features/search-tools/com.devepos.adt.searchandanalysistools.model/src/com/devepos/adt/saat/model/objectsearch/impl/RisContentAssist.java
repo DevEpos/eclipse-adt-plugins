@@ -2,9 +2,12 @@
  */
 package com.devepos.adt.saat.model.objectsearch.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
 import com.devepos.adt.saat.model.objectsearch.IRisContentAssist;
@@ -17,34 +20,23 @@ import com.devepos.adt.saat.model.objectsearch.IRisContentAssist;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.RisContentAssist#getAdtObjectType <em>Adt
- * Object Type</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.RisContentAssist#getObjectTypes
+ * <em>Object Types</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class RisContentAssist extends ContentAssist implements IRisContentAssist {
   /**
-   * The default value of the '{@link #getAdtObjectType() <em>Adt Object Type</em>}' attribute.
+   * The cached value of the '{@link #getObjectTypes() <em>Object Types</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @see #getAdtObjectType()
+   * @see #getObjectTypes()
    * @generated
    * @ordered
    */
-  protected static final String ADT_OBJECT_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAdtObjectType() <em>Adt Object Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getAdtObjectType()
-   * @generated
-   * @ordered
-   */
-  protected String adtObjectType = ADT_OBJECT_TYPE_EDEFAULT;
+  protected EList<String> objectTypes;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,25 +66,12 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
    * @generated
    */
   @Override
-  public String getAdtObjectType() {
-    return adtObjectType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setAdtObjectType(final String newAdtObjectType) {
-    String oldAdtObjectType = adtObjectType;
-    adtObjectType = newAdtObjectType;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE, oldAdtObjectType,
-          adtObjectType));
+  public List<String> getObjectTypes() {
+    if (objectTypes == null) {
+      objectTypes = new EDataTypeUniqueEList<>(String.class, this,
+          IObjectSearchPackage.RIS_CONTENT_ASSIST__OBJECT_TYPES);
     }
+    return objectTypes;
   }
 
   /**
@@ -104,8 +83,8 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
   @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
-    case IObjectSearchPackage.RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE:
-      return getAdtObjectType();
+    case IObjectSearchPackage.RIS_CONTENT_ASSIST__OBJECT_TYPES:
+      return getObjectTypes();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -116,11 +95,13 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
    *
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
-    case IObjectSearchPackage.RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE:
-      setAdtObjectType((String) newValue);
+    case IObjectSearchPackage.RIS_CONTENT_ASSIST__OBJECT_TYPES:
+      getObjectTypes().clear();
+      getObjectTypes().addAll((Collection<? extends String>) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -135,8 +116,8 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
   @Override
   public void eUnset(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE:
-      setAdtObjectType(ADT_OBJECT_TYPE_EDEFAULT);
+    case IObjectSearchPackage.RIS_CONTENT_ASSIST__OBJECT_TYPES:
+      getObjectTypes().clear();
       return;
     }
     super.eUnset(featureID);
@@ -151,9 +132,8 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
   @Override
   public boolean eIsSet(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.RIS_CONTENT_ASSIST__ADT_OBJECT_TYPE:
-      return ADT_OBJECT_TYPE_EDEFAULT == null ? adtObjectType != null
-          : !ADT_OBJECT_TYPE_EDEFAULT.equals(adtObjectType);
+    case IObjectSearchPackage.RIS_CONTENT_ASSIST__OBJECT_TYPES:
+      return objectTypes != null && !objectTypes.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -171,8 +151,8 @@ public class RisContentAssist extends ContentAssist implements IRisContentAssist
     }
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (adtObjectType: ");
-    result.append(adtObjectType);
+    result.append(" (objectTypes: ");
+    result.append(objectTypes);
     result.append(')');
     return result.toString();
   }
