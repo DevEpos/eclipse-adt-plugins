@@ -14,6 +14,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -119,8 +120,14 @@ public class ProjectInput {
     if (useDedicatedComposite) {
       projectInputRoot = new Composite(parent, SWT.NONE);
       GridLayoutFactory.swtDefaults().margins(margins).numColumns(3).applyTo(projectInputRoot);
+      var parentLayout = parent.getLayout();
+      var spanH = 1;
+      if (parentLayout instanceof GridLayout) {
+        spanH = ((GridLayout) parentLayout).numColumns;
+      }
       GridDataFactory.fillDefaults()
           .align(SWT.FILL, SWT.FILL)
+          .span(spanH, 1)
           .grab(true, false)
           .applyTo(projectInputRoot);
     } else {
