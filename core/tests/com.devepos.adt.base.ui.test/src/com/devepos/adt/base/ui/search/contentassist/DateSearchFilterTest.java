@@ -20,7 +20,7 @@ public class DateSearchFilterTest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    cut = new DateSearchFilter("dummyLabel");
+    cut = new DateSearchFilter("dummyLabel", "dummyDescription", null);
   }
 
   @Test
