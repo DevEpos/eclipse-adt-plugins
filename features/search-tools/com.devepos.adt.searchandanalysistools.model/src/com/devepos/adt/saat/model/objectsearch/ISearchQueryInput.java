@@ -20,6 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  * Rows</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isCombineFiltersWithAnd
  * <em>Combine Filters With And</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isWithApiState <em>With Api
+ * State</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isRowLimitDisabled <em>Row
+ * Limit Disabled</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getFields
  * <em>Fields</em>}</li>
  * </ul>
@@ -106,6 +110,59 @@ public interface ISearchQueryInput extends EObject {
    * @generated
    */
   void setCombineFiltersWithAnd(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>With Api State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>With Api State</em>' attribute.
+   * @see #setWithApiState(boolean)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryInput_WithApiState()
+   * @model extendedMetaData="name='withApiState' kind='attribute' namespace='##targetNamespace'"
+   * @generated
+   */
+  boolean isWithApiState();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isWithApiState <em>With Api
+   * State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>With Api State</em>' attribute.
+   * @see #isWithApiState()
+   * @generated
+   */
+  void setWithApiState(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Row Limit Disabled</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Row Limit Disabled</em>' attribute.
+   * @see #setRowLimitDisabled(boolean)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryInput_RowLimitDisabled()
+   * @model extendedMetaData="name='rowLimitDisabled' kind='attribute'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  boolean isRowLimitDisabled();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isRowLimitDisabled <em>Row
+   * Limit Disabled</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Row Limit Disabled</em>' attribute.
+   * @see #isRowLimitDisabled()
+   * @generated
+   */
+  void setRowLimitDisabled(boolean value);
 
   /**
    * Returns the value of the '<em><b>Fields</b></em>' containment reference list.

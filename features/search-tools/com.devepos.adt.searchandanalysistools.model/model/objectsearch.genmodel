@@ -4,49 +4,74 @@
     modelPluginID="com.devepos.adt.searchandanalysistools.model" modelName="Object Search"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
     codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
+    complianceLevel="11.0" copyrightFields="false" usedGenPackages="../../com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
     interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true" cleanup="true">
   <foreignModel>objectsearch.ecore</foreignModel>
   <genPackages prefix="ObjectSearch" basePackage="com.devepos.adt.saat.model" resource="XML"
       disposableProviderFactory="true" ecorePackage="objectsearch.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="objectsearch.ecore#//ProposalImageSource">
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ProposalImageSource/FIXED"/>
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ProposalImageSource/PROPOSAL"/>
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ProposalImageSource/SAME_AS_FILTER"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="objectsearch.ecore#//FilterType">
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/DEFAULT"/>
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/DATE"/>
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/BOOLEAN"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="objectsearch.ecore#//ImageRegistryId">
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ImageRegistryId/CALLING_PLUGIN"/>
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ImageRegistryId/ADT_OBJECT_TYPE"/>
+    </genEnums>
     <genClasses ecoreClass="objectsearch.ecore#//SearchConfig">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchConfig/searchTypes"/>
     </genClasses>
-    <genClasses ecoreClass="objectsearch.ecore#//SearchType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchType/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchType/label"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchType/inputs"/>
+    <genClasses ecoreClass="objectsearch.ecore#//SearchTypeConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeConfig/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeConfig/label"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchTypeConfig/imageInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchTypeConfig/inputs"/>
     </genClasses>
-    <genClasses ecoreClass="objectsearch.ecore#//SearchTypeInput">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeInput/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeInput/label"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchTypeInput/filters"/>
+    <genClasses ecoreClass="objectsearch.ecore#//SearchTypeInputFieldConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeInputFieldConfig/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeInputFieldConfig/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeInputFieldConfig/mixed"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchTypeInputFieldConfig/filters"/>
     </genClasses>
-    <genClasses ecoreClass="objectsearch.ecore#//SearchFilter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/dataType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/maxLength"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/multiple"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/negatable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/keyValuePair"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/longDescription"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/imageKey"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/internal"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/wildcardsAllowed"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilter/cachingPossible"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchFilter/contentAssist"/>
+    <genClasses ecoreClass="objectsearch.ecore#//SearchFilterConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/dataType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/maxLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/multiple"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/negatable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/keyValuePair"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/longDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/internal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/wildcardsAllowed"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchFilterConfig/contentAssist"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchFilterConfig/imageInfo"/>
+    </genClasses>
+    <genClasses ecoreClass="objectsearch.ecore#//ImageInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ImageInfo/imageId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ImageInfo/imageEncoded"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ImageInfo/imageRegistryId"/>
     </genClasses>
     <genClasses image="false" ecoreClass="objectsearch.ecore#//ContentAssist">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ContentAssist/entryImgKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ContentAssist/proposalImageSource"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ContentAssist/proposalImageRegistryId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//ContentAssist/proposalImages"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ContentAssist/cachingPossible"/>
+    </genClasses>
+    <genClasses ecoreClass="objectsearch.ecore#//SimpleContentProposal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SimpleContentProposal/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SimpleContentProposal/description"/>
+    </genClasses>
+    <genClasses ecoreClass="objectsearch.ecore#//FixedValuesContentAssist">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//FixedValuesContentAssist/proposals"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//RisContentAssist">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//RisContentAssist/adtObjectType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//RisContentAssist/objectTypes"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//NamedItemContentAssist">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//NamedItemContentAssist/categoryScheme"/>
@@ -58,19 +83,23 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryInput/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryInput/maxRows"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryInput/combineFiltersWithAnd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryInput/withApiState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryInput/rowLimitDisabled"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchQueryInput/fields"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//SearchQueryField">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryField/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryField/values"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchQueryField/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryField/rawInput"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//SearchQueryFilter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryFilter/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchQueryFilter/values"/>
     </genClasses>
-    <genClasses ecoreClass="objectsearch.ecore#//SearchResult">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchResult/resultObject"/>
+    <genClasses ecoreClass="objectsearch.ecore#//ObjectSearchResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//ObjectSearchResult/resultCount"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//ObjectSearchResult/resultObjects"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

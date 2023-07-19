@@ -7,17 +7,20 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
+import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
+import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
 import com.devepos.adt.saat.model.objectsearch.IRisContentAssist;
 import com.devepos.adt.saat.model.objectsearch.ISearchConfig;
-import com.devepos.adt.saat.model.objectsearch.ISearchFilter;
+import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
-import com.devepos.adt.saat.model.objectsearch.ISearchResult;
-import com.devepos.adt.saat.model.objectsearch.ISearchType;
-import com.devepos.adt.saat.model.objectsearch.ISearchTypeInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
+import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
 import com.devepos.adt.saat.model.objectsearch.IUserContentAssist;
 
 /**
@@ -91,25 +94,33 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
       }
       return result;
     }
-    case IObjectSearchPackage.SEARCH_TYPE: {
-      ISearchType searchType = (ISearchType) theEObject;
-      T result = caseSearchType(searchType);
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG: {
+      ISearchTypeConfig searchTypeConfig = (ISearchTypeConfig) theEObject;
+      T result = caseSearchTypeConfig(searchTypeConfig);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
-    case IObjectSearchPackage.SEARCH_TYPE_INPUT: {
-      ISearchTypeInput searchTypeInput = (ISearchTypeInput) theEObject;
-      T result = caseSearchTypeInput(searchTypeInput);
+    case IObjectSearchPackage.SEARCH_TYPE_INPUT_FIELD_CONFIG: {
+      ISearchTypeInputFieldConfig searchTypeInputFieldConfig = (ISearchTypeInputFieldConfig) theEObject;
+      T result = caseSearchTypeInputFieldConfig(searchTypeInputFieldConfig);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
-    case IObjectSearchPackage.SEARCH_FILTER: {
-      ISearchFilter searchFilter = (ISearchFilter) theEObject;
-      T result = caseSearchFilter(searchFilter);
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG: {
+      ISearchFilterConfig searchFilterConfig = (ISearchFilterConfig) theEObject;
+      T result = caseSearchFilterConfig(searchFilterConfig);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.IMAGE_INFO: {
+      IImageInfo imageInfo = (IImageInfo) theEObject;
+      T result = caseImageInfo(imageInfo);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -118,6 +129,25 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
     case IObjectSearchPackage.CONTENT_ASSIST: {
       IContentAssist contentAssist = (IContentAssist) theEObject;
       T result = caseContentAssist(contentAssist);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL: {
+      ISimpleContentProposal simpleContentProposal = (ISimpleContentProposal) theEObject;
+      T result = caseSimpleContentProposal(simpleContentProposal);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST: {
+      IFixedValuesContentAssist fixedValuesContentAssist = (IFixedValuesContentAssist) theEObject;
+      T result = caseFixedValuesContentAssist(fixedValuesContentAssist);
+      if (result == null) {
+        result = caseContentAssist(fixedValuesContentAssist);
+      }
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -180,9 +210,9 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
       }
       return result;
     }
-    case IObjectSearchPackage.SEARCH_RESULT: {
-      ISearchResult searchResult = (ISearchResult) theEObject;
-      T result = caseSearchResult(searchResult);
+    case IObjectSearchPackage.OBJECT_SEARCH_RESULT: {
+      IObjectSearchResult objectSearchResult = (IObjectSearchResult) theEObject;
+      T result = caseObjectSearchResult(objectSearchResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -210,50 +240,70 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Search Type</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Search Type Config</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Search Type</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Search Type Config</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSearchType(final ISearchType object) {
+  public T caseSearchTypeConfig(final ISearchTypeConfig object) {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Search Type Input</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Search Type Input Field
+   * Config</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Search Type Input</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Search Type Input Field
+   *         Config</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSearchTypeInput(final ISearchTypeInput object) {
+  public T caseSearchTypeInputFieldConfig(final ISearchTypeInputFieldConfig object) {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Search Filter</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Search Filter
+   * Config</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Search Filter</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Search Filter
+   *         Config</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSearchFilter(final ISearchFilter object) {
+  public T caseSearchFilterConfig(final ISearchFilterConfig object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Image Info</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Image Info</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseImageInfo(final IImageInfo object) {
     return null;
   }
 
@@ -270,6 +320,42 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseContentAssist(final IContentAssist object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Simple Content
+   * Proposal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Simple Content
+   *         Proposal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSimpleContentProposal(final ISimpleContentProposal object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fixed Values Content
+   * Assist</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fixed Values Content
+   *         Assist</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFixedValuesContentAssist(final IFixedValuesContentAssist object) {
     return null;
   }
 
@@ -372,18 +458,18 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Search Result</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Search Result</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSearchResult(final ISearchResult object) {
+  public T caseObjectSearchResult(final IObjectSearchResult object) {
     return null;
   }
 

@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Values</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getFilters
  * <em>Filters</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getRawInput <em>Raw
+ * Input</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryField()
@@ -79,5 +81,31 @@ public interface ISearchQueryField extends EObject {
    * @generated
    */
   List<ISearchQueryFilter> getFilters();
+
+  /**
+   * Returns the value of the '<em><b>Raw Input</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Raw Input</em>' attribute.
+   * @see #setRawInput(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryField_RawInput()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String" transient="true"
+   * @generated
+   */
+  String getRawInput();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getRawInput <em>Raw
+   * Input</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Raw Input</em>' attribute.
+   * @see #getRawInput()
+   * @generated
+   */
+  void setRawInput(String value);
 
 } // ISearchQueryField

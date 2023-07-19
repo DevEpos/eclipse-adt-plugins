@@ -20,7 +20,7 @@ package com.devepos.adt.saat.model.objectsearch;
  * </ul>
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getNamedItemContentAssist()
- * @model extendedMetaData="kind='elementOnly' name='namedItemContentAssist'"
+ * @model
  * @generated
  */
 public interface INamedItemContentAssist extends IContentAssist {

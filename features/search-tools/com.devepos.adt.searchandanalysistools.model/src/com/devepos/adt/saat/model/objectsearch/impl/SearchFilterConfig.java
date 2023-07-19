@@ -11,45 +11,46 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import com.devepos.adt.saat.model.objectsearch.FilterType;
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
-import com.devepos.adt.saat.model.objectsearch.ISearchFilter;
+import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Search Filter</b></em>'.
+ * An implementation of the model object '<em><b>Search Filter Config</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getName <em>Name</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getDataType <em>Data
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getName
+ * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getDataType <em>Data
  * Type</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getMaxLength <em>Max
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getMaxLength <em>Max
  * Length</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isMultiple
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isMultiple
  * <em>Multiple</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isNegatable
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isNegatable
  * <em>Negatable</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isKeyValuePair <em>Key Value
- * Pair</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getLongDescription <em>Long
- * Description</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getImageKey <em>Image
- * Key</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isInternal
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isKeyValuePair <em>Key
+ * Value Pair</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getLongDescription
+ * <em>Long Description</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isInternal
  * <em>Internal</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isWildcardsAllowed
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isWildcardsAllowed
  * <em>Wildcards Allowed</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#isCachingPossible
- * <em>Caching Possible</em>}</li>
- * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilter#getContentAssist <em>Content
- * Assist</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getContentAssist
+ * <em>Content Assist</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getImageInfo <em>Image
+ * Info</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SearchFilter extends MinimalEObjectImpl.Container implements ISearchFilter {
+public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
+    ISearchFilterConfig {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -205,28 +206,6 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   protected String longDescription = LONG_DESCRIPTION_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getImageKey() <em>Image Key</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getImageKey()
-   * @generated
-   * @ordered
-   */
-  protected static final String IMAGE_KEY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getImageKey() <em>Image Key</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getImageKey()
-   * @generated
-   * @ordered
-   */
-  protected String imageKey = IMAGE_KEY_EDEFAULT;
-
-  /**
    * The default value of the '{@link #isInternal() <em>Internal</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -271,28 +250,6 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   protected boolean wildcardsAllowed = WILDCARDS_ALLOWED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isCachingPossible() <em>Caching Possible</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #isCachingPossible()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean CACHING_POSSIBLE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isCachingPossible() <em>Caching Possible</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #isCachingPossible()
-   * @generated
-   * @ordered
-   */
-  protected boolean cachingPossible = CACHING_POSSIBLE_EDEFAULT;
-
-  /**
    * The cached value of the '{@link #getContentAssist() <em>Content Assist</em>}' containment
    * reference.
    * <!-- begin-user-doc -->
@@ -305,12 +262,23 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   protected IContentAssist contentAssist;
 
   /**
+   * The cached value of the '{@link #getImageInfo() <em>Image Info</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getImageInfo()
+   * @generated
+   * @ordered
+   */
+  protected IImageInfo imageInfo;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    */
-  protected SearchFilter() {
+  protected SearchFilterConfig() {
     super();
   }
 
@@ -322,7 +290,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
    */
   @Override
   protected EClass eStaticClass() {
-    return IObjectSearchPackage.Literals.SEARCH_FILTER;
+    return IObjectSearchPackage.Literals.SEARCH_FILTER_CONFIG;
   }
 
   /**
@@ -348,7 +316,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     name = newName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__NAME, oldName, name));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__NAME, oldName, name));
     }
   }
 
@@ -375,7 +343,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     dataType = newDataType == null ? DATA_TYPE_EDEFAULT : newDataType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__DATA_TYPE, oldDataType, dataType));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__DATA_TYPE, oldDataType, dataType));
     }
   }
 
@@ -402,7 +370,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     maxLength = newMaxLength;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__MAX_LENGTH, oldMaxLength, maxLength));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__MAX_LENGTH, oldMaxLength, maxLength));
     }
   }
 
@@ -429,7 +397,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     multiple = newMultiple;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__MULTIPLE, oldMultiple, multiple));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__MULTIPLE, oldMultiple, multiple));
     }
   }
 
@@ -456,7 +424,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     negatable = newNegatable;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__NEGATABLE, oldNegatable, negatable));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__NEGATABLE, oldNegatable, negatable));
     }
   }
 
@@ -483,7 +451,8 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     keyValuePair = newKeyValuePair;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__KEY_VALUE_PAIR, oldKeyValuePair, keyValuePair));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR, oldKeyValuePair,
+          keyValuePair));
     }
   }
 
@@ -510,35 +479,8 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     longDescription = newLongDescription;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__LONG_DESCRIPTION, oldLongDescription,
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION, oldLongDescription,
           longDescription));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getImageKey() {
-    return imageKey;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setImageKey(final String newImageKey) {
-    String oldImageKey = imageKey;
-    imageKey = newImageKey;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__IMAGE_KEY, oldImageKey, imageKey));
     }
   }
 
@@ -565,7 +507,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     internal = newInternal;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__INTERNAL, oldInternal, internal));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL, oldInternal, internal));
     }
   }
 
@@ -592,36 +534,8 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     wildcardsAllowed = newWildcardsAllowed;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__WILDCARDS_ALLOWED, oldWildcardsAllowed,
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED, oldWildcardsAllowed,
           wildcardsAllowed));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public boolean isCachingPossible() {
-    return cachingPossible;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setCachingPossible(final boolean newCachingPossible) {
-    boolean oldCachingPossible = cachingPossible;
-    cachingPossible = newCachingPossible;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__CACHING_POSSIBLE, oldCachingPossible,
-          cachingPossible));
     }
   }
 
@@ -648,7 +562,8 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     contentAssist = newContentAssist;
     if (eNotificationRequired()) {
       ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST, oldContentAssist, newContentAssist);
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, oldContentAssist,
+          newContentAssist);
       if (msgs == null) {
         msgs = notification;
       } else {
@@ -670,11 +585,11 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
       NotificationChain msgs = null;
       if (contentAssist != null) {
         msgs = ((InternalEObject) contentAssist).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST, null, msgs);
+            - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, null, msgs);
       }
       if (newContentAssist != null) {
         msgs = ((InternalEObject) newContentAssist).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST, null, msgs);
+            - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, null, msgs);
       }
       msgs = basicSetContentAssist(newContentAssist, msgs);
       if (msgs != null) {
@@ -682,7 +597,53 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
       }
     } else if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
-          IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST, newContentAssist, newContentAssist));
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, newContentAssist,
+          newContentAssist));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IImageInfo getImageInfo() {
+    if (imageInfo != null && imageInfo.eIsProxy()) {
+      InternalEObject oldImageInfo = (InternalEObject) imageInfo;
+      imageInfo = (IImageInfo) eResolveProxy(oldImageInfo);
+      if ((imageInfo != oldImageInfo) && eNotificationRequired()) {
+        eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+            IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO, oldImageInfo, imageInfo));
+      }
+    }
+    return imageInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public IImageInfo basicGetImageInfo() {
+    return imageInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setImageInfo(final IImageInfo newImageInfo) {
+    IImageInfo oldImageInfo = imageInfo;
+    imageInfo = newImageInfo;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO, oldImageInfo, imageInfo));
     }
   }
 
@@ -696,7 +657,7 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       return basicSetContentAssist(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -711,30 +672,31 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_FILTER__NAME:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NAME:
       return getName();
-    case IObjectSearchPackage.SEARCH_FILTER__DATA_TYPE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DATA_TYPE:
       return getDataType();
-    case IObjectSearchPackage.SEARCH_FILTER__MAX_LENGTH:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MAX_LENGTH:
       return getMaxLength();
-    case IObjectSearchPackage.SEARCH_FILTER__MULTIPLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MULTIPLE:
       return isMultiple();
-    case IObjectSearchPackage.SEARCH_FILTER__NEGATABLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NEGATABLE:
       return isNegatable();
-    case IObjectSearchPackage.SEARCH_FILTER__KEY_VALUE_PAIR:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       return isKeyValuePair();
-    case IObjectSearchPackage.SEARCH_FILTER__LONG_DESCRIPTION:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       return getLongDescription();
-    case IObjectSearchPackage.SEARCH_FILTER__IMAGE_KEY:
-      return getImageKey();
-    case IObjectSearchPackage.SEARCH_FILTER__INTERNAL:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL:
       return isInternal();
-    case IObjectSearchPackage.SEARCH_FILTER__WILDCARDS_ALLOWED:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       return isWildcardsAllowed();
-    case IObjectSearchPackage.SEARCH_FILTER__CACHING_POSSIBLE:
-      return isCachingPossible();
-    case IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       return getContentAssist();
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
+      if (resolve) {
+        return getImageInfo();
+      }
+      return basicGetImageInfo();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -748,41 +710,38 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_FILTER__NAME:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NAME:
       setName((String) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__DATA_TYPE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DATA_TYPE:
       setDataType((FilterType) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__MAX_LENGTH:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MAX_LENGTH:
       setMaxLength((Integer) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__MULTIPLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MULTIPLE:
       setMultiple((Boolean) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__NEGATABLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NEGATABLE:
       setNegatable((Boolean) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__KEY_VALUE_PAIR:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       setKeyValuePair((Boolean) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__LONG_DESCRIPTION:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       setLongDescription((String) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__IMAGE_KEY:
-      setImageKey((String) newValue);
-      return;
-    case IObjectSearchPackage.SEARCH_FILTER__INTERNAL:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL:
       setInternal((Boolean) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__WILDCARDS_ALLOWED:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       setWildcardsAllowed((Boolean) newValue);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__CACHING_POSSIBLE:
-      setCachingPossible((Boolean) newValue);
-      return;
-    case IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       setContentAssist((IContentAssist) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
+      setImageInfo((IImageInfo) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -797,41 +756,38 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public void eUnset(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_FILTER__NAME:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NAME:
       setName(NAME_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__DATA_TYPE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DATA_TYPE:
       setDataType(DATA_TYPE_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__MAX_LENGTH:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MAX_LENGTH:
       setMaxLength(MAX_LENGTH_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__MULTIPLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MULTIPLE:
       setMultiple(MULTIPLE_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__NEGATABLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NEGATABLE:
       setNegatable(NEGATABLE_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__KEY_VALUE_PAIR:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       setKeyValuePair(KEY_VALUE_PAIR_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__LONG_DESCRIPTION:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       setLongDescription(LONG_DESCRIPTION_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__IMAGE_KEY:
-      setImageKey(IMAGE_KEY_EDEFAULT);
-      return;
-    case IObjectSearchPackage.SEARCH_FILTER__INTERNAL:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL:
       setInternal(INTERNAL_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__WILDCARDS_ALLOWED:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       setWildcardsAllowed(WILDCARDS_ALLOWED_EDEFAULT);
       return;
-    case IObjectSearchPackage.SEARCH_FILTER__CACHING_POSSIBLE:
-      setCachingPossible(CACHING_POSSIBLE_EDEFAULT);
-      return;
-    case IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       setContentAssist((IContentAssist) null);
+      return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
+      setImageInfo((IImageInfo) null);
       return;
     }
     super.eUnset(featureID);
@@ -846,31 +802,29 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
   @Override
   public boolean eIsSet(final int featureID) {
     switch (featureID) {
-    case IObjectSearchPackage.SEARCH_FILTER__NAME:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NAME:
       return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-    case IObjectSearchPackage.SEARCH_FILTER__DATA_TYPE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DATA_TYPE:
       return dataType != DATA_TYPE_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__MAX_LENGTH:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MAX_LENGTH:
       return maxLength != MAX_LENGTH_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__MULTIPLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__MULTIPLE:
       return multiple != MULTIPLE_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__NEGATABLE:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__NEGATABLE:
       return negatable != NEGATABLE_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__KEY_VALUE_PAIR:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       return keyValuePair != KEY_VALUE_PAIR_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__LONG_DESCRIPTION:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       return LONG_DESCRIPTION_EDEFAULT == null ? longDescription != null
           : !LONG_DESCRIPTION_EDEFAULT.equals(longDescription);
-    case IObjectSearchPackage.SEARCH_FILTER__IMAGE_KEY:
-      return IMAGE_KEY_EDEFAULT == null ? imageKey != null : !IMAGE_KEY_EDEFAULT.equals(imageKey);
-    case IObjectSearchPackage.SEARCH_FILTER__INTERNAL:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL:
       return internal != INTERNAL_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__WILDCARDS_ALLOWED:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       return wildcardsAllowed != WILDCARDS_ALLOWED_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__CACHING_POSSIBLE:
-      return cachingPossible != CACHING_POSSIBLE_EDEFAULT;
-    case IObjectSearchPackage.SEARCH_FILTER__CONTENT_ASSIST:
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       return contentAssist != null;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
+      return imageInfo != null;
     }
     return super.eIsSet(featureID);
   }
@@ -902,16 +856,12 @@ public class SearchFilter extends MinimalEObjectImpl.Container implements ISearc
     result.append(keyValuePair);
     result.append(", longDescription: ");
     result.append(longDescription);
-    result.append(", imageKey: ");
-    result.append(imageKey);
     result.append(", internal: ");
     result.append(internal);
     result.append(", wildcardsAllowed: ");
     result.append(wildcardsAllowed);
-    result.append(", cachingPossible: ");
-    result.append(cachingPossible);
     result.append(')');
     return result.toString();
   }
 
-} // SearchFilter
+} // SearchFilterConfig

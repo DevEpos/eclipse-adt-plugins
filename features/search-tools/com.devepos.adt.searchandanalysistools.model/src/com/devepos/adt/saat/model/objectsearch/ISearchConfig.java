@@ -26,7 +26,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface ISearchConfig extends EObject {
   /**
    * Returns the value of the '<em><b>Search Types</b></em>' containment reference list.
-   * The list contents are of type {@link com.devepos.adt.saat.model.objectsearch.ISearchType}.
+   * The list contents are of type
+   * {@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
@@ -36,6 +37,6 @@ public interface ISearchConfig extends EObject {
    *        extendedMetaData="name='searchType' kind='element' namespace='##targetNamespace'"
    * @generated
    */
-  List<ISearchType> getSearchTypes();
+  List<ISearchTypeConfig> getSearchTypes();
 
 } // ISearchConfig

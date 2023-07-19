@@ -9,7 +9,7 @@ package com.devepos.adt.saat.model.objectsearch;
  *
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getUserContentAssist()
- * @model extendedMetaData="kind='elementOnly' name='userContentAssist'"
+ * @model
  * @generated
  */
 public interface IUserContentAssist extends IContentAssist {

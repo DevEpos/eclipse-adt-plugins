@@ -33,6 +33,10 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
  * Rows</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#isCombineFiltersWithAnd
  * <em>Combine Filters With And</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#isWithApiState <em>With
+ * Api State</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#isRowLimitDisabled
+ * <em>Row Limit Disabled</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getFields
  * <em>Fields</em>}</li>
  * </ul>
@@ -107,6 +111,50 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
    * @ordered
    */
   protected boolean combineFiltersWithAnd = COMBINE_FILTERS_WITH_AND_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isWithApiState() <em>With Api State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isWithApiState()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean WITH_API_STATE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isWithApiState() <em>With Api State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isWithApiState()
+   * @generated
+   * @ordered
+   */
+  protected boolean withApiState = WITH_API_STATE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isRowLimitDisabled() <em>Row Limit Disabled</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isRowLimitDisabled()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ROW_LIMIT_DISABLED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isRowLimitDisabled() <em>Row Limit Disabled</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isRowLimitDisabled()
+   * @generated
+   * @ordered
+   */
+  protected boolean rowLimitDisabled = ROW_LIMIT_DISABLED_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
@@ -229,6 +277,61 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
    * @generated
    */
   @Override
+  public boolean isWithApiState() {
+    return withApiState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setWithApiState(final boolean newWithApiState) {
+    boolean oldWithApiState = withApiState;
+    withApiState = newWithApiState;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_QUERY_INPUT__WITH_API_STATE, oldWithApiState, withApiState));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean isRowLimitDisabled() {
+    return rowLimitDisabled;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setRowLimitDisabled(final boolean newRowLimitDisabled) {
+    boolean oldRowLimitDisabled = rowLimitDisabled;
+    rowLimitDisabled = newRowLimitDisabled;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED, oldRowLimitDisabled,
+          rowLimitDisabled));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public List<ISearchQueryField> getFields() {
     if (fields == null) {
       fields = new EObjectContainmentEList<>(ISearchQueryField.class, this,
@@ -268,6 +371,10 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return getMaxRows();
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
       return isCombineFiltersWithAnd();
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__WITH_API_STATE:
+      return isWithApiState();
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED:
+      return isRowLimitDisabled();
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       return getFields();
     }
@@ -292,6 +399,12 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
       setCombineFiltersWithAnd((Boolean) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__WITH_API_STATE:
+      setWithApiState((Boolean) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED:
+      setRowLimitDisabled((Boolean) newValue);
       return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       getFields().clear();
@@ -319,6 +432,12 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
       setCombineFiltersWithAnd(COMBINE_FILTERS_WITH_AND_EDEFAULT);
       return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__WITH_API_STATE:
+      setWithApiState(WITH_API_STATE_EDEFAULT);
+      return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED:
+      setRowLimitDisabled(ROW_LIMIT_DISABLED_EDEFAULT);
+      return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       getFields().clear();
       return;
@@ -341,6 +460,10 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return maxRows != MAX_ROWS_EDEFAULT;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
       return combineFiltersWithAnd != COMBINE_FILTERS_WITH_AND_EDEFAULT;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__WITH_API_STATE:
+      return withApiState != WITH_API_STATE_EDEFAULT;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED:
+      return rowLimitDisabled != ROW_LIMIT_DISABLED_EDEFAULT;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       return fields != null && !fields.isEmpty();
     }
@@ -366,6 +489,10 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     result.append(maxRows);
     result.append(", combineFiltersWithAnd: ");
     result.append(combineFiltersWithAnd);
+    result.append(", withApiState: ");
+    result.append(withApiState);
+    result.append(", rowLimitDisabled: ");
+    result.append(rowLimitDisabled);
     result.append(')');
     return result.toString();
   }

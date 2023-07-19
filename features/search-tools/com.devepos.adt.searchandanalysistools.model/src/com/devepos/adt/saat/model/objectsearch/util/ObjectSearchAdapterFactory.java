@@ -8,17 +8,20 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
+import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
+import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
 import com.devepos.adt.saat.model.objectsearch.IRisContentAssist;
 import com.devepos.adt.saat.model.objectsearch.ISearchConfig;
-import com.devepos.adt.saat.model.objectsearch.ISearchFilter;
+import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
-import com.devepos.adt.saat.model.objectsearch.ISearchResult;
-import com.devepos.adt.saat.model.objectsearch.ISearchType;
-import com.devepos.adt.saat.model.objectsearch.ISearchTypeInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
+import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
 import com.devepos.adt.saat.model.objectsearch.IUserContentAssist;
 
 /**
@@ -88,23 +91,38 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
-    public Adapter caseSearchType(final ISearchType object) {
-      return createSearchTypeAdapter();
+    public Adapter caseSearchTypeConfig(final ISearchTypeConfig object) {
+      return createSearchTypeConfigAdapter();
     }
 
     @Override
-    public Adapter caseSearchTypeInput(final ISearchTypeInput object) {
-      return createSearchTypeInputAdapter();
+    public Adapter caseSearchTypeInputFieldConfig(final ISearchTypeInputFieldConfig object) {
+      return createSearchTypeInputFieldConfigAdapter();
     }
 
     @Override
-    public Adapter caseSearchFilter(final ISearchFilter object) {
-      return createSearchFilterAdapter();
+    public Adapter caseSearchFilterConfig(final ISearchFilterConfig object) {
+      return createSearchFilterConfigAdapter();
+    }
+
+    @Override
+    public Adapter caseImageInfo(final IImageInfo object) {
+      return createImageInfoAdapter();
     }
 
     @Override
     public Adapter caseContentAssist(final IContentAssist object) {
       return createContentAssistAdapter();
+    }
+
+    @Override
+    public Adapter caseSimpleContentProposal(final ISimpleContentProposal object) {
+      return createSimpleContentProposalAdapter();
+    }
+
+    @Override
+    public Adapter caseFixedValuesContentAssist(final IFixedValuesContentAssist object) {
+      return createFixedValuesContentAssistAdapter();
     }
 
     @Override
@@ -138,8 +156,8 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
-    public Adapter caseSearchResult(final ISearchResult object) {
-      return createSearchResultAdapter();
+    public Adapter caseObjectSearchResult(final IObjectSearchResult object) {
+      return createObjectSearchResultAdapter();
     }
 
     @Override
@@ -180,49 +198,68 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchType <em>Search Type</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig <em>Search Type
+   * Config</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchType
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig
    * @generated
    */
-  public Adapter createSearchTypeAdapter() {
+  public Adapter createSearchTypeConfigAdapter() {
     return null;
   }
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInput <em>Search Type Input</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig <em>Search Type
+   * Input Field Config</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInput
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig
    * @generated
    */
-  public Adapter createSearchTypeInputAdapter() {
+  public Adapter createSearchTypeInputFieldConfigAdapter() {
     return null;
   }
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilter <em>Search Filter</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig <em>Search Filter
+   * Config</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilter
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig
    * @generated
    */
-  public Adapter createSearchFilterAdapter() {
+  public Adapter createSearchFilterConfigAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IImageInfo <em>Image Info</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.IImageInfo
+   * @generated
+   */
+  public Adapter createImageInfoAdapter() {
     return null;
   }
 
@@ -239,6 +276,40 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createContentAssistAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal <em>Simple Content
+   * Proposal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal
+   * @generated
+   */
+  public Adapter createSimpleContentProposalAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist <em>Fixed Values
+   * Content Assist</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist
+   * @generated
+   */
+  public Adapter createFixedValuesContentAssistAdapter() {
     return null;
   }
 
@@ -346,17 +417,17 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResult <em>Search Result</em>}'.
+   * '{@link com.devepos.adt.saat.model.objectsearch.IObjectSearchResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.saat.model.objectsearch.ISearchResult
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchResult
    * @generated
    */
-  public Adapter createSearchResultAdapter() {
+  public Adapter createObjectSearchResultAdapter() {
     return null;
   }
 

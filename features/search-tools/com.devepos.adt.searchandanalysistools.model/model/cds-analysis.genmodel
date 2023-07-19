@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.searchandanalysistools.model/src"
+    modelPluginID="com.devepos.adt.searchandanalysistools.model" modelName="CDS Analysis"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" usedGenPackages="../../com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
+    interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
+    importOrganizing="true" cleanup="true">
+  <foreignModel>cds-analysis.ecore</foreignModel>
+  <genPackages prefix="CdsAnalysis" basePackage="com.devepos.adt.saat.model" resource="XML"
+      disposableProviderFactory="true" ecorePackage="cds-analysis.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//SqlRelation">
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/UNSPECIFIED"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/FROM"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/ASSOCIATION"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/INNER_JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/LEFT_OUTER_JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/RIGHT_OUTER_JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/FULL_OUTER_JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/CROSS_JOIN"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//TopDownAnalysisEntryType">
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/UNSPECIFIED"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/RESULT"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/UNION"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/UNION_ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ASSOCIATIONS"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ENTITY"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/SELECT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//CdsQueryNavTarget">
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//CdsQueryNavTarget/EXCEL"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//CdsQueryNavTarget/QUERY_MONITOR"/>
+    </genEnums>
+    <genClasses ecoreClass="cds-analysis.ecore#//CdsUsedEntitiesResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//CdsUsedEntitiesResult/sourceEntity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//CdsUsedEntitiesResult/usedEntities"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//CdsUsedEntity">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//CdsUsedEntity/entityRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//CdsUsedEntity/usageInformation"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//CdsUsedEntityInformation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/occurrence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/entityCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/joinCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/unionCount"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//TopDownAnalysisResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//TopDownAnalysisResult/sourceEntity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//TopDownAnalysisResult/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//TopDownAnalysisEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//TopDownAnalysisEntry/entryType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//TopDownAnalysisEntry/ddlSourceType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//TopDownAnalysisEntry/sqlRelation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//TopDownAnalysisEntry/alias"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//TopDownAnalysisEntry/entityRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//TopDownAnalysisEntry/children"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//CdsQueryNavTargets">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsQueryNavTargets/navigationTargets"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//EntityFieldInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/fieldName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/entityName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/altEntityName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/sourceType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/apiState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//EntityFieldInfo/calculated"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//EntityFieldInfo/children"/>
+    </genClasses>
+    <genClasses ecoreClass="cds-analysis.ecore#//EntityFieldInfoResult">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//EntityFieldInfoResult/sourceFieldInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//EntityFieldInfoResult/fieldInfos"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
