@@ -50,7 +50,8 @@ public class TaggedObjectSearchQuery implements ISearchQuery {
       return loggedOnStatus;
     }
 
-    monitor.beginTask(Messages.TaggedObjectSearchQuery_SearchTaskName_xmsg, 1);
+    monitor.beginTask(Messages.TaggedObjectSearchQuery_SearchTaskName_xmsg,
+        IProgressMonitor.UNKNOWN);
 
     final ITaggedObjectList result = TaggedObjectSearchFactory.createTaggedObjectSearchService()
         .findObjects(projectProvider.getDestinationId(), searchParams);
