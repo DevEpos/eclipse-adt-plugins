@@ -15,7 +15,11 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
  * @author stockbal
  */
 public class CollapseTreeNodesAction extends Action {
-  private final TreeViewer viewer;
+  private TreeViewer viewer;
+
+  public CollapseTreeNodesAction() {
+    this(null);
+  }
 
   public CollapseTreeNodesAction(final TreeViewer viewer) {
     super(Messages.Actions_CollapseNode_xtol, AdtBaseUIResources.getImageDescriptor(
@@ -32,5 +36,9 @@ public class CollapseTreeNodesAction extends Action {
     for (final Object sel : selection.toList()) {
       viewer.collapseToLevel(sel, AbstractTreeViewer.ALL_LEVELS);
     }
+  }
+
+  public void setViewer(final TreeViewer viewer) {
+    this.viewer = viewer;
   }
 }
