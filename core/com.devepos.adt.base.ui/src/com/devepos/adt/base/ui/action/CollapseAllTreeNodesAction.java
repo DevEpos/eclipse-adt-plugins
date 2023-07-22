@@ -15,6 +15,10 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
 public class CollapseAllTreeNodesAction extends Action {
   private TreeViewer viewer;
 
+  public CollapseAllTreeNodesAction() {
+    this(null);
+  }
+
   public CollapseAllTreeNodesAction(final TreeViewer viewer) {
     super(Messages.Actions_CollapseAllNodes_xmit, AdtBaseUIResources.getImageDescriptor(
         IAdtBaseImages.COLLAPSE_ALL));
@@ -36,10 +40,10 @@ public class CollapseAllTreeNodesAction extends Action {
 
   /**
    * Updates the viewer instance
-   * 
+   *
    * @param viewer new tree viewer instance
    */
-  public void setViewer(TreeViewer viewer) {
+  public void setViewer(final TreeViewer viewer) {
     this.viewer = viewer;
   }
 }
