@@ -16,7 +16,7 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  *
  * @author stockbal
  */
-public class SaatMenuItemFactory {
+public class SearchToolsMenuItemFactory {
 
   /**
    * Adds "Open in DB Browser" command to the given {@link IMenuManager}

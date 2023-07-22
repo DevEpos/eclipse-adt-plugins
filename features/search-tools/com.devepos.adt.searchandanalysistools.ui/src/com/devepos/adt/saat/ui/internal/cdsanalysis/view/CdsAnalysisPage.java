@@ -60,7 +60,7 @@ import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.SelectionProviderAdapter;
 import com.devepos.adt.saat.ui.internal.SelectionProviderProxy;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
-import com.devepos.adt.saat.ui.internal.menu.SaatMenuItemFactory;
+import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -428,9 +428,9 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
       return;
     }
     if (commandChecker.canCommandBeEnabled(ICommandConstants.OPEN_IN_DB_BROWSER)) {
-      SaatMenuItemFactory.addOpenInDbBrowserCommand(mgr, IContextMenuConstants.GROUP_DB_BROWSER,
+      SearchToolsMenuItemFactory.addOpenInDbBrowserCommand(mgr, IContextMenuConstants.GROUP_DB_BROWSER,
           false);
-      SaatMenuItemFactory.addOpenInDbBrowserCommand(mgr, IContextMenuConstants.GROUP_DB_BROWSER,
+      SearchToolsMenuItemFactory.addOpenInDbBrowserCommand(mgr, IContextMenuConstants.GROUP_DB_BROWSER,
           true);
     }
 
