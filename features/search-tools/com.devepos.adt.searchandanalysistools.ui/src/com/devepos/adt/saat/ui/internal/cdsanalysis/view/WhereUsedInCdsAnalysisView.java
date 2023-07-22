@@ -32,7 +32,7 @@ import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.IWhereUsedInCdsSettings;
-import com.devepos.adt.saat.ui.internal.menu.SaatMenuItemFactory;
+import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -139,15 +139,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       final CommandPossibleChecker commandPossibleChecker) {
     super.fillContextMenu(mgr, commandPossibleChecker);
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.CDS_TOP_DOWN_ANALYSIS)) {
-      SaatMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
           ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.USED_ENTITIES_ANALYSIS)) {
-      SaatMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
           ICommandConstants.USED_ENTITIES_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.FIELD_ANALYSIS)) {
-      SaatMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
           ICommandConstants.FIELD_ANALYSIS);
     }
   }

@@ -77,8 +77,8 @@ public class DynamicOpenInMenuUtility {
       final boolean isDbBrowserAvailable = FeatureTester.isSapGuiDbBrowserAvailable(adtObjects);
       // Add command "Open In DB Browser"
       if (isDbBrowserAvailable) {
-        SaatMenuItemFactory.addOpenInDbBrowserCommand(this, false);
-        SaatMenuItemFactory.addOpenInDbBrowserCommand(this, true);
+        SearchToolsMenuItemFactory.addOpenInDbBrowserCommand(this, false);
+        SearchToolsMenuItemFactory.addOpenInDbBrowserCommand(this, true);
       }
 
       if (cdsAnalysisAvailable) {
@@ -87,19 +87,19 @@ public class DynamicOpenInMenuUtility {
         }
         final boolean isCdsView = adtObjects.get(0).getObjectType() == ObjectType.DATA_DEFINITION;
         if (isCdsView && FeatureTester.isCdsTopDownAnalysisAvailable(project)) {
-          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+          SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
         }
         if (FeatureTester.isWhereUsedInCdsAnalysisAvailable(project)) {
-          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+          SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
         }
         if (isCdsView && FeatureTester.isCdsUsedEntitiesAnalysisAvailable(project)) {
-          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+          SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.USED_ENTITIES_ANALYSIS);
         }
         if (FeatureTester.isFieldAnalysisAvailable(project)) {
-          SaatMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
+          SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(this, null,
               ICommandConstants.FIELD_ANALYSIS);
         }
         // Additional actions only exist for CDS view at the moment
