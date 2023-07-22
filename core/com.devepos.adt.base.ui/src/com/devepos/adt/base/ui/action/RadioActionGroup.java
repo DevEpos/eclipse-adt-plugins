@@ -45,19 +45,17 @@ public class RadioActionGroup extends ActionGroup {
   }
 
   private final class ToggleAction extends Action {
-    private final String actionId;
-
     public ToggleAction(final String actionId, final String tooltip,
         final ImageDescriptor imageDescriptor) {
       super(tooltip, AS_RADIO_BUTTON);
       setImageDescriptor(imageDescriptor);
-      this.actionId = actionId;
+      setId(actionId);
     }
 
     @Override
     public void run() {
       if (isChecked()) {
-        toggleAction(actionId, false, true);
+        toggleAction(getId(), false, true);
       }
     }
   }
@@ -131,7 +129,7 @@ public class RadioActionGroup extends ActionGroup {
    */
   public void enableAction(final String actionId, final boolean enable) {
     final ToggleAction actionToEnable = actions.stream()
-        .filter(a -> a.actionId.equals(actionId))
+        .filter(a -> a.getId().equals(actionId))
         .findFirst()
         .orElse(null);
     if (actionToEnable != null) {
@@ -140,7 +138,7 @@ public class RadioActionGroup extends ActionGroup {
         actionToEnable.setChecked(false);
         // search for another action to be toggled
         final ToggleAction newToggleAction = actions.stream()
-            .filter(a -> !a.actionId.equals(actionId))
+            .filter(a -> !a.getId().equals(actionId))
             .findFirst()
             .orElse(null);
         if (newToggleAction != null) {
@@ -165,7 +163,7 @@ public class RadioActionGroup extends ActionGroup {
    * @return the Id of currently toggled action
    */
   public String getToggledActionId() {
-    return toggledAction != null ? toggledAction.actionId : null;
+    return toggledAction != null ? toggledAction.getId() : null;
   }
 
   /**
@@ -178,7 +176,7 @@ public class RadioActionGroup extends ActionGroup {
    */
   public boolean isActionToggled(final String actionId) {
     final Action action = actions.stream()
-        .filter(a -> a.actionId.equals(actionId))
+        .filter(a -> a.getId().equals(actionId))
         .findFirst()
         .orElse(null);
     if (action != null) {
@@ -206,7 +204,7 @@ public class RadioActionGroup extends ActionGroup {
    */
   public void setActionChecked(final String actionId) {
     for (ToggleAction action : actions) {
-      if (actionId.equals(action.actionId)) {
+      if (actionId.equals(action.getId())) {
         action.setChecked(true);
       } else {
         action.setChecked(false);
@@ -223,10 +221,13 @@ public class RadioActionGroup extends ActionGroup {
   private void toggleAction(final String actionId, final boolean setChecked,
       final boolean notifyListeners) {
     final ToggleAction action = actions.stream()
-        .filter(a -> actionId.equals(a.actionId))
+        .filter(a -> actionId.equals(a.getId()))
         .findFirst()
         .orElse(null);
     if (action == null) {
+      return;
+    }
+    if (toggledAction == action) {
       return;
     }
     toggledAction = action;
