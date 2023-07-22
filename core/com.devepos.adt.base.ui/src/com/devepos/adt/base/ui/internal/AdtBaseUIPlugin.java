@@ -118,6 +118,10 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.DELETE_ROW, "icons/etool/delete_row.png",
         "com.sap.adt.ddic.ui");
+    registerImage(imageRegistry, IAdtBaseImages.LIST_LAYOUT, "icons/full/elcl16/flatLayout.png",
+        "org.eclipse.ui.ide");
+    registerImage(imageRegistry, IAdtBaseImages.TREE_LAYOUT,
+        "icons/full/elcl16/hierarchicalLayout.png", "org.eclipse.ui.ide");
 
     registerDeleteOvr(imageRegistry);
   }

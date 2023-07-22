@@ -190,4 +190,12 @@ public interface IAdtBaseImages {
    * Imported from com.sap.adt.ddic.ui plug-in
    */
   String DELETE_ROW = "IMG_DELETE_ROW";
+  /**
+   * Image for flat layout in a view
+   */
+  String LIST_LAYOUT = "IMG_LIST_LAYOUT";
+  /**
+   * Image for hierarchical layout in a view
+   */
+  String TREE_LAYOUT = "IMG_TREE_LAYOUT";
 }
