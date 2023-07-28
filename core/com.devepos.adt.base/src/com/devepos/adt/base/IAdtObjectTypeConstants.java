@@ -51,6 +51,10 @@ public interface IAdtObjectTypeConstants {
    */
   String INTERFACE = "INTF/OI";
   /**
+   * Type for method definition in Interface
+   */
+  String INTERFACE_METHOD = "INTF/IO";
+  /**
    * Global Workbench type for Programs
    */
   String PROGRAM = "PROG/P";
