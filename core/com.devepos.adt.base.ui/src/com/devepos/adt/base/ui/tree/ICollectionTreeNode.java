@@ -1,5 +1,6 @@
 package com.devepos.adt.base.ui.tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,22 @@ public interface ICollectionTreeNode extends ITreeNode {
    * @return a {@link List} of child nodes of this collection node
    */
   List<ITreeNode> getChildren();
+
+  /**
+   * Returns collection child nodes recursively
+   * 
+   * @return a list of collection tree nodes
+   */
+  default List<ICollectionTreeNode> getCollectionChildrenRecursive() {
+    var collectionNodes = new ArrayList<ICollectionTreeNode>();
+    for (var node : getChildren()) {
+      if (node instanceof ICollectionTreeNode) {
+        collectionNodes.add((ICollectionTreeNode) node);
+        collectionNodes.addAll(((ICollectionTreeNode) node).getCollectionChildrenRecursive());
+      }
+    }
+    return collectionNodes;
+  }
 
   /**
    * Returns the number of <code>nodes</code> in this collection in a readable
