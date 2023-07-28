@@ -35,21 +35,33 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private Image image;
   private Image proposalImage;
   private final String filterLabel;
+  private String description;
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel) {
+    this(projectProvider, filterLabel, null);
+  }
+
+  public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel,
+      String description) {
     this.projectProvider = projectProvider;
     this.filterLabel = filterLabel;
-    image = AdtBaseUIResources.getImage(IAdtBaseImages.USER);
+    this.description = description;
   }
 
   @Override
   public String getDescription() {
-    return NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] { filterLabel,
-        "smith" });
+    if (description == null) {
+      description = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] {
+          filterLabel, "smith" });
+    }
+    return description;
   }
 
   @Override
   public Image getImage() {
+    if (image == null) {
+      image = AdtBaseUIResources.getImage(IAdtBaseImages.USER);
+    }
     return image;
   }
 
