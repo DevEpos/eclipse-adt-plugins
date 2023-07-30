@@ -203,9 +203,10 @@ public class RadioActionGroup extends ActionGroup {
    * @param actionId the id of an action in this group
    */
   public void setActionChecked(final String actionId) {
-    for (ToggleAction action : actions) {
+    for (var action : actions) {
       if (actionId.equals(action.getId())) {
         action.setChecked(true);
+        toggledAction = action;
       } else {
         action.setChecked(false);
       }
