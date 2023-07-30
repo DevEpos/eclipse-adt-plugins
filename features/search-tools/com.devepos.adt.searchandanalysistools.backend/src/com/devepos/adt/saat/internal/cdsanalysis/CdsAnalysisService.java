@@ -198,8 +198,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
     if (!discovery.isResourceDiscoverySuccessful()) {
-      return new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-          Messages.FeatureStatus_CdsAnalysisFeatureNotAvailable_xmsg);
+      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
+          Messages.FeatureStatus_CdsAnalysisFeatureNotAvailable_xmsg, projectName));
     }
 
     boolean isFeatureAvailable = true;
