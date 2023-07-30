@@ -37,7 +37,6 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   protected PatternFilter patternFilter;
   protected boolean isQuickSelection;
   private String filterPlaceHolderText;
-  private boolean isLeadingWildcardFiltering = true;
   private UIJob filterJob;
   private final long filterDelay = 200L;
   private boolean isFilterVisible;
@@ -83,10 +82,10 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     filterPlaceHolderText = placeholderText != null ? placeholderText
         : AdtBaseUIResources.getString(IAdtBaseStrings.FilterPlaceHolder_xmsg);
     filterJob = createFilterJob();
-    this.toolbarMode = enableToolbarMode;
+    toolbarMode = enableToolbarMode;
     createControl(parent);
     patternFilter = new PatternFilter();
-    patternFilter.setIncludeLeadingWildcard(isLeadingWildcardFiltering);
+    patternFilter.setIncludeLeadingWildcard(true);
     setFilterVisible(!hideFilterControls);
   }
 
@@ -163,7 +162,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     }
     viewerControl.addKeyListener(new KeyAdapter() {
       @Override
-      public void keyPressed(KeyEvent e) {
+      public void keyPressed(final KeyEvent e) {
         if (KeyEventUtil.isDefaultFindKeyStroke(e)) {
           setFocusToFilter();
         }
@@ -181,7 +180,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    * @return the current string of the filter control
    */
   public String getFilterString() {
-    return filterText != null && !filterText.isDisposed() ? filterText.getText() : null;
+    return isFilterControlLive() ? filterText.getText() : null;
   }
 
   /**
@@ -213,10 +212,17 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   }
 
   /**
+   * Returns {@code true} if the filter control is visible
+   */
+  public boolean isFilterVisible() {
+    return isFilterVisible;
+  }
+
+  /**
    * Resets the filter text
    */
   public void resetFilter() {
-    if (filterText != null && !filterText.isDisposed()) {
+    if (isFilterControlLive()) {
       filterText.setText("");
     }
   }
@@ -229,6 +235,17 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    */
   public void setElementMatcher(final IElementMatcher elementMatcher) {
     this.elementMatcher = elementMatcher;
+  }
+
+  /**
+   * Sets a new text in the filter text control
+   * 
+   * @param filter the text for the filter
+   */
+  public void setFilterText(String filter) {
+    if (isFilterControlLive() && filter != null) {
+      filterText.setText(filter);
+    }
   }
 
   /**
@@ -267,7 +284,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    * Sets focus to the filter control - if it is visible
    */
   public void setFocusToFilter() {
-    if (isFilterVisible && filterText != null && !filterText.isDisposed()) {
+    if (isFilterControlLive()) {
       filterText.setFocus();
     }
   }
@@ -280,7 +297,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    *                           automatically selected
    */
   public void setIsQuickSelectionMode(final boolean quickSelectionMode) {
-    this.isQuickSelection = quickSelectionMode;
+    isQuickSelection = quickSelectionMode;
   }
 
   /**
@@ -290,7 +307,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    *                                 be prefixed with an "*" character
    */
   public void setLeadingWildcardFiltering(final boolean leadingWildcardFiltering) {
-    this.isLeadingWildcardFiltering = leadingWildcardFiltering;
+    patternFilter.setIncludeLeadingWildcard(leadingWildcardFiltering);
   }
 
   /**
@@ -353,7 +370,9 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    */
   protected void filterStringChanged() {
     filterJob.cancel();
-    filterJob.schedule(filterDelay);
+    if (viewerControl != null && !viewerControl.isDisposed()) {
+      filterJob.schedule(filterDelay);
+    }
   }
 
   /**
@@ -413,6 +432,10 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
       @Override
       public IStatus runInUIThread(final IProgressMonitor monitor) {
+        if (viewerControl == null || viewerControl.isDisposed()) {
+          monitor.done();
+          return Status.OK_STATUS;
+        }
         String filterString = getFilterString();
         patternFilter.setPattern(filterString);
         viewer.refresh();
@@ -477,6 +500,10 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
       filterStringChanged();
     });
 
+  }
+
+  private boolean isFilterControlLive() {
+    return filterText != null && !filterText.isDisposed();
   }
 
 }
