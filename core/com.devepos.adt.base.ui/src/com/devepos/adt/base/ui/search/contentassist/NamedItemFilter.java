@@ -46,12 +46,18 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
    * The description of the filter, to be displayed in a side tooltip box in a
    * proposal popup
    */
+  private String longDescription;
+
+  /**
+   * Short description, displayed in parenthesis next to the filter label
+   */
   private String description;
 
   /**
    * The name of the filter
    */
   private String filterName;
+
   /**
    * Image to be displayed alongside the filter in a proposal popup
    */
@@ -105,6 +111,11 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   }
 
   @Override
+  public String getLongDescription() {
+    return longDescription;
+  }
+
+  @Override
   public List<IContentProposal> getProposalList(final String query) throws CoreException {
     return namedItemProposalProvider.getProposals(query);
   }
@@ -120,7 +131,7 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   }
 
   /**
-   * Sets the description for the filter
+   * Sets the short description for the filter
    *
    * @param description the description to set
    */
@@ -135,6 +146,15 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
    */
   public void setImage(final Image image) {
     this.image = image;
+  }
+
+  /**
+   * Sets the long description for the filter
+   *
+   * @param description the description to set
+   */
+  public final void setLongDescription(final String description) {
+    this.longDescription = description;
   }
 
   /**

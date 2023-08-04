@@ -45,7 +45,7 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
   }
 
   @Override
-  public String getDescription() {
+  public String getLongDescription() {
     return NLS.bind(Messages.SearchFilter_DescriptionPackageFilter_xmsg, new Object[] { FILTER_NAME,
         "test" });
   }
@@ -83,6 +83,11 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
     }
 
     return result;
+  }
+
+  @Override
+  public String getDescription() {
+    return "Development Package";
   }
 
   @Override

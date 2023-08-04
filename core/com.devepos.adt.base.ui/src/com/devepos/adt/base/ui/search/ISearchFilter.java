@@ -13,6 +13,13 @@ public interface ISearchFilter extends IImageProvider {
   String WILDCARD = "*";
 
   /**
+   * Returns the short description of this filter
+   * 
+   * @return short string describing this filter
+   */
+  String getDescription();
+
+  /**
    * Retrieve the image for this filter
    *
    * @return reference to Image
@@ -32,15 +39,7 @@ public interface ISearchFilter extends IImageProvider {
    *
    * @return the String description of the filter
    */
-  String getDescription();
-
-  /**
-   * Retrieves a flag which signals if the filter allows values with wildcard
-   * pattern
-   *
-   * @return <code>true</code> if the filter supports pattern values
-   */
-  boolean supportsPatternValues();
+  String getLongDescription();
 
   /**
    * Retrieves a flag which signals if the filter is buffered. That means the
@@ -49,6 +48,15 @@ public interface ISearchFilter extends IImageProvider {
    * @return <code>true</code> if the filter's values are buffered
    */
   boolean isBuffered();
+
+  /**
+   * Checks if the filter supports values that are case sensitive
+   *
+   * @return {@code true} if this filter supports case sensitive values
+   */
+  default boolean isCaseSensitive() {
+    return false;
+  }
 
   /**
    * Retrieves a flag which signals if the filter allows multiple values or not
@@ -65,11 +73,10 @@ public interface ISearchFilter extends IImageProvider {
   boolean supportsNegatedValues();
 
   /**
-   * Checks if the filter supports values that are case sensitive
+   * Retrieves a flag which signals if the filter allows values with wildcard
+   * pattern
    *
-   * @return {@code true} if this filter supports case sensitive values
+   * @return <code>true</code> if the filter supports pattern values
    */
-  default boolean isCaseSensitive() {
-    return false;
-  }
+  boolean supportsPatternValues();
 }

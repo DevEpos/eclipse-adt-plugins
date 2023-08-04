@@ -24,7 +24,8 @@ public class ApplicationComponentSearchFilter extends NamedItemFilter {
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType) {
     super(projectProvider, uriTemplateProvider, namedItemType, FILTER_NAME, null);
     setProposalImageProvider(new ProposalImageProvider());
-    setDescription(NLS.bind(Messages.SearchFilter_DescriptionApplCompSearchFilter_xmsg,
+    setDescription("Application Component");
+    setLongDescription(NLS.bind(Messages.SearchFilter_DescriptionApplCompSearchFilter_xmsg,
         new Object[] { getLabel(), "IS-TEST" })); //$NON-NLS-1$
     setSupportsNegatedValues(true);
     setSupportsPatternValues(false);

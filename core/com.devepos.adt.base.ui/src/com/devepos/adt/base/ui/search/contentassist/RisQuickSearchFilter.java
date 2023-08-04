@@ -38,10 +38,11 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   private boolean supportsMultipleValues = true;
   private boolean supportsNegatedValues = false;
   private boolean supportsPatternValues = true;
-  private String[] objectTypes;
+  private final String[] objectTypes;
+  private String longDescription;
 
   public RisQuickSearchFilter(final IAbapProjectProvider projectProvider, final String filterName,
-      final Image filterImage, String... objectTypes) {
+      final Image filterImage, final String... objectTypes) {
     this.projectProvider = projectProvider;
     image = filterImage;
     this.filterName = filterName;
@@ -49,8 +50,8 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   }
 
   @Override
-  public String getDescription() {
-    return description != null ? description
+  public String getLongDescription() {
+    return longDescription != null ? longDescription
         : NLS.bind(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg, new Object[] {
             filterName, "test" });
   }
@@ -91,14 +92,24 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   }
 
   @Override
+  public String getDescription() {
+    return description;
+  }
+
+  @Override
   public boolean isBuffered() {
     return false;
   }
 
   /**
-   * Sets description for the filter
-   * 
-   * @param description the description
+   * Sets long description for the filter
+   */
+  public void setLongDescription(final String description) {
+    longDescription = description;
+  }
+
+  /**
+   * Sets short description of the filter
    */
   public void setDescription(final String description) {
     this.description = description;

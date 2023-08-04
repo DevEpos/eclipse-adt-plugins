@@ -18,18 +18,21 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
 public class BooleanSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
   private final String label;
+  private final String longDescription;
   private final String description;
   private final Image image;
 
-  public BooleanSearchFilter(final String label, final String description, final Image image) {
+  public BooleanSearchFilter(final String label, final String description, String longDescription,
+      final Image image) {
     this.label = label;
     this.description = description;
+    this.longDescription = longDescription;
     this.image = image;
   }
 
   @Override
-  public String getDescription() {
-    return description;
+  public String getLongDescription() {
+    return longDescription;
   }
 
   @Override
@@ -46,6 +49,11 @@ public class BooleanSearchFilter implements ISearchFilter, ITextQueryProposalPro
   public List<IContentProposal> getProposalList(final String query) throws CoreException {
     return Arrays.asList(new SearchFilterValueProposal(Boolean.TRUE.toString(), this, null, null),
         new SearchFilterValueProposal(Boolean.FALSE.toString(), this, null, null));
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
   }
 
   @Override
