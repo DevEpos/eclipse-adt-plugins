@@ -25,7 +25,12 @@ public class SearchFilterLabelProvider extends LabelProvider {
   public String getText(final Object element) {
     if (element instanceof SearchFilterProposal) {
       final SearchFilterProposal proposal = (SearchFilterProposal) element;
-      return proposal.getLabel();
+      var label = proposal.getLabel();
+      var shortDescription = proposal.getShortDescription();
+      if (shortDescription != null) {
+        label = String.format("%s (%s)", label, shortDescription);
+      }
+      return label;
     }
     if (element instanceof SearchFilterValueProposal) {
       final SearchFilterValueProposal proposal = (SearchFilterValueProposal) element;

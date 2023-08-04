@@ -27,15 +27,22 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
   private boolean multiple;
   private boolean negatable;
   private IImageProvider proposalImageProvider;
+  private String longDescription;
 
-  public FixedNamedItemSearchFilter(String label, String description, Image image, boolean multiple,
-      boolean negatable, List<INamedItem> proposalItems) {
+  public FixedNamedItemSearchFilter(String label, String description, String longDescription,
+      Image image, boolean multiple, boolean negatable, List<INamedItem> proposalItems) {
     this.label = label;
     this.description = description;
+    this.longDescription = longDescription;
     this.image = image;
     this.multiple = multiple;
     this.negatable = negatable;
     this.proposalItems = proposalItems;
+  }
+
+  @Override
+  public String getLongDescription() {
+    return longDescription;
   }
 
   @Override
@@ -49,34 +56,10 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
   }
 
   @Override
-  public String getDescription() {
-    return description;
-  }
-
-  @Override
-  public boolean supportsPatternValues() {
-    return false;
-  }
-
-  @Override
-  public boolean isBuffered() {
-    return true;
-  }
-
-  @Override
-  public boolean supportsMultipleValues() {
-    return multiple;
-  }
-
-  @Override
-  public boolean supportsNegatedValues() {
-    return negatable;
-  }
-
-  @Override
   public List<IContentProposal> getProposalList(String query) throws CoreException {
+    var pattern = StringUtil.getPatternForQuery(query, false);
     var resultIterator = proposalItems.stream()
-        .filter(i -> StringUtil.getPatternForQuery(query, false).matcher(i.getName()).matches())
+        .filter(i -> pattern.matcher(i.getName()).matches())
         .iterator();
 
     if (resultIterator.hasNext()) {
@@ -93,6 +76,16 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
     return null;
   }
 
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  @Override
+  public boolean isBuffered() {
+    return true;
+  }
+
   /**
    * Sets the image provider to be used for new proposals
    *
@@ -100,5 +93,20 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
    */
   public final void setProposalImageProvider(final IImageProvider imageProvider) {
     proposalImageProvider = imageProvider;
+  }
+
+  @Override
+  public boolean supportsMultipleValues() {
+    return multiple;
+  }
+
+  @Override
+  public boolean supportsNegatedValues() {
+    return negatable;
+  }
+
+  @Override
+  public boolean supportsPatternValues() {
+    return false;
   }
 }

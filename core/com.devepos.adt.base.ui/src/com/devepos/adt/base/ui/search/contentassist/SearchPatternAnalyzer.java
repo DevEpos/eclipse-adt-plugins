@@ -276,13 +276,13 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
       // no query part so every filter gets added to the proposal list
       if (lastPart.isEmpty()) {
         filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
-            .getImage(), searchFilter.getDescription(),
+            .getImage(), searchFilter.getDescription(), searchFilter.getLongDescription(), null,
             searchFilter instanceof ITextQueryProposalProvider));
       } else {
         if (searchFilter.getLabel().startsWith(lastPart)) {
           filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
-              .getImage(), searchFilter.getDescription(), lastPart,
-              searchFilter instanceof ITextQueryProposalProvider));
+              .getImage(), searchFilter.getDescription(), searchFilter.getLongDescription(),
+              lastPart, searchFilter instanceof ITextQueryProposalProvider));
         }
       }
     }
@@ -431,7 +431,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
 
   private boolean isValueInProposalList(final List<IContentProposal> proposalList,
       final String value) {
-    return proposalList.stream().anyMatch(proposal -> proposal.getLabel().equalsIgnoreCase(value));
+    return proposalList != null && proposalList.stream()
+        .anyMatch(proposal -> proposal.getLabel().equalsIgnoreCase(value));
   }
 
   private void updateSearchFilters() {

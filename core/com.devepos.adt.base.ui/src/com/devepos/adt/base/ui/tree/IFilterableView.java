@@ -11,7 +11,7 @@ import org.eclipse.ui.part.ViewPart;
 public interface IFilterableView {
 
   /**
-   * Toggles an inline filter of viewer
+   * Toggles filter visibility of viewer
    */
-  void toggleInlineFilter();
+  void toggleTextFilterVisibility();
 }
