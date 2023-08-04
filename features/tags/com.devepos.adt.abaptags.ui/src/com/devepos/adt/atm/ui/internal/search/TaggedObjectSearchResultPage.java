@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.search.ui.IContextMenuConstants;
+import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 import org.eclipse.search.ui.ISearchResultPage;
@@ -38,7 +39,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IWorkbenchCommandConstants;
@@ -65,9 +65,12 @@ import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
+import com.devepos.adt.base.ui.search.QueryListenerAdapter;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
+import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.IFilterableView;
 import com.devepos.adt.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
@@ -77,11 +80,11 @@ import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage,
-    ISearchResultListener, ISearchResultPageExtension<TaggedObjectSearchQuery> {
+    ISearchResultListener, ISearchResultPageExtension<TaggedObjectSearchQuery>, IFilterableView {
 
   private String pageId;
   private ISearchResultViewPart searchViewPart;
-  private Tree resultTree;
+  private FilterableTree resultTree;
   private TreeViewer resultTreeViewer;
   private TaggedObjectSearchResult result;
   private ViewerState state;
@@ -98,6 +101,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private final List<String> executableObjectTypes;
   private ContextHelper contextHelper;
   private final IPropertyChangeListener colorPropertyChangeListener;
+  private QueryListenerAdapter queryListener;
 
   public TaggedObjectSearchResultPage() {
     executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO",
@@ -109,6 +113,98 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       }
     };
     JFaceResources.getColorRegistry().addListener(colorPropertyChangeListener);
+  }
+
+  private class TreeContentProvider extends LazyLoadingTreeContentProvider {
+    @Override
+    public Object[] getElements(final Object inputElement) {
+      if (result != null) {
+        return result.getResultForTree(false);
+      }
+      return new Object[0];
+    }
+  }
+
+  /**
+   * Custom view label provider for the Result Tree
+   *
+   * @author stockbal
+   */
+  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
+      IStyledLabelProvider {
+
+    @Override
+    public Image getImage(final Object element) {
+      Image image;
+      final ITreeNode resultNode = (ITreeNode) element;
+      image = resultNode.getImage();
+      if (image == null && element instanceof IAdtObjectReferenceNode) {
+        var adtObjRef = ((IAdtObjectReferenceNode) element).getObjectReference();
+        image = ImageUtil.getAdtTypeImage(adtObjRef.getType());
+      }
+      return image;
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      StyledString text = new StyledString();
+      final ITreeNode resultNode = (ITreeNode) element;
+
+      if (element instanceof IStyledTreeNode) {
+        text = ((IStyledTreeNode) element).getStyledText();
+        if (text == null) {
+          text = new StyledString();
+        }
+      } else {
+        if (element instanceof LoadingTreeItemsNode) {
+          text.append(resultNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
+        } else if (element instanceof IAdtObjectReferenceNode) {
+          setObjectRefNodeText((IAdtObjectReferenceNode) element, text);
+        }
+      }
+
+      return text;
+    }
+
+    @Override
+    public String getText(final Object element) {
+      final ITreeNode resultNode = (ITreeNode) element;
+      return resultNode.getName();
+    }
+
+    private void setObjectRefNodeText(final IAdtObjectReferenceNode adtObjRefNode,
+        final StyledString text) {
+      text.append(adtObjRefNode.getDisplayName());
+      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+        AdtObjectUtil.appendAdtTypeDescription(adtObjRefNode, text);
+      }
+
+      var parentName = adtObjRefNode.getPropertyValue(
+          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      if (parentName != null) {
+        text.append(" [" + parentName + "]", StylerFactory.createCustomStyler(SWT.NORMAL,
+            IColorConstants.COMP_PARENT_COLOR, null));
+      }
+      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) && !adtObjRefNode
+          .getAdtObjectType()
+          .startsWith(ITadirTypeConstants.PACKAGE) && !StringUtil.isEmpty(adtObjRefNode
+              .getObjectReference()
+              .getPackageName())) {
+        text.append(" - ");
+        text.append(adtObjRefNode.getObjectReference().getPackageName(),
+            StyledString.QUALIFIER_STYLER);
+      }
+
+      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
+        final String description = adtObjRefNode.getDescription();
+        if (!StringUtil.isEmpty(description)) {
+          text.append("  " + description, //$NON-NLS-1$
+              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
+                  null));
+        }
+      }
+
+    }
   }
 
   @Override
@@ -141,6 +237,20 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     contextHelper = ContextHelper.createForServiceLocator(getSite());
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
+    contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+
+    queryListener = new QueryListenerAdapter() {
+      @Override
+      public void queryStarting(final ISearchQuery query) {
+        if (result != null && query.getSearchResult() != null && result.equals(query
+            .getSearchResult())) {
+          if (resultTree != null && resultTree.isFilterVisible()) {
+            Display.getDefault().asyncExec(() -> resultTree.toggleFilterVisiblity());
+          }
+        }
+      }
+    };
+    NewSearchUI.addQueryListener(queryListener);
   }
 
   @Override
@@ -154,12 +264,72 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     if (colorPropertyChangeListener != null) {
       JFaceResources.getColorRegistry().removeListener(colorPropertyChangeListener);
     }
+    NewSearchUI.removeQueryListener(queryListener);
     super.dispose();
   }
 
   @Override
   public Control getControl() {
     return mainComposite;
+  }
+
+  @Override
+  public String getID() {
+    return pageId;
+  }
+
+  @Override
+  public String getLabel() {
+    return result != null ? result.getLabel() : "";
+  }
+
+  @Override
+  public String getSearchPageId() {
+    return TaggedObjectSearchPage.PAGE_ID;
+  }
+
+  @Override
+  public TaggedObjectSearchQuery getSearchQuery() {
+    return result != null ? (TaggedObjectSearchQuery) result.getQuery() : null;
+  }
+
+  @Override
+  public Object getUIState() {
+    if (resultTree != null && !resultTree.isDisposed()) {
+      final ViewerState uiState = new ViewerState();
+      uiState.setExpandedPaths(resultTreeViewer.getExpandedTreePaths());
+      uiState.setSelection(resultTreeViewer.getSelection());
+      return uiState;
+    }
+    return null;
+  }
+
+  @Override
+  public void restoreState(final IMemento memento) {
+  }
+
+  @Override
+  public void saveState(final IMemento memento) {
+  }
+
+  @Override
+  public void searchResultChanged(final SearchResultEvent e) {
+    if (e instanceof TaggedObjectSearchResultEvent && ((TaggedObjectSearchResultEvent) e)
+        .isCleanup()) {
+      return;
+    }
+    state = null;
+    Display.getDefault().asyncExec(() -> {
+      WorkbenchUtil.bringPartToFront(searchViewPart);
+      searchViewPart.updateLabel();
+      final IAbapProjectProvider projectProvider = searchQuery.getProjectProvider();
+      if (projectProvider != this.projectProvider) {
+        this.projectProvider = projectProvider;
+      }
+      resultTreeViewer.setInput(e.getSearchResult());
+      updateUiState();
+    });
+
   }
 
   @Override
@@ -179,7 +349,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     menu.add(openColorPrefPageAction);
     menu.add(new Separator());
     menu.add(openPreferencesAction);
-
+    menu.add(new Separator());
+    menu.add(CommandFactory.createContribItemById(
+        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
   }
 
   @Override
@@ -191,14 +363,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   }
 
   @Override
-  public Object getUIState() {
-    if (resultTree != null && !resultTree.isDisposed()) {
-      final ViewerState uiState = new ViewerState();
-      uiState.setExpandedPaths(resultTreeViewer.getExpandedTreePaths());
-      uiState.setSelection(resultTreeViewer.getSelection());
-      return uiState;
-    }
-    return null;
+  public void setID(final String id) {
+    pageId = id;
   }
 
   @Override
@@ -230,80 +396,36 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   }
 
   @Override
-  public void restoreState(final IMemento memento) {
-  }
-
-  @Override
-  public void saveState(final IMemento memento) {
-  }
-
-  @Override
-  public void setID(final String id) {
-    pageId = id;
-  }
-
-  @Override
-  public String getID() {
-    return pageId;
-  }
-
-  @Override
-  public String getLabel() {
-    return result != null ? result.getLabel() : "";
-  }
-
-  @Override
-  public void searchResultChanged(final SearchResultEvent e) {
-    if (e instanceof TaggedObjectSearchResultEvent && ((TaggedObjectSearchResultEvent) e)
-        .isCleanup()) {
-      return;
+  public void toggleTextFilterVisibility() {
+    if (resultTree != null && !resultTree.isDisposed()) {
+      resultTree.toggleFilterVisiblity();
     }
-    state = null;
-    Display.getDefault().asyncExec(() -> {
-      WorkbenchUtil.bringPartToFront(searchViewPart);
-      searchViewPart.updateLabel();
-      final IAbapProjectProvider projectProvider = searchQuery.getProjectProvider();
-      if (projectProvider != this.projectProvider) {
-        this.projectProvider = projectProvider;
+  }
+
+  /*
+   * Creates the result tree of the object search
+   */
+  private void createResultTree(final Composite parent) {
+
+    resultTree = new FilterableTree(parent, null, true);
+    resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+    resultTree.setViewer(resultTreeViewer);
+    resultTree.setElementMatcher(element -> {
+      var adtObjRefNode = (IAdtObjectReferenceNode) element;
+      var wordMatcher = resultTree.getWordMatcher();
+      return wordMatcher.matchesWord(adtObjRefNode.getName()) || wordMatcher.matchesWord(
+          adtObjRefNode.getDescription());
+    });
+    resultTreeViewer.setContentProvider(new TreeContentProvider());
+    resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
+        new ViewLabelProvider()));
+    resultTreeViewer.addOpenListener(event -> {
+      final ITreeSelection sel = (ITreeSelection) event.getSelection();
+      final Iterator<?> selIter = sel.iterator();
+      while (selIter.hasNext()) {
+        handleOpenOnTreeNode(selIter.next());
       }
-      resultTreeViewer.setInput(e.getSearchResult());
-      updateUiState();
     });
-
-  }
-
-  @Override
-  public TaggedObjectSearchQuery getSearchQuery() {
-    return result != null ? (TaggedObjectSearchQuery) result.getQuery() : null;
-  }
-
-  @Override
-  public String getSearchPageId() {
-    return TaggedObjectSearchPage.PAGE_ID;
-  }
-
-  private void initializeActions() {
-    collapseAllNodesAction = new CollapseAllTreeNodesAction(resultTreeViewer);
-    collapseNodesAction = new CollapseTreeNodesAction(resultTreeViewer);
-    copyToClipBoardAction = new CopyToClipboardAction();
-    copyToClipBoardAction.registerViewer(resultTreeViewer);
-    openPreferencesAction = new OpenTaggedObjectSearchPreferences();
-    openColorPrefPageAction = new OpenColorPreferencePageAction();
-    openColorPrefPageAction.setColorId(IColorConstants.COMP_PARENT_COLOR);
-    openColorPrefPageAction.setCategories(IColorConstants.COLOR_NAMESPACE);
-  }
-
-  private void hookContextMenu() {
-    final MenuManager menuMgr = new MenuManager();
-    menuMgr.setRemoveAllWhenShown(true);
-
-    menuMgr.addMenuListener(menu -> {
-      fillContextMenu(menu);
-    });
-    final Control viewerControl = resultTree;
-    final Menu menu = menuMgr.createContextMenu(viewerControl);
-    viewerControl.setMenu(menu);
-    getSite().registerContextMenu(searchViewPart.getViewSite().getId(), menuMgr, resultTreeViewer);
   }
 
   private void fillContextMenu(final IMenuManager menu) {
@@ -358,25 +480,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     menu.appendToGroup(IContextMenuConstants.GROUP_EDIT, copyToClipBoardAction);
   }
 
-  /*
-   * Creates the result tree of the object search
-   */
-  private void createResultTree(final Composite parent) {
-
-    resultTreeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-    resultTree = resultTreeViewer.getTree();
-    resultTreeViewer.setContentProvider(new TreeContentProvider());
-    resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new ViewLabelProvider()));
-    resultTreeViewer.addOpenListener(event -> {
-      final ITreeSelection sel = (ITreeSelection) event.getSelection();
-      final Iterator<?> selIter = sel.iterator();
-      while (selIter.hasNext()) {
-        handleOpenOnTreeNode(selIter.next());
-      }
-    });
-  }
-
   private void handleOpenOnTreeNode(final Object node) {
     if (node == null) {
       return;
@@ -398,6 +501,30 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     } else if (node instanceof ActionTreeNode) {
       ((ActionTreeNode) node).getAction().execute();
     }
+  }
+
+  private void hookContextMenu() {
+    final MenuManager menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    final Control viewerControl = resultTreeViewer.getControl();
+    final Menu menu = menuMgr.createContextMenu(viewerControl);
+    viewerControl.setMenu(menu);
+    getSite().registerContextMenu(searchViewPart.getViewSite().getId(), menuMgr, resultTreeViewer);
+  }
+
+  private void initializeActions() {
+    collapseAllNodesAction = new CollapseAllTreeNodesAction(resultTreeViewer);
+    collapseNodesAction = new CollapseTreeNodesAction(resultTreeViewer);
+    copyToClipBoardAction = new CopyToClipboardAction();
+    copyToClipBoardAction.registerViewer(resultTreeViewer);
+    openPreferencesAction = new OpenTaggedObjectSearchPreferences();
+    openColorPrefPageAction = new OpenColorPreferencePageAction();
+    openColorPrefPageAction.setColorId(IColorConstants.COMP_PARENT_COLOR);
+    openColorPrefPageAction.setCategories(IColorConstants.COLOR_NAMESPACE);
   }
 
   private void updateUiState() {
@@ -424,97 +551,5 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       }
       resultTreeViewer.refresh();
     });
-  }
-
-  private class TreeContentProvider extends LazyLoadingTreeContentProvider {
-    @Override
-    public Object[] getElements(final Object inputElement) {
-      if (result != null) {
-        return result.getResultForTree(false);
-      }
-      return new Object[0];
-    }
-  }
-
-  /**
-   * Custom view label provider for the Result Tree
-   *
-   * @author stockbal
-   */
-  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
-
-    @Override
-    public String getText(final Object element) {
-      final ITreeNode resultNode = (ITreeNode) element;
-      return resultNode.getName();
-    }
-
-    @Override
-    public Image getImage(final Object element) {
-      Image image;
-      final ITreeNode resultNode = (ITreeNode) element;
-      image = resultNode.getImage();
-      if (image == null && element instanceof IAdtObjectReferenceNode) {
-        var adtObjRef = ((IAdtObjectReferenceNode) element).getObjectReference();
-        image = ImageUtil.getAdtTypeImage(adtObjRef.getType());
-      }
-      return image;
-    }
-
-    @Override
-    public StyledString getStyledText(final Object element) {
-      StyledString text = new StyledString();
-      final ITreeNode resultNode = (ITreeNode) element;
-
-      if (element instanceof IStyledTreeNode) {
-        text = ((IStyledTreeNode) element).getStyledText();
-        if (text == null) {
-          text = new StyledString();
-        }
-      } else {
-        if (element instanceof LoadingTreeItemsNode) {
-          text.append(resultNode.getDisplayName(), StylerFactory.ITALIC_STYLER);
-        } else if (element instanceof IAdtObjectReferenceNode) {
-          setObjectRefNodeText((IAdtObjectReferenceNode) element, text);
-        }
-      }
-
-      return text;
-    }
-
-    private void setObjectRefNodeText(final IAdtObjectReferenceNode adtObjRefNode,
-        final StyledString text) {
-      text.append(adtObjRefNode.getDisplayName());
-      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
-        AdtObjectUtil.appendAdtTypeDescription(adtObjRefNode, text);
-      }
-
-      var parentName = adtObjRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
-      if (parentName != null) {
-        text.append(" [" + parentName + "]", StylerFactory.createCustomStyler(SWT.NORMAL,
-            IColorConstants.COMP_PARENT_COLOR, null));
-      }
-      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) && !adtObjRefNode
-          .getAdtObjectType()
-          .startsWith(ITadirTypeConstants.PACKAGE) && !StringUtil.isEmpty(adtObjRefNode
-              .getObjectReference()
-              .getPackageName())) {
-        text.append(" - ");
-        text.append(adtObjRefNode.getObjectReference().getPackageName(),
-            StyledString.QUALIFIER_STYLER);
-      }
-
-      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)) {
-        final String description = adtObjRefNode.getDescription();
-        if (!StringUtil.isEmpty(description)) {
-          text.append("  " + description, //$NON-NLS-1$
-              StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
-                  null));
-        }
-      }
-
-    }
   }
 }
