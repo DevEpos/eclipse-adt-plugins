@@ -103,6 +103,8 @@ public class Messages extends NLS {
   public static String CodeSearchRuntimeInfoDialog_searchProgressGroup_xtit;
   public static String CodeSearchRuntimeInfoDialog_startUpdatesAction_xbtn;
   public static String CodeSearchRuntimeInfoDialog_stopUpdatesAction_xbtn;
+  public static String CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg;
+  public static String CodeSearchScopeFilters_ownerFilterShortDescription_xmsg;
   public static String ContinueCodeSearchAction_actionName_xlbl;
   public static String ExportSearchResultsDialog_CommaDelimiter_xbtn;
   public static String ExportSearchResultsDialog_DelimterOptions_xgrp;
@@ -127,6 +129,7 @@ public class Messages extends NLS {
   public static String IncludeFlagsDialog_deselectAll_xchk;
   public static String IncludeFlagsDialog_dialogPurpose_xmsg;
   public static String IncludeFlagsDialog_selectAll_xchk;
+  public static String ObjectTypeSearchFilter_filterShortDescription_xmsg;
   public static String ResultExporter_LineNumberHeader_xtit;
   public static String ResultExporter_LinkToMatchHeader_xtit;
   public static String ResultExporter_NameHeader_xtit;
