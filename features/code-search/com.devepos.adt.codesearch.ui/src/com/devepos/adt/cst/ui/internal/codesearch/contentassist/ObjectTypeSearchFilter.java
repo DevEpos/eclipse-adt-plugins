@@ -31,7 +31,7 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  */
 public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
-  private static final String WILDCARD = "*";
+  private static final String WILDCARD = "*"; //$NON-NLS-1$
   private Map<String, IAdtObjectTypeProxy> adtTypeMap = new TreeMap<>();
   private String description;
   private Image image;
@@ -41,11 +41,7 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
 
   @Override
   public String getDescription() {
-    if (description == null) {
-      description = NLS.bind(Messages.SearchFilters_objectTypeFilterDescription_xmsg, new Object[] {
-          FilterName.OBJECT_TYPE.getContentAssistName(), ITadirTypeConstants.CLASS.toLowerCase() });
-    }
-    return description;
+    return Messages.ObjectTypeSearchFilter_filterShortDescription_xmsg;
   }
 
   @Override
@@ -62,6 +58,15 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
   }
 
   @Override
+  public String getLongDescription() {
+    if (description == null) {
+      description = NLS.bind(Messages.SearchFilters_objectTypeFilterDescription_xmsg, new Object[] {
+          FilterName.OBJECT_TYPE.getContentAssistName(), ITadirTypeConstants.CLASS.toLowerCase() });
+    }
+    return description;
+  }
+
+  @Override
   public List<IContentProposal> getProposalList(final String query) throws CoreException {
     if (adtTypeMap.isEmpty()) {
       initAdtTypes();
@@ -69,7 +74,7 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
     List<IContentProposal> proposals = new ArrayList<>();
     if (query == null || query.isEmpty()) {
       adtTypeMap.forEach((key, value) -> {
-        proposals.add(new SearchFilterValueProposal(key, this, value.getDescription(), "", value
+        proposals.add(new SearchFilterValueProposal(key, this, value.getDescription(), "", value //$NON-NLS-1$
             .getImage()));
       });
     } else {
