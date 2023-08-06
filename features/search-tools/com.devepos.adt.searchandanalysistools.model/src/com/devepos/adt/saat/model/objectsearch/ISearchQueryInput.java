@@ -3,6 +3,7 @@
 package com.devepos.adt.saat.model.objectsearch;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -16,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getType <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getTypeLabel <em>Type
+ * Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getMaxRows <em>Max
  * Rows</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#isCombineFiltersWithAnd
@@ -26,6 +29,8 @@ import org.eclipse.emf.ecore.EObject;
  * Limit Disabled</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getFields
  * <em>Fields</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getCustomOptions <em>Custom
+ * Options</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryInput()
@@ -57,6 +62,32 @@ public interface ISearchQueryInput extends EObject {
    * @generated
    */
   void setType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Type Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Type Label</em>' attribute.
+   * @see #setTypeLabel(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryInput_TypeLabel()
+   * @model transient="true"
+   * @generated
+   */
+  String getTypeLabel();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getTypeLabel <em>Type
+   * Label</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Type Label</em>' attribute.
+   * @see #getTypeLabel()
+   * @generated
+   */
+  void setTypeLabel(String value);
 
   /**
    * Returns the value of the '<em><b>Max Rows</b></em>' attribute.
@@ -178,5 +209,21 @@ public interface ISearchQueryInput extends EObject {
    * @generated
    */
   List<ISearchQueryField> getFields();
+
+  /**
+   * Returns the value of the '<em><b>Custom Options</b></em>' map.
+   * The key is of type {@link java.lang.String},
+   * and the value is of type {@link java.lang.String},
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Custom Options</em>' map.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryInput_CustomOptions()
+   * @model mapType="com.devepos.adt.saat.model.objectsearch.StringToStringMapEntry&lt;org.eclipse.emf.ecore.xml.type.String,
+   *        org.eclipse.emf.ecore.xml.type.String&gt;"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='customOption'"
+   * @generated
+   */
+  Map<String, String> getCustomOptions();
 
 } // ISearchQueryInput

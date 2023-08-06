@@ -2,12 +2,15 @@
  */
 package com.devepos.adt.saat.model.objectsearch.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
@@ -19,6 +22,7 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
@@ -158,6 +162,21 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseObjectSearchResult(final IObjectSearchResult object) {
       return createObjectSearchResultAdapter();
+    }
+
+    @Override
+    public Adapter caseSearchResultOutputConfig(final ISearchResultOutputConfig object) {
+      return createSearchResultOutputConfigAdapter();
+    }
+
+    @Override
+    public Adapter caseCustomOption(final ICustomOption object) {
+      return createCustomOptionAdapter();
+    }
+
+    @Override
+    public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
+      return createStringToStringMapEntryAdapter();
     }
 
     @Override
@@ -428,6 +447,55 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createObjectSearchResultAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig <em>Search Result
+   * Output Config</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig
+   * @generated
+   */
+  public Adapter createSearchResultOutputConfigAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption <em>Custom Option</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption
+   * @generated
+   */
+  public Adapter createCustomOptionAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To String
+   * Map Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see java.util.Map.Entry
+   * @generated
+   */
+  public Adapter createStringToStringMapEntryAdapter() {
     return null;
   }
 

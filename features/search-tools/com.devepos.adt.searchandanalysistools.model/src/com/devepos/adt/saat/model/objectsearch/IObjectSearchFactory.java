@@ -165,6 +165,26 @@ public interface IObjectSearchFactory extends EFactory {
   IObjectSearchResult createObjectSearchResult();
 
   /**
+   * Returns a new object of class '<em>Search Result Output Config</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Search Result Output Config</em>'.
+   * @generated
+   */
+  ISearchResultOutputConfig createSearchResultOutputConfig();
+
+  /**
+   * Returns a new object of class '<em>Custom Option</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Custom Option</em>'.
+   * @generated
+   */
+  ICustomOption createCustomOption();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

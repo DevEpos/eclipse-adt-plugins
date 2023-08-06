@@ -2,11 +2,14 @@
  */
 package com.devepos.adt.saat.model.objectsearch.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
@@ -18,6 +21,7 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
@@ -213,6 +217,31 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
     case IObjectSearchPackage.OBJECT_SEARCH_RESULT: {
       IObjectSearchResult objectSearchResult = (IObjectSearchResult) theEObject;
       T result = caseObjectSearchResult(objectSearchResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG: {
+      ISearchResultOutputConfig searchResultOutputConfig = (ISearchResultOutputConfig) theEObject;
+      T result = caseSearchResultOutputConfig(searchResultOutputConfig);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.CUSTOM_OPTION: {
+      ICustomOption customOption = (ICustomOption) theEObject;
+      T result = caseCustomOption(customOption);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.STRING_TO_STRING_MAP_ENTRY: {
+      @SuppressWarnings("unchecked")
+      Map.Entry<String, String> stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
+      T result = caseStringToStringMapEntry(stringToStringMapEntry);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -470,6 +499,58 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseObjectSearchResult(final IObjectSearchResult object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Search Result Output
+   * Config</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Search Result Output
+   *         Config</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSearchResultOutputConfig(final ISearchResultOutputConfig object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Custom Option</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Custom Option</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCustomOption(final ICustomOption object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>String To String Map
+   * Entry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>String To String Map
+   *         Entry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStringToStringMapEntry(final Map.Entry<String, String> object) {
     return null;
   }
 

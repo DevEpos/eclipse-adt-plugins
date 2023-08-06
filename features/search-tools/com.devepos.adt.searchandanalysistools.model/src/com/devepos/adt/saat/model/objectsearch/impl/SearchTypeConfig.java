@@ -15,8 +15,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 
@@ -34,6 +36,10 @@ import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
  * <em>Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig#getImageInfo <em>Image
  * Info</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig#getCustomOptions
+ * <em>Custom Options</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig#getOutputConfig
+ * <em>Output Config</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig#getInputs
  * <em>Inputs</em>}</li>
  * </ul>
@@ -95,6 +101,30 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
    * @ordered
    */
   protected IImageInfo imageInfo;
+
+  /**
+   * The cached value of the '{@link #getCustomOptions() <em>Custom Options</em>}' containment
+   * reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getCustomOptions()
+   * @generated
+   * @ordered
+   */
+  protected EList<ICustomOption> customOptions;
+
+  /**
+   * The cached value of the '{@link #getOutputConfig() <em>Output Config</em>}' containment
+   * reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getOutputConfig()
+   * @generated
+   * @ordered
+   */
+  protected ISearchResultOutputConfig outputConfig;
 
   /**
    * The cached value of the '{@link #getInputs() <em>Inputs</em>}' containment reference list.
@@ -234,6 +264,83 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
    * @generated
    */
   @Override
+  public List<ICustomOption> getCustomOptions() {
+    if (customOptions == null) {
+      customOptions = new EObjectContainmentEList<>(ICustomOption.class, this,
+          IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS);
+    }
+    return customOptions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ISearchResultOutputConfig getOutputConfig() {
+    return outputConfig;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public NotificationChain basicSetOutputConfig(final ISearchResultOutputConfig newOutputConfig,
+      NotificationChain msgs) {
+    ISearchResultOutputConfig oldOutputConfig = outputConfig;
+    outputConfig = newOutputConfig;
+    if (eNotificationRequired()) {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, oldOutputConfig, newOutputConfig);
+      if (msgs == null) {
+        msgs = notification;
+      } else {
+        msgs.add(notification);
+      }
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setOutputConfig(final ISearchResultOutputConfig newOutputConfig) {
+    if (newOutputConfig != outputConfig) {
+      NotificationChain msgs = null;
+      if (outputConfig != null) {
+        msgs = ((InternalEObject) outputConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+            - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null, msgs);
+      }
+      if (newOutputConfig != null) {
+        msgs = ((InternalEObject) newOutputConfig).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+            - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null, msgs);
+      }
+      msgs = basicSetOutputConfig(newOutputConfig, msgs);
+      if (msgs != null) {
+        msgs.dispatch();
+      }
+    } else if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, newOutputConfig,
+          newOutputConfig));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public List<ISearchTypeInputFieldConfig> getInputs() {
     if (inputs == null) {
       inputs = new EObjectContainmentEList<>(
@@ -252,6 +359,10 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS:
+      return ((InternalEList<?>) getCustomOptions()).basicRemove(otherEnd, msgs);
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG:
+      return basicSetOutputConfig(null, msgs);
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS:
       return ((InternalEList<?>) getInputs()).basicRemove(otherEnd, msgs);
     }
@@ -276,6 +387,10 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
         return getImageInfo();
       }
       return basicGetImageInfo();
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS:
+      return getCustomOptions();
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG:
+      return getOutputConfig();
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS:
       return getInputs();
     }
@@ -300,6 +415,13 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
       return;
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__IMAGE_INFO:
       setImageInfo((IImageInfo) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS:
+      getCustomOptions().clear();
+      getCustomOptions().addAll((Collection<? extends ICustomOption>) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG:
+      setOutputConfig((ISearchResultOutputConfig) newValue);
       return;
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS:
       getInputs().clear();
@@ -327,6 +449,12 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__IMAGE_INFO:
       setImageInfo((IImageInfo) null);
       return;
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS:
+      getCustomOptions().clear();
+      return;
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG:
+      setOutputConfig((ISearchResultOutputConfig) null);
+      return;
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS:
       getInputs().clear();
       return;
@@ -349,6 +477,10 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
       return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__IMAGE_INFO:
       return imageInfo != null;
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS:
+      return customOptions != null && !customOptions.isEmpty();
+    case IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG:
+      return outputConfig != null;
     case IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS:
       return inputs != null && !inputs.isEmpty();
     }

@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Negatable</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isKeyValuePair <em>Key
  * Value Pair</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDescription
+ * <em>Description</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getLongDescription
  * <em>Long Description</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isInternal
@@ -201,6 +203,32 @@ public interface ISearchFilterConfig extends EObject {
    * @generated
    */
   void setKeyValuePair(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchFilterConfig_Description()
+   * @model extendedMetaData="name='description' kind='attribute' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getDescription();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDescription
+   * <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
 
   /**
    * Returns the value of the '<em><b>Long Description</b></em>' attribute.

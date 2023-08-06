@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getLabel
+ * <em>Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getName <em>Name</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getValues
  * <em>Values</em>}</li>
@@ -29,6 +31,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ISearchQueryField extends EObject {
+  /**
+   * Returns the value of the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Label</em>' attribute.
+   * @see #setLabel(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchQueryField_Label()
+   * @model transient="true"
+   * @generated
+   */
+  String getLabel();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getLabel <em>Label</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Label</em>' attribute.
+   * @see #getLabel()
+   * @generated
+   */
+  void setLabel(String value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
