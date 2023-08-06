@@ -54,25 +54,9 @@
          point="org.eclipse.ui.handlers">
       <handler
             commandId="com.devepos.adt.base.ui.command.openQueryInSearchDialog">
-         <enabledWhen>
-            <with
-                  variable="activePart">
-               <instanceof
-                     value="org.eclipse.search2.internal.ui.SearchView">
-               </instanceof>
-            </with>
-         </enabledWhen>
       </handler>
       <handler
             commandId="com.devepos.adt.base.ui.command.toggleTextFilter">
-         <enabledWhen>
-            <with
-                  variable="activePart">
-               <instanceof
-                     value="com.devepos.adt.base.ui.tree.IFilterableView">
-               </instanceof>
-            </with>
-         </enabledWhen>
       </handler>
    </extension>
    <extension
