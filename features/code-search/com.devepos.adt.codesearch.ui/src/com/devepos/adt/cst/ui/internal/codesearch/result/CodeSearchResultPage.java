@@ -30,8 +30,10 @@ import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.search.ui.text.AbstractTextSearchViewPage;
 import org.eclipse.search.ui.text.Match;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PartInitException;
@@ -48,11 +50,16 @@ import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.PreferenceToggleAction;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
+import com.devepos.adt.base.ui.table.FilterableTable;
+import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.IFilterableView;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.PackageNode;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
@@ -71,7 +78,7 @@ import com.sap.adt.tools.core.ui.navigation.AdtNavigationServiceFactory;
  *
  */
 public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
-    ISearchResultPageExtension<CodeSearchQuery>, IQueryListener {
+    ISearchResultPageExtension<CodeSearchQuery>, IQueryListener, IFilterableView {
 
   private static final String GROUP_BY_PACKAGE_PREF = "codeSearch.result.groupByPackageEnabled"; //$NON-NLS-1$
 
@@ -87,6 +94,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   private ContinueCodeSearchAction continueSearchAction;
   private ContextHelper contextHelper;
 
+  private FilterableComposite<?, ?> filterableComposite;
   private PreferenceToggleAction groupByPackageAction;
   private final IPropertyChangeListener prefChangeListener;
 
@@ -114,6 +122,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     contextHelper = ContextHelper.createForServiceLocator(getSite());
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
+    contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
 
     NewSearchUI.addQueryListener(this);
   }
@@ -162,22 +171,26 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
 
   @Override
   public void queryFinished(final ISearchQuery query) {
-    if (isActionUpdateRequired(query)) {
+    if (currentQueryStatusChanged(query)) {
       updateContinueAction();
     }
   }
 
   @Override
   public void queryRemoved(final ISearchQuery query) {
-    if (isActionUpdateRequired(query)) {
+    if (currentQueryStatusChanged(query)) {
       updateContinueAction();
     }
   }
 
   @Override
   public void queryStarting(final ISearchQuery query) {
-    if (isActionUpdateRequired(query)) {
+    if (currentQueryStatusChanged(query)) {
       updateContinueAction();
+
+      if (filterableComposite != null && filterableComposite.isFilterVisible()) {
+        Display.getDefault().asyncExec(() -> filterableComposite.toggleFilterVisiblity());
+      }
     }
   }
 
@@ -187,6 +200,9 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     menuMgr.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, openRuntimeInformation);
     menuMgr.appendToGroup(IContextMenuConstants.GROUP_PROPERTIES, openPreferencesAction);
     menuMgr.add(new Separator());
+    menuMgr.add(CommandFactory.createContribItemById(
+        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    menuMgr.add(new Separator());
     menuMgr.add(exportResultsAction);
   }
 
@@ -195,6 +211,39 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     super.setInput(newSearch, viewState);
 
     updateContinueAction();
+
+    if (filterableComposite != null && !filterableComposite.isDisposed()) {
+      filterableComposite.resetFilter();
+      filterableComposite.setFilterVisible(false);
+    }
+  }
+
+  @Override
+  public void setLayout(final int layout) {
+    var oldLayout = getLayout();
+    var filterString = getFilterString();
+    super.setLayout(layout);
+
+    if (filterableComposite != null && !filterableComposite.isDisposed()) {
+      filterableComposite.layout(true);
+    }
+
+    if (oldLayout == FLAG_LAYOUT_FLAT) {
+      getViewer().refresh();
+    }
+
+    // check if filter was active in previous layout
+    if (!StringUtil.isEmpty(filterString)) {
+      filterableComposite.setFilterVisible(true);
+      filterableComposite.setFilterText(filterString);
+    }
+  }
+
+  @Override
+  public void toggleTextFilterVisibility() {
+    if (filterableComposite != null && !filterableComposite.isDisposed()) {
+      filterableComposite.toggleFilterVisiblity();
+    }
   }
 
   @Override
@@ -233,6 +282,31 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
       }
 
     });
+  }
+
+  @Override
+  protected TableViewer createTableViewer(final Composite parent) {
+    disposeControls();
+    var table = new FilterableTable(parent, null, true, false);
+    filterableComposite = table;
+    var resultViewer = new TableViewer(table, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+    table.setViewer(resultViewer);
+
+    configureFilterableComposite();
+
+    return resultViewer;
+  }
+
+  @Override
+  protected TreeViewer createTreeViewer(final Composite parent) {
+    disposeControls();
+    var tree = new FilterableTree(parent, null, true, false);
+    filterableComposite = tree;
+    var resultViewer = new TreeViewer(tree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+    tree.setViewer(resultViewer);
+
+    configureFilterableComposite();
+    return resultViewer;
   }
 
   @Override
@@ -347,6 +421,34 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     navigateToElement(element, activate);
   }
 
+  private void configureFilterableComposite() {
+    // filterableComposite.setLeadingWildcardFiltering(false);
+    filterableComposite.setElementMatcher(element -> {
+      var wordMatcher = filterableComposite.getWordMatcher();
+
+      if (element instanceof SearchMatchNode) {
+        var match = ((SearchMatchNode) element).getStyledText().getString();
+        return wordMatcher.matchesWord(match);
+      }
+      return false;
+    });
+  }
+
+  /*
+   * Evaluates if the 'continueSearch' action needs to be updated
+   */
+  private boolean currentQueryStatusChanged(final ISearchQuery query) {
+    var searchResult = getInput();
+    return searchResult != null && searchResult.equals(query.getSearchResult());
+  }
+
+  private void disposeControls() {
+    if (filterableComposite != null && !filterableComposite.isDisposed()) {
+      filterableComposite.dispose();
+      filterableComposite = null;
+    }
+  }
+
   private void exportResults() {
     var searchResult = (CodeSearchResult) getInput();
     if (searchResult.getResultTree() == null || !searchResult.getResultTree().hasChildren()) {
@@ -359,6 +461,13 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
         .getResultTree(), ((CodeSearchQuery) getInput().getQuery()).getProjectProvider()
             .getProject());
     exportResultsDialog.open();
+  }
+
+  private String getFilterString() {
+    if (filterableComposite != null) {
+      return filterableComposite.getFilterString();
+    }
+    return null;
   }
 
   private void initializeActions() {
@@ -404,11 +513,6 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
                 }
               });
             });
-  }
-
-  private boolean isActionUpdateRequired(final ISearchQuery query) {
-    var searchResult = getInput();
-    return searchResult != null && searchResult.equals(query.getSearchResult());
   }
 
   private boolean navigateToElement(final Object element, final boolean activate) {
