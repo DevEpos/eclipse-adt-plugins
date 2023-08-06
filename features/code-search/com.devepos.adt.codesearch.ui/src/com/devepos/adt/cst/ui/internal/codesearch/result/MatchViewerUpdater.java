@@ -52,11 +52,12 @@ class MatchViewerUpdater {
   }
 
   private void refreshViewer() {
+    updateMatchCounts();
+
     if (viewer instanceof TableViewer) {
       viewer.refresh();
       return;
     }
-    updateMatchCounts();
 
     if (!isRootNodeAdjusted && !nodesToRefresh.isEmpty()) {
       for (ICollectionTreeNode node : nodesToRefresh) {
@@ -112,7 +113,9 @@ class MatchViewerUpdater {
     } else {
       int matchCount = 0;
       for (ITreeNode childNode : collectionNode.getChildren()) {
-        matchCount += (Integer) childNode.getNodeValue();
+        if (childNode != null && childNode.getNodeValue() != null) {
+          matchCount += (Integer) childNode.getNodeValue();
+        }
       }
       collectionNode.setNodeValue(matchCount);
       updateAndPropagateMatchCount(collectionNode.getParent());
