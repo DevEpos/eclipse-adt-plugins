@@ -35,6 +35,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
  * <em>Negatable</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isKeyValuePair <em>Key
  * Value Pair</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getDescription
+ * <em>Description</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getLongDescription
  * <em>Long Description</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isInternal
@@ -182,6 +184,28 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected boolean keyValuePair = KEY_VALUE_PAIR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * The default value of the '{@link #getLongDescription() <em>Long Description</em>}' attribute.
@@ -463,6 +487,33 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setDescription(final String newDescription) {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__DESCRIPTION, oldDescription, description));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public String getLongDescription() {
     return longDescription;
   }
@@ -684,6 +735,8 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
       return isNegatable();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       return isKeyValuePair();
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DESCRIPTION:
+      return getDescription();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       return getLongDescription();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__INTERNAL:
@@ -727,6 +780,9 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
       return;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       setKeyValuePair((Boolean) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DESCRIPTION:
+      setDescription((String) newValue);
       return;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       setLongDescription((String) newValue);
@@ -774,6 +830,9 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       setKeyValuePair(KEY_VALUE_PAIR_EDEFAULT);
       return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DESCRIPTION:
+      setDescription(DESCRIPTION_EDEFAULT);
+      return;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       setLongDescription(LONG_DESCRIPTION_EDEFAULT);
       return;
@@ -814,6 +873,9 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
       return negatable != NEGATABLE_EDEFAULT;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR:
       return keyValuePair != KEY_VALUE_PAIR_EDEFAULT;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__DESCRIPTION:
+      return DESCRIPTION_EDEFAULT == null ? description != null
+          : !DESCRIPTION_EDEFAULT.equals(description);
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__LONG_DESCRIPTION:
       return LONG_DESCRIPTION_EDEFAULT == null ? longDescription != null
           : !LONG_DESCRIPTION_EDEFAULT.equals(longDescription);
@@ -854,6 +916,8 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
     result.append(negatable);
     result.append(", keyValuePair: ");
     result.append(keyValuePair);
+    result.append(", description: ");
+    result.append(description);
     result.append(", longDescription: ");
     result.append(longDescription);
     result.append(", internal: ");

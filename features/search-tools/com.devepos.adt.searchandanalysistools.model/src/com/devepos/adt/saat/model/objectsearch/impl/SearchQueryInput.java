@@ -4,15 +4,19 @@ package com.devepos.adt.saat.model.objectsearch.impl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
@@ -29,6 +33,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
  * <ul>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getType
  * <em>Type</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getTypeLabel <em>Type
+ * Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getMaxRows <em>Max
  * Rows</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#isCombineFiltersWithAnd
@@ -39,6 +45,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
  * <em>Row Limit Disabled</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getFields
  * <em>Fields</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryInput#getCustomOptions
+ * <em>Custom Options</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +73,28 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
    * @ordered
    */
   protected String type = TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTypeLabel() <em>Type Label</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getTypeLabel()
+   * @generated
+   * @ordered
+   */
+  protected static final String TYPE_LABEL_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTypeLabel() <em>Type Label</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getTypeLabel()
+   * @generated
+   * @ordered
+   */
+  protected String typeLabel = TYPE_LABEL_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMaxRows() <em>Max Rows</em>}' attribute.
@@ -168,6 +198,17 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
   protected EList<ISearchQueryField> fields;
 
   /**
+   * The cached value of the '{@link #getCustomOptions() <em>Custom Options</em>}' map.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getCustomOptions()
+   * @generated
+   * @ordered
+   */
+  protected EMap<String, String> customOptions;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
@@ -212,6 +253,33 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
           IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE, oldType, type));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getTypeLabel() {
+    return typeLabel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setTypeLabel(final String newTypeLabel) {
+    String oldTypeLabel = typeLabel;
+    typeLabel = newTypeLabel;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE_LABEL, oldTypeLabel, typeLabel));
     }
   }
 
@@ -347,11 +415,30 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
    * @generated
    */
   @Override
+  public Map<String, String> getCustomOptions() {
+    if (customOptions == null) {
+      customOptions = new EcoreEMap<>(
+          IObjectSearchPackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class,
+          this, IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS);
+    }
+    return customOptions.map();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       return ((InternalEList<?>) getFields()).basicRemove(otherEnd, msgs);
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS:
+      return ((InternalEList<?>) ((EMap.InternalMapView<String, String>) getCustomOptions()).eMap())
+          .basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -367,6 +454,8 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     switch (featureID) {
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE:
       return getType();
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE_LABEL:
+      return getTypeLabel();
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__MAX_ROWS:
       return getMaxRows();
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
@@ -377,6 +466,11 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return isRowLimitDisabled();
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       return getFields();
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS:
+      if (coreType) {
+        return ((EMap.InternalMapView<String, String>) getCustomOptions()).eMap();
+      }
+      return getCustomOptions();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -394,6 +488,9 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE:
       setType((String) newValue);
       return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE_LABEL:
+      setTypeLabel((String) newValue);
+      return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__MAX_ROWS:
       setMaxRows((Integer) newValue);
       return;
@@ -409,6 +506,10 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       getFields().clear();
       getFields().addAll((Collection<? extends ISearchQueryField>) newValue);
+      return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS:
+      ((EStructuralFeature.Setting) ((EMap.InternalMapView<String, String>) getCustomOptions())
+          .eMap()).set(newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -426,6 +527,9 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE:
       setType(TYPE_EDEFAULT);
       return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE_LABEL:
+      setTypeLabel(TYPE_LABEL_EDEFAULT);
+      return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__MAX_ROWS:
       setMaxRows(MAX_ROWS_EDEFAULT);
       return;
@@ -440,6 +544,9 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       getFields().clear();
+      return;
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS:
+      getCustomOptions().clear();
       return;
     }
     super.eUnset(featureID);
@@ -456,6 +563,9 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     switch (featureID) {
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE:
       return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__TYPE_LABEL:
+      return TYPE_LABEL_EDEFAULT == null ? typeLabel != null
+          : !TYPE_LABEL_EDEFAULT.equals(typeLabel);
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__MAX_ROWS:
       return maxRows != MAX_ROWS_EDEFAULT;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND:
@@ -466,6 +576,8 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
       return rowLimitDisabled != ROW_LIMIT_DISABLED_EDEFAULT;
     case IObjectSearchPackage.SEARCH_QUERY_INPUT__FIELDS:
       return fields != null && !fields.isEmpty();
+    case IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS:
+      return customOptions != null && !customOptions.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -485,6 +597,8 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (type: ");
     result.append(type);
+    result.append(", typeLabel: ");
+    result.append(typeLabel);
     result.append(", maxRows: ");
     result.append(maxRows);
     result.append(", combineFiltersWithAnd: ");

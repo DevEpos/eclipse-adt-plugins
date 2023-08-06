@@ -20,6 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getImageInfo <em>Image
  * Info</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getCustomOptions <em>Custom
+ * Options</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getOutputConfig <em>Output
+ * Config</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getInputs
  * <em>Inputs</em>}</li>
  * </ul>
@@ -105,6 +109,48 @@ public interface ISearchTypeConfig extends EObject {
    * @generated
    */
   void setImageInfo(IImageInfo value);
+
+  /**
+   * Returns the value of the '<em><b>Custom Options</b></em>' containment reference list.
+   * The list contents are of type {@link com.devepos.adt.saat.model.objectsearch.ICustomOption}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Custom Options</em>' containment reference list.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchTypeConfig_CustomOptions()
+   * @model containment="true"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='customOption'"
+   * @generated
+   */
+  List<ICustomOption> getCustomOptions();
+
+  /**
+   * Returns the value of the '<em><b>Output Config</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Output Config</em>' containment reference.
+   * @see #setOutputConfig(ISearchResultOutputConfig)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchTypeConfig_OutputConfig()
+   * @model containment="true"
+   *        extendedMetaData="kind='element' name='resultOutputConfig'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  ISearchResultOutputConfig getOutputConfig();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getOutputConfig <em>Output
+   * Config</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Output Config</em>' containment reference.
+   * @see #getOutputConfig()
+   * @generated
+   */
+  void setOutputConfig(ISearchResultOutputConfig value);
 
   /**
    * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.

@@ -28,6 +28,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
  * The following features are implemented:
  * </p>
  * <ul>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField#getLabel
+ * <em>Label</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField#getName
  * <em>Name</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField#getValues
@@ -41,6 +43,28 @@ import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
  * @generated
  */
 public class SearchQueryField extends MinimalEObjectImpl.Container implements ISearchQueryField {
+  /**
+   * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getLabel()
+   * @generated
+   * @ordered
+   */
+  protected static final String LABEL_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getLabel()
+   * @generated
+   * @ordered
+   */
+  protected String label = LABEL_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -126,6 +150,33 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
   @Override
   protected EClass eStaticClass() {
     return IObjectSearchPackage.Literals.SEARCH_QUERY_FIELD;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getLabel() {
+    return label;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setLabel(final String newLabel) {
+    String oldLabel = label;
+    label = newLabel;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_QUERY_FIELD__LABEL, oldLabel, label));
+    }
   }
 
   /**
@@ -237,6 +288,8 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
   @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__LABEL:
+      return getLabel();
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__NAME:
       return getName();
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__VALUES:
@@ -259,6 +312,9 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
   @Override
   public void eSet(final int featureID, final Object newValue) {
     switch (featureID) {
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__LABEL:
+      setLabel((String) newValue);
+      return;
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__NAME:
       setName((String) newValue);
       return;
@@ -286,6 +342,9 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
   @Override
   public void eUnset(final int featureID) {
     switch (featureID) {
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__LABEL:
+      setLabel(LABEL_EDEFAULT);
+      return;
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__NAME:
       setName(NAME_EDEFAULT);
       return;
@@ -311,6 +370,8 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
   @Override
   public boolean eIsSet(final int featureID) {
     switch (featureID) {
+    case IObjectSearchPackage.SEARCH_QUERY_FIELD__LABEL:
+      return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__NAME:
       return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     case IObjectSearchPackage.SEARCH_QUERY_FIELD__VALUES:
@@ -336,7 +397,9 @@ public class SearchQueryField extends MinimalEObjectImpl.Container implements IS
     }
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
+    result.append(" (label: ");
+    result.append(label);
+    result.append(", name: ");
     result.append(name);
     result.append(", values: ");
     result.append(values);

@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.saat.model.objectsearch.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -11,8 +13,10 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
+import com.devepos.adt.saat.model.objectsearch.CustomOptionType;
 import com.devepos.adt.saat.model.objectsearch.FilterType;
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
+import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
@@ -25,6 +29,7 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
@@ -166,6 +171,30 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    *
    * @generated
    */
+  private EClass searchResultOutputConfigEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass customOptionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass stringToStringMapEntryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
   private EEnum proposalImageSourceEEnum = null;
 
   /**
@@ -183,6 +212,14 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   private EEnum imageRegistryIdEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EEnum customOptionTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -335,8 +372,30 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EReference getSearchTypeConfig_Inputs() {
+  public EReference getSearchTypeConfig_CustomOptions() {
     return (EReference) searchTypeConfigEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getSearchTypeConfig_OutputConfig() {
+    return (EReference) searchTypeConfigEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getSearchTypeConfig_Inputs() {
+    return (EReference) searchTypeConfigEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -478,7 +537,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchFilterConfig_LongDescription() {
+  public EAttribute getSearchFilterConfig_Description() {
     return (EAttribute) searchFilterConfigEClass.getEStructuralFeatures().get(6);
   }
 
@@ -489,7 +548,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchFilterConfig_Internal() {
+  public EAttribute getSearchFilterConfig_LongDescription() {
     return (EAttribute) searchFilterConfigEClass.getEStructuralFeatures().get(7);
   }
 
@@ -500,7 +559,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchFilterConfig_WildcardsAllowed() {
+  public EAttribute getSearchFilterConfig_Internal() {
     return (EAttribute) searchFilterConfigEClass.getEStructuralFeatures().get(8);
   }
 
@@ -511,8 +570,19 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EAttribute getSearchFilterConfig_WildcardsAllowed() {
+    return (EAttribute) searchFilterConfigEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EReference getSearchFilterConfig_ContentAssist() {
-    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(9);
+    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -523,7 +593,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    */
   @Override
   public EReference getSearchFilterConfig_ImageInfo() {
-    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(10);
+    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -786,7 +856,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryInput_MaxRows() {
+  public EAttribute getSearchQueryInput_TypeLabel() {
     return (EAttribute) searchQueryInputEClass.getEStructuralFeatures().get(1);
   }
 
@@ -797,7 +867,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryInput_CombineFiltersWithAnd() {
+  public EAttribute getSearchQueryInput_MaxRows() {
     return (EAttribute) searchQueryInputEClass.getEStructuralFeatures().get(2);
   }
 
@@ -808,7 +878,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryInput_WithApiState() {
+  public EAttribute getSearchQueryInput_CombineFiltersWithAnd() {
     return (EAttribute) searchQueryInputEClass.getEStructuralFeatures().get(3);
   }
 
@@ -819,7 +889,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryInput_RowLimitDisabled() {
+  public EAttribute getSearchQueryInput_WithApiState() {
     return (EAttribute) searchQueryInputEClass.getEStructuralFeatures().get(4);
   }
 
@@ -830,8 +900,30 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EAttribute getSearchQueryInput_RowLimitDisabled() {
+    return (EAttribute) searchQueryInputEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EReference getSearchQueryInput_Fields() {
-    return (EReference) searchQueryInputEClass.getEStructuralFeatures().get(5);
+    return (EReference) searchQueryInputEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getSearchQueryInput_CustomOptions() {
+    return (EReference) searchQueryInputEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -852,7 +944,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryField_Name() {
+  public EAttribute getSearchQueryField_Label() {
     return (EAttribute) searchQueryFieldEClass.getEStructuralFeatures().get(0);
   }
 
@@ -863,7 +955,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSearchQueryField_Values() {
+  public EAttribute getSearchQueryField_Name() {
     return (EAttribute) searchQueryFieldEClass.getEStructuralFeatures().get(1);
   }
 
@@ -874,8 +966,19 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EAttribute getSearchQueryField_Values() {
+    return (EAttribute) searchQueryFieldEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EReference getSearchQueryField_Filters() {
-    return (EReference) searchQueryFieldEClass.getEStructuralFeatures().get(2);
+    return (EReference) searchQueryFieldEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -886,7 +989,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    */
   @Override
   public EAttribute getSearchQueryField_RawInput() {
-    return (EAttribute) searchQueryFieldEClass.getEStructuralFeatures().get(3);
+    return (EAttribute) searchQueryFieldEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -962,6 +1065,149 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EClass getSearchResultOutputConfig() {
+    return searchResultOutputConfigEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getSearchResultOutputConfig_ListOutputSupported() {
+    return (EAttribute) searchResultOutputConfigEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getSearchResultOutputConfig_GroupingLevels() {
+    return (EAttribute) searchResultOutputConfigEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getSearchResultOutputConfig_TypesForList() {
+    return (EAttribute) searchResultOutputConfigEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getCustomOption() {
+    return customOptionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCustomOption_Key() {
+    return (EAttribute) customOptionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCustomOption_Label() {
+    return (EAttribute) customOptionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCustomOption_Type() {
+    return (EAttribute) customOptionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCustomOption_Description() {
+    return (EAttribute) customOptionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getCustomOption_OptionValues() {
+    return (EReference) customOptionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getStringToStringMapEntry() {
+    return stringToStringMapEntryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getStringToStringMapEntry_Key() {
+    return (EAttribute) stringToStringMapEntryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getStringToStringMapEntry_Value() {
+    return (EAttribute) stringToStringMapEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EEnum getProposalImageSource() {
     return proposalImageSourceEEnum;
   }
@@ -986,6 +1232,17 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
   @Override
   public EEnum getImageRegistryId() {
     return imageRegistryIdEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EEnum getCustomOptionType() {
+    return customOptionTypeEEnum;
   }
 
   /**
@@ -1029,6 +1286,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     createEAttribute(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__NAME);
     createEAttribute(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__LABEL);
     createEReference(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__IMAGE_INFO);
+    createEReference(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS);
+    createEReference(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__OUTPUT_CONFIG);
     createEReference(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__INPUTS);
 
     searchTypeInputFieldConfigEClass = createEClass(SEARCH_TYPE_INPUT_FIELD_CONFIG);
@@ -1044,6 +1303,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__MULTIPLE);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__NEGATABLE);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR);
+    createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__DESCRIPTION);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__LONG_DESCRIPTION);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__INTERNAL);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED);
@@ -1081,13 +1341,16 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
 
     searchQueryInputEClass = createEClass(SEARCH_QUERY_INPUT);
     createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__TYPE);
+    createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__TYPE_LABEL);
     createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__MAX_ROWS);
     createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND);
     createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__WITH_API_STATE);
     createEAttribute(searchQueryInputEClass, SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED);
     createEReference(searchQueryInputEClass, SEARCH_QUERY_INPUT__FIELDS);
+    createEReference(searchQueryInputEClass, SEARCH_QUERY_INPUT__CUSTOM_OPTIONS);
 
     searchQueryFieldEClass = createEClass(SEARCH_QUERY_FIELD);
+    createEAttribute(searchQueryFieldEClass, SEARCH_QUERY_FIELD__LABEL);
     createEAttribute(searchQueryFieldEClass, SEARCH_QUERY_FIELD__NAME);
     createEAttribute(searchQueryFieldEClass, SEARCH_QUERY_FIELD__VALUES);
     createEReference(searchQueryFieldEClass, SEARCH_QUERY_FIELD__FILTERS);
@@ -1101,10 +1364,28 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     createEAttribute(objectSearchResultEClass, OBJECT_SEARCH_RESULT__RESULT_COUNT);
     createEReference(objectSearchResultEClass, OBJECT_SEARCH_RESULT__RESULT_OBJECTS);
 
+    searchResultOutputConfigEClass = createEClass(SEARCH_RESULT_OUTPUT_CONFIG);
+    createEAttribute(searchResultOutputConfigEClass,
+        SEARCH_RESULT_OUTPUT_CONFIG__LIST_OUTPUT_SUPPORTED);
+    createEAttribute(searchResultOutputConfigEClass, SEARCH_RESULT_OUTPUT_CONFIG__GROUPING_LEVELS);
+    createEAttribute(searchResultOutputConfigEClass, SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST);
+
+    customOptionEClass = createEClass(CUSTOM_OPTION);
+    createEAttribute(customOptionEClass, CUSTOM_OPTION__KEY);
+    createEAttribute(customOptionEClass, CUSTOM_OPTION__LABEL);
+    createEAttribute(customOptionEClass, CUSTOM_OPTION__TYPE);
+    createEAttribute(customOptionEClass, CUSTOM_OPTION__DESCRIPTION);
+    createEReference(customOptionEClass, CUSTOM_OPTION__OPTION_VALUES);
+
+    stringToStringMapEntryEClass = createEClass(STRING_TO_STRING_MAP_ENTRY);
+    createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__KEY);
+    createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__VALUE);
+
     // Create enums
     proposalImageSourceEEnum = createEEnum(PROPOSAL_IMAGE_SOURCE);
     filterTypeEEnum = createEEnum(FILTER_TYPE);
     imageRegistryIdEEnum = createEEnum(IMAGE_REGISTRY_ID);
+    customOptionTypeEEnum = createEEnum(CUSTOM_OPTION_TYPE);
   }
 
   /**
@@ -1168,6 +1449,13 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEReference(getSearchTypeConfig_ImageInfo(), getImageInfo(), null, "imageInfo", null, 0, 1,
         ISearchTypeConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearchTypeConfig_CustomOptions(), getCustomOption(), null, "customOptions",
+        null, 0, -1, ISearchTypeConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearchTypeConfig_OutputConfig(), getSearchResultOutputConfig(), null,
+        "outputConfig", null, 0, 1, ISearchTypeConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
     initEReference(getSearchTypeConfig_Inputs(), getSearchTypeInputFieldConfig(), null, "inputs",
         null, 0, -1, ISearchTypeConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1206,6 +1494,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
         !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSearchFilterConfig_KeyValuePair(), ecorePackage.getEBoolean(), "keyValuePair",
+        null, 0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearchFilterConfig_Description(), ecorePackage.getEString(), "description",
         null, 0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSearchFilterConfig_LongDescription(), ecorePackage.getEString(),
@@ -1293,6 +1584,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getSearchQueryInput_Type(), ecorePackage.getEString(), "type", null, 0, 1,
         ISearchQueryInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearchQueryInput_TypeLabel(), ecorePackage.getEString(), "typeLabel", null, 0,
+        1, ISearchQueryInput.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSearchQueryInput_MaxRows(), ecorePackage.getEInt(), "maxRows", null, 0, 1,
         ISearchQueryInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1308,9 +1602,16 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEReference(getSearchQueryInput_Fields(), getSearchQueryField(), null, "fields", null, 0, -1,
         ISearchQueryInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearchQueryInput_CustomOptions(), getStringToStringMapEntry(), null,
+        "customOptions", null, 0, -1, ISearchQueryInput.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
 
     initEClass(searchQueryFieldEClass, ISearchQueryField.class, "SearchQueryField", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSearchQueryField_Label(), ecorePackage.getEString(), "label", null, 0, 1,
+        ISearchQueryField.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSearchQueryField_Name(), ecorePackage.getEString(), "name", null, 0, 1,
         ISearchQueryField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1343,6 +1644,47 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
 
+    initEClass(searchResultOutputConfigEClass, ISearchResultOutputConfig.class,
+        "SearchResultOutputConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSearchResultOutputConfig_ListOutputSupported(), theXMLTypePackage
+        .getBoolean(), "listOutputSupported", null, 0, 1, ISearchResultOutputConfig.class,
+        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEAttribute(getSearchResultOutputConfig_GroupingLevels(), theXMLTypePackage.getString(),
+        "groupingLevels", null, 0, -1, ISearchResultOutputConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearchResultOutputConfig_TypesForList(), theXMLTypePackage.getString(),
+        "typesForList", null, 0, -1, ISearchResultOutputConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(customOptionEClass, ICustomOption.class, "CustomOption", !IS_ABSTRACT, !IS_INTERFACE,
+        IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCustomOption_Key(), theXMLTypePackage.getString(), "key", null, 0, 1,
+        ICustomOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCustomOption_Label(), theXMLTypePackage.getString(), "label", null, 0, 1,
+        ICustomOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCustomOption_Type(), getCustomOptionType(), "type", null, 0, 1,
+        ICustomOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCustomOption_Description(), theXMLTypePackage.getString(), "description",
+        null, 0, 1, ICustomOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCustomOption_OptionValues(), getStringToStringMapEntry(), null,
+        "optionValues", null, 0, -1, ICustomOption.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+
+    initEClass(stringToStringMapEntryEClass, Map.Entry.class, "StringToStringMapEntry",
+        !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getStringToStringMapEntry_Key(), theXMLTypePackage.getString(), "key", null, 0,
+        1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStringToStringMapEntry_Value(), theXMLTypePackage.getString(), "value", null,
+        0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(proposalImageSourceEEnum, ProposalImageSource.class, "ProposalImageSource");
     addEEnumLiteral(proposalImageSourceEEnum, ProposalImageSource.FIXED);
@@ -1357,6 +1699,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEEnum(imageRegistryIdEEnum, ImageRegistryId.class, "ImageRegistryId");
     addEEnumLiteral(imageRegistryIdEEnum, ImageRegistryId.CALLING_PLUGIN);
     addEEnumLiteral(imageRegistryIdEEnum, ImageRegistryId.ADT_OBJECT_TYPE);
+
+    initEEnum(customOptionTypeEEnum, CustomOptionType.class, "CustomOptionType");
+    addEEnumLiteral(customOptionTypeEEnum, CustomOptionType.STRING);
+    addEEnumLiteral(customOptionTypeEEnum, CustomOptionType.BOOLEAN);
 
     // Create resource
     createResource(eNS_URI);
@@ -1387,6 +1733,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchTypeConfig_ImageInfo(), source, new String[] { "name", "imageInfo",
         "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeConfig_CustomOptions(), source, new String[] { "kind", "element",
+        "namespace", "##targetNamespace", "name", "customOption" });
+    addAnnotation(getSearchTypeConfig_OutputConfig(), source, new String[] { "kind", "element",
+        "name", "resultOutputConfig", "namespace", "##targetNamespace" });
     addAnnotation(getSearchTypeConfig_Inputs(), source, new String[] { "name", "input", "kind",
         "element", "namespace", "##targetNamespace" });
     addAnnotation(searchTypeInputFieldConfigEClass, source, new String[] { "kind", "elementOnly",
@@ -1413,6 +1763,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_KeyValuePair(), source, new String[] { "name",
         "keyValuePair", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_Description(), source, new String[] { "name", "description",
+        "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_LongDescription(), source, new String[] { "name",
         "longDescription", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_Internal(), source, new String[] { "name", "internal",
@@ -1469,6 +1821,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "rowLimitDisabled", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchQueryInput_Fields(), source, new String[] { "name", "field", "kind",
         "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryInput_CustomOptions(), source, new String[] { "kind", "element",
+        "namespace", "##targetNamespace", "name", "customOption" });
     addAnnotation(searchQueryFieldEClass, source, new String[] { "kind", "elementOnly", "name",
         "field" });
     addAnnotation(getSearchQueryField_Name(), source, new String[] { "name", "name", "kind",
@@ -1489,6 +1843,22 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "namespace", "##targetNamespace" });
     addAnnotation(getObjectSearchResult_ResultObjects(), source, new String[] { "name", "adtObjRef",
         "kind", "element", "namespace", "http://www.devepos.com/adt/base" });
+    addAnnotation(searchResultOutputConfigEClass, source, new String[] { "kind", "elementOnly",
+        "name", "searchResultOutputConfig" });
+    addAnnotation(getSearchResultOutputConfig_ListOutputSupported(), source, new String[] { "kind",
+        "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchResultOutputConfig_GroupingLevels(), source, new String[] { "kind",
+        "element", "namespace", "##targetNamespace", "name", "groupingLevel" });
+    addAnnotation(getSearchResultOutputConfig_TypesForList(), source, new String[] { "kind",
+        "element", "name", "typeForList", "namespace", "##targetNamespace" });
+    addAnnotation(getCustomOption_Description(), source, new String[] { "kind", "element",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getCustomOption_OptionValues(), source, new String[] { "kind", "element",
+        "namespace", "##targetNamespace", "name", "optionValue" });
+    addAnnotation(getStringToStringMapEntry_Key(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getStringToStringMapEntry_Value(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
   }
 
 } // ObjectSearchPackage

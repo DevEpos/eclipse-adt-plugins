@@ -51,7 +51,7 @@ public interface IObjectSearchPackage extends EPackage {
    *
    * @generated
    */
-  String eNS_PREFIX = "saat";
+  String eNS_PREFIX = "objectsearch";
 
   /**
    * The singleton instance of the package.
@@ -149,6 +149,26 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_TYPE_CONFIG__IMAGE_INFO = 2;
 
   /**
+   * The feature id for the '<em><b>Custom Options</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS = 3;
+
+  /**
+   * The feature id for the '<em><b>Output Config</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_TYPE_CONFIG__OUTPUT_CONFIG = 4;
+
+  /**
    * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -156,7 +176,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_CONFIG__INPUTS = 3;
+  int SEARCH_TYPE_CONFIG__INPUTS = 5;
 
   /**
    * The number of structural features of the '<em>Search Type Config</em>' class.
@@ -166,7 +186,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_TYPE_CONFIG_FEATURE_COUNT = 4;
+  int SEARCH_TYPE_CONFIG_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Search Type Config</em>' class.
@@ -325,6 +345,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR = 5;
 
   /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_FILTER_CONFIG__DESCRIPTION = 6;
+
+  /**
    * The feature id for the '<em><b>Long Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -332,7 +362,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__LONG_DESCRIPTION = 6;
+  int SEARCH_FILTER_CONFIG__LONG_DESCRIPTION = 7;
 
   /**
    * The feature id for the '<em><b>Internal</b></em>' attribute.
@@ -342,7 +372,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__INTERNAL = 7;
+  int SEARCH_FILTER_CONFIG__INTERNAL = 8;
 
   /**
    * The feature id for the '<em><b>Wildcards Allowed</b></em>' attribute.
@@ -352,7 +382,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = 8;
+  int SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = 9;
 
   /**
    * The feature id for the '<em><b>Content Assist</b></em>' containment reference.
@@ -362,7 +392,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__CONTENT_ASSIST = 9;
+  int SEARCH_FILTER_CONFIG__CONTENT_ASSIST = 10;
 
   /**
    * The feature id for the '<em><b>Image Info</b></em>' reference.
@@ -372,7 +402,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__IMAGE_INFO = 10;
+  int SEARCH_FILTER_CONFIG__IMAGE_INFO = 11;
 
   /**
    * The number of structural features of the '<em>Search Filter Config</em>' class.
@@ -382,7 +412,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG_FEATURE_COUNT = 11;
+  int SEARCH_FILTER_CONFIG_FEATURE_COUNT = 12;
 
   /**
    * The number of operations of the '<em>Search Filter Config</em>' class.
@@ -947,6 +977,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_QUERY_INPUT__TYPE = 0;
 
   /**
+   * The feature id for the '<em><b>Type Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_INPUT__TYPE_LABEL = 1;
+
+  /**
    * The feature id for the '<em><b>Max Rows</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -954,7 +994,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__MAX_ROWS = 1;
+  int SEARCH_QUERY_INPUT__MAX_ROWS = 2;
 
   /**
    * The feature id for the '<em><b>Combine Filters With And</b></em>' attribute.
@@ -964,7 +1004,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND = 2;
+  int SEARCH_QUERY_INPUT__COMBINE_FILTERS_WITH_AND = 3;
 
   /**
    * The feature id for the '<em><b>With Api State</b></em>' attribute.
@@ -974,7 +1014,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__WITH_API_STATE = 3;
+  int SEARCH_QUERY_INPUT__WITH_API_STATE = 4;
 
   /**
    * The feature id for the '<em><b>Row Limit Disabled</b></em>' attribute.
@@ -984,7 +1024,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED = 4;
+  int SEARCH_QUERY_INPUT__ROW_LIMIT_DISABLED = 5;
 
   /**
    * The feature id for the '<em><b>Fields</b></em>' containment reference list.
@@ -994,7 +1034,17 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT__FIELDS = 5;
+  int SEARCH_QUERY_INPUT__FIELDS = 6;
+
+  /**
+   * The feature id for the '<em><b>Custom Options</b></em>' map.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_INPUT__CUSTOM_OPTIONS = 7;
 
   /**
    * The number of structural features of the '<em>Search Query Input</em>' class.
@@ -1004,7 +1054,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_INPUT_FEATURE_COUNT = 6;
+  int SEARCH_QUERY_INPUT_FEATURE_COUNT = 8;
 
   /**
    * The number of operations of the '<em>Search Query Input</em>' class.
@@ -1030,6 +1080,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_QUERY_FIELD = 12;
 
   /**
+   * The feature id for the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_QUERY_FIELD__LABEL = 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1037,7 +1097,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD__NAME = 0;
+  int SEARCH_QUERY_FIELD__NAME = 1;
 
   /**
    * The feature id for the '<em><b>Values</b></em>' attribute list.
@@ -1047,7 +1107,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD__VALUES = 1;
+  int SEARCH_QUERY_FIELD__VALUES = 2;
 
   /**
    * The feature id for the '<em><b>Filters</b></em>' containment reference list.
@@ -1057,7 +1117,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD__FILTERS = 2;
+  int SEARCH_QUERY_FIELD__FILTERS = 3;
 
   /**
    * The feature id for the '<em><b>Raw Input</b></em>' attribute.
@@ -1067,7 +1127,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD__RAW_INPUT = 3;
+  int SEARCH_QUERY_FIELD__RAW_INPUT = 4;
 
   /**
    * The number of structural features of the '<em>Search Query Field</em>' class.
@@ -1077,7 +1137,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_QUERY_FIELD_FEATURE_COUNT = 4;
+  int SEARCH_QUERY_FIELD_FEATURE_COUNT = 5;
 
   /**
    * The number of operations of the '<em>Search Query Field</em>' class.
@@ -1196,6 +1256,204 @@ public interface IObjectSearchPackage extends EPackage {
   int OBJECT_SEARCH_RESULT_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig <em>Search Result
+   * Output Config</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchResultOutputConfig()
+   * @generated
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG = 15;
+
+  /**
+   * The feature id for the '<em><b>List Output Supported</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG__LIST_OUTPUT_SUPPORTED = 0;
+
+  /**
+   * The feature id for the '<em><b>Grouping Levels</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG__GROUPING_LEVELS = 1;
+
+  /**
+   * The feature id for the '<em><b>Types For List</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST = 2;
+
+  /**
+   * The number of structural features of the '<em>Search Result Output Config</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG_FEATURE_COUNT = 3;
+
+  /**
+   * The number of operations of the '<em>Search Result Output Config</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.impl.CustomOption
+   * <em>Custom Option</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.CustomOption
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getCustomOption()
+   * @generated
+   */
+  int CUSTOM_OPTION = 16;
+
+  /**
+   * The feature id for the '<em><b>Key</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION__KEY = 0;
+
+  /**
+   * The feature id for the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION__LABEL = 1;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION__TYPE = 2;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION__DESCRIPTION = 3;
+
+  /**
+   * The feature id for the '<em><b>Option Values</b></em>' map.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION__OPTION_VALUES = 4;
+
+  /**
+   * The number of structural features of the '<em>Custom Option</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION_FEATURE_COUNT = 5;
+
+  /**
+   * The number of operations of the '<em>Custom Option</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CUSTOM_OPTION_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.StringToStringMapEntry <em>String To
+   * String Map Entry</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.StringToStringMapEntry
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getStringToStringMapEntry()
+   * @generated
+   */
+  int STRING_TO_STRING_MAP_ENTRY = 17;
+
+  /**
+   * The feature id for the '<em><b>Key</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY__KEY = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>String To String Map Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>String To String Map Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int STRING_TO_STRING_MAP_ENTRY_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource
    * <em>Proposal Image Source</em>}' enum.
    * <!-- begin-user-doc -->
@@ -1205,7 +1463,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getProposalImageSource()
    * @generated
    */
-  int PROPOSAL_IMAGE_SOURCE = 15;
+  int PROPOSAL_IMAGE_SOURCE = 18;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.FilterType
@@ -1217,7 +1475,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getFilterType()
    * @generated
    */
-  int FILTER_TYPE = 16;
+  int FILTER_TYPE = 19;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ImageRegistryId
@@ -1229,7 +1487,19 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageRegistryId()
    * @generated
    */
-  int IMAGE_REGISTRY_ID = 17;
+  int IMAGE_REGISTRY_ID = 20;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.CustomOptionType
+   * <em>Custom Option Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.CustomOptionType
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getCustomOptionType()
+   * @generated
+   */
+  int CUSTOM_OPTION_TYPE = 21;
 
   /**
    * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchConfig
@@ -1309,6 +1579,34 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EReference getSearchTypeConfig_ImageInfo();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getCustomOptions <em>Custom
+   * Options</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Custom Options</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getCustomOptions()
+   * @see #getSearchTypeConfig()
+   * @generated
+   */
+  EReference getSearchTypeConfig_CustomOptions();
+
+  /**
+   * Returns the meta object for the containment reference
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getOutputConfig <em>Output
+   * Config</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference '<em>Output Config</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig#getOutputConfig()
+   * @see #getSearchTypeConfig()
+   * @generated
+   */
+  EReference getSearchTypeConfig_OutputConfig();
 
   /**
    * Returns the meta object for the containment reference list
@@ -1487,6 +1785,20 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EAttribute getSearchFilterConfig_KeyValuePair();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getDescription()
+   * @see #getSearchFilterConfig()
+   * @generated
+   */
+  EAttribute getSearchFilterConfig_Description();
 
   /**
    * Returns the meta object for the attribute
@@ -1869,6 +2181,20 @@ public interface IObjectSearchPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getTypeLabel <em>Type
+   * Label</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type Label</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getTypeLabel()
+   * @see #getSearchQueryInput()
+   * @generated
+   */
+  EAttribute getSearchQueryInput_TypeLabel();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getMaxRows <em>Max
    * Rows</em>}'.
    * <!-- begin-user-doc -->
@@ -1937,6 +2263,20 @@ public interface IObjectSearchPackage extends EPackage {
   EReference getSearchQueryInput_Fields();
 
   /**
+   * Returns the meta object for the map
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getCustomOptions <em>Custom
+   * Options</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the map '<em>Custom Options</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryInput#getCustomOptions()
+   * @see #getSearchQueryInput()
+   * @generated
+   */
+  EReference getSearchQueryInput_CustomOptions();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField <em>Search Query
    * Field</em>}'.
@@ -1948,6 +2288,19 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EClass getSearchQueryField();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getLabel <em>Label</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Label</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchQueryField#getLabel()
+   * @see #getSearchQueryField()
+   * @generated
+   */
+  EAttribute getSearchQueryField_Label();
 
   /**
    * Returns the meta object for the attribute
@@ -2083,6 +2436,180 @@ public interface IObjectSearchPackage extends EPackage {
   EReference getObjectSearchResult_ResultObjects();
 
   /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig <em>Search Result
+   * Output Config</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Search Result Output Config</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig
+   * @generated
+   */
+  EClass getSearchResultOutputConfig();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#isListOutputSupported
+   * <em>List Output Supported</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>List Output Supported</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#isListOutputSupported()
+   * @see #getSearchResultOutputConfig()
+   * @generated
+   */
+  EAttribute getSearchResultOutputConfig_ListOutputSupported();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getGroupingLevels
+   * <em>Grouping Levels</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Grouping Levels</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getGroupingLevels()
+   * @see #getSearchResultOutputConfig()
+   * @generated
+   */
+  EAttribute getSearchResultOutputConfig_GroupingLevels();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getTypesForList
+   * <em>Types For List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Types For List</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getTypesForList()
+   * @see #getSearchResultOutputConfig()
+   * @generated
+   */
+  EAttribute getSearchResultOutputConfig_TypesForList();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption
+   * <em>Custom Option</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Custom Option</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption
+   * @generated
+   */
+  EClass getCustomOption();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption#getKey <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption#getKey()
+   * @see #getCustomOption()
+   * @generated
+   */
+  EAttribute getCustomOption_Key();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption#getLabel <em>Label</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Label</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption#getLabel()
+   * @see #getCustomOption()
+   * @generated
+   */
+  EAttribute getCustomOption_Label();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption#getType()
+   * @see #getCustomOption()
+   * @generated
+   */
+  EAttribute getCustomOption_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption#getDescription()
+   * @see #getCustomOption()
+   * @generated
+   */
+  EAttribute getCustomOption_Description();
+
+  /**
+   * Returns the meta object for the map
+   * '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption#getOptionValues <em>Option
+   * Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the map '<em>Option Values</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ICustomOption#getOptionValues()
+   * @see #getCustomOption()
+   * @generated
+   */
+  EReference getCustomOption_OptionValues();
+
+  /**
+   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>String To String Map Entry</em>'.
+   * @see java.util.Map.Entry
+   * @model keyDataType="org.eclipse.emf.ecore.xml.type.String"
+   *        keyExtendedMetaData="kind='attribute' namespace='##targetNamespace'"
+   *        valueDataType="org.eclipse.emf.ecore.xml.type.String"
+   *        valueExtendedMetaData="kind='attribute' namespace='##targetNamespace'"
+   * @generated
+   */
+  EClass getStringToStringMapEntry();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Key();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Value();
+
+  /**
    * Returns the meta object for enum
    * '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource <em>Proposal Image
    * Source</em>}'.
@@ -2118,6 +2645,18 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EEnum getImageRegistryId();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.saat.model.objectsearch.CustomOptionType <em>Custom Option Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Custom Option Type</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.CustomOptionType
+   * @generated
+   */
+  EEnum getCustomOptionType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2206,6 +2745,26 @@ public interface IObjectSearchPackage extends EPackage {
      * @generated
      */
     EReference SEARCH_TYPE_CONFIG__IMAGE_INFO = eINSTANCE.getSearchTypeConfig_ImageInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Custom Options</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_TYPE_CONFIG__CUSTOM_OPTIONS = eINSTANCE.getSearchTypeConfig_CustomOptions();
+
+    /**
+     * The meta object literal for the '<em><b>Output Config</b></em>' containment reference
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_TYPE_CONFIG__OUTPUT_CONFIG = eINSTANCE.getSearchTypeConfig_OutputConfig();
 
     /**
      * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
@@ -2336,6 +2895,15 @@ public interface IObjectSearchPackage extends EPackage {
      */
     EAttribute SEARCH_FILTER_CONFIG__KEY_VALUE_PAIR = eINSTANCE
         .getSearchFilterConfig_KeyValuePair();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_FILTER_CONFIG__DESCRIPTION = eINSTANCE.getSearchFilterConfig_Description();
 
     /**
      * The meta object literal for the '<em><b>Long Description</b></em>' attribute feature.
@@ -2635,6 +3203,15 @@ public interface IObjectSearchPackage extends EPackage {
     EAttribute SEARCH_QUERY_INPUT__TYPE = eINSTANCE.getSearchQueryInput_Type();
 
     /**
+     * The meta object literal for the '<em><b>Type Label</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_QUERY_INPUT__TYPE_LABEL = eINSTANCE.getSearchQueryInput_TypeLabel();
+
+    /**
      * The meta object literal for the '<em><b>Max Rows</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2682,6 +3259,15 @@ public interface IObjectSearchPackage extends EPackage {
     EReference SEARCH_QUERY_INPUT__FIELDS = eINSTANCE.getSearchQueryInput_Fields();
 
     /**
+     * The meta object literal for the '<em><b>Custom Options</b></em>' map feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_QUERY_INPUT__CUSTOM_OPTIONS = eINSTANCE.getSearchQueryInput_CustomOptions();
+
+    /**
      * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchQueryField <em>Search Query
      * Field</em>}' class.
@@ -2693,6 +3279,15 @@ public interface IObjectSearchPackage extends EPackage {
      * @generated
      */
     EClass SEARCH_QUERY_FIELD = eINSTANCE.getSearchQueryField();
+
+    /**
+     * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_QUERY_FIELD__LABEL = eINSTANCE.getSearchQueryField_Label();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2796,6 +3391,138 @@ public interface IObjectSearchPackage extends EPackage {
 
     /**
      * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig <em>Search
+     * Result Output Config</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getSearchResultOutputConfig()
+     * @generated
+     */
+    EClass SEARCH_RESULT_OUTPUT_CONFIG = eINSTANCE.getSearchResultOutputConfig();
+
+    /**
+     * The meta object literal for the '<em><b>List Output Supported</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_RESULT_OUTPUT_CONFIG__LIST_OUTPUT_SUPPORTED = eINSTANCE
+        .getSearchResultOutputConfig_ListOutputSupported();
+
+    /**
+     * The meta object literal for the '<em><b>Grouping Levels</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_RESULT_OUTPUT_CONFIG__GROUPING_LEVELS = eINSTANCE
+        .getSearchResultOutputConfig_GroupingLevels();
+
+    /**
+     * The meta object literal for the '<em><b>Types For List</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST = eINSTANCE
+        .getSearchResultOutputConfig_TypesForList();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.CustomOption <em>Custom Option</em>}'
+     * class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.CustomOption
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getCustomOption()
+     * @generated
+     */
+    EClass CUSTOM_OPTION = eINSTANCE.getCustomOption();
+
+    /**
+     * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CUSTOM_OPTION__KEY = eINSTANCE.getCustomOption_Key();
+
+    /**
+     * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CUSTOM_OPTION__LABEL = eINSTANCE.getCustomOption_Label();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CUSTOM_OPTION__TYPE = eINSTANCE.getCustomOption_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CUSTOM_OPTION__DESCRIPTION = eINSTANCE.getCustomOption_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Option Values</b></em>' map feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference CUSTOM_OPTION__OPTION_VALUES = eINSTANCE.getCustomOption_OptionValues();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.StringToStringMapEntry <em>String To
+     * String Map Entry</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.StringToStringMapEntry
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getStringToStringMapEntry()
+     * @generated
+     */
+    EClass STRING_TO_STRING_MAP_ENTRY = eINSTANCE.getStringToStringMapEntry();
+
+    /**
+     * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute STRING_TO_STRING_MAP_ENTRY__KEY = eINSTANCE.getStringToStringMapEntry_Key();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute STRING_TO_STRING_MAP_ENTRY__VALUE = eINSTANCE.getStringToStringMapEntry_Value();
+
+    /**
+     * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource <em>Proposal Image
      * Source</em>}' enum.
      * <!-- begin-user-doc -->
@@ -2831,6 +3558,19 @@ public interface IObjectSearchPackage extends EPackage {
      * @generated
      */
     EEnum IMAGE_REGISTRY_ID = eINSTANCE.getImageRegistryId();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.CustomOptionType <em>Custom Option
+     * Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.CustomOptionType
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getCustomOptionType()
+     * @generated
+     */
+    EEnum CUSTOM_OPTION_TYPE = eINSTANCE.getCustomOptionType();
 
   }
 

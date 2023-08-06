@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.saat.model.objectsearch.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -9,7 +11,9 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import com.devepos.adt.saat.model.objectsearch.CustomOptionType;
 import com.devepos.adt.saat.model.objectsearch.FilterType;
+import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist;
@@ -22,6 +26,7 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryFilter;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
@@ -105,6 +110,12 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       return createSearchQueryFilter();
     case IObjectSearchPackage.OBJECT_SEARCH_RESULT:
       return createObjectSearchResult();
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG:
+      return createSearchResultOutputConfig();
+    case IObjectSearchPackage.CUSTOM_OPTION:
+      return createCustomOption();
+    case IObjectSearchPackage.STRING_TO_STRING_MAP_ENTRY:
+      return (EObject) createStringToStringMapEntry();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -126,6 +137,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       return createFilterTypeFromString(eDataType, initialValue);
     case IObjectSearchPackage.IMAGE_REGISTRY_ID:
       return createImageRegistryIdFromString(eDataType, initialValue);
+    case IObjectSearchPackage.CUSTOM_OPTION_TYPE:
+      return createCustomOptionTypeFromString(eDataType, initialValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
           + "' is not a valid classifier");
@@ -147,6 +160,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       return convertFilterTypeToString(eDataType, instanceValue);
     case IObjectSearchPackage.IMAGE_REGISTRY_ID:
       return convertImageRegistryIdToString(eDataType, instanceValue);
+    case IObjectSearchPackage.CUSTOM_OPTION_TYPE:
+      return convertCustomOptionTypeToString(eDataType, instanceValue);
     default:
       throw new IllegalArgumentException("The datatype '" + eDataType.getName()
           + "' is not a valid classifier");
@@ -327,6 +342,41 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
    *
    * @generated
    */
+  @Override
+  public ISearchResultOutputConfig createSearchResultOutputConfig() {
+    SearchResultOutputConfig searchResultOutputConfig = new SearchResultOutputConfig();
+    return searchResultOutputConfig;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ICustomOption createCustomOption() {
+    CustomOption customOption = new CustomOption();
+    return customOption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public Map.Entry<String, String> createStringToStringMapEntry() {
+    StringToStringMapEntry stringToStringMapEntry = new StringToStringMapEntry();
+    return stringToStringMapEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
   public ProposalImageSource createProposalImageSourceFromString(final EDataType eDataType,
       final String initialValue) {
     ProposalImageSource result = ProposalImageSource.get(initialValue);
@@ -397,6 +447,33 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
    * @generated
    */
   public String convertImageRegistryIdToString(final EDataType eDataType,
+      final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public CustomOptionType createCustomOptionTypeFromString(final EDataType eDataType,
+      final String initialValue) {
+    CustomOptionType result = CustomOptionType.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    }
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertCustomOptionTypeToString(final EDataType eDataType,
       final Object instanceValue) {
     return instanceValue == null ? null : instanceValue.toString();
   }
