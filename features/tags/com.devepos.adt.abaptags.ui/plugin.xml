@@ -445,4 +445,14 @@
             label="%themeElementCategory.label">
       </themeElementCategory>
    </extension>
+   <extension
+         point="com.devepos.adt.base.ui.searchFavorites">
+      <searchFavoriteConnector
+            class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchFavoriteConnector"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.atm.ui.searchFavoriteConnector"
+            searchType="com.devepos.adt.taggedobjectsearch"
+            searchTypeLabel="%tag.searchpage.label">
+      </searchFavoriteConnector>
+   </extension>
 </plugin>
