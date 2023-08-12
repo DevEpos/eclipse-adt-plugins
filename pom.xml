@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <profiles>
         <profile>
-            <id>base</id>
+            <id>core</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
