@@ -3,7 +3,6 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +86,7 @@ public class CdsAnalysisManager {
     synchronized (listeners) {
       copiedListeners.addAll(listeners);
     }
-    final Iterator<ICdsAnalysisListener> listeners = copiedListeners.iterator();
-    while (listeners.hasNext()) {
-      final ICdsAnalysisListener l = listeners.next();
+    for (ICdsAnalysisListener l : copiedListeners) {
       l.analysisRemoved(analysis);
     }
   }
@@ -147,9 +144,7 @@ public class CdsAnalysisManager {
       final List<CdsAnalysis> old = analyses;
       analyses = new LinkedList<>();
       analysesMap = new HashMap<>();
-      final Iterator<CdsAnalysis> iter = old.iterator();
-      while (iter.hasNext()) {
-        final CdsAnalysis element = iter.next();
+      for (CdsAnalysis element : old) {
         fireRemoved(element);
       }
     }

@@ -33,6 +33,53 @@ public class FieldHierarchyViewerInput {
     this.destinationProvider = destinationProvider;
   }
 
+  public void cacheCurrentNodeState() {
+    if (currentNode == null) {
+      return;
+    }
+    currentNode.setExpandedState(viewer.getExpandedTreePaths());
+  }
+
+  /**
+   * Creates the Where-Used node for the Where-Used analysis
+   */
+  public void createWhereUsedNode(final ICdsFieldAnalysisSettings settings) {
+    whereUsedProvider = new FieldWhereUsedInCdsElementInfoProvider(destinationProvider
+        .getDestinationId(), baseEntityName, baseFieldName, settings);
+    whereUsedProvider.setRoot(true);
+    whereUsedNode = new FieldHierarchyViewerNode(new LazyLoadingFolderNode(baseFieldName,
+        whereUsedProvider, null, null));
+  }
+
+  public FieldHierarchyViewerNode getCurrentInput() {
+    return currentNode;
+  }
+
+  public FieldHierarchyViewerNode getTopDownNode() {
+    return topDownNode;
+  }
+
+  public FieldHierarchyViewerNode getWhereUsedNode() {
+    return whereUsedNode;
+  }
+
+  /**
+   * Refreshes the input by reloading the asynchronous nodes
+   *
+   * @param topDown if <code>true</code> the top-down analysis should be
+   *                refreshed, otherwise the where-used analysis will be refreshed
+   */
+  public void refresh(final boolean topDown) {
+    if (topDownNode != null) {
+      topDownNode.refreshInput();
+    }
+    if (whereUsedNode != null) {
+      whereUsedNode.refreshInput();
+    }
+    currentNode = null;
+    setViewerInput(topDown);
+  }
+
   public void setViewerInput(final boolean topDown) {
     FieldHierarchyViewerNode node = null;
     if (topDown) {
@@ -56,53 +103,6 @@ public class FieldHierarchyViewerInput {
       viewer.expandAll();
     }
 
-  }
-
-  public void cacheCurrentNodeState() {
-    if (currentNode == null) {
-      return;
-    }
-    currentNode.setExpandedState(viewer.getExpandedTreePaths());
-  }
-
-  public FieldHierarchyViewerNode getTopDownNode() {
-    return topDownNode;
-  }
-
-  public FieldHierarchyViewerNode getWhereUsedNode() {
-    return whereUsedNode;
-  }
-
-  public FieldHierarchyViewerNode getCurrentInput() {
-    return currentNode;
-  }
-
-  /**
-   * Creates the Where-Used node for the Where-Used analysis
-   */
-  public void createWhereUsedNode(final ICdsFieldAnalysisSettings settings) {
-    whereUsedProvider = new FieldWhereUsedInCdsElementInfoProvider(destinationProvider
-        .getDestinationId(), baseEntityName, baseFieldName, settings);
-    whereUsedProvider.setRoot(true);
-    whereUsedNode = new FieldHierarchyViewerNode(new LazyLoadingFolderNode(baseFieldName,
-        whereUsedProvider, null, null));
-  }
-
-  /**
-   * Refreshes the input by reloading the asynchronous nodes
-   *
-   * @param topDown if <code>true</code> the top-down analysis should be
-   *                refreshed, otherwise the where-used analysis will be refreshed
-   */
-  public void refresh(final boolean topDown) {
-    if (topDownNode != null) {
-      topDownNode.refreshInput();
-    }
-    if (whereUsedNode != null) {
-      whereUsedNode.refreshInput();
-    }
-    currentNode = null;
-    setViewerInput(topDown);
   }
 
 }

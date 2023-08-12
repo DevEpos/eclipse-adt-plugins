@@ -25,6 +25,44 @@ public class CommandPossibleChecker {
   }
 
   /**
+   * Returns <code>true</code> if the command with the given id should be enabled
+   *
+   * @param commandId unique ID of a command
+   * @return
+   */
+  public boolean canCommandBeEnabled(final String commandId) {
+    switch (commandId) {
+    case ICommandConstants.CDS_TOP_DOWN_ANALYSIS:
+      return isSingleCdsSelection() && FeatureTester.isCdsTopDownAnalysisAvailable(
+          selectedAdtObjects.get(0).getProject());
+    case ICommandConstants.USED_ENTITIES_ANALYSIS:
+      return isSingleCdsSelection() && FeatureTester.isCdsUsedEntitiesAnalysisAvailable(
+          selectedAdtObjects.get(0).getProject());
+    case ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS:
+      return hasSingleSelection(true);
+    case ICommandConstants.FIELD_ANALYSIS:
+      return hasSingleSelection(true);
+    case ICommandConstants.OPEN_IN_DB_BROWSER:
+      return hasSelection(true) && FeatureTester.isSapGuiDbBrowserAvailable(selectedAdtObjects);
+    }
+    return false;
+  }
+
+  /**
+   * Returns a list of the selected ADT object references or <code>null</code> if
+   * there is no selection
+   *
+   * @see CommandPossibleChecker#hasSelection()
+   * @return
+   */
+  public List<IAdtObjectReference> getSelectedAdtObjectRefs() {
+    if (!hasSelection()) {
+      return null;
+    }
+    return selectedAdtObjects.stream().map(IAdtObject::getReference).collect(Collectors.toList());
+  }
+
+  /**
    * Returns <code>true</code> if at least 1 ADT object is selected
    *
    * @return
@@ -69,44 +107,6 @@ public class CommandPossibleChecker {
     }
 
     return supportsDataPreview ? selectionSupportsDataPreview : true;
-  }
-
-  /**
-   * Returns <code>true</code> if the command with the given id should be enabled
-   *
-   * @param commandId unique ID of a command
-   * @return
-   */
-  public boolean canCommandBeEnabled(final String commandId) {
-    switch (commandId) {
-    case ICommandConstants.CDS_TOP_DOWN_ANALYSIS:
-      return isSingleCdsSelection() && FeatureTester.isCdsTopDownAnalysisAvailable(
-          selectedAdtObjects.get(0).getProject());
-    case ICommandConstants.USED_ENTITIES_ANALYSIS:
-      return isSingleCdsSelection() && FeatureTester.isCdsUsedEntitiesAnalysisAvailable(
-          selectedAdtObjects.get(0).getProject());
-    case ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS:
-      return hasSingleSelection(true);
-    case ICommandConstants.FIELD_ANALYSIS:
-      return hasSingleSelection(true);
-    case ICommandConstants.OPEN_IN_DB_BROWSER:
-      return hasSelection(true) && FeatureTester.isSapGuiDbBrowserAvailable(selectedAdtObjects);
-    }
-    return false;
-  }
-
-  /**
-   * Returns a list of the selected ADT object references or <code>null</code> if
-   * there is no selection
-   *
-   * @see CommandPossibleChecker#hasSelection()
-   * @return
-   */
-  public List<IAdtObjectReference> getSelectedAdtObjectRefs() {
-    if (!hasSelection()) {
-      return null;
-    }
-    return selectedAdtObjects.stream().map(IAdtObject::getReference).collect(Collectors.toList());
   }
 
   protected void evaluateSelection(final boolean supportsDataPreviewOnly) {

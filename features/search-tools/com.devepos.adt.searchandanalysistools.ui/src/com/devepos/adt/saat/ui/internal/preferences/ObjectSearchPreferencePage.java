@@ -2,20 +2,16 @@ package com.devepos.adt.saat.ui.internal.preferences;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.devepos.adt.base.ui.preferences.FieldEditorPrefPageBase;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.search.SearchType;
 
 public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implements
     IWorkbenchPreferencePage, IPropertyChangeListener {
@@ -26,30 +22,8 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
   }
 
   @Override
-  protected void createPreferenceControls(Composite parent) {
+  protected void createPreferenceControls(final Composite parent) {
     createSearchSettings(parent);
-  }
-
-  /**
-   * Create special CDS search settings to control which sub folders should be
-   * loaded when a CDS view is expanded
-   *
-   * @param composite the parent control
-   */
-  private void createCDSSearchSettings(final Composite composite) {
-    final Group cdsSettingsGroup = new Group(composite, SWT.NONE);
-    cdsSettingsGroup.setText(Messages.MainPreferencePage_CdsViewSettings_xgrp);
-    GridDataFactory.fillDefaults()
-        .grab(true, false)
-        .indent(0, 10)
-        .span(2, 1)
-        .applyTo(cdsSettingsGroup);
-    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(cdsSettingsGroup);
-
-    addBooleanEditor(IPreferences.SHOW_FULL_ASSOCIATION_NAME,
-        Messages.MainPreferencePage_DisplayAssociationName_xckl, cdsSettingsGroup);
-
-    adjustMargins(cdsSettingsGroup);
   }
 
   /**
@@ -66,10 +40,11 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
     fields.add(maxSearchResultsEditor);
 
     // create combo editor for default search type
-    final FieldEditor defaultSearchTypeEditor = new ComboFieldEditor(
-        IPreferences.DEFAULT_SEARCH_TYPE, Messages.MainPreferencePage_DefaultSearchTypeSetting_xfld,
-        SearchType.toNamesAndKeys(), parent);
-    fields.add(defaultSearchTypeEditor);
+    // TODO: move to new project specific preference page
+    // final FieldEditor defaultSearchTypeEditor = new ComboFieldEditor(
+    // IPreferences.DEFAULT_SEARCH_TYPE, Messages.MainPreferencePage_DefaultSearchTypeSetting_xfld,
+    // SearchType.toNamesAndKeys(), parent);
+    // fields.add(defaultSearchTypeEditor);
 
     addBooleanEditor(IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT,
         Messages.MainPreferencePage_CursorAtEndSetting_xfld, null, parent, 2, 1);
@@ -85,7 +60,5 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
      * final during their creation
      */
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(parent);
-
-    createCDSSearchSettings(parent);
   }
 }

@@ -193,8 +193,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     return null;
   }
 
-  private IStatus testCdsAnalysisFeatureAvailable(String destinationId, String projectName,
-      CdsAnalysisFeature feature) {
+  private IStatus testCdsAnalysisFeatureAvailable(final String destinationId,
+      final String projectName, final CdsAnalysisFeature feature) {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
     if (!discovery.isResourceDiscoverySuccessful()) {

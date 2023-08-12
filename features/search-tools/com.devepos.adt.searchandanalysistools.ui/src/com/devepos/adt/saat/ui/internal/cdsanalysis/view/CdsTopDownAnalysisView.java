@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -215,19 +216,19 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
     super.createActions();
     showDescriptions = ActionFactory.createAction(
         Messages.CdsTopDownAnalysisView_ShowDescriptionsToggleAction_xmit, null,
-        Action.AS_CHECK_BOX, () -> {
+        IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setShowDescriptions(showDescriptions.isChecked());
           getViewer().refresh();
         });
     showAliasNames = ActionFactory.createAction(
-        Messages.CdsTopDownAnalysisView_ShowAliasNamesToggleAction_xmit, null, Action.AS_CHECK_BOX,
+        Messages.CdsTopDownAnalysisView_ShowAliasNamesToggleAction_xmit, null, IAction.AS_CHECK_BOX,
         () -> {
           analysisResult.getSettings().setShowAliasNames(showAliasNames.isChecked());
           getViewer().refresh();
         });
     loadAssociations = ActionFactory.createAction(
         Messages.CdsTopDownAnalysisView_LoadAssociationsToggleAction_xmit, null,
-        Action.AS_CHECK_BOX, () -> {
+        IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setLoadAssociations(loadAssociations.isChecked());
           refreshAnalysis();
         });
@@ -242,16 +243,16 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
       final CommandPossibleChecker commandPossibleChecker) {
     super.fillContextMenu(mgr, commandPossibleChecker);
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.USED_ENTITIES_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.USED_ENTITIES_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.USED_ENTITIES_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.FIELD_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.FIELD_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.FIELD_ANALYSIS);
     }
   }
 

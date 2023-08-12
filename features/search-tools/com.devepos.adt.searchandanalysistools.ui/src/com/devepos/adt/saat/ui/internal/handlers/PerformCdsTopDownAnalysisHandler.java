@@ -16,8 +16,8 @@ public class PerformCdsTopDownAnalysisHandler extends OpenInCdsAnalyzerHandler {
   }
 
   @Override
-  protected boolean isFeatureAvailable(final IProject project) {
-    return FeatureTester.isCdsTopDownAnalysisAvailable(project);
+  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
+    return new CdsTopDownAnalysis(objectRefInfo);
   }
 
   @Override
@@ -26,7 +26,7 @@ public class PerformCdsTopDownAnalysisHandler extends OpenInCdsAnalyzerHandler {
   }
 
   @Override
-  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
-    return new CdsTopDownAnalysis(objectRefInfo);
+  protected boolean isFeatureAvailable(final IProject project) {
+    return FeatureTester.isCdsTopDownAnalysisAvailable(project);
   }
 }

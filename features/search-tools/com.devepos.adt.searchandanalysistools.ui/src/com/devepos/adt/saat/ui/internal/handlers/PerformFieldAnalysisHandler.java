@@ -30,12 +30,12 @@ public class PerformFieldAnalysisHandler extends OpenInCdsAnalyzerHandler {
   }
 
   @Override
-  protected boolean isFeatureAvailable(final IProject project) {
-    return FeatureTester.isFieldAnalysisAvailable(project);
+  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
+    return new FieldAnalysis(objectRefInfo);
   }
 
   @Override
-  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
-    return new FieldAnalysis(objectRefInfo);
+  protected boolean isFeatureAvailable(final IProject project) {
+    return FeatureTester.isFieldAnalysisAvailable(project);
   }
 }

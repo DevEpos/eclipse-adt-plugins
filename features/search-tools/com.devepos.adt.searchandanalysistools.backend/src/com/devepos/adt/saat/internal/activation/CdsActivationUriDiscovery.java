@@ -15,31 +15,6 @@ public class CdsActivationUriDiscovery extends SearchToolsUriDiscovery {
     super(destination, SCHEME_URL_BASE + POST_ACTIVATION_URI_PART);
   }
 
-  /**
-   * @return Retrieves Resource URI for the CDS Post Activation Resource
-   */
-  public URI getCdsPostActivationUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM_CDS_POST_ACTIVATION);
-  }
-
-  /**
-   * Returns <code>true</code> if the CDS Post Activation handler is available in the
-   * current destination
-   *
-   * @return <code>true</code> if the CDS Post Activation handler is available in the
-   *         current destination
-   */
-  public boolean isCdsPostActivaionAvailable() {
-    return getCdsPostActivationTemplate() != null;
-  }
-
-  /**
-   * @return ADT URI template for the CDS Post Activation Handler
-   */
-  public IAdtUriTemplate getCdsPostActivationTemplate() {
-    return getTemplate(DISCOVERY_TERM_CDS_POST_ACTIVATION, DISCOVERY_RELATION_CDS_POST_ACTIVATION);
-  }
-
   /*
    * Creates a valid REST resource URI to call the Post Activation Handler for the given CDS View
    */
@@ -56,5 +31,30 @@ public class CdsActivationUriDiscovery extends SearchToolsUriDiscovery {
       uri = URI.create(template.expand());
     }
     return uri;
+  }
+
+  /**
+   * @return ADT URI template for the CDS Post Activation Handler
+   */
+  public IAdtUriTemplate getCdsPostActivationTemplate() {
+    return getTemplate(DISCOVERY_TERM_CDS_POST_ACTIVATION, DISCOVERY_RELATION_CDS_POST_ACTIVATION);
+  }
+
+  /**
+   * @return Retrieves Resource URI for the CDS Post Activation Resource
+   */
+  public URI getCdsPostActivationUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_CDS_POST_ACTIVATION);
+  }
+
+  /**
+   * Returns <code>true</code> if the CDS Post Activation handler is available in the
+   * current destination
+   *
+   * @return <code>true</code> if the CDS Post Activation handler is available in the
+   *         current destination
+   */
+  public boolean isCdsPostActivaionAvailable() {
+    return getCdsPostActivationTemplate() != null;
   }
 }

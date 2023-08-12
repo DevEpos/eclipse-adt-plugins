@@ -11,6 +11,28 @@ public class AdtObjectReferenceDeserializer {
   public static final String NS_URI_ADT_CORE = "http://www.sap.com/adt/core";
 
   /**
+   * Deserialize ADT Object from the given XML element
+   *
+   * @param element an XML element
+   * @return an ADT object reference
+   */
+  public static IAdtObjectReference deserializeFromElement(final IXmlElement element) {
+    if (element == null) {
+      return null;
+    }
+    // Assert.isNotNull(element);
+    final IAdtObjectReference objectReference = AdtObjectReferenceModelFactory.createReference();
+
+    objectReference.setUri(element.getAttributeValue("uri"));
+    objectReference.setName(element.getAttributeValue("name"));
+    objectReference.setType(element.getAttributeValue("type"));
+    objectReference.setParentUri(element.getAttributeValue("parentUri"));
+    objectReference.setPackageName(element.getAttributeValue("packageName"));
+    objectReference.setDescription(element.getAttributeValue("description"));
+    return objectReference;
+  }
+
+  /**
    * Deserialize ADT Object reference via given XMLStreamReader
    *
    * @param xsr
@@ -41,28 +63,6 @@ public class AdtObjectReferenceDeserializer {
     }
     objectReference.setDescription(xsr.getAttributeValue(nameSpace, "description"));
 
-    return objectReference;
-  }
-
-  /**
-   * Deserialize ADT Object from the given XML element
-   *
-   * @param element an XML element
-   * @return an ADT object reference
-   */
-  public static IAdtObjectReference deserializeFromElement(final IXmlElement element) {
-    if (element == null) {
-      return null;
-    }
-//		Assert.isNotNull(element);
-    final IAdtObjectReference objectReference = AdtObjectReferenceModelFactory.createReference();
-
-    objectReference.setUri(element.getAttributeValue("uri"));
-    objectReference.setName(element.getAttributeValue("name"));
-    objectReference.setType(element.getAttributeValue("type"));
-    objectReference.setParentUri(element.getAttributeValue("parentUri"));
-    objectReference.setPackageName(element.getAttributeValue("packageName"));
-    objectReference.setDescription(element.getAttributeValue("description"));
     return objectReference;
   }
 }

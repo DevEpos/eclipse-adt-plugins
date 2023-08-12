@@ -19,8 +19,8 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  */
 public class CdsTopDownAnalysis extends CdsAnalysis {
 
-  private LazyLoadingAdtObjectReferenceNode cdsNode;
-  private ICdsTopDownSettingsUi settings;
+  private final LazyLoadingAdtObjectReferenceNode cdsNode;
+  private final ICdsTopDownSettingsUi settings;
 
   public CdsTopDownAnalysis(final IAdtObjectReferenceElementInfo cdsObjInfo) {
     super(cdsObjInfo);

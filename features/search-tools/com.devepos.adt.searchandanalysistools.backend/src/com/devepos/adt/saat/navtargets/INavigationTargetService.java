@@ -14,8 +14,6 @@ import com.devepos.adt.saat.model.cdsanalysis.ICdsQueryNavTargets;
  */
 public interface INavigationTargetService {
 
-  IStatus testNavigationTargetsAvailable(IProject project);
-
   /**
    * Retrieves a list of navigation targets for the given object name and type or
    * <code>null</code> if none could be determined
@@ -26,4 +24,6 @@ public interface INavigationTargetService {
    * @return
    */
   ICdsQueryNavTargets getTargets(String destinationId, String objectName, ObjectType type);
+
+  IStatus testNavigationTargetsAvailable(IProject project);
 }

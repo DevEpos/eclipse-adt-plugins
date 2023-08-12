@@ -4,7 +4,7 @@ import com.devepos.adt.saat.ui.internal.messages.Messages;
 
 /**
  * Mode for CDS Field Analysis
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public enum FieldAnalysisType {
@@ -14,7 +14,7 @@ public enum FieldAnalysisType {
   private String label;
   private String prefKey;
 
-  FieldAnalysisType(final String label, String prefKey) {
+  FieldAnalysisType(final String label, final String prefKey) {
     this.label = label;
     this.prefKey = prefKey;
   }

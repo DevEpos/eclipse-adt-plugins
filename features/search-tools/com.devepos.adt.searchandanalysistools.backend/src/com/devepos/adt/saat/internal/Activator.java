@@ -20,6 +20,15 @@ public class Activator extends Plugin {
   public Activator() {
   }
 
+  /**
+   * Returns the shared instance
+   *
+   * @return the shared instance
+   */
+  public static Activator getDefault() {
+    return plugin;
+  }
+
   @Override
   public void start(final BundleContext context) throws Exception {
     super.start(context);
@@ -30,15 +39,6 @@ public class Activator extends Plugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
-  }
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static Activator getDefault() {
-    return plugin;
   }
 
 }

@@ -36,14 +36,41 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
     this.analysisView = analysisView;
   }
 
+  private class ShowAnalysisAction extends Action {
+    private final CdsAnalysis analysis;
+
+    public ShowAnalysisAction(final CdsAnalysis analysis) {
+      super(analysis.getLabel(), AS_RADIO_BUTTON);
+      this.analysis = analysis;
+      setImageDescriptor(analysis.getImageDescriptor());
+    }
+
+    @Override
+    public void run() {
+      runIfChecked(false);
+    }
+
+    @Override
+    public void runWithEvent(final Event event) {
+      runIfChecked(event.stateMask == SWT.CTRL);
+    }
+
+    private void runIfChecked(final boolean openNewAnalysisView) {
+      if (isChecked()) {
+        CdsAnalysisManager.getInstance().showAnalysis(analysis, openNewAnalysisView);
+      }
+    }
+  }
+
   @Override
   public void dispose() {
     disposeMenu();
   }
 
-  @Override
-  public void setEnabled(final boolean enabled) {
-    super.setEnabled(enabled);
+  public void disposeMenu() {
+    if (menu != null && !menu.isDisposed()) {
+      menu.dispose();
+    }
   }
 
   @Override
@@ -75,12 +102,6 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
     return menu;
   }
 
-  public void disposeMenu() {
-    if (menu != null && !menu.isDisposed()) {
-      menu.dispose();
-    }
-  }
-
   @Override
   public Menu getMenu(final Menu parent) {
     return null;
@@ -89,6 +110,19 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
   @Override
   public void run() {
     openManagePageDialog();
+  }
+
+  @Override
+  public void setEnabled(final boolean enabled) {
+    super.setEnabled(enabled);
+  }
+
+  /*
+   * Adds the given action to the given menu
+   */
+  private void addActionToMenu(final Menu parent, final IAction action) {
+    final ActionContributionItem item = new ActionContributionItem(action);
+    item.fill(parent, -1);
   }
 
   private void openManagePageDialog() {
@@ -113,39 +147,6 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
           analysisManager.removeAnalysis(analysisToRemove);
         }
       }
-    }
-  }
-
-  /*
-   * Adds the given action to the given menu
-   */
-  private void addActionToMenu(final Menu parent, final IAction action) {
-    final ActionContributionItem item = new ActionContributionItem(action);
-    item.fill(parent, -1);
-  }
-
-  private class ShowAnalysisAction extends Action {
-    private final CdsAnalysis analysis;
-
-    public ShowAnalysisAction(final CdsAnalysis analysis) {
-      super(analysis.getLabel(), AS_RADIO_BUTTON);
-      this.analysis = analysis;
-      setImageDescriptor(analysis.getImageDescriptor());
-    }
-
-    @Override
-    public void runWithEvent(final Event event) {
-      runIfChecked(event.stateMask == SWT.CTRL);
-    }
-
-    @Override
-    public void run() {
-      runIfChecked(false);
-    }
-
-    private void runIfChecked(boolean openNewAnalysisView) {
-      if (isChecked())
-        CdsAnalysisManager.getInstance().showAnalysis(analysis, openNewAnalysisView);
     }
   }
 }

@@ -21,7 +21,7 @@ public class ObjectSearchRequest {
   private String parametersString;
   private Map<String, Object> parameters;
   private IAbapProjectProvider projectProvider;
-  private ISearchQueryInput queryInput;
+  private final ISearchQueryInput queryInput;
   private ISearchResultOutputConfig outputConfig;
 
   public ObjectSearchRequest() {
@@ -102,7 +102,7 @@ public class ObjectSearchRequest {
     queryInput.setMaxRows(maxResults);
   }
 
-  public void setOutputConfig(ISearchResultOutputConfig outputConfig) {
+  public void setOutputConfig(final ISearchResultOutputConfig outputConfig) {
     this.outputConfig = outputConfig;
   }
 
@@ -118,7 +118,7 @@ public class ObjectSearchRequest {
     queryInput.setWithApiState(readApiState);
   }
 
-  public void setSearchType(String searchType) {
+  public void setSearchType(final String searchType) {
     queryInput.setType(searchType);
   }
 

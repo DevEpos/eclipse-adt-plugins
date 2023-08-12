@@ -16,15 +16,15 @@ public class NativeColumnViewerToolTipSupport extends ColumnViewerToolTipSupport
   private final ColumnViewer viewer;
   private final Listener keyDownListener;
 
-  public static void enableFor(final ColumnViewer treeViewer) {
-    new NativeColumnViewerToolTipSupport(treeViewer);
-  }
-
   protected NativeColumnViewerToolTipSupport(final ColumnViewer viewer) {
     super(viewer, ToolTip.NO_RECREATE, true);
     this.viewer = viewer;
     keyDownListener = this::handleKeyDownEvent;
     activate();
+  }
+
+  public static void enableFor(final ColumnViewer treeViewer) {
+    new NativeColumnViewerToolTipSupport(treeViewer);
   }
 
   @Override

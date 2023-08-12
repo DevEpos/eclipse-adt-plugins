@@ -61,6 +61,35 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
     });
   }
 
+  private static final class CdsEntityUsageInfo extends ExtendedAdtObjectInfo implements
+      ICdsEntityUsageInfo {
+    public int occurrence;
+    public int usedEntitiesCount;
+    public int usedJoinCount;
+    public int usedUnionCount;
+
+    @Override
+    public int getOccurrence() {
+      return occurrence;
+    }
+
+    @Override
+    public int getUsedEntitiesCount() {
+      return usedEntitiesCount;
+    }
+
+    @Override
+    public int getUsedJoinCount() {
+      return usedJoinCount;
+    }
+
+    @Override
+    public int getUsedUnionCount() {
+      return usedUnionCount;
+    }
+
+  }
+
   @Override
   public Image getImage() {
     return SearchAndAnalysisPlugin.getDefault().getImage(IImages.USAGE_ANALYZER);
@@ -92,8 +121,8 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
 
   }
 
-  private List<IElementInfo> convertToElementInfoList(String destinationId,
-      ICdsUsedEntitiesResult usedEntitiesResult) {
+  private List<IElementInfo> convertToElementInfoList(final String destinationId,
+      final ICdsUsedEntitiesResult usedEntitiesResult) {
     var elements = new ArrayList<IElementInfo>();
     for (var entry : usedEntitiesResult.getUsedEntities()) {
       var entityRef = entry.getEntityRef();
@@ -120,34 +149,5 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
       elements.add(adtObjRefElemInfo);
     }
     return elements;
-  }
-
-  private static final class CdsEntityUsageInfo extends ExtendedAdtObjectInfo implements
-      ICdsEntityUsageInfo {
-    public int occurrence;
-    public int usedEntitiesCount;
-    public int usedJoinCount;
-    public int usedUnionCount;
-
-    @Override
-    public int getOccurrence() {
-      return occurrence;
-    }
-
-    @Override
-    public int getUsedEntitiesCount() {
-      return usedEntitiesCount;
-    }
-
-    @Override
-    public int getUsedJoinCount() {
-      return usedJoinCount;
-    }
-
-    @Override
-    public int getUsedUnionCount() {
-      return usedUnionCount;
-    }
-
   }
 }

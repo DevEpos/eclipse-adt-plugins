@@ -12,11 +12,11 @@ public interface IExtendedAdtObjectInfo {
   String API_STATE_RELEASED = "RELEASED";
 
   /**
-   * Returns <code>true</code> if the result object is released
+   * Returns the name of responsible person of this ADT object
    *
-   * @return
+   * @return the name of responsible person of this ADT object
    */
-  boolean isReleased();
+  String getOwner();
 
   /**
    * Returns the source type of the object search result <br>
@@ -28,9 +28,9 @@ public interface IExtendedAdtObjectInfo {
   IDataSourceType getSourceType();
 
   /**
-   * Returns the name of responsible person of this ADT object
+   * Returns <code>true</code> if the result object is released
    *
-   * @return the name of responsible person of this ADT object
+   * @return
    */
-  String getOwner();
+  boolean isReleased();
 }

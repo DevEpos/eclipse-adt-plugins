@@ -30,24 +30,24 @@ public class ElementInfoUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * @return Retrieves Resource URI for the element information service
+   * Creates a valid REST resource URI for the given object URI
+   *
+   * @param objectUri the URI of an ADT object
+   * @param params    map of additional query parameters
+   * @return REST resource URI
    */
-  public URI getElementInfoUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM_ELEMENT_INFO);
-  }
-
-  /**
-   * @return ADT URI template for the element information service
-   */
-  public IAdtUriTemplate getElementInfoTemplate() {
-    return getTemplate(DISCOVERY_TERM_ELEMENT_INFO, DISCOVERY_RELATION_ELEMENT_INFO);
-  }
-
-  /**
-   * @return ADT URI template for the element information service
-   */
-  public IAdtUriTemplate getElementInfoByUriTemplate() {
-    return getTemplate(DISCOVERY_TERM_ELEMENT_INFO, DISCOVERY_RELATION_ELEMENT_INFO_BY_URI);
+  public URI createElementInfoResourceUri(final String objectUri,
+      final Map<String, Object> params) {
+    final IAdtUriTemplate template = getElementInfoByUriTemplate();
+    URI uri = null;
+    if (template != null) {
+      if (template.containsVariable("objectUri")) {
+        template.set("objectUri", objectUri);
+      }
+      fillTemplateWithParams(template, params);
+      uri = URI.create(template.expand());
+    }
+    return uri;
   }
 
   /**
@@ -77,23 +77,23 @@ public class ElementInfoUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * Creates a valid REST resource URI for the given object URI
-   *
-   * @param objectUri the URI of an ADT object
-   * @param params    map of additional query parameters
-   * @return REST resource URI
+   * @return ADT URI template for the element information service
    */
-  public URI createElementInfoResourceUri(final String objectUri,
-      final Map<String, Object> params) {
-    final IAdtUriTemplate template = getElementInfoByUriTemplate();
-    URI uri = null;
-    if (template != null) {
-      if (template.containsVariable("objectUri")) {
-        template.set("objectUri", objectUri);
-      }
-      fillTemplateWithParams(template, params);
-      uri = URI.create(template.expand());
-    }
-    return uri;
+  public IAdtUriTemplate getElementInfoByUriTemplate() {
+    return getTemplate(DISCOVERY_TERM_ELEMENT_INFO, DISCOVERY_RELATION_ELEMENT_INFO_BY_URI);
+  }
+
+  /**
+   * @return ADT URI template for the element information service
+   */
+  public IAdtUriTemplate getElementInfoTemplate() {
+    return getTemplate(DISCOVERY_TERM_ELEMENT_INFO, DISCOVERY_RELATION_ELEMENT_INFO);
+  }
+
+  /**
+   * @return Retrieves Resource URI for the element information service
+   */
+  public URI getElementInfoUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_ELEMENT_INFO);
   }
 }

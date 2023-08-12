@@ -27,20 +27,6 @@ public class DdicRepositoryAccessUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * @return Retrieves Resource URI for DDIC Repository access
-   */
-  public URI getDdicAccessUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM_DDIC_ACCESS);
-  }
-
-  /**
-   * @return ADT URI template for DDIC Repository Access
-   */
-  public IAdtUriTemplate getDdicAccessUriTemplate() {
-    return getTemplate(DISCOVERY_TERM_DDIC_ACCESS, DISCOVERY_RELATION_DDIC_ACCESS);
-  }
-
-  /**
    * Creates a valid REST resource for a DDIC Repository Access
    *
    * @param accessMode type of DDIC Access that should be performed
@@ -70,6 +56,20 @@ public class DdicRepositoryAccessUriDiscovery extends SearchToolsUriDiscovery {
       uri = URI.create(template.expand());
     }
     return uri;
+  }
+
+  /**
+   * @return Retrieves Resource URI for DDIC Repository access
+   */
+  public URI getDdicAccessUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_DDIC_ACCESS);
+  }
+
+  /**
+   * @return ADT URI template for DDIC Repository Access
+   */
+  public IAdtUriTemplate getDdicAccessUriTemplate() {
+    return getTemplate(DISCOVERY_TERM_DDIC_ACCESS, DISCOVERY_RELATION_DDIC_ACCESS);
   }
 
 }

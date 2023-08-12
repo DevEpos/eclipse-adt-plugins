@@ -57,7 +57,7 @@ public final class FeatureTester {
         .isOK();
   }
 
-  public static boolean isFieldAnalysisAvailable(IProject project) {
+  public static boolean isFieldAnalysisAvailable(final IProject project) {
     return CdsAnalysisServiceFactory.getCdsAnalysisService()
         .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.FIELD_ANALYSIS, project)
         .isOK();
@@ -132,7 +132,7 @@ public final class FeatureTester {
     return true;
   }
 
-  public static boolean isWhereUsedInCdsAnalysisAvailable(IProject project) {
+  public static boolean isWhereUsedInCdsAnalysisAvailable(final IProject project) {
     return CdsAnalysisServiceFactory.getCdsAnalysisService()
         .testCdsAnalysisFeatureAvailability(CdsAnalysisFeature.WHERE_USED, project)
         .isOK();

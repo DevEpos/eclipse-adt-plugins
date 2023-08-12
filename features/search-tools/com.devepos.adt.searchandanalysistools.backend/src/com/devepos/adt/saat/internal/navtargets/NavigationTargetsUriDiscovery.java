@@ -22,20 +22,6 @@ public class NavigationTargetsUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * @return Retrieves Resource URI for the navigation targets of an ADT object
-   */
-  public URI getNavTargetsUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM_NAV_TARGETS);
-  }
-
-  /**
-   * @return ADT URI template for the navigation targets of an ADT object
-   */
-  public IAdtUriTemplate getNavTargetsTemplate() {
-    return getTemplate(DISCOVERY_TERM_NAV_TARGETS, DISCOVERY_RELATION_NAV_TARGETS);
-  }
-
-  /**
    * Creates a valid REST resource URI to read the navigation targets of the ADT
    * object with the given name and type
    *
@@ -58,5 +44,19 @@ public class NavigationTargetsUriDiscovery extends SearchToolsUriDiscovery {
       uri = URI.create(template.expand());
     }
     return uri;
+  }
+
+  /**
+   * @return ADT URI template for the navigation targets of an ADT object
+   */
+  public IAdtUriTemplate getNavTargetsTemplate() {
+    return getTemplate(DISCOVERY_TERM_NAV_TARGETS, DISCOVERY_RELATION_NAV_TARGETS);
+  }
+
+  /**
+   * @return Retrieves Resource URI for the navigation targets of an ADT object
+   */
+  public URI getNavTargetsUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_NAV_TARGETS);
   }
 }

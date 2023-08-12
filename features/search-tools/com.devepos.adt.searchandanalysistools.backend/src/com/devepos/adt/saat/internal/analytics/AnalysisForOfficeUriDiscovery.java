@@ -19,20 +19,6 @@ public class AnalysisForOfficeUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * @return Retrieves Resource URI for the Analysis for Office launcher
-   */
-  public URI getLauncherUri() {
-    return getUriFromCollectionMember(DISCOVERY_TERM);
-  }
-
-  /**
-   * @return ADT URI template for the analysis for office launcher
-   */
-  public IAdtUriTemplate getLauncherTemplate() {
-    return getTemplate(DISCOVERY_TERM, DISCOVERY_RELATION_AOX_LAUNCHER);
-  }
-
-  /**
    * Creates REST resource URI for retrieving the analysis for office launcher for
    * the given CDS query
    *
@@ -49,6 +35,20 @@ public class AnalysisForOfficeUriDiscovery extends SearchToolsUriDiscovery {
       uri = URI.create(template.expand());
     }
     return uri;
+  }
+
+  /**
+   * @return ADT URI template for the analysis for office launcher
+   */
+  public IAdtUriTemplate getLauncherTemplate() {
+    return getTemplate(DISCOVERY_TERM, DISCOVERY_RELATION_AOX_LAUNCHER);
+  }
+
+  /**
+   * @return Retrieves Resource URI for the Analysis for Office launcher
+   */
+  public URI getLauncherUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM);
   }
 
 }

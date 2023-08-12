@@ -9,12 +9,14 @@ package com.devepos.adt.saat.cdsanalysis;
 public interface ICdsFieldAnalysisSettings {
 
   /**
-   * Sets whether the anlysis direction is top down or bottom up
-   *
-   * @param topDown if {@code true} the analysis direction will be top down,
-   *                otherwise bottom up
+   * @return {@code true} if calculated fields will be considered
    */
-  void setTopDown(boolean topDown);
+  boolean isSearchInCalcFields();
+
+  /**
+   * @return {@code true} if database views are searched during bottom up
+   */
+  boolean isSearchInDatabaseViews();
 
   /**
    * @return {@code true} if the analysis direction is top down,
@@ -30,11 +32,6 @@ public interface ICdsFieldAnalysisSettings {
   void setSearchInCalcFields(boolean searchInCalcFields);
 
   /**
-   * @return {@code true} if calculated fields will be considered
-   */
-  boolean isSearchInCalcFields();
-
-  /**
    * Sets whether db views should be searched in the bottom up analysis
    *
    * @param searchInDbViews if {@code true} database views will be searched
@@ -42,7 +39,10 @@ public interface ICdsFieldAnalysisSettings {
   void setSearchInDatabaseViews(boolean searchInDbViews);
 
   /**
-   * @return {@code true} if database views are searched during bottom up
+   * Sets whether the anlysis direction is top down or bottom up
+   *
+   * @param topDown if {@code true} the analysis direction will be top down,
+   *                otherwise bottom up
    */
-  boolean isSearchInDatabaseViews();
+  void setTopDown(boolean topDown);
 }

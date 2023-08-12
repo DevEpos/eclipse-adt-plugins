@@ -18,6 +18,7 @@ import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.ImageRegistryId;
 import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
+import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage;
 
 /**
@@ -70,7 +71,8 @@ public class ObjectSearchModesMenu extends CompoundContributionItem {
             .getImageInfo()), typeConfig.getName(), typeConfig.getLabel())));
       }
     } else {
-      final IAction noProjectAction = new Action("<No ABAP Project selected>") {
+      final IAction noProjectAction = new Action(
+          Messages.ObjectSearchModesMenu_noAbapProjectSelected_xmsg) {
       };
       noProjectAction.setEnabled(false);
       items.add(new ActionContributionItem(noProjectAction));

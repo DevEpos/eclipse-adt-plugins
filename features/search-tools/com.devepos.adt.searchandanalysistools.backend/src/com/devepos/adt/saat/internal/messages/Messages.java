@@ -7,11 +7,11 @@ public class Messages extends NLS {
   public static String FeatureStatus_CdsAnalysisFeatureNotAvailable_xmsg;
   public static String FeatureStatus_GeneralFeatureNotAvailable_xmsg;
 
-  private Messages() {
-  }
-
   static {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+  }
+
+  private Messages() {
   }
 }

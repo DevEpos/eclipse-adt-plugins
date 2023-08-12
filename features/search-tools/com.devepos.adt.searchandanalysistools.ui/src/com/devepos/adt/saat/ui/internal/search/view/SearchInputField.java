@@ -28,16 +28,17 @@ import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 class SearchInputField implements ISearchFilterProvider {
   private Text input;
   private Label label;
-  private ISearchTypeInputFieldConfig fieldConfig;
+  private final ISearchTypeInputFieldConfig fieldConfig;
   private SearchFilterHandler filterHandler;
-  private List<ISearchFilter> configuredFilters = new ArrayList<>();
-  private Composite parent;
-  private IAbapProjectProvider projectProvider;
-  private ISearchPageStatusUpdater pageStatus;
+  private final List<ISearchFilter> configuredFilters = new ArrayList<>();
+  private final Composite parent;
+  private final IAbapProjectProvider projectProvider;
+  private final ISearchPageStatusUpdater pageStatus;
 
-  public SearchInputField(Composite parent, IAbapProjectProvider projectProvider,
-      ISearchPageStatusUpdater pageStatus, ISearchTypeInputFieldConfig inputFieldConfig) {
-    this.fieldConfig = inputFieldConfig;
+  public SearchInputField(final Composite parent, final IAbapProjectProvider projectProvider,
+      final ISearchPageStatusUpdater pageStatus,
+      final ISearchTypeInputFieldConfig inputFieldConfig) {
+    fieldConfig = inputFieldConfig;
     this.parent = parent;
     this.pageStatus = pageStatus;
     this.projectProvider = projectProvider;
@@ -118,7 +119,7 @@ class SearchInputField implements ISearchFilterProvider {
     });
   }
 
-  public void setEnabled(boolean enable) {
+  public void setEnabled(final boolean enable) {
     if (isOnline()) {
       input.setEnabled(enable);
     }
@@ -130,7 +131,7 @@ class SearchInputField implements ISearchFilterProvider {
     }
   }
 
-  public void setSelection(boolean setCursorToEnd) {
+  public void setSelection(final boolean setCursorToEnd) {
     if (!isOnline()) {
       return;
     }
@@ -144,7 +145,7 @@ class SearchInputField implements ISearchFilterProvider {
     }
   }
 
-  public void setText(String text) {
+  public void setText(final String text) {
     if (isOnline()) {
       input.setText(text != null ? text : "");
     }

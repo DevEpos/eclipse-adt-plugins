@@ -38,23 +38,6 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  */
 public class DynamicOpenInMenuUtility {
 
-  /**
-   * Creates analysis tools menu for the list of ADT Objects
-   *
-   * @param adtObjects a list of ADT objects
-   * @return the created menu or <code>null</code>
-   */
-  public static IMenuManager buildAnalysisToolsSubMenu(final List<IAdtObject> adtObjects) {
-    if (adtObjects == null || adtObjects.isEmpty()) {
-      return null;
-    }
-    final IProject project = adtObjects.get(0).getProject();
-    if (project == null || !FeatureTester.isCdsAnalysisAvailable(project)) {
-      return null;
-    }
-    return new DynamicOpenInMenuManager(adtObjects, project);
-  }
-
   private static class DynamicOpenInMenuManager extends MenuManager implements IMenuListener {
     private static final String ID = SearchAndAnalysisPlugin.PLUGIN_ID + ".actionsMenu"; //$NON-NLS-1$
     private final List<IAdtObject> adtObjects;
@@ -133,6 +116,37 @@ public class DynamicOpenInMenuUtility {
       createLazyMenuItem();
     }
 
+    private void addNavigationTargetActions(final ICdsQueryNavTargets targets) {
+      for (final var target : targets.getNavigationTargets()) {
+        switch (target) {
+        case EXCEL:
+          add(new OpenWithAnalysisForOfficeExecutable(DestinationUtil.getDestinationId(project),
+              adtObject.getName()).createAction(
+                  Messages.ElementInformation_AnalysisForOfficeTarget_xtit, SearchAndAnalysisPlugin
+                      .getDefault()
+                      .getImageDescriptor(IImages.EXCEL_APPLICATION)));
+          break;
+        case QUERY_MONITOR:
+          add(new OpenWithQueryMonitorExecutable(DestinationUtil.getDestinationId(project),
+              adtObject.getName()).createAction(Messages.ElementInformation_QueryMonitorTarget_xtit,
+                  SearchAndAnalysisPlugin.getDefault()
+                      .getImageDescriptor(IImages.ANALYTICAL_QUERY)));
+          break;
+        }
+      }
+    }
+
+    private IContributionItem addTextContribution(final String text) {
+      final IContributionItem item = new ActionContributionItem(new Action(text) {
+        @Override
+        public boolean isEnabled() {
+          return false;
+        }
+      });
+      add(item);
+      return item;
+    }
+
     private void createLazyMenuItem() {
       final IContributionItem loadingIndicator = addTextContribution(
           Messages.AdtObjectMenu_LoadingText_xmit);
@@ -165,36 +179,22 @@ public class DynamicOpenInMenuUtility {
       job.schedule(100);
 
     }
+  }
 
-    private void addNavigationTargetActions(final ICdsQueryNavTargets targets) {
-      for (final var target : targets.getNavigationTargets()) {
-        switch (target) {
-        case EXCEL:
-          add(new OpenWithAnalysisForOfficeExecutable(DestinationUtil.getDestinationId(project),
-              adtObject.getName()).createAction(
-                  Messages.ElementInformation_AnalysisForOfficeTarget_xtit, SearchAndAnalysisPlugin
-                      .getDefault()
-                      .getImageDescriptor(IImages.EXCEL_APPLICATION)));
-          break;
-        case QUERY_MONITOR:
-          add(new OpenWithQueryMonitorExecutable(DestinationUtil.getDestinationId(project),
-              adtObject.getName()).createAction(Messages.ElementInformation_QueryMonitorTarget_xtit,
-                  SearchAndAnalysisPlugin.getDefault()
-                      .getImageDescriptor(IImages.ANALYTICAL_QUERY)));
-          break;
-        }
-      }
+  /**
+   * Creates analysis tools menu for the list of ADT Objects
+   *
+   * @param adtObjects a list of ADT objects
+   * @return the created menu or <code>null</code>
+   */
+  public static IMenuManager buildAnalysisToolsSubMenu(final List<IAdtObject> adtObjects) {
+    if (adtObjects == null || adtObjects.isEmpty()) {
+      return null;
     }
-
-    private IContributionItem addTextContribution(final String text) {
-      final IContributionItem item = new ActionContributionItem(new Action(text) {
-        @Override
-        public boolean isEnabled() {
-          return false;
-        }
-      });
-      add(item);
-      return item;
+    final IProject project = adtObjects.get(0).getProject();
+    if (project == null || !FeatureTester.isCdsAnalysisAvailable(project)) {
+      return null;
     }
+    return new DynamicOpenInMenuManager(adtObjects, project);
   }
 }

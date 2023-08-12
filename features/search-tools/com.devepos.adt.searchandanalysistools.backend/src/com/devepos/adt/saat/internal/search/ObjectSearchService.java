@@ -41,24 +41,6 @@ public class ObjectSearchService implements IObjectSearchService {
   }
 
   @Override
-  public IObjectSearchResult search(final String destinationId, final ISearchQueryInput searchInput,
-      final IProgressMonitor monitor) {
-    var discovery = new ObjectSearchUriDiscovery(destinationId);
-    var resourceUri = discovery.getObjectSearchUri();
-    if (resourceUri != null) {
-      final var session = AdtSystemSessionFactory.createSystemSessionFactory()
-          .createStatelessSession(destinationId);
-
-      final var restResource = AdtRestResourceFactory.createRestResourceFactory()
-          .createRestResource(resourceUri, session);
-      restResource.addContentHandler(new ObjectSearchResultContentHandler());
-      restResource.addContentHandler(new ObjectSearchInputContentHandler());
-      return restResource.post(monitor, IObjectSearchResult.class, searchInput);
-    }
-    return null;
-  }
-
-  @Override
   public ISearchConfig getSearchConfig(final String destinationId) {
     if (searchConfigMap.containsKey(destinationId)) {
       return searchConfigMap.get(destinationId);
@@ -73,9 +55,26 @@ public class ObjectSearchService implements IObjectSearchService {
           .createRestResource(resourceUri, session);
       restResource.addContentHandler(new ObjectSearchConfigContentHandler());
       var searchConfig = restResource.get(null, ISearchConfig.class);
-      // TODO: Enable Caching of search configuration
-      // searchConfigMap.put(destinationId, searchConfig);
+      searchConfigMap.put(destinationId, searchConfig);
       return searchConfig;
+    }
+    return null;
+  }
+
+  @Override
+  public IObjectSearchResult search(final String destinationId, final ISearchQueryInput searchInput,
+      final IProgressMonitor monitor) {
+    var discovery = new ObjectSearchUriDiscovery(destinationId);
+    var resourceUri = discovery.getObjectSearchUri();
+    if (resourceUri != null) {
+      final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+          .createStatelessSession(destinationId);
+
+      final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(resourceUri, session);
+      restResource.addContentHandler(new ObjectSearchResultContentHandler());
+      restResource.addContentHandler(new ObjectSearchInputContentHandler());
+      return restResource.post(monitor, IObjectSearchResult.class, searchInput);
     }
     return null;
   }

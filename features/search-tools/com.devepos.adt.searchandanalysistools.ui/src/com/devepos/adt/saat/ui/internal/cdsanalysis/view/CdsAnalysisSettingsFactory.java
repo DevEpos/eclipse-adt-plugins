@@ -5,41 +5,47 @@ import com.devepos.adt.saat.ui.internal.cdsanalysis.IWhereUsedInCdsSettings;
 
 public class CdsAnalysisSettingsFactory {
 
-  /**
-   * Creates new instance of settings for CDS Top-Down analysis
-   */
-  public static ICdsTopDownSettingsUi createCdsTopDownSettings() {
-    return new CdsTopDownSettings();
-  }
+  private static class CdsFieldAnalysisSettings implements ICdsFieldAnalysisSettings {
+    private boolean topDown;
+    private boolean searchInDbViews;
+    private boolean searchInCalcFields;
 
-  /**
-   * Creates new instance of settings for Where-Used in CDS Analysis
-   */
-  public static IWhereUsedInCdsSettings createWhereUsedInCdsSettings() {
-    return new WhereUsedInCdsSettings();
-  }
+    @Override
+    public boolean isSearchInCalcFields() {
+      return searchInCalcFields;
+    }
 
-  /**
-   * Creates new instance of settings for CDS Field Analysis
-   */
-  public static ICdsFieldAnalysisSettings createFieldAnalysisSettings() {
-    return new CdsFieldAnalysisSettings();
+    @Override
+    public boolean isSearchInDatabaseViews() {
+      return searchInDbViews;
+    }
+
+    @Override
+    public boolean isTopDown() {
+      return topDown;
+    }
+
+    @Override
+    public void setSearchInCalcFields(final boolean searchInCalcFields) {
+      this.searchInCalcFields = searchInCalcFields;
+    }
+
+    @Override
+    public void setSearchInDatabaseViews(final boolean searchInDbViews) {
+      this.searchInDbViews = searchInDbViews;
+    }
+
+    @Override
+    public void setTopDown(final boolean topDown) {
+      this.topDown = topDown;
+    }
+
   }
 
   private static class CdsTopDownSettings implements ICdsTopDownSettingsUi {
     private boolean loadAssociations;
     private boolean showDescriptions;
     private boolean showAliasNames;
-
-    @Override
-    public void setLoadAssociations(boolean loadAssociations) {
-      this.loadAssociations = loadAssociations;
-    }
-
-    @Override
-    public boolean isLoadAssociations() {
-      return loadAssociations;
-    }
 
     @Override
     public Object clone() {
@@ -52,8 +58,13 @@ public class CdsAnalysisSettingsFactory {
     }
 
     @Override
-    public void setShowDescriptions(boolean showDescriptions) {
-      this.showDescriptions = showDescriptions;
+    public boolean isLoadAssociations() {
+      return loadAssociations;
+    }
+
+    @Override
+    public boolean isShowAliasNames() {
+      return showAliasNames;
     }
 
     @Override
@@ -62,13 +73,18 @@ public class CdsAnalysisSettingsFactory {
     }
 
     @Override
-    public void setShowAliasNames(boolean showAliasNames) {
+    public void setLoadAssociations(final boolean loadAssociations) {
+      this.loadAssociations = loadAssociations;
+    }
+
+    @Override
+    public void setShowAliasNames(final boolean showAliasNames) {
       this.showAliasNames = showAliasNames;
     }
 
     @Override
-    public boolean isShowAliasNames() {
-      return showAliasNames;
+    public void setShowDescriptions(final boolean showDescriptions) {
+      this.showDescriptions = showDescriptions;
     }
 
   }
@@ -80,18 +96,13 @@ public class CdsAnalysisSettingsFactory {
     private boolean releasedUsagesOnly;
 
     @Override
-    public void setSearchFromPart(boolean searchFrom) {
-      this.searchFrom = searchFrom;
+    public boolean isLocalAssociationsOnly() {
+      return localAssociationsOnly;
     }
 
     @Override
-    public boolean isSearchFromPart() {
-      return searchFrom;
-    }
-
-    @Override
-    public void setSearchAssociation(boolean searchAssociations) {
-      this.searchAssociations = searchAssociations;
+    public boolean isReleasedUsagesOnly() {
+      return releasedUsagesOnly;
     }
 
     @Override
@@ -100,60 +111,49 @@ public class CdsAnalysisSettingsFactory {
     }
 
     @Override
-    public void setLocalAssociationsOnly(boolean localAssociationsOnly) {
+    public boolean isSearchFromPart() {
+      return searchFrom;
+    }
+
+    @Override
+    public void setLocalAssociationsOnly(final boolean localAssociationsOnly) {
       this.localAssociationsOnly = localAssociationsOnly;
     }
 
     @Override
-    public boolean isLocalAssociationsOnly() {
-      return localAssociationsOnly;
-    }
-
-    @Override
-    public void setReleasedUsagesOnly(boolean releasedUsagesOnly) {
+    public void setReleasedUsagesOnly(final boolean releasedUsagesOnly) {
       this.releasedUsagesOnly = releasedUsagesOnly;
     }
 
     @Override
-    public boolean isReleasedUsagesOnly() {
-      return releasedUsagesOnly;
+    public void setSearchAssociation(final boolean searchAssociations) {
+      this.searchAssociations = searchAssociations;
+    }
+
+    @Override
+    public void setSearchFromPart(final boolean searchFrom) {
+      this.searchFrom = searchFrom;
     }
   }
 
-  private static class CdsFieldAnalysisSettings implements ICdsFieldAnalysisSettings {
-    private boolean topDown;
-    private boolean searchInDbViews;
-    private boolean searchInCalcFields;
+  /**
+   * Creates new instance of settings for CDS Top-Down analysis
+   */
+  public static ICdsTopDownSettingsUi createCdsTopDownSettings() {
+    return new CdsTopDownSettings();
+  }
 
-    @Override
-    public void setTopDown(boolean topDown) {
-      this.topDown = topDown;
-    }
+  /**
+   * Creates new instance of settings for CDS Field Analysis
+   */
+  public static ICdsFieldAnalysisSettings createFieldAnalysisSettings() {
+    return new CdsFieldAnalysisSettings();
+  }
 
-    @Override
-    public boolean isTopDown() {
-      return topDown;
-    }
-
-    @Override
-    public void setSearchInCalcFields(boolean searchInCalcFields) {
-      this.searchInCalcFields = searchInCalcFields;
-    }
-
-    @Override
-    public boolean isSearchInCalcFields() {
-      return searchInCalcFields;
-    }
-
-    @Override
-    public void setSearchInDatabaseViews(boolean searchInDbViews) {
-      this.searchInDbViews = searchInDbViews;
-    }
-
-    @Override
-    public boolean isSearchInDatabaseViews() {
-      return searchInDbViews;
-    }
-
+  /**
+   * Creates new instance of settings for Where-Used in CDS Analysis
+   */
+  public static IWhereUsedInCdsSettings createWhereUsedInCdsSettings() {
+    return new WhereUsedInCdsSettings();
   }
 }

@@ -13,6 +13,18 @@ import com.devepos.adt.saat.cdsanalysis.ICdsTopDownSettings;
 public interface ICdsAnalysisService {
 
   /**
+   * Loads SELECT Part of a single CDS View
+   *
+   * @param cdsView       the name of the CDS view for which the SELECT part
+   *                      should be loaded
+   * @param settings      settings object to configure the top down analysis
+   * @param destinationId the destination of ID of the ABAP project
+   * @return
+   */
+  IAdtObjectReferenceElementInfo loadTopDownAnalysis(String cdsView, ICdsTopDownSettings settings,
+      String destinationId);
+
+  /**
    * Loads the complete hierarchy of the given CDS View field
    *
    * @param cdsView       name of the owning CDS view of <code>field</code>
@@ -21,6 +33,16 @@ public interface ICdsAnalysisService {
    * @return the found field hierarchy information
    */
   IElementInfo loadTopDownFieldAnalysis(String cdsView, String field, String destinationId);
+
+  /**
+   * Loads Used entities in the dependency tree of the given CDS view
+   *
+   * @param cdsView       the name of the CDS view for which the Used Entities
+   *                      should be analyzed
+   * @param destinationId the destination of ID of the ABAP project
+   * @return
+   */
+  IAdtObjectReferenceElementInfo loadUsedEntitiesAnalysis(String cdsView, String destinationId);
 
   /**
    * Loads the first level of the Where-Used list of the given field
@@ -37,27 +59,5 @@ public interface ICdsAnalysisService {
    */
   IElementInfo loadWhereUsedFieldAnalysis(final String objectName, final String field,
       ICdsFieldAnalysisSettings settings, final String destinationId);
-
-  /**
-   * Loads SELECT Part of a single CDS View
-   *
-   * @param cdsView       the name of the CDS view for which the SELECT part
-   *                      should be loaded
-   * @param settings      settings object to configure the top down analysis
-   * @param destinationId the destination of ID of the ABAP project
-   * @return
-   */
-  IAdtObjectReferenceElementInfo loadTopDownAnalysis(String cdsView, ICdsTopDownSettings settings,
-      String destinationId);
-
-  /**
-   * Loads Used entities in the dependency tree of the given CDS view
-   *
-   * @param cdsView       the name of the CDS view for which the Used Entities
-   *                      should be analyzed
-   * @param destinationId the destination of ID of the ABAP project
-   * @return
-   */
-  IAdtObjectReferenceElementInfo loadUsedEntitiesAnalysis(String cdsView, String destinationId);
 
 }

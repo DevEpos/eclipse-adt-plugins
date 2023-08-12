@@ -1,6 +1,7 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
@@ -49,7 +50,6 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private Action showAssocUses;
   private Action releasedUsagesOnly;
   private Action localAssociationsOnly;
-  private boolean isLocalAssocOnlyFeatureAvailable;
 
   public WhereUsedInCdsAnalysisView(final CdsAnalysisView parentView) {
     super(parentView);
@@ -89,7 +89,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     showFromUses = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_ShowUsesInSelectPartAction_xmit, SearchAndAnalysisPlugin
             .getDefault()
-            .getImageDescriptor(IImages.DATA_SOURCE), Action.AS_CHECK_BOX, () -> {
+            .getImageDescriptor(IImages.DATA_SOURCE), IAction.AS_CHECK_BOX, () -> {
               analysisResult.getSettings().setSearchFromPart(showFromUses.isChecked());
               analysisResult.updateWhereUsedProvider();
               refreshAnalysis();
@@ -98,7 +98,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     showAssocUses = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_ShowUsesInAssociationsAction_xmit,
         SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.ASSOCIATION),
-        Action.AS_CHECK_BOX, () -> {
+        IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setSearchAssociation(showAssocUses.isChecked());
           analysisResult.updateWhereUsedProvider();
           refreshAnalysis();
@@ -106,7 +106,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
     localAssociationsOnly = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_OnlyLocallyDefinedAssocUsages_xmit, null,
-        Action.AS_CHECK_BOX, () -> {
+        IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setLocalAssociationsOnly(localAssociationsOnly.isChecked());
           analysisResult.updateWhereUsedProvider();
           refreshAnalysis();
@@ -115,7 +115,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
     releasedUsagesOnly = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_OnlyUsagesInReleasedEntities_xmit, null,
-        Action.AS_CHECK_BOX, () -> {
+        IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setReleasedUsagesOnly(releasedUsagesOnly.isChecked());
           analysisResult.updateWhereUsedProvider();
           refreshAnalysis();
@@ -139,16 +139,16 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       final CommandPossibleChecker commandPossibleChecker) {
     super.fillContextMenu(mgr, commandPossibleChecker);
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.CDS_TOP_DOWN_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.USED_ENTITIES_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.USED_ENTITIES_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.USED_ENTITIES_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.FIELD_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.FIELD_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.FIELD_ANALYSIS);
     }
   }
 
@@ -229,7 +229,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     var whereUsedInTemplate = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .getWhereUsedInCdsAnalysisTemplate(destProvider.getDestinationId());
 
-    isLocalAssocOnlyFeatureAvailable = whereUsedInTemplate != null && whereUsedInTemplate
+    boolean isLocalAssocOnlyFeatureAvailable = whereUsedInTemplate != null && whereUsedInTemplate
         .containsVariable(
             IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_LOCAL_DECLARED_ASSOCIATIONS_ONLY);
     localAssociationsOnly.setEnabled(isLocalAssocOnlyFeatureAvailable);

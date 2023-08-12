@@ -19,37 +19,6 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
 public class SearchToolsMenuItemFactory {
 
   /**
-   * Adds "Open in DB Browser" command to the given {@link IMenuManager}
-   *
-   * @param mgr           the menu manager for the command
-   * @param skipSelscreen if <code>true</code> the command will be added with a
-   *                      parameter value of <code>'true</code> otherwise
-   *                      <code>'false'</code>
-   */
-  public static void addOpenInDbBrowserCommand(final IMenuManager mgr,
-      final boolean skipSelscreen) {
-    addOpenInDbBrowserCommand(mgr, null, skipSelscreen);
-  }
-
-  /**
-   * Adds "Open in DB Browser" command to the given {@link IMenuManager}
-   *
-   * @param mgr           the menu manager for the command
-   * @param groupId       the id of the menu group for the command
-   * @param skipSelscreen if <code>true</code> the command will be added with a
-   *                      parameter value of <code>'true</code> otherwise
-   *                      <code>'false'</code>
-   */
-  public static void addOpenInDbBrowserCommand(final IMenuManager mgr, final String groupId,
-      final boolean skipSelscreen) {
-    MenuItemFactory.addCommandItem(mgr, groupId, ICommandConstants.OPEN_IN_DB_BROWSER,
-        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.DB_BROWSER_DATA_PREVIEW),
-        skipSelscreen ? Messages.ObjectSearch_OpenInDbBrowserAndSkip_xmit
-            : Messages.ObjectSearch_OpenInDbBrowser_xmit, new String[][] { {
-                OpenInDbBrowserHandler.PARAM_SKIP_SELSCREEN, String.valueOf(skipSelscreen) } });
-  }
-
-  /**
    * Adds a {@link CommandContributionItem} for the given <code>commandId</code>
    * to the supplied {@link IMenuManager} which opens the CDS Analyzer View. <br>
    *
@@ -86,5 +55,36 @@ public class SearchToolsMenuItemFactory {
     Assert.isTrue(label != null && imageId != null);
     MenuItemFactory.addCommandItem(mgr, groupId, commandId, SearchAndAnalysisPlugin.getDefault()
         .getImageDescriptor(imageId), label, null);
+  }
+
+  /**
+   * Adds "Open in DB Browser" command to the given {@link IMenuManager}
+   *
+   * @param mgr           the menu manager for the command
+   * @param skipSelscreen if <code>true</code> the command will be added with a
+   *                      parameter value of <code>'true</code> otherwise
+   *                      <code>'false'</code>
+   */
+  public static void addOpenInDbBrowserCommand(final IMenuManager mgr,
+      final boolean skipSelscreen) {
+    addOpenInDbBrowserCommand(mgr, null, skipSelscreen);
+  }
+
+  /**
+   * Adds "Open in DB Browser" command to the given {@link IMenuManager}
+   *
+   * @param mgr           the menu manager for the command
+   * @param groupId       the id of the menu group for the command
+   * @param skipSelscreen if <code>true</code> the command will be added with a
+   *                      parameter value of <code>'true</code> otherwise
+   *                      <code>'false'</code>
+   */
+  public static void addOpenInDbBrowserCommand(final IMenuManager mgr, final String groupId,
+      final boolean skipSelscreen) {
+    MenuItemFactory.addCommandItem(mgr, groupId, ICommandConstants.OPEN_IN_DB_BROWSER,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.DB_BROWSER_DATA_PREVIEW),
+        skipSelscreen ? Messages.ObjectSearch_OpenInDbBrowserAndSkip_xmit
+            : Messages.ObjectSearch_OpenInDbBrowser_xmit, new String[][] { {
+                OpenInDbBrowserHandler.PARAM_SKIP_SELSCREEN, String.valueOf(skipSelscreen) } });
   }
 }

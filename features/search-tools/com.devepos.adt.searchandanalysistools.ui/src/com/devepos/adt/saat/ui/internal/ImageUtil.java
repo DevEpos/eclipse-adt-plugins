@@ -13,7 +13,8 @@ import com.sap.adt.tools.abapsource.ui.ISharedImages;
 @SuppressWarnings("restriction")
 public class ImageUtil {
 
-  public static final Image getMethodImage(Map<String, String> properties, boolean isInterface) {
+  public static final Image getMethodImage(final Map<String, String> properties,
+      final boolean isInterface) {
     boolean isFinal = properties.get("isFinal") != null;
     boolean isAbstract = properties.get("isAbstract") != null;
     AbapSourceObjectVisibility visibility = AbapSourceObjectVisibility.UNKNOWN;
@@ -40,9 +41,8 @@ public class ImageUtil {
     ISharedImages abapSourceImages = AbapSourceUi.getInstance().getSharedImages();
     if (isEventHandler) {
       return abapSourceImages.getEventHandlerImage(visibility, level);
-    } else {
-      return abapSourceImages.getMethodImage(visibility, level, isAbstract, isFinal, isRedefined,
-          isConstructor, false);
     }
+    return abapSourceImages.getMethodImage(visibility, level, isAbstract, isFinal, isRedefined,
+        isConstructor, false);
   }
 }

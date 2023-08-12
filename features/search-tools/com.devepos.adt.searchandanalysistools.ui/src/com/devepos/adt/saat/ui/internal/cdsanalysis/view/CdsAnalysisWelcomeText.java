@@ -34,13 +34,13 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
   }
 
   @Override
-  protected String getHelpLinkText() {
-    return Messages.CdsAnalysisWelcome_HelpSuffix_xlnk;
+  protected String getHelpContextId() {
+    return HelpUtil.getFullyQualifiedContextId(HelpContexts.CDS_ANALYZER);
   }
 
   @Override
-  protected String getHelpContextId() {
-    return HelpUtil.getFullyQualifiedContextId(HelpContexts.CDS_ANALYZER);
+  protected String getHelpLinkText() {
+    return Messages.CdsAnalysisWelcome_HelpSuffix_xlnk;
   }
 
 }

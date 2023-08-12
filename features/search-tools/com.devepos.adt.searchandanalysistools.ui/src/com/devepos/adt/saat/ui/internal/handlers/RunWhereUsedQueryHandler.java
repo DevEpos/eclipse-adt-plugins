@@ -64,6 +64,31 @@ public class RunWhereUsedQueryHandler extends AbstractHandler {
   }
 
   /*
+   * Runs Where-used query for the given URI
+   */
+  private void runWhereUsed(final IProject project, final String uri) {
+    final AdtRisUsageReferencesSearchQueryParameters usageSearchParameters = new AdtRisUsageReferencesSearchQueryParameters(
+        project, URI.create(uri));
+    final AdtRisUsageReferencesSearchQuery searchQuery = new AdtRisUsageReferencesSearchQuery(
+        usageSearchParameters);
+    NewSearchUI.runQueryInBackground(searchQuery);
+
+    /*
+     * If there is no active page in the workbench window the search view will not
+     * be brought to the front so it has to be done manually
+     */
+    final IWorkbenchPage activeSearchPage = PlatformUI.getWorkbench()
+        .getActiveWorkbenchWindow()
+        .getActivePage();
+    final IWorkbenchPart activeSearchView = activeSearchPage.getActivePart();
+    if (activeSearchPage != null && activeSearchView != null && activeSearchPage.isPartVisible(
+        activeSearchView)) {
+      activeSearchPage.bringToTop(activeSearchView);
+    }
+
+  }
+
+  /*
    * Runs where used query for a CDS View
    */
   private void runWhereUsedForDdls(final ExecutionEvent event, final IProject project,
@@ -89,31 +114,6 @@ public class RunWhereUsedQueryHandler extends AbstractHandler {
       }
     });
     readDdlsUriJob.schedule();
-  }
-
-  /*
-   * Runs Where-used query for the given URI
-   */
-  private void runWhereUsed(final IProject project, final String uri) {
-    final AdtRisUsageReferencesSearchQueryParameters usageSearchParameters = new AdtRisUsageReferencesSearchQueryParameters(
-        project, URI.create(uri));
-    final AdtRisUsageReferencesSearchQuery searchQuery = new AdtRisUsageReferencesSearchQuery(
-        usageSearchParameters);
-    NewSearchUI.runQueryInBackground(searchQuery);
-
-    /*
-     * If there is no active page in the workbench window the search view will not
-     * be brought to the front so it has to be done manually
-     */
-    final IWorkbenchPage activeSearchPage = PlatformUI.getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getActivePage();
-    final IWorkbenchPart activeSearchView = activeSearchPage.getActivePart();
-    if (activeSearchPage != null && activeSearchView != null && activeSearchPage.isPartVisible(
-        activeSearchView)) {
-      activeSearchPage.bringToTop(activeSearchView);
-    }
-
   }
 
 }

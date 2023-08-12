@@ -20,17 +20,17 @@ public class ObjectSearchUriDiscovery extends SearchToolsUriDiscovery {
   }
 
   /**
-   * Retrieves Resource URI for the Object search
-   */
-  public URI getObjectSearchUri() {
-    return getUriFromCollectionMember("objectSearch");
-  }
-
-  /**
    * Retrieves Resource URI to retrieve the object search configuration
    */
   public URI getObjectSearchConfigUri() {
     return getUriFromCollectionMember("objectSearchConfig");
+  }
+
+  /**
+   * Retrieves Resource URI for the Object search
+   */
+  public URI getObjectSearchUri() {
+    return getUriFromCollectionMember("objectSearch");
   }
 
 }

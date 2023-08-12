@@ -24,7 +24,7 @@ public class WhereUsedInCdsAnalysis extends CdsAnalysis {
   private WhereUsedInCdsElementInfoProvider rootWhereUsedProvider;
   private ILazyLoadingNode cdsWhereUsedNode;
   private LazyLoadingAdtObjectReferenceNode node;
-  private IWhereUsedInCdsSettings settings;
+  private final IWhereUsedInCdsSettings settings;
 
   public WhereUsedInCdsAnalysis(final IAdtObjectReferenceElementInfo adtObjectInfo) {
     super(adtObjectInfo);
