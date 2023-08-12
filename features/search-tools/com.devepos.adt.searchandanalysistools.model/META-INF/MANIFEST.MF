@@ -13,22 +13,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  com.devepos.adt.base;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: com.devepos.adt.saat.model.cdsanalysis;
-  x-friends:="com.devepos.adt.searchandanalysistools.backend,
-   com.devepos.adt.searchandanalysistools.ui",
+Export-Package: com.devepos.adt.saat.model.cdsanalysis;x-friends:="com.devepos.adt.searchandanalysistools.backend,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.saat.model.cdsanalysis.impl,
  com.devepos.adt.saat.model.cdsanalysis.util,
- com.devepos.adt.saat.model.objectsearch;
-  x-friends:="com.devepos.adt.searchandanalysistools.backend,
-   com.devepos.adt.searchandanalysistools.ui",
+ com.devepos.adt.saat.model.objectsearch;x-friends:="com.devepos.adt.searchandanalysistools.backend,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.saat.model.objectsearch.impl;x-internal:=true,
- com.devepos.adt.saat.model.objectsearch.util;
-  x-friends:="com.devepos.adt.searchandanalysistools.backend,
-   com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.saat.model.objectsearchfavorites;
-  x-friends:="com.devepos.adt.searchandanalysistools.ui",
- com.devepos.adt.saat.model.objectsearchfavorites.impl;x-internal:=true,
- com.devepos.adt.saat.model.objectsearchfavorites.util;
-  x-friends:="com.devepos.adt.searchandanalysistools.ui"
+ com.devepos.adt.saat.model.objectsearch.util;x-friends:="com.devepos.adt.searchandanalysistools.backend,com.devepos.adt.searchandanalysistools.ui"
 Automatic-Module-Name: com.devepos.adt.searchandanalysistools.model
 Bundle-ActivationPolicy: lazy

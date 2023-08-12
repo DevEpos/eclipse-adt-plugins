@@ -1,9 +1,18 @@
 package com.devepos.adt.base.ui.internal;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.internal.search.favorites.ISearchFavorites;
+import com.devepos.adt.base.ui.internal.search.favorites.SearchFavoriteDescriptor;
+import com.devepos.adt.base.ui.internal.search.favorites.SearchFavoriteStorage;
+import com.devepos.adt.base.ui.internal.search.favorites.SearchFavorites;
 import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
 
 /**
@@ -17,11 +26,49 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
   // The shared instance
   private static AdtBaseUIPlugin plugin;
 
+  private ISearchFavorites searchFavorites;
+
+  private Map<String, SearchFavoriteDescriptor> searchFavDescriptors;
+
   /**
    * The constructor
    */
   public AdtBaseUIPlugin() {
     super(PLUGIN_ID);
+  }
+
+  /**
+   * Returns the shared instance
+   *
+   * @return the shared instance
+   */
+  public static AdtBaseUIPlugin getDefault() {
+    return plugin;
+  }
+
+  /**
+   * Returns reference to the favorites of the object search
+   *
+   * @return
+   */
+  public ISearchFavorites getSearchFavoriteManager() {
+    if (searchFavorites == null) {
+      searchFavorites = new SearchFavorites();
+      SearchFavoriteStorage.deserialize(searchFavorites);
+    }
+    return searchFavorites;
+  }
+
+  /**
+   * @return Returns all search favorites contributed to the workbench.
+   */
+  public Map<String, SearchFavoriteDescriptor> getSearchFavoriteDescriptors() {
+    if (searchFavDescriptors == null) {
+      var elements = Platform.getExtensionRegistry()
+          .getConfigurationElementsFor(PLUGIN_ID, SearchFavoriteDescriptor.EXTENSION_POINT);
+      searchFavDescriptors = createSearchFavoriteDescriptors(elements);
+    }
+    return searchFavDescriptors;
   }
 
   @Override
@@ -34,15 +81,6 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
-  }
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static AdtBaseUIPlugin getDefault() {
-    return plugin;
   }
 
   @Override
@@ -122,14 +160,26 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "org.eclipse.ui.ide");
     registerImage(imageRegistry, IAdtBaseImages.TREE_LAYOUT,
         "icons/full/elcl16/hierarchicalLayout.png", "org.eclipse.ui.ide");
+    registerImage(imageRegistry, IAdtBaseImages.FAVORITES, "icons/Favorites.png");
 
     registerDeleteOvr(imageRegistry);
+  }
+
+  private Map<String, SearchFavoriteDescriptor> createSearchFavoriteDescriptors(
+      IConfigurationElement[] elements) {
+    Map<String, SearchFavoriteDescriptor> descriptors = new HashMap<>();
+    for (var element : elements) {
+      if (element.getName().equals(SearchFavoriteDescriptor.EXTENSION_ELEMENT)) {
+        var descriptor = new SearchFavoriteDescriptor(element);
+        descriptors.put(descriptor.getTypeName(), descriptor);
+      }
+    }
+    return descriptors;
   }
 
   private void registerDeleteOvr(final ImageRegistry imageRegistry) {
     imageRegistry.put(IAdtBaseImages.UNSHARE, overlayImage(imageRegistry.get(IAdtBaseImages.SHARE),
         new String[] { null, null, null, IAdtBaseImages.DELETE_OVR }));
-
   }
 
 }

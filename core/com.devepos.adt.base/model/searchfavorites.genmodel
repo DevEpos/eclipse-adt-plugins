@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.base/src" modelPluginID="com.devepos.adt.base"
+    modelName="Searchfavorites" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="11.0" copyrightFields="false" interfaceNamePattern="I{0}" operationReflection="true"
+    importOrganizing="true" cleanup="true">
+  <foreignModel>searchfavorites.ecore</foreignModel>
+  <genPackages prefix="SearchFavorites" basePackage="com.devepos.adt.base.model" resource="XML"
+      disposableProviderFactory="true" ecorePackage="searchfavorites.ecore#/">
+    <genClasses image="false" ecoreClass="searchfavorites.ecore#//BaseAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//BaseAttribute/name"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//LongStringAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//LongStringAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//ListAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//ListAttribute/values"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//StringAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//StringAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//IntAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//IntAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//BooleanAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//BooleanAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//MapAttribute">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference searchfavorites.ecore#//MapAttribute/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//StringToStringMapEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//StringToStringMapEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//StringToStringMapEntry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//SearchFavorite">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/searchType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/destinationId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/projectIndependent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference searchfavorites.ecore#//SearchFavorite/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="searchfavorites.ecore#//SearchFavorites">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference searchfavorites.ecore#//SearchFavorites/favorites"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
