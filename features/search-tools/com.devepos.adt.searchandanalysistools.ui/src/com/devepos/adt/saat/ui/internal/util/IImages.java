@@ -191,10 +191,6 @@ public interface IImages {
    */
   String OBJECT_SEARCH = "IMG_OBJECT_SEARCH";
   /**
-   * Image for Favorites
-   */
-  String FAVORITES = "IMG_FAVORITES";
-  /**
    * Image for Cds Hierarchy view
    */
   String CDS_ANALYZER = "IMG_HIERARCHY";
