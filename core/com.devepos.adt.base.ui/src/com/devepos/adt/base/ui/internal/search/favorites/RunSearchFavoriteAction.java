@@ -6,17 +6,21 @@ import com.devepos.adt.base.model.searchfavorites.ISearchFavorite;
 
 public class RunSearchFavoriteAction extends Action {
 
-  private ISearchFavorite favorite;
-  private SearchFavoriteDescriptor descriptor;
+  private final ISearchFavorite favorite;
+  private final SearchFavoriteDescriptor descriptor;
 
-  public RunSearchFavoriteAction(SearchFavoriteDescriptor favoriteDescriptor,
-      ISearchFavorite favorite) {
+  public RunSearchFavoriteAction(final SearchFavoriteDescriptor favoriteDescriptor,
+      final ISearchFavorite favorite) {
     super();
     this.favorite = favorite;
-    this.descriptor = favoriteDescriptor;
+    descriptor = favoriteDescriptor;
 
     setImageDescriptor(favoriteDescriptor.getIcon());
-    setText(SearchFavoritesUtil.getFavoriteDisplayName(favorite, favoriteDescriptor));
+    var actionText = SearchFavoritesUtil.getFavoriteDisplayName(favorite, favoriteDescriptor);
+    if (actionText.indexOf("@") != -1) {
+      actionText = actionText.concat("@");
+    }
+    setText(actionText);
   }
 
   @Override
