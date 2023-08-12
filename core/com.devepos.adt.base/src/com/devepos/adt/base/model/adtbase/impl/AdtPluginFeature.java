@@ -45,16 +45,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -63,16 +53,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected static final String ENDPOINT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getEndpoint()
-   * @generated
-   * @ordered
-   */
-  protected String endpoint = ENDPOINT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!--
@@ -85,16 +65,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected static final AdtPluginFeatureType TYPE_EDEFAULT = AdtPluginFeatureType.BOOLEAN;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected AdtPluginFeatureType type = TYPE_EDEFAULT;
-
-  /**
    * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -103,16 +73,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected static final boolean ENABLED_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #isEnabled()
-   * @generated
-   * @ordered
-   */
-  protected boolean enabled = ENABLED_EDEFAULT;
 
   /**
    * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
@@ -125,16 +85,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected static final AdtPluginFeatureCategory CATEGORY_EDEFAULT = AdtPluginFeatureCategory.NO_CATEGORY;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getCategory()
-   * @generated
-   * @ordered
-   */
-  protected AdtPluginFeatureCategory category = CATEGORY_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -143,6 +93,56 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getEndpoint()
+   * @generated
+   * @ordered
+   */
+  protected String endpoint = ENDPOINT_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected AdtPluginFeatureType type = TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #isEnabled()
+   * @generated
+   * @ordered
+   */
+  protected boolean enabled = ENABLED_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected AdtPluginFeatureCategory category = CATEGORY_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -169,160 +169,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.ADT_PLUGIN_FEATURE;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setName(final String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__NAME, oldName, name));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getEndpoint() {
-    return endpoint;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setEndpoint(final String newEndpoint) {
-    String oldEndpoint = endpoint;
-    endpoint = newEndpoint;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__ENDPOINT, oldEndpoint, endpoint));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public AdtPluginFeatureType getType() {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setType(final AdtPluginFeatureType newType) {
-    AdtPluginFeatureType oldType = type;
-    type = newType == null ? TYPE_EDEFAULT : newType;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__TYPE, oldType, type));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setDescription(final String newDescription) {
-    String oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__DESCRIPTION, oldDescription, description));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setEnabled(final boolean newEnabled) {
-    boolean oldEnabled = enabled;
-    enabled = newEnabled;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__ENABLED, oldEnabled, enabled));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public AdtPluginFeatureCategory getCategory() {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setCategory(final AdtPluginFeatureCategory newCategory) {
-    AdtPluginFeatureCategory oldCategory = category;
-    category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE__CATEGORY, oldCategory, category));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case IAdtBasePackage.ADT_PLUGIN_FEATURE__NAME:
@@ -339,6 +185,31 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
       return getDescription();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__NAME:
+      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__ENDPOINT:
+      return ENDPOINT_EDEFAULT == null ? endpoint != null : !ENDPOINT_EDEFAULT.equals(endpoint);
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__TYPE:
+      return type != TYPE_EDEFAULT;
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__ENABLED:
+      return enabled != ENABLED_EDEFAULT;
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__CATEGORY:
+      return category != CATEGORY_EDEFAULT;
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE__DESCRIPTION:
+      return DESCRIPTION_EDEFAULT == null ? description != null
+          : !DESCRIPTION_EDEFAULT.equals(description);
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -407,23 +278,142 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__NAME:
-      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__ENDPOINT:
-      return ENDPOINT_EDEFAULT == null ? endpoint != null : !ENDPOINT_EDEFAULT.equals(endpoint);
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__TYPE:
-      return type != TYPE_EDEFAULT;
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__ENABLED:
-      return enabled != ENABLED_EDEFAULT;
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__CATEGORY:
-      return category != CATEGORY_EDEFAULT;
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE__DESCRIPTION:
-      return DESCRIPTION_EDEFAULT == null ? description != null
-          : !DESCRIPTION_EDEFAULT.equals(description);
+  public AdtPluginFeatureCategory getCategory() {
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getEndpoint() {
+    return endpoint;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public AdtPluginFeatureType getType() {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setCategory(final AdtPluginFeatureCategory newCategory) {
+    AdtPluginFeatureCategory oldCategory = category;
+    category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__CATEGORY, oldCategory, category));
     }
-    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setDescription(final String newDescription) {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__DESCRIPTION, oldDescription, description));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setEnabled(final boolean newEnabled) {
+    boolean oldEnabled = enabled;
+    enabled = newEnabled;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__ENABLED, oldEnabled, enabled));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setEndpoint(final String newEndpoint) {
+    String oldEndpoint = endpoint;
+    endpoint = newEndpoint;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__ENDPOINT, oldEndpoint, endpoint));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setName(final String newName) {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__NAME, oldName, name));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setType(final AdtPluginFeatureType newType) {
+    AdtPluginFeatureType oldType = type;
+    type = newType == null ? TYPE_EDEFAULT : newType;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE__TYPE, oldType, type));
+    }
   }
 
   /**
@@ -452,6 +442,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
     result.append(description);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.ADT_PLUGIN_FEATURE;
   }
 
 } // AdtPluginFeature

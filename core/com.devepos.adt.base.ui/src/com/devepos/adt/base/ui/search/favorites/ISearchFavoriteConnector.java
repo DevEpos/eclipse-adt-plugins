@@ -24,7 +24,7 @@ public interface ISearchFavoriteConnector {
 
   /**
    * Populates the favorite instance from the given search query
-   * 
+   *
    * @param attributes  attributes of favorite
    * @param searchQuery executed search query whoose properties shall be inserted into the
    *                    favorite

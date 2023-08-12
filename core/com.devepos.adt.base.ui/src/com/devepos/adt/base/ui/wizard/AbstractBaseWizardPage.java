@@ -28,7 +28,7 @@ public abstract class AbstractBaseWizardPage extends WizardPage implements IBase
 
   /**
    * Updates the page completion indicator depending on the given status object
-   * 
+   *
    * @param pageStatus the status of a page validation
    */
   protected void updatePageCompletedStatus(final IStatus pageStatus) {

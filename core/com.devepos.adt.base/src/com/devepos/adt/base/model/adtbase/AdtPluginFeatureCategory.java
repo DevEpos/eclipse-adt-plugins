@@ -126,6 +126,63 @@ public enum AdtPluginFeatureCategory implements Enumerator {
       .asList(VALUES_ARRAY));
 
   /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private final int value;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private final String name;
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private final String literal;
+
+  /**
+   * Only this class can construct instances.
+   * <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @generated
+   */
+  AdtPluginFeatureCategory(final int value, final String name, final String literal) {
+    this.value = value;
+    this.name = name;
+    this.literal = literal;
+  }
+
+  /**
+   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified integer
+   * value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static AdtPluginFeatureCategory get(final int value) {
+    switch (value) {
+    case NO_CATEGORY_VALUE:
+      return NO_CATEGORY;
+    case REQUEST_ATTRIBUTE_VALUE:
+      return REQUEST_ATTRIBUTE;
+    case RESPONSE_ATTRIBUTE_VALUE:
+      return RESPONSE_ATTRIBUTE;
+    case URI_PARAMETER_VALUE:
+      return URI_PARAMETER;
+    }
+    return null;
+  }
+
+  /**
    * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified literal
    * value.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -161,70 +218,13 @@ public enum AdtPluginFeatureCategory implements Enumerator {
   }
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Category</b></em>' literal with the specified integer
-   * value.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the integer value.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static AdtPluginFeatureCategory get(final int value) {
-    switch (value) {
-    case NO_CATEGORY_VALUE:
-      return NO_CATEGORY;
-    case REQUEST_ATTRIBUTE_VALUE:
-      return REQUEST_ATTRIBUTE;
-    case RESPONSE_ATTRIBUTE_VALUE:
-      return RESPONSE_ATTRIBUTE;
-    case URI_PARAMETER_VALUE:
-      return URI_PARAMETER;
-    }
-    return null;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  private final int value;
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  private final String name;
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  private final String literal;
-
-  /**
-   * Only this class can construct instances.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
-   *
-   * @generated
-   */
-  AdtPluginFeatureCategory(final int value, final String name, final String literal) {
-    this.value = value;
-    this.name = name;
-    this.literal = literal;
-  }
-
-  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
-  public int getValue() {
-    return value;
+  public String getLiteral() {
+    return literal;
   }
 
   /**
@@ -243,8 +243,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
    * @generated
    */
   @Override
-  public String getLiteral() {
-    return literal;
+  public int getValue() {
+    return value;
   }
 
   /**

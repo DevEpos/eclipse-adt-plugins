@@ -26,7 +26,7 @@ import com.sap.adt.communication.session.ISystemSession;
  */
 public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService {
 
-  private Map<String, Map<String, IAdtPluginFeatureList>> cache = new HashMap<>();
+  private final Map<String, Map<String, IAdtPluginFeatureList>> cache = new HashMap<>();
 
   @Override
   public IAdtPluginFeatureList getFeatures(final String destinationId, final String uri) {

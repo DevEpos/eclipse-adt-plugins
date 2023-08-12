@@ -55,10 +55,6 @@ public class SelectionUtil {
     return null;
   }
 
-  private static final ISelection getSelectionFromActiveWindow(final IWorkbenchWindow window) {
-    return window.getSelectionService().getSelection();
-  }
-
   private static final ISelection getSelectionFromActivePage(final IWorkbenchPage page) {
     return page.getSelection();
 
@@ -76,5 +72,9 @@ public class SelectionUtil {
     }
     return selectionProvider.getSelection();
 
+  }
+
+  private static final ISelection getSelectionFromActiveWindow(final IWorkbenchWindow window) {
+    return window.getSelectionService().getSelection();
   }
 }

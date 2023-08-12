@@ -17,19 +17,28 @@ public final class AdtRisSearchUtil {
   private AdtRisSearchUtil() {
   }
 
-  /**
-   * Retrieves result from ADT Repository Quick search dialog. The used shell for the dialog is the
-   * shell of the active workbench window
-   *
-   * @param dialogTitle       title for the search dialog
-   * @param dialogStorageId   id to store the dialog settings under
-   * @param multipleSelection if {@code true} multiple object can be selected
-   * @return the result from the search dialog
-   */
-  public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final String dialogTitle,
-      final String dialogStorageId, final boolean multipleSelection, final IProject fixedProject) {
-    return searchAdtObjectViaDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        dialogTitle, dialogStorageId, multipleSelection, null, fixedProject);
+  private static class AdtRisSearchResultProxy implements IAdtRisSearchResultProxy {
+
+    private final IAdtRepositorySearchServiceUIResult result;
+
+    public AdtRisSearchResultProxy(final IAdtRepositorySearchServiceUIResult result) {
+      this.result = result;
+    }
+
+    @Override
+    public IAdtObjectReference[] getAllSelectedResults() {
+      return result != null ? result.getAllSelectedObjectReferences() : null;
+    }
+
+    @Override
+    public IAdtObjectReference getFirstResult() {
+      return result != null ? result.getFirstSelectedObjectReference() : null;
+    }
+
+    @Override
+    public IProject getSelectedProject() {
+      return result != null ? result.getSelectedProject() : null;
+    }
   }
 
   /**
@@ -67,27 +76,18 @@ public final class AdtRisSearchUtil {
     return new AdtRisSearchResultProxy(result);
   }
 
-  private static class AdtRisSearchResultProxy implements IAdtRisSearchResultProxy {
-
-    private final IAdtRepositorySearchServiceUIResult result;
-
-    public AdtRisSearchResultProxy(final IAdtRepositorySearchServiceUIResult result) {
-      this.result = result;
-    }
-
-    @Override
-    public IProject getSelectedProject() {
-      return result != null ? result.getSelectedProject() : null;
-    }
-
-    @Override
-    public IAdtObjectReference getFirstResult() {
-      return result != null ? result.getFirstSelectedObjectReference() : null;
-    }
-
-    @Override
-    public IAdtObjectReference[] getAllSelectedResults() {
-      return result != null ? result.getAllSelectedObjectReferences() : null;
-    }
+  /**
+   * Retrieves result from ADT Repository Quick search dialog. The used shell for the dialog is the
+   * shell of the active workbench window
+   *
+   * @param dialogTitle       title for the search dialog
+   * @param dialogStorageId   id to store the dialog settings under
+   * @param multipleSelection if {@code true} multiple object can be selected
+   * @return the result from the search dialog
+   */
+  public static IAdtRisSearchResultProxy searchAdtObjectViaDialog(final String dialogTitle,
+      final String dialogStorageId, final boolean multipleSelection, final IProject fixedProject) {
+    return searchAdtObjectViaDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+        dialogTitle, dialogStorageId, multipleSelection, null, fixedProject);
   }
 }

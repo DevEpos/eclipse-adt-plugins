@@ -30,8 +30,25 @@ public final class AdtObject implements IAdtObject {
   }
 
   @Override
-  public IProject getProject() {
-    return project;
+  public boolean equals(final Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof AdtObject)) {
+      return super.equals(obj);
+    }
+    final AdtObject other = (AdtObject) obj;
+    if (reference == null && other.reference == null) {
+      return true;
+    }
+    if (reference == null || other.reference == null) {
+      return false;
+    }
+    if (!StringUtil.isEmpty(reference.getType()) && !StringUtil.isEmpty(reference.getName())) {
+      return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(
+          reference.getName(), other.reference.getName());
+    }
+    return Objects.equals(reference.getUri(), other.reference.getUri());
   }
 
   @Override
@@ -53,6 +70,11 @@ public final class AdtObject implements IAdtObject {
   }
 
   @Override
+  public IProject getProject() {
+    return project;
+  }
+
+  @Override
   public IAdtObjectReference getReference() {
     return reference;
   }
@@ -60,27 +82,5 @@ public final class AdtObject implements IAdtObject {
   @Override
   public boolean supportsDataPreview() {
     return objectType != null ? objectType.supportsDataPreview() : false;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (!(obj instanceof AdtObject)) {
-      return super.equals(obj);
-    }
-    final AdtObject other = (AdtObject) obj;
-    if (reference == null && other.reference == null) {
-      return true;
-    }
-    if (reference == null || other.reference == null) {
-      return false;
-    }
-    if (!StringUtil.isEmpty(reference.getType()) && !StringUtil.isEmpty(reference.getName())) {
-      return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(
-          reference.getName(), other.reference.getName());
-    }
-    return Objects.equals(reference.getUri(), other.reference.getUri());
   }
 }

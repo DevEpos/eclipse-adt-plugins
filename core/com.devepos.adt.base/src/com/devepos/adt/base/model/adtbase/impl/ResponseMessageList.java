@@ -65,38 +65,12 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.RESPONSE_MESSAGE_LIST;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<IResponseMessage> getMessages() {
-    if (messages == null) {
-      messages = new EObjectContainmentEList<>(IResponseMessage.class, this,
-          IAdtBasePackage.RESPONSE_MESSAGE_LIST__MESSAGES);
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case IAdtBasePackage.RESPONSE_MESSAGE_LIST__MESSAGES:
+      return getMessages();
     }
-    return messages;
-  }
-
-  @Override
-  public IStatus toStatus(final String pluginId, final String message) {
-    if (messages == null || messages.size() <= 0) {
-      return null;
-    }
-    return new MultiStatus(pluginId, 0, messages.stream().map(m -> {
-      String occurrenceIndicator = "";
-      if (m.getOccurrences() > 1) {
-        occurrenceIndicator = String.format(Messages.ResponseMessageList_MessageMultiplierText_xmsg,
-            m.getOccurrences());
-      }
-      return new Status(m.getStatusType(), pluginId, m.getContent() + occurrenceIndicator);
-    }).toArray(IStatus[]::new), message, null);
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -122,12 +96,28 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAdtBasePackage.RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING:
+      return toStatus((String) arguments.get(0), (String) arguments.get(1));
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case IAdtBasePackage.RESPONSE_MESSAGE_LIST__MESSAGES:
-      return getMessages();
+      return messages != null && !messages.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -171,12 +161,27 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.RESPONSE_MESSAGE_LIST__MESSAGES:
-      return messages != null && !messages.isEmpty();
+  public EList<IResponseMessage> getMessages() {
+    if (messages == null) {
+      messages = new EObjectContainmentEList<>(IResponseMessage.class, this,
+          IAdtBasePackage.RESPONSE_MESSAGE_LIST__MESSAGES);
     }
-    return super.eIsSet(featureID);
+    return messages;
+  }
+
+  @Override
+  public IStatus toStatus(final String pluginId, final String message) {
+    if (messages == null || messages.size() <= 0) {
+      return null;
+    }
+    return new MultiStatus(pluginId, 0, messages.stream().map(m -> {
+      String occurrenceIndicator = "";
+      if (m.getOccurrences() > 1) {
+        occurrenceIndicator = String.format(Messages.ResponseMessageList_MessageMultiplierText_xmsg,
+            m.getOccurrences());
+      }
+      return new Status(m.getStatusType(), pluginId, m.getContent() + occurrenceIndicator);
+    }).toArray(IStatus[]::new), message, null);
   }
 
   /**
@@ -186,13 +191,8 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public Object eInvoke(final int operationID, final EList<?> arguments)
-      throws InvocationTargetException {
-    switch (operationID) {
-    case IAdtBasePackage.RESPONSE_MESSAGE_LIST___TO_STATUS__STRING_STRING:
-      return toStatus((String) arguments.get(0), (String) arguments.get(1));
-    }
-    return super.eInvoke(operationID, arguments);
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.RESPONSE_MESSAGE_LIST;
   }
 
 } // ResponseMessageList

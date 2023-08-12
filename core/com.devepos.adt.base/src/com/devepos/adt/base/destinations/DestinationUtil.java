@@ -13,27 +13,6 @@ import com.sap.adt.tools.core.project.IAbapProject;
  */
 public final class DestinationUtil {
 
-  private static IAbapProject findProjectByDestination(final String destinationId) {
-    final IProject project = AdtProjectServiceFactory.createProjectService()
-        .findProject(destinationId);
-    return project != null ? project.getAdapter(IAbapProject.class) : null;
-  }
-
-  /**
-   * Retrieves the system id from the given destination id
-   *
-   * @param destinationId a destination id to an ABAP project
-   * @return the system id from the given destination id
-   */
-  public static String getSystemId(final String destinationId) {
-    if (destinationId == null) {
-      return null;
-    }
-    final IAbapProject project = findProjectByDestination(destinationId);
-    return project != null ? project.getDestinationData().getSystemConfiguration().getSystemId()
-        : null;
-  }
-
   /**
    * Retrieves destination data for the given destination id
    *
@@ -46,6 +25,22 @@ public final class DestinationUtil {
     }
     final IAbapProject project = findProjectByDestination(destinationId);
     return project != null ? project.getDestinationData() : null;
+  }
+
+  /**
+   * Read destination id from the given project. If the project is not of type
+   * {@link IAbapProject} <code>null</code> will be returned
+   *
+   * @param project project instance which must be adaptable to type
+   *                {@link IAbapProject}
+   * @return
+   */
+  public static String getDestinationId(final IProject project) {
+    if (project == null) {
+      return null;
+    }
+    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+    return abapProject != null ? abapProject.getDestinationId() : null;
   }
 
   /**
@@ -63,19 +58,24 @@ public final class DestinationUtil {
   }
 
   /**
-   * Read destination id from the given project. If the project is not of type
-   * {@link IAbapProject} <code>null</code> will be returned
+   * Retrieves the system id from the given destination id
    *
-   * @param project project instance which must be adaptable to type
-   *                {@link IAbapProject}
-   * @return
+   * @param destinationId a destination id to an ABAP project
+   * @return the system id from the given destination id
    */
-  public static String getDestinationId(final IProject project) {
-    if (project == null) {
+  public static String getSystemId(final String destinationId) {
+    if (destinationId == null) {
       return null;
     }
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-    return abapProject != null ? abapProject.getDestinationId() : null;
+    final IAbapProject project = findProjectByDestination(destinationId);
+    return project != null ? project.getDestinationData().getSystemConfiguration().getSystemId()
+        : null;
+  }
+
+  private static IAbapProject findProjectByDestination(final String destinationId) {
+    final IProject project = AdtProjectServiceFactory.createProjectService()
+        .findProject(destinationId);
+    return project != null ? project.getAdapter(IAbapProject.class) : null;
   }
 
 }

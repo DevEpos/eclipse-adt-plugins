@@ -27,6 +27,13 @@ public interface ILogger {
   void error(Throwable throwable, String messageText, Object... args);
 
   /**
+   * Create log entry from the given status
+   *
+   * @param status
+   */
+  void log(IStatus status);
+
+  /**
    * Create warning log entry from throwable
    *
    * @param throwable
@@ -34,11 +41,4 @@ public interface ILogger {
    * @param args
    */
   void warning(Throwable throwable, String messageText, Object... args);
-
-  /**
-   * Create log entry from the given status
-   *
-   * @param status
-   */
-  void log(IStatus status);
 }

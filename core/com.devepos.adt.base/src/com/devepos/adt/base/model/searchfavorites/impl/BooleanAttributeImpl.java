@@ -63,50 +63,27 @@ public class BooleanAttributeImpl extends BaseAttributeImpl implements IBooleanA
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.BOOLEAN_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public boolean isValue() {
-    return value;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setValue(final boolean newValue) {
-    boolean oldValue = value;
-    value = newValue;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.BOOLEAN_ATTRIBUTE__VALUE, oldValue, value));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.BOOLEAN_ATTRIBUTE__VALUE:
       return isValue();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.BOOLEAN_ATTRIBUTE__VALUE:
+      return value != VALUE_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -148,12 +125,24 @@ public class BooleanAttributeImpl extends BaseAttributeImpl implements IBooleanA
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.BOOLEAN_ATTRIBUTE__VALUE:
-      return value != VALUE_EDEFAULT;
+  public boolean isValue() {
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setValue(final boolean newValue) {
+    boolean oldValue = value;
+    value = newValue;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.BOOLEAN_ATTRIBUTE__VALUE, oldValue, value));
     }
-    return super.eIsSet(featureID);
   }
 
   /**
@@ -173,6 +162,17 @@ public class BooleanAttributeImpl extends BaseAttributeImpl implements IBooleanA
     result.append(value);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.BOOLEAN_ATTRIBUTE;
   }
 
 } // BooleanAttributeImpl

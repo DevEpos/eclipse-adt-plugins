@@ -30,6 +30,17 @@ public class StylerFactory {
   public static Styler ITALIC_STYLER = createCustomStyler(SWT.ITALIC, null, null);
 
   /**
+   * Cleans the styler registry
+   */
+  public static void cleanRegistry() {
+    if (customStylerRegistry != null) {
+      customStylerRegistry.values().stream().forEach(CustomStyler::dispose);
+      customStylerRegistry.clear();
+      customStylerRegistry = null;
+    }
+  }
+
+  /**
    * Creates/Retrieves a custom style with the given style, foreground color and
    * background color
    *
@@ -46,17 +57,6 @@ public class StylerFactory {
         backgroundColorName);
 
     return getStyler(stylerKey, style, foregroundColorName, backgroundColorName);
-  }
-
-  /**
-   * Cleans the styler registry
-   */
-  public static void cleanRegistry() {
-    if (customStylerRegistry != null) {
-      customStylerRegistry.values().stream().forEach(CustomStyler::dispose);
-      customStylerRegistry.clear();
-      customStylerRegistry = null;
-    }
   }
 
   private static CustomStyler getStyler(final String stylerKey, final int style,

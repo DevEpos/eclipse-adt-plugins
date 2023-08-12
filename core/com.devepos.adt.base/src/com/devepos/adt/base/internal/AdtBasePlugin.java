@@ -20,6 +20,15 @@ public class AdtBasePlugin extends AbstractUIPlugin {
   public AdtBasePlugin() {
   }
 
+  /**
+   * Returns the shared instance
+   *
+   * @return the shared instance
+   */
+  public static AdtBasePlugin getDefault() {
+    return plugin;
+  }
+
   @Override
   public void start(final BundleContext context) throws Exception {
     super.start(context);
@@ -30,14 +39,5 @@ public class AdtBasePlugin extends AbstractUIPlugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
-  }
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static AdtBasePlugin getDefault() {
-    return plugin;
   }
 }

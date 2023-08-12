@@ -25,13 +25,13 @@ public class LazyLoadingElementInfo extends ElementInfoBase implements ILazyLoad
   }
 
   @Override
-  public IElementInfoProvider getElementInfoProvider() {
-    return provider;
+  public LazyLoadingRefreshMode getContentRefreshMode() {
+    return refreshMode;
   }
 
   @Override
-  public void setElementInfoProvider(final IElementInfoProvider infoProvider) {
-    provider = infoProvider;
+  public IElementInfoProvider getElementInfoProvider() {
+    return provider;
   }
 
   @Override
@@ -40,8 +40,8 @@ public class LazyLoadingElementInfo extends ElementInfoBase implements ILazyLoad
   }
 
   @Override
-  public LazyLoadingRefreshMode getContentRefreshMode() {
-    return refreshMode;
+  public void setElementInfoProvider(final IElementInfoProvider infoProvider) {
+    provider = infoProvider;
   }
 
 }

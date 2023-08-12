@@ -11,32 +11,6 @@ public class StringUtil {
   public static final String NEGATION1 = "!"; //$NON-NLS-1$
 
   /**
-   * Returns {@code true} if, and only if, {@link value#length()} is {@code 0}.
-   *
-   * @return {@code true} if {@link value#length()} is {@code 0}, otherwise
-   *         {@code false}
-   */
-  public static boolean isEmpty(final String value) {
-    return value == null || value.isEmpty();
-  }
-
-  /**
-   * Returns {@code true} if the string is null, empty or contains only
-   * {@link Character#isWhitespace(int) white space} codepoints, otherwise
-   * {@code false}.
-   *
-   * @return {@code true} if the string is null, empty or contains only
-   *         {@link Character#isWhitespace(int) white space} codepoints, otherwise
-   *         {@code false}
-   */
-  public static boolean isBlank(final String value) {
-    if (value == null || value.isEmpty()) {
-      return true;
-    }
-    return value.trim().equals("");
-  }
-
-  /**
    * Checks if {@code value} equals {@code value2}
    *
    * @param value  a String value
@@ -81,18 +55,29 @@ public class StringUtil {
   }
 
   /**
-   * Returns <code>true</code> if the passed String value starts with a negation
-   * character/string. A negation character is either "!" or "<>"
+   * Returns {@code true} if the string is null, empty or contains only
+   * {@link Character#isWhitespace(int) white space} codepoints, otherwise
+   * {@code false}.
    *
-   * @param value the String to be analyzed
-   * @return <code>true</code> if <code>value</code> starts with negation
-   *         character
+   * @return {@code true} if the string is null, empty or contains only
+   *         {@link Character#isWhitespace(int) white space} codepoints, otherwise
+   *         {@code false}
    */
-  public static boolean startsWithNegationCharacter(final String value) {
+  public static boolean isBlank(final String value) {
     if (value == null || value.isEmpty()) {
-      return false;
+      return true;
     }
-    return value.startsWith(NEGATION1);
+    return value.trim().equals("");
+  }
+
+  /**
+   * Returns {@code true} if, and only if, {@link value#length()} is {@code 0}.
+   *
+   * @return {@code true} if {@link value#length()} is {@code 0}, otherwise
+   *         {@code false}
+   */
+  public static boolean isEmpty(final String value) {
+    return value == null || value.isEmpty();
   }
 
   /**
@@ -115,6 +100,21 @@ public class StringUtil {
       return value.substring(negationCharLength);
     }
     return "";
+  }
+
+  /**
+   * Returns <code>true</code> if the passed String value starts with a negation
+   * character/string. A negation character is either "!" or "<>"
+   *
+   * @param value the String to be analyzed
+   * @return <code>true</code> if <code>value</code> starts with negation
+   *         character
+   */
+  public static boolean startsWithNegationCharacter(final String value) {
+    if (value == null || value.isEmpty()) {
+      return false;
+    }
+    return value.startsWith(NEGATION1);
   }
 
   /**

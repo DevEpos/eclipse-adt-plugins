@@ -37,6 +37,25 @@ public class MessageLine extends CLabel {
   }
 
   /**
+   * Sets the message and image to the given status.
+   *
+   * @param status {@link IStatus} or <code>null</code>. <code>null</code> will
+   *               set the empty text and no image.
+   */
+  public void setStatus(final IStatus status) {
+    if (status != null && status.getSeverity() != IStatus.OK) {
+      final String message = status.getMessage();
+      if (message != null && message.length() > 0) {
+        setText(LegacyActionTools.escapeMnemonics(message));
+        setImage(findImage(status));
+        return;
+      }
+    }
+    setText(""); //$NON-NLS-1$
+    setImage(null);
+  }
+
+  /**
    * Find an image associated with the status.
    *
    * @param status the status to find the image for
@@ -57,24 +76,5 @@ public class MessageLine extends CLabel {
       return JFaceResources.getImage(Dialog.DLG_IMG_MESSAGE_INFO);
     }
     return null;
-  }
-
-  /**
-   * Sets the message and image to the given status.
-   *
-   * @param status {@link IStatus} or <code>null</code>. <code>null</code> will
-   *               set the empty text and no image.
-   */
-  public void setStatus(final IStatus status) {
-    if (status != null && status.getSeverity() != IStatus.OK) {
-      final String message = status.getMessage();
-      if (message != null && message.length() > 0) {
-        setText(LegacyActionTools.escapeMnemonics(message));
-        setImage(findImage(status));
-        return;
-      }
-    }
-    setText(""); //$NON-NLS-1$
-    setImage(null);
   }
 }

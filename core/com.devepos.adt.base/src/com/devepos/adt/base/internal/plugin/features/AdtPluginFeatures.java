@@ -12,7 +12,7 @@ import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 public class AdtPluginFeatures implements IAdtPluginFeatures {
 
-  private Map<String, IAdtPluginFeature> nameToFeature;
+  private final Map<String, IAdtPluginFeature> nameToFeature;
 
   public AdtPluginFeatures(final List<IAdtPluginFeature> features) {
     Assert.isTrue(features != null && !features.isEmpty());
@@ -21,14 +21,13 @@ public class AdtPluginFeatures implements IAdtPluginFeatures {
   }
 
   @Override
-  public boolean isFeatureEnabled(final String name) {
-    IAdtPluginFeature feature = nameToFeature.get(name);
-    return feature != null ? feature.isEnabled() : false;
+  public boolean areAllFeaturesEnabled() {
+    return nameToFeature.values().stream().allMatch(IAdtPluginFeature::isEnabled);
   }
 
   @Override
-  public boolean areAllFeaturesEnabled() {
-    return nameToFeature.values().stream().allMatch(IAdtPluginFeature::isEnabled);
+  public IAdtPluginFeature[] getAll() {
+    return nameToFeature.values().toArray(new IAdtPluginFeature[nameToFeature.size()]);
   }
 
   @Override
@@ -37,8 +36,9 @@ public class AdtPluginFeatures implements IAdtPluginFeatures {
   }
 
   @Override
-  public IAdtPluginFeature[] getAll() {
-    return nameToFeature.values().toArray(new IAdtPluginFeature[nameToFeature.size()]);
+  public boolean isFeatureEnabled(final String name) {
+    IAdtPluginFeature feature = nameToFeature.get(name);
+    return feature != null ? feature.isEnabled() : false;
   }
 
 }

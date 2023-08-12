@@ -43,6 +43,21 @@ public class CopyToClipboardAction extends Action {
     setHoverImageDescriptor(workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
   }
 
+  private static String getText(final IBaseLabelProvider labelProvider, final Object object) {
+    if (object instanceof ITreeNode) {
+      return ((ITreeNode) object).getDisplayName();
+    }
+    if (labelProvider instanceof ILabelProvider) {
+      return ((ILabelProvider) labelProvider).getText(object);
+    }
+    if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
+      return ((DelegatingStyledCellLabelProvider) labelProvider).getStyledStringProvider()
+          .getStyledText(object)
+          .toString();
+    }
+    return object.toString();
+  }
+
   /**
    * Registers the given control to the clipboard action. The control that
    * currently has the focus will be the primary control and its content will be
@@ -67,20 +82,6 @@ public class CopyToClipboardAction extends Action {
     }
   }
 
-  private Object getFocused() {
-    for (final Text textControl : textControls) {
-      if (textControl.isFocusControl()) {
-        return textControl;
-      }
-    }
-    for (final StructuredViewer viewer : viewers) {
-      if (viewer.getControl().isFocusControl()) {
-        return viewer;
-      }
-    }
-    return null;
-  }
-
   @Override
   public void run() {
     final Object focusedObject = getFocused();
@@ -92,15 +93,6 @@ public class CopyToClipboardAction extends Action {
     } else {
       copyFromTextControl((Text) focusedObject);
     }
-  }
-
-  private void copyFromTextControl(final Text textControl) {
-    final Shell shell = textControl.getShell();
-    if (shell == null) {
-      return;
-    }
-
-    copyToClipboard(textControl.getSelectionText(), shell);
   }
 
   private void copyFromStructuredViewer(final StructuredViewer viewer) {
@@ -126,37 +118,13 @@ public class CopyToClipboardAction extends Action {
 
   }
 
-  private static String getText(final IBaseLabelProvider labelProvider, final Object object) {
-    if (object instanceof ITreeNode) {
-      return ((ITreeNode) object).getDisplayName();
+  private void copyFromTextControl(final Text textControl) {
+    final Shell shell = textControl.getShell();
+    if (shell == null) {
+      return;
     }
-    if (labelProvider instanceof ILabelProvider) {
-      return ((ILabelProvider) labelProvider).getText(object);
-    }
-    if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
-      return ((DelegatingStyledCellLabelProvider) labelProvider).getStyledStringProvider()
-          .getStyledText(object)
-          .toString();
-    }
-    return object.toString();
-  }
 
-  private void copyToClipboard(String text, final Shell shell) {
-    text = TextProcessor.deprocess(text);
-    final Clipboard clipboard = new Clipboard(shell.getDisplay());
-    try {
-      copyToClipboard(clipboard, text, shell);
-    } finally {
-      clipboard.dispose();
-    }
-  }
-
-  private Iterator<?> getSelection(final StructuredViewer viewer) {
-    final ISelection s = viewer.getSelection();
-    if (s instanceof IStructuredSelection) {
-      return ((IStructuredSelection) s).iterator();
-    }
-    return Collections.emptyList().iterator();
+    copyToClipboard(textControl.getSelectionText(), shell);
   }
 
   private void copyToClipboard(final Clipboard clipboard, final String str, final Shell shell) {
@@ -171,5 +139,37 @@ public class CopyToClipboardAction extends Action {
         copyToClipboard(clipboard, str, shell);
       }
     }
+  }
+
+  private void copyToClipboard(String text, final Shell shell) {
+    text = TextProcessor.deprocess(text);
+    final Clipboard clipboard = new Clipboard(shell.getDisplay());
+    try {
+      copyToClipboard(clipboard, text, shell);
+    } finally {
+      clipboard.dispose();
+    }
+  }
+
+  private Object getFocused() {
+    for (final Text textControl : textControls) {
+      if (textControl.isFocusControl()) {
+        return textControl;
+      }
+    }
+    for (final StructuredViewer viewer : viewers) {
+      if (viewer.getControl().isFocusControl()) {
+        return viewer;
+      }
+    }
+    return null;
+  }
+
+  private Iterator<?> getSelection(final StructuredViewer viewer) {
+    final ISelection s = viewer.getSelection();
+    if (s instanceof IStructuredSelection) {
+      return ((IStructuredSelection) s).iterator();
+    }
+    return Collections.emptyList().iterator();
   }
 }

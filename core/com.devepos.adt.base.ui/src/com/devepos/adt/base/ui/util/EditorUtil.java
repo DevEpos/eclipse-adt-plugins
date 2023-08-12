@@ -16,20 +16,6 @@ import com.devepos.adt.base.ui.adtobject.IAdtObject;
 public class EditorUtil {
 
   /**
-   * Retrieves the active Editor Input or <code>null</code>
-   *
-   * @return
-   */
-  public static IEditorInput getActiveEditorInput() {
-    final IEditorPart activePart = getActiveEditor();
-    if (activePart == null) {
-      return null;
-    }
-
-    return activePart.getEditorInput();
-  }
-
-  /**
    * Returns the active editor part of the current workbench window
    *
    * @return
@@ -44,6 +30,20 @@ public class EditorUtil {
 
     final IEditorPart activePart = activePage.getActiveEditor();
     return activePart;
+  }
+
+  /**
+   * Retrieves the active Editor Input or <code>null</code>
+   *
+   * @return
+   */
+  public static IEditorInput getActiveEditorInput() {
+    final IEditorPart activePart = getActiveEditor();
+    if (activePart == null) {
+      return null;
+    }
+
+    return activePart.getEditorInput();
   }
 
   /**

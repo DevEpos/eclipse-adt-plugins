@@ -21,7 +21,7 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
 
   /**
    * Creates new Filtered Tree control.
-   * 
+   *
    * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean)
    */
   public FilterableTree(final Composite parent, final String placeholderText,
@@ -31,11 +31,11 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
 
   /**
    * Creates new Filtered Tree control.
-   * 
+   *
    * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean, boolean)
    */
   public FilterableTree(final Composite parent, final String placeholderText,
-      final boolean hideFilterControls, boolean enableToolbarMode) {
+      final boolean hideFilterControls, final boolean enableToolbarMode) {
     super(parent, placeholderText, hideFilterControls, enableToolbarMode);
   }
 

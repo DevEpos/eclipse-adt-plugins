@@ -8,11 +8,11 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
 
 public class LoadingTreeItemsNode extends TreeNodeBase {
   public static LoadingTreeItemsNode INSTANCE;
-  private final Image image;
-
   static {
     INSTANCE = new LoadingTreeItemsNode();
   }
+
+  private final Image image;
 
   private LoadingTreeItemsNode() {
     super(Messages.LazyLoadingTreeContentProvider_LoadingContent_xmsg, null);

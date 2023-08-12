@@ -18,6 +18,12 @@ public abstract class ExtendedDialogCellEditor extends DialogCellEditor {
   }
 
   @Override
+  protected Button createButton(final Composite parent) {
+    button = super.createButton(parent);
+    return button;
+  }
+
+  @Override
   protected Control createContents(final Composite cell) {
     final Control control = super.createContents(cell);
     control.addMouseListener(MouseListener.mouseUpAdapter(e -> {
@@ -26,12 +32,6 @@ public abstract class ExtendedDialogCellEditor extends DialogCellEditor {
       }
     }));
     return control;
-  }
-
-  @Override
-  protected Button createButton(final Composite parent) {
-    button = super.createButton(parent);
-    return button;
   }
 
 }

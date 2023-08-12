@@ -24,15 +24,6 @@ public class SearchPageUtil {
   }
 
   /**
-   * Removes the given listener
-   *
-   * @param l listener to be removed
-   */
-  public static void removeSearchPageOpenListener(final ISearchPageListener l) {
-    searchPageOpenListeners.remove(l);
-  }
-
-  /**
    * Notifies the current list of {@link ISearchPageListener}s that the given
    * {@code searchPage} was opened. <br/>
    * After the listeners have been notified they are removed from the internal
@@ -50,5 +41,14 @@ public class SearchPageUtil {
     for (ISearchPageListener l : copiedListeners) {
       l.pageOpened(searchPage);
     }
+  }
+
+  /**
+   * Removes the given listener
+   *
+   * @param l listener to be removed
+   */
+  public static void removeSearchPageOpenListener(final ISearchPageListener l) {
+    searchPageOpenListeners.remove(l);
   }
 }

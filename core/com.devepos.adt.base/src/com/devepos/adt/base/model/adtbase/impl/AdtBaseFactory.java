@@ -34,6 +34,27 @@ import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
  */
 public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   /**
+   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @generated
+   */
+  public AdtBaseFactory() {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @deprecated
+   * @generated
+   */
+  @Deprecated
+  public static IAdtBasePackage getPackage() {
+    return IAdtBasePackage.eINSTANCE;
+  }
+
+  /**
    * Creates the default factory implementation.
    * <!-- begin-user-doc --> <!--
    * end-user-doc -->
@@ -54,13 +75,77 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   }
 
   /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
-  public AdtBaseFactory() {
-    super();
+  public String convertAdtPluginFeatureCategoryToString(final EDataType eDataType,
+      final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertAdtPluginFeatureTypeToString(final EDataType eDataType,
+      final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertIAdtPluginFeaturesToString(final EDataType eDataType,
+      final Object instanceValue) {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertIStatusToString(final EDataType eDataType, final Object instanceValue) {
+    return super.convertToString(eDataType, instanceValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public String convertMessageTypeToString(final EDataType eDataType, final Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String convertToString(final EDataType eDataType, final Object instanceValue) {
+    switch (eDataType.getClassifierID()) {
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE_TYPE:
+      return convertAdtPluginFeatureTypeToString(eDataType, instanceValue);
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
+      return convertAdtPluginFeatureCategoryToString(eDataType, instanceValue);
+    case IAdtBasePackage.MESSAGE_TYPE:
+      return convertMessageTypeToString(eDataType, instanceValue);
+    case IAdtBasePackage.IADT_PLUGIN_FEATURES:
+      return convertIAdtPluginFeaturesToString(eDataType, instanceValue);
+    case IAdtBasePackage.ISTATUS:
+      return convertIStatusToString(eDataType, instanceValue);
+    default:
+      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
+          + "' is not a valid classifier");
+    }
   }
 
   /**
@@ -99,6 +184,80 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    * @generated
    */
   @Override
+  public IAdtObjRef createAdtObjRef() {
+    AdtObjRef adtObjRef = new AdtObjRef();
+    return adtObjRef;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtObjRefList createAdtObjRefList() {
+    AdtObjRefList adtObjRefList = new AdtObjRefList();
+    return adtObjRefList;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtPluginFeature createAdtPluginFeature() {
+    AdtPluginFeature adtPluginFeature = new AdtPluginFeature();
+    return adtPluginFeature;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public AdtPluginFeatureCategory createAdtPluginFeatureCategoryFromString(
+      final EDataType eDataType, final String initialValue) {
+    AdtPluginFeatureCategory result = AdtPluginFeatureCategory.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    }
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtPluginFeatureList createAdtPluginFeatureList() {
+    AdtPluginFeatureList adtPluginFeatureList = new AdtPluginFeatureList();
+    return adtPluginFeatureList;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public AdtPluginFeatureType createAdtPluginFeatureTypeFromString(final EDataType eDataType,
+      final String initialValue) {
+    AdtPluginFeatureType result = AdtPluginFeatureType.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    }
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public Object createFromString(final EDataType eDataType, final String initialValue) {
     switch (eDataType.getClassifierID()) {
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_TYPE:
@@ -122,78 +281,35 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    *
    * @generated
    */
-  @Override
-  public String convertToString(final EDataType eDataType, final Object instanceValue) {
-    switch (eDataType.getClassifierID()) {
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE_TYPE:
-      return convertAdtPluginFeatureTypeToString(eDataType, instanceValue);
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE_CATEGORY:
-      return convertAdtPluginFeatureCategoryToString(eDataType, instanceValue);
-    case IAdtBasePackage.MESSAGE_TYPE:
-      return convertMessageTypeToString(eDataType, instanceValue);
-    case IAdtBasePackage.IADT_PLUGIN_FEATURES:
-      return convertIAdtPluginFeaturesToString(eDataType, instanceValue);
-    case IAdtBasePackage.ISTATUS:
-      return convertIStatusToString(eDataType, instanceValue);
-    default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+  public IAdtPluginFeatures createIAdtPluginFeaturesFromString(final EDataType eDataType,
+      final String initialValue) {
+    return (IAdtPluginFeatures) super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public IStatus createIStatusFromString(final EDataType eDataType, final String initialValue) {
+    return (IStatus) super.createFromString(eDataType, initialValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public MessageType createMessageTypeFromString(final EDataType eDataType,
+      final String initialValue) {
+    MessageType result = MessageType.get(initialValue);
+    if (result == null) {
+      throw new IllegalArgumentException("The value '" + initialValue
+          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtObjRef createAdtObjRef() {
-    AdtObjRef adtObjRef = new AdtObjRef();
-    return adtObjRef;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtObjRefList createAdtObjRefList() {
-    AdtObjRefList adtObjRefList = new AdtObjRefList();
-    return adtObjRefList;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IUser createUser() {
-    User user = new User();
-    return user;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtPluginFeature createAdtPluginFeature() {
-    AdtPluginFeature adtPluginFeature = new AdtPluginFeature();
-    return adtPluginFeature;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtPluginFeatureList createAdtPluginFeatureList() {
-    AdtPluginFeatureList adtPluginFeatureList = new AdtPluginFeatureList();
-    return adtPluginFeatureList;
+    return result;
   }
 
   /**
@@ -236,115 +352,10 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    *
    * @generated
    */
-  public AdtPluginFeatureType createAdtPluginFeatureTypeFromString(final EDataType eDataType,
-      final String initialValue) {
-    AdtPluginFeatureType result = AdtPluginFeatureType.get(initialValue);
-    if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    }
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public String convertAdtPluginFeatureTypeToString(final EDataType eDataType,
-      final Object instanceValue) {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public AdtPluginFeatureCategory createAdtPluginFeatureCategoryFromString(
-      final EDataType eDataType, final String initialValue) {
-    AdtPluginFeatureCategory result = AdtPluginFeatureCategory.get(initialValue);
-    if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    }
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public String convertAdtPluginFeatureCategoryToString(final EDataType eDataType,
-      final Object instanceValue) {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public MessageType createMessageTypeFromString(final EDataType eDataType,
-      final String initialValue) {
-    MessageType result = MessageType.get(initialValue);
-    if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    }
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public String convertMessageTypeToString(final EDataType eDataType, final Object instanceValue) {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public IAdtPluginFeatures createIAdtPluginFeaturesFromString(final EDataType eDataType,
-      final String initialValue) {
-    return (IAdtPluginFeatures) super.createFromString(eDataType, initialValue);
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public String convertIAdtPluginFeaturesToString(final EDataType eDataType,
-      final Object instanceValue) {
-    return super.convertToString(eDataType, instanceValue);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public IStatus createIStatusFromString(final EDataType eDataType, final String initialValue) {
-    return (IStatus) super.createFromString(eDataType, initialValue);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public String convertIStatusToString(final EDataType eDataType, final Object instanceValue) {
-    return super.convertToString(eDataType, instanceValue);
+  @Override
+  public IUser createUser() {
+    User user = new User();
+    return user;
   }
 
   /**
@@ -355,17 +366,6 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
   @Override
   public IAdtBasePackage getAdtBasePackage() {
     return (IAdtBasePackage) getEPackage();
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @deprecated
-   * @generated
-   */
-  @Deprecated
-  public static IAdtBasePackage getPackage() {
-    return IAdtBasePackage.eINSTANCE;
   }
 
 } // AdtBaseFactory

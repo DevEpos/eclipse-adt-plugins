@@ -40,30 +40,18 @@ public enum ObjectType {
   }
 
   /**
-   * Returns <code>true</code> if the object type supports Data Preview
+   * Get object type instance from the given ADT type
    *
+   * @param execType
    * @return
    */
-  public boolean supportsDataPreview() {
-    return supportsDataPreview;
-  }
-
-  /**
-   * Retrieve the internal id of the Object type
-   *
-   * @return
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Retrieve the ADT execution type of this object type
-   *
-   * @return
-   */
-  public String getAdtExecutionType() {
-    return adtExecutionType;
+  public static ObjectType getFromAdtType(final String execType) {
+    for (final ObjectType ot : ObjectType.values()) {
+      if (ot.adtExecutionType.equalsIgnoreCase(execType)) {
+        return ot;
+      }
+    }
+    return ObjectType.UNRECOGNIZED;
   }
 
   /**
@@ -82,18 +70,30 @@ public enum ObjectType {
   }
 
   /**
-   * Get object type instance from the given ADT type
+   * Retrieve the ADT execution type of this object type
    *
-   * @param execType
    * @return
    */
-  public static ObjectType getFromAdtType(final String execType) {
-    for (final ObjectType ot : ObjectType.values()) {
-      if (ot.adtExecutionType.equalsIgnoreCase(execType)) {
-        return ot;
-      }
-    }
-    return ObjectType.UNRECOGNIZED;
+  public String getAdtExecutionType() {
+    return adtExecutionType;
+  }
+
+  /**
+   * Retrieve the internal id of the Object type
+   *
+   * @return
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Returns <code>true</code> if the object type supports Data Preview
+   *
+   * @return
+   */
+  public boolean supportsDataPreview() {
+    return supportsDataPreview;
   }
 
 }

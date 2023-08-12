@@ -12,7 +12,7 @@ import com.devepos.adt.base.ui.internal.search.favorites.ManageSearchFavoritesDi
 public class ManageSearchFavoritesHandler extends AbstractHandler {
 
   @Override
-  public Object execute(ExecutionEvent event) throws ExecutionException {
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
     final var favoriteDialog = new ManageSearchFavoritesDialog(HandlerUtil.getActiveShell(event));
     if (favoriteDialog.open() == Window.OK) {
       final Object[] chosenEntries = favoriteDialog.getResult();

@@ -10,18 +10,6 @@ import java.util.List;
 public interface IElementInfoCollection extends IElementInfo {
 
   /**
-   * @return a list of {@link IElementInfo} references
-   */
-  List<IElementInfo> getChildren();
-
-  /**
-   * Returns the size of this element collection
-   *
-   * @return the size of this element collection
-   */
-  int size();
-
-  /**
    * Returns the child element with the given name or <code>null</code> if it does
    * not exist
    *
@@ -30,6 +18,11 @@ public interface IElementInfoCollection extends IElementInfo {
    *         not exist
    */
   IElementInfo getChild(String name);
+
+  /**
+   * @return a list of {@link IElementInfo} references
+   */
+  List<IElementInfo> getChildren();
 
   /**
    * Returns <code>true</code> if the collection has a child the the given name
@@ -45,4 +38,11 @@ public interface IElementInfoCollection extends IElementInfo {
    * @return <code>true</code> if the collection has children
    */
   boolean hasChildren();
+
+  /**
+   * Returns the size of this element collection
+   *
+   * @return the size of this element collection
+   */
+  int size();
 }

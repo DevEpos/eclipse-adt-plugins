@@ -25,22 +25,6 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
 public class CommandFactory {
 
   /**
-   * Creates command contribution item. <br>
-   * The visibility of the contribution item is dependent on the {@code enabled}
-   * property.
-   *
-   * @param commandId  a unique identifier of a command
-   * @param imageDescr an image descriptor for the command item
-   * @param label      the label to be displayed for the command
-   * @param params     an optional two dimensional array of command parameters
-   * @return the created command contribution item
-   */
-  public static IContributionItem createContribItem(final String commandId,
-      final ImageDescriptor imageDescr, final String label, final String[][] params) {
-    return createContribItem(commandId, imageDescr, label, true, params);
-  }
-
-  /**
    * Creates command contribution item
    *
    * @param commandId      a unique identifier of a command
@@ -64,6 +48,22 @@ public class CommandFactory {
         imageDescr, null, null, label, null, null, CommandContributionItem.STYLE_PUSH, null,
         visibleEnabled);
     return new CommandContributionItem(parameter);
+  }
+
+  /**
+   * Creates command contribution item. <br>
+   * The visibility of the contribution item is dependent on the {@code enabled}
+   * property.
+   *
+   * @param commandId  a unique identifier of a command
+   * @param imageDescr an image descriptor for the command item
+   * @param label      the label to be displayed for the command
+   * @param params     an optional two dimensional array of command parameters
+   * @return the created command contribution item
+   */
+  public static IContributionItem createContribItem(final String commandId,
+      final ImageDescriptor imageDescr, final String label, final String[][] params) {
+    return createContribItem(commandId, imageDescr, label, true, params);
   }
 
   /**

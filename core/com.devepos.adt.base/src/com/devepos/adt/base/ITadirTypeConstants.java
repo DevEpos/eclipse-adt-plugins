@@ -2,7 +2,7 @@ package com.devepos.adt.base;
 
 /**
  * Constants to transport types of repository objects, i.e. table TADIR
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */

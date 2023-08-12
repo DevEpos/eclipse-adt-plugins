@@ -61,33 +61,12 @@ public class AdtPluginFeatureList extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.ADT_PLUGIN_FEATURE_LIST;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<IAdtPluginFeature> getFeatures() {
-    if (features == null) {
-      features = new EObjectContainmentEList<>(IAdtPluginFeature.class, this,
-          IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST__FEATURES);
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST__FEATURES:
+      return getFeatures();
     }
-    return features;
-  }
-
-  @Override
-  public IAdtPluginFeatures getFeaturesByEndpoint(final String endpoint) {
-    if (endpoint == null || endpoint.isEmpty()) {
-      return null;
-    }
-    List<IAdtPluginFeature> filteredFeatures = getFeatures().stream()
-        .filter(feature -> endpoint.equals(feature.getEndpoint()))
-        .collect(Collectors.toList());
-    return !filteredFeatures.isEmpty() ? new AdtPluginFeatures(filteredFeatures) : null;
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -111,12 +90,27 @@ public class AdtPluginFeatureList extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING:
+      return getFeaturesByEndpoint((String) arguments.get(0));
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST__FEATURES:
-      return getFeatures();
+      return features != null && !features.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -157,12 +151,23 @@ public class AdtPluginFeatureList extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST__FEATURES:
-      return features != null && !features.isEmpty();
+  public EList<IAdtPluginFeature> getFeatures() {
+    if (features == null) {
+      features = new EObjectContainmentEList<>(IAdtPluginFeature.class, this,
+          IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST__FEATURES);
     }
-    return super.eIsSet(featureID);
+    return features;
+  }
+
+  @Override
+  public IAdtPluginFeatures getFeaturesByEndpoint(final String endpoint) {
+    if (endpoint == null || endpoint.isEmpty()) {
+      return null;
+    }
+    List<IAdtPluginFeature> filteredFeatures = getFeatures().stream()
+        .filter(feature -> endpoint.equals(feature.getEndpoint()))
+        .collect(Collectors.toList());
+    return !filteredFeatures.isEmpty() ? new AdtPluginFeatures(filteredFeatures) : null;
   }
 
   /**
@@ -171,13 +176,8 @@ public class AdtPluginFeatureList extends MinimalEObjectImpl.Container implement
    * @generated
    */
   @Override
-  public Object eInvoke(final int operationID, final EList<?> arguments)
-      throws InvocationTargetException {
-    switch (operationID) {
-    case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST___GET_FEATURES_BY_ENDPOINT__STRING:
-      return getFeaturesByEndpoint((String) arguments.get(0));
-    }
-    return super.eInvoke(operationID, arguments);
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.ADT_PLUGIN_FEATURE_LIST;
   }
 
 } // AdtPluginFeatureList

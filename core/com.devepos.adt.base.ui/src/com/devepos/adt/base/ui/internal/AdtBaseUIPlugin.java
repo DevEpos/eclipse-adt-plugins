@@ -47,6 +47,18 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
   }
 
   /**
+   * @return Returns all search favorites contributed to the workbench.
+   */
+  public Map<String, SearchFavoriteDescriptor> getSearchFavoriteDescriptors() {
+    if (searchFavDescriptors == null) {
+      var elements = Platform.getExtensionRegistry()
+          .getConfigurationElementsFor(PLUGIN_ID, SearchFavoriteDescriptor.EXTENSION_POINT);
+      searchFavDescriptors = createSearchFavoriteDescriptors(elements);
+    }
+    return searchFavDescriptors;
+  }
+
+  /**
    * Returns reference to the favorites of the object search
    *
    * @return
@@ -57,18 +69,6 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
       SearchFavoriteStorage.deserialize(searchFavorites);
     }
     return searchFavorites;
-  }
-
-  /**
-   * @return Returns all search favorites contributed to the workbench.
-   */
-  public Map<String, SearchFavoriteDescriptor> getSearchFavoriteDescriptors() {
-    if (searchFavDescriptors == null) {
-      var elements = Platform.getExtensionRegistry()
-          .getConfigurationElementsFor(PLUGIN_ID, SearchFavoriteDescriptor.EXTENSION_POINT);
-      searchFavDescriptors = createSearchFavoriteDescriptors(elements);
-    }
-    return searchFavDescriptors;
   }
 
   @Override
@@ -166,7 +166,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
   }
 
   private Map<String, SearchFavoriteDescriptor> createSearchFavoriteDescriptors(
-      IConfigurationElement[] elements) {
+      final IConfigurationElement[] elements) {
     Map<String, SearchFavoriteDescriptor> descriptors = new HashMap<>();
     for (var element : elements) {
       if (element.getName().equals(SearchFavoriteDescriptor.EXTENSION_ELEMENT)) {

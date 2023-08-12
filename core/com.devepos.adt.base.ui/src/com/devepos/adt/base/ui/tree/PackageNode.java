@@ -45,6 +45,19 @@ public class PackageNode extends AdtObjectReferenceNode {
     return subPackages;
   }
 
+  private void determineNonPackageCount(final List<ITreeNode> nodes) {
+    if (nodes == null) {
+      return;
+    }
+    for (final ITreeNode childNode : nodes) {
+      if (!(childNode instanceof PackageNode)) {
+        childCount++;
+      } else {
+        determineNonPackageCount(((ICollectionTreeNode) childNode).getChildren());
+      }
+    }
+  }
+
   private void determineSubPackages(final List<PackageNode> subPackages,
       final List<ITreeNode> children) {
     if (children == null) {
@@ -55,19 +68,6 @@ public class PackageNode extends AdtObjectReferenceNode {
         final PackageNode packageNode = (PackageNode) childNode;
         subPackages.add(packageNode);
         determineSubPackages(subPackages, packageNode.getChildren());
-      }
-    }
-  }
-
-  private void determineNonPackageCount(final List<ITreeNode> nodes) {
-    if (nodes == null) {
-      return;
-    }
-    for (final ITreeNode childNode : nodes) {
-      if (!(childNode instanceof PackageNode)) {
-        childCount++;
-      } else {
-        determineNonPackageCount(((ICollectionTreeNode) childNode).getChildren());
       }
     }
   }

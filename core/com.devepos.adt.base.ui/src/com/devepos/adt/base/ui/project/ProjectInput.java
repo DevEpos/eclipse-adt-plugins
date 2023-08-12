@@ -43,7 +43,7 @@ public class ProjectInput {
   private IProject project;
   private final Set<IValidator<IProject>> projectValidators = new HashSet<>();
   private final Set<IStatusChangeListener> statusChangeListeners = new HashSet<>();
-  private boolean ensureLoggedOn;
+  private final boolean ensureLoggedOn;
   private boolean useDedicatedComposite;
 
   /**
@@ -217,11 +217,11 @@ public class ProjectInput {
   /**
    * Controls whether or not a dedicated composite should be used during the creation of the
    * controls
-   * 
+   *
    * @param useDedicatedComposite new value for {@code dedicatedComposite}
    * @see #createControl(Composite)
    */
-  public void setUseDedicatedComposite(boolean useDedicatedComposite) {
+  public void setUseDedicatedComposite(final boolean useDedicatedComposite) {
     this.useDedicatedComposite = useDedicatedComposite;
   }
 

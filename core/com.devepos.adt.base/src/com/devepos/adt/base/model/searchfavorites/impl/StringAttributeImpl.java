@@ -63,50 +63,27 @@ public class StringAttributeImpl extends BaseAttributeImpl implements IStringAtt
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.STRING_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getValue() {
-    return value;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setValue(final String newValue) {
-    String oldValue = value;
-    value = newValue;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.STRING_ATTRIBUTE__VALUE, oldValue, value));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.STRING_ATTRIBUTE__VALUE:
       return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.STRING_ATTRIBUTE__VALUE:
+      return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -148,12 +125,24 @@ public class StringAttributeImpl extends BaseAttributeImpl implements IStringAtt
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.STRING_ATTRIBUTE__VALUE:
-      return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+  public String getValue() {
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setValue(final String newValue) {
+    String oldValue = value;
+    value = newValue;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.STRING_ATTRIBUTE__VALUE, oldValue, value));
     }
-    return super.eIsSet(featureID);
   }
 
   /**
@@ -173,6 +162,17 @@ public class StringAttributeImpl extends BaseAttributeImpl implements IStringAtt
     result.append(value);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.STRING_ATTRIBUTE;
   }
 
 } // StringAttributeImpl

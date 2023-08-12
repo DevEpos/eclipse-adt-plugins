@@ -12,11 +12,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 public interface IExecutable {
 
   /**
-   * Executes the logic of the action
-   */
-  void execute();
-
-  /**
    * Creates UI action from executable
    *
    * @param name            the name for the action (tooltip or text)
@@ -24,4 +19,9 @@ public interface IExecutable {
    * @return
    */
   IAction createAction(String name, ImageDescriptor imageDescriptor);
+
+  /**
+   * Executes the logic of the action
+   */
+  void execute();
 }

@@ -32,23 +32,12 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  @Override
-  public void setDisplayName(final String displayName) {
-    this.displayName = displayName;
+  public <T> T getAdapter(final Class<T> adapter) {
+    try {
+      return adapter.cast(nodeValue);
+    } catch (final ClassCastException exc) {
+      return null;
+    }
   }
 
   @Override
@@ -57,8 +46,18 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public void setDescription(final String description) {
-    this.description = description;
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public Object getNodeValue() {
+    return nodeValue;
   }
 
   @Override
@@ -67,8 +66,13 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public void setParent(final ICollectionTreeNode parent) {
-    this.parent = parent;
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @Override
+  public String getPropertyValue(final String key) {
+    return properties.get(key);
   }
 
   @Override
@@ -84,17 +88,18 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public <T> T getAdapter(final Class<T> adapter) {
-    try {
-      return adapter.cast(nodeValue);
-    } catch (final ClassCastException exc) {
-      return null;
-    }
+  public void setDescription(final String description) {
+    this.description = description;
   }
 
   @Override
-  public Object getNodeValue() {
-    return nodeValue;
+  public void setDisplayName(final String displayName) {
+    this.displayName = displayName;
+  }
+
+  @Override
+  public void setName(final String name) {
+    this.name = name;
   }
 
   @Override
@@ -103,12 +108,7 @@ public abstract class TreeNodeBase implements ITreeNode {
   }
 
   @Override
-  public Map<String, String> getProperties() {
-    return properties;
-  }
-
-  @Override
-  public String getPropertyValue(final String key) {
-    return properties.get(key);
+  public void setParent(final ICollectionTreeNode parent) {
+    this.parent = parent;
   }
 }

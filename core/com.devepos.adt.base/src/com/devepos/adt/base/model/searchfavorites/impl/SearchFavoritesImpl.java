@@ -60,23 +60,12 @@ public class SearchFavoritesImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.SEARCH_FAVORITES;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<ISearchFavorite> getFavorites() {
-    if (favorites == null) {
-      favorites = new EObjectContainmentEList<>(ISearchFavorite.class, this,
-          ISearchFavoritesPackage.SEARCH_FAVORITES__FAVORITES);
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.SEARCH_FAVORITES__FAVORITES:
+      return getFavorites();
     }
-    return favorites;
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -102,12 +91,12 @@ public class SearchFavoritesImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case ISearchFavoritesPackage.SEARCH_FAVORITES__FAVORITES:
-      return getFavorites();
+      return favorites != null && !favorites.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -151,12 +140,23 @@ public class SearchFavoritesImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.SEARCH_FAVORITES__FAVORITES:
-      return favorites != null && !favorites.isEmpty();
+  public EList<ISearchFavorite> getFavorites() {
+    if (favorites == null) {
+      favorites = new EObjectContainmentEList<>(ISearchFavorite.class, this,
+          ISearchFavoritesPackage.SEARCH_FAVORITES__FAVORITES);
     }
-    return super.eIsSet(featureID);
+    return favorites;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.SEARCH_FAVORITES;
   }
 
 } // SearchFavoritesImpl

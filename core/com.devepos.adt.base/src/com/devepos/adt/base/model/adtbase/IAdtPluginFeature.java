@@ -29,18 +29,35 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IAdtPluginFeature extends EObject {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The name of
-   * the feature <!-- end-model-doc -->
+   * Returns the value of the '<em><b>Category</b></em>' attribute. The default
+   * value is <code>"NoCategory"</code>. The literals are from the enumeration
+   * {@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory}. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
+   * category for the feature <!-- end-model-doc -->
    *
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Name()
-   * @model unique="false" suppressedSetVisibility="true"
-   *        extendedMetaData="kind='attribute' name='name'
+   * @return the value of the '<em>Category</em>' attribute.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Category()
+   * @model default="NoCategory" unique="false" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='category'
    *        namespace='##targetNamespace'"
    * @generated
    */
-  String getName();
+  AdtPluginFeatureCategory getCategory();
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Optional
+   * description of the feature <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Description()
+   * @model unique="false" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='description'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getDescription();
 
   /**
    * Returns the value of the '<em><b>Endpoint</b></em>' attribute. <!--
@@ -54,6 +71,20 @@ public interface IAdtPluginFeature extends EObject {
    * @generated
    */
   String getEndpoint();
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The name of
+   * the feature <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Name()
+   * @model unique="false" suppressedSetVisibility="true"
+   *        extendedMetaData="kind='attribute' name='name'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getName();
 
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute. The literals are
@@ -73,20 +104,6 @@ public interface IAdtPluginFeature extends EObject {
   AdtPluginFeatureType getType();
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Optional
-   * description of the feature <!-- end-model-doc -->
-   *
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Description()
-   * @model unique="false" suppressedSetVisibility="true"
-   *        extendedMetaData="kind='attribute' name='description'
-   *        namespace='##targetNamespace'"
-   * @generated
-   */
-  String getDescription();
-
-  /**
    * Returns the value of the '<em><b>Enabled</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Enabled
    * status of the feature <!-- end-model-doc -->
@@ -98,22 +115,5 @@ public interface IAdtPluginFeature extends EObject {
    * @generated
    */
   boolean isEnabled();
-
-  /**
-   * Returns the value of the '<em><b>Category</b></em>' attribute. The default
-   * value is <code>"NoCategory"</code>. The literals are from the enumeration
-   * {@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory}. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The
-   * category for the feature <!-- end-model-doc -->
-   *
-   * @return the value of the '<em>Category</em>' attribute.
-   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtPluginFeature_Category()
-   * @model default="NoCategory" unique="false" suppressedSetVisibility="true"
-   *        extendedMetaData="kind='attribute' name='category'
-   *        namespace='##targetNamespace'"
-   * @generated
-   */
-  AdtPluginFeatureCategory getCategory();
 
 } // IAdtPluginFeature

@@ -19,11 +19,11 @@ public interface IImageProvider {
 
   /**
    * Returns image depending on the given input
-   * 
+   *
    * @param data input object to decide which image to return
    * @return the provided image
    */
-  default Image getImage(Object data) {
+  default Image getImage(final Object data) {
     return getImage();
   }
 }

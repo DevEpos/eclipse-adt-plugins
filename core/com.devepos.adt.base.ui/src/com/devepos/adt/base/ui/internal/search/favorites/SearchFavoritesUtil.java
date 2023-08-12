@@ -19,7 +19,7 @@ public final class SearchFavoritesUtil {
    *         dialogues
    */
   public static String getFavoriteDisplayName(final ISearchFavorite favorite,
-      SearchFavoriteDescriptor descriptor) {
+      final SearchFavoriteDescriptor descriptor) {
     // TODO: check if label provider exists via descriptor to change the label of a favorite
     var labelBuffer = new StringBuffer();
     labelBuffer.append("[");

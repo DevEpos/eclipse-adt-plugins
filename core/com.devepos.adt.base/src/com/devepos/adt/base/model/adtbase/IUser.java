@@ -41,17 +41,6 @@ public interface IUser extends EObject {
   String getName();
 
   /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'
-   * attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
    * Returns the value of the '<em><b>Text</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The full
    * name / description of the user <!-- end-model-doc -->
@@ -64,6 +53,17 @@ public interface IUser extends EObject {
    * @generated
    */
   String getText();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'
+   * attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
   /**
    * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'

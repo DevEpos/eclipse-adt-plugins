@@ -11,18 +11,18 @@ import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
 /**
  * URI template provider for named items
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
 class NamedItemUriTemplateProvider implements IAdtUriTemplateProvider, IPropertyChangeListener {
 
-  private IAbapProjectProvider projectProvider;
+  private final IAbapProjectProvider projectProvider;
   private IUriDiscovery uriDiscovery;
-  private Function<String, IUriDiscovery> uriDiscoveryCreator;
+  private final Function<String, IUriDiscovery> uriDiscoveryCreator;
 
   public NamedItemUriTemplateProvider(final IAbapProjectProvider projectProvider,
-      Function<String, IUriDiscovery> uriDiscoveryCreator) {
+      final Function<String, IUriDiscovery> uriDiscoveryCreator) {
     this.projectProvider = projectProvider;
     this.projectProvider.addPropertyChangeListener(this);
     this.uriDiscoveryCreator = uriDiscoveryCreator;
@@ -49,7 +49,7 @@ class NamedItemUriTemplateProvider implements IAdtUriTemplateProvider, IProperty
     if (uriDiscovery != null || !projectProvider.hasProject()) {
       return;
     }
-    uriDiscovery = this.uriDiscoveryCreator.apply(projectProvider.getDestinationId());
+    uriDiscovery = uriDiscoveryCreator.apply(projectProvider.getDestinationId());
   }
 
 }

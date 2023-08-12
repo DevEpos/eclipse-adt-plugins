@@ -7,14 +7,6 @@ package com.devepos.adt.base.elementinfo;
  */
 public interface ILazyLoadableContent {
   /**
-   * Sets the refresh mode for lazy loaded content after the loading is finished
-   *
-   * @param mode
-   */
-  default void setContentRefreshMode(final LazyLoadingRefreshMode mode) {
-  }
-
-  /**
    * Returns the refresh mode for the lazy loading content.<br>
    * It becomes relevant after the content is loaded
    *
@@ -22,6 +14,14 @@ public interface ILazyLoadableContent {
    */
   default LazyLoadingRefreshMode getContentRefreshMode() {
     return LazyLoadingRefreshMode.ROOT_ONLY;
+  }
+
+  /**
+   * Sets the refresh mode for lazy loaded content after the loading is finished
+   *
+   * @param mode
+   */
+  default void setContentRefreshMode(final LazyLoadingRefreshMode mode) {
   }
 
 }

@@ -8,10 +8,10 @@ public class SearchFavoritesActionFactory {
 
   /**
    * Creates new search favorites action instance
-   * 
+   *
    * @param searchType identifies a search favorite and the corresponding search page
    */
-  public static IAction createSearchFavoritesAction(String searchType) {
+  public static IAction createSearchFavoritesAction(final String searchType) {
     return new SearchFavoritesMenuAction(searchType);
   }
 }

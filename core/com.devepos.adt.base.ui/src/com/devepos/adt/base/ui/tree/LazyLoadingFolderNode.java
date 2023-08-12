@@ -43,6 +43,24 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
+  public void addLazyLoadingListener(final ILazyLoadingListener l) {
+    lazyLoadingListeners.add(l);
+  }
+
+  @Override
+  public LazyLoadingRefreshMode getContentRefreshMode() {
+    if (refreshMode != null) {
+      return refreshMode;
+    }
+    return ILazyLoadingNode.super.getContentRefreshMode();
+  }
+
+  @Override
+  public String getLazyLoadingJobName() {
+    return provider != null ? provider.getProviderDescription() : null;
+  }
+
+  @Override
   public String getSizeAsString() {
     if (isLoading || !isLoaded) {
       return "?";
@@ -59,32 +77,13 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
-  public void resetLoadedState() {
-    isLoaded = false;
-    if (children != null) {
-      children.clear();
-    }
-    children = null;
-  }
-
-  @Override
-  public boolean isLoading() {
-    return isLoading;
-  }
-
-  @Override
   public boolean isLoaded() {
     return isLoaded;
   }
 
   @Override
-  public void setElementInfoProvider(final IElementInfoProvider provider) {
-    this.provider = provider;
-  }
-
-  @Override
-  public String getLazyLoadingJobName() {
-    return provider != null ? provider.getProviderDescription() : null;
+  public boolean isLoading() {
+    return isLoading;
   }
 
   @Override
@@ -115,14 +114,18 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
-  public void addLazyLoadingListener(final ILazyLoadingListener l) {
-    lazyLoadingListeners.add(l);
-  }
-
-  @Override
   public void removeLazyLoadingListener(final ILazyLoadingListener l) {
     lazyLoadingListeners.remove(l);
 
+  }
+
+  @Override
+  public void resetLoadedState() {
+    isLoaded = false;
+    if (children != null) {
+      children.clear();
+    }
+    children = null;
   }
 
   @Override
@@ -131,11 +134,8 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
-  public LazyLoadingRefreshMode getContentRefreshMode() {
-    if (refreshMode != null) {
-      return refreshMode;
-    }
-    return ILazyLoadingNode.super.getContentRefreshMode();
+  public void setElementInfoProvider(final IElementInfoProvider provider) {
+    this.provider = provider;
   }
 
 }

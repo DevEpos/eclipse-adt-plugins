@@ -52,6 +52,62 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IAdtObjRef extends EObject {
   /**
+   * Returns the value of the '<em><b>Alternative Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Alternative Name</em>' attribute.
+   * @see #setAlternativeName(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_AlternativeName()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='alternativeName' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getAlternativeName();
+
+  /**
+   * Returns the value of the '<em><b>Changed By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Changed By</em>' attribute.
+   * @see #setChangedBy(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedBy()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='changedBy' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getChangedBy();
+
+  /**
+   * Returns the value of the '<em><b>Changed On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Changed On</em>' attribute.
+   * @see #setChangedOn(XMLGregorianCalendar)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedOn()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
+   *        extendedMetaData="kind='attribute' name='changedOn' namespace='##targetNamespace'"
+   * @generated
+   */
+  XMLGregorianCalendar getChangedOn();
+
+  /**
+   * Returns the value of the '<em><b>Created On</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Created On</em>' attribute.
+   * @see #setCreatedOn(XMLGregorianCalendar)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_CreatedOn()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
+   *        extendedMetaData="kind='attribute' name='createdOn' namespace='##targetNamespace'"
+   * @generated
+   */
+  XMLGregorianCalendar getCreatedOn();
+
+  /**
    * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
    *
@@ -70,16 +126,24 @@ public interface IAdtObjRef extends EObject {
   String getDescription();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription
-   * <em>Description</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
+   * Retrieves display name<br>
    *
-   * @param value the new value of the '<em>Description</em>' attribute.
-   * @see #getDescription()
+   * Prio
+   * <ol>
+   * <li>Alternative Display Name</li>
+   *
+   * <li>Name</li>
+   *
+   * </ol>
+   * <!-- end-model-doc -->
+   *
+   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
    * @generated
    */
-  void setDescription(String value);
+  String getDisplayName();
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
@@ -100,41 +164,22 @@ public interface IAdtObjRef extends EObject {
   String getName();
 
   /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName
-   * <em>Name</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
    *
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Alternative Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * The logical name of the corresponding development object.
    *
-   * @return the value of the '<em>Alternative Name</em>' attribute.
-   * @see #setAlternativeName(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_AlternativeName()
+   * <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Owner</em>' attribute.
+   * @see #setOwner(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_Owner()
    * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-   *        extendedMetaData="kind='attribute' name='alternativeName' namespace='##targetNamespace'"
+   *        extendedMetaData="kind='attribute' name='owner'
+   *        namespace='##targetNamespace'"
    * @generated
    */
-  String getAlternativeName();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName
-   * <em>Alternative Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Alternative Name</em>' attribute.
-   * @see #getAlternativeName()
-   * @generated
-   */
-  void setAlternativeName(String value);
+  String getOwner();
 
   /**
    * Returns the value of the '<em><b>Package Name</b></em>' attribute. <!--
@@ -155,16 +200,74 @@ public interface IAdtObjRef extends EObject {
   String getPackageName();
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName
-   * <em>Package Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * Returns the value of the '<em><b>Parent Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * <!-- begin-model-doc -->
    *
-   * @param value the new value of the '<em>Package Name</em>' attribute.
-   * @see #getPackageName()
+   * The logical name of the corresponding development
+   * object.
+   *
+   * <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Parent Name</em>' attribute.
+   * @see #setParentName(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentName()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='parentName' namespace='##targetNamespace'"
    * @generated
    */
-  void setPackageName(String value);
+  String getParentName();
+
+  /**
+   * Returns the value of the '<em><b>Parent Uri</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The URI of
+   * the parent ADT object. This attribute may be null at time. <!-- end-model-doc
+   * -->
+   *
+   * @return the value of the '<em>Parent Uri</em>' attribute.
+   * @see #setParentUri(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentUri()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI"
+   *        extendedMetaData="kind='attribute' name='parentUri'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getParentUri();
+
+  /**
+   * Returns the value of the '<em><b>Properties</b></em>' map.
+   * The key is of type {@link java.lang.String},
+   * and the value is of type {@link java.lang.String},
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Properties</em>' map.
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_Properties()
+   * @model mapType="com.devepos.adt.base.model.adtbase.StringToStringMapEntry&lt;org.eclipse.emf.ecore.EString,
+   *        org.eclipse.emf.ecore.EString&gt;"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='property'"
+   * @generated
+   */
+  EMap<String, String> getProperties();
+
+  /**
+   * Returns the value of the '<em><b>Tadir Type</b></em>' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+   *
+   * The TADIR type of of the corresponding development object.
+   *
+   * <!-- end-model-doc -->
+   *
+   * @return the value of the '<em>Tadir Type</em>' attribute.
+   * @see #setTadirType(String)
+   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_TadirType()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='attribute' name='tadirType'
+   *        namespace='##targetNamespace'"
+   * @generated
+   */
+  String getTadirType();
 
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute. <!--
@@ -183,17 +286,6 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   String getType();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
-   * <em>Type</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Type</em>' attribute.
-   * @see #getType()
-   * @generated
-   */
-  void setType(String value);
 
   /**
    * Returns the value of the '<em><b>Uri</b></em>' attribute. <!-- begin-user-doc
@@ -220,143 +312,16 @@ public interface IAdtObjRef extends EObject {
   String getUri();
 
   /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
-   * <em>Uri</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Uri</em>' attribute.
-   * @see #getUri()
-   * @generated
-   */
-  void setUri(String value);
-
-  /**
-   * Returns the value of the '<em><b>Parent Uri</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The URI of
-   * the parent ADT object. This attribute may be null at time. <!-- end-model-doc
-   * -->
-   *
-   * @return the value of the '<em>Parent Uri</em>' attribute.
-   * @see #setParentUri(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentUri()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI"
-   *        extendedMetaData="kind='attribute' name='parentUri'
-   *        namespace='##targetNamespace'"
-   * @generated
-   */
-  String getParentUri();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri
-   * <em>Parent Uri</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Parent Uri</em>' attribute.
-   * @see #getParentUri()
-   * @generated
-   */
-  void setParentUri(String value);
-
-  /**
-   * Returns the value of the '<em><b>Parent Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * <!-- begin-model-doc -->
-   *
-   * The logical name of the corresponding development
-   * object.
-   *
-   * <!-- end-model-doc -->
-   *
-   * @return the value of the '<em>Parent Name</em>' attribute.
-   * @see #setParentName(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ParentName()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-   *        extendedMetaData="kind='attribute' name='parentName' namespace='##targetNamespace'"
-   * @generated
-   */
-  String getParentName();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName
-   * <em>Parent Name</em>}' attribute.
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName
+   * <em>Alternative Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @param value the new value of the '<em>Parent Name</em>' attribute.
-   * @see #getParentName()
+   * @param value the new value of the '<em>Alternative Name</em>' attribute.
+   * @see #getAlternativeName()
    * @generated
    */
-  void setParentName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Owner</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-   *
-   * The logical name of the corresponding development object.
-   *
-   * <!-- end-model-doc -->
-   *
-   * @return the value of the '<em>Owner</em>' attribute.
-   * @see #setOwner(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_Owner()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-   *        extendedMetaData="kind='attribute' name='owner'
-   *        namespace='##targetNamespace'"
-   * @generated
-   */
-  String getOwner();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
-   * <em>Owner</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Owner</em>' attribute.
-   * @see #getOwner()
-   * @generated
-   */
-  void setOwner(String value);
-
-  /**
-   * Returns the value of the '<em><b>Created On</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the value of the '<em>Created On</em>' attribute.
-   * @see #setCreatedOn(XMLGregorianCalendar)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_CreatedOn()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
-   *        extendedMetaData="kind='attribute' name='createdOn' namespace='##targetNamespace'"
-   * @generated
-   */
-  XMLGregorianCalendar getCreatedOn();
-
-  /**
-   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn
-   * <em>Created On</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Created On</em>' attribute.
-   * @see #getCreatedOn()
-   * @generated
-   */
-  void setCreatedOn(XMLGregorianCalendar value);
-
-  /**
-   * Returns the value of the '<em><b>Changed By</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the value of the '<em>Changed By</em>' attribute.
-   * @see #setChangedBy(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedBy()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-   *        extendedMetaData="kind='attribute' name='changedBy' namespace='##targetNamespace'"
-   * @generated
-   */
-  String getChangedBy();
+  void setAlternativeName(String value);
 
   /**
    * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy
@@ -371,20 +336,6 @@ public interface IAdtObjRef extends EObject {
   void setChangedBy(String value);
 
   /**
-   * Returns the value of the '<em><b>Changed On</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the value of the '<em>Changed On</em>' attribute.
-   * @see #setChangedOn(XMLGregorianCalendar)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_ChangedOn()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Date"
-   *        extendedMetaData="kind='attribute' name='changedOn' namespace='##targetNamespace'"
-   * @generated
-   */
-  XMLGregorianCalendar getChangedOn();
-
-  /**
    * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn
    * <em>Changed On</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -397,58 +348,85 @@ public interface IAdtObjRef extends EObject {
   void setChangedOn(XMLGregorianCalendar value);
 
   /**
-   * Returns the value of the '<em><b>Properties</b></em>' map.
-   * The key is of type {@link java.lang.String},
-   * and the value is of type {@link java.lang.String},
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn
+   * <em>Created On</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the value of the '<em>Properties</em>' map.
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_Properties()
-   * @model mapType="com.devepos.adt.base.model.adtbase.StringToStringMapEntry&lt;org.eclipse.emf.ecore.EString,
-   *        org.eclipse.emf.ecore.EString&gt;"
-   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='property'"
+   * @param value the new value of the '<em>Created On</em>' attribute.
+   * @see #getCreatedOn()
    * @generated
    */
-  EMap<String, String> getProperties();
+  void setCreatedOn(XMLGregorianCalendar value);
 
   /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription
+   * <em>Description</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName
+   * <em>Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner
+   * <em>Owner</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Owner</em>' attribute.
+   * @see #getOwner()
+   * @generated
+   */
+  void setOwner(String value);
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName
+   * <em>Package Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @param value the new value of the '<em>Package Name</em>' attribute.
+   * @see #getPackageName()
+   * @generated
+   */
+  void setPackageName(String value);
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName
+   * <em>Parent Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * <!-- begin-model-doc -->
-   * Retrieves display name<br>
    *
-   * Prio
-   * <ol>
-   * <li>Alternative Display Name</li>
-   *
-   * <li>Name</li>
-   *
-   * </ol>
-   * <!-- end-model-doc -->
-   *
-   * @model kind="operation" dataType="org.eclipse.emf.ecore.xml.type.String"
+   * @param value the new value of the '<em>Parent Name</em>' attribute.
+   * @see #getParentName()
    * @generated
    */
-  String getDisplayName();
+  void setParentName(String value);
 
   /**
-   * Returns the value of the '<em><b>Tadir Type</b></em>' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri
+   * <em>Parent Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
-   * The TADIR type of of the corresponding development object.
-   *
-   * <!-- end-model-doc -->
-   *
-   * @return the value of the '<em>Tadir Type</em>' attribute.
-   * @see #setTadirType(String)
-   * @see com.devepos.adt.base.model.adtbase.IAdtBasePackage#getAdtObjRef_TadirType()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-   *        extendedMetaData="kind='attribute' name='tadirType'
-   *        namespace='##targetNamespace'"
+   * @param value the new value of the '<em>Parent Uri</em>' attribute.
+   * @see #getParentUri()
    * @generated
    */
-  String getTadirType();
+  void setParentUri(String value);
 
   /**
    * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType
@@ -460,5 +438,27 @@ public interface IAdtObjRef extends EObject {
    * @generated
    */
   void setTadirType(String value);
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType
+   * <em>Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Type</em>' attribute.
+   * @see #getType()
+   * @generated
+   */
+  void setType(String value);
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri
+   * <em>Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Uri</em>' attribute.
+   * @see #getUri()
+   * @generated
+   */
+  void setUri(String value);
 
 } // IAdtObjRef

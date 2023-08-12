@@ -6,7 +6,7 @@ import org.eclipse.debug.ui.actions.ILaunchable;
 public class LaunchableAdapterFactory implements IAdapterFactory {
 
   @Override
-  public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
+  public <T> T getAdapter(final Object adaptableObject, final Class<T> adapterType) {
     return adapterType.cast(new ILaunchable() {
     });
   }

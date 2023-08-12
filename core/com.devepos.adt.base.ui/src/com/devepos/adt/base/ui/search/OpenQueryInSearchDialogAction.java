@@ -24,12 +24,20 @@ import com.devepos.adt.base.util.StringUtil;
 public class OpenQueryInSearchDialogAction extends Action implements ISearchPageListener {
 
   private ISearchResultPageExtension<?> resultPageExt;
-  private String pageId;
+  private final String pageId;
 
   public OpenQueryInSearchDialogAction(final String pageId) {
     super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(
         IAdtBaseImages.SEARCH));
     this.pageId = pageId;
+  }
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void pageOpened(final ISearchPage searchPage) {
+    if (searchPage instanceof IChangeableSearchPage) {
+      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
+    }
   }
 
   @Override
@@ -46,13 +54,5 @@ public class OpenQueryInSearchDialogAction extends Action implements ISearchPage
     final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
     SearchPageUtil.addSearchPageOpenListener(this);
     NewSearchUI.openSearchDialog(window, pageId);
-  }
-
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  @Override
-  public void pageOpened(final ISearchPage searchPage) {
-    if (searchPage instanceof IChangeableSearchPage) {
-      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(resultPageExt.getSearchQuery());
-    }
   }
 }

@@ -16,6 +16,14 @@ public class TreeContentProvider implements ITreeContentProvider {
   protected final Object[] EMPTY_ARRAY = new Object[0];
 
   @Override
+  public Object[] getChildren(final Object parentElement) {
+    if (parentElement instanceof ICollectionTreeNode) {
+      return getChildren((ICollectionTreeNode) parentElement);
+    }
+    return EMPTY_ARRAY;
+  }
+
+  @Override
   public Object[] getElements(final Object inputElement) {
     if (inputElement instanceof List<?>) {
       return ((List<?>) inputElement).toArray();
@@ -24,14 +32,6 @@ public class TreeContentProvider implements ITreeContentProvider {
       return (Object[]) inputElement;
     }
     return new Object[] { inputElement };
-  }
-
-  @Override
-  public Object[] getChildren(final Object parentElement) {
-    if (parentElement instanceof ICollectionTreeNode) {
-      return getChildren((ICollectionTreeNode) parentElement);
-    }
-    return EMPTY_ARRAY;
   }
 
   @Override

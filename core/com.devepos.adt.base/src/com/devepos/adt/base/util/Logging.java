@@ -11,8 +11,6 @@ import org.eclipse.core.runtime.IStatus;
 public class Logging implements ILogger {
   static final Level DEFAULT_LOGGING_LEVEL = Level.INFO;
   private static final Map<Integer, Level> severityToLevel = new HashMap<>(6);
-  private final Logger delegate;
-
   static {
     severityToLevel.put(0, Level.INFO);
     severityToLevel.put(4, Level.SEVERE);
@@ -20,6 +18,8 @@ public class Logging implements ILogger {
     severityToLevel.put(1, Level.INFO);
     severityToLevel.put(8, Level.INFO);
   }
+
+  private final Logger delegate;
 
   private Logging(final String location) {
     delegate = Logger.getLogger(location);
@@ -41,14 +41,14 @@ public class Logging implements ILogger {
   }
 
   @Override
-  public void warning(final Throwable throwable, final String messageText, final Object... args) {
-    delegate.log(toRecord(Level.WARNING, throwable, messageText, args));
-  }
-
-  @Override
   public void log(final IStatus status) {
     final Level level = severityToLevel.get(Integer.valueOf(status.getSeverity()));
     delegate.log(toRecord(level, status.getException(), status.getMessage()));
+  }
+
+  @Override
+  public void warning(final Throwable throwable, final String messageText, final Object... args) {
+    delegate.log(toRecord(Level.WARNING, throwable, messageText, args));
   }
 
   /**

@@ -83,58 +83,6 @@ public enum AdtPluginFeatureType implements Enumerator {
       .asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified literal value.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param literal the literal.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static AdtPluginFeatureType get(final String literal) {
-    for (AdtPluginFeatureType result : VALUES_ARRAY) {
-      if (result.toString().equals(literal)) {
-        return result;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified name.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param name the name.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static AdtPluginFeatureType getByName(final String name) {
-    for (AdtPluginFeatureType result : VALUES_ARRAY) {
-      if (result.getName().equals(name)) {
-        return result;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified integer value.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @param value the integer value.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static AdtPluginFeatureType get(final int value) {
-    switch (value) {
-    case BOOLEAN_VALUE:
-      return BOOLEAN;
-    case STRING_VALUE:
-      return STRING;
-    }
-    return null;
-  }
-
-  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -169,13 +117,65 @@ public enum AdtPluginFeatureType implements Enumerator {
   }
 
   /**
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static AdtPluginFeatureType get(final int value) {
+    switch (value) {
+    case BOOLEAN_VALUE:
+      return BOOLEAN;
+    case STRING_VALUE:
+      return STRING;
+    }
+    return null;
+  }
+
+  /**
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param literal the literal.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static AdtPluginFeatureType get(final String literal) {
+    for (AdtPluginFeatureType result : VALUES_ARRAY) {
+      if (result.toString().equals(literal)) {
+        return result;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the '<em><b>Adt Plugin Feature Type</b></em>' literal with the specified name.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @param name the name.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static AdtPluginFeatureType getByName(final String name) {
+    for (AdtPluginFeatureType result : VALUES_ARRAY) {
+      if (result.getName().equals(name)) {
+        return result;
+      }
+    }
+    return null;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
-  public int getValue() {
-    return value;
+  public String getLiteral() {
+    return literal;
   }
 
   /**
@@ -194,8 +194,8 @@ public enum AdtPluginFeatureType implements Enumerator {
    * @generated
    */
   @Override
-  public String getLiteral() {
-    return literal;
+  public int getValue() {
+    return value;
   }
 
   /**

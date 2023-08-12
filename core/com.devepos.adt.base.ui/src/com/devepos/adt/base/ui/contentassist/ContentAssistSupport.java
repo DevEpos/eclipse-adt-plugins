@@ -29,18 +29,18 @@ public final class ContentAssistSupport {
   }
 
   /**
-   * Creates content assist for text controls that allow the input of complex
-   * search patterns
+   * Creates content assist for the given text control.<br>
+   * The proposals will be retrieved via the given
+   * {@link ITextQueryProposalProvider} in a background job.
    *
-   * @param textControl     the text control to be used
-   * @param patternAnalyzer the pattern analyzer
+   * @param textControl      the text control to be used
+   * @param proposalProvider provides the proposals to be shown in the content
+   *                         assist popup
    * @return the added content assist instance to the {@code textControl}
    */
-  public static IContentAssist createSearchFilterContentAssist(final Text textControl,
-      final ISearchPatternAnalyzer patternAnalyzer) {
-    IContentAssist contentAssist = new SearchPatternContentAssist(textControl, patternAnalyzer);
-    contentAssist.setLabelProvider(new SearchFilterLabelProvider());
-    return contentAssist;
+  public static IContentAssist createAsyncContentAssist(final Text textControl,
+      final ITextQueryProposalProvider proposalProvider) {
+    return new AsyncContentAssist(textControl, proposalProvider);
   }
 
   /**
@@ -58,21 +58,6 @@ public final class ContentAssistSupport {
   public static IContentAssist createContentAssist(final Text textControl,
       final ITextQueryProposalProvider proposalProvider) {
     return new ContentAssist(textControl, proposalProvider);
-  }
-
-  /**
-   * Creates content assist for the given text control.<br>
-   * The proposals will be retrieved via the given
-   * {@link ITextQueryProposalProvider} in a background job.
-   *
-   * @param textControl      the text control to be used
-   * @param proposalProvider provides the proposals to be shown in the content
-   *                         assist popup
-   * @return the added content assist instance to the {@code textControl}
-   */
-  public static IContentAssist createAsyncContentAssist(final Text textControl,
-      final ITextQueryProposalProvider proposalProvider) {
-    return new AsyncContentAssist(textControl, proposalProvider);
   }
 
   /**
@@ -98,6 +83,21 @@ public final class ContentAssistSupport {
 
     AsyncContentAssist contentAssist = new AsyncContentAssist(text, textQueryProvider);
     contentAssist.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+    return contentAssist;
+  }
+
+  /**
+   * Creates content assist for text controls that allow the input of complex
+   * search patterns
+   *
+   * @param textControl     the text control to be used
+   * @param patternAnalyzer the pattern analyzer
+   * @return the added content assist instance to the {@code textControl}
+   */
+  public static IContentAssist createSearchFilterContentAssist(final Text textControl,
+      final ISearchPatternAnalyzer patternAnalyzer) {
+    IContentAssist contentAssist = new SearchPatternContentAssist(textControl, patternAnalyzer);
+    contentAssist.setLabelProvider(new SearchFilterLabelProvider());
     return contentAssist;
   }
 }

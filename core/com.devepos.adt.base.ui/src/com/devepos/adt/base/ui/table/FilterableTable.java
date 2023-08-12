@@ -8,7 +8,7 @@ import com.devepos.adt.base.ui.controls.FilterableComposite;
 
 /**
  * Table Viewer with a filter text control on top
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -16,12 +16,12 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
 
   /**
    * Creates a new filterable Table control
-   * 
+   *
    * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean, boolean)}
-   * 
+   *
    */
-  public FilterableTable(Composite parent, String placeholderText, boolean hideFilterControls,
-      boolean enableToolbarMode) {
+  public FilterableTable(final Composite parent, final String placeholderText,
+      final boolean hideFilterControls, final boolean enableToolbarMode) {
     super(parent, placeholderText, hideFilterControls, enableToolbarMode);
   }
 
@@ -44,7 +44,7 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
   }
 
   @Override
-  protected void updateSelection(boolean setFocus) {
+  protected void updateSelection(final boolean setFocus) {
     // for table there is nothing else to do but set the focus to the viewer
     if (setFocus && !viewerControl.isFocusControl()) {
       viewerControl.setFocus();

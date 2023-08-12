@@ -40,30 +40,18 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
     this.fileExtension = fileExtension;
   }
 
-  @Override
-  public IMessageBody serialize(final T dataObject, final Charset charset) {
-    final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(4096);
-    try {
-      Resource resource = createResource();
-      if (((EObject) dataObject).eContainer() == null) {
-        final Resource tempResource = ((EObject) dataObject).eResource();
-        if (tempResource == null) {
-          resource.getContents().add(dataObject);
-        } else {
-          resource = tempResource;
-        }
-      } else {
-        final EObject documentRoot = ((EObject) dataObject).eContainer();
-        resource.getContents().add(documentRoot);
-      }
-      // if (resource == null) {
-      // throw new IllegalArgumentException("DocumentRoot object not found"); //$NON-NLS-1$
-      // }
-      resource.save(outputStream, null);
-    } catch (final IOException e) {
-      throw new ContentHandlerException(SAVING_ERROR, e);
+  private static class MessageBody extends AbstractMessageBody {
+    ByteArrayInputStream stream = null;
+
+    protected MessageBody(final ByteArrayOutputStream outputStream, final String contentType) {
+      super(contentType);
+      stream = new ByteArrayInputStream(outputStream.toByteArray(), 0, outputStream.size());
     }
-    return new MessageBody(outputStream, this.contentType);
+
+    @Override
+    public InputStream getContent() throws IOException {
+      return stream;
+    }
   }
 
   @Override
@@ -96,20 +84,9 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
     }
   }
 
-  /**
-   * Retrieves the input stream from the given message body
-   *
-   * @param body the message body from the client response
-   * @return
-   * @throws IOException
-   */
-  protected InputStream getInputStream(final IMessageBody body) throws IOException {
-    return body.getContent();
-  }
-
   @Override
   public String getSupportedContentType() {
-    return this.contentType;
+    return contentType;
   }
 
   /**
@@ -127,12 +104,49 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
     throw new IllegalArgumentException(INVALID_XML_CONTENT);
   }
 
+  @Override
+  public IMessageBody serialize(final T dataObject, final Charset charset) {
+    final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(4096);
+    try {
+      Resource resource = createResource();
+      if (((EObject) dataObject).eContainer() == null) {
+        final Resource tempResource = ((EObject) dataObject).eResource();
+        if (tempResource == null) {
+          resource.getContents().add(dataObject);
+        } else {
+          resource = tempResource;
+        }
+      } else {
+        final EObject documentRoot = ((EObject) dataObject).eContainer();
+        resource.getContents().add(documentRoot);
+      }
+      // if (resource == null) {
+      // throw new IllegalArgumentException("DocumentRoot object not found"); //$NON-NLS-1$
+      // }
+      resource.save(outputStream, null);
+    } catch (final IOException e) {
+      throw new ContentHandlerException(SAVING_ERROR, e);
+    }
+    return new MessageBody(outputStream, contentType);
+  }
+
   /**
    * Creates resource to hold EMF content
    *
    * @return
    */
   protected abstract Resource createResource();
+
+  /**
+   * Retrieves the input stream from the given message body
+   *
+   * @param body the message body from the client response
+   * @return
+   * @throws IOException
+   */
+  protected InputStream getInputStream(final IMessageBody body) throws IOException {
+    return body.getContent();
+  }
 
   /**
    * Retrieves the root element from the given {@link EObject}
@@ -148,20 +162,6 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
    * @return
    */
   protected URI getVirtualResourceUri() {
-    return URI.createURI("resource" + this.fileExtension);
-  }
-
-  private static class MessageBody extends AbstractMessageBody {
-    ByteArrayInputStream stream = null;
-
-    protected MessageBody(final ByteArrayOutputStream outputStream, final String contentType) {
-      super(contentType);
-      stream = new ByteArrayInputStream(outputStream.toByteArray(), 0, outputStream.size());
-    }
-
-    @Override
-    public InputStream getContent() throws IOException {
-      return stream;
-    }
+    return URI.createURI("resource" + fileExtension);
   }
 }

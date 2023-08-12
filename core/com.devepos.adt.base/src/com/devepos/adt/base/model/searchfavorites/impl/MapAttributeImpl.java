@@ -56,24 +56,15 @@ public class MapAttributeImpl extends BaseAttributeImpl implements IMapAttribute
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.MAP_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EMap<String, String> getEntries() {
-    if (entries == null) {
-      entries = new EcoreEMap<>(
-          ISearchFavoritesPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
-          StringToStringMapEntryImpl.class, this, ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES);
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES:
+      if (coreType) {
+        return getEntries();
+      }
+      return getEntries().map();
     }
-    return entries;
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -99,15 +90,12 @@ public class MapAttributeImpl extends BaseAttributeImpl implements IMapAttribute
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES:
-      if (coreType) {
-        return getEntries();
-      }
-      return getEntries().map();
+      return entries != null && !entries.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -149,12 +137,23 @@ public class MapAttributeImpl extends BaseAttributeImpl implements IMapAttribute
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES:
-      return entries != null && !entries.isEmpty();
+  public EMap<String, String> getEntries() {
+    if (entries == null) {
+      entries = new EcoreEMap<>(ISearchFavoritesPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
+          StringToStringMapEntryImpl.class, this, ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES);
     }
-    return super.eIsSet(featureID);
+    return entries;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.MAP_ATTRIBUTE;
   }
 
 } // MapAttributeImpl

@@ -37,13 +37,13 @@ public class NewSearchFavoriteDialog extends StatusDialog {
   private Button createButton;
   private String favoriteDescription;
   private boolean isProjectIndependent;
-  private IAbapProjectSearchQuery searchQuery;
-  private String searchType;
+  private final IAbapProjectSearchQuery searchQuery;
+  private final String searchType;
 
-  private SearchFavoriteDescriptor descriptor;
+  private final SearchFavoriteDescriptor descriptor;
 
-  public NewSearchFavoriteDialog(final Shell parent, String searchType,
-      IAbapProjectSearchQuery searchQuery) {
+  public NewSearchFavoriteDialog(final Shell parent, final String searchType,
+      final IAbapProjectSearchQuery searchQuery) {
     super(parent);
     setTitle(Messages.NewSearchFavoriteDialog_Title_xtit);
     setHelpAvailable(false);
@@ -54,19 +54,18 @@ public class NewSearchFavoriteDialog extends StatusDialog {
   }
 
   @Override
-  protected boolean isResizable() {
-    return true;
+  protected void buttonPressed(final int buttonId) {
+    if (buttonId == IDialogConstants.OK_ID) {
+      validateDialogState();
+    }
+    super.buttonPressed(buttonId);
   }
 
   @Override
-  protected int getDialogBoundsStrategy() {
-    return DIALOG_PERSISTSIZE;
-  }
-
-  @Override
-  protected IDialogSettings getDialogBoundsSettings() {
-    return AdtBaseUIPlugin.getDefault()
-        .getDialogSettingsSection("DialogBounds_NewSearchFavoritesDialog"); //$NON-NLS-1$
+  protected void createButtonsForButtonBar(final Composite parent) {
+    createButton = createButton(parent, IDialogConstants.OK_ID,
+        Messages.NewSearchFavoriteDialog_CreateFavorite_xbut, true);
+    createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
   }
 
   /*
@@ -84,33 +83,77 @@ public class NewSearchFavoriteDialog extends StatusDialog {
     return ancestor;
   }
 
-  /*
-   * Creates group for holding the parameters of the search query
-   */
-  private void createSearchParametersGroup(final Composite ancestor) {
-    final var group = new Group(ancestor, SWT.NONE);
-    GridDataFactory.fillDefaults().grab(true, true).applyTo(group);
-    group.setText(Messages.NewSearchFavoriteDialog_SearchParameters_xgrp);
-    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(group);
-
-    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_Project_xfld, searchQuery
-        .getDestinationId(), group);
-    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_SearchType_xfld, descriptor
-        .getTypeLabel(), group);
+  @Override
+  protected IDialogSettings getDialogBoundsSettings() {
+    return AdtBaseUIPlugin.getDefault()
+        .getDialogSettingsSection("DialogBounds_NewSearchFavoritesDialog"); //$NON-NLS-1$
   }
 
-  private void createReadOnlyTextWithLabel(final String label, final String content,
-      final Composite parent) {
-    final Label labelControl = new Label(parent, SWT.NONE);
-    labelControl.setText(label);
-    GridDataFactory.fillDefaults()
-        .hint(convertWidthInCharsToPixels(LABEL_WIDTH), SWT.DEFAULT)
-        .applyTo(labelControl);
+  @Override
+  protected int getDialogBoundsStrategy() {
+    return DIALOG_PERSISTSIZE;
+  }
 
-    final Text textControl = new Text(parent, SWT.READ_ONLY | SWT.BORDER | SWT.NO_FOCUS);
-    textControl.setText(content);
-    textControl.setToolTipText(content);
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(textControl);
+  @Override
+  protected boolean isResizable() {
+    return true;
+  }
+
+  @Override
+  protected void okPressed() {
+    final var newFavorite = ISearchFavoritesFactory.eINSTANCE.createSearchFavorite();
+    newFavorite.setDescription(favoriteDescription);
+    newFavorite.setSearchType(searchType);
+    newFavorite.setProjectIndependent(isProjectIndependent);
+    if (!isProjectIndependent) {
+      newFavorite.setDestinationId(searchQuery.getDestinationId());
+    }
+
+    descriptor.getConnector().populateFavoriteFromQuery(newFavorite.getAttributes(), searchQuery);
+
+    AdtBaseUIPlugin.getDefault().getSearchFavoriteManager().addFavorite(newFavorite);
+    SearchFavoriteStorage.serialize();
+    super.okPressed();
+  }
+
+  @Override
+  protected void updateButtonsEnableState(final IStatus status) {
+    if (createButton != null && !createButton.isDisposed()) {
+      createButton.setEnabled(status == null || !status.matches(IStatus.ERROR));
+    }
+  }
+
+  @Override
+  protected void updateStatus(final IStatus status) {
+    super.updateStatus(status);
+    final IStatus currentStatus = getStatus();
+    if (currentStatus != null && currentStatus.matches(IStatus.ERROR | IStatus.WARNING)) {
+      final Shell shell = getShell();
+      if (shell == null) {
+        return;
+      }
+      shell.pack(true);
+      shell.layout(true);
+    }
+  }
+
+  protected final boolean validateDialogState() {
+    IStatus status = null;
+    if (favoriteDescription == null || favoriteDescription.isEmpty()) {
+      status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, IStatus.ERROR,
+          Messages.NewSearchFavoriteDialog_NoDescriptionError_xmsg, null);
+    } else {
+      var favoriteManager = AdtBaseUIPlugin.getDefault().getSearchFavoriteManager();
+      // check if there already is a favorite with this description
+      if (favoriteManager.contains(isProjectIndependent ? null : searchQuery.getDestinationId(),
+          searchType, favoriteDescription)) {
+        status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, IStatus.WARNING, NLS.bind(
+            Messages.NewSearchFavoriteDialog_DuplicateFavoriteError_xmsg, favoriteDescription),
+            null);
+      }
+    }
+    updateStatus(status);
+    return status == null || !status.matches(IStatus.ERROR);
   }
 
   /*
@@ -155,76 +198,33 @@ public class NewSearchFavoriteDialog extends StatusDialog {
     favoriteDescription.setFocus();
   }
 
-  @Override
-  protected void createButtonsForButtonBar(final Composite parent) {
-    createButton = createButton(parent, IDialogConstants.OK_ID,
-        Messages.NewSearchFavoriteDialog_CreateFavorite_xbut, true);
-    createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
+  private void createReadOnlyTextWithLabel(final String label, final String content,
+      final Composite parent) {
+    final Label labelControl = new Label(parent, SWT.NONE);
+    labelControl.setText(label);
+    GridDataFactory.fillDefaults()
+        .hint(convertWidthInCharsToPixels(LABEL_WIDTH), SWT.DEFAULT)
+        .applyTo(labelControl);
+
+    final Text textControl = new Text(parent, SWT.READ_ONLY | SWT.BORDER | SWT.NO_FOCUS);
+    textControl.setText(content);
+    textControl.setToolTipText(content);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(textControl);
   }
 
-  @Override
-  protected void updateButtonsEnableState(final IStatus status) {
-    if (createButton != null && !createButton.isDisposed()) {
-      createButton.setEnabled(status == null || !status.matches(IStatus.ERROR));
-    }
-  }
+  /*
+   * Creates group for holding the parameters of the search query
+   */
+  private void createSearchParametersGroup(final Composite ancestor) {
+    final var group = new Group(ancestor, SWT.NONE);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(group);
+    group.setText(Messages.NewSearchFavoriteDialog_SearchParameters_xgrp);
+    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(group);
 
-  @Override
-  protected void buttonPressed(final int buttonId) {
-    if (buttonId == IDialogConstants.OK_ID) {
-      validateDialogState();
-    }
-    super.buttonPressed(buttonId);
-  }
-
-  protected final boolean validateDialogState() {
-    IStatus status = null;
-    if (favoriteDescription == null || favoriteDescription.isEmpty()) {
-      status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, IStatus.ERROR,
-          Messages.NewSearchFavoriteDialog_NoDescriptionError_xmsg, null);
-    } else {
-      var favoriteManager = AdtBaseUIPlugin.getDefault().getSearchFavoriteManager();
-      // check if there already is a favorite with this description
-      if (favoriteManager.contains(isProjectIndependent ? null : searchQuery.getDestinationId(),
-          searchType, favoriteDescription)) {
-        status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, IStatus.WARNING, NLS.bind(
-            Messages.NewSearchFavoriteDialog_DuplicateFavoriteError_xmsg, favoriteDescription),
-            null);
-      }
-    }
-    updateStatus(status);
-    return status == null || !status.matches(IStatus.ERROR);
-  }
-
-  @Override
-  protected void updateStatus(final IStatus status) {
-    super.updateStatus(status);
-    final IStatus currentStatus = getStatus();
-    if (currentStatus != null && currentStatus.matches(IStatus.ERROR | IStatus.WARNING)) {
-      final Shell shell = getShell();
-      if (shell == null) {
-        return;
-      }
-      shell.pack(true);
-      shell.layout(true);
-    }
-  }
-
-  @Override
-  protected void okPressed() {
-    final var newFavorite = ISearchFavoritesFactory.eINSTANCE.createSearchFavorite();
-    newFavorite.setDescription(favoriteDescription);
-    newFavorite.setSearchType(searchType);
-    newFavorite.setProjectIndependent(isProjectIndependent);
-    if (!isProjectIndependent) {
-      newFavorite.setDestinationId(searchQuery.getDestinationId());
-    }
-
-    descriptor.getConnector().populateFavoriteFromQuery(newFavorite.getAttributes(), searchQuery);
-
-    AdtBaseUIPlugin.getDefault().getSearchFavoriteManager().addFavorite(newFavorite);
-    SearchFavoriteStorage.serialize();
-    super.okPressed();
+    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_Project_xfld, searchQuery
+        .getDestinationId(), group);
+    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_SearchType_xfld, descriptor
+        .getTypeLabel(), group);
   }
 
 }

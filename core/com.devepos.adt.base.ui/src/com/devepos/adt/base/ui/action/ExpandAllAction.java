@@ -25,15 +25,6 @@ public class ExpandAllAction extends Action {
         IAdtBaseImages.EXPAND_ALL));
   }
 
-  /**
-   * Sets the tree viewer of this action
-   *
-   * @param treeViewer the new tree viewer
-   */
-  public void setTreeViewer(final TreeViewer treeViewer) {
-    this.treeViewer = treeViewer;
-  }
-
   @Override
   public void run() {
     if (treeViewer == null || treeViewer.getControl() == null || treeViewer.getControl()
@@ -44,6 +35,15 @@ public class ExpandAllAction extends Action {
     treeViewer.expandAll();
     treeViewer.getControl().setRedraw(true);
 
+  }
+
+  /**
+   * Sets the tree viewer of this action
+   *
+   * @param treeViewer the new tree viewer
+   */
+  public void setTreeViewer(final TreeViewer treeViewer) {
+    this.treeViewer = treeViewer;
   }
 
 }

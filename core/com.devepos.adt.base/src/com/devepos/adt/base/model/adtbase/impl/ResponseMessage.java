@@ -45,17 +45,6 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   protected static final MessageType TYPE_EDEFAULT = MessageType.NONE;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected MessageType type = TYPE_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -67,17 +56,6 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   protected static final String CONTENT_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getContent()
-   * @generated
-   * @ordered
-   */
-  protected String content = CONTENT_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getOccurrences() <em>Occurrences</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -87,6 +65,28 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @ordered
    */
   protected static final int OCCURRENCES_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected MessageType type = TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getContent()
+   * @generated
+   * @ordered
+   */
+  protected String content = CONTENT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getOccurrences() <em>Occurrences</em>}' attribute.
@@ -116,109 +116,6 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.RESPONSE_MESSAGE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public MessageType getType() {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setType(final MessageType newType) {
-    MessageType oldType = type;
-    type = newType == null ? TYPE_EDEFAULT : newType;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.RESPONSE_MESSAGE__TYPE,
-          oldType, type));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getContent() {
-    return content;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setContent(final String newContent) {
-    String oldContent = content;
-    content = newContent;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.RESPONSE_MESSAGE__CONTENT, oldContent, content));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public int getOccurrences() {
-    return occurrences;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public void setOccurrences(final int newOccurrences) {
-    int oldOccurrences = occurrences;
-    occurrences = newOccurrences;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          IAdtBasePackage.RESPONSE_MESSAGE__OCCURRENCES, oldOccurrences, occurrences));
-    }
-  }
-
-  @Override
-  public int getStatusType() {
-    switch (type) {
-    case INFO:
-      return IStatus.INFO;
-    case WARNING:
-      return IStatus.WARNING;
-    case ERROR:
-      return IStatus.ERROR;
-    default:
-      return IStatus.ERROR;
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case IAdtBasePackage.RESPONSE_MESSAGE__TYPE:
@@ -229,6 +126,41 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
       return getOccurrences();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eInvoke(final int operationID, final EList<?> arguments)
+      throws InvocationTargetException {
+    switch (operationID) {
+    case IAdtBasePackage.RESPONSE_MESSAGE___GET_STATUS_TYPE:
+      return getStatusType();
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case IAdtBasePackage.RESPONSE_MESSAGE__TYPE:
+      return type != TYPE_EDEFAULT;
+    case IAdtBasePackage.RESPONSE_MESSAGE__CONTENT:
+      return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
+    case IAdtBasePackage.RESPONSE_MESSAGE__OCCURRENCES:
+      return occurrences != OCCURRENCES_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -282,16 +214,8 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.RESPONSE_MESSAGE__TYPE:
-      return type != TYPE_EDEFAULT;
-    case IAdtBasePackage.RESPONSE_MESSAGE__CONTENT:
-      return CONTENT_EDEFAULT == null ? content != null : !CONTENT_EDEFAULT.equals(content);
-    case IAdtBasePackage.RESPONSE_MESSAGE__OCCURRENCES:
-      return occurrences != OCCURRENCES_EDEFAULT;
-    }
-    return super.eIsSet(featureID);
+  public String getContent() {
+    return content;
   }
 
   /**
@@ -301,13 +225,78 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   @Override
-  public Object eInvoke(final int operationID, final EList<?> arguments)
-      throws InvocationTargetException {
-    switch (operationID) {
-    case IAdtBasePackage.RESPONSE_MESSAGE___GET_STATUS_TYPE:
-      return getStatusType();
+  public int getOccurrences() {
+    return occurrences;
+  }
+
+  @Override
+  public int getStatusType() {
+    switch (type) {
+    case INFO:
+      return IStatus.INFO;
+    case WARNING:
+      return IStatus.WARNING;
+    case ERROR:
+      return IStatus.ERROR;
+    default:
+      return IStatus.ERROR;
     }
-    return super.eInvoke(operationID, arguments);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public MessageType getType() {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setContent(final String newContent) {
+    String oldContent = content;
+    content = newContent;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.RESPONSE_MESSAGE__CONTENT, oldContent, content));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setOccurrences(final int newOccurrences) {
+    int oldOccurrences = occurrences;
+    occurrences = newOccurrences;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAdtBasePackage.RESPONSE_MESSAGE__OCCURRENCES, oldOccurrences, occurrences));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public void setType(final MessageType newType) {
+    MessageType oldType = type;
+    type = newType == null ? TYPE_EDEFAULT : newType;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.RESPONSE_MESSAGE__TYPE,
+          oldType, type));
+    }
   }
 
   /**
@@ -331,6 +320,17 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
     result.append(occurrences);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.RESPONSE_MESSAGE;
   }
 
 } // ResponseMessage

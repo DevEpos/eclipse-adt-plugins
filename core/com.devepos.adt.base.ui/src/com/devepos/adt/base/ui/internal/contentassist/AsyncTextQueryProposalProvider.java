@@ -35,7 +35,7 @@ class AsyncTextQueryProposalProvider implements ITextQueryProposalProvider {
   private final List<IContentChangeListener> contentChangeListeners;
   private Job queryJob;
   private final List<IContentProposal> queryResults;
-  private ITextQueryProposalProvider proposalProvider;
+  private final ITextQueryProposalProvider proposalProvider;
 
   /**
    * Creates a new proposal provider. <br>

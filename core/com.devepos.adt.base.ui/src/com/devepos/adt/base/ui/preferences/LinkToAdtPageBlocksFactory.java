@@ -17,7 +17,7 @@ public class LinkToAdtPageBlocksFactory {
 
   private static class LinkToAdtPreferencePageBlockProxy implements ILinkToAdtPageBlock {
 
-    private LinkToAdtPreferencePageBlock linkPageBlock;
+    private final LinkToAdtPreferencePageBlock linkPageBlock;
 
     public LinkToAdtPreferencePageBlockProxy(final String preferencePageId,
         final Object dataToPass) {
@@ -33,7 +33,7 @@ public class LinkToAdtPageBlocksFactory {
 
   private static class LinkToAdtPropertyPageBlockProxy implements ILinkToAdtPageBlock {
 
-    private LinkToAdtPropertyPageBlock linkPageBlock;
+    private final LinkToAdtPropertyPageBlock linkPageBlock;
 
     public LinkToAdtPropertyPageBlockProxy(final String preferencePageId, final Object dataToPass) {
       linkPageBlock = new LinkToAdtPropertyPageBlock(preferencePageId, dataToPass);

@@ -691,601 +691,6 @@ public interface IAdtBasePackage extends EPackage {
   int ISTATUS = 12;
 
   /**
-   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt
-   * Obj Ref</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Adt Obj Ref</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef
-   * @generated
-   */
-  EClass getAdtObjRef();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription <em>Description</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_Description();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getName()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_Name();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName <em>Alternative
-   * Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Alternative Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_AlternativeName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package Name</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Package Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_PackageName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getType()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_Type();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Uri</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_Uri();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Parent Uri</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_ParentUri();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName <em>Parent Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Parent Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_ParentName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Owner</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_Owner();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn <em>Created On</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Created On</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_CreatedOn();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy <em>Changed By</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Changed By</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_ChangedBy();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn <em>Changed On</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Changed On</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_ChangedOn();
-
-  /**
-   * Returns the meta object for the map
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties <em>Properties</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the map '<em>Properties</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EReference getAdtObjRef_Properties();
-
-  /**
-   * Returns the meta object for the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName() <em>Get Display
-   * Name</em>}' operation.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the '<em>Get Display Name</em>' operation.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName()
-   * @generated
-   */
-  EOperation getAdtObjRef__GetDisplayName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Tadir Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType()
-   * @see #getAdtObjRef()
-   * @generated
-   */
-  EAttribute getAdtObjRef_TadirType();
-
-  /**
-   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList
-   * <em>Adt Obj Ref List</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Adt Obj Ref List</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList
-   * @generated
-   */
-  EClass getAdtObjRefList();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences <em>Object
-   * References</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Object References</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences()
-   * @see #getAdtObjRefList()
-   * @generated
-   */
-  EReference getAdtObjRefList_ObjectReferences();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IUser <em>User</em>}'. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>User</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IUser
-   * @generated
-   */
-  EClass getUser();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IUser#getName()
-   * @see #getUser()
-   * @generated
-   */
-  EAttribute getUser_Name();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Text</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IUser#getText()
-   * @see #getUser()
-   * @generated
-   */
-  EAttribute getUser_Text();
-
-  /**
-   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature
-   * <em>Adt Plugin Feature</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Adt Plugin Feature</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature
-   * @generated
-   */
-  EClass getAdtPluginFeature();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName <em>Name</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Name();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint <em>Endpoint</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Endpoint</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Endpoint();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType <em>Type</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Type();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription
-   * <em>Description</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Description();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled <em>Enabled</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Enabled</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Enabled();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory <em>Category</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Category</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory()
-   * @see #getAdtPluginFeature()
-   * @generated
-   */
-  EAttribute getAdtPluginFeature_Category();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt Plugin Feature
-   * List</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Adt Plugin Feature List</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList
-   * @generated
-   */
-  EClass getAdtPluginFeatureList();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures
-   * <em>Features</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Features</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures()
-   * @see #getAdtPluginFeatureList()
-   * @generated
-   */
-  EReference getAdtPluginFeatureList_Features();
-
-  /**
-   * Returns the meta object for the
-   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
-   * <em>Get Features By Endpoint</em>}' operation.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
-   *
-   * @return the meta object for the '<em>Get Features By Endpoint</em>' operation.
-   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
-   * @generated
-   */
-  EOperation getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
-
-  /**
-   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IResponseMessage
-   * <em>Response Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Response Message</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessage
-   * @generated
-   */
-  EClass getResponseMessage();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getType()
-   * @see #getResponseMessage()
-   * @generated
-   */
-  EAttribute getResponseMessage_Type();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getContent <em>Content</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Content</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getContent()
-   * @see #getResponseMessage()
-   * @generated
-   */
-  EAttribute getResponseMessage_Content();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences
-   * <em>Occurrences</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Occurrences</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences()
-   * @see #getResponseMessage()
-   * @generated
-   */
-  EAttribute getResponseMessage_Occurrences();
-
-  /**
-   * Returns the meta object for the
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType() <em>Get Status
-   * Type</em>}' operation.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the '<em>Get Status Type</em>' operation.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType()
-   * @generated
-   */
-  EOperation getResponseMessage__GetStatusType();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList <em>Response Message
-   * List</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Response Message List</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList
-   * @generated
-   */
-  EClass getResponseMessageList();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages
-   * <em>Messages</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Messages</em>'.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages()
-   * @see #getResponseMessageList()
-   * @generated
-   */
-  EReference getResponseMessageList_Messages();
-
-  /**
-   * Returns the meta object for the
-   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String, java.lang.String)
-   * <em>To Status</em>}' operation.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the '<em>To Status</em>' operation.
-   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String,
-   *      java.lang.String)
-   * @generated
-   */
-  EOperation getResponseMessageList__ToStatus__String_String();
-
-  /**
-   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
-   * Entry</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>String To String Map Entry</em>'.
-   * @see java.util.Map.Entry
-   * @model keyDataType="org.eclipse.emf.ecore.EString"
-   *        valueDataType="org.eclipse.emf.ecore.EString"
-   * @generated
-   */
-  EClass getStringToStringMapEntry();
-
-  /**
-   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Key</em>'.
-   * @see java.util.Map.Entry
-   * @see #getStringToStringMapEntry()
-   * @generated
-   */
-  EAttribute getStringToStringMapEntry_Key();
-
-  /**
-   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see java.util.Map.Entry
-   * @see #getStringToStringMapEntry()
-   * @generated
-   */
-  EAttribute getStringToStringMapEntry_Value();
-
-  /**
-   * Returns the meta object for enum
-   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt Plugin Feature
-   * Type</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for enum '<em>Adt Plugin Feature Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
-   * @generated
-   */
-  EEnum getAdtPluginFeatureType();
-
-  /**
-   * Returns the meta object for enum
-   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt Plugin Feature
-   * Category</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for enum '<em>Adt Plugin Feature Category</em>'.
-   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
-   * @generated
-   */
-  EEnum getAdtPluginFeatureCategory();
-
-  /**
-   * Returns the meta object for enum '{@link com.devepos.adt.base.model.adtbase.MessageType
-   * <em>Message Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for enum '<em>Message Type</em>'.
-   * @see com.devepos.adt.base.model.adtbase.MessageType
-   * @generated
-   */
-  EEnum getMessageType();
-
-  /**
-   * Returns the meta object for data type
-   * '{@link com.devepos.adt.base.plugin.features.IAdtPluginFeatures <em>IAdt Plugin
-   * Features</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the meta object for data type '<em>IAdt Plugin Features</em>'.
-   * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
-   * @model instanceClass="com.devepos.adt.base.plugin.features.IAdtPluginFeatures"
-   * @generated
-   */
-  EDataType getIAdtPluginFeatures();
-
-  /**
-   * Returns the meta object for data type '{@link org.eclipse.core.runtime.IStatus
-   * <em>IStatus</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for data type '<em>IStatus</em>'.
-   * @see org.eclipse.core.runtime.IStatus
-   * @model instanceClass="org.eclipse.core.runtime.IStatus"
-   * @generated
-   */
-  EDataType getIStatus();
-
-  /**
-   * Returns the factory that creates the instances of the model. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @return the factory that creates the instances of the model.
-   * @generated
-   */
-  IAdtBaseFactory getAdtBaseFactory();
-
-  /**
    * <!-- begin-user-doc --> Defines literals for the meta objects that represent
    * <ul>
    * <li>each class,</li>
@@ -1746,5 +1151,600 @@ public interface IAdtBasePackage extends EPackage {
     EDataType ISTATUS = eINSTANCE.getIStatus();
 
   }
+
+  /**
+   * Returns the factory that creates the instances of the model. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the factory that creates the instances of the model.
+   * @generated
+   */
+  IAdtBaseFactory getAdtBaseFactory();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef <em>Adt
+   * Obj Ref</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Obj Ref</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef
+   * @generated
+   */
+  EClass getAdtObjRef();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName() <em>Get Display
+   * Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Display Name</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDisplayName()
+   * @generated
+   */
+  EOperation getAdtObjRef__GetDisplayName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName <em>Alternative
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Alternative Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getAlternativeName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_AlternativeName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy <em>Changed By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Changed By</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedBy()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ChangedBy();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn <em>Changed On</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Changed On</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getChangedOn()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ChangedOn();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn <em>Created On</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Created On</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getCreatedOn()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_CreatedOn();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getDescription()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_Description();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getName <em>Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_Name();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner <em>Owner</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Owner</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getOwner()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_Owner();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName <em>Package Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Package Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getPackageName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_PackageName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName <em>Parent Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentName()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ParentName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri <em>Parent Uri</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Parent Uri</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getParentUri()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_ParentUri();
+
+  /**
+   * Returns the meta object for the map
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties <em>Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the map '<em>Properties</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getProperties()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EReference getAdtObjRef_Properties();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType <em>Tadir Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Tadir Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getTadirType()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_TadirType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getType <em>Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getType()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri <em>Uri</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Uri</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRef#getUri()
+   * @see #getAdtObjRef()
+   * @generated
+   */
+  EAttribute getAdtObjRef_Uri();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList
+   * <em>Adt Obj Ref List</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Obj Ref List</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList
+   * @generated
+   */
+  EClass getAdtObjRefList();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences <em>Object
+   * References</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Object References</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtObjRefList#getObjectReferences()
+   * @see #getAdtObjRefList()
+   * @generated
+   */
+  EReference getAdtObjRefList_ObjectReferences();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature
+   * <em>Adt Plugin Feature</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Plugin Feature</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature
+   * @generated
+   */
+  EClass getAdtPluginFeature();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory <em>Category</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Category</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Category();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Description();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled <em>Enabled</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Enabled</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Enabled();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint <em>Endpoint</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Endpoint</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Endpoint();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName <em>Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Name();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType <em>Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType()
+   * @see #getAdtPluginFeature()
+   * @generated
+   */
+  EAttribute getAdtPluginFeature_Type();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory <em>Adt Plugin Feature
+   * Category</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Adt Plugin Feature Category</em>'.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * @generated
+   */
+  EEnum getAdtPluginFeatureCategory();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList <em>Adt Plugin Feature
+   * List</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Plugin Feature List</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList
+   * @generated
+   */
+  EClass getAdtPluginFeatureList();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
+   * <em>Get Features By Endpoint</em>}' operation.
+   * <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Features By Endpoint</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeaturesByEndpoint(java.lang.String)
+   * @generated
+   */
+  EOperation getAdtPluginFeatureList__GetFeaturesByEndpoint__String();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures
+   * <em>Features</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Features</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList#getFeatures()
+   * @see #getAdtPluginFeatureList()
+   * @generated
+   */
+  EReference getAdtPluginFeatureList_Features();
+
+  /**
+   * Returns the meta object for enum
+   * '{@link com.devepos.adt.base.model.adtbase.AdtPluginFeatureType <em>Adt Plugin Feature
+   * Type</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Adt Plugin Feature Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
+   * @generated
+   */
+  EEnum getAdtPluginFeatureType();
+
+  /**
+   * Returns the meta object for data type
+   * '{@link com.devepos.adt.base.plugin.features.IAdtPluginFeatures <em>IAdt Plugin
+   * Features</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for data type '<em>IAdt Plugin Features</em>'.
+   * @see com.devepos.adt.base.plugin.features.IAdtPluginFeatures
+   * @model instanceClass="com.devepos.adt.base.plugin.features.IAdtPluginFeatures"
+   * @generated
+   */
+  EDataType getIAdtPluginFeatures();
+
+  /**
+   * Returns the meta object for data type '{@link org.eclipse.core.runtime.IStatus
+   * <em>IStatus</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for data type '<em>IStatus</em>'.
+   * @see org.eclipse.core.runtime.IStatus
+   * @model instanceClass="org.eclipse.core.runtime.IStatus"
+   * @generated
+   */
+  EDataType getIStatus();
+
+  /**
+   * Returns the meta object for enum '{@link com.devepos.adt.base.model.adtbase.MessageType
+   * <em>Message Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for enum '<em>Message Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.MessageType
+   * @generated
+   */
+  EEnum getMessageType();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.base.model.adtbase.IResponseMessage
+   * <em>Response Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Response Message</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage
+   * @generated
+   */
+  EClass getResponseMessage();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType() <em>Get Status
+   * Type</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>Get Status Type</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getStatusType()
+   * @generated
+   */
+  EOperation getResponseMessage__GetStatusType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getContent <em>Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Content</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getContent()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Content();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences
+   * <em>Occurrences</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Occurrences</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getOccurrences()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Occurrences();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessage#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessage#getType()
+   * @see #getResponseMessage()
+   * @generated
+   */
+  EAttribute getResponseMessage_Type();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList <em>Response Message
+   * List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Response Message List</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList
+   * @generated
+   */
+  EClass getResponseMessageList();
+
+  /**
+   * Returns the meta object for the
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String, java.lang.String)
+   * <em>To Status</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the '<em>To Status</em>' operation.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#toStatus(java.lang.String,
+   *      java.lang.String)
+   * @generated
+   */
+  EOperation getResponseMessageList__ToStatus__String_String();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages
+   * <em>Messages</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Messages</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IResponseMessageList#getMessages()
+   * @see #getResponseMessageList()
+   * @generated
+   */
+  EReference getResponseMessageList_Messages();
+
+  /**
+   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>String To String Map Entry</em>'.
+   * @see java.util.Map.Entry
+   * @model keyDataType="org.eclipse.emf.ecore.EString"
+   *        valueDataType="org.eclipse.emf.ecore.EString"
+   * @generated
+   */
+  EClass getStringToStringMapEntry();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Key();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Value();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.adtbase.IUser <em>User</em>}'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>User</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IUser
+   * @generated
+   */
+  EClass getUser();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IUser#getName <em>Name</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IUser#getName()
+   * @see #getUser()
+   * @generated
+   */
+  EAttribute getUser_Name();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.adtbase.IUser#getText <em>Text</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see com.devepos.adt.base.model.adtbase.IUser#getText()
+   * @see #getUser()
+   * @generated
+   */
+  EAttribute getUser_Text();
 
 } // IAdtBasePackage

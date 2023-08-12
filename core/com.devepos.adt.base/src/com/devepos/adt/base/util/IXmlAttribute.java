@@ -13,9 +13,9 @@ public interface IXmlAttribute {
   String getName();
 
   /**
-   * @param name the name to set
+   * @return the namespace
    */
-  void setName(String name);
+  String getNamespace();
 
   /**
    * @return the value
@@ -23,18 +23,18 @@ public interface IXmlAttribute {
   String getValue();
 
   /**
-   * @param value the value to set
+   * @param name the name to set
    */
-  void setValue(String value);
-
-  /**
-   * @return the namespace
-   */
-  String getNamespace();
+  void setName(String name);
 
   /**
    * @param namespace the namespace to set
    */
   void setNamespace(String namespace);
+
+  /**
+   * @param value the value to set
+   */
+  void setValue(String value);
 
 }

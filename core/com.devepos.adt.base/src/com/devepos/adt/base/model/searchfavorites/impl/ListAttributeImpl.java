@@ -54,38 +54,27 @@ public class ListAttributeImpl extends BaseAttributeImpl implements IListAttribu
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.LIST_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<String> getValues() {
-    if (values == null) {
-      values = new EDataTypeUniqueEList<>(String.class, this,
-          ISearchFavoritesPackage.LIST_ATTRIBUTE__VALUES);
-    }
-    return values;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.LIST_ATTRIBUTE__VALUES:
       return getValues();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.LIST_ATTRIBUTE__VALUES:
+      return values != null && !values.isEmpty();
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -129,12 +118,12 @@ public class ListAttributeImpl extends BaseAttributeImpl implements IListAttribu
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.LIST_ATTRIBUTE__VALUES:
-      return values != null && !values.isEmpty();
+  public EList<String> getValues() {
+    if (values == null) {
+      values = new EDataTypeUniqueEList<>(String.class, this,
+          ISearchFavoritesPackage.LIST_ATTRIBUTE__VALUES);
     }
-    return super.eIsSet(featureID);
+    return values;
   }
 
   /**
@@ -154,6 +143,17 @@ public class ListAttributeImpl extends BaseAttributeImpl implements IListAttribu
     result.append(values);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.LIST_ATTRIBUTE;
   }
 
 } // ListAttributeImpl

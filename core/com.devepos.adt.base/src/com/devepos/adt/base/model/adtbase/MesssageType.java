@@ -131,65 +131,6 @@ public enum MesssageType implements Enumerator {
       VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified literal value.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param literal the literal.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static MesssageType get(final String literal) {
-    for (MesssageType result : VALUES_ARRAY) {
-      if (result.toString().equals(literal)) {
-        return result;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified name.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param name the name.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static MesssageType getByName(final String name) {
-    for (MesssageType result : VALUES_ARRAY) {
-      if (result.getName().equals(name)) {
-        return result;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified integer value.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the integer value.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static MesssageType get(final int value) {
-    switch (value) {
-    case NONE_VALUE:
-      return NONE;
-    case INFO_VALUE:
-      return INFO;
-    case WARNING_VALUE:
-      return WARNING;
-    case ERROR_VALUE:
-      return ERROR;
-    }
-    return null;
-  }
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
@@ -227,14 +168,73 @@ public enum MesssageType implements Enumerator {
   }
 
   /**
+   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static MesssageType get(final int value) {
+    switch (value) {
+    case NONE_VALUE:
+      return NONE;
+    case INFO_VALUE:
+      return INFO;
+    case WARNING_VALUE:
+      return WARNING;
+    case ERROR_VALUE:
+      return ERROR;
+    }
+    return null;
+  }
+
+  /**
+   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param literal the literal.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static MesssageType get(final String literal) {
+    for (MesssageType result : VALUES_ARRAY) {
+      if (result.toString().equals(literal)) {
+        return result;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the '<em><b>Messsage Type</b></em>' literal with the specified name.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param name the name.
+   * @return the matching enumerator or <code>null</code>.
+   * @generated
+   */
+  public static MesssageType getByName(final String name) {
+    for (MesssageType result : VALUES_ARRAY) {
+      if (result.getName().equals(name)) {
+        return result;
+      }
+    }
+    return null;
+  }
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
-  public int getValue() {
-    return value;
+  public String getLiteral() {
+    return literal;
   }
 
   /**
@@ -255,8 +255,8 @@ public enum MesssageType implements Enumerator {
    * @generated
    */
   @Override
-  public String getLiteral() {
-    return literal;
+  public int getValue() {
+    return value;
   }
 
   /**
