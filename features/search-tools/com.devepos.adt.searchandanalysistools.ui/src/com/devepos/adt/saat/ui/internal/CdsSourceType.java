@@ -45,13 +45,13 @@ public enum CdsSourceType implements IDataSourceType {
   }
 
   @Override
-  public String getImageId() {
-    return imageId;
+  public String getId() {
+    return id;
   }
 
   @Override
-  public String getId() {
-    return id;
+  public String getImageId() {
+    return imageId;
   }
 
 }

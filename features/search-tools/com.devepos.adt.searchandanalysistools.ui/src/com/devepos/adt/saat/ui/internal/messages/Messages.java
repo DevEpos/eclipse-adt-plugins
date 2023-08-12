@@ -55,6 +55,8 @@ public class Messages extends NLS {
   public static String ObjectSearch_WhereUsedListAction_xmit;
   public static String ObjectSearchOpenPreferences_xmit;
   public static String ObjectSearchResultPage_OpenInSearchDialog_xtol;
+  public static String ObjectSearchResultPage_showAsListAction_xlbl;
+  public static String ObjectSearchResultPage_showAsTreeAction_xlbl;
   public static String ObjectSearch_InfoSearchString_xmsg;
   public static String ObjectSearch_InfoSearchString_Asterisk_xmsg;
   public static String ObjectSearch_InfoSearchString_LessThan_xmsg;
@@ -62,11 +64,15 @@ public class Messages extends NLS {
   public static String ObjectSearch_InfoSearchString_Negation_xmsg;
   public static String ObjectSearch_InfoSearchString_Notes_xmsg;
   public static String ObjectSearch_NoProjectFound_xmsg;
+  public static String ObjectSearchModesMenu_noAbapProjectSelected_xmsg;
+  public static String ObjectSearchPage_noProjectInput_xmsg;
+  public static String ObjectSearchPage_queryInputGroup_xtit;
+  public static String ObjectSearchPage_queryOptionsGroup_xtit;
+  public static String ObjectSearchPage_searchTypeConfigSerializationError_xmsg;
   public static String OpenInUtil_AnalysisForOfficeNotActive_xmsg;
   public static String SearchHistorySelectionDialog_DeleteHistoryEntry_xbut;
   public static String SearchHistorySelectionDialog_InfoMessage_xmsg;
   public static String SearchHistorySelectionDialog_PreviousSearches_xtit;
-  public static String SearchPatternAnalyzer_DescriptionDeliveryClassParameter_xmsg;
   public static String SearchPatternProvider_loading_xmsg;
   public static String SearchPatternContentProvider_loadingJob_xmsg;
   public static String CdsAnalysis_ClearHistoryAction_xmit;
@@ -193,6 +199,7 @@ public class Messages extends NLS {
   public static String FieldHierarchyViewer_FieldColumn_xcol;
   public static String FieldHierarchyViewer_FieldOriginModeButton_xtol;
   public static String FieldHierarchyViewer_FieldReferencesModeButton_xtol;
+  public static String FieldWhereUsedInCdsElementInfoProvider_noFieldUsageFound_xmsg;
   public static String FieldWhereUsedInCdsElementInfoProvider_ProviderDescription_xmsg;
   public static String General_Copy_xtol;
   public static String MainPreferencePage_CdsViewSettings_xgrp;
@@ -206,6 +213,7 @@ public class Messages extends NLS {
   public static String MainPreferencePage_RememberLastProject_xfld;
   public static String MainPreferencePage_SearchHistorySize_xfld;
   public static String MainPreferencePage_SearchSettings_xgrp;
+  public static String MainPreferencePage_seeSubPagesInfo_xmsg;
   public static String MainPreferencePage_UseCurrentTextSelectionForObjName_xfld;
   public static String ManageCdsAnalysesDialog_openInNewAction_xbtn;
   public static String NavigationUtil_navigationJob_xtit;

@@ -1,7 +1,5 @@
 package com.devepos.adt.saat.ui.internal.preferences;
 
-import com.devepos.adt.saat.ui.internal.search.SearchType;
-
 /**
  * Constants for Plugin preferences
  *
@@ -46,7 +44,7 @@ public interface IPreferences {
    */
   String SHOW_FULL_ASSOCIATION_NAME = "com.devepos.adt.saat.objectsearch.showAssocName"; //$NON-NLS-1$
   /**
-   * The default {@link SearchType} for the object search
+   * The default Search Type for the object search
    */
   String DEFAULT_SEARCH_TYPE = "com.devepos.adt.saat.objectsearch.defaultSearchType"; //$NON-NLS-1$
   /**

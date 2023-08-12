@@ -499,7 +499,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         checkFeatureAvailibility();
       }
       resultViewer.setInput(e.getSearchResult());
-      if ((resultViewer instanceof TreeViewer) && groupByPackageAction.isChecked()) {
+      if (resultViewer instanceof TreeViewer && groupByPackageAction.isChecked()) {
         expandAllPackages();
       }
       updateUiState();
@@ -763,15 +763,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         }
       }
 
-      if (isTreeViewer && (!selectionHasExpandedNodes || !hasCollapsedPackages)) {
-        if (selectedObject instanceof ICollectionTreeNode) {
-          var collectionNode = (ICollectionTreeNode) selectedObject;
-          if (collectionNode.hasChildren()) {
-            if (((TreeViewer) resultViewer).getExpandedState(selectedObject)) {
-              selectionHasExpandedNodes = true;
-            } else {
-              hasCollapsedPackages = true;
-            }
+      if ((isTreeViewer && (!selectionHasExpandedNodes || !hasCollapsedPackages))
+          && (selectedObject instanceof ICollectionTreeNode)) {
+        var collectionNode = (ICollectionTreeNode) selectedObject;
+        if (collectionNode.hasChildren()) {
+          if (((TreeViewer) resultViewer).getExpandedState(selectedObject)) {
+            selectionHasExpandedNodes = true;
+          } else {
+            hasCollapsedPackages = true;
           }
         }
       }

@@ -112,6 +112,20 @@ class CdsAnalysisUriDiscovery extends SearchToolsUriDiscovery {
     return createCdsAnalysisResourceUri(DISCOVERY_TEMPLATE_USED_ENTITES, cdsViewName, parameterMap);
   }
 
+  public URI createWhereUsedInCdsAnalysisResourceUri(final Map<String, Object> params) {
+    /*
+     * We can use any term because the underlying URI will always be same. They just serve as a
+     * marker to check if a certain mode is available or not
+     */
+    final var template = getCdsAnalysisTemplate(DISCOVERY_TEMPLATE_WHERE_USED_IN_FROM);
+    URI uri = null;
+    if (template != null) {
+      fillTemplateWithParams(template, params);
+      uri = URI.create(template.expand());
+    }
+    return uri;
+  }
+
   /**
    * @return ADT URI template for the CDS Analysis Resource
    */
@@ -125,20 +139,6 @@ class CdsAnalysisUriDiscovery extends SearchToolsUriDiscovery {
    */
   public URI getCdsAnalysisUri() {
     return getUriFromCollectionMember(DISCOVERY_TERM_CDS_ANALYSIS);
-  }
-
-  public URI createWhereUsedInCdsAnalysisResourceUri(final Map<String, Object> params) {
-    /*
-     * We can use any term because the underlying URI will always be same. They just serve as a
-     * marker to check if a certain mode is available or not
-     */
-    final var template = getCdsAnalysisTemplate(DISCOVERY_TEMPLATE_WHERE_USED_IN_FROM);
-    URI uri = null;
-    if (template != null) {
-      fillTemplateWithParams(template, params);
-      uri = URI.create(template.expand());
-    }
-    return uri;
   }
 
   /**

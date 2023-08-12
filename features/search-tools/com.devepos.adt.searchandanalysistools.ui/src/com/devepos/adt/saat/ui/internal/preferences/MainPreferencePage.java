@@ -10,6 +10,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import com.devepos.adt.saat.ui.internal.messages.Messages;
+
 /**
  * Main preference page for search and analysis tools
  *
@@ -29,7 +31,7 @@ public class MainPreferencePage extends PreferencePage implements IWorkbenchPref
     GridLayoutFactory.fillDefaults().applyTo(main);
 
     final Label label = new Label(main, SWT.NONE);
-    label.setText("See sub-pages for details");
+    label.setText(Messages.MainPreferencePage_seeSubPagesInfo_xmsg);
     GridDataFactory.fillDefaults().applyTo(label);
     return main;
   }

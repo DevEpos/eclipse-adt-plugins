@@ -19,6 +19,10 @@ public class FieldHierarchyViewerNode {
     this.node = node;
   }
 
+  public TreePath[] getExpandedState() {
+    return expandedTreePaths == null ? new TreePath[0] : expandedTreePaths;
+  }
+
   public Object getInput() {
     if (!inputLoaded) {
       inputLoaded = true;
@@ -30,20 +34,12 @@ public class FieldHierarchyViewerNode {
     return node;
   }
 
-  public boolean isInputAlreadyLoaded() {
-    return inputLoaded;
-  }
-
   public boolean hasContent() {
     return node != null;
   }
 
-  public void setExpandedState(final TreePath[] paths) {
-    expandedTreePaths = paths;
-  }
-
-  public TreePath[] getExpandedState() {
-    return expandedTreePaths == null ? new TreePath[0] : expandedTreePaths;
+  public boolean isInputAlreadyLoaded() {
+    return inputLoaded;
   }
 
   public void refreshInput() {
@@ -53,5 +49,9 @@ public class FieldHierarchyViewerNode {
     inputLoaded = false;
     expandedTreePaths = null;
     node.resetLoadedState();
+  }
+
+  public void setExpandedState(final TreePath[] paths) {
+    expandedTreePaths = paths;
   }
 }

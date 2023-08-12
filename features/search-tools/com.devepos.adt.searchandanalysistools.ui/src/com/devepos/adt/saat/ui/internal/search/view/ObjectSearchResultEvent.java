@@ -14,19 +14,19 @@ public class ObjectSearchResultEvent extends SearchResultEvent {
     super(searchResult);
   }
 
-  public void setAbapProject(final IAbapProject abapProject) {
-    this.abapProject = abapProject;
-  }
-
   public IAbapProject getAbapProject() {
     return abapProject;
   }
 
-  public void setCleanup(final boolean cleanup) {
-    this.cleanup = cleanup;
-  }
-
   public boolean isCleanup() {
     return cleanup;
+  }
+
+  public void setAbapProject(final IAbapProject abapProject) {
+    this.abapProject = abapProject;
+  }
+
+  public void setCleanup(final boolean cleanup) {
+    this.cleanup = cleanup;
   }
 }

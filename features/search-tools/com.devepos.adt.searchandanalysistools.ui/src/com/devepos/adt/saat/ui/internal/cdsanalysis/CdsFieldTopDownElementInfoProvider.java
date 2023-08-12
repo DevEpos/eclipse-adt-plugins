@@ -42,14 +42,19 @@ public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider 
                 .getDefault()
                 .getImage(IImages.FUNCTION)));
         return elementInfos;
-      } else {
-        return convertToElemInfoList(topDownResult.getFieldInfos());
       }
+      return convertToElemInfoList(topDownResult.getFieldInfos());
     }
     return null;
   }
 
-  private List<IElementInfo> convertToElemInfoList(List<IEntityFieldInfo> topDownResult) {
+  @Override
+  public String getProviderDescription() {
+    return NLS.bind(Messages.CdsFieldTopDownElementInfoProvider_ProviderDescription_xmsg,
+        cdsViewName, field);
+  }
+
+  private List<IElementInfo> convertToElemInfoList(final List<IEntityFieldInfo> topDownResult) {
     var elementInfos = new ArrayList<IElementInfo>();
     for (var fieldInfo : topDownResult) {
       var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(), fieldInfo
@@ -66,12 +71,6 @@ public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider 
       }
     }
     return elementInfos;
-  }
-
-  @Override
-  public String getProviderDescription() {
-    return NLS.bind(Messages.CdsFieldTopDownElementInfoProvider_ProviderDescription_xmsg,
-        cdsViewName, field);
   }
 
 }

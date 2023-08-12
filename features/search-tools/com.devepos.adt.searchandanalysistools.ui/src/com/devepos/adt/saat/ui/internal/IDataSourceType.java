@@ -10,17 +10,17 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
 public interface IDataSourceType {
 
   /**
+   * Returns the internal ID of the source type
+   *
+   * @return
+   */
+  String getId();
+
+  /**
    * Returns the associated Image id for this source type
    *
    * @see IImages
    * @return
    */
   String getImageId();
-
-  /**
-   * Returns the internal ID of the source type
-   *
-   * @return
-   */
-  String getId();
 }

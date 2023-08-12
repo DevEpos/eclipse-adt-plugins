@@ -12,20 +12,6 @@ public class TreeViewUiState extends ViewUiState {
   protected TreePath[] expandedTreePaths;
 
   /**
-   * Creates new UI state for the given Tree viewer
-   *
-   * @param viewer the Tree Viewer to be used for the ui state
-   * @return the create UI state or <code>null</code>
-   */
-  public void setFromTreeViewer(final TreeViewer viewer) {
-    if (viewer == null || viewer.getControl().isDisposed()) {
-      return;
-    }
-    expandedTreePaths = viewer.getExpandedTreePaths();
-    selection = viewer.getSelection();
-  }
-
-  /**
    * Applies the properties of this UI state to the given tree viewer
    *
    * @param viewer a Tree Viewer
@@ -54,5 +40,19 @@ public class TreeViewUiState extends ViewUiState {
    */
   public void setExpandedTreePaths(final TreePath[] expandedTreePaths) {
     this.expandedTreePaths = expandedTreePaths;
+  }
+
+  /**
+   * Creates new UI state for the given Tree viewer
+   *
+   * @param viewer the Tree Viewer to be used for the ui state
+   * @return the create UI state or <code>null</code>
+   */
+  public void setFromTreeViewer(final TreeViewer viewer) {
+    if (viewer == null || viewer.getControl().isDisposed()) {
+      return;
+    }
+    expandedTreePaths = viewer.getExpandedTreePaths();
+    selection = viewer.getSelection();
   }
 }

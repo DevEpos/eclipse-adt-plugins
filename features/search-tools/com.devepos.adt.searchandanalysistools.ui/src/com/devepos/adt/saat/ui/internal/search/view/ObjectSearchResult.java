@@ -58,7 +58,6 @@ public class ObjectSearchResult implements ISearchResult {
   private final List<String> urisInCorrectTreeOrder = new ArrayList<>();
   private final Map<String, PackageNode> packageNodeCache = new HashMap<>();
   private final String destinationId;
-  private String groupingLevel;
   private boolean listLayoutActive;
 
   private ISearchResultOutputConfig outputConfig;
@@ -333,7 +332,7 @@ public class ObjectSearchResult implements ISearchResult {
 
     for (String nodeUri : urisInCorrectTreeOrder) {
       IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
-      if ((adtObjRefNode instanceof PackageNode) || !validListTypes.contains(adtObjRefNode
+      if (adtObjRefNode instanceof PackageNode || !validListTypes.contains(adtObjRefNode
           .getAdtObjectType())) {
         continue;
       }

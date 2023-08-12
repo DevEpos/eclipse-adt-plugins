@@ -16,8 +16,8 @@ public class PerformCdsUsedEntitiesAnalysisHandler extends OpenInCdsAnalyzerHand
   }
 
   @Override
-  protected boolean isFeatureAvailable(final IProject project) {
-    return FeatureTester.isCdsUsedEntitiesAnalysisAvailable(project);
+  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
+    return new CdsUsedEntitiesAnalysis(objectRefInfo);
   }
 
   @Override
@@ -26,7 +26,7 @@ public class PerformCdsUsedEntitiesAnalysisHandler extends OpenInCdsAnalyzerHand
   }
 
   @Override
-  protected CdsAnalysis createTypedAnalysis(final IAdtObjectReferenceElementInfo objectRefInfo) {
-    return new CdsUsedEntitiesAnalysis(objectRefInfo);
+  protected boolean isFeatureAvailable(final IProject project) {
+    return FeatureTester.isCdsUsedEntitiesAnalysisAvailable(project);
   }
 }

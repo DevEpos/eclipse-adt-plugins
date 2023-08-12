@@ -224,7 +224,7 @@ public class FieldHierarchyView implements IDestinationProvider {
     }
   }
 
-  public void setSettings(ICdsFieldAnalysisSettings settings) {
+  public void setSettings(final ICdsFieldAnalysisSettings settings) {
     this.settings = settings;
   }
 

@@ -61,43 +61,6 @@ public abstract class ViewPartInfo extends ScrolledComposite {
   }
 
   /**
-   * Some initialization before the information content is created. <br>
-   * Subclasses may override
-   */
-  protected void init() {
-
-  }
-
-  protected void createInformationText() {
-    content = new Composite(this, SWT.NONE);
-    content.setBackground(JFaceColors.getBannerBackground(Display.getDefault()));
-    content.setLayout(new GridLayout());
-    addTitle();
-    createContent();
-    addHelpLink();
-    setExpandHorizontal(true);
-    setExpandVertical(true);
-    this.setMinSize(50, 50);
-    setContent(content);
-    addControlListener(new ControlAdapter() {
-      @Override
-      public void controlResized(final ControlEvent e) {
-        final Rectangle r = ViewPartInfo.this.getClientArea();
-        ViewPartInfo.this.setMinSize(content.computeSize(r.width, -1));
-      }
-    });
-  }
-
-  /**
-   * Subclasses must override to create the actual content.
-   */
-  protected abstract void createContent();
-
-  /**
-   * Creates the contents of the information text
-   */
-
-  /**
    * Creates a simple Label and adds it the information text with the given text.
    *
    * @param text the text for the label
@@ -124,19 +87,6 @@ public abstract class ViewPartInfo extends ScrolledComposite {
   }
 
   /**
-   * Creates a styled title with the given text and adds it to the information
-   * text.
-   *
-   * @param text the title text to be used
-   * @return
-   */
-  protected StyledText addTitleStyledText(final String text) {
-    final StyledText styledText = addStyledText(text);
-    styledText.setFont(JFaceResources.getFont("org.eclipse.jface.headerfont")); //$NON-NLS-1$
-    return styledText;
-  }
-
-  /**
    * Creates a read only styled text with the given text and adds it to the
    * information text.
    *
@@ -151,6 +101,58 @@ public abstract class ViewPartInfo extends ScrolledComposite {
   }
 
   /**
+   * Creates the contents of the information text
+   */
+
+  /**
+   * Creates a styled title with the given text and adds it to the information
+   * text.
+   *
+   * @param text the title text to be used
+   * @return
+   */
+  protected StyledText addTitleStyledText(final String text) {
+    final StyledText styledText = addStyledText(text);
+    styledText.setFont(JFaceResources.getFont("org.eclipse.jface.headerfont")); //$NON-NLS-1$
+    return styledText;
+  }
+
+  /**
+   * Subclasses must override to create the actual content.
+   */
+  protected abstract void createContent();
+
+  protected void createInformationText() {
+    content = new Composite(this, SWT.NONE);
+    content.setBackground(JFaceColors.getBannerBackground(Display.getDefault()));
+    content.setLayout(new GridLayout());
+    addTitle();
+    createContent();
+    addHelpLink();
+    setExpandHorizontal(true);
+    setExpandVertical(true);
+    this.setMinSize(50, 50);
+    setContent(content);
+    addControlListener(new ControlAdapter() {
+      @Override
+      public void controlResized(final ControlEvent e) {
+        final Rectangle r = ViewPartInfo.this.getClientArea();
+        ViewPartInfo.this.setMinSize(content.computeSize(r.width, -1));
+      }
+    });
+  }
+
+  /**
+   * The help context id to be used during calling the help. If it is not supplied
+   * the workbench will call the help dynamically from the current UI context
+   *
+   * @return the help context id or <code>null</code>
+   */
+  protected String getHelpContextId() {
+    return null;
+  }
+
+  /**
    * The text to be used for the help link. <br>
    * <strong>Note</strong>: Subclasses must override if a help link is to be shown
    *
@@ -162,13 +164,11 @@ public abstract class ViewPartInfo extends ScrolledComposite {
   }
 
   /**
-   * The help context id to be used during calling the help. If it is not supplied
-   * the workbench will call the help dynamically from the current UI context
-   *
-   * @return the help context id or <code>null</code>
+   * Some initialization before the information content is created. <br>
+   * Subclasses may override
    */
-  protected String getHelpContextId() {
-    return null;
+  protected void init() {
+
   }
 
   /**
@@ -205,17 +205,6 @@ public abstract class ViewPartInfo extends ScrolledComposite {
   }
 
   /*
-   * Adds a styled title to the info text if one was supplied
-   */
-  private void addTitle() {
-    if (title == null) {
-      return;
-    }
-    final StyledText title = addTitleStyledText(this.title);
-    setWrappingLayoutData(title);
-  }
-
-  /*
    * Adds help link
    */
   private void addHelpLink() {
@@ -238,6 +227,21 @@ public abstract class ViewPartInfo extends ScrolledComposite {
     link.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 1, 1));
   }
 
+  /*
+   * Adds a styled title to the info text if one was supplied
+   */
+  private void addTitle() {
+    if (title == null) {
+      return;
+    }
+    final StyledText title = addTitleStyledText(this.title);
+    setWrappingLayoutData(title);
+  }
+
+  private void displayDynamicHelp() {
+    PlatformUI.getWorkbench().getHelpSystem().displayDynamicHelp();
+  }
+
   private void displayHelp() {
     final String helpContextId = getHelpContextId();
     if (helpContextId == null) {
@@ -245,10 +249,6 @@ public abstract class ViewPartInfo extends ScrolledComposite {
     } else {
       this.displayHelp(helpContextId);
     }
-  }
-
-  private void displayDynamicHelp() {
-    PlatformUI.getWorkbench().getHelpSystem().displayDynamicHelp();
   }
 
   private void displayHelp(final String helpContextId) {

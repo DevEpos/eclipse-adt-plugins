@@ -54,8 +54,7 @@ public class RunCdsAnalysisHandler extends AbstractHandler {
                   .retrieveBasicElementInformation(destinationId, objectRef.getUri());
               if (adtObjRef != null) {
                 final CdsAnalysis newAnalysis = createAnalysisForType(AdtObjRefToElemInfoConverter
-                    .convert(destinationId, adtObjRef), dialog
-                        .getSelectedAnalysisType());
+                    .convert(destinationId, adtObjRef), dialog.getSelectedAnalysisType());
                 PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                   analysisManager.addAnalysis(newAnalysis);
                   analysisManager.registerAnalysis(analysisKey, newAnalysis);

@@ -17,10 +17,6 @@ public class SelectionProviderAdapter implements ISelectionProvider, ISelectionC
   private Viewer viewer;
   private final ArrayList<ISelectionChangedListener> fListeners = new ArrayList<>(5);
 
-  public void setViewer(final Viewer viewer) {
-    this.viewer = viewer;
-  }
-
   @Override
   public void addSelectionChangedListener(final ISelectionChangedListener listener) {
     fListeners.add(listener);
@@ -37,13 +33,6 @@ public class SelectionProviderAdapter implements ISelectionProvider, ISelectionC
   }
 
   @Override
-  public void setSelection(final ISelection selection) {
-    if (viewer != null) {
-      viewer.setSelection(selection);
-    }
-  }
-
-  @Override
   public void selectionChanged(final SelectionChangedEvent event) {
     // forward to my listeners
     final SelectionChangedEvent wrappedEvent = new SelectionChangedEvent(this, event
@@ -51,6 +40,17 @@ public class SelectionProviderAdapter implements ISelectionProvider, ISelectionC
     for (final ISelectionChangedListener listener : fListeners) {
       listener.selectionChanged(wrappedEvent);
     }
+  }
+
+  @Override
+  public void setSelection(final ISelection selection) {
+    if (viewer != null) {
+      viewer.setSelection(selection);
+    }
+  }
+
+  public void setViewer(final Viewer viewer) {
+    this.viewer = viewer;
   }
 
 }

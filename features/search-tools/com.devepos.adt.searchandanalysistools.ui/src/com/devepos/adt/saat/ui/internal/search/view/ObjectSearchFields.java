@@ -37,7 +37,7 @@ public class ObjectSearchFields {
   private final IPageLayoutUpdater layoutUpdater;
   private final Composite optionsContainer;
 
-  public ObjectSearchFields(final Composite container, Composite optionsContainer,
+  public ObjectSearchFields(final Composite container, final Composite optionsContainer,
       final IAbapProjectProvider projectProvider, final ISearchPageStatusUpdater status,
       final IPageLayoutUpdater layoutUpdater) {
     this.status = status;
@@ -47,7 +47,8 @@ public class ObjectSearchFields {
     this.layoutUpdater = layoutUpdater;
   }
 
-  public void fillCustomOptionFromQuery(Map<? extends String, ? extends String> customOptions) {
+  public void fillCustomOptionFromQuery(
+      final Map<? extends String, ? extends String> customOptions) {
     for (var key : customOptions.keySet()) {
       var control = customOptionControls.get(key);
       if (control != null) {
@@ -61,7 +62,7 @@ public class ObjectSearchFields {
 
   /**
    * Fill field input from list of query fields
-   * 
+   *
    * @param queryFields list of query fields
    */
   public void fillInputFromQueryFields(final List<ISearchQueryField> queryFields) {
@@ -82,10 +83,8 @@ public class ObjectSearchFields {
     var optionMap = new HashMap<String, String>();
     for (var optionKey : customOptionControls.keySet()) {
       var optionControl = customOptionControls.get(optionKey);
-      if (optionControl instanceof Button) {
-        if (((Button) optionControl).getSelection()) {
-          optionMap.put((String) optionKey, "X");
-        }
+      if ((optionControl instanceof Button) && ((Button) optionControl).getSelection()) {
+        optionMap.put(optionKey, "X");
       }
     }
     return optionMap;

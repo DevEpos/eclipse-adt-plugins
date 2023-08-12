@@ -72,7 +72,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   private static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND + (MAX_SCALE
       - SMALL_SCALE_LIMIT) * BIG_MULTIPLIER;
 
-  private Map<String, IStatus> allValidationStatuses;
+  private final Map<String, IStatus> allValidationStatuses;
   private ISearchPageContainer pageContainer;
 
   private final IPreferenceStore prefStore;
@@ -92,7 +92,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   private final IAbapProjectProvider projectProvider;
   private final ObjectSearchRequest searchRequest;
   private ObjectSearchQuery previousQuery;
-  private IObjectSearchService searchService;
+  private final IObjectSearchService searchService;
   private Composite searchFieldComposite;
   private Composite customOptionContainer;
 
@@ -110,7 +110,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   }
 
   @Override
-  public void addStatusSource(String source) {
+  public void addStatusSource(final String source) {
     allValidationStatuses.put(source, Status.OK_STATUS);
   }
 
@@ -195,7 +195,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   }
 
   @Override
-  public void removeStatusSource(String source) {
+  public void removeStatusSource(final String source) {
     allValidationStatuses.remove(source);
   }
 

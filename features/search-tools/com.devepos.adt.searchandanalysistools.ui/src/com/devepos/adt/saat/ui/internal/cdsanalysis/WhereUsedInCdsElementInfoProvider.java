@@ -25,7 +25,7 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
   private final String destinationId;
   private final String adtObjectName;
   private Boolean isSelectFrom;
-  private IWhereUsedInCdsSettings settings;
+  private final IWhereUsedInCdsSettings settings;
 
   /**
    * Creates a new Where Used in CDS view Element info provider
@@ -41,7 +41,7 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
    *                           views
    */
   public WhereUsedInCdsElementInfoProvider(final String destinationId, final String adtObjectName,
-      IWhereUsedInCdsSettings settings) {
+      final IWhereUsedInCdsSettings settings) {
     this(destinationId, adtObjectName, settings, null);
   }
 
@@ -61,7 +61,7 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
    *                           search
    */
   private WhereUsedInCdsElementInfoProvider(final String destinationId, final String adtObjectName,
-      IWhereUsedInCdsSettings settings, final Boolean selectFrom) {
+      final IWhereUsedInCdsSettings settings, final Boolean selectFrom) {
     Assert.isNotNull(settings);
     this.destinationId = destinationId;
     this.adtObjectName = adtObjectName;

@@ -6,13 +6,19 @@ public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
   private String owner;
   private IDataSourceType sourceType;
 
-  /**
-   * Sets the owner of this ADT object
-   *
-   * @param owner the owner
-   */
-  public void setOwner(final String owner) {
-    this.owner = owner;
+  @Override
+  public String getOwner() {
+    return owner;
+  }
+
+  @Override
+  public IDataSourceType getSourceType() {
+    return sourceType;
+  }
+
+  @Override
+  public boolean isReleased() {
+    return isReleased;
   }
 
   /**
@@ -36,24 +42,18 @@ public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
   }
 
   /**
+   * Sets the owner of this ADT object
+   *
+   * @param owner the owner
+   */
+  public void setOwner(final String owner) {
+    this.owner = owner;
+  }
+
+  /**
    * @param sourceType the sourceType to set
    */
   public void setSourceType(final IDataSourceType sourceType) {
     this.sourceType = sourceType;
-  }
-
-  @Override
-  public boolean isReleased() {
-    return isReleased;
-  }
-
-  @Override
-  public IDataSourceType getSourceType() {
-    return sourceType;
-  }
-
-  @Override
-  public String getOwner() {
-    return owner;
   }
 }

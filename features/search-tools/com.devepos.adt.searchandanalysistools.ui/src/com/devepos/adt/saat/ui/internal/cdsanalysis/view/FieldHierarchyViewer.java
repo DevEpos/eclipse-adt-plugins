@@ -56,81 +56,6 @@ public class FieldHierarchyViewer extends TreeViewer {
   }
 
   /**
-   * Updates the input of Viewer
-   *
-   * @param topDown
-   */
-  public void updateInput(final boolean topDown) {
-    input.setViewerInput(topDown);
-  }
-
-  public boolean setInput(final FieldHierarchyViewerInput input, final boolean topDown) {
-    if (this.input == input) {
-      return false;
-    }
-    if (this.input != null) {
-      this.input.cacheCurrentNodeState();
-    }
-    this.input = input;
-    this.input.setViewerInput(topDown);
-    return true;
-  }
-
-  /**
-   * Attaches a Context Menu listener to the tree
-   *
-   * @param menuListener the menu listener
-   * @param popupId      the popup id
-   * @param viewSite     the view site or <code>null</code>
-   */
-  public void initContextMenu(final IMenuListener menuListener, final String popupId,
-      final IWorkbenchPartSite viewSite) {
-    final MenuManager menuMgr = new MenuManager(popupId);
-    menuMgr.setRemoveAllWhenShown(true);
-    menuMgr.addMenuListener(menuListener);
-    final Menu menu = menuMgr.createContextMenu(getTree());
-    getTree().setMenu(menu);
-    if (viewSite != null) {
-      viewSite.registerContextMenu(popupId, menuMgr, this);
-    }
-  }
-
-  /**
-   * Reloads the input of the viewer
-   *
-   * @param topDown if <code>true</code> the top-down analysis should be
-   *                refreshed, otherwise the where-used analysis will be refreshed
-   */
-  public void reloadInput(final boolean topDown) {
-    if (input == null) {
-      return;
-    }
-    input.refresh(topDown);
-  }
-
-  public void dispose() {
-  }
-
-  /*
-   * Creates the columns of the viewer
-   */
-  private void createColumns() {
-    int i = 0;
-    createColumn(i++, Messages.FieldHierarchyViewer_EntityColumn_xcol, 300);
-    createColumn(i++, Messages.FieldHierarchyViewer_FieldColumn_xcol, 300);
-  }
-
-  private void createColumn(final int columnIndex, final String headerText, final int width) {
-    final TreeViewerColumn viewerColumn = new TreeViewerColumn(this, SWT.NONE);
-    final TreeColumn column = viewerColumn.getColumn();
-    column.setText(headerText);
-    viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new FieldHierarchyViewerCellLabelProvider(columnIndex)));
-    column.setWidth(width);
-    column.setMoveable(true);
-  }
-
-  /**
    * Label provider for a single column in this TreeViewer
    *
    * @author stockbal
@@ -142,37 +67,6 @@ public class FieldHierarchyViewer extends TreeViewer {
 
     public FieldHierarchyViewerCellLabelProvider(final int columnIndex) {
       this.columnIndex = columnIndex;
-    }
-
-    @Override
-    public StyledString getStyledText(final Object element) {
-      final StyledString styledString = new StyledString();
-      final ITreeNode node = (ITreeNode) element;
-      switch (columnIndex) {
-      case 0:
-        if (node instanceof LoadingTreeItemsNode) {
-          styledString.append(node.getDisplayName(), StylerFactory.ITALIC_STYLER);
-        } else {
-          final String name = node.getDisplayName() != null ? node.getDisplayName()
-              : node.getName();
-          styledString.append(name);
-        }
-        break;
-      case 1:
-        if (!(node instanceof LoadingTreeItemsNode)) {
-          var fieldInfo = node.getAdapter(IEntityFieldInfo.class);
-          if (fieldInfo != null && !StringUtil.isEmpty(fieldInfo.getFieldName())) {
-            if (fieldInfo.isCalculated()) {
-              styledString.append(fieldInfo.getFieldName(), StylerFactory.BOLD_STYLER);
-            } else {
-              styledString.append(fieldInfo.getFieldName());
-            }
-
-          }
-        }
-        break;
-      }
-      return styledString;
     }
 
     @Override
@@ -212,14 +106,43 @@ public class FieldHierarchyViewer extends TreeViewer {
         return image;
 
       case 1:
-        if (adtObjectRefNode != null && fieldInfo != null) {
-          if (fieldInfo.isCalculated()) {
-            return SearchAndAnalysisPlugin.getDefault().getImage(IImages.FUNCTION);
-          }
+        if ((adtObjectRefNode != null && fieldInfo != null) && fieldInfo.isCalculated()) {
+          return SearchAndAnalysisPlugin.getDefault().getImage(IImages.FUNCTION);
         }
         return null;
       }
       return null;
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      final StyledString styledString = new StyledString();
+      final ITreeNode node = (ITreeNode) element;
+      switch (columnIndex) {
+      case 0:
+        if (node instanceof LoadingTreeItemsNode) {
+          styledString.append(node.getDisplayName(), StylerFactory.ITALIC_STYLER);
+        } else {
+          final String name = node.getDisplayName() != null ? node.getDisplayName()
+              : node.getName();
+          styledString.append(name);
+        }
+        break;
+      case 1:
+        if (!(node instanceof LoadingTreeItemsNode)) {
+          var fieldInfo = node.getAdapter(IEntityFieldInfo.class);
+          if (fieldInfo != null && !StringUtil.isEmpty(fieldInfo.getFieldName())) {
+            if (fieldInfo.isCalculated()) {
+              styledString.append(fieldInfo.getFieldName(), StylerFactory.BOLD_STYLER);
+            } else {
+              styledString.append(fieldInfo.getFieldName());
+            }
+
+          }
+        }
+        break;
+      }
+      return styledString;
     }
   }
 
@@ -236,6 +159,81 @@ public class FieldHierarchyViewer extends TreeViewer {
       }
       return new Object[0];
     }
+  }
+
+  public void dispose() {
+  }
+
+  /**
+   * Attaches a Context Menu listener to the tree
+   *
+   * @param menuListener the menu listener
+   * @param popupId      the popup id
+   * @param viewSite     the view site or <code>null</code>
+   */
+  public void initContextMenu(final IMenuListener menuListener, final String popupId,
+      final IWorkbenchPartSite viewSite) {
+    final MenuManager menuMgr = new MenuManager(popupId);
+    menuMgr.setRemoveAllWhenShown(true);
+    menuMgr.addMenuListener(menuListener);
+    final Menu menu = menuMgr.createContextMenu(getTree());
+    getTree().setMenu(menu);
+    if (viewSite != null) {
+      viewSite.registerContextMenu(popupId, menuMgr, this);
+    }
+  }
+
+  /**
+   * Reloads the input of the viewer
+   *
+   * @param topDown if <code>true</code> the top-down analysis should be
+   *                refreshed, otherwise the where-used analysis will be refreshed
+   */
+  public void reloadInput(final boolean topDown) {
+    if (input == null) {
+      return;
+    }
+    input.refresh(topDown);
+  }
+
+  public boolean setInput(final FieldHierarchyViewerInput input, final boolean topDown) {
+    if (this.input == input) {
+      return false;
+    }
+    if (this.input != null) {
+      this.input.cacheCurrentNodeState();
+    }
+    this.input = input;
+    this.input.setViewerInput(topDown);
+    return true;
+  }
+
+  /**
+   * Updates the input of Viewer
+   *
+   * @param topDown
+   */
+  public void updateInput(final boolean topDown) {
+    input.setViewerInput(topDown);
+  }
+
+  private void createColumn(final int columnIndex, final String headerText, final int width) {
+    final TreeViewerColumn viewerColumn = new TreeViewerColumn(this, SWT.NONE);
+    final TreeColumn column = viewerColumn.getColumn();
+    column.setText(headerText);
+    viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
+        new FieldHierarchyViewerCellLabelProvider(columnIndex)));
+    column.setWidth(width);
+    column.setMoveable(true);
+  }
+
+  /*
+   * Creates the columns of the viewer
+   */
+  private void createColumns() {
+    int i = 0;
+    createColumn(i++, Messages.FieldHierarchyViewer_EntityColumn_xcol, 300);
+    createColumn(i++, Messages.FieldHierarchyViewer_FieldColumn_xcol, 300);
   }
 
 }

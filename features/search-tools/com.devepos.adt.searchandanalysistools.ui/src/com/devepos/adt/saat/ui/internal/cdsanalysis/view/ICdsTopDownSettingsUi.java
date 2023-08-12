@@ -11,11 +11,9 @@ import com.devepos.adt.saat.cdsanalysis.ICdsTopDownSettings;
 public interface ICdsTopDownSettingsUi extends ICdsTopDownSettings {
 
   /**
-   * Sets whether descriptions for the entities shall be shown or not
-   *
-   * @param showDescriptions if {@code true} descriptions are shown
+   * @return {@code true} if alias names are shown
    */
-  void setShowDescriptions(boolean showDescriptions);
+  boolean isShowAliasNames();
 
   /**
    * @return {@code true} if descriptions are shown
@@ -30,7 +28,9 @@ public interface ICdsTopDownSettingsUi extends ICdsTopDownSettings {
   void setShowAliasNames(boolean showAliasNames);
 
   /**
-   * @return {@code true} if alias names are shown
+   * Sets whether descriptions for the entities shall be shown or not
+   *
+   * @param showDescriptions if {@code true} descriptions are shown
    */
-  boolean isShowAliasNames();
+  void setShowDescriptions(boolean showDescriptions);
 }

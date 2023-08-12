@@ -66,7 +66,7 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
 
   /**
    * Creates dialog to run new CDS analysis for a given ADT object
-   * 
+   *
    * @param parent the parent shell for the dialog
    */
   public RunNewCdsAnalysisDialog(final Shell parent) {
@@ -74,6 +74,15 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
     setTitle(Messages.RunNewCdsAnalysisDialog_dialog_xtit);
     validTypesForObject = new ArrayList<>();
     validTypesForProject = new ArrayList<>();
+  }
+
+  @Override
+  public void create() {
+    super.create();
+    IProject project = ProjectUtil.getCurrentAbapProject();
+    if (project != null) {
+      projectInput.setProjectName(project.getName());
+    }
   }
 
   public IProject getProject() {
@@ -108,15 +117,6 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
     runInNewButton = createButton(parent, RUN_IN_NEW_BUTTON,
         Messages.RunNewCdsAnalysisDialog_runInNew_xbt, false);
     createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-  }
-
-  @Override
-  public void create() {
-    super.create();
-    IProject project = ProjectUtil.getCurrentAbapProject();
-    if (project != null) {
-      projectInput.setProjectName(project.getName());
-    }
   }
 
   @Override

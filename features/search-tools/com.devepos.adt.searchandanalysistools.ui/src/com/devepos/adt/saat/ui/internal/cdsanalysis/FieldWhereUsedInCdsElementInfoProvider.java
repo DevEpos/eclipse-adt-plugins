@@ -53,9 +53,11 @@ public class FieldWhereUsedInCdsElementInfoProvider implements IElementInfoProvi
     }
     if (isRoot) {
       var elementInfos = new ArrayList<IElementInfo>();
-      elementInfos.add(new SimpleElementInfo("No Usage found", PlatformUI.getWorkbench()
-          .getSharedImages()
-          .getImage(ISharedImages.IMG_OBJS_INFO_TSK)));
+      elementInfos.add(new SimpleElementInfo(
+          Messages.FieldWhereUsedInCdsElementInfoProvider_noFieldUsageFound_xmsg, PlatformUI
+              .getWorkbench()
+              .getSharedImages()
+              .getImage(ISharedImages.IMG_OBJS_INFO_TSK)));
       return elementInfos;
     }
     return null;

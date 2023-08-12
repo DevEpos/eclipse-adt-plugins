@@ -17,17 +17,13 @@ import com.sap.adt.communication.session.AdtSystemSessionFactory;
 public class ElementInfoRetrievalService implements IElementInfoRetrievalService {
 
   @Override
-  public IAdtObjRef retrieveBasicElementInformation(final String destinationId,
-      final String objectName, final ObjectType objectType) {
-    if (destinationId == null || objectType == null) {
+  public IAdtObjRef retrieveBasicElementInformation(final String destinationId, final String uri) {
+    if (destinationId == null || uri == null) {
       return null;
     }
     final var uriDiscovery = new ElementInfoUriDiscovery(destinationId);
-    if (!uriDiscovery.isResourceDiscoverySuccessful()) {
-      return null;
-    }
 
-    final URI resourceUri = uriDiscovery.createElementInfoResourceUri(objectName, objectType, null);
+    final URI resourceUri = uriDiscovery.createElementInfoResourceUri(uri, null);
 
     final var session = AdtSystemSessionFactory.createSystemSessionFactory()
         .createStatelessSession(destinationId);
@@ -39,13 +35,17 @@ public class ElementInfoRetrievalService implements IElementInfoRetrievalService
   }
 
   @Override
-  public IAdtObjRef retrieveBasicElementInformation(final String destinationId, final String uri) {
-    if (destinationId == null || uri == null) {
+  public IAdtObjRef retrieveBasicElementInformation(final String destinationId,
+      final String objectName, final ObjectType objectType) {
+    if (destinationId == null || objectType == null) {
       return null;
     }
     final var uriDiscovery = new ElementInfoUriDiscovery(destinationId);
+    if (!uriDiscovery.isResourceDiscoverySuccessful()) {
+      return null;
+    }
 
-    final URI resourceUri = uriDiscovery.createElementInfoResourceUri(uri, null);
+    final URI resourceUri = uriDiscovery.createElementInfoResourceUri(objectName, objectType, null);
 
     final var session = AdtSystemSessionFactory.createSystemSessionFactory()
         .createStatelessSession(destinationId);

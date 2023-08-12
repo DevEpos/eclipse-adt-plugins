@@ -19,17 +19,6 @@ import com.sap.adt.communication.session.AdtSystemSessionFactory;
 public class CdsActivationService implements ICdsActivationService {
 
   @Override
-  public IStatus testCdsPostActivationAvailable(final IProject project) {
-    var discovery = new CdsActivationUriDiscovery(DestinationUtil.getDestinationId(project));
-
-    if (!discovery.isResourceDiscoverySuccessful() || discovery.getCdsPostActivationUri() == null) {
-      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-          "CDS Post Activation Services are not available in ''{0}''", project.getName()));
-    }
-    return Status.OK_STATUS;
-  }
-
-  @Override
   public void postActivateCdsViews(final String destinationId, final List<String> ddlNames) {
     if (ddlNames == null || ddlNames.isEmpty()) {
       throw new IllegalArgumentException("ddlNames must not be null or empty");
@@ -53,6 +42,17 @@ public class CdsActivationService implements ICdsActivationService {
       resource.addContentHandler(new PlainTextContentHandler());
     }
     resource.post(new NullProgressMonitor(), String.class, ddlNamesBody);
+  }
+
+  @Override
+  public IStatus testCdsPostActivationAvailable(final IProject project) {
+    var discovery = new CdsActivationUriDiscovery(DestinationUtil.getDestinationId(project));
+
+    if (!discovery.isResourceDiscoverySuccessful() || discovery.getCdsPostActivationUri() == null) {
+      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
+          "CDS Post Activation Services are not available in ''{0}''", project.getName()));
+    }
+    return Status.OK_STATUS;
   }
 
 }

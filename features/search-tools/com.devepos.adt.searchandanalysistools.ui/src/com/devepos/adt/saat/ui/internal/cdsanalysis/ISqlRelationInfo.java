@@ -7,6 +7,13 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis;
  */
 public interface ISqlRelationInfo {
   /**
+   * Returns the alias name of node in the given SQL relation
+   *
+   * @return
+   */
+  String getAliasName();
+
+  /**
    * Returns the defined SQL relation or <code>null</code>
    *
    * @return
@@ -19,12 +26,5 @@ public interface ISqlRelationInfo {
    * @return
    */
   String getType();
-
-  /**
-   * Returns the alias name of node in the given SQL relation
-   *
-   * @return
-   */
-  String getAliasName();
 
 }

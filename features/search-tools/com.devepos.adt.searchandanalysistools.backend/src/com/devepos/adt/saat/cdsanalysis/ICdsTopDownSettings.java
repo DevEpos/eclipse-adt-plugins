@@ -9,14 +9,14 @@ package com.devepos.adt.saat.cdsanalysis;
 public interface ICdsTopDownSettings {
 
   /**
+   * @return {@code true} if associations should be loaded
+   */
+  boolean isLoadAssociations();
+
+  /**
    * Sets whether associations shall be loaded
    *
    * @param loadAssociations {@code true} if associations shall be loaded
    */
   void setLoadAssociations(boolean loadAssociations);
-
-  /**
-   * @return {@code true} if associations should be loaded
-   */
-  boolean isLoadAssociations();
 }

@@ -32,7 +32,7 @@ import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 
 /**
  * Initializer for content assist filter
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public class FilterInitializer {
@@ -80,7 +80,7 @@ public class FilterInitializer {
             .isMultiple(), filterConfig.isNegatable());
   }
 
-  private ISearchFilter createFixedNamedItemFilter(IFixedValuesContentAssist contentAssist) {
+  private ISearchFilter createFixedNamedItemFilter(final IFixedValuesContentAssist contentAssist) {
     if (contentAssist.getProposals().isEmpty()) {
       throw new IllegalArgumentException(
           "A Fixed Values Search filter cannot have an empty proposals list!");
@@ -103,7 +103,8 @@ public class FilterInitializer {
     if (source == ProposalImageSource.PROPOSAL) {
       if (contentAssist.getProposalImageRegistryId() != ImageRegistryId.CALLING_PLUGIN) {
         return new ProposalImageProvider(contentAssist.getProposalImageRegistryId());
-      } else if (!contentAssist.getProposalImages().isEmpty()) {
+      }
+      if (!contentAssist.getProposalImages().isEmpty()) {
         for (var image : contentAssist.getProposalImages()) {
           registerImage(image);
         }
@@ -116,7 +117,7 @@ public class FilterInitializer {
     return null;
   }
 
-  private ISearchFilter createNamedItemFilter(INamedItemContentAssist contentAssist) {
+  private ISearchFilter createNamedItemFilter(final INamedItemContentAssist contentAssist) {
     NamedItemFilter filter = null;
     if (filterConfig.isKeyValuePair() && contentAssist.getSecondaryCategoryTerm() != null) {
       filter = new KeyValueNamedItemFilter(projectProvider, ObjectSearchServiceFactory
@@ -141,7 +142,7 @@ public class FilterInitializer {
     return filter;
   }
 
-  private ISearchFilter createRisQuickFilter(IRisContentAssist contentAssist) {
+  private ISearchFilter createRisQuickFilter(final IRisContentAssist contentAssist) {
     var risFilter = new RisQuickSearchFilter(projectProvider, filterConfig.getName(),
         getFilterImage(), contentAssist.getObjectTypes().toArray(new String[0]));
     risFilter.setDescription(filterConfig.getDescription());
@@ -152,7 +153,7 @@ public class FilterInitializer {
     return risFilter;
   }
 
-  private ISearchFilter createUserFilter(IUserContentAssist contentAssist) {
+  private ISearchFilter createUserFilter(final IUserContentAssist contentAssist) {
     var userFilter = new UserSearchFilter(projectProvider, filterConfig.getName(), filterConfig
         .getDescription(), filterConfig.getLongDescription());
     var filterImage = getFilterImage();

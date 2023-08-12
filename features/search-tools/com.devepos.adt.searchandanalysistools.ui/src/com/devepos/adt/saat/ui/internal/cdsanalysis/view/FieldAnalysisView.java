@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.Map;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -166,7 +167,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     super.createActions();
     final IPreferenceStore prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     searchDbViewUsages = ActionFactory.createAction(
-        Messages.FieldAnalysisView_SearchDbViewsInWhereUsed_xmit, null, Action.AS_CHECK_BOX, () -> {
+        Messages.FieldAnalysisView_SearchDbViewsInWhereUsed_xmit, null, IAction.AS_CHECK_BOX,
+        () -> {
           analysisResult.getSettings().setSearchInDatabaseViews(searchDbViewUsages.isChecked());
         });
     IToggleViewLayoutActionSettings viewLayoutActionSettings = ViewLayoutActionFactory.getInstance()
@@ -209,16 +211,16 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
       final CommandPossibleChecker commandPossibleChecker) {
     super.fillContextMenu(mgr, commandPossibleChecker);
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.CDS_TOP_DOWN_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.CDS_TOP_DOWN_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS);
     }
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.USED_ENTITIES_ANALYSIS)) {
-      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr, IContextMenuConstants.GROUP_CDS_ANALYSIS,
-          ICommandConstants.USED_ENTITIES_ANALYSIS);
+      SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
+          IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.USED_ENTITIES_ANALYSIS);
     }
   }
 
