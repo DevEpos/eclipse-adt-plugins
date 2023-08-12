@@ -17,12 +17,14 @@ public class Messages extends NLS {
   public static String Actions_CollapseNode_xtol;
   public static String Actions_ToggleViewerTextFilter_xmit;
   public static String Actions_CollapseAllNodes_xmit;
+  public static String ApplicationComponentSearchFilter_filterDescription_xmsg;
   public static String LazyLoadingNode_ErrorDuringLoading_xmsg;
   public static String LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg;
   public static String LazyLoadingTreeContentProvider_LoadingContent_xmsg;
   public static String LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg;
   public static String OpenColorsAndFontsPreferences_xlbl;
   public static String OpenPreferencesAction_actionLabel_xlbl;
+  public static String PackageSearchFilter_filterName_xlbl;
   public static String PinViewAction_actionLabel_xlbl;
   public static String PinViewAction_actionTooltip_xtol;
   public static String PreferencesRoot_infoText_xlbl;
