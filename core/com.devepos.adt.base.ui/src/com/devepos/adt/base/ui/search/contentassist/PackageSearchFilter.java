@@ -87,7 +87,7 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
 
   @Override
   public String getDescription() {
-    return "Development Package";
+    return Messages.PackageSearchFilter_filterName_xlbl;
   }
 
   @Override

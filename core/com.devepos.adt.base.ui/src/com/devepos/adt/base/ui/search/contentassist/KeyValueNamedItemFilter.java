@@ -14,6 +14,7 @@ import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
+import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.internal.nameditem.InternalNamedItemProposalProvider;
 import com.devepos.adt.base.util.IValidator;
 import com.devepos.adt.base.util.StringUtil;
@@ -94,7 +95,7 @@ public class KeyValueNamedItemFilter extends NamedItemFilter implements IValidat
 
       if (StringUtil.startsWithNegationCharacter(annoKey)) {
         throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-            "Value Part is not allowed as Key Part of ''{0}'' is already negated", getLabel())));
+            Messages.KeyValueNamedItemFilter_valuePartNotAllowedDuringNegation_xmsg, getLabel())));
       }
 
     }
