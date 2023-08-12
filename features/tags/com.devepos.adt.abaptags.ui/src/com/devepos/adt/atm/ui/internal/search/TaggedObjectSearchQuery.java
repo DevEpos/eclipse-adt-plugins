@@ -4,7 +4,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.search.ui.ISearchQuery;
 
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
@@ -14,6 +13,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
 import com.sap.adt.destinations.model.IDestinationData;
 
 /**
@@ -21,7 +21,9 @@ import com.sap.adt.destinations.model.IDestinationData;
  *
  * @author stockbal
  */
-public class TaggedObjectSearchQuery implements ISearchQuery {
+public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
+  public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.taggedobjectsearch";
+
   private final TaggedObjectSearchResult searchResult;
   private IAbapProjectProvider projectProvider;
   private final ITaggedObjectSearchParams searchParams;

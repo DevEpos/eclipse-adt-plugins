@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -66,6 +67,7 @@ import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
+import com.devepos.adt.base.ui.search.favorites.SearchFavoritesActionFactory;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -88,6 +90,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private TreeViewer resultTreeViewer;
   private TaggedObjectSearchResult result;
   private ViewerState state;
+  private IAction searchFavoritesAction;
   private Composite mainComposite;
   private TaggedObjectSearchQuery searchQuery;
   private IAbapProjectProvider projectProvider;
@@ -338,6 +341,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
         IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
     tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
+    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, searchFavoritesAction);
     copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
     actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
     actionBars.updateActionBars();
@@ -517,6 +521,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   }
 
   private void initializeActions() {
+    searchFavoritesAction = SearchFavoritesActionFactory.createSearchFavoritesAction(
+        TaggedObjectSearchQuery.SEARCH_FAVORITE_TYPE);
     collapseAllNodesAction = new CollapseAllTreeNodesAction(resultTreeViewer);
     collapseNodesAction = new CollapseTreeNodesAction(resultTreeViewer);
     copyToClipBoardAction = new CopyToClipboardAction();

@@ -164,7 +164,10 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
   @Override
   public void setInputFromSearchQuery(final TaggedObjectSearchQuery query) {
-    projectInput.setProjectName(query.getProjectProvider().getProjectName());
+    var projectProvider = query.getProjectProvider();
+    if (projectProvider != null && projectProvider.hasProject()) {
+      projectInput.setProjectName(projectProvider.getProjectName());
+    }
     matchAllTagsButton.setSelection(query.getSearchParams().isMatchesAllTags());
     tagsTree.setCheckedTagIds(query.getSearchParams().getTagIds());
   }
