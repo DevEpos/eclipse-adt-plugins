@@ -36,39 +36,6 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
   protected static IAdtBasePackage modelPackage;
 
   /**
-   * Creates an instance of the adapter factory.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
-   *
-   * @generated
-   */
-  public AdtBaseAdapterFactory() {
-    if (modelPackage == null) {
-      modelPackage = IAdtBasePackage.eINSTANCE;
-    }
-  }
-
-  /**
-   * Returns whether this factory is applicable for the type of the object. <!--
-   * begin-user-doc --> This implementation returns <code>true</code> if the
-   * object is either the model's package or is an instance object of the model.
-   * <!-- end-user-doc -->
-   *
-   * @return whether this factory is applicable for the type of the object.
-   * @generated
-   */
-  @Override
-  public boolean isFactoryForType(final Object object) {
-    if (object == modelPackage) {
-      return true;
-    }
-    if (object instanceof EObject) {
-      return ((EObject) object).eClass().getEPackage() == modelPackage;
-    }
-    return false;
-  }
-
-  /**
    * The switch that delegates to the <code>createXXX</code> methods. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -83,11 +50,6 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseAdtObjRefList(final IAdtObjRefList object) {
       return createAdtObjRefListAdapter();
-    }
-
-    @Override
-    public Adapter caseUser(final IUser object) {
-      return createUserAdapter();
     }
 
     @Override
@@ -116,10 +78,28 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
+    public Adapter caseUser(final IUser object) {
+      return createUserAdapter();
+    }
+
+    @Override
     public Adapter defaultCase(final EObject object) {
       return createEObjectAdapter();
     }
   };
+
+  /**
+   * Creates an instance of the adapter factory.
+   * <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @generated
+   */
+  public AdtBaseAdapterFactory() {
+    if (modelPackage == null) {
+      modelPackage = IAdtBasePackage.eINSTANCE;
+    }
+  }
 
   /**
    * Creates an adapter for the <code>target</code>.
@@ -167,21 +147,6 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.base.model.adtbase.IUser <em>User</em>}'. <!--
-   * begin-user-doc --> This default implementation returns null so that we can
-   * easily ignore cases; it's useful to ignore a case when inheritance will catch
-   * all the cases anyway. <!-- end-user-doc -->
-   *
-   * @return the new adapter.
-   * @see com.devepos.adt.base.model.adtbase.IUser
-   * @generated
-   */
-  public Adapter createUserAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class
    * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature <em>Adt Plugin Feature</em>}'.
    * <!-- begin-user-doc --> This default implementation returns
    * null so that we can easily ignore cases; it's useful to ignore a case when
@@ -209,6 +174,18 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createAdtPluginFeatureListAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for the default case.
+   * <!-- begin-user-doc --> This
+   * default implementation returns null. <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @generated
+   */
+  public Adapter createEObjectAdapter() {
     return null;
   }
 
@@ -262,15 +239,38 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for the default case.
-   * <!-- begin-user-doc --> This
-   * default implementation returns null. <!-- end-user-doc -->
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.base.model.adtbase.IUser <em>User</em>}'. <!--
+   * begin-user-doc --> This default implementation returns null so that we can
+   * easily ignore cases; it's useful to ignore a case when inheritance will catch
+   * all the cases anyway. <!-- end-user-doc -->
    *
    * @return the new adapter.
+   * @see com.devepos.adt.base.model.adtbase.IUser
    * @generated
    */
-  public Adapter createEObjectAdapter() {
+  public Adapter createUserAdapter() {
     return null;
+  }
+
+  /**
+   * Returns whether this factory is applicable for the type of the object. <!--
+   * begin-user-doc --> This implementation returns <code>true</code> if the
+   * object is either the model's package or is an instance object of the model.
+   * <!-- end-user-doc -->
+   *
+   * @return whether this factory is applicable for the type of the object.
+   * @generated
+   */
+  @Override
+  public boolean isFactoryForType(final Object object) {
+    if (object == modelPackage) {
+      return true;
+    }
+    if (object instanceof EObject) {
+      return ((EObject) object).eClass().getEPackage() == modelPackage;
+    }
+    return false;
   }
 
 } // AdtBaseAdapterFactory

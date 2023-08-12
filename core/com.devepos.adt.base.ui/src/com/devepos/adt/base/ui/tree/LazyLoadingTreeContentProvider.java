@@ -31,21 +31,8 @@ import com.devepos.adt.base.util.ObjectContainer;
  */
 public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
-  @FunctionalInterface
-  public interface IExpanderCheckFunction {
-    /**
-     * If the given tree node should be expanded the method has to return
-     * <code>true</code> <br>
-     * The default implementation allows expansion for all nodes. Sub classes should
-     * override for custom logic
-     *
-     * @param node tree node that has child nodes
-     * @return <code>true</code> if the given node should be expanded
-     */
-    boolean shouldExpandNode(ITreeNode node);
-  }
-
   protected TreeViewer viewer;
+
   private final int refreshModeExpansionLevel;
   private final LazyLoadingRefreshMode refreshMode;
   private IExpanderCheckFunction expansionCheck;
@@ -93,82 +80,18 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
     refreshModeExpansionLevel = refreshExpansionLevel;
   }
 
-  /**
-   * Sets expansion checker to be used during refresh of lazy loading loading node
-   *
-   * @param expansionCheck the check function to be used during expansion of a
-   *                       {@link ICollectionNode}
-   */
-  public void setExpansionChecker(final IExpanderCheckFunction expansionCheck) {
-    this.expansionCheck = expansionCheck;
-  }
-
-  @Override
-  public Object[] getChildren(final Object parentElement) {
-    if (parentElement instanceof LoadingTreeItemsNode
-        || !(parentElement instanceof ICollectionTreeNode)) {
-      return EMPTY_ARRAY;
-    }
-    final ICollectionTreeNode collectionNode = (ICollectionTreeNode) parentElement;
-
-    if (parentElement instanceof ILazyLoadingNode) {
-      final ILazyLoadingNode lazyNode = (ILazyLoadingNode) parentElement;
-      if (lazyNode.isLoaded()) {
-        return getChildren(collectionNode);
-      }
-      if (lazyNode.isLoading()) {
-        return new Object[] { LoadingTreeItemsNode.INSTANCE };
-      }
-      // start retrieval of the children of the node
-      startChildNodeRetrieval(lazyNode);
-      return new Object[] { LoadingTreeItemsNode.INSTANCE };
-    }
-    if (parentElement instanceof ICollectionTreeNode) {
-      return getChildren((ICollectionTreeNode) parentElement);
-    }
-    return EMPTY_ARRAY;
-  }
-
-  private void startChildNodeRetrieval(final ILazyLoadingNode lazyNode) {
-    String jobName = lazyNode.getLazyLoadingJobName();
-    if (jobName == null) {
-      jobName = NLS.bind(Messages.LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg,
-          ((ITreeNode) lazyNode).getDisplayName());
-    }
-    Job.create(jobName, new ChildElementLoader(viewer.getControl().getDisplay(), lazyNode))
-        .schedule();
-
-  }
-
-  @Override
-  public boolean hasChildren(final Object element) {
-    if (element instanceof LoadingTreeItemsNode) {
-      return false;
-    }
-    if (element instanceof ICollectionTreeNode) {
-      if (!(element instanceof ILazyLoadingNode) || ((ILazyLoadingNode) element).isLoaded()) {
-        return ((ICollectionTreeNode) element).hasChildren();
-      }
-      return true;
-    }
-
-    return false;
-  }
-
-  @Override
-  public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
-    this.viewer = (TreeViewer) viewer;
-  }
-
-  protected void refreshViewer() {
-    if (viewer == null) {
-      return;
-    }
-    var tree = viewer.getTree();
-    if (tree == null || tree.isDisposed()) {
-      return;
-    }
-    viewer.refresh();
+  @FunctionalInterface
+  public interface IExpanderCheckFunction {
+    /**
+     * If the given tree node should be expanded the method has to return
+     * <code>true</code> <br>
+     * The default implementation allows expansion for all nodes. Sub classes should
+     * override for custom logic
+     *
+     * @param node tree node that has child nodes
+     * @return <code>true</code> if the given node should be expanded
+     */
+    boolean shouldExpandNode(ITreeNode node);
   }
 
   /**
@@ -219,6 +142,13 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       treeUpdateJob.schedule();
     }
 
+    private void expandNode(final ITreeNode child) {
+      if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
+        return;
+      }
+      viewer.expandToLevel(child, refreshModeExpansionLevel, true);
+    }
+
     private void refreshLazyNode() {
       final LazyLoadingRefreshMode refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
           ? LazyLoadingTreeContentProvider.this.refreshMode
@@ -243,12 +173,83 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       }
     }
 
-    private void expandNode(final ITreeNode child) {
-      if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
-        return;
-      }
-      viewer.expandToLevel(child, refreshModeExpansionLevel, true);
+  }
+
+  @Override
+  public Object[] getChildren(final Object parentElement) {
+    if (parentElement instanceof LoadingTreeItemsNode
+        || !(parentElement instanceof ICollectionTreeNode)) {
+      return EMPTY_ARRAY;
     }
+    final ICollectionTreeNode collectionNode = (ICollectionTreeNode) parentElement;
+
+    if (parentElement instanceof ILazyLoadingNode) {
+      final ILazyLoadingNode lazyNode = (ILazyLoadingNode) parentElement;
+      if (lazyNode.isLoaded()) {
+        return getChildren(collectionNode);
+      }
+      if (lazyNode.isLoading()) {
+        return new Object[] { LoadingTreeItemsNode.INSTANCE };
+      }
+      // start retrieval of the children of the node
+      startChildNodeRetrieval(lazyNode);
+      return new Object[] { LoadingTreeItemsNode.INSTANCE };
+    }
+    if (parentElement instanceof ICollectionTreeNode) {
+      return getChildren((ICollectionTreeNode) parentElement);
+    }
+    return EMPTY_ARRAY;
+  }
+
+  @Override
+  public boolean hasChildren(final Object element) {
+    if (element instanceof LoadingTreeItemsNode) {
+      return false;
+    }
+    if (element instanceof ICollectionTreeNode) {
+      if (!(element instanceof ILazyLoadingNode) || ((ILazyLoadingNode) element).isLoaded()) {
+        return ((ICollectionTreeNode) element).hasChildren();
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  @Override
+  public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
+    this.viewer = (TreeViewer) viewer;
+  }
+
+  /**
+   * Sets expansion checker to be used during refresh of lazy loading loading node
+   *
+   * @param expansionCheck the check function to be used during expansion of a
+   *                       {@link ICollectionNode}
+   */
+  public void setExpansionChecker(final IExpanderCheckFunction expansionCheck) {
+    this.expansionCheck = expansionCheck;
+  }
+
+  protected void refreshViewer() {
+    if (viewer == null) {
+      return;
+    }
+    var tree = viewer.getTree();
+    if (tree == null || tree.isDisposed()) {
+      return;
+    }
+    viewer.refresh();
+  }
+
+  private void startChildNodeRetrieval(final ILazyLoadingNode lazyNode) {
+    String jobName = lazyNode.getLazyLoadingJobName();
+    if (jobName == null) {
+      jobName = NLS.bind(Messages.LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg,
+          ((ITreeNode) lazyNode).getDisplayName());
+    }
+    Job.create(jobName, new ChildElementLoader(viewer.getControl().getDisplay(), lazyNode))
+        .schedule();
 
   }
 

@@ -17,25 +17,14 @@ import com.devepos.adt.base.util.IPropertyBag;
  */
 public interface ITreeNode extends IPropertyBag, IAdaptable {
   /**
-   * Finds and returns the root node of this tree node. The root node is a node
-   * which has no parent node. If this node has no parent than it automatically is
-   * the root node
-   *
-   * @return
+   * @return the description for the node
    */
-  ITreeNode getRoot();
+  String getDescription();
 
   /**
-   * @return the parent node of this node
+   * @return the display name of the node
    */
-  ICollectionTreeNode getParent();
-
-  /**
-   * Sets the parent of this node
-   *
-   * @param parent the parent node
-   */
-  void setParent(ICollectionTreeNode parent);
+  String getDisplayName();
 
   /**
    * @return the image id of the node
@@ -48,16 +37,32 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
   String getName();
 
   /**
-   * Sets the name of the node
+   * Retrieves the arbitrary object of the node that was set with {@link #setNodeValue(Object)}
    *
-   * @param name
+   * @return the arbitrary object of the node or <code>null</code>
    */
-  void setName(String name);
+  Object getNodeValue();
 
   /**
-   * @return the display name of the node
+   * @return the parent node of this node
    */
-  String getDisplayName();
+  ICollectionTreeNode getParent();
+
+  /**
+   * Finds and returns the root node of this tree node. The root node is a node
+   * which has no parent node. If this node has no parent than it automatically is
+   * the root node
+   *
+   * @return
+   */
+  ITreeNode getRoot();
+
+  /**
+   * Sets the description of the new
+   *
+   * @param description
+   */
+  void setDescription(String description);
 
   /**
    * Sets the display name of the node
@@ -67,16 +72,11 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
   void setDisplayName(String displayName);
 
   /**
-   * @return the description for the node
-   */
-  String getDescription();
-
-  /**
-   * Sets the description of the new
+   * Sets the name of the node
    *
-   * @param description
+   * @param name
    */
-  void setDescription(String description);
+  void setName(String name);
 
   /**
    * Sets arbitrary object which can be retrieved via
@@ -87,10 +87,10 @@ public interface ITreeNode extends IPropertyBag, IAdaptable {
   void setNodeValue(Object value);
 
   /**
-   * Retrieves the arbitrary object of the node that was set with {@link #setNodeValue(Object)}
+   * Sets the parent of this node
    *
-   * @return the arbitrary object of the node or <code>null</code>
+   * @param parent the parent node
    */
-  Object getNodeValue();
+  void setParent(ICollectionTreeNode parent);
 
 }

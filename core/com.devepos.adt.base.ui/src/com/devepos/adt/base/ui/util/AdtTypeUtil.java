@@ -24,6 +24,9 @@ public class AdtTypeUtil {
 
   private static AdtTypeUtil INSTANCE;
 
+  private AdtTypeUtil() {
+  }
+
   public static AdtTypeUtil getInstance() {
     if (INSTANCE == null) {
       INSTANCE = new AdtTypeUtil();
@@ -32,40 +35,43 @@ public class AdtTypeUtil {
   }
 
   /**
-   * Returns Image for the given ADT Type
+   * Retrieves an ADT object type proxy for the given adt type name or
+   * <code>null</code>
    *
-   * @param adtType ADT type (e.g. DDLS/DF)
-   * @return the found image or null
+   * @param adtType the full name of a workbench type (e.g. CLASS/OC)
+   * @return an ADT object type proxy for the given adt type name or
+   *         <code>null</code>
    */
-  public Image getTypeImage(final String adtType) {
+  public IAdtObjectTypeProxy getType(final String adtType) {
     if (StringUtil.isEmpty(adtType)) {
       return null;
     }
-    Image image = null;
     final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
         .getObjectTypeByGlobalWorkbenchType(adtType);
     if (type != null) {
-      image = type.getImage();
-    } else {
-      image = AdtBaseUIResources.getImage(IAdtBaseImages.SAP_GUI_OBJECT);
-    }
-    return image;
-  }
+      return new IAdtObjectTypeProxy() {
+        @Override
+        public String getAdtResourceUriPath() {
+          IResourceInfo resourceInfo = type.getResourceInfo();
+          return resourceInfo != null ? resourceInfo.getAdtResourceUriPath() : "";
+        }
 
-  /**
-   * Retrieves the description of the given {@code adtType} by accessing the
-   * workbench type registry in the given project
-   *
-   * @param adtType ADT type (e.g. DDLS/DF)
-   * @param project project to access workbench type registry
-   * @return the found type description or {@code null}
-   */
-  public String getTypeDescriptionByProject(final String adtType, final IProject project) {
-    final IWbObjectType type = AbapCore.getInstance()
-        .getWbTypeRegistry(project)
-        .getWbObjectType(new NullProgressMonitor(), adtType);
-    if (type != null) {
-      return type.getTypeLabel();
+        @Override
+        public String getDescription() {
+          return type.getDisplayName();
+        }
+
+        @Override
+        public String getId() {
+          return type.getId();
+        }
+
+        @Override
+        public Image getImage() {
+          return type.getImage();
+        }
+
+      };
     }
     return null;
   }
@@ -88,49 +94,43 @@ public class AdtTypeUtil {
     return null;
   }
 
-  private AdtTypeUtil() {
+  /**
+   * Retrieves the description of the given {@code adtType} by accessing the
+   * workbench type registry in the given project
+   *
+   * @param adtType ADT type (e.g. DDLS/DF)
+   * @param project project to access workbench type registry
+   * @return the found type description or {@code null}
+   */
+  public String getTypeDescriptionByProject(final String adtType, final IProject project) {
+    final IWbObjectType type = AbapCore.getInstance()
+        .getWbTypeRegistry(project)
+        .getWbObjectType(new NullProgressMonitor(), adtType);
+    if (type != null) {
+      return type.getTypeLabel();
+    }
+    return null;
   }
 
   /**
-   * Retrieves an ADT object type proxy for the given adt type name or
-   * <code>null</code>
+   * Returns Image for the given ADT Type
    *
-   * @param adtType the full name of a workbench type (e.g. CLASS/OC)
-   * @return an ADT object type proxy for the given adt type name or
-   *         <code>null</code>
+   * @param adtType ADT type (e.g. DDLS/DF)
+   * @return the found image or null
    */
-  public IAdtObjectTypeProxy getType(final String adtType) {
+  public Image getTypeImage(final String adtType) {
     if (StringUtil.isEmpty(adtType)) {
       return null;
     }
+    Image image = null;
     final IAdtObjectTypeInfoUi type = AbapCoreUi.getObjectTypeRegistry()
         .getObjectTypeByGlobalWorkbenchType(adtType);
     if (type != null) {
-      return new IAdtObjectTypeProxy() {
-        @Override
-        public String getId() {
-          return type.getId();
-        }
-
-        @Override
-        public Image getImage() {
-          return type.getImage();
-        }
-
-        @Override
-        public String getDescription() {
-          return type.getDisplayName();
-        }
-
-        @Override
-        public String getAdtResourceUriPath() {
-          IResourceInfo resourceInfo = type.getResourceInfo();
-          return resourceInfo != null ? resourceInfo.getAdtResourceUriPath() : "";
-        }
-
-      };
+      image = type.getImage();
+    } else {
+      image = AdtBaseUIResources.getImage(IAdtBaseImages.SAP_GUI_OBJECT);
     }
-    return null;
+    return image;
   }
 
 }

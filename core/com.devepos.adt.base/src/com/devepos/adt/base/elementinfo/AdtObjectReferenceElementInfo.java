@@ -36,65 +36,6 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements
   }
 
   @Override
-  public IAdtObjectReference getAdtObjectReference() {
-    return objectReference;
-  }
-
-  @Override
-  public String getUri() {
-    return objectReference != null ? objectReference.getUri() : "";
-  }
-
-  @Override
-  public String getAdtType() {
-    return objectReference != null ? objectReference.getType() : "";
-  }
-
-  @Override
-  public Image getImage() {
-    return null;
-  }
-
-  @Override
-  public void setAdtObjectReference(final IAdtObjectReference objectReference) {
-    this.objectReference = objectReference;
-  }
-
-  @Override
-  public List<IElementInfo> getChildren() {
-    if (children == null) {
-      children = new ArrayList<>();
-    }
-    return children;
-  }
-
-  @Override
-  public boolean hasChildren() {
-    return children != null && !children.isEmpty();
-  }
-
-  @Override
-  public boolean hasLazyLoadingSupport() {
-    return lazyLoading;
-  }
-
-  @Override
-  public void setLazyLoadingSupport(final boolean lazyLoading) {
-    this.lazyLoading = lazyLoading;
-  }
-
-  @Override
-  public IElementInfoProvider getElementInfoProvider() {
-    return infoProvider;
-  }
-
-  @Override
-  public void setElementInfoProvider(final IElementInfoProvider infoProvider) {
-    this.infoProvider = infoProvider;
-    lazyLoading = this.infoProvider != null;
-  }
-
-  @Override
   public boolean equals(final Object obj) {
     if (obj == null || !(obj instanceof AdtObjectReferenceElementInfo)) {
       return false;
@@ -109,14 +50,118 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements
   }
 
   @Override
-  public void setContentRefreshMode(final LazyLoadingRefreshMode mode) {
-    refreshMode = mode;
+  public <T> T getAdapter(final Class<T> adapter) {
+    if (adapter != IDestinationProvider.class) {
+      return super.getAdapter(adapter);
+    }
+    if (objectReference != null) {
+      try {
+        return adapter.cast(objectReference);
+      } catch (final ClassCastException exc) {
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public IAdtObjectReference getAdtObjectReference() {
+    return objectReference;
+  }
+
+  @Override
+  public String getAdtType() {
+    return objectReference != null ? objectReference.getType() : "";
+  }
+
+  @Override
+  public IElementInfo getChild(final String name) {
+    if (!hasChildren() || name == null) {
+      return null;
+    }
+    return children.stream().filter(el -> name.equals(name)).findFirst().orElse(null);
+  }
+
+  @Override
+  public List<IElementInfo> getChildren() {
+    if (children == null) {
+      children = new ArrayList<>();
+    }
+    return children;
   }
 
   @Override
   public LazyLoadingRefreshMode getContentRefreshMode() {
     return refreshMode != null ? refreshMode
         : IAdtObjectReferenceElementInfo.super.getContentRefreshMode();
+  }
+
+  @Override
+  public IElementInfoProvider getElementInfoProvider() {
+    return infoProvider;
+  }
+
+  @Override
+  public Image getImage() {
+    return null;
+  }
+
+  @Override
+  public String getUri() {
+    return objectReference != null ? objectReference.getUri() : "";
+  }
+
+  @Override
+  public boolean hasChild(final String name) {
+    if (!hasChildren() || name == null) {
+      return false;
+    }
+    return children.stream().anyMatch(el -> name.equals(el.getName()));
+  }
+
+  @Override
+  public boolean hasChildren() {
+    return children != null && !children.isEmpty();
+  }
+
+  @Override
+  public int hashCode() {
+    int result = name == null ? 0 : name.hashCode();
+    if (objectReference instanceof IDestinationProvider) {
+      final String destinationId = ((IDestinationProvider) objectReference).getDestinationId();
+      result = 31 * result + (destinationId == null ? 0 : destinationId.hashCode());
+    }
+    return result;
+  }
+
+  @Override
+  public boolean hasLazyLoadingSupport() {
+    return lazyLoading;
+  }
+
+  @Override
+  public void setAdtObjectReference(final IAdtObjectReference objectReference) {
+    this.objectReference = objectReference;
+  }
+
+  @Override
+  public void setContentRefreshMode(final LazyLoadingRefreshMode mode) {
+    refreshMode = mode;
+  }
+
+  @Override
+  public void setElementInfoProvider(final IElementInfoProvider infoProvider) {
+    this.infoProvider = infoProvider;
+    lazyLoading = this.infoProvider != null;
+  }
+
+  @Override
+  public void setLazyLoadingSupport(final boolean lazyLoading) {
+    this.lazyLoading = lazyLoading;
+  }
+
+  @Override
+  public int size() {
+    return children == null ? 0 : children.size();
   }
 
   private boolean compareDestination(final IAdtObjectReference objRef) {
@@ -136,51 +181,6 @@ public class AdtObjectReferenceElementInfo extends ElementInfoBase implements
       return destinationId1.equals(destinationId2);
     }
     return false;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = name == null ? 0 : name.hashCode();
-    if (objectReference instanceof IDestinationProvider) {
-      final String destinationId = ((IDestinationProvider) objectReference).getDestinationId();
-      result = 31 * result + (destinationId == null ? 0 : destinationId.hashCode());
-    }
-    return result;
-  }
-
-  @Override
-  public <T> T getAdapter(final Class<T> adapter) {
-    if (adapter != IDestinationProvider.class) {
-      return super.getAdapter(adapter);
-    }
-    if (objectReference != null) {
-      try {
-        return adapter.cast(objectReference);
-      } catch (final ClassCastException exc) {
-      }
-    }
-    return null;
-  }
-
-  @Override
-  public int size() {
-    return children == null ? 0 : children.size();
-  }
-
-  @Override
-  public IElementInfo getChild(final String name) {
-    if (!hasChildren() || name == null) {
-      return null;
-    }
-    return children.stream().filter(el -> name.equals(name)).findFirst().orElse(null);
-  }
-
-  @Override
-  public boolean hasChild(final String name) {
-    if (!hasChildren() || name == null) {
-      return false;
-    }
-    return children.stream().anyMatch(el -> name.equals(el.getName()));
   }
 
 }

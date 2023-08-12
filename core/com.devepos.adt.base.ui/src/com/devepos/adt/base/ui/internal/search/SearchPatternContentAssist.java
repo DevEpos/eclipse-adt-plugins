@@ -70,6 +70,14 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
     setAutoActivationDelay(500);
   }
 
+  /*
+   * Creates proposal provider by using the given pattern analyzer
+   */
+  private static ITextQueryProposalProvider createQueryProposalProvider(
+      final ISearchPatternAnalyzer patternAnalyzer) {
+    return query -> patternAnalyzer.getProposals(query);
+  }
+
   @Override
   protected Point calculatePopupSizeForProposals(final IContentProposal proposal,
       final PopupDialog popup, int height) {
@@ -86,14 +94,6 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
       return new Point(POPUP_DEFAULT_WIDTH, height);
     }
     return super.calculatePopupSizeForProposals(proposal, popup, height);
-  }
-
-  /*
-   * Creates proposal provider by using the given pattern analyzer
-   */
-  private static ITextQueryProposalProvider createQueryProposalProvider(
-      final ISearchPatternAnalyzer patternAnalyzer) {
-    return query -> patternAnalyzer.getProposals(query);
   }
 
 }

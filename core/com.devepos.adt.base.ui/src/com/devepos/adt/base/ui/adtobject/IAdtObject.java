@@ -14,6 +14,15 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 public interface IAdtObject {
 
   /**
+   * Returns the image for the type of the encapsulated ADT object reference, if
+   * it can be determined, otherwise {@code null}
+   *
+   * @return the image for the type of the encapsulated ADT object reference, if
+   *         it can be determined, otherwise {@code null}
+   */
+  Image getImage();
+
+  /**
    * Returns the name of the object
    *
    * @return the name of the object
@@ -26,15 +35,6 @@ public interface IAdtObject {
    * @return the type of the object
    */
   ObjectType getObjectType();
-
-  /**
-   * Returns the image for the type of the encapsulated ADT object reference, if
-   * it can be determined, otherwise {@code null}
-   *
-   * @return the image for the type of the encapsulated ADT object reference, if
-   *         it can be determined, otherwise {@code null}
-   */
-  Image getImage();
 
   /**
    * Returns the project connected to this object

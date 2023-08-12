@@ -12,6 +12,22 @@ import org.eclipse.ui.PlatformUI;
  */
 public class WorkbenchUtil {
   /**
+   * Brings the active part of the active page to the front
+   */
+  public static void bringActivePartToFront() {
+    IWorkbenchPage activePage = PlatformUI.getWorkbench()
+        .getActiveWorkbenchWindow()
+        .getActivePage();
+    if (activePage == null) {
+      return;
+    }
+    IWorkbenchPart activePart = activePage.getActivePart();
+    if (activePart != null && activePage.isPartVisible(activePart)) {
+      activePage.bringToTop(activePart);
+    }
+  }
+
+  /**
    * Brings the given part to the top of the active page, but only if the
    * {@code part} is visible in the active page
    *
@@ -29,22 +45,6 @@ public class WorkbenchUtil {
     }
     if (activePage.isPartVisible(part)) {
       activePage.bringToTop(part);
-    }
-  }
-
-  /**
-   * Brings the active part of the active page to the front
-   */
-  public static void bringActivePartToFront() {
-    IWorkbenchPage activePage = PlatformUI.getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getActivePage();
-    if (activePage == null) {
-      return;
-    }
-    IWorkbenchPart activePart = activePage.getActivePart();
-    if (activePart != null && activePage.isPartVisible(activePart)) {
-      activePage.bringToTop(activePart);
     }
   }
 }

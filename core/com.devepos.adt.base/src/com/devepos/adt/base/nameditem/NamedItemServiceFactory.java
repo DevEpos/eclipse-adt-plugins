@@ -16,6 +16,19 @@ import com.devepos.adt.base.util.IUriDiscovery;
 public class NamedItemServiceFactory {
 
   /**
+   * Creates new template provider for named items
+   *
+   * @param projectProvider     ABAP project provider
+   * @param uriDiscoveryCreator supplier for URI discovery
+   * @return
+   */
+  public static IAdtUriTemplateProvider createNamedItemUriTemplateProvider(
+      final IAbapProjectProvider projectProvider,
+      final Function<String, IUriDiscovery> uriDiscoveryCreator) {
+    return new NamedItemUriTemplateProvider(projectProvider, uriDiscoveryCreator);
+  }
+
+  /**
    * Creates instance of the {@link INamedItemService}
    *
    * @param destination         ABAP project destination
@@ -25,18 +38,5 @@ public class NamedItemServiceFactory {
   public static INamedItemService createService(final String destination,
       final IAdtUriTemplateProvider uriTemplateProvider) {
     return new NamedItemService(destination, uriTemplateProvider);
-  }
-
-  /**
-   * Creates new template provider for named items
-   * 
-   * @param projectProvider     ABAP project provider
-   * @param uriDiscoveryCreator supplier for URI discovery
-   * @return
-   */
-  public static IAdtUriTemplateProvider createNamedItemUriTemplateProvider(
-      final IAbapProjectProvider projectProvider,
-      Function<String, IUriDiscovery> uriDiscoveryCreator) {
-    return new NamedItemUriTemplateProvider(projectProvider, uriDiscoveryCreator);
   }
 }

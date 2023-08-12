@@ -17,16 +17,15 @@ public class SearchFavoriteDescriptor {
   public static final String EXTENSION_POINT = "searchFavorites";
   public static final String EXTENSION_ELEMENT = "searchFavoriteConnector";
 
-  private static final String ID_ATTRIBUTE = "id";
   private static final String SEARCH_TYPE_ATTRIBUTE = "searchType";
   private static final String SEARCH_TYPE_LABEL_ATTRIBUTE = "searchTypeLabel";
   private static final String ICON_ATTRIBUTE = "icon";
   private static final String CLASS_ATTRIBUTE = "class";
 
-  private IConfigurationElement element;
+  private final IConfigurationElement element;
   private ISearchFavoriteConnector favoriteConnector;
 
-  public SearchFavoriteDescriptor(IConfigurationElement element) {
+  public SearchFavoriteDescriptor(final IConfigurationElement element) {
     this.element = element;
   }
 

@@ -14,9 +14,9 @@ import org.eclipse.core.runtime.Assert;
 public class PropertyChangeEvent extends EventObject {
   private static final long serialVersionUID = -6100873577865199912L;
 
-  private String propertyName;
-  private Object oldValue;
-  private Object newValue;
+  private final String propertyName;
+  private final Object oldValue;
+  private final Object newValue;
 
   /**
    * Creates a new property change event.

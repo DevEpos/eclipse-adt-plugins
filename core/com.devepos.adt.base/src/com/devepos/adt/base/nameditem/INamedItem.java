@@ -12,13 +12,14 @@ import com.devepos.adt.base.internal.nameditem.NamedItem;
 public interface INamedItem {
   /**
    * Creates new named item with the given parameters
-   * 
+   *
    * @param name        name of the item
    * @param description description of the item
    * @param data        additional data for the item
    * @return the created item
    */
-  static INamedItem createNamedItem(String name, String description, String data) {
+  static INamedItem createNamedItem(final String name, final String description,
+      final String data) {
     var item = new NamedItem();
     item.setName(name);
     item.setDescription(description);

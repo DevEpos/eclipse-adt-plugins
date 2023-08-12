@@ -74,9 +74,9 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   private static final class FavoriteLabelProvider extends LabelProvider {
 
-    private Map<String, SearchFavoriteDescriptor> descriptors = AdtBaseUIPlugin.getDefault()
+    private final Map<String, SearchFavoriteDescriptor> descriptors = AdtBaseUIPlugin.getDefault()
         .getSearchFavoriteDescriptors();
-    private List<Image> images = new ArrayList<>();
+    private final List<Image> images = new ArrayList<>();
 
     @Override
     public void dispose() {

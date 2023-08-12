@@ -14,16 +14,16 @@ public interface IDestinationProvider {
   String getDestinationId();
 
   /**
-   * Sets a new destination Id
-   *
-   * @param destinationId
-   */
-  void setDestinationId(String destinationId);
-
-  /**
    * Returns the system part from the destination
    *
    * @return
    */
   String getSystemId();
+
+  /**
+   * Sets a new destination Id
+   *
+   * @param destinationId
+   */
+  void setDestinationId(String destinationId);
 }

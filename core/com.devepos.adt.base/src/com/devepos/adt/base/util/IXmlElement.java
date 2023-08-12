@@ -11,43 +11,9 @@ import java.util.Map;
 public interface IXmlElement {
 
   /**
-   * @return the child elements of this element
-   */
-  List<IXmlElement> getChildren();
-
-  /**
-   * @return the first child of the element or <code>null</code> if it has none
-   */
-  IXmlElement getFirstChild();
-
-  /**
-   * @return <code>true</code> if the element has attributes
-   */
-  boolean hasChildren();
-
-  /**
-   * Sets the namespace prefix of the element
-   *
-   * @param prefix the prefix of this element
-   */
-  void setPrefix(String prefix);
-
-  /**
-   * Sets the namespace URI of this element
-   *
-   * @param namespaceURI the namespace URI
-   */
-  void setNamespace(String namespaceURI);
-
-  /**
    * @return the attributes of this element
    */
   List<IXmlAttribute> getAttributes();
-
-  /**
-   * @return <code>true</code> if the element has attributes
-   */
-  boolean hasAttributes();
 
   /**
    * Retrieves the value of the attribute with the given name
@@ -67,29 +33,14 @@ public interface IXmlElement {
   String getAttributeValue(String namespacePrefix, String attributeName);
 
   /**
-   * @return a map of all the defined namespaces with their prefixes
+   * @return the child elements of this element
    */
-  Map<String, String> getNamespaces();
+  List<IXmlElement> getChildren();
 
   /**
-   * @return the namespace prefix of the element
+   * @return the first child of the element or <code>null</code> if it has none
    */
-  String getPrefix();
-
-  /**
-   * @return the namespace URI of the element
-   */
-  String getNamespaceURI();
-
-  /**
-   * @return the text
-   */
-  String getText();
-
-  /**
-   * @param text the text to set
-   */
-  void setText(String text);
+  IXmlElement getFirstChild();
 
   /**
    * @return the name
@@ -97,9 +48,29 @@ public interface IXmlElement {
   String getName();
 
   /**
-   * @param name the name to set
+   * @return a map of all the defined namespaces with their prefixes
    */
-  void setName(String name);
+  Map<String, String> getNamespaces();
+
+  /**
+   * @return the namespace URI of the element
+   */
+  String getNamespaceURI();
+
+  /**
+   * @return the namespace prefix of the element
+   */
+  String getPrefix();
+
+  /**
+   * @return the text
+   */
+  String getText();
+
+  /**
+   * @return <code>true</code> if the element has attributes
+   */
+  boolean hasAttributes();
 
   /**
    * Returns <code>true</code> if this element has a child element with the name
@@ -109,5 +80,34 @@ public interface IXmlElement {
    * @return
    */
   boolean hasChild(String tagName);
+
+  /**
+   * @return <code>true</code> if the element has attributes
+   */
+  boolean hasChildren();
+
+  /**
+   * @param name the name to set
+   */
+  void setName(String name);
+
+  /**
+   * Sets the namespace URI of this element
+   *
+   * @param namespaceURI the namespace URI
+   */
+  void setNamespace(String namespaceURI);
+
+  /**
+   * Sets the namespace prefix of the element
+   *
+   * @param prefix the prefix of this element
+   */
+  void setPrefix(String prefix);
+
+  /**
+   * @param text the text to set
+   */
+  void setText(String text);
 
 }

@@ -12,20 +12,10 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * @author stockbal
  */
 public class DummyPart implements IWorkbenchPart {
-  public DummyPart(final IWorkbenchPartSite site) {
-    this.site = site;
-  }
-
   private IWorkbenchPartSite site;
 
-  @Override
-  public void dispose() {
-    site = null;
-  }
-
-  @Override
-  public IWorkbenchPartSite getSite() {
-    return site;
+  public DummyPart(final IWorkbenchPartSite site) {
+    this.site = site;
   }
 
   @Override
@@ -35,6 +25,21 @@ public class DummyPart implements IWorkbenchPart {
   @Override
   public void createPartControl(final Composite parent) {
     /* dummy */}
+
+  @Override
+  public void dispose() {
+    site = null;
+  }
+
+  @Override
+  public <T> T getAdapter(final Class<T> adapter) {
+    return null;
+  }
+
+  @Override
+  public IWorkbenchPartSite getSite() {
+    return site;
+  }
 
   @Override
   public String getTitle() {
@@ -58,9 +63,4 @@ public class DummyPart implements IWorkbenchPart {
   @Override
   public void setFocus() {
     /* dummy */}
-
-  @Override
-  public <T> T getAdapter(final Class<T> adapter) {
-    return null;
-  }
 }

@@ -22,8 +22,8 @@ public class BooleanSearchFilter implements ISearchFilter, ITextQueryProposalPro
   private final String description;
   private final Image image;
 
-  public BooleanSearchFilter(final String label, final String description, String longDescription,
-      final Image image) {
+  public BooleanSearchFilter(final String label, final String description,
+      final String longDescription, final Image image) {
     this.label = label;
     this.description = description;
     this.longDescription = longDescription;
@@ -31,8 +31,8 @@ public class BooleanSearchFilter implements ISearchFilter, ITextQueryProposalPro
   }
 
   @Override
-  public String getLongDescription() {
-    return longDescription;
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -46,14 +46,14 @@ public class BooleanSearchFilter implements ISearchFilter, ITextQueryProposalPro
   }
 
   @Override
-  public List<IContentProposal> getProposalList(final String query) throws CoreException {
-    return Arrays.asList(new SearchFilterValueProposal(Boolean.TRUE.toString(), this, null, null),
-        new SearchFilterValueProposal(Boolean.FALSE.toString(), this, null, null));
+  public String getLongDescription() {
+    return longDescription;
   }
 
   @Override
-  public String getDescription() {
-    return description;
+  public List<IContentProposal> getProposalList(final String query) throws CoreException {
+    return Arrays.asList(new SearchFilterValueProposal(Boolean.TRUE.toString(), this, null, null),
+        new SearchFilterValueProposal(Boolean.FALSE.toString(), this, null, null));
   }
 
   @Override

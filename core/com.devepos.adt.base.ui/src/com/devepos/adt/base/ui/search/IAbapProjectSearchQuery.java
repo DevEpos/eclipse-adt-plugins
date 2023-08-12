@@ -4,7 +4,7 @@ import org.eclipse.search.ui.ISearchQuery;
 
 /**
  * {@link ISearchQuery} that searches content in a given ABAP project
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public interface IAbapProjectSearchQuery extends ISearchQuery {

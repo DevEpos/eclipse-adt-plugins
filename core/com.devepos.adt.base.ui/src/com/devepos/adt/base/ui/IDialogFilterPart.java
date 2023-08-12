@@ -21,13 +21,6 @@ public interface IDialogFilterPart<F> extends IUIComponent {
   F getFilter();
 
   /**
-   * Sets the given filter in the filter controls
-   *
-   * @param filter new filter value
-   */
-  void setFilter(F filter);
-
-  /**
    * Retrieves the controls that trigger a new filter job/request
    *
    * @return array of filter controls
@@ -40,6 +33,13 @@ public interface IDialogFilterPart<F> extends IUIComponent {
    * @return {@code true} if the current filter is empty
    */
   boolean isFilterEmpty();
+
+  /**
+   * Sets the given filter in the filter controls
+   *
+   * @param filter new filter value
+   */
+  void setFilter(F filter);
 
   /**
    * Sets the focus to the filter part

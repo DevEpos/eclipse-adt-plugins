@@ -23,6 +23,40 @@ public class AdtBaseUIResources {
       "com.devepos.adt.base.ui.messages"); //$NON-NLS-1$
 
   /**
+   * Returns the formatted message for the given key in ADT Tools Base's resource
+   * bundle.
+   *
+   * @param key  the resource name
+   * @param args the message arguments
+   * @return the string
+   */
+  public static String format(final String key, final Object... args) {
+    return MessageFormat.format(getString(key), args);
+  }
+
+  /**
+   * Retrieves Image from registry
+   *
+   * @param key the identifier of the image to retrieve
+   * @return the found image
+   */
+  public static Image getImage(final String key) {
+    return AdtBaseUIPlugin.getDefault().getImage(key);
+  }
+
+  /**
+   * Gets the image for the given key from the image registry
+   *
+   * @param key          the identifier of the image to get
+   * @param useGrayScale if <code>true</code> a grayscale version of the image is
+   *                     returned
+   * @return the found image descriptor or <code>null</code>
+   */
+  public static Image getImage(final String key, final boolean useGrayScale) {
+    return AdtBaseUIPlugin.getDefault().getImage(key, useGrayScale);
+  }
+
+  /**
    * Gets the image descriptor for the given key from the image registry
    *
    * @param key the identifier of the image to get
@@ -45,28 +79,6 @@ public class AdtBaseUIResources {
   }
 
   /**
-   * Gets the image for the given key from the image registry
-   *
-   * @param key          the identifier of the image to get
-   * @param useGrayScale if <code>true</code> a grayscale version of the image is
-   *                     returned
-   * @return the found image descriptor or <code>null</code>
-   */
-  public static Image getImage(final String key, final boolean useGrayScale) {
-    return AdtBaseUIPlugin.getDefault().getImage(key, useGrayScale);
-  }
-
-  /**
-   * Retrieves Image from registry
-   *
-   * @param key the identifier of the image to retrieve
-   * @return the found image
-   */
-  public static Image getImage(final String key) {
-    return AdtBaseUIPlugin.getDefault().getImage(key);
-  }
-
-  /**
    * Returns the resource object with the given key in ADT Tools Base's resource
    * bundle. If there isn't any value under the given key, the key is returned.
    *
@@ -79,17 +91,5 @@ public class AdtBaseUIResources {
     } catch (final MissingResourceException e) {
       return key;
     }
-  }
-
-  /**
-   * Returns the formatted message for the given key in ADT Tools Base's resource
-   * bundle.
-   *
-   * @param key  the resource name
-   * @param args the message arguments
-   * @return the string
-   */
-  public static String format(final String key, final Object... args) {
-    return MessageFormat.format(getString(key), args);
   }
 }

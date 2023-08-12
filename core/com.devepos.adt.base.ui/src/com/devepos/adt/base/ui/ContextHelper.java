@@ -16,8 +16,8 @@ import org.eclipse.ui.services.IServiceLocator;
 public class ContextHelper {
 
   private IContextActivation abapContext;
-  private Map<String, IContextActivation> activeContextsMap;
-  private IContextService contextService;
+  private final Map<String, IContextActivation> activeContextsMap;
+  private final IContextService contextService;
 
   private ContextHelper(final IServiceLocator locator) {
     contextService = locator.getService(IContextService.class);
@@ -43,15 +43,6 @@ public class ContextHelper {
   }
 
   /**
-   * Deactivates the ABAP context
-   */
-  public void deactivateAbapContext() {
-    if (abapContext != null) {
-      contextService.deactivateContext(abapContext);
-    }
-  }
-
-  /**
    * Activates the context for the given {@code contextId}
    *
    * @param contextId the unique identifier of an eclipse context
@@ -64,13 +55,11 @@ public class ContextHelper {
   }
 
   /**
-   * Deactivates the context for the given {@code contextId}
-   *
-   * @param contextId the unique identifier of an eclipse context
+   * Deactivates the ABAP context
    */
-  public void deactivateContext(final String contextId) {
-    if (activeContextsMap.containsKey(contextId)) {
-      contextService.deactivateContext(activeContextsMap.remove(contextId));
+  public void deactivateAbapContext() {
+    if (abapContext != null) {
+      contextService.deactivateContext(abapContext);
     }
   }
 
@@ -83,6 +72,17 @@ public class ContextHelper {
       activeContextsMap.clear();
     }
     deactivateAbapContext();
+  }
+
+  /**
+   * Deactivates the context for the given {@code contextId}
+   *
+   * @param contextId the unique identifier of an eclipse context
+   */
+  public void deactivateContext(final String contextId) {
+    if (activeContextsMap.containsKey(contextId)) {
+      contextService.deactivateContext(activeContextsMap.remove(contextId));
+    }
   }
 
 }

@@ -23,15 +23,11 @@ import com.devepos.adt.base.ui.search.contentassist.SearchPatternAnalyzer;
 public class SearchFilterHandler {
   private IContentAssist contentAssist;
   private final ISearchPatternAnalyzer patternAnalyzer;
-  private ISearchFilterProvider filterProvider;
+  private final ISearchFilterProvider filterProvider;
 
   public SearchFilterHandler(final ISearchFilterProvider filterProvider) {
     patternAnalyzer = SearchPatternAnalyzer.createAnalyzer(filterProvider);
     this.filterProvider = filterProvider;
-  }
-
-  public void enableSearchTermInput(final boolean enable) {
-    patternAnalyzer.setIsSearchTermAllowed(enable);
   }
 
   /**
@@ -57,6 +53,19 @@ public class SearchFilterHandler {
     if (patternAnalyzer != null) {
       patternAnalyzer.checkFilters(searchPattern);
     }
+  }
+
+  /**
+   * Dispose of all allocated resources
+   */
+  public void dispose() {
+    if (contentAssist != null) {
+      contentAssist.dispose();
+    }
+  }
+
+  public void enableSearchTermInput(final boolean enable) {
+    patternAnalyzer.setIsSearchTermAllowed(enable);
   }
 
   /**
@@ -96,6 +105,26 @@ public class SearchFilterHandler {
         .collect(Collectors.joining(delimiter)));
   }
 
+  /**
+   * Retrieves the search term from the the given <code>searchPattern</code>
+   *
+   * @param searchPattern the pattern to analyze
+   * @return
+   */
+  public String getSearchTerm(final String searchPattern) {
+    if (patternAnalyzer != null) {
+      return patternAnalyzer.getSearchTerm(searchPattern);
+    }
+    return searchPattern;
+  }
+
+  private List<String> getFilterValues(final String pattern, final String filterName) {
+    if (patternAnalyzer != null) {
+      return patternAnalyzer.getContent(pattern, filterName);
+    }
+    return new ArrayList<>();
+  }
+
   /*
    * Creates a map of the search filters and their values from the given search
    * pattern. The 'filterValueCollector' will be used for aggregation of the
@@ -122,34 +151,5 @@ public class SearchFilterHandler {
       }
     }
     return filterMap;
-  }
-
-  /**
-   * Retrieves the search term from the the given <code>searchPattern</code>
-   *
-   * @param searchPattern the pattern to analyze
-   * @return
-   */
-  public String getSearchTerm(final String searchPattern) {
-    if (patternAnalyzer != null) {
-      return patternAnalyzer.getSearchTerm(searchPattern);
-    }
-    return searchPattern;
-  }
-
-  private List<String> getFilterValues(final String pattern, final String filterName) {
-    if (patternAnalyzer != null) {
-      return patternAnalyzer.getContent(pattern, filterName);
-    }
-    return new ArrayList<>();
-  }
-
-  /**
-   * Dispose of all allocated resources
-   */
-  public void dispose() {
-    if (contentAssist != null) {
-      contentAssist.dispose();
-    }
   }
 }

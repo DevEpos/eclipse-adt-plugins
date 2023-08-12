@@ -166,7 +166,7 @@ public class SearchFilterValueProposal implements IContentProposal, IImageProvid
 
   /**
    * Sets arbitrary data on this proposal entry
-   * 
+   *
    * @param data data to be set
    */
   public void setData(final Object data) {

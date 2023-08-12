@@ -6,19 +6,19 @@ import org.eclipse.search.ui.ISearchQuery;
 public class QueryListenerAdapter implements IQueryListener {
 
   @Override
-  public void queryAdded(ISearchQuery query) {
+  public void queryAdded(final ISearchQuery query) {
   }
 
   @Override
-  public void queryRemoved(ISearchQuery query) {
+  public void queryFinished(final ISearchQuery query) {
   }
 
   @Override
-  public void queryStarting(ISearchQuery query) {
+  public void queryRemoved(final ISearchQuery query) {
   }
 
   @Override
-  public void queryFinished(ISearchQuery query) {
+  public void queryStarting(final ISearchQuery query) {
   }
 
 }

@@ -63,50 +63,27 @@ public class LongStringAttributeImpl extends BaseAttributeImpl implements ILongS
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.LONG_STRING_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getValue() {
-    return value;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setValue(final String newValue) {
-    String oldValue = value;
-    value = newValue;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.LONG_STRING_ATTRIBUTE__VALUE, oldValue, value));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.LONG_STRING_ATTRIBUTE__VALUE:
       return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.LONG_STRING_ATTRIBUTE__VALUE:
+      return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -148,12 +125,24 @@ public class LongStringAttributeImpl extends BaseAttributeImpl implements ILongS
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.LONG_STRING_ATTRIBUTE__VALUE:
-      return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+  public String getValue() {
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setValue(final String newValue) {
+    String oldValue = value;
+    value = newValue;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.LONG_STRING_ATTRIBUTE__VALUE, oldValue, value));
     }
-    return super.eIsSet(featureID);
   }
 
   /**
@@ -173,6 +162,17 @@ public class LongStringAttributeImpl extends BaseAttributeImpl implements ILongS
     result.append(value);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.LONG_STRING_ATTRIBUTE;
   }
 
 } // LongStringAttributeImpl

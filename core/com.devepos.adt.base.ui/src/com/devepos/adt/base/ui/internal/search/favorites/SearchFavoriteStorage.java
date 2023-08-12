@@ -26,40 +26,6 @@ public class SearchFavoriteStorage {
   private static final String FAVORITES = "favorites.xml";
 
   /**
-   * Serializes the object search favorites
-   */
-  public static void serialize() {
-    serialize(AdtBaseUIPlugin.getDefault().getSearchFavoriteManager(), getFavoritesFilePath());
-  }
-
-  /**
-   * Serializes the given favorites to the users' default plugin location
-   *
-   * @param favorites the favorites to serialize
-   * @param filePath
-   */
-  public static void serialize(final ISearchFavorites favorites, final String filePath) {
-    if (favorites == null || filePath == null) {
-      return;
-    }
-    final var factory = ISearchFavoritesFactory.eINSTANCE;
-    final var eFavorites = factory.createSearchFavorites();
-    favorites.getFavorites().forEach(f -> eFavorites.getFavorites().add(f));
-
-    // Obtain a new resource set
-    final Resource.Factory resourceFactory = new SearchFavoritesResourceFactoryImpl();
-    try {
-      final Resource resource = resourceFactory.createResource(URI.createFileURI(filePath));
-      final EList<EObject> resourceContents = resource.getContents();
-      resourceContents.add(eFavorites);
-      final Map<String, Object> options = createEmfResourceOptions();
-      resource.save(options);
-    } catch (final IllegalArgumentException | IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
    * Deserializes the object search favorites into the default location of the
    * Plugin
    *
@@ -98,6 +64,40 @@ public class SearchFavoriteStorage {
         var modelFavorites = (com.devepos.adt.base.model.searchfavorites.ISearchFavorites) root;
         modelFavorites.getFavorites().forEach(fav -> favorites.addFavorite(fav));
       }
+    } catch (final IllegalArgumentException | IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Serializes the object search favorites
+   */
+  public static void serialize() {
+    serialize(AdtBaseUIPlugin.getDefault().getSearchFavoriteManager(), getFavoritesFilePath());
+  }
+
+  /**
+   * Serializes the given favorites to the users' default plugin location
+   *
+   * @param favorites the favorites to serialize
+   * @param filePath
+   */
+  public static void serialize(final ISearchFavorites favorites, final String filePath) {
+    if (favorites == null || filePath == null) {
+      return;
+    }
+    final var factory = ISearchFavoritesFactory.eINSTANCE;
+    final var eFavorites = factory.createSearchFavorites();
+    favorites.getFavorites().forEach(f -> eFavorites.getFavorites().add(f));
+
+    // Obtain a new resource set
+    final Resource.Factory resourceFactory = new SearchFavoritesResourceFactoryImpl();
+    try {
+      final Resource resource = resourceFactory.createResource(URI.createFileURI(filePath));
+      final EList<EObject> resourceContents = resource.getContents();
+      resourceContents.add(eFavorites);
+      final Map<String, Object> options = createEmfResourceOptions();
+      resource.save(options);
     } catch (final IllegalArgumentException | IOException e) {
       e.printStackTrace();
     }

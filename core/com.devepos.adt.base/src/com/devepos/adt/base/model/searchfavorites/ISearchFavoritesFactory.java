@@ -25,34 +25,14 @@ public interface ISearchFavoritesFactory extends EFactory {
       .init();
 
   /**
-   * Returns a new object of class '<em>Long String Attribute</em>'.
+   * Returns a new object of class '<em>Boolean Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Long String Attribute</em>'.
+   * @return a new object of class '<em>Boolean Attribute</em>'.
    * @generated
    */
-  ILongStringAttribute createLongStringAttribute();
-
-  /**
-   * Returns a new object of class '<em>List Attribute</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return a new object of class '<em>List Attribute</em>'.
-   * @generated
-   */
-  IListAttribute createListAttribute();
-
-  /**
-   * Returns a new object of class '<em>String Attribute</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return a new object of class '<em>String Attribute</em>'.
-   * @generated
-   */
-  IStringAttribute createStringAttribute();
+  IBooleanAttribute createBooleanAttribute();
 
   /**
    * Returns a new object of class '<em>Int Attribute</em>'.
@@ -65,14 +45,24 @@ public interface ISearchFavoritesFactory extends EFactory {
   IIntAttribute createIntAttribute();
 
   /**
-   * Returns a new object of class '<em>Boolean Attribute</em>'.
+   * Returns a new object of class '<em>List Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return a new object of class '<em>Boolean Attribute</em>'.
+   * @return a new object of class '<em>List Attribute</em>'.
    * @generated
    */
-  IBooleanAttribute createBooleanAttribute();
+  IListAttribute createListAttribute();
+
+  /**
+   * Returns a new object of class '<em>Long String Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Long String Attribute</em>'.
+   * @generated
+   */
+  ILongStringAttribute createLongStringAttribute();
 
   /**
    * Returns a new object of class '<em>Map Attribute</em>'.
@@ -103,6 +93,16 @@ public interface ISearchFavoritesFactory extends EFactory {
    * @generated
    */
   ISearchFavorites createSearchFavorites();
+
+  /**
+   * Returns a new object of class '<em>String Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>String Attribute</em>'.
+   * @generated
+   */
+  IStringAttribute createStringAttribute();
 
   /**
    * Returns the package supported by this factory.

@@ -20,7 +20,7 @@ import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
  */
 public class NamedItemProposalProvider implements ITextQueryProposalProvider {
 
-  private InternalNamedItemProposalProvider namedItemProposalProvider;
+  private final InternalNamedItemProposalProvider namedItemProposalProvider;
 
   public NamedItemProposalProvider(final Text text, final IAbapProjectProvider projectProvider,
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType,

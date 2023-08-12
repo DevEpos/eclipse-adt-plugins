@@ -50,10 +50,8 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   }
 
   @Override
-  public String getLongDescription() {
-    return longDescription != null ? longDescription
-        : NLS.bind(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg, new Object[] {
-            filterName, "test" });
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -64,6 +62,13 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   @Override
   public String getLabel() {
     return filterName;
+  }
+
+  @Override
+  public String getLongDescription() {
+    return longDescription != null ? longDescription
+        : NLS.bind(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg, new Object[] {
+            filterName, "test" });
   }
 
   @Override
@@ -92,20 +97,8 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   }
 
   @Override
-  public String getDescription() {
-    return description;
-  }
-
-  @Override
   public boolean isBuffered() {
     return false;
-  }
-
-  /**
-   * Sets long description for the filter
-   */
-  public void setLongDescription(final String description) {
-    longDescription = description;
   }
 
   /**
@@ -113,6 +106,13 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
    */
   public void setDescription(final String description) {
     this.description = description;
+  }
+
+  /**
+   * Sets long description for the filter
+   */
+  public void setLongDescription(final String description) {
+    longDescription = description;
   }
 
   /**

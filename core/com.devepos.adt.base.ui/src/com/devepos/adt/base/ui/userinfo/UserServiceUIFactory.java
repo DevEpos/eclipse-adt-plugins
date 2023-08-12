@@ -11,26 +11,6 @@ import com.sap.adt.tools.core.system.IUser;
 @SuppressWarnings("restriction")
 public class UserServiceUIFactory {
 
-  /**
-   * Creates and returns instance of the User service
-   *
-   * @return instance of the User service
-   */
-  public static IUserServiceUI createUserService() {
-    return new UserServiceUI();
-  }
-
-  /**
-   * Creates new User
-   *
-   * @param id   id of a user
-   * @param text description/text of a user
-   * @return instance of {@link IUser}
-   */
-  public static IUser createUser(final String id, final String text) {
-    return new User(id, text);
-  }
-
   /*
    * Copy of ADT User implementation to set initial selections.
    */
@@ -44,20 +24,8 @@ public class UserServiceUIFactory {
     }
 
     @Override
-    public String getId() {
-      return id;
-    }
-
-    @Override
     public int compareTo(final IUser o) {
       return id.compareTo(o.getId());
-    }
-
-    @Override
-    public int hashCode() {
-      int result = 1;
-      result = 31 * result + id.hashCode();
-      return result;
     }
 
     @Override
@@ -76,7 +44,7 @@ public class UserServiceUIFactory {
     }
 
     @Override
-    public String toString() {
+    public String getId() {
       return id;
     }
 
@@ -85,6 +53,38 @@ public class UserServiceUIFactory {
       return text;
     }
 
+    @Override
+    public int hashCode() {
+      int result = 1;
+      result = 31 * result + id.hashCode();
+      return result;
+    }
+
+    @Override
+    public String toString() {
+      return id;
+    }
+
+  }
+
+  /**
+   * Creates new User
+   *
+   * @param id   id of a user
+   * @param text description/text of a user
+   * @return instance of {@link IUser}
+   */
+  public static IUser createUser(final String id, final String text) {
+    return new User(id, text);
+  }
+
+  /**
+   * Creates and returns instance of the User service
+   *
+   * @return instance of the User service
+   */
+  public static IUserServiceUI createUserService() {
+    return new UserServiceUI();
   }
 
 }

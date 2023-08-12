@@ -26,7 +26,7 @@ public interface ICollectionTreeNode extends ITreeNode {
 
   /**
    * Returns collection child nodes recursively
-   * 
+   *
    * @return a list of collection tree nodes
    */
   default List<ICollectionTreeNode> getCollectionChildrenRecursive() {

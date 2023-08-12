@@ -29,7 +29,7 @@ public class ToggleTextFilterHandler extends AbstractHandler {
       // check if page book view
       if (activePart instanceof PageBookView) {
         var page = ((PageBookView) activePart).getCurrentPage();
-        if (page != null && page instanceof IFilterableView) {
+        if (page instanceof IFilterableView) {
           filterableView = (IFilterableView) page;
         }
       }

@@ -65,50 +65,27 @@ public abstract class BaseAttributeImpl extends MinimalEObjectImpl.Container imp
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.BASE_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setName(final String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.BASE_ATTRIBUTE__NAME, oldName, name));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.BASE_ATTRIBUTE__NAME:
       return getName();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.BASE_ATTRIBUTE__NAME:
+      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -150,12 +127,24 @@ public abstract class BaseAttributeImpl extends MinimalEObjectImpl.Container imp
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.BASE_ATTRIBUTE__NAME:
-      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setName(final String newName) {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.BASE_ATTRIBUTE__NAME, oldName, name));
     }
-    return super.eIsSet(featureID);
   }
 
   /**
@@ -175,6 +164,17 @@ public abstract class BaseAttributeImpl extends MinimalEObjectImpl.Container imp
     result.append(name);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.BASE_ATTRIBUTE;
   }
 
 } // BaseAttributeImpl

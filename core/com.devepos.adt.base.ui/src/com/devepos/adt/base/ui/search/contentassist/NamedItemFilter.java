@@ -24,7 +24,7 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
  */
 public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvider {
   protected IImageProvider proposalImageProvider;
-  private INamedItemType namedItemType;
+  private final INamedItemType namedItemType;
   private InternalNamedItemProposalProvider namedItemProposalProvider;
   /**
    * Indicates if the filter supports pattern values. The default value is
@@ -56,7 +56,7 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   /**
    * The name of the filter
    */
-  private String filterName;
+  private final String filterName;
 
   /**
    * Image to be displayed alongside the filter in a proposal popup
@@ -154,7 +154,7 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
    * @param description the description to set
    */
   public final void setLongDescription(final String description) {
-    this.longDescription = description;
+    longDescription = description;
   }
 
   /**

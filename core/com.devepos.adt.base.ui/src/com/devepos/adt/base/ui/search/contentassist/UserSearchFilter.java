@@ -35,7 +35,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private Image image;
   private Image proposalImage;
   private final String filterLabel;
-  private String description;
+  private final String description;
   private String longDescription;
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel) {
@@ -43,7 +43,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel,
-      String description, String longDescription) {
+      final String description, final String longDescription) {
     this.projectProvider = projectProvider;
     this.filterLabel = filterLabel;
     this.description = description;
@@ -51,12 +51,8 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   @Override
-  public String getLongDescription() {
-    if (longDescription == null) {
-      longDescription = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] {
-          filterLabel, "smith" });
-    }
-    return longDescription;
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -70,6 +66,15 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public String getLabel() {
     return filterLabel;
+  }
+
+  @Override
+  public String getLongDescription() {
+    if (longDescription == null) {
+      longDescription = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] {
+          filterLabel, "smith" });
+    }
+    return longDescription;
   }
 
   @Override
@@ -91,11 +96,6 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       throw new CoreException(status);
     }
     return proposals;
-  }
-
-  @Override
-  public String getDescription() {
-    return description;
   }
 
   @Override

@@ -64,17 +64,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
   protected static final String SEARCH_TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getSearchType()
-   * @generated
-   * @ordered
-   */
-  protected String searchType = SEARCH_TYPE_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,17 +73,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final String DESCRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
@@ -108,17 +86,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
   protected static final String DESTINATION_ID_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getDestinationId()
-   * @generated
-   * @ordered
-   */
-  protected String destinationId = DESTINATION_ID_EDEFAULT;
-
-  /**
    * The default value of the '{@link #isProjectIndependent() <em>Project Independent</em>}'
    * attribute.
    * <!-- begin-user-doc -->
@@ -129,6 +96,39 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final boolean PROJECT_INDEPENDENT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getSearchType()
+   * @generated
+   * @ordered
+   */
+  protected String searchType = SEARCH_TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDestinationId()
+   * @generated
+   * @ordered
+   */
+  protected String destinationId = DESTINATION_ID_EDEFAULT;
 
   /**
    * The cached value of the '{@link #isProjectIndependent() <em>Project Independent</em>}'
@@ -171,133 +171,20 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.SEARCH_FAVORITE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getSearchType() {
-    return searchType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setSearchType(final String newSearchType) {
-    String oldSearchType = searchType;
-    searchType = newSearchType;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.SEARCH_FAVORITE__SEARCH_TYPE, oldSearchType, searchType));
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__SEARCH_TYPE:
+      return getSearchType();
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__DESCRIPTION:
+      return getDescription();
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__DESTINATION_ID:
+      return getDestinationId();
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
+      return isProjectIndependent();
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
+      return getAttributes();
     }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setDescription(final String newDescription) {
-    String oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.SEARCH_FAVORITE__DESCRIPTION, oldDescription, description));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getDestinationId() {
-    return destinationId;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setDestinationId(final String newDestinationId) {
-    String oldDestinationId = destinationId;
-    destinationId = newDestinationId;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.SEARCH_FAVORITE__DESTINATION_ID, oldDestinationId,
-          destinationId));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public boolean isProjectIndependent() {
-    return projectIndependent;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setProjectIndependent(final boolean newProjectIndependent) {
-    boolean oldProjectIndependent = projectIndependent;
-    projectIndependent = newProjectIndependent;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT, oldProjectIndependent,
-          projectIndependent));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<IBaseAttribute> getAttributes() {
-    if (attributes == null) {
-      attributes = new EObjectContainmentEList<>(IBaseAttribute.class, this,
-          ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES);
-    }
-    return attributes;
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -323,20 +210,23 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case ISearchFavoritesPackage.SEARCH_FAVORITE__SEARCH_TYPE:
-      return getSearchType();
+      return SEARCH_TYPE_EDEFAULT == null ? searchType != null
+          : !SEARCH_TYPE_EDEFAULT.equals(searchType);
     case ISearchFavoritesPackage.SEARCH_FAVORITE__DESCRIPTION:
-      return getDescription();
+      return DESCRIPTION_EDEFAULT == null ? description != null
+          : !DESCRIPTION_EDEFAULT.equals(description);
     case ISearchFavoritesPackage.SEARCH_FAVORITE__DESTINATION_ID:
-      return getDestinationId();
+      return DESTINATION_ID_EDEFAULT == null ? destinationId != null
+          : !DESTINATION_ID_EDEFAULT.equals(destinationId);
     case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
-      return isProjectIndependent();
+      return projectIndependent != PROJECT_INDEPENDENT_EDEFAULT;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
-      return getAttributes();
+      return attributes != null && !attributes.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -397,6 +287,33 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
     super.eUnset(featureID);
   }
 
+  @Override
+  public boolean getAttribute(final String name, final boolean defaultValue) {
+    var attribute = findAttribute(name);
+    if (attribute == null || !(attribute instanceof IBooleanAttribute)) {
+      return defaultValue;
+    }
+    return ((IBooleanAttribute) attribute).isValue();
+  }
+
+  @Override
+  public int getAttribute(final String name, final int defaultValue) {
+    var attribute = findAttribute(name);
+    if (attribute == null || !(attribute instanceof IStringAttribute)) {
+      return defaultValue;
+    }
+    return ((IIntAttribute) attribute).getValue();
+  }
+
+  @Override
+  public String getAttribute(final String name, final String defaultValue) {
+    var attribute = findAttribute(name);
+    if (attribute == null || !(attribute instanceof IStringAttribute)) {
+      return defaultValue;
+    }
+    return ((IStringAttribute) attribute).getValue();
+  }
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -404,23 +321,141 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.SEARCH_FAVORITE__SEARCH_TYPE:
-      return SEARCH_TYPE_EDEFAULT == null ? searchType != null
-          : !SEARCH_TYPE_EDEFAULT.equals(searchType);
-    case ISearchFavoritesPackage.SEARCH_FAVORITE__DESCRIPTION:
-      return DESCRIPTION_EDEFAULT == null ? description != null
-          : !DESCRIPTION_EDEFAULT.equals(description);
-    case ISearchFavoritesPackage.SEARCH_FAVORITE__DESTINATION_ID:
-      return DESTINATION_ID_EDEFAULT == null ? destinationId != null
-          : !DESTINATION_ID_EDEFAULT.equals(destinationId);
-    case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
-      return projectIndependent != PROJECT_INDEPENDENT_EDEFAULT;
-    case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
-      return attributes != null && !attributes.isEmpty();
+  public EList<IBaseAttribute> getAttributes() {
+    if (attributes == null) {
+      attributes = new EObjectContainmentEList<>(IBaseAttribute.class, this,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES);
     }
-    return super.eIsSet(featureID);
+    return attributes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getDestinationId() {
+    return destinationId;
+  }
+
+  @Override
+  public List<String> getListAttribute(final String name) {
+    var attribute = findAttribute(name);
+    if (attribute == null || !(attribute instanceof IListAttribute)) {
+      return DEFAULT_LIST_ATTR_VALUE;
+    }
+    return ((IListAttribute) attribute).getValues();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public Map<String, String> getMapAttribute(final String name) {
+    var attribute = findAttribute(name);
+    if (attribute == null || !(attribute instanceof IMapAttribute)) {
+      return DEFAULT_MAP_ATTR_VALUE;
+    }
+    return (Map<String, String>) ((IMapAttribute) attribute).getEntries();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getSearchType() {
+    return searchType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean isProjectIndependent() {
+    return projectIndependent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setDescription(final String newDescription) {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__DESCRIPTION, oldDescription, description));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setDestinationId(final String newDestinationId) {
+    String oldDestinationId = destinationId;
+    destinationId = newDestinationId;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__DESTINATION_ID, oldDestinationId,
+          destinationId));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setProjectIndependent(final boolean newProjectIndependent) {
+    boolean oldProjectIndependent = projectIndependent;
+    projectIndependent = newProjectIndependent;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT, oldProjectIndependent,
+          projectIndependent));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setSearchType(final String newSearchType) {
+    String oldSearchType = searchType;
+    searchType = newSearchType;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__SEARCH_TYPE, oldSearchType, searchType));
+    }
   }
 
   /**
@@ -448,50 +483,15 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
     return result.toString();
   }
 
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
   @Override
-  public boolean getAttribute(final String name, final boolean defaultValue) {
-    var attribute = findAttribute(name);
-    if (attribute == null || !(attribute instanceof IBooleanAttribute)) {
-      return defaultValue;
-    }
-    return ((IBooleanAttribute) attribute).isValue();
-  }
-
-  @Override
-  public String getAttribute(final String name, final String defaultValue) {
-    var attribute = findAttribute(name);
-    if (attribute == null || !(attribute instanceof IStringAttribute)) {
-      return defaultValue;
-    }
-    return ((IStringAttribute) attribute).getValue();
-  }
-
-  @Override
-  public int getAttribute(final String name, final int defaultValue) {
-    var attribute = findAttribute(name);
-    if (attribute == null || !(attribute instanceof IStringAttribute)) {
-      return defaultValue;
-    }
-    return ((IIntAttribute) attribute).getValue();
-  }
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public Map<String, String> getMapAttribute(final String name) {
-    var attribute = findAttribute(name);
-    if (attribute == null || !(attribute instanceof IMapAttribute)) {
-      return DEFAULT_MAP_ATTR_VALUE;
-    }
-    return (Map<String, String>) ((IMapAttribute) attribute).getEntries();
-  }
-
-  @Override
-  public List<String> getListAttribute(final String name) {
-    var attribute = findAttribute(name);
-    if (attribute == null || !(attribute instanceof IListAttribute)) {
-      return DEFAULT_LIST_ATTR_VALUE;
-    }
-    return ((IListAttribute) attribute).getValues();
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.SEARCH_FAVORITE;
   }
 
   private IBaseAttribute findAttribute(final String name) {

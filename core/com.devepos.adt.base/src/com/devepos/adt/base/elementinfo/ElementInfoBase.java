@@ -42,43 +42,12 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
   }
 
   @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  @Override
-  public void setDisplayName(final String displayName) {
-    this.displayName = displayName;
-  }
-
-  @Override
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  @Override
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  @Override
-  public String getDescription() {
-    return description;
-  }
-
-  @Override
-  public Image getImage() {
-    return image;
-  }
-
-  @Override
-  public void setImage(final Image image) {
-    this.image = image;
+  public <T> T getAdapter(final Class<T> adapter) {
+    try {
+      return adapter.cast(additionalInfo);
+    } catch (final ClassCastException exc) {
+    }
+    return null;
   }
 
   @Override
@@ -87,22 +56,23 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
   }
 
   @Override
-  public void setAdditionalInfo(final Object info) {
-    additionalInfo = info;
+  public String getDescription() {
+    return description;
   }
 
   @Override
-  public boolean hasAdditionalInfo() {
-    return additionalInfo != null;
+  public String getDisplayName() {
+    return displayName;
   }
 
   @Override
-  public <T> T getAdapter(final Class<T> adapter) {
-    try {
-      return adapter.cast(additionalInfo);
-    } catch (final ClassCastException exc) {
-    }
-    return null;
+  public Image getImage() {
+    return image;
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -113,5 +83,35 @@ public abstract class ElementInfoBase implements IElementInfo, IAdaptable {
   @Override
   public String getPropertyValue(final String key) {
     return properties.get(key);
+  }
+
+  @Override
+  public boolean hasAdditionalInfo() {
+    return additionalInfo != null;
+  }
+
+  @Override
+  public void setAdditionalInfo(final Object info) {
+    additionalInfo = info;
+  }
+
+  @Override
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  @Override
+  public void setDisplayName(final String displayName) {
+    this.displayName = displayName;
+  }
+
+  @Override
+  public void setImage(final Image image) {
+    this.image = image;
+  }
+
+  @Override
+  public void setName(final String name) {
+    this.name = name;
   }
 }

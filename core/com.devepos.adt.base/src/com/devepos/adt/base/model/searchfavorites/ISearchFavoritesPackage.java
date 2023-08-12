@@ -603,342 +603,6 @@ public interface ISearchFavoritesPackage extends EPackage {
   int SEARCH_FAVORITES_OPERATION_COUNT = 0;
 
   /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IBaseAttribute <em>Base Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Base Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IBaseAttribute
-   * @generated
-   */
-  EClass getBaseAttribute();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.IBaseAttribute#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IBaseAttribute#getName()
-   * @see #getBaseAttribute()
-   * @generated
-   */
-  EAttribute getBaseAttribute_Name();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute <em>Long String
-   * Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Long String Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute
-   * @generated
-   */
-  EClass getLongStringAttribute();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute#getValue
-   * <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute#getValue()
-   * @see #getLongStringAttribute()
-   * @generated
-   */
-  EAttribute getLongStringAttribute_Value();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute <em>List Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>List Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute
-   * @generated
-   */
-  EClass getListAttribute();
-
-  /**
-   * Returns the meta object for the attribute list
-   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute#getValues <em>Values</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute list '<em>Values</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute#getValues()
-   * @see #getListAttribute()
-   * @generated
-   */
-  EAttribute getListAttribute_Values();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute <em>String
-   * Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>String Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute
-   * @generated
-   */
-  EClass getStringAttribute();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute#getValue()
-   * @see #getStringAttribute()
-   * @generated
-   */
-  EAttribute getStringAttribute_Value();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IIntAttribute <em>Int Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Int Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IIntAttribute
-   * @generated
-   */
-  EClass getIntAttribute();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.IIntAttribute#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IIntAttribute#getValue()
-   * @see #getIntAttribute()
-   * @generated
-   */
-  EAttribute getIntAttribute_Value();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute <em>Boolean
-   * Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Boolean Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute
-   * @generated
-   */
-  EClass getBooleanAttribute();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute#isValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute#isValue()
-   * @see #getBooleanAttribute()
-   * @generated
-   */
-  EAttribute getBooleanAttribute_Value();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IMapAttribute <em>Map Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Map Attribute</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IMapAttribute
-   * @generated
-   */
-  EClass getMapAttribute();
-
-  /**
-   * Returns the meta object for the map
-   * '{@link com.devepos.adt.base.model.searchfavorites.IMapAttribute#getEntries <em>Entries</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the map '<em>Entries</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.IMapAttribute#getEntries()
-   * @see #getMapAttribute()
-   * @generated
-   */
-  EReference getMapAttribute_Entries();
-
-  /**
-   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
-   * Entry</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>String To String Map Entry</em>'.
-   * @see java.util.Map.Entry
-   * @model keyDataType="org.eclipse.emf.ecore.EString"
-   *        valueDataType="org.eclipse.emf.ecore.EString"
-   * @generated
-   */
-  EClass getStringToStringMapEntry();
-
-  /**
-   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Key</em>'.
-   * @see java.util.Map.Entry
-   * @see #getStringToStringMapEntry()
-   * @generated
-   */
-  EAttribute getStringToStringMapEntry_Key();
-
-  /**
-   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see java.util.Map.Entry
-   * @see #getStringToStringMapEntry()
-   * @generated
-   */
-  EAttribute getStringToStringMapEntry_Value();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite <em>Search Favorite</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Search Favorite</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite
-   * @generated
-   */
-  EClass getSearchFavorite();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType <em>Search
-   * Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Search Type</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType()
-   * @see #getSearchFavorite()
-   * @generated
-   */
-  EAttribute getSearchFavorite_SearchType();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription
-   * <em>Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription()
-   * @see #getSearchFavorite()
-   * @generated
-   */
-  EAttribute getSearchFavorite_Description();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId
-   * <em>Destination Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Destination Id</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId()
-   * @see #getSearchFavorite()
-   * @generated
-   */
-  EAttribute getSearchFavorite_DestinationId();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent
-   * <em>Project Independent</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Project Independent</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent()
-   * @see #getSearchFavorite()
-   * @generated
-   */
-  EAttribute getSearchFavorite_ProjectIndependent();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getAttributes
-   * <em>Attributes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Attributes</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getAttributes()
-   * @see #getSearchFavorite()
-   * @generated
-   */
-  EReference getSearchFavorite_Attributes();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorites <em>Search
-   * Favorites</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Search Favorites</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorites
-   * @generated
-   */
-  EClass getSearchFavorites();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorites#getFavorites
-   * <em>Favorites</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Favorites</em>'.
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorites#getFavorites()
-   * @see #getSearchFavorites()
-   * @generated
-   */
-  EReference getSearchFavorites_Favorites();
-
-  /**
-   * Returns the factory that creates the instances of the model.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the factory that creates the instances of the model.
-   * @generated
-   */
-  ISearchFavoritesFactory getSearchFavoritesFactory();
-
-  /**
    * <!-- begin-user-doc -->
    * Defines literals for the meta objects that represent
    * <ul>
@@ -1222,5 +886,341 @@ public interface ISearchFavoritesPackage extends EPackage {
     EReference SEARCH_FAVORITES__FAVORITES = eINSTANCE.getSearchFavorites_Favorites();
 
   }
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IBaseAttribute <em>Base Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Base Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IBaseAttribute
+   * @generated
+   */
+  EClass getBaseAttribute();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.IBaseAttribute#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IBaseAttribute#getName()
+   * @see #getBaseAttribute()
+   * @generated
+   */
+  EAttribute getBaseAttribute_Name();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute <em>Boolean
+   * Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Boolean Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute
+   * @generated
+   */
+  EClass getBooleanAttribute();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute#isValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute#isValue()
+   * @see #getBooleanAttribute()
+   * @generated
+   */
+  EAttribute getBooleanAttribute_Value();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IIntAttribute <em>Int Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Int Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IIntAttribute
+   * @generated
+   */
+  EClass getIntAttribute();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.IIntAttribute#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IIntAttribute#getValue()
+   * @see #getIntAttribute()
+   * @generated
+   */
+  EAttribute getIntAttribute_Value();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute <em>List Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>List Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute
+   * @generated
+   */
+  EClass getListAttribute();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute#getValues <em>Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Values</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute#getValues()
+   * @see #getListAttribute()
+   * @generated
+   */
+  EAttribute getListAttribute_Values();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute <em>Long String
+   * Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Long String Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute
+   * @generated
+   */
+  EClass getLongStringAttribute();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute#getValue
+   * <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute#getValue()
+   * @see #getLongStringAttribute()
+   * @generated
+   */
+  EAttribute getLongStringAttribute_Value();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IMapAttribute <em>Map Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Map Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IMapAttribute
+   * @generated
+   */
+  EClass getMapAttribute();
+
+  /**
+   * Returns the meta object for the map
+   * '{@link com.devepos.adt.base.model.searchfavorites.IMapAttribute#getEntries <em>Entries</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the map '<em>Entries</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IMapAttribute#getEntries()
+   * @see #getMapAttribute()
+   * @generated
+   */
+  EReference getMapAttribute_Entries();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite <em>Search Favorite</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Search Favorite</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite
+   * @generated
+   */
+  EClass getSearchFavorite();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getAttributes
+   * <em>Attributes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Attributes</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getAttributes()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EReference getSearchFavorite_Attributes();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EAttribute getSearchFavorite_Description();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId
+   * <em>Destination Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Destination Id</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EAttribute getSearchFavorite_DestinationId();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent
+   * <em>Project Independent</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Project Independent</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EAttribute getSearchFavorite_ProjectIndependent();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType <em>Search
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Search Type</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EAttribute getSearchFavorite_SearchType();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorites <em>Search
+   * Favorites</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Search Favorites</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorites
+   * @generated
+   */
+  EClass getSearchFavorites();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorites#getFavorites
+   * <em>Favorites</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Favorites</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavorites#getFavorites()
+   * @see #getSearchFavorites()
+   * @generated
+   */
+  EReference getSearchFavorites_Favorites();
+
+  /**
+   * Returns the factory that creates the instances of the model.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the factory that creates the instances of the model.
+   * @generated
+   */
+  ISearchFavoritesFactory getSearchFavoritesFactory();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute <em>String
+   * Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>String Attribute</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute
+   * @generated
+   */
+  EClass getStringAttribute();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute#getValue()
+   * @see #getStringAttribute()
+   * @generated
+   */
+  EAttribute getStringAttribute_Value();
+
+  /**
+   * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>String To String Map Entry</em>'.
+   * @see java.util.Map.Entry
+   * @model keyDataType="org.eclipse.emf.ecore.EString"
+   *        valueDataType="org.eclipse.emf.ecore.EString"
+   * @generated
+   */
+  EClass getStringToStringMapEntry();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Key();
+
+  /**
+   * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see java.util.Map.Entry
+   * @see #getStringToStringMapEntry()
+   * @generated
+   */
+  EAttribute getStringToStringMapEntry_Value();
 
 } // ISearchFavoritesPackage

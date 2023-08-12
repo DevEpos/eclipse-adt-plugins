@@ -55,8 +55,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
    * Validates filter values
    */
   private class FilterValueValidator {
-    private ISearchFilter filter;
-    private String[] values;
+    private final ISearchFilter filter;
+    private final String[] values;
 
     public FilterValueValidator(final ISearchFilter filter, final String[] filterValues) {
       values = filterValues;
@@ -114,11 +114,9 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
         filterValidator = (IValidator) filter;
       }
 
-      if (filterValidator != null) {
-        if (filterValidator != null) {
-          for (final String value : filterValues) {
-            filterValidator.validate(value);
-          }
+      if ((filterValidator != null) && (filterValidator != null)) {
+        for (final String value : filterValues) {
+          filterValidator.validate(value);
         }
       }
     }

@@ -15,23 +15,6 @@ import org.eclipse.swt.widgets.Label;
 public class SWTUtil {
 
   /**
-   * Sets focus to the given control if the label control is accessed via the
-   * menmonic letter
-   *
-   * @param label   the label for the control
-   * @param control the control which should be focused via the label
-   */
-  public static void setLabelForControl(final Label label, final Control control) {
-    Objects.requireNonNull(control, "control must not be null"); //$NON-NLS-1$
-    label.addTraverseListener(e -> {
-      if (e.detail == SWT.TRAVERSE_MNEMONIC && e.doit) {
-        e.detail = SWT.TRAVERSE_NONE;
-        control.setFocus();
-      }
-    });
-  }
-
-  /**
    * Sets the visibility status of the control and layouts the parent
    *
    * @param control the control
@@ -46,5 +29,22 @@ public class SWTUtil {
     gd.exclude = !visible;
     control.setLayoutData(gd);
     control.getParent().layout();
+  }
+
+  /**
+   * Sets focus to the given control if the label control is accessed via the
+   * menmonic letter
+   *
+   * @param label   the label for the control
+   * @param control the control which should be focused via the label
+   */
+  public static void setLabelForControl(final Label label, final Control control) {
+    Objects.requireNonNull(control, "control must not be null"); //$NON-NLS-1$
+    label.addTraverseListener(e -> {
+      if (e.detail == SWT.TRAVERSE_MNEMONIC && e.doit) {
+        e.detail = SWT.TRAVERSE_NONE;
+        control.setFocus();
+      }
+    });
   }
 }

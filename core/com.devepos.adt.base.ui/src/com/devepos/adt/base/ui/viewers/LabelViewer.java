@@ -51,21 +51,6 @@ public class LabelViewer extends ContentViewer {
   }
 
   @Override
-  protected void inputChanged(final Object input, final Object oldInput) {
-    if (oldInput == null && input == null) {
-      return;
-    }
-    refresh();
-  }
-
-  @Override
-  protected void handleLabelProviderChanged(final LabelProviderChangedEvent event) {
-    if (event != null) {
-      refresh(event.getElements());
-    }
-  }
-
-  @Override
   public Control getControl() {
     return viewForm;
   }
@@ -87,6 +72,26 @@ public class LabelViewer extends ContentViewer {
     }
   }
 
+  @Override
+  public void setSelection(final ISelection selection, final boolean reveal) {
+    // not supported
+  }
+
+  @Override
+  protected void handleLabelProviderChanged(final LabelProviderChangedEvent event) {
+    if (event != null) {
+      refresh(event.getElements());
+    }
+  }
+
+  @Override
+  protected void inputChanged(final Object input, final Object oldInput) {
+    if (oldInput == null && input == null) {
+      return;
+    }
+    refresh();
+  }
+
   /**
    * Sets the given text and image to the label.
    *
@@ -99,11 +104,6 @@ public class LabelViewer extends ContentViewer {
     }
     label.setText(text);
     label.setImage(image);
-  }
-
-  @Override
-  public void setSelection(final ISelection selection, final boolean reveal) {
-    // not supported
   }
 
   /**

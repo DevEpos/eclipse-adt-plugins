@@ -17,13 +17,8 @@ public class NamedItem implements INamedItem {
   }
 
   @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(final String name) {
-    this.name = name;
+  public String getData() {
+    return data;
   }
 
   @Override
@@ -32,18 +27,23 @@ public class NamedItem implements INamedItem {
   }
 
   @Override
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  @Override
-  public String getData() {
-    return data;
+  public String getName() {
+    return name;
   }
 
   @Override
   public void setData(final String data) {
     this.data = data;
+  }
+
+  @Override
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  @Override
+  public void setName(final String name) {
+    this.name = name;
   }
 
 }

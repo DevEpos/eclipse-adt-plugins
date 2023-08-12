@@ -11,6 +11,16 @@ import org.eclipse.swt.graphics.Image;
 public interface IAdtObjectTypeProxy {
 
   /**
+   * Retrieves ADT resource URI path of the type
+   */
+  String getAdtResourceUriPath();
+
+  /**
+   * Retrieves the description for the workbench type
+   */
+  String getDescription();
+
+  /**
    * Retrieves the Id of the object type
    */
   String getId();
@@ -19,14 +29,4 @@ public interface IAdtObjectTypeProxy {
    * Retrieves the image of the workbench type
    */
   Image getImage();
-
-  /**
-   * Retrieves the description for the workbench type
-   */
-  String getDescription();
-
-  /**
-   * Retrieves ADT resource URI path of the type
-   */
-  String getAdtResourceUriPath();
 }

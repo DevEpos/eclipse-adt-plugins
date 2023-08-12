@@ -26,7 +26,7 @@ public class SearchFilter implements ISearchFilter {
    * @param longDescription a long description for the filter
    * @param image           the image to be displayed for the filter
    */
-  public SearchFilter(final String label, String description, final String longDescription,
+  public SearchFilter(final String label, final String description, final String longDescription,
       final Image image) {
     this(label, description, longDescription, image, true, true, false);
   }
@@ -44,7 +44,7 @@ public class SearchFilter implements ISearchFilter {
    * @param supportsMultipleValues if <code>true</code> the filter supports
    *                               multiple values
    */
-  public SearchFilter(final String label, String description, final String longDescription,
+  public SearchFilter(final String label, final String description, final String longDescription,
       final Image image, final boolean supportsPatternValues,
       final boolean supportsMultipleValues) {
     this(label, description, longDescription, image, supportsMultipleValues, supportsMultipleValues,
@@ -65,7 +65,7 @@ public class SearchFilter implements ISearchFilter {
    * @param supportsNegatedValues  if <code>true</code> the filter supports the
    *                               negation of values
    */
-  public SearchFilter(final String label, String description, final String longDescription,
+  public SearchFilter(final String label, final String description, final String longDescription,
       final Image image, final boolean supportsPatternValues, final boolean supportsMultipleValues,
       final boolean supportsNegatedValues) {
     this.label = label;

@@ -33,41 +33,12 @@ import org.eclipse.ui.services.IDisposable;
  */
 public class ViewMenuCreator {
 
-  /**
-   * Creates toolbar with a single button that shows a menu upon a click. The menu
-   * can be filled via the {@code menuFiller} parameter
-   *
-   * @param parent     the parent composite for the toolbar button that triggers
-   *                   the view menu
-   * @param menuFiller consumer to fill the menu
-   * @return instance of {@link IDisposable} so the menu resources can be disposed
-   */
-  public static IDisposable createViewMenu(final Composite parent,
-      final Consumer<IMenuManager> menuFiller) {
-    final ViewMenu viewMenu = new ViewMenu();
-    viewMenu.createViewMenu(parent, menuFiller);
-    return viewMenu;
-  }
-
   private static class ViewMenu implements IDisposable {
 
     private MenuManager menuManager;
     private IHandlerActivation showViewHandler;
     private ToolBar toolBar;
     private ToolItem toolItem;
-
-    @Override
-    public void dispose() {
-      if (showViewHandler != null) {
-        final IHandlerService service = PlatformUI.getWorkbench().getService(IHandlerService.class);
-        service.deactivateHandler(showViewHandler);
-        showViewHandler.getHandler().dispose();
-        showViewHandler = null;
-      }
-      if (menuManager != null) {
-        menuManager.dispose();
-      }
-    }
 
     public void createViewMenu(final Composite parent, final Consumer<IMenuManager> menuFiller) {
       Objects.requireNonNull(menuFiller, "menuFiller must not be null"); //$NON-NLS-1$
@@ -100,6 +71,19 @@ public class ViewMenuCreator {
           handler, new ActiveShellExpression(parent.getShell()));
     }
 
+    @Override
+    public void dispose() {
+      if (showViewHandler != null) {
+        final IHandlerService service = PlatformUI.getWorkbench().getService(IHandlerService.class);
+        service.deactivateHandler(showViewHandler);
+        showViewHandler.getHandler().dispose();
+        showViewHandler = null;
+      }
+      if (menuManager != null) {
+        menuManager.dispose();
+      }
+    }
+
     private void showViewMenu() {
       final Menu menu = menuManager.createContextMenu(toolBar.getShell());
       final Rectangle bounds = toolItem.getBounds();
@@ -108,6 +92,22 @@ public class ViewMenuCreator {
       menu.setLocation(topLeft.x, topLeft.y);
       menu.setVisible(true);
     }
+  }
+
+  /**
+   * Creates toolbar with a single button that shows a menu upon a click. The menu
+   * can be filled via the {@code menuFiller} parameter
+   *
+   * @param parent     the parent composite for the toolbar button that triggers
+   *                   the view menu
+   * @param menuFiller consumer to fill the menu
+   * @return instance of {@link IDisposable} so the menu resources can be disposed
+   */
+  public static IDisposable createViewMenu(final Composite parent,
+      final Consumer<IMenuManager> menuFiller) {
+    final ViewMenu viewMenu = new ViewMenu();
+    viewMenu.createViewMenu(parent, menuFiller);
+    return viewMenu;
   }
 
 }

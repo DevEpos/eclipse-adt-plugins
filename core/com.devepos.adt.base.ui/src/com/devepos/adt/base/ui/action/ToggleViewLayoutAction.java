@@ -29,11 +29,11 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
   private final SashForm sashForm;
   private ControlListener resizeListener;
   private final Control resizedControl;
-  private IToggleViewLayoutActionSettings settings;
+  private final IToggleViewLayoutActionSettings settings;
 
   /**
    * Creates action to toggle the view layout.
-   * 
+   *
    * @param sashForm       splitter control
    * @param resizedControl the control which will be resized
    */
@@ -44,14 +44,14 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
   /**
    * Creates action to toggle the view layout. The visible layout buttons are dependent on the
    * passed flags.
-   * 
+   *
    * @param sashForm       splitter control
    * @param resizedControl the control which will be resized
    * @param settings       instance to settings for action
    * @see ViewLayoutOrientation
    */
   ToggleViewLayoutAction(final SashForm sashForm, final Control resizedControl,
-      IToggleViewLayoutActionSettings settings) {
+      final IToggleViewLayoutActionSettings settings) {
     super(Messages.ToggleViewLayoutAction_TopLevelMenu_xmit);
 
     this.settings = settings;
@@ -148,14 +148,13 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
   private ViewLayoutOrientation getInitialOrientation() {
     IPreferenceStore prefStore = settings.getPrefStore();
     String prefKey = settings.getPrefKey();
-    if (prefStore != null && !StringUtil.isEmpty(prefKey)) {
-      try {
-        return ViewLayoutOrientation.valueOf(prefStore.getString(prefKey));
-      } catch (final IllegalArgumentException exc) {
-        return settings.isAutomaticEnabled() ? ViewLayoutOrientation.AUTOMATIC
-            : ViewLayoutOrientation.VERTICAL;
-      }
-    } else {
+    if ((prefStore == null) || StringUtil.isEmpty(prefKey)) {
+      return settings.isAutomaticEnabled() ? ViewLayoutOrientation.AUTOMATIC
+          : ViewLayoutOrientation.VERTICAL;
+    }
+    try {
+      return ViewLayoutOrientation.valueOf(prefStore.getString(prefKey));
+    } catch (final IllegalArgumentException exc) {
       return settings.isAutomaticEnabled() ? ViewLayoutOrientation.AUTOMATIC
           : ViewLayoutOrientation.VERTICAL;
     }
@@ -168,7 +167,7 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
     sashForm.setOrientation(orientation.getSwtOrientation());
   }
 
-  private void updatePreference(String actionId) {
+  private void updatePreference(final String actionId) {
     IPreferenceStore prefStore = settings.getPrefStore();
     if (prefStore == null) {
       return;

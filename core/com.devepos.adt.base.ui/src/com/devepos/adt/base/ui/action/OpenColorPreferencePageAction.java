@@ -36,8 +36,8 @@ public class OpenColorPreferencePageAction extends Action {
       prefDialog.setBlockOnOpen(false);
       prefDialog.open();
       var selectedPage = prefDialog.getSelectedPage();
-      if (selectedPage != null && selectedPage instanceof PreferencePage) {
-        var prefPage = ((PreferencePage) selectedPage);
+      if (selectedPage instanceof PreferencePage) {
+        var prefPage = (PreferencePage) selectedPage;
         for (var category : categories) {
           prefPage.applyData(String.format("selectCategory:%s", category));
         }
@@ -52,19 +52,19 @@ public class OpenColorPreferencePageAction extends Action {
 
   /**
    * Sets the theme categories that shall be expanded upon opening of the preference page
-   * 
+   *
    * @param categories List of theme categories
    */
-  public void setCategories(String... categories) {
+  public void setCategories(final String... categories) {
     this.categories = categories;
   }
 
   /**
    * Sets the color Id that shall be selected upon opening of the preference page
-   * 
+   *
    * @param colorId color id
    */
-  public void setColorId(String colorId) {
+  public void setColorId(final String colorId) {
     this.colorId = !StringUtil.isEmpty(colorId) ? String.format("selectColor:%s", colorId) : null;
   }
 }

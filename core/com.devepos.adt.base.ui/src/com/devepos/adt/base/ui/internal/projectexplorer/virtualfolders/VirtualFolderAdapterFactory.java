@@ -14,7 +14,7 @@ public class VirtualFolderAdapterFactory implements IAdapterFactory {
   }
 
   @Override
-  public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
+  public <T> T getAdapter(final Object adaptableObject, final Class<T> adapterType) {
     if (adapterType != IVirtualFolderNode.class) {
       return null;
     }

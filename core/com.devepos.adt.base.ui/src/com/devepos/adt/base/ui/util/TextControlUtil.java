@@ -18,27 +18,6 @@ import org.eclipse.swt.widgets.Text;
 public class TextControlUtil {
   private static final String WORD_BOUNDARIES_REGEX = "([:,=\\.]|\\s+)";
 
-  /**
-   * Adds navigation and deletion support to text control
-   *
-   * @param control the text control to be enhanced
-   */
-  public static void addWordSupport(final Text control) {
-    addWordSupport(control, WORD_BOUNDARIES_REGEX);
-  }
-
-  /**
-   * Adds navigation and deletion support to text control
-   *
-   * @param control             the text control to be enhanced
-   * @param wordBoundariesRegex RegEx String containing all the boundary
-   *                            characters to find the next word
-   */
-  public static void addWordSupport(final Text control, final String wordBoundariesRegex) {
-    Assert.isNotNull(control);
-    control.addKeyListener(new WordKeyListener(control, wordBoundariesRegex));
-  }
-
   private static final class WordKeyListener extends KeyAdapter {
     private final String wordBoundariesRegEx;
     private final Text control;
@@ -79,6 +58,46 @@ public class TextControlUtil {
         } else {
           navigateToNextWord();
         }
+      }
+    }
+
+    private void deletePreviousWord() {
+      final String text = control.getText();
+      if (lastSelection.x != lastSelection.y) {
+        // delete the selected text
+        control.setText(text.substring(0, lastSelection.x) + text.substring(lastSelection.y));
+        control.setSelection(lastSelection);
+      } else {
+        // determine string after selection
+        final String rest = lastSelection.x < text.length() ? text.substring(lastSelection.x) : "";
+        // find the next word separator
+        final Pattern wordBorderPattern = Pattern.compile(wordBoundariesRegEx);
+        final Matcher matcher = wordBorderPattern.matcher(text.substring(0, lastSelection.x));
+        int wordBoundaryIndex = -1;
+        String lastMatchedGroup = null;
+        while (matcher.find()) {
+          lastMatchedGroup = matcher.group();
+          if (matcher.start() >= lastSelection.x) {
+            break;
+          }
+          wordBoundaryIndex = matcher.start();
+        }
+        if (wordBoundaryIndex != -1) {
+          if (wordBoundaryIndex == lastSelection.x - 1) {
+            control.setText(text.substring(0, wordBoundaryIndex) + rest);
+            control.setSelection(wordBoundaryIndex);
+          } else {
+            if (lastMatchedGroup == null || !lastMatchedGroup.matches("\\s+")) {
+              wordBoundaryIndex++;
+            }
+            control.setText(text.substring(0, wordBoundaryIndex) + rest);
+            control.setSelection(wordBoundaryIndex);
+          }
+        } else {
+          control.setText(rest);
+          control.setSelection(0);
+        }
+
       }
     }
 
@@ -143,45 +162,26 @@ public class TextControlUtil {
       control.setSelection(selectionStart, selectionEnd);
     }
 
-    private void deletePreviousWord() {
-      final String text = control.getText();
-      if (lastSelection.x != lastSelection.y) {
-        // delete the selected text
-        control.setText(text.substring(0, lastSelection.x) + text.substring(lastSelection.y));
-        control.setSelection(lastSelection);
-      } else {
-        // determine string after selection
-        final String rest = lastSelection.x < text.length() ? text.substring(lastSelection.x) : "";
-        // find the next word separator
-        final Pattern wordBorderPattern = Pattern.compile(wordBoundariesRegEx);
-        final Matcher matcher = wordBorderPattern.matcher(text.substring(0, lastSelection.x));
-        int wordBoundaryIndex = -1;
-        String lastMatchedGroup = null;
-        while (matcher.find()) {
-          lastMatchedGroup = matcher.group();
-          if (matcher.start() >= lastSelection.x) {
-            break;
-          }
-          wordBoundaryIndex = matcher.start();
-        }
-        if (wordBoundaryIndex != -1) {
-          if (wordBoundaryIndex == lastSelection.x - 1) {
-            control.setText(text.substring(0, wordBoundaryIndex) + rest);
-            control.setSelection(wordBoundaryIndex);
-          } else {
-            if (lastMatchedGroup == null || !lastMatchedGroup.matches("\\s+")) {
-              wordBoundaryIndex++;
-            }
-            control.setText(text.substring(0, wordBoundaryIndex) + rest);
-            control.setSelection(wordBoundaryIndex);
-          }
-        } else {
-          control.setText(rest);
-          control.setSelection(0);
-        }
+  }
 
-      }
-    }
+  /**
+   * Adds navigation and deletion support to text control
+   *
+   * @param control the text control to be enhanced
+   */
+  public static void addWordSupport(final Text control) {
+    addWordSupport(control, WORD_BOUNDARIES_REGEX);
+  }
 
+  /**
+   * Adds navigation and deletion support to text control
+   *
+   * @param control             the text control to be enhanced
+   * @param wordBoundariesRegex RegEx String containing all the boundary
+   *                            characters to find the next word
+   */
+  public static void addWordSupport(final Text control, final String wordBoundariesRegex) {
+    Assert.isNotNull(control);
+    control.addKeyListener(new WordKeyListener(control, wordBoundariesRegex));
   }
 }

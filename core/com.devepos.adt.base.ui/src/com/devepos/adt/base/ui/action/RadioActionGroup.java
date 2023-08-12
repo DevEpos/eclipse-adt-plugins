@@ -225,10 +225,7 @@ public class RadioActionGroup extends ActionGroup {
         .filter(a -> actionId.equals(a.getId()))
         .findFirst()
         .orElse(null);
-    if (action == null) {
-      return;
-    }
-    if (toggledAction == action) {
+    if ((action == null) || (toggledAction == action)) {
       return;
     }
     toggledAction = action;

@@ -12,11 +12,11 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 public interface IAdtRisSearchResultProxy {
 
   /**
-   * Returns the selected project in the RIS Search Dialog
+   * Returns all selected results from the RIS Search Dialog
    *
-   * @return the selected project in the RIS Search Dialog
+   * @return all selected results from the RIS Search Dialog
    */
-  IProject getSelectedProject();
+  IAdtObjectReference[] getAllSelectedResults();
 
   /**
    * Returns the first selected result from the RIS Search Dialog
@@ -26,10 +26,10 @@ public interface IAdtRisSearchResultProxy {
   IAdtObjectReference getFirstResult();
 
   /**
-   * Returns all selected results from the RIS Search Dialog
+   * Returns the selected project in the RIS Search Dialog
    *
-   * @return all selected results from the RIS Search Dialog
+   * @return the selected project in the RIS Search Dialog
    */
-  IAdtObjectReference[] getAllSelectedResults();
+  IProject getSelectedProject();
 
 }

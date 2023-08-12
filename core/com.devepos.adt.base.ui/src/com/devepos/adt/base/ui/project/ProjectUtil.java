@@ -25,6 +25,34 @@ import com.sap.adt.tools.core.project.IAbapProject;
 public class ProjectUtil {
 
   /**
+   * Ensures that the users is logged on to given project
+   *
+   * @param project the ABAP Project to ensure the logged on status
+   * @return Logged On Status for the given project
+   */
+  public static IStatus ensureLoggedOnToProject(final IProject project) {
+    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+
+    if (AdtLogonServiceUIFactory.createLogonServiceUI()
+        .ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench()
+            .getProgressService())
+        .isOK()) {
+      return Status.OK_STATUS;
+    }
+    return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
+        Messages.Project_LogonToProjectFailed_xmsg, project.getName()));
+  }
+
+  /**
+   * Retrieve a list of all ABAP projects in the current workspace
+   *
+   * @return List of ABAP projects
+   */
+  public static IProject[] getAbapProjects() {
+    return AdtProjectServiceFactory.createProjectService().getAvailableAbapProjects();
+  }
+
+  /**
    * Retrieve the currently active ABAP Project
    *
    * @return
@@ -49,34 +77,6 @@ public class ProjectUtil {
     }
     return com.sap.adt.project.ui.util.ProjectUtil.getActiveAdtCoreProject(selection, null, null,
         IAdtCoreProject.ABAP_PROJECT_NATURE);
-  }
-
-  /**
-   * Retrieve a list of all ABAP projects in the current workspace
-   *
-   * @return List of ABAP projects
-   */
-  public static IProject[] getAbapProjects() {
-    return AdtProjectServiceFactory.createProjectService().getAvailableAbapProjects();
-  }
-
-  /**
-   * Ensures that the users is logged on to given project
-   *
-   * @param project the ABAP Project to ensure the logged on status
-   * @return Logged On Status for the given project
-   */
-  public static IStatus ensureLoggedOnToProject(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-    if (AdtLogonServiceUIFactory.createLogonServiceUI()
-        .ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench()
-            .getProgressService())
-        .isOK()) {
-      return Status.OK_STATUS;
-    }
-    return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-        Messages.Project_LogonToProjectFailed_xmsg, project.getName()));
   }
 
   /**

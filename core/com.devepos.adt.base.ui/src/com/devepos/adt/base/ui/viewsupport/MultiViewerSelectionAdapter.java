@@ -58,6 +58,54 @@ public class MultiViewerSelectionAdapter implements IPostSelectionProvider {
     }
   }
 
+  private class InternalListener implements ISelectionChangedListener, FocusListener {
+    /*
+     * @see FocusListener#focusGained
+     */
+    @Override
+    public void focusGained(final FocusEvent e) {
+      doFocusChanged(e.widget);
+    }
+
+    /*
+     * @see FocusListener#focusLost
+     */
+    @Override
+    public void focusLost(final FocusEvent e) {
+      // do not reset due to focus behavior on GTK
+      // fViewerInFocus= null;
+    }
+
+    /*
+     * @see ISelectionChangedListener#selectionChanged
+     */
+    @Override
+    public void selectionChanged(final SelectionChangedEvent event) {
+      doSelectionChanged(event);
+    }
+  }
+
+  private class InternalPostSelectionListener implements ISelectionChangedListener {
+    @Override
+    public void selectionChanged(final SelectionChangedEvent event) {
+      doPostSelectionChanged(event);
+    }
+
+  }
+
+  @Override
+  public void addPostSelectionChangedListener(final ISelectionChangedListener listener) {
+    postSelectionChangedListeners.add(listener);
+  }
+
+  /*
+   * @see ISelectionProvider#addSelectionChangedListener
+   */
+  @Override
+  public void addSelectionChangedListener(final ISelectionChangedListener listener) {
+    selectionChangedListeners.add(listener);
+  }
+
   /**
    * Adds new viewer to selection provider proxy
    *
@@ -90,19 +138,60 @@ public class MultiViewerSelectionAdapter implements IPostSelectionProvider {
     }
   }
 
+  /*
+   * @see ISelectionProvider#getSelection
+   */
+  @Override
+  public ISelection getSelection() {
+    if (viewerInFocus != null) {
+      return viewerInFocus.getSelection();
+    }
+    return StructuredSelection.EMPTY;
+  }
+
+  /**
+   * Returns the viewer in focus or null if no viewer has the focus
+   *
+   * @return returns the current viewer in focus
+   */
+  public StructuredViewer getViewerInFocus() {
+    return viewerInFocus;
+  }
+
+  @Override
+  public void removePostSelectionChangedListener(final ISelectionChangedListener listener) {
+    postSelectionChangedListeners.remove(listener);
+  }
+
+  /*
+   * @see ISelectionProvider#removeSelectionChangedListener
+   */
+  @Override
+  public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
+    selectionChangedListeners.remove(listener);
+  }
+
+  /*
+   * @see ISelectionProvider#setSelection
+   */
+  @Override
+  public void setSelection(final ISelection selection) {
+    if (viewerInFocus != null) {
+      viewerInFocus.setSelection(selection);
+    }
+  }
+
+  public void setSelection(final ISelection selection, final boolean reveal) {
+    if (viewerInFocus != null) {
+      viewerInFocus.setSelection(selection, reveal);
+    }
+  }
+
   public void setViewerInFocus(final StructuredViewer viewer) {
     if (viewerInFocus != null) {
       propagateFocusChanged(viewer);
     } else {
       viewerInFocus = viewer;
-    }
-  }
-
-  private final void propagateFocusChanged(final StructuredViewer viewer) {
-    if (viewer != viewerInFocus) { // OK to compare by identity
-      viewerInFocus = viewer;
-      fireSelectionChanged();
-      firePostSelectionChanged();
     }
   }
 
@@ -129,16 +218,6 @@ public class MultiViewerSelectionAdapter implements IPostSelectionProvider {
     }
   }
 
-  private void fireSelectionChanged() {
-    if (selectionChangedListeners != null) {
-      final SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
-
-      for (final ISelectionChangedListener listener : selectionChangedListeners) {
-        listener.selectionChanged(event);
-      }
-    }
-  }
-
   private void firePostSelectionChanged() {
     if (postSelectionChangedListeners != null) {
       final SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
@@ -149,100 +228,21 @@ public class MultiViewerSelectionAdapter implements IPostSelectionProvider {
     }
   }
 
-  /*
-   * @see ISelectionProvider#addSelectionChangedListener
-   */
-  @Override
-  public void addSelectionChangedListener(final ISelectionChangedListener listener) {
-    selectionChangedListeners.add(listener);
-  }
+  private void fireSelectionChanged() {
+    if (selectionChangedListeners != null) {
+      final SelectionChangedEvent event = new SelectionChangedEvent(this, getSelection());
 
-  /*
-   * @see ISelectionProvider#removeSelectionChangedListener
-   */
-  @Override
-  public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
-    selectionChangedListeners.remove(listener);
-  }
-
-  @Override
-  public void addPostSelectionChangedListener(final ISelectionChangedListener listener) {
-    postSelectionChangedListeners.add(listener);
-  }
-
-  @Override
-  public void removePostSelectionChangedListener(final ISelectionChangedListener listener) {
-    postSelectionChangedListeners.remove(listener);
-  }
-
-  /*
-   * @see ISelectionProvider#getSelection
-   */
-  @Override
-  public ISelection getSelection() {
-    if (viewerInFocus != null) {
-      return viewerInFocus.getSelection();
-    }
-    return StructuredSelection.EMPTY;
-  }
-
-  /*
-   * @see ISelectionProvider#setSelection
-   */
-  @Override
-  public void setSelection(final ISelection selection) {
-    if (viewerInFocus != null) {
-      viewerInFocus.setSelection(selection);
+      for (final ISelectionChangedListener listener : selectionChangedListeners) {
+        listener.selectionChanged(event);
+      }
     }
   }
 
-  public void setSelection(final ISelection selection, final boolean reveal) {
-    if (viewerInFocus != null) {
-      viewerInFocus.setSelection(selection, reveal);
+  private final void propagateFocusChanged(final StructuredViewer viewer) {
+    if (viewer != viewerInFocus) { // OK to compare by identity
+      viewerInFocus = viewer;
+      fireSelectionChanged();
+      firePostSelectionChanged();
     }
-  }
-
-  /**
-   * Returns the viewer in focus or null if no viewer has the focus
-   *
-   * @return returns the current viewer in focus
-   */
-  public StructuredViewer getViewerInFocus() {
-    return viewerInFocus;
-  }
-
-  private class InternalListener implements ISelectionChangedListener, FocusListener {
-    /*
-     * @see ISelectionChangedListener#selectionChanged
-     */
-    @Override
-    public void selectionChanged(final SelectionChangedEvent event) {
-      doSelectionChanged(event);
-    }
-
-    /*
-     * @see FocusListener#focusGained
-     */
-    @Override
-    public void focusGained(final FocusEvent e) {
-      doFocusChanged(e.widget);
-    }
-
-    /*
-     * @see FocusListener#focusLost
-     */
-    @Override
-    public void focusLost(final FocusEvent e) {
-      // do not reset due to focus behavior on GTK
-      // fViewerInFocus= null;
-    }
-  }
-
-  private class InternalPostSelectionListener implements ISelectionChangedListener {
-    @Override
-    public void selectionChanged(final SelectionChangedEvent event) {
-      doPostSelectionChanged(event);
-    }
-
   }
 }

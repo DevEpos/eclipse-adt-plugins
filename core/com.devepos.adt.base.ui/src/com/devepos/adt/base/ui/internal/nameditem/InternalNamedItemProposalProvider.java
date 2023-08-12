@@ -48,8 +48,7 @@ public class InternalNamedItemProposalProvider {
   private INamedItemService namedItemService;
   private ProposalContentStyle proposalContentStyle = ProposalContentStyle.INSERT;
   private Image proposalImage;
-  private IAdtUriTemplateProvider uriTemplateProvider;
-  private String initialQuery;
+  private final IAdtUriTemplateProvider uriTemplateProvider;
 
   /**
    * Create instance of the named item proposal provider
@@ -67,7 +66,6 @@ public class InternalNamedItemProposalProvider {
       final String initialQuery) {
     this.projectProvider = projectProvider;
     this.namedItemType = namedItemType;
-    this.initialQuery = initialQuery;
     this.uriTemplateProvider = uriTemplateProvider;
 
     /*
@@ -106,8 +104,8 @@ public class InternalNamedItemProposalProvider {
   private class NamedItemContentProposal implements IContentProposal, IImageProvider {
 
     private String content;
-    private INamedItem namedItem;
-    private String wordToComplete;
+    private final INamedItem namedItem;
+    private final String wordToComplete;
 
     public NamedItemContentProposal(final INamedItem namedItem, final String wordToComplete) {
       this.namedItem = namedItem;

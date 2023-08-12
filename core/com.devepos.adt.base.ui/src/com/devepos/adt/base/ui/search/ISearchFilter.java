@@ -14,7 +14,7 @@ public interface ISearchFilter extends IImageProvider {
 
   /**
    * Returns the short description of this filter
-   * 
+   *
    * @return short string describing this filter
    */
   String getDescription();

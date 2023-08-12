@@ -31,7 +31,7 @@ public class AsyncContentAssist extends ContentAssist {
   protected static final int POPUP_DEFAULT_WIDTH = 300;
   protected AsyncTextQueryProposalProvider contentProvider;
   protected final List<IContentProposal> queryResults = new ArrayList<>();
-  private IContentChangeListener contentChangeListener;
+  private final IContentChangeListener contentChangeListener;
   private IContentProposalListener proposalListener;
 
   public AsyncContentAssist(final Text text,

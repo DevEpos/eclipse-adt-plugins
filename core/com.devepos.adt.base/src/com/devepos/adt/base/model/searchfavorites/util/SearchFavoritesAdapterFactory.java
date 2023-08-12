@@ -40,40 +40,6 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
   protected static ISearchFavoritesPackage modelPackage;
 
   /**
-   * Creates an instance of the adapter factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public SearchFavoritesAdapterFactory() {
-    if (modelPackage == null) {
-      modelPackage = ISearchFavoritesPackage.eINSTANCE;
-    }
-  }
-
-  /**
-   * Returns whether this factory is applicable for the type of the object.
-   * <!-- begin-user-doc -->
-   * This implementation returns <code>true</code> if the object is either the model's package or is
-   * an instance object of the model.
-   * <!-- end-user-doc -->
-   *
-   * @return whether this factory is applicable for the type of the object.
-   * @generated
-   */
-  @Override
-  public boolean isFactoryForType(final Object object) {
-    if (object == modelPackage) {
-      return true;
-    }
-    if (object instanceof EObject) {
-      return ((EObject) object).eClass().getEPackage() == modelPackage;
-    }
-    return false;
-  }
-
-  /**
    * The switch that delegates to the <code>createXXX</code> methods.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -87,18 +53,8 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
-    public Adapter caseLongStringAttribute(final ILongStringAttribute object) {
-      return createLongStringAttributeAdapter();
-    }
-
-    @Override
-    public Adapter caseListAttribute(final IListAttribute object) {
-      return createListAttributeAdapter();
-    }
-
-    @Override
-    public Adapter caseStringAttribute(final IStringAttribute object) {
-      return createStringAttributeAdapter();
+    public Adapter caseBooleanAttribute(final IBooleanAttribute object) {
+      return createBooleanAttributeAdapter();
     }
 
     @Override
@@ -107,18 +63,18 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
-    public Adapter caseBooleanAttribute(final IBooleanAttribute object) {
-      return createBooleanAttributeAdapter();
+    public Adapter caseListAttribute(final IListAttribute object) {
+      return createListAttributeAdapter();
+    }
+
+    @Override
+    public Adapter caseLongStringAttribute(final ILongStringAttribute object) {
+      return createLongStringAttributeAdapter();
     }
 
     @Override
     public Adapter caseMapAttribute(final IMapAttribute object) {
       return createMapAttributeAdapter();
-    }
-
-    @Override
-    public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
-      return createStringToStringMapEntryAdapter();
     }
 
     @Override
@@ -132,10 +88,33 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
+    public Adapter caseStringAttribute(final IStringAttribute object) {
+      return createStringAttributeAdapter();
+    }
+
+    @Override
+    public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
+      return createStringToStringMapEntryAdapter();
+    }
+
+    @Override
     public Adapter defaultCase(final EObject object) {
       return createEObjectAdapter();
     }
   };
+
+  /**
+   * Creates an instance of the adapter factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public SearchFavoritesAdapterFactory() {
+    if (modelPackage == null) {
+      modelPackage = ISearchFavoritesPackage.eINSTANCE;
+    }
+  }
 
   /**
    * Creates an adapter for the <code>target</code>.
@@ -169,7 +148,7 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute <em>Long String
+   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute <em>Boolean
    * Attribute</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -177,43 +156,23 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute
+   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute
    * @generated
    */
-  public Adapter createLongStringAttributeAdapter() {
+  public Adapter createBooleanAttributeAdapter() {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute <em>List Attribute</em>}'.
+   * Creates a new adapter for the default case.
    * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * This default implementation returns null.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute
    * @generated
    */
-  public Adapter createListAttributeAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute <em>String
-   * Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   *
-   * @return the new adapter.
-   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute
-   * @generated
-   */
-  public Adapter createStringAttributeAdapter() {
+  public Adapter createEObjectAdapter() {
     return null;
   }
 
@@ -235,7 +194,23 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.base.model.searchfavorites.IBooleanAttribute <em>Boolean
+   * '{@link com.devepos.adt.base.model.searchfavorites.IListAttribute <em>List Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.base.model.searchfavorites.IListAttribute
+   * @generated
+   */
+  public Adapter createListAttributeAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.base.model.searchfavorites.ILongStringAttribute <em>Long String
    * Attribute</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -243,10 +218,10 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
-   * @see com.devepos.adt.base.model.searchfavorites.IBooleanAttribute
+   * @see com.devepos.adt.base.model.searchfavorites.ILongStringAttribute
    * @generated
    */
-  public Adapter createBooleanAttributeAdapter() {
+  public Adapter createLongStringAttributeAdapter() {
     return null;
   }
 
@@ -263,22 +238,6 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createMapAttributeAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To String
-   * Map Entry</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   *
-   * @return the new adapter.
-   * @see java.util.Map.Entry
-   * @generated
-   */
-  public Adapter createStringToStringMapEntryAdapter() {
     return null;
   }
 
@@ -316,16 +275,57 @@ public class SearchFavoritesAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for the default case.
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.base.model.searchfavorites.IStringAttribute <em>String
+   * Attribute</em>}'.
    * <!-- begin-user-doc -->
-   * This default implementation returns null.
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
    * @return the new adapter.
+   * @see com.devepos.adt.base.model.searchfavorites.IStringAttribute
    * @generated
    */
-  public Adapter createEObjectAdapter() {
+  public Adapter createStringAttributeAdapter() {
     return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>String To String
+   * Map Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see java.util.Map.Entry
+   * @generated
+   */
+  public Adapter createStringToStringMapEntryAdapter() {
+    return null;
+  }
+
+  /**
+   * Returns whether this factory is applicable for the type of the object.
+   * <!-- begin-user-doc -->
+   * This implementation returns <code>true</code> if the object is either the model's package or is
+   * an instance object of the model.
+   * <!-- end-user-doc -->
+   *
+   * @return whether this factory is applicable for the type of the object.
+   * @generated
+   */
+  @Override
+  public boolean isFactoryForType(final Object object) {
+    if (object == modelPackage) {
+      return true;
+    }
+    if (object instanceof EObject) {
+      return ((EObject) object).eClass().getEPackage() == modelPackage;
+    }
+    return false;
   }
 
 } // SearchFavoritesAdapterFactory

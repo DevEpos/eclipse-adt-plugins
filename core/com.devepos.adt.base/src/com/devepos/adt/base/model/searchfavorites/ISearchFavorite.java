@@ -35,108 +35,31 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ISearchFavorite extends EObject {
   /**
-   * Returns the value of the '<em><b>Search Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Retrieves value of a boolean attribute or specified default value
    *
-   * @return the value of the '<em>Search Type</em>' attribute.
-   * @see #setSearchType(String)
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_SearchType()
-   * @model
-   * @generated
+   * @param name         name of an attribute
+   * @param defaultValue the default value
+   * @return the found value or the default value
    */
-  String getSearchType();
+  boolean getAttribute(String name, boolean defaultValue);
 
   /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType <em>Search
-   * Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Retrieves value of an integer attribute or the specified default value
    *
-   * @param value the new value of the '<em>Search Type</em>' attribute.
-   * @see #getSearchType()
-   * @generated
+   * @param name         name of an attribute
+   * @param defaultValue the default value
+   * @return the found value of the default value
    */
-  void setSearchType(String value);
+  int getAttribute(String name, int defaultValue);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Retrieves value of a string attribute or the specified default value
    *
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_Description()
-   * @model
-   * @generated
+   * @param name         name of an attribute
+   * @param defaultValue the default value
+   * @return the found value of the default value
    */
-  String getDescription();
-
-  /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription
-   * <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Description</em>' attribute.
-   * @see #getDescription()
-   * @generated
-   */
-  void setDescription(String value);
-
-  /**
-   * Returns the value of the '<em><b>Destination Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the value of the '<em>Destination Id</em>' attribute.
-   * @see #setDestinationId(String)
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_DestinationId()
-   * @model
-   * @generated
-   */
-  String getDestinationId();
-
-  /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId
-   * <em>Destination Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Destination Id</em>' attribute.
-   * @see #getDestinationId()
-   * @generated
-   */
-  void setDestinationId(String value);
-
-  /**
-   * Returns the value of the '<em><b>Project Independent</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the value of the '<em>Project Independent</em>' attribute.
-   * @see #setProjectIndependent(boolean)
-   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_ProjectIndependent()
-   * @model
-   * @generated
-   */
-  boolean isProjectIndependent();
-
-  /**
-   * Sets the value of the
-   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent
-   * <em>Project Independent</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @param value the new value of the '<em>Project Independent</em>' attribute.
-   * @see #isProjectIndependent()
-   * @generated
-   */
-  void setProjectIndependent(boolean value);
+  String getAttribute(String name, String defaultValue);
 
   /**
    * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
@@ -154,31 +77,38 @@ public interface ISearchFavorite extends EObject {
   EList<IBaseAttribute> getAttributes();
 
   /**
-   * Retrieves value of a boolean attribute or specified default value
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
-   * @param name         name of an attribute
-   * @param defaultValue the default value
-   * @return the found value or the default value
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_Description()
+   * @model
+   * @generated
    */
-  boolean getAttribute(String name, boolean defaultValue);
+  String getDescription();
 
   /**
-   * Retrieves value of a string attribute or the specified default value
+   * Returns the value of the '<em><b>Destination Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
-   * @param name         name of an attribute
-   * @param defaultValue the default value
-   * @return the found value of the default value
+   * @return the value of the '<em>Destination Id</em>' attribute.
+   * @see #setDestinationId(String)
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_DestinationId()
+   * @model
+   * @generated
    */
-  String getAttribute(String name, String defaultValue);
+  String getDestinationId();
 
   /**
-   * Retrieves value of an integer attribute or the specified default value
+   * Retrieves value of a list attribute or the specified default value
    *
-   * @param name         name of an attribute
-   * @param defaultValue the default value
-   * @return the found value of the default value
+   * @param name name of an attribute
+   * @return the found value or an empty list
    */
-  int getAttribute(String name, int defaultValue);
+  List<String> getListAttribute(String name);
 
   /**
    * Retrieves value of an integer attribute or the specified default value
@@ -189,11 +119,81 @@ public interface ISearchFavorite extends EObject {
   Map<String, String> getMapAttribute(String name);
 
   /**
-   * Retrieves value of a list attribute or the specified default value
+   * Returns the value of the '<em><b>Search Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
-   * @param name name of an attribute
-   * @return the found value or an empty list
+   * @return the value of the '<em>Search Type</em>' attribute.
+   * @see #setSearchType(String)
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_SearchType()
+   * @model
+   * @generated
    */
-  List<String> getListAttribute(String name);
+  String getSearchType();
+
+  /**
+   * Returns the value of the '<em><b>Project Independent</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Project Independent</em>' attribute.
+   * @see #setProjectIndependent(boolean)
+   * @see com.devepos.adt.base.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_ProjectIndependent()
+   * @model
+   * @generated
+   */
+  boolean isProjectIndependent();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDescription
+   * <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getDestinationId
+   * <em>Destination Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Destination Id</em>' attribute.
+   * @see #getDestinationId()
+   * @generated
+   */
+  void setDestinationId(String value);
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#isProjectIndependent
+   * <em>Project Independent</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Project Independent</em>' attribute.
+   * @see #isProjectIndependent()
+   * @generated
+   */
+  void setProjectIndependent(boolean value);
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.searchfavorites.ISearchFavorite#getSearchType <em>Search
+   * Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Search Type</em>' attribute.
+   * @see #getSearchType()
+   * @generated
+   */
+  void setSearchType(String value);
 
 } // ISearchFavorite

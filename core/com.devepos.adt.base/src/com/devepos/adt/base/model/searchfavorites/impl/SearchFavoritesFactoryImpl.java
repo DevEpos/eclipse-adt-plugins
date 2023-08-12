@@ -30,6 +30,29 @@ import com.devepos.adt.base.model.searchfavorites.IStringAttribute;
  */
 public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchFavoritesFactory {
   /**
+   * Creates an instance of the factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public SearchFavoritesFactoryImpl() {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @deprecated
+   * @generated
+   */
+  @Deprecated
+  public static ISearchFavoritesPackage getPackage() {
+    return ISearchFavoritesPackage.eINSTANCE;
+  }
+
+  /**
    * Creates the default factory implementation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -47,17 +70,6 @@ public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchF
       EcorePlugin.INSTANCE.log(exception);
     }
     return new SearchFavoritesFactoryImpl();
-  }
-
-  /**
-   * Creates an instance of the factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public SearchFavoritesFactoryImpl() {
-    super();
   }
 
   /**
@@ -100,33 +112,9 @@ public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchF
    * @generated
    */
   @Override
-  public ILongStringAttribute createLongStringAttribute() {
-    LongStringAttributeImpl longStringAttribute = new LongStringAttributeImpl();
-    return longStringAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IListAttribute createListAttribute() {
-    ListAttributeImpl listAttribute = new ListAttributeImpl();
-    return listAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IStringAttribute createStringAttribute() {
-    StringAttributeImpl stringAttribute = new StringAttributeImpl();
-    return stringAttribute;
+  public IBooleanAttribute createBooleanAttribute() {
+    BooleanAttributeImpl booleanAttribute = new BooleanAttributeImpl();
+    return booleanAttribute;
   }
 
   /**
@@ -148,9 +136,21 @@ public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchF
    * @generated
    */
   @Override
-  public IBooleanAttribute createBooleanAttribute() {
-    BooleanAttributeImpl booleanAttribute = new BooleanAttributeImpl();
-    return booleanAttribute;
+  public IListAttribute createListAttribute() {
+    ListAttributeImpl listAttribute = new ListAttributeImpl();
+    return listAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ILongStringAttribute createLongStringAttribute() {
+    LongStringAttributeImpl longStringAttribute = new LongStringAttributeImpl();
+    return longStringAttribute;
   }
 
   /**
@@ -163,17 +163,6 @@ public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchF
   public IMapAttribute createMapAttribute() {
     MapAttributeImpl mapAttribute = new MapAttributeImpl();
     return mapAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  public Map.Entry<String, String> createStringToStringMapEntry() {
-    StringToStringMapEntryImpl stringToStringMapEntry = new StringToStringMapEntryImpl();
-    return stringToStringMapEntry;
   }
 
   /**
@@ -207,20 +196,31 @@ public class SearchFavoritesFactoryImpl extends EFactoryImpl implements ISearchF
    * @generated
    */
   @Override
-  public ISearchFavoritesPackage getSearchFavoritesPackage() {
-    return (ISearchFavoritesPackage) getEPackage();
+  public IStringAttribute createStringAttribute() {
+    StringAttributeImpl stringAttribute = new StringAttributeImpl();
+    return stringAttribute;
   }
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @deprecated
    * @generated
    */
-  @Deprecated
-  public static ISearchFavoritesPackage getPackage() {
-    return ISearchFavoritesPackage.eINSTANCE;
+  public Map.Entry<String, String> createStringToStringMapEntry() {
+    StringToStringMapEntryImpl stringToStringMapEntry = new StringToStringMapEntryImpl();
+    return stringToStringMapEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ISearchFavoritesPackage getSearchFavoritesPackage() {
+    return (ISearchFavoritesPackage) getEPackage();
   }
 
 } // SearchFavoritesFactoryImpl

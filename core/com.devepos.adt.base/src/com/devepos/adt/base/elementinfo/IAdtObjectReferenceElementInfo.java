@@ -8,31 +8,16 @@ public interface IAdtObjectReferenceElementInfo extends IElementInfoCollection,
     ILazyLoadingElementInfo, IAdaptable {
 
   /**
-   * Signals that the ADT object reference supports lazy loading or not
-   *
-   * @return <code>true</code> if this element info of a ADT Object reference
-   *         support lazy loading
-   */
-  boolean hasLazyLoadingSupport();
-
-  /**
-   * Sets this ADT Object reference element information to lazy loading
-   *
-   * @param supportsLazyLoading
-   */
-  void setLazyLoadingSupport(boolean lazyLoading);
-
-  /**
    * @return the ADT object reference of the element
    */
   IAdtObjectReference getAdtObjectReference();
 
   /**
-   * Sets ADT object reference of this element
+   * Returns the ADT Object type of the ADT Object reference
    *
-   * @param objectReference the new object reference to be set
+   * @return the ADT Object type of the ADT Object reference
    */
-  void setAdtObjectReference(IAdtObjectReference objectReference);
+  String getAdtType();
 
   /**
    * Returns the URI of the ADT Object
@@ -42,10 +27,25 @@ public interface IAdtObjectReferenceElementInfo extends IElementInfoCollection,
   String getUri();
 
   /**
-   * Returns the ADT Object type of the ADT Object reference
+   * Signals that the ADT object reference supports lazy loading or not
    *
-   * @return the ADT Object type of the ADT Object reference
+   * @return <code>true</code> if this element info of a ADT Object reference
+   *         support lazy loading
    */
-  String getAdtType();
+  boolean hasLazyLoadingSupport();
+
+  /**
+   * Sets ADT object reference of this element
+   *
+   * @param objectReference the new object reference to be set
+   */
+  void setAdtObjectReference(IAdtObjectReference objectReference);
+
+  /**
+   * Sets this ADT Object reference element information to lazy loading
+   *
+   * @param supportsLazyLoading
+   */
+  void setLazyLoadingSupport(boolean lazyLoading);
 
 }

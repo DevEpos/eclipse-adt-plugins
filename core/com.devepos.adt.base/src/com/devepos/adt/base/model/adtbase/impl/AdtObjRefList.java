@@ -57,22 +57,12 @@ public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtO
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.ADT_OBJ_REF_LIST;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EList<IAdtObjRef> getObjectReferences() {
-    if (objectReferences == null) {
-      objectReferences = new EObjectContainmentEList<>(IAdtObjRef.class, this,
-          IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+    case IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES:
+      return getObjectReferences();
     }
-    return objectReferences;
+    return super.eGet(featureID, resolve, coreType);
   }
 
   /**
@@ -96,12 +86,12 @@ public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtO
    * @generated
    */
   @Override
-  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+  public boolean eIsSet(final int featureID) {
     switch (featureID) {
     case IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES:
-      return getObjectReferences();
+      return objectReferences != null && !objectReferences.isEmpty();
     }
-    return super.eGet(featureID, resolve, coreType);
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -142,12 +132,22 @@ public class AdtObjRefList extends MinimalEObjectImpl.Container implements IAdtO
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES:
-      return objectReferences != null && !objectReferences.isEmpty();
+  public EList<IAdtObjRef> getObjectReferences() {
+    if (objectReferences == null) {
+      objectReferences = new EObjectContainmentEList<>(IAdtObjRef.class, this,
+          IAdtBasePackage.ADT_OBJ_REF_LIST__OBJECT_REFERENCES);
     }
-    return super.eIsSet(featureID);
+    return objectReferences;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.ADT_OBJ_REF_LIST;
   }
 
 } // AdtObjRefList

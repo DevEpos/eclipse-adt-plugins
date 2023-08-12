@@ -5,12 +5,12 @@ import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 
 /**
  * Runner for search favorites
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public class SearchFavoriteRunner {
 
-  public static void runSearchFavorite(ISearchFavorite favorite) {
+  public static void runSearchFavorite(final ISearchFavorite favorite) {
     var descriptor = AdtBaseUIPlugin.getDefault()
         .getSearchFavoriteDescriptors()
         .get(favorite.getSearchType());
@@ -21,8 +21,8 @@ public class SearchFavoriteRunner {
     runSearchFavorite(favorite, descriptor);
   }
 
-  public static void runSearchFavorite(ISearchFavorite favorite,
-      SearchFavoriteDescriptor descriptor) {
+  public static void runSearchFavorite(final ISearchFavorite favorite,
+      final SearchFavoriteDescriptor descriptor) {
     if (descriptor == null) {
       throw new IllegalArgumentException("Search favorite descriptor must not be null!");
     }

@@ -239,10 +239,10 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
   /**
    * Sets a new text in the filter text control
-   * 
+   *
    * @param filter the text for the filter
    */
-  public void setFilterText(String filter) {
+  public void setFilterText(final String filter) {
     if (isFilterControlLive() && filter != null) {
       filterText.setText(filter);
     }

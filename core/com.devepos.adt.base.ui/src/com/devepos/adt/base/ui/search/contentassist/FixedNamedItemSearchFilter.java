@@ -15,22 +15,23 @@ import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Search filter with a fixed list of named items that are returned as content proposals.
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
-  private Image image;
-  private String label;
-  private String description;
-  private List<INamedItem> proposalItems;
-  private boolean multiple;
-  private boolean negatable;
+  private final Image image;
+  private final String label;
+  private final String description;
+  private final List<INamedItem> proposalItems;
+  private final boolean multiple;
+  private final boolean negatable;
   private IImageProvider proposalImageProvider;
-  private String longDescription;
+  private final String longDescription;
 
-  public FixedNamedItemSearchFilter(String label, String description, String longDescription,
-      Image image, boolean multiple, boolean negatable, List<INamedItem> proposalItems) {
+  public FixedNamedItemSearchFilter(final String label, final String description,
+      final String longDescription, final Image image, final boolean multiple,
+      final boolean negatable, final List<INamedItem> proposalItems) {
     this.label = label;
     this.description = description;
     this.longDescription = longDescription;
@@ -41,8 +42,8 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
   }
 
   @Override
-  public String getLongDescription() {
-    return longDescription;
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -56,7 +57,12 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
   }
 
   @Override
-  public List<IContentProposal> getProposalList(String query) throws CoreException {
+  public String getLongDescription() {
+    return longDescription;
+  }
+
+  @Override
+  public List<IContentProposal> getProposalList(final String query) throws CoreException {
     var pattern = StringUtil.getPatternForQuery(query, false);
     var resultIterator = proposalItems.stream()
         .filter(i -> pattern.matcher(i.getName()).matches())
@@ -74,11 +80,6 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
       return results;
     }
     return null;
-  }
-
-  @Override
-  public String getDescription() {
-    return description;
   }
 
   @Override

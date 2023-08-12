@@ -31,39 +31,16 @@ import com.sap.adt.tools.core.wbtyperegistry.WorkbenchAction;
  */
 @SuppressWarnings("restriction")
 public class AdtUIUtil {
-  /**
-   * Overrides the title of an embedded SAP GUI Editor Part with the given
-   * <code>partName</code> and <code>imageId</code>
-   *
-   * @param project      the project of the SAP GUI editor
-   * @param partName     the new name for the part
-   * @param titleToolTip the new tooltip for the part
-   * @param image        the new image of the part
-   */
-  public static void overrideSapGuiPartTitle(final WorkbenchPart part, final IProject project,
-      final String partName, final String titleToolTip, final Image image) {
-    if (part == null) {
-      return;
+  public static IProject adaptAsProject(final Object object) {
+    final IProjectProvider adaptedProjectProvider = Adapters.adapt(object, IProjectProvider.class);
+    if (adaptedProjectProvider != null) {
+      return adaptedProjectProvider.getProject();
     }
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
-
-    final String newPartName = String.format("[%s] %s", abapProject.getSystemId(), partName); //$NON-NLS-1$
-    final String newTitleTooltip = titleToolTip != null ? String.format("%s [%s]", titleToolTip, //$NON-NLS-1$
-        abapProject.getDestinationDisplayText()) : null;
-
-    final IPropertyListener listener = (object, id) -> {
-      if (id == 1) {
-        Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, newPartName); //$NON-NLS-1$
-        if (newTitleTooltip != null) {
-          Reflection.forObject(part)
-              .invoke("setTitleToolTip", new Class[] { String.class }, newTitleTooltip); //$NON-NLS-1$
-        }
-        if (image != null) {
-          Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, image); //$NON-NLS-1$
-        }
-      }
-    };
-    part.addPropertyListener(listener);
+    final IProject adaptedProject = Adapters.adapt(object, IProject.class);
+    if (adaptedProject != null) {
+      return adaptedProject;
+    }
+    return null;
   }
 
   /**
@@ -139,18 +116,6 @@ public class AdtUIUtil {
     return adtObjects;
   }
 
-  public static IProject adaptAsProject(final Object object) {
-    final IProjectProvider adaptedProjectProvider = Adapters.adapt(object, IProjectProvider.class);
-    if (adaptedProjectProvider != null) {
-      return adaptedProjectProvider.getProject();
-    }
-    final IProject adaptedProject = Adapters.adapt(object, IProject.class);
-    if (adaptedProject != null) {
-      return adaptedProject;
-    }
-    return null;
-  }
-
   /**
    * Navigates to the given adt object reference
    *
@@ -179,6 +144,41 @@ public class AdtUIUtil {
     AdtSapGuiEditorUtilityFactory.createSapGuiEditorUtility()
         .openEditorForObject(project, objectReference, true, WorkbenchAction.DISPLAY.toString(),
             null, Collections.<String, String>emptyMap());
+  }
+
+  /**
+   * Overrides the title of an embedded SAP GUI Editor Part with the given
+   * <code>partName</code> and <code>imageId</code>
+   *
+   * @param project      the project of the SAP GUI editor
+   * @param partName     the new name for the part
+   * @param titleToolTip the new tooltip for the part
+   * @param image        the new image of the part
+   */
+  public static void overrideSapGuiPartTitle(final WorkbenchPart part, final IProject project,
+      final String partName, final String titleToolTip, final Image image) {
+    if (part == null) {
+      return;
+    }
+    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+
+    final String newPartName = String.format("[%s] %s", abapProject.getSystemId(), partName); //$NON-NLS-1$
+    final String newTitleTooltip = titleToolTip != null ? String.format("%s [%s]", titleToolTip, //$NON-NLS-1$
+        abapProject.getDestinationDisplayText()) : null;
+
+    final IPropertyListener listener = (object, id) -> {
+      if (id == 1) {
+        Reflection.forObject(part).invoke("setPartName", new Class[] { String.class }, newPartName); //$NON-NLS-1$
+        if (newTitleTooltip != null) {
+          Reflection.forObject(part)
+              .invoke("setTitleToolTip", new Class[] { String.class }, newTitleTooltip); //$NON-NLS-1$
+        }
+        if (image != null) {
+          Reflection.forObject(part).invoke("setTitleImage", new Class[] { Image.class }, image); //$NON-NLS-1$
+        }
+      }
+    };
+    part.addPropertyListener(listener);
   }
 
   private static List<IAdtObject> getObjectFromTreeSelection(final IStructuredSelection selection) {

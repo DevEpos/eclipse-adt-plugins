@@ -11,12 +11,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 public class SimpleTreeContentProvider implements ITreeContentProvider {
 
   @Override
-  public boolean hasChildren(final Object element) {
-    return false;
-  }
-
-  @Override
-  public Object getParent(final Object element) {
+  public Object[] getChildren(final Object parentElement) {
     return null;
   }
 
@@ -26,8 +21,13 @@ public class SimpleTreeContentProvider implements ITreeContentProvider {
   }
 
   @Override
-  public Object[] getChildren(final Object parentElement) {
+  public Object getParent(final Object element) {
     return null;
+  }
+
+  @Override
+  public boolean hasChildren(final Object element) {
+    return false;
   }
 
 }

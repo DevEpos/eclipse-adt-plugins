@@ -35,16 +35,6 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
   protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -53,6 +43,16 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    * @ordered
    */
   protected static final String TEXT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getText() <em>Text</em>}' attribute. <!--
@@ -79,66 +79,6 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return IAdtBasePackage.Literals.USER;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setName(final String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__NAME, oldName,
-          name));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setText(final String newText) {
-    String oldText = text;
-    text = newText;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__TEXT, oldText,
-          text));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case IAdtBasePackage.USER__NAME:
@@ -147,6 +87,22 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
       return getText();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case IAdtBasePackage.USER__NAME:
+      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    case IAdtBasePackage.USER__TEXT:
+      return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -191,14 +147,48 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case IAdtBasePackage.USER__NAME:
-      return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-    case IAdtBasePackage.USER__TEXT:
-      return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setName(final String newName) {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__NAME, oldName,
+          name));
     }
-    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setText(final String newText) {
+    String oldText = text;
+    text = newText;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__TEXT, oldText,
+          text));
+    }
   }
 
   /**
@@ -219,6 +209,16 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
     result.append(text);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return IAdtBasePackage.Literals.USER;
   }
 
 } // User

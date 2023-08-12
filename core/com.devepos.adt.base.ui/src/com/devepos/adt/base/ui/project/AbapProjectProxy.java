@@ -36,30 +36,22 @@ public class AbapProjectProxy implements IAbapProjectProvider {
     this.project = project;
   }
 
-  /**
-   * Updates the project reference in the proxy
-   *
-   * @param project
-   */
   @Override
-  public void setProject(final IProject project) {
-    var oldProject = this.project;
-    this.project = project;
-
-    if (oldProject != project && (oldProject != null && !oldProject.equals(project)
-        || project != null)) {
-      fireProjectChanged(oldProject, project);
+  public void addPropertyChangeListener(final IPropertyChangeListener l) {
+    synchronized (propertyChangeListeners) {
+      propertyChangeListeners.add(l);
     }
   }
 
-  /**
-   * Retrieves the ABAP nature from the project
-   *
-   * @return
-   */
   @Override
-  public IAbapProject getAbapProject() {
-    return project.getAdapter(IAbapProject.class);
+  public IAbapProjectProvider copy() {
+    return new AbapProjectProxy(project);
+  }
+
+  @Override
+  public ISystemSession createStatelessSession() {
+    return AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(getDestinationId());
   }
 
   /**
@@ -83,6 +75,24 @@ public class AbapProjectProxy implements IAbapProjectProvider {
   }
 
   /**
+   * Retrieves the ABAP nature from the project
+   *
+   * @return
+   */
+  @Override
+  public IAbapProject getAbapProject() {
+    return project.getAdapter(IAbapProject.class);
+  }
+
+  @Override
+  public IDestinationData getDestinationData() {
+    if (!hasProject()) {
+      return null;
+    }
+    return getAbapProject().getDestinationData();
+  }
+
+  /**
    * Retrieves the destination id of the project
    *
    * @return
@@ -90,6 +100,11 @@ public class AbapProjectProxy implements IAbapProjectProvider {
   @Override
   public String getDestinationId() {
     return getAbapProject().getDestinationId();
+  }
+
+  @Override
+  public IProject getProject() {
+    return project;
   }
 
   /**
@@ -108,11 +123,6 @@ public class AbapProjectProxy implements IAbapProjectProvider {
   }
 
   @Override
-  public IProject getProject() {
-    return project;
-  }
-
-  @Override
   public void openObjectReference(final IAdtObjectReference objectReference) {
     AdtUIUtil.navigateWithObjectReference(objectReference, project);
   }
@@ -123,35 +133,25 @@ public class AbapProjectProxy implements IAbapProjectProvider {
   }
 
   @Override
-  public ISystemSession createStatelessSession() {
-    return AdtSystemSessionFactory.createSystemSessionFactory()
-        .createStatelessSession(getDestinationId());
-  }
-
-  @Override
-  public IAbapProjectProvider copy() {
-    return new AbapProjectProxy(project);
-  }
-
-  @Override
-  public IDestinationData getDestinationData() {
-    if (!hasProject()) {
-      return null;
-    }
-    return getAbapProject().getDestinationData();
-  }
-
-  @Override
-  public void addPropertyChangeListener(final IPropertyChangeListener l) {
-    synchronized (propertyChangeListeners) {
-      propertyChangeListeners.add(l);
-    }
-  }
-
-  @Override
   public void removePropertyChangeListener(final IPropertyChangeListener l) {
     synchronized (propertyChangeListeners) {
       propertyChangeListeners.remove(l);
+    }
+  }
+
+  /**
+   * Updates the project reference in the proxy
+   *
+   * @param project
+   */
+  @Override
+  public void setProject(final IProject project) {
+    var oldProject = this.project;
+    this.project = project;
+
+    if (oldProject != project && (oldProject != null && !oldProject.equals(project)
+        || project != null)) {
+      fireProjectChanged(oldProject, project);
     }
   }
 

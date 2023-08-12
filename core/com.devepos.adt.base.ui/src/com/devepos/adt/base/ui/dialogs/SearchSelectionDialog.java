@@ -134,16 +134,16 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       final StringBuilder sb = new StringBuilder("is complete: "); //$NON-NLS-1$
       sb.append(isResultComplete());
       sb.append(", result: "); //$NON-NLS-1$
-      sb.append(this.resultObjects);
+      sb.append(resultObjects);
       return sb.toString();
     }
 
     protected List<R> getResultObjects() {
-      return this.resultObjects;
+      return resultObjects;
     }
 
     protected boolean isResultComplete() {
-      return this.resultComplete;
+      return resultComplete;
     }
   }
 
@@ -164,22 +164,22 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
         return false;
       }
       final SearchSelectionDialog<R, F>.SearchResult other = (SearchSelectionDialog<R, F>.SearchResult) o;
-      if (this.result == null && other.result == null) {
+      if (result == null && other.result == null) {
         return true;
       }
-      if (this.result == null || other.result == null) {
+      if (result == null || other.result == null) {
         return false;
       }
-      return other.result.equals(this.result);
+      return other.result.equals(result);
     }
 
     public R getResult() {
-      return this.result;
+      return result;
     }
 
     @Override
     public int hashCode() {
-      return this.result == null ? 0 : this.result.hashCode();
+      return result == null ? 0 : result.hashCode();
     }
   }
 
@@ -193,51 +193,51 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       createFilterHeader(parent);
       createFilter(parent);
 
-      SWTUtil.setLabelForControl(this.headerLabel, this.pattern);
+      SWTUtil.setLabelForControl(headerLabel, pattern);
     }
 
     @Override
     public String getFilter() {
-      if (this.pattern != null && !this.pattern.isDisposed()) {
-        return this.pattern.getText();
+      if (pattern != null && !pattern.isDisposed()) {
+        return pattern.getText();
       }
       return null;
     }
 
     @Override
     public Control[] getFilterControls() {
-      return new Control[] { this.pattern };
+      return new Control[] { pattern };
     }
 
     @Override
     public boolean isFilterEmpty() {
-      if (this.pattern != null && !this.pattern.isDisposed()) {
-        return StringUtil.isEmpty(this.pattern.getText());
+      if (pattern != null && !pattern.isDisposed()) {
+        return StringUtil.isEmpty(pattern.getText());
       }
       return true;
     }
 
     @Override
     public void setFilter(final String filter) {
-      if (this.pattern == null || this.pattern.isDisposed()) {
+      if (pattern == null || pattern.isDisposed()) {
         return;
       }
-      this.pattern.setText(filter);
+      pattern.setText(filter);
     }
 
     @Override
     public void setFocus(final boolean selectText) {
-      this.pattern.setFocus();
+      pattern.setFocus();
       if (selectText) {
-        this.pattern.setSelection(0, this.pattern.getText().length());
+        pattern.setSelection(0, pattern.getText().length());
       } else {
-        this.pattern.setSelection(this.pattern.getText().length());
+        pattern.setSelection(pattern.getText().length());
       }
     }
 
     private void createFilter(final Composite parent) {
-      this.pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.pattern);
+      pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
+      GridDataFactory.fillDefaults().grab(true, false).applyTo(pattern);
     }
 
     private void createFilterHeader(final Composite parent) {
@@ -245,15 +245,15 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       GridLayoutFactory.fillDefaults().numColumns(2).applyTo(header);
       GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(header);
 
-      this.headerLabel = new Label(header, SWT.NONE);
-      this.headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
+      headerLabel = new Label(header, SWT.NONE);
+      headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
           && SearchSelectionDialog.this.filterLabel.trim().length() > 0
               ? SearchSelectionDialog.this.filterLabel
               : Messages.SearchSelectionDialog_FilterLabel);
       GridDataFactory.swtDefaults()
           .align(SWT.FILL, SWT.CENTER)
           .grab(true, false)
-          .applyTo(this.headerLabel);
+          .applyTo(headerLabel);
       // createViewMenu(header);
     }
 
@@ -274,12 +274,12 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     @Override
     public ContentViewer getDetailViewer() {
-      return this.details;
+      return details;
     }
 
     @Override
     public StructuredViewer getResultViewer() {
-      return this.tableViewer;
+      return tableViewer;
     }
 
     @Override
@@ -287,20 +287,20 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       createLabels(parent);
       createViewer(parent);
       createStatusLine(parent);
-      this.details = new LabelViewer(parent, SWT.BORDER | SWT.FLAT);
+      details = new LabelViewer(parent, SWT.BORDER | SWT.FLAT);
       if (initialSelections != null) {
-        this.tableViewer.setSelection(new StructuredSelection(initialSelections));
+        tableViewer.setSelection(new StructuredSelection(initialSelections));
       }
 
-      SWTUtil.setLabelForControl(this.listLabel, this.tableViewer.getControl());
+      SWTUtil.setLabelForControl(listLabel, tableViewer.getControl());
     }
 
     @Override
     protected int getSelectedElementCount() {
-      if (this.tableViewer == null || this.tableViewer.getTable().isDisposed()) {
+      if (tableViewer == null || tableViewer.getTable().isDisposed()) {
         return 0;
       }
-      return this.tableViewer.getStructuredSelection().size();
+      return tableViewer.getStructuredSelection().size();
     }
 
     private void createLabels(final Composite parent) {
@@ -308,27 +308,27 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
       GridLayoutFactory.fillDefaults().numColumns(2).applyTo(labels);
 
-      this.listLabel = new Label(labels, SWT.NONE);
-      this.listLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
+      listLabel = new Label(labels, SWT.NONE);
+      listLabel.setText(Messages.SearchSelectionDialog_ResultItemsLabel);
 
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(this.listLabel);
+      GridDataFactory.fillDefaults().grab(true, false).applyTo(listLabel);
       GridDataFactory.fillDefaults().grab(true, false).applyTo(labels);
     }
 
     private void createViewer(final Composite parent) {
-      this.tableViewer = new TableViewer(parent, (this.multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
+      tableViewer = new TableViewer(parent, (multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
           | SWT.V_SCROLL | SWT.FULL_SELECTION);
       GridDataFactory.fillDefaults()
           .grab(true, true)
-          .hint(SWT.DEFAULT, this.tableViewer.getTable().getItemHeight() * 15)
-          .applyTo(this.tableViewer.getTable());
+          .hint(SWT.DEFAULT, tableViewer.getTable().getItemHeight() * 15)
+          .applyTo(tableViewer.getTable());
 
-      this.tableViewer.addSelectionChangedListener(event -> {
+      tableViewer.addSelectionChangedListener(event -> {
         handleSelected((StructuredSelection) event.getSelection());
         fireSelectedElementsChanged();
       });
-      this.tableViewer.setContentProvider(getResultContentProvider());
-      this.tableViewer.addDoubleClickListener(event -> okPressed());
+      tableViewer.setContentProvider(getResultContentProvider());
+      tableViewer.addDoubleClickListener(event -> okPressed());
       configureDefaultResultViewer(tableViewer);
     }
 
@@ -352,26 +352,26 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       if (obj == null || !(obj instanceof SearchSelectionDialog.SearchJob)) {
         return false;
       }
-      return ((SearchSelectionDialog<R, F>.SearchJob) obj).filter.equals(this.filter);
+      return ((SearchSelectionDialog<R, F>.SearchJob) obj).filter.equals(filter);
     }
 
     public F getFilter() {
-      return this.filter;
+      return filter;
     }
 
     public Exception getResultException() {
-      return this.searchJobException;
+      return searchJobException;
     }
 
     /**
      * @return the search result
      */
     public SearchResultObject getSearchResult() {
-      return this.searchResult;
+      return searchResult;
     }
 
     public boolean isResultValid() {
-      if (this.searchResult == null || !this.isResultComplete) {
+      if (searchResult == null || !isResultComplete) {
         return false;
       }
       return true;
@@ -380,25 +380,25 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     @Override
     protected IStatus run(final IProgressMonitor monitor) {
       try {
-        this.searchResult = performSearch(this.filter, monitor);
+        searchResult = performSearch(filter, monitor);
       } catch (final CoreException e) {
-        this.searchJobException = e;
+        searchJobException = e;
       }
-      return this.searchJobException != null ? Status.CANCEL_STATUS : Status.OK_STATUS;
+      return searchJobException != null ? Status.CANCEL_STATUS : Status.OK_STATUS;
     }
   }
 
   @Override
   public boolean close() {
-    if (this.contextMenuManager != null) {
-      this.contextMenuManager.dispose();
+    if (contextMenuManager != null) {
+      contextMenuManager.dispose();
     }
     storeDialog(getDialogSettings());
     return super.close();
   }
 
   public R getFirstResult() {
-    return this.result != null && this.result.size() > 0 ? this.result.get(0) : null;
+    return result != null && result.size() > 0 ? result.get(0) : null;
   }
 
   /**
@@ -411,7 +411,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   public List<R> getResult() {
-    return this.result;
+    return result;
   }
 
   /**
@@ -442,8 +442,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   @Override
   protected void configureShell(final Shell shell) {
     super.configureShell(shell);
-    if (this.title != null) {
-      shell.setText(this.title);
+    if (title != null) {
+      shell.setText(title);
     }
   }
 
@@ -455,13 +455,13 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     } else {
       updateButtonsEnableState(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, EMPTY_STRING));
     }
-    if (this.initialFilter != null) {
-      this.filterPart.setFilter(this.initialFilter);
+    if (initialFilter != null) {
+      filterPart.setFilter(initialFilter);
     } else {
       applyFilter();
     }
 
-    this.filterPart.setFocus(true);
+    filterPart.setFocus(true);
     return contents;
   }
 
@@ -476,11 +476,11 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     GridDataFactory.fillDefaults().grab(true, true).applyTo(content);
     GridLayoutFactory.fillDefaults().applyTo(content);
 
-    this.filterPart.createUI(content);
+    filterPart.createUI(content);
 
-    this.resultViewPart.setInitialSelections(this.inititalSelections);
-    this.resultViewPart.createDialogPart(content);
-    this.resultViewPart.addPropertyChangeListener(l -> {
+    resultViewPart.setInitialSelections(inititalSelections);
+    resultViewPart.createDialogPart(content);
+    resultViewPart.addPropertyChangeListener(l -> {
       if (l.getProperty().equals(DialogResultPart.SELECTED_ELEMENTS_PROPERTY)) {
         final int selectedElements = (int) l.getNewValue();
         updateButtonsEnableState(selectedElements <= 0 ? new Status(IStatus.ERROR,
@@ -494,10 +494,10 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
      * if status line was net not created it will be positioned under the result
      * part
      */
-    if (this.statusLine == null) {
+    if (statusLine == null) {
       createStatusLine(content);
     }
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(this.statusLine);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(statusLine);
 
     applyDialogFont(content);
 
@@ -507,7 +507,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   protected final void createStatusLine(final Composite parent) {
-    this.statusLine = new MessageLine(parent);
+    statusLine = new MessageLine(parent);
   }
 
   /**
@@ -528,8 +528,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     IDialogSettings section = settings.getSection(DIALOG_BOUNDS_SETTINGS);
     if (section == null) {
       section = settings.addNewSection(DIALOG_BOUNDS_SETTINGS);
-      section.put(DIALOG_HEIGHT, this.defaultDialogHeight);
-      section.put(DIALOG_WIDTH, this.defaultDialogWidth);
+      section.put(DIALOG_HEIGHT, defaultDialogHeight);
+      section.put(DIALOG_WIDTH, defaultDialogWidth);
     }
     return section;
   }
@@ -547,7 +547,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @return the current filter
    */
   protected F getFilter() {
-    return this.filterPart != null ? this.filterPart.getFilter() : null;
+    return filterPart != null ? filterPart.getFilter() : null;
   }
 
   /**
@@ -556,10 +556,10 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @return the result part of the dialog
    */
   protected DialogResultPart getResultViewPart() {
-    if (this.resultViewPart == null) {
-      this.resultViewPart = new ResultView(this.multi);
+    if (resultViewPart == null) {
+      resultViewPart = new ResultView(multi);
     }
-    return this.resultViewPart;
+    return resultViewPart;
   }
 
   /**
@@ -569,7 +569,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    */
   @SuppressWarnings("unchecked")
   protected List<R> getSelectedItems() {
-    final IStructuredSelection selection = this.resultViewPart.getSelection();
+    final IStructuredSelection selection = resultViewPart.getSelection();
     if (selection == null || selection.isEmpty()) {
       return null;
     }
@@ -621,7 +621,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    *                      highlights the currently selected result item
    */
   protected final void setDetailsLabelProvider(final IBaseLabelProvider labelProvider) {
-    this.detailsLabelProvider = labelProvider;
+    detailsLabelProvider = labelProvider;
   }
 
   /**
@@ -639,7 +639,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param filterView the part which holds the filter controls
    */
   protected void setFilterViewPart(final IDialogFilterPart<F> filterView) {
-    this.filterPart = filterView;
+    filterPart = filterView;
   }
 
   /**
@@ -651,8 +651,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    *               be used
    */
   protected void setInitialDialogSize(final int width, final int height) {
-    this.defaultDialogWidth = width;
-    this.defaultDialogHeight = height;
+    defaultDialogWidth = width;
+    defaultDialogHeight = height;
   }
 
   /**
@@ -661,7 +661,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param filter the initial filter
    */
   protected final void setInitialFilter(final F filter) {
-    this.initialFilter = filter;
+    initialFilter = filter;
   }
 
   /**
@@ -670,7 +670,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param jobDelay the initial job delay
    */
   protected final void setInitialJobDelay(final long jobDelay) {
-    this.initialSearchJobDelay = jobDelay;
+    initialSearchJobDelay = jobDelay;
   }
 
   /**
@@ -679,7 +679,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param initialSelections list of initial selection
    */
   protected void setInitialSelections(final List<R> initialSelections) {
-    this.inititalSelections = initialSelections;
+    inititalSelections = initialSelections;
   }
 
   /**
@@ -688,7 +688,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param jobDelay the delay for the search job
    */
   protected final void setJobDelay(final long jobDelay) {
-    this.searchJobDelay = jobDelay;
+    searchJobDelay = jobDelay;
   }
 
   /**
@@ -698,8 +698,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    */
   protected void setResult(final List<R> newResult) {
     if (newResult != null) {
-      this.result.clear();
-      this.result.addAll(newResult);
+      result.clear();
+      result.addAll(newResult);
     }
   }
 
@@ -718,7 +718,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
    * @param labelProvider the label provider for the result viewer
    */
   protected final void setResultLabelProvider(final IBaseLabelProvider labelProvider) {
-    this.resultLabelProvider = labelProvider;
+    resultLabelProvider = labelProvider;
   }
 
   /**
@@ -755,68 +755,67 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   private void applyFilter() {
-    final F currentFilter = this.filterPart.getFilter();
+    final F currentFilter = filterPart.getFilter();
     final SearchJob newSearchJob = new SearchJob(currentFilter);
-    if (this.searchJob != null && !newSearchJob.equals(this.searchJob) && !this.searchJob
-        .isResultValid()) {
-      this.searchJob.cancel();
-      this.searchJob = null;
+    if (searchJob != null && !newSearchJob.equals(searchJob) && !searchJob.isResultValid()) {
+      searchJob.cancel();
+      searchJob = null;
       setSearchStatus(null);
     }
-    if (this.searchJob == null) {
+    if (searchJob == null) {
       setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
           .getString(IAdtBaseStrings.SearchUI_Searching_xmsg)));
-      this.searchJob = newSearchJob;
-      this.searchJob.addJobChangeListener(new JobChangeAdapter() {
+      searchJob = newSearchJob;
+      searchJob.addJobChangeListener(new JobChangeAdapter() {
         @Override
         public void done(final IJobChangeEvent event) {
           handleSearchJobDone();
         }
       });
-      long delay = this.searchJobDelay;
-      if (this.initialSearchJobDelay != delay) {
-        delay = this.initialSearchJobDelay;
-        this.initialSearchJobDelay = this.searchJobDelay;
+      long delay = searchJobDelay;
+      if (initialSearchJobDelay != delay) {
+        delay = initialSearchJobDelay;
+        initialSearchJobDelay = searchJobDelay;
       }
-      this.searchJob.schedule(delay);
+      searchJob.schedule(delay);
     }
     // TODO: determine what to do at empty filter
-    if (this.filterPart.isFilterEmpty()) {
+    if (filterPart.isFilterEmpty()) {
       setSearchStatus(null);
     }
   }
 
   private IBaseLabelProvider getDetailsLabelProvider() {
-    if (this.detailsLabelProvider == null) {
-      this.detailsLabelProvider = new LabelProvider();
+    if (detailsLabelProvider == null) {
+      detailsLabelProvider = new LabelProvider();
     }
-    return this.detailsLabelProvider;
+    return detailsLabelProvider;
   }
 
   @SuppressWarnings("unchecked")
   private IDialogFilterPart<F> getFilterViewPart() {
-    if (this.filterPart == null) {
-      this.filterPart = (IDialogFilterPart<F>) new FilterView();
+    if (filterPart == null) {
+      filterPart = (IDialogFilterPart<F>) new FilterView();
     }
-    return this.filterPart;
+    return filterPart;
   }
 
   private IStructuredContentProvider getResultContentProvider() {
-    if (this.contentProvider == null) {
-      this.contentProvider = ArrayContentProvider.getInstance();
+    if (contentProvider == null) {
+      contentProvider = ArrayContentProvider.getInstance();
     }
-    return this.contentProvider;
+    return contentProvider;
   }
 
   private IBaseLabelProvider getResultLabelProvider() {
-    if (this.resultLabelProvider == null) {
-      this.resultLabelProvider = new LabelProvider();
+    if (resultLabelProvider == null) {
+      resultLabelProvider = new LabelProvider();
     }
-    return this.resultLabelProvider;
+    return resultLabelProvider;
   }
 
   private void handleFilterControls() {
-    final Control[] filterControls = this.filterPart.getFilterControls();
+    final Control[] filterControls = filterPart.getFilterControls();
     if (filterControls == null || filterControls.length == 0) {
       return;
     }
@@ -825,7 +824,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       if (lastFilterControl instanceof Text) {
         lastFilterControl.addKeyListener(keyPressedAdapter(e -> {
           if (e.keyCode == SWT.ARROW_DOWN) {
-            final StructuredViewer resultViewer = this.resultViewPart.getResultViewer();
+            final StructuredViewer resultViewer = resultViewPart.getResultViewer();
             if (resultViewer instanceof TableViewer) {
               final Table table = ((TableViewer) resultViewer).getTable();
               if (table.getItemCount() > 0) {
@@ -856,7 +855,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
   @SuppressWarnings("unchecked")
   private void handleSearchJobDone() {
-    final Exception resultException = this.searchJob.getResultException();
+    final Exception resultException = searchJob.getResultException();
     if (resultException != null) {
       IStatus status = null;
       if (resultException instanceof CoreException) {
@@ -867,8 +866,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       }
       setSearchStatus(status);
     } else {
-      final F filter = this.searchJob.getFilter();
-      final SearchResultObject searchResult = this.searchJob.getSearchResult();
+      final F filter = searchJob.getFilter();
+      final SearchResultObject searchResult = searchJob.getSearchResult();
       final List<R> validResults = new ArrayList<>();
       if (searchResult != null) {
         int validResultsCount = 0;
@@ -893,7 +892,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
         }
       }
       Display.getDefault().asyncExec(() -> {
-        this.resultViewPart.updateResults((List<Object>) validResults);
+        resultViewPart.updateResults((List<Object>) validResults);
       });
     }
   }
@@ -904,14 +903,14 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
   private void setSearchStatus(final IStatus status) {
     Display.getDefault().asyncExec(() -> {
-      if (this.statusLine != null && !this.statusLine.isDisposed()) {
-        this.statusLine.setStatus(status);
+      if (statusLine != null && !statusLine.isDisposed()) {
+        statusLine.setStatus(status);
       }
     });
   }
 
   private void updateDetails(final IStructuredSelection selection) {
-    final ContentViewer detailViewer = this.resultViewPart.getDetailViewer();
+    final ContentViewer detailViewer = resultViewPart.getDetailViewer();
     if (detailViewer == null) {
       return;
     }

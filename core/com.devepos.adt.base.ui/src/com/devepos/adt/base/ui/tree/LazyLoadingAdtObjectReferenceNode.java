@@ -39,6 +39,24 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   }
 
   @Override
+  public void addLazyLoadingListener(final ILazyLoadingListener l) {
+    if (l == null) {
+      throw new IllegalArgumentException();
+    }
+    lazyLoadingListeners.add(l);
+  }
+
+  @Override
+  public LazyLoadingRefreshMode getContentRefreshMode() {
+    return refreshMode != null ? refreshMode : ILazyLoadingNode.super.getContentRefreshMode();
+  }
+
+  @Override
+  public String getLazyLoadingJobName() {
+    return provider != null ? provider.getProviderDescription() : null;
+  }
+
+  @Override
   public String getSizeAsString() {
     if (isLoading || !isLoaded) {
       return "?";
@@ -50,17 +68,8 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   }
 
   @Override
-  public void resetLoadedState() {
-    isLoaded = false;
-    if (children != null) {
-      children.clear();
-    }
-    children = null;
-  }
-
-  @Override
-  public boolean isLoading() {
-    return isLoading;
+  public boolean hasChildren() {
+    return true;
   }
 
   @Override
@@ -69,8 +78,8 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   }
 
   @Override
-  public boolean hasChildren() {
-    return true;
+  public boolean isLoading() {
+    return isLoading;
   }
 
   @Override
@@ -94,23 +103,28 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
   }
 
   @Override
+  public void removeLazyLoadingListener(final ILazyLoadingListener l) {
+    lazyLoadingListeners.remove(l);
+
+  }
+
+  @Override
+  public void resetLoadedState() {
+    isLoaded = false;
+    if (children != null) {
+      children.clear();
+    }
+    children = null;
+  }
+
+  @Override
   public void setContentRefreshMode(final LazyLoadingRefreshMode mode) {
     refreshMode = mode;
   }
 
   @Override
-  public LazyLoadingRefreshMode getContentRefreshMode() {
-    return refreshMode != null ? refreshMode : ILazyLoadingNode.super.getContentRefreshMode();
-  }
-
-  @Override
   public void setElementInfoProvider(final IElementInfoProvider provider) {
     this.provider = provider;
-  }
-
-  @Override
-  public String getLazyLoadingJobName() {
-    return provider != null ? provider.getProviderDescription() : null;
   }
 
   /**
@@ -133,19 +147,5 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
       throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t.getMessage(),
           t));
     }
-  }
-
-  @Override
-  public void addLazyLoadingListener(final ILazyLoadingListener l) {
-    if (l == null) {
-      throw new IllegalArgumentException();
-    }
-    lazyLoadingListeners.add(l);
-  }
-
-  @Override
-  public void removeLazyLoadingListener(final ILazyLoadingListener l) {
-    lazyLoadingListeners.remove(l);
-
   }
 }

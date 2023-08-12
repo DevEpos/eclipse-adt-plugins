@@ -63,50 +63,27 @@ public class IntAttributeImpl extends BaseAttributeImpl implements IIntAttribute
    * @generated
    */
   @Override
-  protected EClass eStaticClass() {
-    return ISearchFavoritesPackage.Literals.INT_ATTRIBUTE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public int getValue() {
-    return value;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public void setValue(final int newValue) {
-    int oldValue = value;
-    value = newValue;
-    if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET,
-          ISearchFavoritesPackage.INT_ATTRIBUTE__VALUE, oldValue, value));
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case ISearchFavoritesPackage.INT_ATTRIBUTE__VALUE:
       return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+    case ISearchFavoritesPackage.INT_ATTRIBUTE__VALUE:
+      return value != VALUE_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
   }
 
   /**
@@ -148,12 +125,24 @@ public class IntAttributeImpl extends BaseAttributeImpl implements IIntAttribute
    * @generated
    */
   @Override
-  public boolean eIsSet(final int featureID) {
-    switch (featureID) {
-    case ISearchFavoritesPackage.INT_ATTRIBUTE__VALUE:
-      return value != VALUE_EDEFAULT;
+  public int getValue() {
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setValue(final int newValue) {
+    int oldValue = value;
+    value = newValue;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.INT_ATTRIBUTE__VALUE, oldValue, value));
     }
-    return super.eIsSet(featureID);
   }
 
   /**
@@ -173,6 +162,17 @@ public class IntAttributeImpl extends BaseAttributeImpl implements IIntAttribute
     result.append(value);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ISearchFavoritesPackage.Literals.INT_ATTRIBUTE;
   }
 
 } // IntAttributeImpl

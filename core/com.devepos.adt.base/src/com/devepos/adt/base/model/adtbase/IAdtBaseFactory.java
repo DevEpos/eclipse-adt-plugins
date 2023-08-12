@@ -41,16 +41,6 @@ public interface IAdtBaseFactory extends EFactory {
   IAdtObjRefList createAdtObjRefList();
 
   /**
-   * Returns a new object of class '<em>User</em>'.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
-   *
-   * @return a new object of class '<em>User</em>'.
-   * @generated
-   */
-  IUser createUser();
-
-  /**
    * Returns a new object of class '<em>Adt Plugin Feature</em>'. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -87,6 +77,16 @@ public interface IAdtBaseFactory extends EFactory {
    * @generated
    */
   IResponseMessageList createResponseMessageList();
+
+  /**
+   * Returns a new object of class '<em>User</em>'.
+   * <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   *
+   * @return a new object of class '<em>User</em>'.
+   * @generated
+   */
+  IUser createUser();
 
   /**
    * Returns the package supported by this factory.

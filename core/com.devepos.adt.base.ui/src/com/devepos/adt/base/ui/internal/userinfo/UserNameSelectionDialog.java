@@ -45,7 +45,7 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
   private List<IUser> users;
   private final String destination;
   private final List<String> excludedUsers;
-  private SplitResultSelectionViewer splitResultViewer;
+  private final SplitResultSelectionViewer splitResultViewer;
 
   public UserNameSelectionDialog(final Shell parent, final String title, final boolean multi,
       final List<com.devepos.adt.base.model.adtbase.IUser> selectedUsers,
@@ -69,75 +69,6 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     splitResultViewer.setDetailsLabelProvider(new DelegatingStyledCellLabelProvider(
         resultLabelProvider));
     setResultViewPart(splitResultViewer);
-  }
-
-  @Override
-  protected IDialogSettings getDialogSettings() {
-    return AdtBaseUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
-  }
-
-  @Override
-  protected boolean matchesFilter(final IUser result, final String filter) {
-    if (StringUtil.isBlank(filter)) {
-      return true;
-    }
-    final String filterPattern = filter.replace("*", ".*").concat(".*");
-    if (Pattern.matches(filterPattern, result.getName().toLowerCase())) {
-      return true;
-    }
-    final String userName = result.getText();
-    if (!StringUtil.isEmpty(userName)) {
-      final List<String> userNameParts = Stream.of(userName.split("\\s+"))
-          .map(String::toLowerCase)
-          .collect(Collectors.toList());
-      return userNameParts.stream().anyMatch(w -> Pattern.matches(filterPattern, w));
-    }
-    return false;
-  }
-
-  @Override
-  protected SearchSelectionDialog<IUser, String>.SearchResultObject performSearch(
-      final String filter, final IProgressMonitor monitor) throws CoreException {
-
-    if (users == null) {
-      users = SystemServiceFactory.createSystemService().getUsers(destination);
-      if (excludedUsers != null && !excludedUsers.isEmpty()) {
-        users.removeIf(u -> excludedUsers.contains(u.getName()));
-      }
-    }
-    return new SearchResultObject(users, true);
-  }
-
-  private class SelectedUsersFilter extends ViewerFilter {
-
-    private List<IUser> selectedUsers = new ArrayList<>();
-
-    private void determineSelectedUsers() {
-      selectedUsers.clear();
-      IStructuredSelection sel = splitResultViewer.getSelection();
-      for (Object selObj : sel.toArray()) {
-        selectedUsers.add((IUser) selObj);
-      }
-    }
-
-    @Override
-    public Object[] filter(final Viewer viewer, final Object parent, final Object[] elements) {
-      determineSelectedUsers();
-      if (selectedUsers == null || selectedUsers.isEmpty()) {
-        return elements;
-      }
-      return super.filter(viewer, parent, elements);
-    }
-
-    @Override
-    public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
-      if (element instanceof IUser) {
-        IUser user = (IUser) element;
-        return !selectedUsers.stream().anyMatch(u -> u.getName().equals(user.getName()));
-      }
-      return true;
-    }
-
   }
 
   private class ResultLabelProvider extends LabelProvider implements
@@ -177,5 +108,74 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
       return super.getText(element);
     }
 
+  }
+
+  private class SelectedUsersFilter extends ViewerFilter {
+
+    private final List<IUser> selectedUsers = new ArrayList<>();
+
+    @Override
+    public Object[] filter(final Viewer viewer, final Object parent, final Object[] elements) {
+      determineSelectedUsers();
+      if (selectedUsers == null || selectedUsers.isEmpty()) {
+        return elements;
+      }
+      return super.filter(viewer, parent, elements);
+    }
+
+    @Override
+    public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+      if (element instanceof IUser) {
+        IUser user = (IUser) element;
+        return !selectedUsers.stream().anyMatch(u -> u.getName().equals(user.getName()));
+      }
+      return true;
+    }
+
+    private void determineSelectedUsers() {
+      selectedUsers.clear();
+      IStructuredSelection sel = splitResultViewer.getSelection();
+      for (Object selObj : sel.toArray()) {
+        selectedUsers.add((IUser) selObj);
+      }
+    }
+
+  }
+
+  @Override
+  protected IDialogSettings getDialogSettings() {
+    return AdtBaseUIPlugin.getDefault().getDialogSettingsSection(DIALOG_SETTINGS_NAME);
+  }
+
+  @Override
+  protected boolean matchesFilter(final IUser result, final String filter) {
+    if (StringUtil.isBlank(filter)) {
+      return true;
+    }
+    final String filterPattern = filter.replace("*", ".*").concat(".*");
+    if (Pattern.matches(filterPattern, result.getName().toLowerCase())) {
+      return true;
+    }
+    final String userName = result.getText();
+    if (!StringUtil.isEmpty(userName)) {
+      final List<String> userNameParts = Stream.of(userName.split("\\s+"))
+          .map(String::toLowerCase)
+          .collect(Collectors.toList());
+      return userNameParts.stream().anyMatch(w -> Pattern.matches(filterPattern, w));
+    }
+    return false;
+  }
+
+  @Override
+  protected SearchSelectionDialog<IUser, String>.SearchResultObject performSearch(
+      final String filter, final IProgressMonitor monitor) throws CoreException {
+
+    if (users == null) {
+      users = SystemServiceFactory.createSystemService().getUsers(destination);
+      if (excludedUsers != null && !excludedUsers.isEmpty()) {
+        users.removeIf(u -> excludedUsers.contains(u.getName()));
+      }
+    }
+    return new SearchResultObject(users, true);
   }
 }

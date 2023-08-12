@@ -21,30 +21,6 @@ public class FilePathUtil {
   }
 
   /**
-   * Encodes the given name
-   *
-   * @param name the String to be encoded
-   * @return the encoded String
-   */
-  public static String encodeName(final String name) {
-    return FileUtils.encodeFilePathSegment(name);
-  }
-
-  /**
-   * Returns the file name without the extension suffix
-   *
-   * @param filePath the file path
-   * @return the file name without the extension
-   */
-  public static String getFileNameWithoutExtension(final String filePath) {
-    final int index = filePath.lastIndexOf(".");
-    if (index < 0) {
-      return filePath;
-    }
-    return filePath.substring(0, index);
-  }
-
-  /**
    * Decodes the name and translates it to all upper case letters
    *
    * @param name the String to be decoded
@@ -59,6 +35,16 @@ public class FilePathUtil {
   }
 
   /**
+   * Encodes the given name
+   *
+   * @param name the String to be encoded
+   * @return the encoded String
+   */
+  public static String encodeName(final String name) {
+    return FileUtils.encodeFilePathSegment(name);
+  }
+
+  /**
    * Retrieves the file extension for the given file path
    *
    * @param filePath the String file path
@@ -70,6 +56,20 @@ public class FilePathUtil {
       return null;
     }
     return filePath.substring(index + 1);
+  }
+
+  /**
+   * Returns the file name without the extension suffix
+   *
+   * @param filePath the file path
+   * @return the file name without the extension
+   */
+  public static String getFileNameWithoutExtension(final String filePath) {
+    final int index = filePath.lastIndexOf(".");
+    if (index < 0) {
+      return filePath;
+    }
+    return filePath.substring(0, index);
   }
 
 }

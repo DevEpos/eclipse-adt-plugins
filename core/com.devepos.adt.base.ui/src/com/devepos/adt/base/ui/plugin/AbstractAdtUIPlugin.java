@@ -225,11 +225,11 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
 
   /**
    * Registers base64 encoded image under the given id in the image registry
-   * 
+   *
    * @param imageId      the id for image
    * @param encodedImage base64 encoded image
    */
-  public Image registerEncodedImage(String imageId, final String encodedImage) {
+  public Image registerEncodedImage(final String imageId, final String encodedImage) {
     var imageBytes = Base64.getDecoder().decode(encodedImage);
     var imageDescr = ImageDescriptor.createFromImageDataProvider(d -> new ImageData(
         new ByteArrayInputStream(imageBytes)));

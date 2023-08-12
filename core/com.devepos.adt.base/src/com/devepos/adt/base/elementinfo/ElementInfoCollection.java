@@ -31,11 +31,27 @@ public class ElementInfoCollection extends ElementInfoBase implements IElementIn
   }
 
   @Override
+  public IElementInfo getChild(final String name) {
+    if (!hasChildren() || name == null) {
+      return null;
+    }
+    return children.stream().filter(el -> name.equals(name)).findFirst().orElse(null);
+  }
+
+  @Override
   public List<IElementInfo> getChildren() {
     if (children == null) {
       children = new ArrayList<>();
     }
     return children;
+  }
+
+  @Override
+  public boolean hasChild(final String name) {
+    if (!hasChildren() || name == null) {
+      return false;
+    }
+    return children.stream().anyMatch(el -> name.equals(el.getName()));
   }
 
   @Override
@@ -46,22 +62,6 @@ public class ElementInfoCollection extends ElementInfoBase implements IElementIn
   @Override
   public int size() {
     return children == null ? 0 : children.size();
-  }
-
-  @Override
-  public IElementInfo getChild(final String name) {
-    if (!hasChildren() || name == null) {
-      return null;
-    }
-    return children.stream().filter(el -> name.equals(name)).findFirst().orElse(null);
-  }
-
-  @Override
-  public boolean hasChild(final String name) {
-    if (!hasChildren() || name == null) {
-      return false;
-    }
-    return children.stream().anyMatch(el -> name.equals(el.getName()));
   }
 
 }

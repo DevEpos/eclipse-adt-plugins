@@ -11,19 +11,18 @@ import com.devepos.adt.base.model.adtbase.IAdtPluginFeature;
 public interface IAdtPluginFeatures {
 
   /**
-   * Checks if a feature with a given name is enabled or not
-   *
-   * @param name the name of a feature
-   * @return {@code true} if the feature is enabled
-   */
-  boolean isFeatureEnabled(String name);
-
-  /**
    * Checks if all contained features are enabled or not
    *
    * @return {@code true} if all contained features are enabled
    */
   boolean areAllFeaturesEnabled();
+
+  /**
+   * Retrieves an array of all contained features
+   *
+   * @return an array of all contained features
+   */
+  IAdtPluginFeature[] getAll();
 
   /**
    * Returns the feature with the given name or {@code null} if is not found
@@ -34,9 +33,10 @@ public interface IAdtPluginFeatures {
   IAdtPluginFeature getFeature(String name);
 
   /**
-   * Retrieves an array of all contained features
+   * Checks if a feature with a given name is enabled or not
    *
-   * @return an array of all contained features
+   * @param name the name of a feature
+   * @return {@code true} if the feature is enabled
    */
-  IAdtPluginFeature[] getAll();
+  boolean isFeatureEnabled(String name);
 }

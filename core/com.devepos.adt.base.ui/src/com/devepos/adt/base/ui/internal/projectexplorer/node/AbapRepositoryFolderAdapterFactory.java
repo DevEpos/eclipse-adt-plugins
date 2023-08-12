@@ -24,14 +24,15 @@ public class AbapRepositoryFolderAdapterFactory implements IAdapterFactory {
   }
 
   @Override
-  public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
+  public <T> T getAdapter(final Object adaptableObject, final Class<T> adapterType) {
     if (adapterType != IAbapRepositoryFolderNode.class) {
       return null;
     }
     if (adaptableObject instanceof AbapSystemLibraryNode) {
       return adapterType.cast(new AbapRepositoryFolderProxy(
           ((AbapSystemLibraryNode) adaptableObject).getProject(), null, null, null, null));
-    } else if (adaptableObject instanceof AbapFavoritePackagesNode) {
+    }
+    if (adaptableObject instanceof AbapFavoritePackagesNode) {
       AbapFavoritePackagesNode node = (AbapFavoritePackagesNode) adaptableObject;
       Set<String> packages = node.getFavoritePackageNames();
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null, null,
@@ -58,7 +59,7 @@ public class AbapRepositoryFolderAdapterFactory implements IAdapterFactory {
     return ADAPTER_LIST;
   }
 
-  private List<String> getPackages(AbapRepositoryBaseNode node) {
+  private List<String> getPackages(final AbapRepositoryBaseNode node) {
     return Arrays.asList(node.getPackageName());
   }
 
