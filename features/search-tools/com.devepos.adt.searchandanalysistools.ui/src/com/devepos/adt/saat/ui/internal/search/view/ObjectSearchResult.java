@@ -3,11 +3,8 @@ package com.devepos.adt.saat.ui.internal.search.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
@@ -16,43 +13,96 @@ import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
-import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
-import com.devepos.adt.base.ui.tree.AdtObjectReferenceNode;
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.model.adtbase.IAdtObjRef;
+import com.devepos.adt.base.ui.tree.FolderTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
-import com.devepos.adt.base.ui.tree.LazyLoadingAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.ITreeNode;
+import com.devepos.adt.base.ui.tree.PackageNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchableAdtObjectReferenceNode;
-import com.devepos.adt.base.ui.tree.launchable.LaunchableLazyLoadingAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchablePackageNode;
+import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
+import com.devepos.adt.saat.ui.internal.CdsSourceType;
+import com.devepos.adt.saat.ui.internal.ExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.search.IExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class ObjectSearchResult implements ISearchResult {
+  /**
+   * Flag (<code>value 1</code>) denoting flat list layout.
+   */
+  public static final int FLAG_LAYOUT_FLAT = 1;
+  /**
+   * Flag (<code>value 2</code>) denoting tree layout.
+   */
+  public static final int FLAG_LAYOUT_TREE = 2;
 
-  private static final String TEMP_PACKAGE_NAME = "$TMP"; //$NON-NLS-1$
-  private static final String KEY_PATTERN = "%s:%s"; //$NON-NLS-1$
+  static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
+
   private final ObjectSearchQuery searchQuery;
+  private IObjectSearchResult searchResult;
+  private final FolderTreeNode rootNode;
   private final HashSet<ISearchResultListener> searchResultListener;
   private IAdtObjectReferenceNode[] treeResult;
   private IAdtObjectReferenceNode[] packages;
+  private IAdtObjectReferenceNode[] listResult;
   private boolean isGroupedResult;
   private int resultCount;
   private boolean hasMoreResults;
-  private IAdtObjectReference tempPackageReference;
-  private static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
-  private List<IAdtObjectReferenceElementInfo> searchResult;
-  private List<IAdtObjectReferenceElementInfo> packageResult;
+
+  private final Map<String, IAdtObjectReferenceNode> urisToNodes = new HashMap<>();
+  private final List<String> urisInCorrectTreeOrder = new ArrayList<>();
+  private final Map<String, PackageNode> packageNodeCache = new HashMap<>();
+  private final String destinationId;
+  private String groupingLevel;
+  private boolean listLayoutActive;
+
+  private ISearchResultOutputConfig outputConfig;
 
   public ObjectSearchResult(final ObjectSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
+    destinationId = searchQuery.getProjectProvider().getDestinationId();
     searchResultListener = new HashSet<>();
+    rootNode = new FolderTreeNode(null, null, null, null);
   }
 
   @Override
   public void addListener(final ISearchResultListener l) {
     searchResultListener.add(l);
+  }
+
+  public void addSearchResult(final IObjectSearchResult searchResult) {
+    final ObjectSearchResultEvent resultEvent = new ObjectSearchResultEvent(this);
+    if (searchResult != null && searchResult.getResultObjects().size() > 0) {
+      this.searchResult = searchResult;
+      resultCount = this.searchResult.getResultCount();
+    } else {
+      this.searchResult = null;
+      listResult = null;
+      packages = null;
+      treeResult = null;
+      resultCount = 0;
+    }
+    informListener(resultEvent);
+  }
+
+  public void cleanup() {
+    urisInCorrectTreeOrder.clear();
+    urisToNodes.clear();
+    packageNodeCache.clear();
+    searchResult = null;
+    listResult = null;
+    packages = null;
+    resultCount = 0;
+    hasMoreResults = false;
+    treeResult = null;
+    final ObjectSearchResultEvent resultEvent = new ObjectSearchResultEvent(this);
+    resultEvent.setCleanup(true);
+    informListener(resultEvent);
   }
 
   @Override
@@ -63,6 +113,7 @@ public class ObjectSearchResult implements ISearchResult {
   @Override
   public String getLabel() {
     String resultsLabel = null;
+
     if (resultCount == 1) {
       resultsLabel = Messages.ObjectSearch_OneResult_xmsg;
     } else if (resultCount > 1) {
@@ -77,9 +128,19 @@ public class ObjectSearchResult implements ISearchResult {
     } else {
       resultsLabel = Messages.ObjectSearch_NoResults_xmsg;
     }
-    final String label = NLS.bind(Messages.ObjectSearch_SearchResultLabel_xmsg, searchQuery
-        .getSearchRequest(), resultsLabel);
+    // final String label = NLS.bind(Messages.ObjectSearch_SearchResultLabel_xmsg, searchQuery
+    // .getSearchRequest(), resultsLabel);
+    final String label = NLS.bind("{0} - {1}", searchQuery.getSearchRequest(), resultsLabel);
     return label;
+  }
+
+  /**
+   * Returns the package ADT objects in the search result
+   *
+   * @return
+   */
+  public IAdtObjectReferenceNode[] getPackages() {
+    return packages;
   }
 
   @Override
@@ -87,9 +148,62 @@ public class ObjectSearchResult implements ISearchResult {
     return searchQuery;
   }
 
+  public IObjectSearchResult getResult() {
+    return searchResult;
+  }
+
+  /**
+   * Returns array of tree nodes for display in Table Viewer
+   */
+  public IAdtObjectReferenceNode[] getResultForList() {
+    if (resultCount == 0) {
+      return EMPTY_RESULT;
+    }
+    if (urisToNodes.isEmpty()) {
+      createTreeNodes();
+    }
+
+    if (listResult == null || listResult == EMPTY_RESULT) {
+      createListResult();
+    }
+    return listResult;
+  }
+
+  /**
+   * Returns an Array of Tree Nodes, where the root nodes are either CDS Views,
+   * Database Tables or Views
+   *
+   * @param groupByPackage if <code>true</code> the search result should be
+   *                       grouped by their packages
+   * @return an Array of Tree Nodes, where the root nodes are either CDS Views,
+   *         Database Tables or Views
+   */
+  public IAdtObjectReferenceNode[] getResultForTree(final boolean groupByPackage) {
+    if (resultCount == 0) {
+      return EMPTY_RESULT;
+    }
+    if (urisToNodes.isEmpty()) {
+      createTreeNodes();
+    }
+
+    if (treeResult == null || treeResult == EMPTY_RESULT || groupByPackage != isGroupedResult) {
+      isGroupedResult = groupByPackage;
+      packages = null;
+      rootNode.getChildren().clear();
+      connectTreeNodes();
+
+      treeResult = rootNode.getChildren().toArray(new IAdtObjectReferenceNode[0]);
+    }
+    return treeResult;
+  }
+
   @Override
   public String getTooltip() {
     return getLabel();
+  }
+
+  public boolean isListLayoutActive() {
+    return listLayoutActive;
   }
 
   @Override
@@ -107,60 +221,16 @@ public class ObjectSearchResult implements ISearchResult {
     this.hasMoreResults = hasMoreResults;
   }
 
-  public void addSearchResult(final List<IAdtObjectReferenceElementInfo> searchResult,
-      final List<IAdtObjectReferenceElementInfo> packageResult) {
-    final ObjectSearchResultEvent resultEvent = new ObjectSearchResultEvent(this);
-    if (searchResult != null && searchResult.size() > 0) {
-      this.searchResult = searchResult;
-      this.packageResult = packageResult;
-      resultCount = this.searchResult.size();
-    } else {
-      this.searchResult = null;
-      this.packageResult = null;
-      packages = null;
-      treeResult = null;
-      resultCount = 0;
-    }
-    informListener(resultEvent);
+  public void setListLayoutActive(final boolean listLayoutActive) {
+    this.listLayoutActive = listLayoutActive;
   }
 
-  /**
-   * Returns an Array of Tree Nodes, where the root nodes are either CDS Views,
-   * Database Tables or Views
-   *
-   * @param groupByPackage if <code>true</code> the search result should be
-   *                       grouped by their packages
-   * @return an Array of Tree Nodes, where the root nodes are either CDS Views,
-   *         Database Tables or Views
-   */
-  public IAdtObjectReferenceNode[] getResultForTree(final boolean groupByPackage) {
-    if (resultCount == 0) {
-      return EMPTY_RESULT;
-    }
-    if (treeResult == null || treeResult == EMPTY_RESULT || groupByPackage != isGroupedResult) {
-      isGroupedResult = groupByPackage;
-      if (groupByPackage) {
-        createGroupedResult();
-      } else {
-        createResult();
-      }
-    }
-    return treeResult;
+  public void setOutputConfig(final ISearchResultOutputConfig outputConfig) {
+    this.outputConfig = outputConfig;
   }
 
-  public List<IAdtObjectReferenceElementInfo> getResult() {
-    return searchResult != null ? searchResult : new ArrayList<>();
-  }
-
-  public void cleanup() {
-    searchResult = null;
-    packages = null;
-    resultCount = 0;
-    hasMoreResults = false;
-    treeResult = null;
-    final ObjectSearchResultEvent resultEvent = new ObjectSearchResultEvent(this);
-    resultEvent.setCleanup(true);
-    informListener(resultEvent);
+  public boolean supportsListLayout() {
+    return outputConfig.isListOutputSupported();
   }
 
   protected void informListener(final ObjectSearchResultEvent resultEvent) {
@@ -169,136 +239,139 @@ public class ObjectSearchResult implements ISearchResult {
     }
   }
 
-  private void createResult() {
-    final List<IAdtObjectReferenceNode> nodes = new ArrayList<>(resultCount);
-
-    for (final IAdtObjectReferenceElementInfo adtObjRefInfo : searchResult) {
-      if (IAdtObjectTypeConstants.PACKAGE.equals(adtObjRefInfo.getAdtType())) {
-        continue;
-      }
-      if (adtObjRefInfo.hasLazyLoadingSupport()) {
-        final LazyLoadingAdtObjectReferenceNode lazyLoadingNode = new LaunchableLazyLoadingAdtObjectReferenceNode(
-            adtObjRefInfo.getName(), adtObjRefInfo.getDisplayName(), adtObjRefInfo.getDescription(),
-            adtObjRefInfo.getAdtObjectReference(), null);
-        lazyLoadingNode.setElementInfoProvider(adtObjRefInfo.getElementInfoProvider());
-        lazyLoadingNode.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-        nodes.add(lazyLoadingNode);
-      } else {
-        final AdtObjectReferenceNode nonLazyLoadingNode = new LaunchableAdtObjectReferenceNode(
-            adtObjRefInfo.getName(), adtObjRefInfo.getDisplayName(), adtObjRefInfo.getDescription(),
-            adtObjRefInfo.getAdtObjectReference(), null);
-        nonLazyLoadingNode.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-        nodes.add(nonLazyLoadingNode);
-      }
-    }
-    treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
-  }
-
-  private void createGroupedResult() {
-    final List<IAdtObjectReferenceNode> nodes = new LinkedList<>();
-    final List<IAdtObjectReferenceNode> packageNodes = new LinkedList<>();
-    final Map<String, IAdtObjectReferenceNode> nodeMap = new TreeMap<>();
-
-    for (final IAdtObjectReferenceElementInfo adtObjRefInfo : searchResult) {
-      IAdtObjectReferenceNode node = null;
-      if (adtObjRefInfo.hasLazyLoadingSupport()) {
-        final LazyLoadingAdtObjectReferenceNode lazyLoadingNode = new LaunchableLazyLoadingAdtObjectReferenceNode(
-            adtObjRefInfo.getName(), adtObjRefInfo.getDisplayName(), adtObjRefInfo.getDescription(),
-            adtObjRefInfo.getAdtObjectReference(), null);
-        lazyLoadingNode.setElementInfoProvider(adtObjRefInfo.getElementInfoProvider());
-        lazyLoadingNode.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-        node = lazyLoadingNode;
-      } else {
-        final AdtObjectReferenceNode nonLazyLoadingNode = new LaunchableAdtObjectReferenceNode(
-            adtObjRefInfo.getName(), adtObjRefInfo.getDisplayName(), adtObjRefInfo.getDescription(),
-            adtObjRefInfo.getAdtObjectReference(), null);
-        nonLazyLoadingNode.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-        node = nonLazyLoadingNode;
-      }
-
-      node.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-
-      nodeMap.put(String.format(KEY_PATTERN, adtObjRefInfo.getName(), adtObjRefInfo.getAdtType()),
-          node);
-    }
-    for (final IAdtObjectReferenceElementInfo adtObjRefInfo : packageResult) {
-      IAdtObjectReferenceNode node;
-      if (TEMP_PACKAGE_NAME.equals(adtObjRefInfo.getName())) {
-        tempPackageReference = adtObjRefInfo.getAdtObjectReference();
-        continue;
-      }
-      node = new LaunchablePackageNode(adtObjRefInfo.getName(), adtObjRefInfo.getDescription(),
-          adtObjRefInfo.getAdtObjectReference());
-      node.setNodeValue(adtObjRefInfo.getAdditionalInfo());
-      packageNodes.add(node);
-      nodeMap.put(String.format(KEY_PATTERN, adtObjRefInfo.getName(), adtObjRefInfo.getAdtType()),
-          node);
-    }
-
-    final Map<String, IAdtObjectReferenceNode> tmpPackageNodeMap = new HashMap<>();
-    final List<IAdtObjectReferenceNode> tmpPackageNodes = new LinkedList<>();
-
-    // build the tree nodes
-    for (final Entry<String, IAdtObjectReferenceNode> entry : nodeMap.entrySet()) {
-      final IAdtObjectReferenceNode node = entry.getValue();
-      final String packageName = node.getObjectReference().getPackageName();
-      final String[] keyComponents = entry.getKey().split(":"); //$NON-NLS-1$
-      final boolean isPackage = IAdtObjectTypeConstants.PACKAGE.equals(keyComponents[1]);
-      final boolean hasParent = packageName != null && !packageName.isEmpty();
-
-      if (isPackage && !hasParent) {
-        nodes.add(node);
-      }
-      if (hasParent) {
-        // find parent in node map --> parent has to be a package
-        if (packageName.equals(TEMP_PACKAGE_NAME)) {
-          handleTmpPackageObject(node, tmpPackageNodeMap, tmpPackageNodes);
-        } else {
-          // find parent in node map --> parent has to be a package
-          final String parentKey = String.format(KEY_PATTERN, packageName,
-              IAdtObjectTypeConstants.PACKAGE);
-          final IAdtObjectReferenceNode parentNode = nodeMap.get(parentKey);
-          if (parentNode != null) {
-            parentNode.addChild(node);
-          }
-        }
-      }
-    }
-    packageNodes.addAll(tmpPackageNodes);
-    packages = packageNodes.toArray(new IAdtObjectReferenceNode[packageNodes.size()]);
-
-    tmpPackageNodes.addAll(nodes);
-    treeResult = tmpPackageNodes.toArray(new IAdtObjectReferenceNode[tmpPackageNodes.size()]);
-  }
-
-  private void handleTmpPackageObject(final IAdtObjectReferenceNode node,
-      final Map<String, IAdtObjectReferenceNode> tmpPackageMap,
-      final List<IAdtObjectReferenceNode> tmpPackageNodes) {
-
-    final IExtendedAdtObjectInfo extendedInfo = node.getAdapter(IExtendedAdtObjectInfo.class);
-    final String owner = extendedInfo != null ? extendedInfo.getOwner() : "";
-
-    final String personalizedTmpPackageName = TEMP_PACKAGE_NAME + " - " + owner; //$NON-NLS-1$
-
-    final String parentKey = String.format(KEY_PATTERN, personalizedTmpPackageName,
-        IAdtObjectTypeConstants.PACKAGE);
-
-    IAdtObjectReferenceNode tempPackageNode = tmpPackageMap.get(parentKey);
-    if (tempPackageNode == null) {
-      tempPackageNode = new LaunchablePackageNode(personalizedTmpPackageName, null,
-          tempPackageReference);
-      tmpPackageMap.put(parentKey, tempPackageNode);
-      tmpPackageNodes.add(tempPackageNode);
-    }
-    tempPackageNode.addChild(node);
-  }
-
-  /**
-   * Returns the package ADT objects in the search result
-   *
-   * @return
+  /*
+   * Create package node from main object and add it to the node map
    */
-  public IAdtObjectReferenceNode[] getPackages() {
-    return packages;
+  private ITreeNode addPackageNode(final IAdtObjRef adtObjRef) {
+
+    // Test if the package node already exists in the tree
+    String uri = adtObjRef.getUri();
+    PackageNode packageNode = packageNodeCache.get(uri);
+    if (packageNode == null) {
+      packageNode = new LaunchablePackageNode(adtObjRef.getName(), adtObjRef.getDescription(),
+          createObjectRef(adtObjRef));
+      packageNodeCache.put(uri, packageNode);
+      urisToNodes.put(uri, packageNode);
+    }
+    return packageNode;
+  }
+
+  /*
+   * add child nodes to appropriate parent nodes
+   */
+  private void connectTreeNodes() {
+    var packageList = new ArrayList<IAdtObjectReferenceNode>();
+
+    // clear children of all nodes first
+    for (var node : urisToNodes.values()) {
+      node.getChildren().clear();
+    }
+
+    for (String nodeUri : urisInCorrectTreeOrder) {
+      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
+      if (adtObjRefNode instanceof PackageNode) {
+        if (!isGroupedResult) {
+          continue;
+        }
+        packageList.add(adtObjRefNode);
+      }
+
+      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+
+      if (objectRefOfNode.getParentUri() != null) {
+        IAdtObjectReferenceNode parentNode = urisToNodes.get(objectRefOfNode.getParentUri());
+
+        if (parentNode == null) {
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
+              + objectRefOfNode.getParentUri() + "' can not be resolved");
+        }
+
+        if (parentNode instanceof PackageNode) {
+          if (isGroupedResult) {
+            parentNode.addChild(adtObjRefNode);
+          } else {
+            rootNode.addChild(adtObjRefNode);
+          }
+        } else {
+          parentNode.addChild(adtObjRefNode);
+        }
+      } else {
+        rootNode.addChild(adtObjRefNode);
+      }
+    }
+
+    packages = packageList.toArray(new IAdtObjectReferenceNode[0]);
+  }
+
+  private IAdtObjectReferenceNode createAdtObjectRefNode(final IAdtObjRef adtObjRef) {
+    IAdtObjectReferenceNode objectNode = new LaunchableAdtObjectReferenceNode(adtObjRef.getName(),
+        adtObjRef.getDisplayName(), adtObjRef.getDescription(), createObjectRef(adtObjRef));
+    final var extendedInfo = new ExtendedAdtObjectInfo();
+    for (var prop : adtObjRef.getProperties()) {
+      switch (prop.getKey()) {
+      case "API_STATE":
+        extendedInfo.setApiState(prop.getValue());
+        break;
+
+      case "SOURCE_TYPE":
+        if (!StringUtil.isEmpty(prop.getValue())) {
+          extendedInfo.setSourceType(CdsSourceType.getFromId(prop.getValue()));
+        }
+        break;
+      default:
+        objectNode.getProperties().put(prop.getKey(), prop.getValue());
+      }
+    }
+    objectNode.setNodeValue(extendedInfo);
+    return objectNode;
+  }
+
+  private void createListResult() {
+    var results = new ArrayList<IAdtObjectReferenceNode>();
+
+    var validListTypes = outputConfig.getTypesForList();
+
+    for (String nodeUri : urisInCorrectTreeOrder) {
+      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
+      if ((adtObjRefNode instanceof PackageNode) || !validListTypes.contains(adtObjRefNode
+          .getAdtObjectType())) {
+        continue;
+      }
+
+      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+
+      if (objectRefOfNode.getParentUri() != null) {
+        IAdtObjectReferenceNode parentNode = urisToNodes.get(objectRefOfNode.getParentUri());
+
+        if (parentNode == null) {
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
+              + objectRefOfNode.getParentUri() + "' can not be resolved");
+        }
+
+        results.add(adtObjRefNode);
+      }
+    }
+
+    listResult = results.toArray(new IAdtObjectReferenceNode[0]);
+  }
+
+  private IAdtObjectReference createObjectRef(final IAdtObjRef adtObjRef) {
+    IAdtObjectReference adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
+        adtObjRef.getName(), adtObjRef.getType(), adtObjRef.getUri());
+    adtObjectRef.setParentUri(adtObjRef.getParentUri());
+    return adtObjectRef;
+  }
+
+  private void createTreeNodes() {
+    for (var adtObjRef : searchResult.getResultObjects()) {
+      if (IAdtObjectTypeConstants.PACKAGE.equalsIgnoreCase(adtObjRef.getType())) {
+        addPackageNode(adtObjRef);
+        urisInCorrectTreeOrder.add(adtObjRef.getUri());
+      } else {
+        IAdtObjectReferenceNode objectNode = createAdtObjectRefNode(adtObjRef);
+        urisToNodes.put(adtObjRef.getUri(), objectNode);
+        urisInCorrectTreeOrder.add(adtObjRef.getUri());
+      }
+    }
   }
 }

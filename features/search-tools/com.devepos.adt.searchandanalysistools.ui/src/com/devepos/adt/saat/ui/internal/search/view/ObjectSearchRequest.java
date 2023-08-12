@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
-import com.devepos.adt.saat.ui.internal.search.SearchType;
+import com.devepos.adt.saat.model.objectsearch.IObjectSearchFactory;
+import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
+import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 import com.sap.adt.destinations.model.IDestinationData;
 
 /**
@@ -15,24 +17,17 @@ import com.sap.adt.destinations.model.IDestinationData;
  */
 public class ObjectSearchRequest {
   private final String query;
-  private String searchTerm;
   private String destinationId;
-  private boolean andSearchActive;
-  private SearchType searchType;
-  private boolean readApiState;
-  private boolean readAllEntries;
   private String parametersString;
   private Map<String, Object> parameters;
-  private int maxResults;
   private IAbapProjectProvider projectProvider;
-  private boolean readPackageHierarchy;
+  private ISearchQueryInput queryInput;
+  private ISearchResultOutputConfig outputConfig;
 
   public ObjectSearchRequest() {
     query = null;
-    searchType = SearchType.CDS_VIEW;
     destinationId = null;
-    readApiState = false;
-    readAllEntries = false;
+    queryInput = IObjectSearchFactory.eINSTANCE.createSearchQueryInput();
   }
 
   @Override
@@ -42,22 +37,8 @@ public class ObjectSearchRequest {
     }
     final ObjectSearchRequest otherEntry = (ObjectSearchRequest) object;
     return query.equalsIgnoreCase(otherEntry.getQuery()) && destinationId.equalsIgnoreCase(
-        otherEntry.getDestinationId()) && andSearchActive == otherEntry.isAndSearchActive();
-  }
-
-  @Override
-  public String toString() {
-    final String destinationInfo = getDestinationInfo();
-    if (destinationInfo.isEmpty()) {
-      return String.format("'%s' (%s)", getQuery(), getSearchType());
-    }
-    return String.format("'%s' (%s) [%s]", getQuery(), getSearchType(), destinationInfo);
-  }
-
-  public String getQuery() {
-    String query = searchTerm == null || searchTerm.isEmpty() ? "" : searchTerm + " ";
-    query += parametersString != null && !parametersString.isEmpty() ? parametersString : "";
-    return query;
+        otherEntry.getDestinationId()) && queryInput.isCombineFiltersWithAnd() == otherEntry
+            .isAndSearchActive();
   }
 
   public String getDestinationId() {
@@ -65,91 +46,98 @@ public class ObjectSearchRequest {
         : destinationId != null ? destinationId : "";
   }
 
-  public boolean isAndSearchActive() {
-    return andSearchActive;
+  public int getMaxResults() {
+    return queryInput.getMaxRows();
   }
 
-  public SearchType getSearchType() {
-    return searchType;
-  }
-
-  public boolean shouldReadApiState() {
-    return readApiState;
-  }
-
-  public boolean shouldReadAllEntries() {
-    return readAllEntries;
-  }
-
-  public void setSearchType(final SearchType searchType) {
-    this.searchType = searchType;
-  }
-
-  public void setDestinationId(final String destinationId) {
-    this.destinationId = destinationId;
-  }
-
-  public void setAndSearchActive(final boolean andSearchActive) {
-    this.andSearchActive = andSearchActive;
-  }
-
-  public void setReadApiState(final boolean readApiState) {
-    this.readApiState = readApiState;
-  }
-
-  public void setReadAllEntries(final boolean readAllEntries) {
-    this.readAllEntries = readAllEntries;
-  }
-
-  /**
-   * @return the readPackageHierarchy
-   */
-  public boolean isReadPackageHierarchy() {
-    return readPackageHierarchy;
-  }
-
-  /**
-   * @param readPackageHierarchy the readPackageHierarchy to set
-   */
-  public void setReadPackageHierarchy(final boolean readPackageHierarchy) {
-    this.readPackageHierarchy = readPackageHierarchy;
+  public ISearchResultOutputConfig getOutputConfig() {
+    return outputConfig;
   }
 
   public Map<String, Object> getParameters() {
     return parameters != null ? parameters : new HashMap<>();
   }
 
-  public void setParameters(final Map<String, Object> parameters, final String parametersString) {
-    this.parameters = parameters;
-    this.parametersString = parametersString;
-  }
-
-  public void setMaxResults(final int maxResults) {
-    this.maxResults = maxResults;
-  }
-
-  public int getMaxResults() {
-    return maxResults;
-  }
-
-  public String getSearchTerm() {
-    return searchTerm != null ? searchTerm : "";
-  }
-
-  public void setSearchTerm(final String searchTerm) {
-    this.searchTerm = searchTerm;
-  }
-
-  public void setProjectProvider(final IAbapProjectProvider projectProvider) {
-    this.projectProvider = projectProvider;
+  public String getParametersString() {
+    return parametersString != null ? parametersString : "";
   }
 
   public IAbapProjectProvider getProjectProvider() {
     return projectProvider;
   }
 
-  public String getParametersString() {
-    return parametersString != null ? parametersString : "";
+  public String getQuery() {
+    var queryTextBuffer = new StringBuffer();
+    for (var field : queryInput.getFields()) {
+      if (queryTextBuffer.length() != 0) {
+        queryTextBuffer.append("; ");
+      }
+      queryTextBuffer.append(String.format("%s: %s", field.getLabel().replaceAll("&", ""), field
+          .getRawInput()));
+    }
+    return queryTextBuffer.toString();
+  }
+
+  public ISearchQueryInput getQueryInput() {
+    return queryInput;
+  }
+
+  public String getSearchType() {
+    return queryInput.getType();
+  }
+
+  public boolean isAndSearchActive() {
+    return queryInput.isCombineFiltersWithAnd();
+  }
+
+  public void setAndSearchActive(final boolean andSearchActive) {
+    queryInput.setCombineFiltersWithAnd(andSearchActive);
+  }
+
+  public void setDestinationId(final String destinationId) {
+    this.destinationId = destinationId;
+  }
+
+  public void setMaxResults(final int maxResults) {
+    queryInput.setMaxRows(maxResults);
+  }
+
+  public void setOutputConfig(ISearchResultOutputConfig outputConfig) {
+    this.outputConfig = outputConfig;
+  }
+
+  public void setProjectProvider(final IAbapProjectProvider projectProvider) {
+    this.projectProvider = projectProvider;
+  }
+
+  public void setReadAllEntries(final boolean readAllEntries) {
+    queryInput.setRowLimitDisabled(readAllEntries);
+  }
+
+  public void setReadApiState(final boolean readApiState) {
+    queryInput.setWithApiState(readApiState);
+  }
+
+  public void setSearchType(String searchType) {
+    queryInput.setType(searchType);
+  }
+
+  public boolean shouldReadAllEntries() {
+    return queryInput.isRowLimitDisabled();
+  }
+
+  public boolean shouldReadApiState() {
+    return queryInput.isWithApiState();
+  }
+
+  @Override
+  public String toString() {
+    final String destinationInfo = getDestinationInfo();
+    if (destinationInfo.isEmpty()) {
+      return String.format("%s Search: '%s'", queryInput.getTypeLabel(), getQuery());
+    }
+    return String.format("[%s] %s Search: '%s'", destinationInfo, queryInput.getTypeLabel(),
+        getQuery());
   }
 
   private String getDestinationInfo() {
@@ -157,7 +145,6 @@ public class ObjectSearchRequest {
       return "";
     }
     final IDestinationData destData = projectProvider.getDestinationData();
-    return String.format("%s-%s", destData.getSystemConfiguration().getSystemId(), destData
-        .getClient());
+    return String.format("%s", destData.getSystemConfiguration().getSystemId());
   }
 }
