@@ -1,17 +1,17 @@
 package com.devepos.adt.saat.ui.internal.search.view;
 
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
+
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.DialogPage;
-import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -27,18 +27,13 @@ import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.ISearchResultViewPart;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Scale;
-import org.eclipse.swt.widgets.Text;
 
-import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
 import com.devepos.adt.base.ui.project.ProjectInput;
@@ -47,25 +42,24 @@ import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.util.SelectionUtil;
 import com.devepos.adt.base.ui.util.StatusUtil;
-import com.devepos.adt.base.ui.util.TextControlUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
+import com.devepos.adt.saat.search.IObjectSearchService;
+import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.help.HelpContexts;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
-import com.devepos.adt.saat.ui.internal.search.ObjectSearchUriDiscovery;
-import com.devepos.adt.saat.ui.internal.search.SearchType;
-import com.devepos.adt.saat.ui.internal.search.contentassist.SearchPatternProvider;
-import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
+import com.sap.adt.communication.content.ContentHandlerException;
 
 /**
  * Describes the Page in the Search Dialog for the extended ABAP Object Search
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class ObjectSearchPage extends DialogPage implements ISearchPage,
-    IChangeableSearchPage<ObjectSearchQuery> {
+public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearchPageStatusUpdater,
+    IPageLayoutUpdater, IChangeableSearchPage<ObjectSearchQuery> {
   public static final String LAST_PROJECT_PREF = "com.devepos.adt.saat.objectsearch.lastSelectedProject"; //$NON-NLS-1$
   public static final String PAGE_ID = "com.devepos.adt.saat.ObjectSearchPage"; //$NON-NLS-1$
 
@@ -77,12 +71,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
   private static final int SMALL_SCALE_UPPER_BOUND = MULTIPLIER * SMALL_SCALE_LIMIT;
   private static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND + (MAX_SCALE
       - SMALL_SCALE_LIMIT) * BIG_MULTIPLIER;
-  private static final int STATUS_PROJECT = 100;
-  private static final int STATUS_PARAMETERS = 200;
-  private static final int STATUS_SEARCH_TYPE = 300;
 
-  private Map<ValidationSource, IStatus> allValidationStatuses;
-  private SearchPatternProvider searchPatternProvider;
+  private Map<String, IStatus> allValidationStatuses;
   private ISearchPageContainer pageContainer;
 
   private final IPreferenceStore prefStore;
@@ -94,17 +84,17 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
   private int maxResults;
 
   private ComboViewer searchTypeViewer;
-  private Text searchInput;
-  private Text parametersInput;
   private ProjectInput projectInput;
   private Scale maxResultsScale;
   private Button andOptionCheck;
-
-  private ObjectSearchUriDiscovery uriDiscovery;
+  private ObjectSearchFields searchFields;
 
   private final IAbapProjectProvider projectProvider;
   private final ObjectSearchRequest searchRequest;
   private ObjectSearchQuery previousQuery;
+  private IObjectSearchService searchService;
+  private Composite searchFieldComposite;
+  private Composite customOptionContainer;
 
   public ObjectSearchPage() {
     prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
@@ -113,47 +103,53 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     searchRequest = new ObjectSearchRequest();
     searchRequest.setProjectProvider(projectProvider);
     searchRequest.setReadApiState(true);
-    searchRequest.setReadPackageHierarchy(true);
+    searchService = ObjectSearchServiceFactory.getSearchService();
 
     allValidationStatuses = new HashMap<>();
-    for (ValidationSource s : ValidationSource.values()) {
-      allValidationStatuses.put(s, Status.OK_STATUS);
-    }
+    allValidationStatuses.put(ObjectSearchDialogValidationSource.PROJECT.name(), Status.OK_STATUS);
   }
 
-  private enum ValidationSource {
-    SEARCH_TYPE,
-    FILTERS,
-    PROJECT;
+  @Override
+  public void addStatusSource(String source) {
+    allValidationStatuses.put(source, Status.OK_STATUS);
   }
 
   @Override
   public void createControl(final Composite parent) {
     initializeDialogUnits(parent);
     mainComposite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.swtDefaults()
-        .numColumns(3)
-        .spacing(10, 5)
-        .equalWidth(false)
-        .applyTo(mainComposite);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
+    GridLayoutFactory.swtDefaults().spacing(10, 5).equalWidth(false).applyTo(mainComposite);
     setControl(mainComposite);
 
     HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_SEARCH);
 
     createSearchTypeInput(mainComposite);
-    createObjectNameInput(mainComposite);
-    createParametersInput(mainComposite);
-    createAndOptionCheckbox(mainComposite);
-    createMaxResultsScale(mainComposite);
+
+    var searchFieldsGroup = new Group(mainComposite, SWT.NONE);
+    searchFieldsGroup.setText(Messages.ObjectSearchPage_queryInputGroup_xtit);
+    searchFieldComposite = searchFieldsGroup;
+    GridLayoutFactory.swtDefaults().numColumns(2).applyTo(searchFieldComposite);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(searchFieldComposite);
+
+    var customOptions = new Group(mainComposite, SWT.NONE);
+    customOptions.setText(Messages.ObjectSearchPage_queryOptionsGroup_xtit);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(customOptions);
+    GridLayoutFactory.swtDefaults().numColumns(3).equalWidth(false).applyTo(customOptions);
+
+    customOptionContainer = new Composite(customOptions, SWT.NONE);
+    GridDataFactory.fillDefaults().span(3, 1).grab(true, false).applyTo(customOptionContainer);
+    GridLayoutFactory.swtDefaults().margins(0, 0).applyTo(customOptionContainer);
+
+    searchFields = new ObjectSearchFields(searchFieldComposite, customOptionContainer,
+        projectProvider, this, this);
+
+    createAndOptionCheckbox(customOptions);
+    createMaxResultsScale(customOptions);
+
     createSeparator(mainComposite);
     createProjectInput(mainComposite);
     createStatusArea(parent);
-
-    searchPatternProvider = new SearchPatternProvider(projectProvider, (SearchType) searchTypeViewer
-        .getStructuredSelection()
-        .getFirstElement());
-    searchPatternProvider.enableSearchTermInput(false);
-    searchPatternProvider.addContentAssist(parametersInput);
 
     setInitialData();
     updateOKStatus();
@@ -164,11 +160,6 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
 
   @Override
   public void dispose() {
-    if (searchPatternProvider != null) {
-      searchPatternProvider.dispose();
-      searchPatternProvider = null;
-    }
-
     super.dispose();
   }
 
@@ -177,6 +168,18 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     ISearchResultViewPart activeSearchView = null;
     // save current project in preferences
     prefStore.putValue(LAST_PROJECT_PREF, projectProvider.getProjectName());
+    var queryInput = searchRequest.getQueryInput();
+    queryInput.getFields().clear();
+    queryInput.getFields().addAll(searchFields.toSearchQueryFields());
+    queryInput.getCustomOptions().putAll(searchFields.getCustomOptions());
+
+    final ISearchTypeConfig selectedSearchType = (ISearchTypeConfig) searchTypeViewer
+        .getStructuredSelection()
+        .getFirstElement();
+    queryInput.setType(selectedSearchType.getName());
+    queryInput.setTypeLabel(selectedSearchType.getLabel());
+    searchRequest.setOutputConfig(selectedSearchType.getOutputConfig());
+
     ObjectSearchQuery query = null;
     if (previousQuery != null) {
       query = previousQuery;
@@ -192,6 +195,11 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
   }
 
   @Override
+  public void removeStatusSource(String source) {
+    allValidationStatuses.remove(source);
+  }
+
+  @Override
   public void setContainer(final ISearchPageContainer container) {
     pageContainer = container;
   }
@@ -200,8 +208,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
    * Sets focus to first input field
    */
   public void setFocusToFirstInput() {
-    if (searchInput != null && !searchInput.isDisposed()) {
-      searchInput.setFocus();
+    if (searchFields != null) {
+      searchFields.setFocus();
     }
   }
 
@@ -216,26 +224,19 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     final boolean doSetCursorToEnd = prefStore.getBoolean(
         IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT);
     final IAbapProjectProvider projectProvider = request.getProjectProvider();
-    final String searchTerm = request.getSearchTerm();
-    searchInput.setText(searchTerm);
     if (projectProvider != null) {
       projectInput.setProjectName(projectProvider.getProjectName());
     }
-    searchTypeViewer.setSelection(new StructuredSelection(request.getSearchType()));
-    final String parametersString = request.getParametersString();
-    parametersInput.setText(parametersString);
+    updateSearchTypeViewer(request.getSearchType());
     updateMaxResultsScaleFromNumber(request.getMaxResults());
     andOptionCheck.setSelection(request.isAndSearchActive());
     searchRequest.setAndSearchActive(request.isAndSearchActive());
     updateMaxResults();
 
-    if (doSetCursorToEnd) {
-      searchInput.setSelection(searchTerm.length());
-      parametersInput.setSelection(parametersString.length());
-    } else {
-      searchInput.selectAll();
-      parametersInput.selectAll();
-    }
+    searchFields.fillInputFromQueryFields(request.getQueryInput().getFields());
+    searchFields.fillCustomOptionFromQuery(request.getQueryInput().getCustomOptions());
+    searchFields.setSelection(doSetCursorToEnd);
+    searchFields.setFocus();
 
     // use previous query if overwrite preference is true
     if (prefStore.getBoolean(IPreferences.OVERWRITE_OPENED_SEARCH_QUERY)) {
@@ -246,20 +247,58 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
   /**
    * Sets the search type drop down to the given search type
    *
-   * @param searchType the search type to be selected in the dialog
+   * @param typeName the search type to be selected in the dialog
    */
-  public void setSearchType(final SearchType searchType) {
+  public void setSearchType(final String typeName) {
     if (searchTypeViewer == null || searchTypeViewer.getControl().isDisposed()) {
       return;
     }
 
-    searchTypeViewer.setSelection(new StructuredSelection(searchType));
+    updateSearchTypeViewer(typeName);
   }
 
   @Override
   public void setVisible(final boolean visible) {
     super.setVisible(visible);
     updateOKStatus();
+  }
+
+  @Override
+  public void updateOKStatus() {
+    Display.getDefault().asyncExec(() -> {
+      if (getControl().isDisposed()) {
+        return;
+      }
+      boolean isError = allValidationStatuses.values()
+          .stream()
+          .anyMatch(s -> s.getSeverity() == IStatus.ERROR);
+      pageContainer.setPerformActionEnabled(isValidSearchData() && !isError);
+    });
+  }
+
+  @Override
+  public void updatePageLayout() {
+    Display.getDefault().asyncExec(() -> {
+      mainComposite.getParent().layout(true, true);
+      getShell().pack(true);
+    });
+  }
+
+  @Override
+  public boolean validateAndSetStatus(final IStatus status, final String source) {
+    final IStatus validatedStatus = updateStatus(status, source);
+    if (validatedStatus.getSeverity() == IStatus.OK) {
+      Optional<IStatus> lastErrorStatus = allValidationStatuses.entrySet()
+          .stream()
+          .filter(entry -> entry.getKey() != source && entry.getValue()
+              .getSeverity() == IStatus.ERROR)
+          .map(Entry::getValue)
+          .findFirst();
+      setStatus(lastErrorStatus.orElse(Status.OK_STATUS));
+    } else {
+      setStatus(validatedStatus);
+    }
+    return validatedStatus == null || validatedStatus.isOK();
   }
 
   private void calculateMaxResultsByScale(final int selectedScale) {
@@ -280,12 +319,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
         .span(3, 1)
         .applyTo(andOptionCheck);
 
-    andOptionCheck.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(final SelectionEvent e) {
-        searchRequest.setAndSearchActive(andOptionCheck.getSelection());
-      }
-    });
+    andOptionCheck.addSelectionListener(widgetSelectedAdapter(l -> searchRequest.setAndSearchActive(
+        andOptionCheck.getSelection())));
   }
 
   private void createMaxResultsScale(final Composite parent) {
@@ -297,13 +332,11 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     maxResultsScale.setIncrement(1);
     maxResultsScale.setMinimum(MIN_SCALE);
     maxResultsScale.setMaximum(MAX_SCALE);
-    maxResultsScale.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(final SelectionEvent e) {
-        calculateMaxResultsByScale(maxResultsScale.getSelection());
-        updateMaxResults();
-      }
-    });
+    maxResultsScale.addSelectionListener(widgetSelectedAdapter(l -> {
+      calculateMaxResultsByScale(maxResultsScale.getSelection());
+      updateMaxResults();
+
+    }));
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.CENTER)
         .grab(true, false)
@@ -316,135 +349,61 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
         .applyTo(this.maxResultsLabel);
   }
 
-  private void createObjectNameInput(final Composite parent) {
-    final Label searchInputLabel = new Label(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().applyTo(searchInputLabel);
-    searchInputLabel.setText(Messages.ObjectSearch_ObjectNameInput_xfld);
-
-    searchInput = new Text(parent, SWT.BORDER);
-    GridDataFactory.fillDefaults()
-        .align(SWT.FILL, SWT.CENTER)
-        .span(2, 1)
-        .grab(true, false)
-        .applyTo(searchInput);
-    AdtSWTUtilFactory.getOrCreateSWTUtil().addTextEditMenu(searchInput);
-    searchInput.addModifyListener(e -> {
-      ObjectSearchPage.this.searchRequest.setSearchTerm(ObjectSearchPage.this.searchInput.getText()
-          .trim());
-      updateOKStatus();
-    });
-
-    final ControlDecoration decorator = new ControlDecoration(searchInput, SWT.TOP | SWT.LEFT);
-    final Image decoratorImage = FieldDecorationRegistry.getDefault()
-        .getFieldDecoration("DEC_INFORMATION")
-        .getImage();
-    decorator.setMarginWidth(2);
-    decorator.setImage(decoratorImage);
-    final StringBuilder decoratorText = new StringBuilder();
-    final String newLine = System.lineSeparator();
-
-    decoratorText.append(Messages.ObjectSearch_InfoSearchString_xmsg);
-    decoratorText.append(newLine);
-    decoratorText.append(newLine);
-    decoratorText.append(NLS.bind(Messages.ObjectSearch_InfoSearchString_Asterisk_xmsg, "*")); //$NON-NLS-1$
-    decoratorText.append(newLine);
-    decoratorText.append(NLS.bind(Messages.ObjectSearch_InfoSearchString_Question_xmsg, "?")); //$NON-NLS-1$
-    decoratorText.append(newLine);
-    decoratorText.append(NLS.bind(Messages.ObjectSearch_InfoSearchString_LessThan_xmsg, "<")); //$NON-NLS-1$
-    decoratorText.append(newLine);
-    decoratorText.append(NLS.bind(Messages.ObjectSearch_InfoSearchString_Negation_xmsg, "!")); //$NON-NLS-1$
-    decoratorText.append(newLine);
-    decoratorText.append(newLine);
-    decoratorText.append(Messages.ObjectSearch_InfoSearchString_Notes_xmsg);
-    decorator.setDescriptionText(decoratorText.toString());
-  }
-
-  private void createParametersInput(final Composite parent) {
-    final Label parametersLabel = new Label(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().applyTo(parametersLabel);
-    parametersLabel.setText(Messages.ObjectSearch_SearchFiltersInput_xfld);
-
-    parametersInput = new Text(parent, SWT.BORDER);
-    TextControlUtil.addWordSupport(parametersInput);
-    AdtSWTUtilFactory.getOrCreateSWTUtil().addTextEditMenu(parametersInput);
-
-    GridDataFactory.fillDefaults()
-        .align(SWT.FILL, SWT.CENTER)
-        .span(2, 1)
-        .grab(true, false)
-        .applyTo(parametersInput);
-
-    parametersInput.addModifyListener(event -> {
-      validateParameterPattern();
-    });
-  }
-
   private void createProjectInput(final Composite parent) {
     projectInput = new ProjectInput(projectProvider, true);
 
-    projectInput.setUseDedicatedComposite(false);
+    projectInput.setUseDedicatedComposite(true);
     projectInput.createControl(parent);
 
-    projectInput.addProjectValidator(project -> {
-      uriDiscovery = new ObjectSearchUriDiscovery(DestinationUtil.getDestinationId(project));
-      if (uriDiscovery.getObjectSearchUri() == null) {
-        uriDiscovery = null;
-        return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, STATUS_PROJECT, NLS
-            .bind(Messages.ObjectSearch_SearchNotSupportedInProject_xmsg, project.getName()), null);
-      }
-      return Status.OK_STATUS;
-    });
+    projectInput.addProjectValidator(project -> searchService.testObjectSearchFeatureAvailability(
+        project));
     projectInput.addStatusChangeListener(status -> {
-      if (validateAndSetStatus(status, ValidationSource.PROJECT)) {
-        validateParameterPattern();
-      }
+      validateAndSetStatus(status, ObjectSearchDialogValidationSource.PROJECT.name());
+      updateSearchTypeViewer(null);
       updateOKStatus();
     });
 
   }
 
   private void createSearchTypeInput(final Composite parent) {
-    final Label typeComboLabel = new Label(mainComposite, SWT.NONE);
-    GridDataFactory.fillDefaults().indent(SWT.DEFAULT, 5).applyTo(typeComboLabel);
-    typeComboLabel.setText(Messages.ObjectSearch_SearchTypeInput_xfld);
+    var typeGroup = new Group(parent, SWT.NONE);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(typeGroup);
+    GridLayoutFactory.swtDefaults().applyTo(typeGroup);
+    typeGroup.setText(Messages.ObjectSearch_SearchTypeInput_xfld);
 
-    searchTypeViewer = new ComboViewer(mainComposite, SWT.READ_ONLY);
-    searchTypeViewer.getControl()
-        .setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false, 2, 1));
+    searchTypeViewer = new ComboViewer(typeGroup, SWT.READ_ONLY);
     searchTypeViewer.setContentProvider(ArrayContentProvider.getInstance());
     searchTypeViewer.setLabelProvider(new LabelProvider() {
       @Override
       public String getText(final Object element) {
-        if (element instanceof SearchType) {
-          return ((SearchType) element).toString();
+        if (element instanceof ISearchTypeConfig) {
+          return ((ISearchTypeConfig) element).getLabel();
         }
         return super.getText(element);
       }
     });
-    searchTypeViewer.setInput(SearchType.values());
-    searchTypeViewer.setSelection(new StructuredSelection(SearchType.CDS_VIEW));
+
+    setTypeViewerNoProjectInput();
+
     searchTypeViewer.addSelectionChangedListener(event -> {
-      final SearchType selectedSearchType = (SearchType) event.getStructuredSelection()
-          .getFirstElement();
-      // check if the selected search type is available in the selected project
-      searchPatternProvider.setSearchType(selectedSearchType);
-      searchRequest.setSearchType(selectedSearchType);
-      if (validateAndSetStatus(validateSearchType(selectedSearchType),
-          ValidationSource.SEARCH_TYPE)) {
-        validateParameterPattern();
+      var projectStatus = allValidationStatuses.get(ObjectSearchDialogValidationSource.PROJECT
+          .name());
+
+      if (projectStatus.isOK() && !(searchTypeViewer.getInput() instanceof String)) {
+        final ISearchTypeConfig selectedSearchType = (ISearchTypeConfig) event
+            .getStructuredSelection()
+            .getFirstElement();
+        searchRequest.setSearchType(selectedSearchType.getName());
+        searchFields.updateControls(selectedSearchType);
+
       }
-      updateOKStatus();
     });
   }
 
   private void createSeparator(final Composite parent) {
     final Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-    separator.setVisible(false);
-    GridDataFactory.fillDefaults()
-        .hint(SWT.DEFAULT, 5)
-        .span(3, 1)
-        .grab(true, false)
-        .applyTo(separator);
+    separator.setVisible(true);
+    GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 5).grab(true, false).applyTo(separator);
   }
 
   private void createStatusArea(final Composite parent) {
@@ -461,8 +420,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
   }
 
   private boolean isValidSearchData() {
-    if (searchRequest.getQuery() == null || searchRequest.getQuery().isEmpty() || !projectProvider
-        .hasProject()) {
+    if (searchFields == null || !searchFields.hasInput() || !projectProvider.hasProject()) {
       return false;
     }
 
@@ -486,14 +444,6 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     // set the project
     setInitialProject();
 
-    // set initial search type
-    final String defaultSearchTypeId = prefStore.getString(IPreferences.DEFAULT_SEARCH_TYPE);
-
-    try {
-      final SearchType defaultSearchType = SearchType.valueOf(defaultSearchTypeId);
-      searchTypeViewer.setSelection(new StructuredSelection(defaultSearchType));
-    } catch (final IllegalArgumentException e) {
-    }
     // set initial max result values
     updateMaxResultsScaleFromNumber(prefStore.getInt(IPreferences.MAX_SEARCH_RESULTS));
     updateMaxResults();
@@ -502,9 +452,11 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
       final ISelection selection = SelectionUtil.getSelection();
       if (selection instanceof ITextSelection) {
         final String selectedText = ((ITextSelection) selection).getText();
-        searchInput.setText(selectedText);
+        searchFields.setTextInFirstInput(selectedText);
       }
     }
+
+    searchFields.initialize();
   }
 
   private void setInitialProject() {
@@ -534,6 +486,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
         searchStatusImageLabel.setImage(null);
         searchStatusTextLabel.setText(""); //$NON-NLS-1$
       } else {
+        // searchFieldComposite.layout(true);
         searchStatusImageLabel.setImage(StatusUtil.getImageForStatus(status.getSeverity()));
         searchStatusTextLabel.setText(status.getMessage());
         searchStatusTextLabel.setToolTipText(status.getMessage());
@@ -542,6 +495,12 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
         getShell().pack(true);
       }
     });
+  }
+
+  private void setTypeViewerNoProjectInput() {
+    searchTypeViewer.setInput(new String[] { Messages.ObjectSearchPage_noProjectInput_xmsg });
+    searchTypeViewer.setSelection(new StructuredSelection(((String[]) searchTypeViewer
+        .getInput())[0]));
   }
 
   private void updateMaxResults() {
@@ -573,71 +532,67 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage,
     }
   }
 
-  private void updateOKStatus() {
-    Display.getDefault().asyncExec(() -> {
-      if (getControl().isDisposed()) {
-        return;
-      }
-      boolean isError = allValidationStatuses.values()
-          .stream()
-          .anyMatch(s -> s.getSeverity() == IStatus.ERROR);
-      pageContainer.setPerformActionEnabled(isValidSearchData() && !isError);
-    });
-  }
-
-  private IStatus updateStatus(final IStatus status, final ValidationSource type) {
-    final IStatus validatedStatus = status == null ? Status.OK_STATUS : status;
-    allValidationStatuses.put(type, validatedStatus);
-    return validatedStatus;
-  }
-
-  private boolean validateAndSetStatus(final IStatus status, final ValidationSource type) {
-    final IStatus validatedStatus = updateStatus(status, type);
-    if (validatedStatus.getSeverity() == IStatus.OK) {
-      Optional<IStatus> lastErrorStatus = allValidationStatuses.entrySet()
-          .stream()
-          .filter(entry -> entry.getKey() != type && entry.getValue()
-              .getSeverity() == IStatus.ERROR)
-          .map(Entry::getValue)
-          .findFirst();
-      setStatus(lastErrorStatus.orElse(Status.OK_STATUS));
-    } else {
-      setStatus(validatedStatus);
-    }
-    return validatedStatus == null || validatedStatus.isOK();
-  }
-
-  /**
-   * Validates the entered parameter pattern against the current object type and
+  /*
+   * Updates the input/selection of the search type viewer Combo Box according to the current
    * project
    */
-  private void validateParameterPattern() {
-    if (searchPatternProvider != null && uriDiscovery != null) {
-      final String parameterPattern = parametersInput.getText();
+  private void updateSearchTypeViewer(String selectedTypeName) {
+    if (projectProvider.hasProject()) {
       try {
-        searchPatternProvider.checkSearchParametersComplete(parameterPattern);
-        searchRequest.setParameters(searchPatternProvider.getSearchParameters(parameterPattern),
-            parameterPattern);
-        validateAndSetStatus(new Status(IStatus.OK, SearchAndAnalysisPlugin.PLUGIN_ID,
-            STATUS_PARAMETERS, null, null), ValidationSource.FILTERS);
-      } catch (final CoreException e) {
-        searchRequest.setParameters(null, ""); //$NON-NLS-1$
+        var searchConfig = searchService.getSearchConfig(projectProvider.getDestinationId());
+        var typesOfProject = searchConfig.getSearchTypes();
+
+        if (selectedTypeName == null) {
+          var typeViewerInput = searchTypeViewer.getInput();
+          if (typeViewerInput != null && !(typeViewerInput instanceof String[])) {
+            selectedTypeName = ((ISearchTypeConfig) searchTypeViewer.getStructuredSelection()
+                .getFirstElement()).getName();
+          }
+        }
+
+        searchTypeViewer.setInput(typesOfProject);
+
+        if (selectedTypeName != null) {
+          final var typeNameToFind = selectedTypeName;
+          var typeInInput = typesOfProject.stream()
+              .filter(t -> t.getName().equals(typeNameToFind))
+              .findFirst();
+          if (typeInInput.isPresent()) {
+            searchTypeViewer.setSelection(new StructuredSelection(typeInInput.get()));
+          }
+        } else {
+          // set initial type according to preferences or use first in list
+          final String defaultSearchTypeId = prefStore.getString(IPreferences.DEFAULT_SEARCH_TYPE);
+          if (defaultSearchTypeId != null) {
+            var defaultTypeConfig = typesOfProject.stream()
+                .filter(t -> t.getName().equals(defaultSearchTypeId))
+                .findFirst()
+                .orElse(typesOfProject.get(0));
+            searchTypeViewer.setSelection(new StructuredSelection(defaultTypeConfig));
+          }
+        }
+      } catch (ContentHandlerException exc) {
+        // set generic content error status so user get's an idea on what needs to be done
         validateAndSetStatus(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
-            STATUS_PARAMETERS, e.getMessage(), e), ValidationSource.FILTERS);
+            MessageFormat.format(Messages.ObjectSearchPage_searchTypeConfigSerializationError_xmsg,
+                projectProvider.getProjectName())), ObjectSearchDialogValidationSource.SEARCH_TYPE
+                    .name());
+        // logs actual content issue
+        SearchAndAnalysisPlugin.getDefault()
+            .getLog()
+            .log(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, exc.getMessage(),
+                exc));
       }
-      updateOKStatus();
+    } else {
+      setTypeViewerNoProjectInput();
     }
+
   }
 
-  private IStatus validateSearchType(final SearchType selectedSearchType) {
-    if (uriDiscovery != null && projectProvider != null && projectProvider.hasProject()
-        && uriDiscovery.getObjectSearchTemplate(selectedSearchType) == null) {
-      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, STATUS_SEARCH_TYPE, NLS
-          .bind(Messages.ObjectSearch_SearchTypeNotSupported_xmsg, selectedSearchType,
-              projectProvider.getProjectName()), null);
-    }
-    return new Status(IStatus.OK, SearchAndAnalysisPlugin.PLUGIN_ID, STATUS_SEARCH_TYPE, null,
-        null);
+  private IStatus updateStatus(final IStatus status, final String source) {
+    final IStatus validatedStatus = status == null ? Status.OK_STATUS : status;
+    allValidationStatuses.put(source, validatedStatus);
+    return validatedStatus;
   }
 
 }
