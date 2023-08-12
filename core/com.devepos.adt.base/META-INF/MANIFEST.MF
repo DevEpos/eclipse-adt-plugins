@@ -79,13 +79,23 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.searchandanalysistools.model",
  com.devepos.adt.base.model.adtbase.impl;x-internal:=true,
  com.devepos.adt.base.model.adtbase.util;x-internal:=true,
+ com.devepos.adt.base.model.searchfavorites;
+  x-friends:="com.devepos.adt.abaptags.ui,
+   com.devepos.adt.codesearch.ui,
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.base.ui",
+ com.devepos.adt.base.model.searchfavorites.impl;x-internal:=true,
+ com.devepos.adt.base.model.searchfavorites.util;
+  x-friends:="com.devepos.adt.base.ui",
  com.devepos.adt.base.nameditem;
   x-friends:="com.devepos.adt.base.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.codesearch.backend,
    com.devepos.adt.searchandanalysistools.backend",
- com.devepos.adt.base.plugin.features;x-friends:="com.devepos.adt.codesearch.backend,com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.plugin.features;
+  x-friends:="com.devepos.adt.codesearch.backend,
+   com.devepos.adt.codesearch.ui",
  com.devepos.adt.base.project;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,

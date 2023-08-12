@@ -4,9 +4,6 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
-import com.devepos.adt.saat.ui.internal.search.favorites.IObjectSearchFavorites;
-import com.devepos.adt.saat.ui.internal.search.favorites.ObjectSearchFavoriteStorage;
-import com.devepos.adt.saat.ui.internal.search.favorites.ObjectSearchFavorites;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
@@ -19,13 +16,20 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
   // The shared instance
   private static SearchAndAnalysisPlugin plugin;
 
-  private IObjectSearchFavorites searchFavorites;
-
   /**
    * The constructor
    */
   public SearchAndAnalysisPlugin() {
     super(PLUGIN_ID);
+  }
+
+  /**
+   * Returns the shared instance
+   *
+   * @return the shared instance
+   */
+  public static SearchAndAnalysisPlugin getDefault() {
+    return plugin;
   }
 
   @Override
@@ -38,29 +42,6 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
-  }
-
-  /**
-   * Returns reference to the favorites of the object search
-   *
-   * @return
-   */
-  public IObjectSearchFavorites getFavoriteManager() {
-    if (searchFavorites == null) {
-      searchFavorites = new ObjectSearchFavorites();
-      // deserialize existing search favorites
-      ObjectSearchFavoriteStorage.deserialize(searchFavorites);
-    }
-    return searchFavorites;
-  }
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static SearchAndAnalysisPlugin getDefault() {
-    return plugin;
   }
 
   @Override
@@ -94,7 +75,6 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IImages.SAP_GUI_LOGO, "icons/SapGuiLogo.png");
     registerImage(imageRegistry, IImages.INNER_JOIN, "icons/InnerJoin.png");
     registerImage(imageRegistry, IImages.OBJECT_SEARCH, "icons/ABAPSearch.png");
-    registerImage(imageRegistry, IImages.FAVORITES, "icons/Favorites.png");
     registerImage(imageRegistry, IImages.CDS_ANALYZER, "icons/CdsAnalyzerView.png");
     registerImage(imageRegistry, IImages.USED_ENTITES, "icons/UsedEntities.png");
     registerImage(imageRegistry, IImages.USED_IN_FROM, "icons/UsedInFrom.png");

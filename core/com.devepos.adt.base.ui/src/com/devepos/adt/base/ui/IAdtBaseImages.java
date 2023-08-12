@@ -198,4 +198,8 @@ public interface IAdtBaseImages {
    * Image for hierarchical layout in a view
    */
   String TREE_LAYOUT = "IMG_TREE_LAYOUT";
+  /**
+   * Image for favorites
+   */
+  String FAVORITES = "IMG_FAVORITES";
 }
