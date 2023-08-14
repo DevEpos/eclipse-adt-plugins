@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.search.internal.ui.SearchDialog;
+import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.PlatformUI;
@@ -17,26 +17,35 @@ import com.devepos.adt.base.model.searchfavorites.IListAttribute;
 import com.devepos.adt.base.model.searchfavorites.ISearchFavorite;
 import com.devepos.adt.base.model.searchfavorites.ISearchFavoritesFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
+import com.devepos.adt.base.ui.search.IChangeableSearchPage;
+import com.devepos.adt.base.ui.search.ISearchPageListener;
+import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.search.favorites.ISearchFavoriteConnector;
 
-@SuppressWarnings("restriction")
-public class TaggedObjectSearchFavoriteConnector implements ISearchFavoriteConnector {
+public class TaggedObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
+    ISearchPageListener {
   private static final String TAGS_OPTION = "tags";
   private static final String MATCHES_ALL_TAGS_OPTION = "matchesAllTags";
+
+  private TaggedObjectSearchQuery currentQuery;
 
   @Override
   public void openFavoriteInSearchDialog(final ISearchFavorite favorite) {
     var searchParams = createParamsFromFavorite(favorite);
 
-    final var activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-    final var dialog = new SearchDialog(activeWindow, TaggedObjectSearchPage.PAGE_ID);
-    dialog.setBlockOnOpen(false);
-    dialog.open();
-    if (dialog.getSelectedPage() instanceof TaggedObjectSearchPage) {
-      final var searchDialog = (TaggedObjectSearchPage) dialog.getSelectedPage();
-      searchDialog.setInputFromSearchQuery(new TaggedObjectSearchQuery(searchParams));
+    SearchPageUtil.addSearchPageOpenListener(this);
+    currentQuery = new TaggedObjectSearchQuery(searchParams);
+    NewSearchUI.openSearchDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow(),
+        TaggedObjectSearchPage.PAGE_ID);
+  }
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void pageOpened(final ISearchPage searchPage) {
+    if (currentQuery != null && searchPage instanceof IChangeableSearchPage) {
+      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(currentQuery);
     }
-    dialog.setBlockOnOpen(true);
+    currentQuery = null;
   }
 
   @Override
