@@ -81,6 +81,9 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
       case AND_SEARCH_ACTIVE_OPTION:
         searchRequest.setAndSearchActive(((IBooleanAttribute) favAttribute).isValue());
         break;
+      case SEARCH_TYPE_LABEL_OPTION:
+        searchRequest.getQueryInput().setTypeLabel(((IStringAttribute) favAttribute).getValue());
+        break;
       case MAX_RESULTS_OPTION:
         searchRequest.setMaxResults(((IIntAttribute) favAttribute).getValue());
         break;
