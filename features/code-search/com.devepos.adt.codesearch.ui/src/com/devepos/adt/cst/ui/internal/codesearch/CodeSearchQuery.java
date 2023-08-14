@@ -6,7 +6,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
@@ -14,6 +13,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
@@ -29,7 +29,9 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchQuery implements ISearchQuery {
+public class CodeSearchQuery implements IAbapProjectSearchQuery {
+
+  public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.codesearch"; // $NON-NLS-N$
 
   private static final int FALLBACK_PACKAGE_SIZE = 100;
   private static final float WORK_UNITS_PACKAGE = 10.0f;
@@ -54,6 +56,11 @@ public class CodeSearchQuery implements ISearchQuery {
   @Override
   public boolean canRunInBackground() {
     return true;
+  }
+
+  @Override
+  public String getDestinationId() {
+    return getProjectProvider().getDestinationId();
   }
 
   @Override

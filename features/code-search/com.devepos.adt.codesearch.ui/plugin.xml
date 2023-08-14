@@ -248,5 +248,15 @@
             type="com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode">
       </propertyTester>
    </extension>
+   <extension
+         point="com.devepos.adt.base.ui.searchFavorites">
+      <searchFavoriteConnector
+            class="com.devepos.adt.cst.ui.internal.codesearch.CodeSearchFavoriteConnector"
+            icon="icons/codesearch.png"
+            id="com.devepos.adt.codesearch.ui.searchFavorite"
+            searchType="com.devepos.adt.codesearch"
+            searchTypeLabel="%codeSearch.displayName">
+      </searchFavoriteConnector>
+   </extension>
 
 </plugin>
