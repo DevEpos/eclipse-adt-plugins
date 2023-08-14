@@ -224,7 +224,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     final boolean doSetCursorToEnd = prefStore.getBoolean(
         IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT);
     final IAbapProjectProvider projectProvider = request.getProjectProvider();
-    if (projectProvider != null) {
+    if (projectProvider != null && projectProvider.hasProject()) {
       projectInput.setProjectName(projectProvider.getProjectName());
     }
     updateSearchTypeViewer(request.getSearchType());
