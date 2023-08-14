@@ -80,8 +80,8 @@ public abstract class CdsAnalysis {
     if (systemId == null) {
       return String.format("%s: '%s'", getLabelPrefix(), adtObjectInfo.getDisplayName()); //$NON-NLS-1$
     }
-    return String.format("%s: '%s' [%s]", getLabelPrefix(), adtObjectInfo.getDisplayName(), //$NON-NLS-1$
-        systemId);
+    return String.format("[%s] %s: '%s'", systemId, getLabelPrefix(), adtObjectInfo //$NON-NLS-1$
+        .getDisplayName());
 
   }
 
