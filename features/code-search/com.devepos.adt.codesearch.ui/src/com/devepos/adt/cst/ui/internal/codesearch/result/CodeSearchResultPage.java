@@ -52,6 +52,7 @@ import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.PreferenceToggleAction;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
+import com.devepos.adt.base.ui.search.favorites.SearchFavoritesActionFactory;
 import com.devepos.adt.base.ui.table.FilterableTable;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -91,6 +92,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   private IAction expandPackageNodeAction;
   private IAction collapseNodeAction;
   private IAction exportResultsAction;
+  private IAction searchFavoritesAction;
   private ContinueCodeSearchAction continueSearchAction;
   private ContextHelper contextHelper;
 
@@ -386,6 +388,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     super.fillToolbar(tbm);
     tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
         IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
+    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, searchFavoritesAction);
     if (getLayout() != FLAG_LAYOUT_FLAT) {
       tbm.appendToGroup(IContextMenuConstants.GROUP_VIEWER_SETUP, new Separator(GROUP_GROUPING));
       tbm.appendToGroup(GROUP_GROUPING, groupByPackageAction);
@@ -471,6 +474,8 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   }
 
   private void initializeActions() {
+    searchFavoritesAction = SearchFavoritesActionFactory.createSearchFavoritesAction(
+        CodeSearchQuery.SEARCH_FAVORITE_TYPE);
     continueSearchAction = new ContinueCodeSearchAction(this);
     continueSearchAction.setEnabled(false);
     openPreferencesAction = ActionFactory.createAction(

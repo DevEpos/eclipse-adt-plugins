@@ -190,7 +190,7 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
     patternsText.setText(searchTerm);
 
     final IAbapProjectProvider projectProvider = querySpecs.getProjectProvider();
-    if (projectProvider != null) {
+    if (projectProvider != null && projectProvider.hasProject()) {
       projectInput.setProjectName(projectProvider.getProjectName());
     }
     objectNameInput.setText(querySpecs.getObjectNames());
