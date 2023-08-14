@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.search.internal.ui.SearchDialog;
+import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.PlatformUI;
@@ -24,8 +24,11 @@ import com.devepos.adt.base.model.searchfavorites.IStringAttribute;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
+import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchFilter;
+import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchFilterHandler;
+import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.search.favorites.ISearchFavoriteConnector;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchFactory;
@@ -40,8 +43,8 @@ import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchQuery;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchRequest;
 import com.sap.adt.communication.content.ContentHandlerException;
 
-@SuppressWarnings("restriction")
-public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector {
+public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
+    ISearchPageListener {
 
   private static final String MAX_RESULTS_OPTION = "maxResults";
   private static final String AND_SEARCH_ACTIVE_OPTION = "andSearchActive";
@@ -51,8 +54,7 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector {
   private static final String FIELDS = "fields";
   private static final String FIELDS_WITH_FILTER = "fieldsWithFilter";
 
-  public ObjectSearchFavoriteConnector() {
-  }
+  private ObjectSearchQuery currentQuery;
 
   @SuppressWarnings("unchecked")
   private static ObjectSearchRequest createRequestFromFavorite(final ISearchFavorite favorite) {
@@ -131,15 +133,19 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector {
     final var searchRequest = createRequestFromFavorite(favorite);
     searchRequest.setProjectProvider(new AbapProjectProxy(null));
 
-    final var activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-    final var dialog = new SearchDialog(activeWindow, ObjectSearchPage.PAGE_ID);
-    dialog.setBlockOnOpen(false);
-    dialog.open();
-    if (dialog.getSelectedPage() instanceof ObjectSearchPage) {
-      final var searchDialog = (ObjectSearchPage) dialog.getSelectedPage();
-      searchDialog.setInputFromSearchQuery(new ObjectSearchQuery(searchRequest));
+    currentQuery = new ObjectSearchQuery(searchRequest);
+    SearchPageUtil.addSearchPageOpenListener(this);
+    NewSearchUI.openSearchDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow(),
+        ObjectSearchPage.PAGE_ID);
+  }
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void pageOpened(final ISearchPage searchPage) {
+    if (currentQuery != null && searchPage instanceof IChangeableSearchPage) {
+      ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(currentQuery);
     }
-    dialog.setBlockOnOpen(true);
+    currentQuery = null;
   }
 
   @Override
