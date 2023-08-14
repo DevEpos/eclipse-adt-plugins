@@ -3,9 +3,9 @@
 package com.devepos.adt.base.model.searchfavorites;
 
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -103,7 +103,7 @@ public interface ISearchFavorite extends EObject {
   String getDestinationId();
 
   /**
-   * Retrieves value of a list attribute or the specified default value
+   * Retrieves values of a list attribute or an empty list
    *
    * @param name name of an attribute
    * @return the found value or an empty list
@@ -111,12 +111,12 @@ public interface ISearchFavorite extends EObject {
   List<String> getListAttribute(String name);
 
   /**
-   * Retrieves value of an integer attribute or the specified default value
+   * Retrieves map of a map attribute or an empty map
    *
    * @param name name of an attribute
    * @return the found value or an empty map
    */
-  Map<String, String> getMapAttribute(String name);
+  EMap<String, String> getMapAttribute(String name);
 
   /**
    * Returns the value of the '<em><b>Search Type</b></em>' attribute.
