@@ -4,13 +4,13 @@ package com.devepos.adt.base.model.searchfavorites.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -50,7 +50,7 @@ import com.devepos.adt.base.model.searchfavorites.IStringAttribute;
  * @generated
  */
 public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements ISearchFavorite {
-  private static final Map<String, String> DEFAULT_MAP_ATTR_VALUE = new HashMap<>();
+  private static final EMap<String, String> DEFAULT_MAP_ATTR_VALUE = new BasicEMap<>();
   private static final List<String> DEFAULT_LIST_ATTR_VALUE = new ArrayList<>();
   /**
    * The default value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
@@ -73,7 +73,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final String DESCRIPTION_EDEFAULT = null;
-
   /**
    * The default value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -96,7 +95,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected static final boolean PROJECT_INDEPENDENT_EDEFAULT = false;
-
   /**
    * The cached value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -118,7 +116,6 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -360,14 +357,13 @@ public class SearchFavoriteImpl extends MinimalEObjectImpl.Container implements 
     return ((IListAttribute) attribute).getValues();
   }
 
-  @SuppressWarnings("unchecked")
   @Override
-  public Map<String, String> getMapAttribute(final String name) {
+  public EMap<String, String> getMapAttribute(final String name) {
     var attribute = findAttribute(name);
     if (attribute == null || !(attribute instanceof IMapAttribute)) {
       return DEFAULT_MAP_ATTR_VALUE;
     }
-    return (Map<String, String>) ((IMapAttribute) attribute).getEntries();
+    return ((IMapAttribute) attribute).getEntries();
   }
 
   /**
