@@ -64,8 +64,8 @@ public class ObjectSearchResult implements ISearchResult {
 
   public ObjectSearchResult(final ObjectSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
-    destinationId = searchQuery.getProjectProvider().getDestinationId();
     searchResultListener = new HashSet<>();
+    destinationId = searchQuery.getDestinationId();
     rootNode = new FolderTreeNode(null, null, null, null);
   }
 
