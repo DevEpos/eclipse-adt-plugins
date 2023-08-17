@@ -58,6 +58,11 @@ public class ReleaseNotesEditor extends EditorPart {
               helpSystemx.displayHelp(helpContextIdx);
               event.doit = false;
             }
+          } else if (event.location.startsWith("http:") || event.location.startsWith("https:")) {
+            var webbrowser = PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser();
+            URL urlx = new URL(event.location);
+            webbrowser.openURL(urlx);
+            event.doit = false;
           }
         } catch (Exception e) {
         }
