@@ -45,6 +45,12 @@ public class ReleaseNotesEditor extends EditorPart {
             URL url;
             url = new URL(event.location);
 
+            /**
+             * NOTE: All hrefs of a tags that should be opened in the Eclipse help should be
+             * prefixed with PLUGINS_ROOT (e.g.
+             * href="PLUGINS_ROOT/com.devepos.adt.codesearch.doc/code_search.html"). The file name
+             * without the file extension must me be a valid help context id in the plug-in!!!
+             */
             var pattern = Pattern.compile(".*/PLUGINS_ROOT/(.*)/html/(.*).html.*");
             var matcher = pattern.matcher(url.getPath());
             String pluginId;
