@@ -95,6 +95,26 @@ public interface ICdsAnalysisFactory extends EFactory {
   IEntityFieldInfoResult createEntityFieldInfoResult();
 
   /**
+   * Returns a new object of class '<em>Where Used In Cds Entry</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Where Used In Cds Entry</em>'.
+   * @generated
+   */
+  IWhereUsedInCdsEntry createWhereUsedInCdsEntry();
+
+  /**
+   * Returns a new object of class '<em>Where Used In Cds Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Where Used In Cds Result</em>'.
+   * @generated
+   */
+  IWhereUsedInCdsResult createWhereUsedInCdsResult();
+
+  /**
    * Returns a new object of class '<em>Entity Field Info</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

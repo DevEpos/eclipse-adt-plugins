@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.Status;
 import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntitiesResult;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
-import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
 /**
@@ -23,7 +23,7 @@ public interface ICdsAnalysisService {
    */
   IAdtUriTemplate getWhereUsedInCdsAnalysisTemplate(String destinationId);
 
-  IObjectSearchResult getWhereUsedInResultsForEntity(String destinationId, String entityName,
+  IWhereUsedInCdsResult getWhereUsedInResultsForEntity(String destinationId, String entityName,
       boolean searchInFromPart, boolean localAssociationsOnly, boolean releasedEntitiesOnly);
 
   /**

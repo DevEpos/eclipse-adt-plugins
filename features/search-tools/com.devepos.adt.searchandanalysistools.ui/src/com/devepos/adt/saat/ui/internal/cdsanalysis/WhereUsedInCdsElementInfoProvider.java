@@ -7,10 +7,16 @@ import java.util.List;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.osgi.util.NLS;
 
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
+import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingElementInfo;
 import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
+import com.devepos.adt.saat.ui.internal.CdsSourceType;
+import com.devepos.adt.saat.ui.internal.ExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -79,9 +85,9 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     var result = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .getWhereUsedInResultsForEntity(destinationId, adtObjectName, isSelectFrom, settings
             .isLocalAssociationsOnly(), settings.isReleasedUsagesOnly());
-    if (result != null && result.getResultCount() > 0) {
-      for (var resultObj : result.getResultObjects()) {
-        var objectRefElemInfo = AdtObjRefToElemInfoConverter.convert(destinationId, resultObj);
+    if (result != null && !result.getEntries().isEmpty()) {
+      for (var resultObj : result.getEntries()) {
+        var objectRefElemInfo = convertToObjRefElemInfo(destinationId, resultObj);
         objectRefElemInfo.setElementInfoProvider(new WhereUsedInCdsElementInfoProvider(
             destinationId, objectRefElemInfo.getName(), settings));
         elementInfoResult.add(objectRefElemInfo);
@@ -100,6 +106,31 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
    */
   public void updateSearchParameters() {
     updateSearchParameters(null);
+  }
+
+  private IAdtObjectReferenceElementInfo convertToObjRefElemInfo(String destinationId,
+      IWhereUsedInCdsEntry whereUsedEntry) {
+    if (whereUsedEntry == null) {
+      return null;
+    }
+    var elementInfo = new AdtObjectReferenceElementInfo(whereUsedEntry.getDdlname(), whereUsedEntry
+        .getEntityName(), whereUsedEntry.getDescription());
+    elementInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
+        whereUsedEntry.getDdlname(), whereUsedEntry.getType(), whereUsedEntry.getUri()));
+
+    // handle custom properties
+    if (whereUsedEntry.getApiState() != null || whereUsedEntry.getSourceType() != null) {
+      var extendedAdtObjInfo = new ExtendedAdtObjectInfo();
+      extendedAdtObjInfo.setApiState(whereUsedEntry.getApiState());
+      extendedAdtObjInfo.setSourceType(CdsSourceType.getFromId(whereUsedEntry.getSourceType()));
+      elementInfo.setAdditionalInfo(extendedAdtObjInfo);
+    }
+
+    // // handle child nodes
+    // for (var child : whereUsedEntry.getChildren()) {
+    // elementInfo.getChildren().add(convertToObjRefElemInfo(destinationId, child));
+    // }
+    return elementInfo;
   }
 
   private IElementInfo createLazyWhereUsedProviderElement(final boolean searchFrom) {

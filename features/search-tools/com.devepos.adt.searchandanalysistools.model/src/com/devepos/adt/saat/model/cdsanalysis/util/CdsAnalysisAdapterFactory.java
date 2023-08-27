@@ -16,6 +16,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisEntry;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -116,6 +118,16 @@ public class CdsAnalysisAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseEntityFieldInfoResult(final IEntityFieldInfoResult object) {
       return createEntityFieldInfoResultAdapter();
+    }
+
+    @Override
+    public Adapter caseWhereUsedInCdsEntry(final IWhereUsedInCdsEntry object) {
+      return createWhereUsedInCdsEntryAdapter();
+    }
+
+    @Override
+    public Adapter caseWhereUsedInCdsResult(final IWhereUsedInCdsResult object) {
+      return createWhereUsedInCdsResultAdapter();
     }
 
     @Override
@@ -253,6 +265,40 @@ public class CdsAnalysisAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createEntityFieldInfoResultAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry <em>Where Used In Cds
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry
+   * @generated
+   */
+  public Adapter createWhereUsedInCdsEntryAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult <em>Where Used In Cds
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult
+   * @generated
+   */
+  public Adapter createWhereUsedInCdsResultAdapter() {
     return null;
   }
 

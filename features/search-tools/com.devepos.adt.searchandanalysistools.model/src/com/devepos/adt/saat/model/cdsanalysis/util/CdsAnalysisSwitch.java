@@ -15,6 +15,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisEntry;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -138,6 +140,22 @@ public class CdsAnalysisSwitch<T> extends Switch<T> {
     case ICdsAnalysisPackage.ENTITY_FIELD_INFO_RESULT: {
       IEntityFieldInfoResult entityFieldInfoResult = (IEntityFieldInfoResult) theEObject;
       T result = caseEntityFieldInfoResult(entityFieldInfoResult);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case ICdsAnalysisPackage.WHERE_USED_IN_CDS_ENTRY: {
+      IWhereUsedInCdsEntry whereUsedInCdsEntry = (IWhereUsedInCdsEntry) theEObject;
+      T result = caseWhereUsedInCdsEntry(whereUsedInCdsEntry);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case ICdsAnalysisPackage.WHERE_USED_IN_CDS_RESULT: {
+      IWhereUsedInCdsResult whereUsedInCdsResult = (IWhereUsedInCdsResult) theEObject;
+      T result = caseWhereUsedInCdsResult(whereUsedInCdsResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -269,6 +287,42 @@ public class CdsAnalysisSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseEntityFieldInfoResult(final IEntityFieldInfoResult object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Where Used In Cds
+   * Entry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Where Used In Cds
+   *         Entry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWhereUsedInCdsEntry(final IWhereUsedInCdsEntry object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Where Used In Cds
+   * Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Where Used In Cds
+   *         Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWhereUsedInCdsResult(final IWhereUsedInCdsResult object) {
     return null;
   }
 

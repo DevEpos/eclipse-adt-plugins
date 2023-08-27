@@ -626,6 +626,162 @@ public interface ICdsAnalysisPackage extends EPackage {
   int ENTITY_FIELD_INFO_RESULT_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsEntry <em>Where Used In Cds
+   * Entry</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsEntry
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getWhereUsedInCdsEntry()
+   * @generated
+   */
+  int WHERE_USED_IN_CDS_ENTRY = 8;
+
+  /**
+   * The feature id for the '<em><b>Uri</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__URI = 0;
+
+  /**
+   * The feature id for the '<em><b>Entity Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__ENTITY_NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Ddlname</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__DDLNAME = 2;
+
+  /**
+   * The feature id for the '<em><b>Source Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__SOURCE_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__TYPE = 4;
+
+  /**
+   * The feature id for the '<em><b>Api State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__API_STATE = 5;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__DESCRIPTION = 6;
+
+  /**
+   * The feature id for the '<em><b>Children</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY__CHILDREN = 7;
+
+  /**
+   * The number of structural features of the '<em>Where Used In Cds Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY_FEATURE_COUNT = 8;
+
+  /**
+   * The number of operations of the '<em>Where Used In Cds Entry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_ENTRY_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsResult <em>Where Used In Cds
+   * Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsResult
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getWhereUsedInCdsResult()
+   * @generated
+   */
+  int WHERE_USED_IN_CDS_RESULT = 9;
+
+  /**
+   * The feature id for the '<em><b>Entries</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_RESULT__ENTRIES = 0;
+
+  /**
+   * The number of structural features of the '<em>Where Used In Cds Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_RESULT_FEATURE_COUNT = 1;
+
+  /**
+   * The number of operations of the '<em>Where Used In Cds Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int WHERE_USED_IN_CDS_RESULT_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.cdsanalysis.SqlRelation <em>Sql
    * Relation</em>}' enum.
    * <!-- begin-user-doc -->
@@ -635,7 +791,7 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getSqlRelation()
    * @generated
    */
-  int SQL_RELATION = 8;
+  int SQL_RELATION = 10;
 
   /**
    * The meta object id for the
@@ -648,7 +804,7 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getTopDownAnalysisEntryType()
    * @generated
    */
-  int TOP_DOWN_ANALYSIS_ENTRY_TYPE = 9;
+  int TOP_DOWN_ANALYSIS_ENTRY_TYPE = 11;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.cdsanalysis.CdsQueryNavTarget
@@ -660,7 +816,7 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getCdsQueryNavTarget()
    * @generated
    */
-  int CDS_QUERY_NAV_TARGET = 10;
+  int CDS_QUERY_NAV_TARGET = 12;
 
   /**
    * Returns the meta object for class
@@ -1016,6 +1172,156 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @generated
    */
   EReference getEntityFieldInfoResult_FieldInfos();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry <em>Where Used In Cds
+   * Entry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Where Used In Cds Entry</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry
+   * @generated
+   */
+  EClass getWhereUsedInCdsEntry();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getUri <em>Uri</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Uri</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getUri()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_Uri();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getEntityName <em>Entity
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Entity Name</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getEntityName()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_EntityName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getDdlname
+   * <em>Ddlname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Ddlname</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getDdlname()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_Ddlname();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getSourceType <em>Source
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Source Type</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getSourceType()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_SourceType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getType()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getApiState <em>Api
+   * State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Api State</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getApiState()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_ApiState();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getDescription()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EAttribute getWhereUsedInCdsEntry_Description();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getChildren
+   * <em>Children</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Children</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry#getChildren()
+   * @see #getWhereUsedInCdsEntry()
+   * @generated
+   */
+  EReference getWhereUsedInCdsEntry_Children();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult <em>Where Used In Cds
+   * Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Where Used In Cds Result</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult
+   * @generated
+   */
+  EClass getWhereUsedInCdsResult();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult#getEntries
+   * <em>Entries</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Entries</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult#getEntries()
+   * @see #getWhereUsedInCdsResult()
+   * @generated
+   */
+  EReference getWhereUsedInCdsResult_Entries();
 
   /**
    * Returns the meta object for class
@@ -1520,6 +1826,115 @@ public interface ICdsAnalysisPackage extends EPackage {
      */
     EReference ENTITY_FIELD_INFO_RESULT__FIELD_INFOS = eINSTANCE
         .getEntityFieldInfoResult_FieldInfos();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsEntry <em>Where Used In Cds
+     * Entry</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsEntry
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getWhereUsedInCdsEntry()
+     * @generated
+     */
+    EClass WHERE_USED_IN_CDS_ENTRY = eINSTANCE.getWhereUsedInCdsEntry();
+
+    /**
+     * The meta object literal for the '<em><b>Uri</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__URI = eINSTANCE.getWhereUsedInCdsEntry_Uri();
+
+    /**
+     * The meta object literal for the '<em><b>Entity Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__ENTITY_NAME = eINSTANCE.getWhereUsedInCdsEntry_EntityName();
+
+    /**
+     * The meta object literal for the '<em><b>Ddlname</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__DDLNAME = eINSTANCE.getWhereUsedInCdsEntry_Ddlname();
+
+    /**
+     * The meta object literal for the '<em><b>Source Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__SOURCE_TYPE = eINSTANCE.getWhereUsedInCdsEntry_SourceType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__TYPE = eINSTANCE.getWhereUsedInCdsEntry_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Api State</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__API_STATE = eINSTANCE.getWhereUsedInCdsEntry_ApiState();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute WHERE_USED_IN_CDS_ENTRY__DESCRIPTION = eINSTANCE
+        .getWhereUsedInCdsEntry_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Children</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference WHERE_USED_IN_CDS_ENTRY__CHILDREN = eINSTANCE.getWhereUsedInCdsEntry_Children();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsResult <em>Where Used In
+     * Cds Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.WhereUsedInCdsResult
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getWhereUsedInCdsResult()
+     * @generated
+     */
+    EClass WHERE_USED_IN_CDS_RESULT = eINSTANCE.getWhereUsedInCdsResult();
+
+    /**
+     * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference WHERE_USED_IN_CDS_RESULT__ENTRIES = eINSTANCE.getWhereUsedInCdsResult_Entries();
 
     /**
      * The meta object literal for the
