@@ -111,6 +111,10 @@ public class NewSearchFavoriteDialog extends StatusDialog {
 
     descriptor.getConnector().populateFavoriteFromQuery(newFavorite.getAttributes(), searchQuery);
 
+    if (newFavorite.getAttributes().isEmpty()) {
+      // TODO: show message??
+      return;
+    }
     AdtBaseUIPlugin.getDefault().getSearchFavoriteManager().addFavorite(newFavorite);
     SearchFavoriteStorage.serialize();
     super.okPressed();
