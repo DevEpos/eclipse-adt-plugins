@@ -95,6 +95,26 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
     }
   }
 
+  /*
+   * Retrieve long text information from description
+   */
+  static String getDescriptionFromItem(final String description) {
+    if (description == null || description.isEmpty()) {
+      return null;
+    }
+    final String[] itemDescrComponents = description.split("@@##@@"); //$NON-NLS-1$
+    for (var comp : itemDescrComponents) {
+      if (comp.startsWith("longtext=")) {
+        final String[] longTextParts = comp.split("="); //$NON-NLS-1$
+        if (longTextParts == null || longTextParts.length < 2) {
+          return null;
+        }
+        return longTextParts[1];
+      }
+    }
+    return null;
+  }
+
   @Override
   public String getDescription() {
     return description;
@@ -209,26 +229,6 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   @Override
   public final boolean supportsPatternValues() {
     return supportsPatternValues;
-  }
-
-  /*
-   * Retrieve long text information from description
-   */
-  private String getDescriptionFromItem(final String description) {
-    if (description == null || description.isEmpty()) {
-      return null;
-    }
-    final String[] itemDescrComponents = description.split("@@##@@"); //$NON-NLS-1$
-    if (itemDescrComponents.length < 2) {
-      return null;
-    }
-
-    final String longText = itemDescrComponents[1];
-    final String[] longTextParts = longText.split("="); //$NON-NLS-1$
-    if (longTextParts == null || longTextParts.length < 2) {
-      return null;
-    }
-    return longTextParts[1];
   }
 
   private void initProposalProvider(final IAbapProjectProvider projectProvider,
