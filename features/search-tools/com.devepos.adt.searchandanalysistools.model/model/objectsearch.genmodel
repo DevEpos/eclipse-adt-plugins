@@ -72,6 +72,7 @@
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//SimpleContentProposal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SimpleContentProposal/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SimpleContentProposal/data"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SimpleContentProposal/description"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//FixedValuesContentAssist">
@@ -115,6 +116,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchResultOutputConfig/listOutputSupported"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchResultOutputConfig/groupingLevels"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchResultOutputConfig/typesForList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchResultOutputConfig/adtAltTypeImages"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//CustomOption">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//CustomOption/key"/>
@@ -126,6 +128,10 @@
     <genClasses ecoreClass="objectsearch.ecore#//StringToStringMapEntry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//StringToStringMapEntry/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//StringToStringMapEntry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="objectsearch.ecore#//AdtAlternativeTypeImage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//AdtAlternativeTypeImage/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference objectsearch.ecore#//AdtAlternativeTypeImage/imgInfo"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

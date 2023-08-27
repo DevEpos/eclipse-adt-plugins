@@ -273,6 +273,22 @@ public class CdsAnalysisSwitch<T> extends Switch<T> {
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Entity Field Info</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Entity Field Info</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEntityFieldInfo(final IEntityFieldInfo object) {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Entity Field Info
    * Result</em>'.
    * <!-- begin-user-doc -->
@@ -323,22 +339,6 @@ public class CdsAnalysisSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseWhereUsedInCdsResult(final IWhereUsedInCdsResult object) {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Entity Field Info</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   *
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Entity Field Info</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEntityFieldInfo(final IEntityFieldInfo object) {
     return null;
   }
 

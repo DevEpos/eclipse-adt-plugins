@@ -50,6 +50,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected static final String KEY_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getKey() <em>Key</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -60,6 +61,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected String key = KEY_EDEFAULT;
+
   /**
    * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -70,6 +72,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected static final String LABEL_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -80,6 +83,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected String label = LABEL_EDEFAULT;
+
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -90,6 +94,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected static final CustomOptionType TYPE_EDEFAULT = CustomOptionType.STRING;
+
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -100,6 +105,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected CustomOptionType type = TYPE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -110,6 +116,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected static final String DESCRIPTION_EDEFAULT = null;
+
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -120,6 +127,7 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getOptionValues() <em>Option Values</em>}' map.
    * <!-- begin-user-doc -->

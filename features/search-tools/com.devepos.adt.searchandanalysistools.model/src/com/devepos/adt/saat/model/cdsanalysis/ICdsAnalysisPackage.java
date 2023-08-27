@@ -431,19 +431,6 @@ public interface ICdsAnalysisPackage extends EPackage {
   int CDS_QUERY_NAV_TARGETS_OPERATION_COUNT = 0;
 
   /**
-   * The meta object id for the
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfoResult <em>Entity Field Info
-   * Result</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfoResult
-   * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getEntityFieldInfoResult()
-   * @generated
-   */
-  int ENTITY_FIELD_INFO_RESULT = 7;
-
-  /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfo
    * <em>Entity Field Info</em>}' class.
    * <!-- begin-user-doc -->
@@ -584,6 +571,19 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @ordered
    */
   int ENTITY_FIELD_INFO_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfoResult <em>Entity Field Info
+   * Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfoResult
+   * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getEntityFieldInfoResult()
+   * @generated
+   */
+  int ENTITY_FIELD_INFO_RESULT = 7;
 
   /**
    * The feature id for the '<em><b>Source Field Info</b></em>' reference.
@@ -1134,6 +1134,169 @@ public interface ICdsAnalysisPackage extends EPackage {
 
   /**
    * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo <em>Entity Field Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Entity Field Info</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo
+   * @generated
+   */
+  EClass getEntityFieldInfo();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getFieldName <em>Field
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Field Name</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getFieldName()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_FieldName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getEntityName <em>Entity
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Entity Name</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getEntityName()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_EntityName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getAltEntityName <em>Alt Entity
+   * Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Alt Entity Name</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getAltEntityName()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_AltEntityName();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getSourceType <em>Source
+   * Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Source Type</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getSourceType()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_SourceType();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getType()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_Type();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getUri <em>Uri</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Uri</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getUri()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_Uri();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getApiState <em>Api
+   * State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Api State</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getApiState()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_ApiState();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getDescription
+   * <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getDescription()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_Description();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isKey <em>Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Key</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isKey()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_Key();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isCalculated
+   * <em>Calculated</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Calculated</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isCalculated()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EAttribute getEntityFieldInfo_Calculated();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getChildren
+   * <em>Children</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Children</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getChildren()
+   * @see #getEntityFieldInfo()
+   * @generated
+   */
+  EReference getEntityFieldInfo_Children();
+
+  /**
+   * Returns the meta object for class
    * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult <em>Entity Field Info
    * Result</em>}'.
    * <!-- begin-user-doc -->
@@ -1322,169 +1485,6 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @generated
    */
   EReference getWhereUsedInCdsResult_Entries();
-
-  /**
-   * Returns the meta object for class
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo <em>Entity Field Info</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for class '<em>Entity Field Info</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo
-   * @generated
-   */
-  EClass getEntityFieldInfo();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getFieldName <em>Field
-   * Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Field Name</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getFieldName()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_FieldName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getEntityName <em>Entity
-   * Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Entity Name</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getEntityName()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_EntityName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getAltEntityName <em>Alt Entity
-   * Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Alt Entity Name</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getAltEntityName()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_AltEntityName();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getSourceType <em>Source
-   * Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Source Type</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getSourceType()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_SourceType();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getType()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_Type();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getUri <em>Uri</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Uri</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getUri()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_Uri();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getApiState <em>Api
-   * State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Api State</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getApiState()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_ApiState();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getDescription
-   * <em>Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getDescription()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_Description();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isKey <em>Key</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Key</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isKey()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_Key();
-
-  /**
-   * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isCalculated
-   * <em>Calculated</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the attribute '<em>Calculated</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#isCalculated()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EAttribute getEntityFieldInfo_Calculated();
-
-  /**
-   * Returns the meta object for the containment reference list
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getChildren
-   * <em>Children</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return the meta object for the containment reference list '<em>Children</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo#getChildren()
-   * @see #getEntityFieldInfo()
-   * @generated
-   */
-  EReference getEntityFieldInfo_Children();
 
   /**
    * Returns the meta object for enum '{@link com.devepos.adt.saat.model.cdsanalysis.SqlRelation
@@ -1795,6 +1795,119 @@ public interface ICdsAnalysisPackage extends EPackage {
 
     /**
      * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfo <em>Entity Field
+     * Info</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfo
+     * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getEntityFieldInfo()
+     * @generated
+     */
+    EClass ENTITY_FIELD_INFO = eINSTANCE.getEntityFieldInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Field Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__FIELD_NAME = eINSTANCE.getEntityFieldInfo_FieldName();
+
+    /**
+     * The meta object literal for the '<em><b>Entity Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__ENTITY_NAME = eINSTANCE.getEntityFieldInfo_EntityName();
+
+    /**
+     * The meta object literal for the '<em><b>Alt Entity Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__ALT_ENTITY_NAME = eINSTANCE.getEntityFieldInfo_AltEntityName();
+
+    /**
+     * The meta object literal for the '<em><b>Source Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__SOURCE_TYPE = eINSTANCE.getEntityFieldInfo_SourceType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__TYPE = eINSTANCE.getEntityFieldInfo_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Uri</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__URI = eINSTANCE.getEntityFieldInfo_Uri();
+
+    /**
+     * The meta object literal for the '<em><b>Api State</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__API_STATE = eINSTANCE.getEntityFieldInfo_ApiState();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__DESCRIPTION = eINSTANCE.getEntityFieldInfo_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__KEY = eINSTANCE.getEntityFieldInfo_Key();
+
+    /**
+     * The meta object literal for the '<em><b>Calculated</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ENTITY_FIELD_INFO__CALCULATED = eINSTANCE.getEntityFieldInfo_Calculated();
+
+    /**
+     * The meta object literal for the '<em><b>Children</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ENTITY_FIELD_INFO__CHILDREN = eINSTANCE.getEntityFieldInfo_Children();
+
+    /**
+     * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfoResult <em>Entity Field
      * Info Result</em>}' class.
      * <!-- begin-user-doc -->
@@ -1935,119 +2048,6 @@ public interface ICdsAnalysisPackage extends EPackage {
      * @generated
      */
     EReference WHERE_USED_IN_CDS_RESULT__ENTRIES = eINSTANCE.getWhereUsedInCdsResult_Entries();
-
-    /**
-     * The meta object literal for the
-     * '{@link com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfo <em>Entity Field
-     * Info</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @see com.devepos.adt.saat.model.cdsanalysis.impl.EntityFieldInfo
-     * @see com.devepos.adt.saat.model.cdsanalysis.impl.CdsAnalysisPackage#getEntityFieldInfo()
-     * @generated
-     */
-    EClass ENTITY_FIELD_INFO = eINSTANCE.getEntityFieldInfo();
-
-    /**
-     * The meta object literal for the '<em><b>Field Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__FIELD_NAME = eINSTANCE.getEntityFieldInfo_FieldName();
-
-    /**
-     * The meta object literal for the '<em><b>Entity Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__ENTITY_NAME = eINSTANCE.getEntityFieldInfo_EntityName();
-
-    /**
-     * The meta object literal for the '<em><b>Alt Entity Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__ALT_ENTITY_NAME = eINSTANCE.getEntityFieldInfo_AltEntityName();
-
-    /**
-     * The meta object literal for the '<em><b>Source Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__SOURCE_TYPE = eINSTANCE.getEntityFieldInfo_SourceType();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__TYPE = eINSTANCE.getEntityFieldInfo_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Uri</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__URI = eINSTANCE.getEntityFieldInfo_Uri();
-
-    /**
-     * The meta object literal for the '<em><b>Api State</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__API_STATE = eINSTANCE.getEntityFieldInfo_ApiState();
-
-    /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__DESCRIPTION = eINSTANCE.getEntityFieldInfo_Description();
-
-    /**
-     * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__KEY = eINSTANCE.getEntityFieldInfo_Key();
-
-    /**
-     * The meta object literal for the '<em><b>Calculated</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EAttribute ENTITY_FIELD_INFO__CALCULATED = eINSTANCE.getEntityFieldInfo_Calculated();
-
-    /**
-     * The meta object literal for the '<em><b>Children</b></em>' containment reference list
-     * feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    EReference ENTITY_FIELD_INFO__CHILDREN = eINSTANCE.getEntityFieldInfo_Children();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.saat.model.cdsanalysis.SqlRelation

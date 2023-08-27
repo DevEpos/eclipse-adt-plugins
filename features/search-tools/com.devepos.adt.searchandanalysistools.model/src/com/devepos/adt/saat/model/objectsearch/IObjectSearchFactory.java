@@ -185,6 +185,16 @@ public interface IObjectSearchFactory extends EFactory {
   ICustomOption createCustomOption();
 
   /**
+   * Returns a new object of class '<em>Adt Alternative Type Image</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Adt Alternative Type Image</em>'.
+   * @generated
+   */
+  IAdtAlternativeTypeImage createAdtAlternativeTypeImage();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

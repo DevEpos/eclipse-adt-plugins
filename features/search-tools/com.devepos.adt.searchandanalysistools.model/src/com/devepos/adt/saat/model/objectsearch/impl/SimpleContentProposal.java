@@ -20,6 +20,8 @@ import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
  * <ul>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal#getName
  * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal#getData
+ * <em>Data</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SimpleContentProposal#getDescription
  * <em>Description</em>}</li>
  * </ul>
@@ -49,6 +51,28 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getData() <em>Data</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getData()
+   * @generated
+   * @ordered
+   */
+  protected static final String DATA_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getData() <em>Data</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getData()
+   * @generated
+   * @ordered
+   */
+  protected String data = DATA_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -127,6 +151,33 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
    * @generated
    */
   @Override
+  public String getData() {
+    return data;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setData(final String newData) {
+    String oldData = data;
+    data = newData;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DATA, oldData, data));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public String getDescription() {
     return description;
   }
@@ -158,6 +209,8 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
     switch (featureID) {
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__NAME:
       return getName();
+    case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DATA:
+      return getData();
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DESCRIPTION:
       return getDescription();
     }
@@ -175,6 +228,9 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
     switch (featureID) {
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__NAME:
       setName((String) newValue);
+      return;
+    case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DATA:
+      setData((String) newValue);
       return;
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DESCRIPTION:
       setDescription((String) newValue);
@@ -195,6 +251,9 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__NAME:
       setName(NAME_EDEFAULT);
       return;
+    case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DATA:
+      setData(DATA_EDEFAULT);
+      return;
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DESCRIPTION:
       setDescription(DESCRIPTION_EDEFAULT);
       return;
@@ -213,6 +272,8 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
     switch (featureID) {
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__NAME:
       return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DATA:
+      return DATA_EDEFAULT == null ? data != null : !DATA_EDEFAULT.equals(data);
     case IObjectSearchPackage.SIMPLE_CONTENT_PROPOSAL__DESCRIPTION:
       return DESCRIPTION_EDEFAULT == null ? description != null
           : !DESCRIPTION_EDEFAULT.equals(description);
@@ -235,6 +296,8 @@ public class SimpleContentProposal extends MinimalEObjectImpl.Container implemen
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", data: ");
+    result.append(data);
     result.append(", description: ");
     result.append(description);
     result.append(')');

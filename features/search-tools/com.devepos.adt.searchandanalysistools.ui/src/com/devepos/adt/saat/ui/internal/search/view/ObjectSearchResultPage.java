@@ -170,7 +170,11 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       }
 
       if (image == null) {
-        image = AdtTypeUtil.getInstance().getTypeImage(typeName);
+        // first try to map the type to an alternative image key
+        image = typeImageMapper != null ? typeImageMapper.mapTypeToImage(typeName) : null;
+        if (image == null) {
+          image = AdtTypeUtil.getInstance().getTypeImage(typeName);
+        }
       }
       return image;
     }
@@ -205,6 +209,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   static class ViewLabelProvider extends LabelProvider implements ILabelProvider,
       IStyledLabelProvider {
 
+    protected AdtTypeAlternativeImgMapper typeImageMapper;
+
     @Override
     public Image getImage(final Object element) {
       Image image;
@@ -221,7 +227,11 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
           image = ImageUtil.getMethodImage(adtObjRefNode.getProperties(),
               IAdtObjectTypeConstants.INTERFACE_METHOD.equals(typeName));
         } else {
-          image = AdtTypeUtil.getInstance().getTypeImage(adtObjRefNode.getAdtObjectType());
+          // first try to map the type to an alternative image key
+          image = typeImageMapper != null ? typeImageMapper.mapTypeToImage(typeName) : null;
+          if (image == null) {
+            image = AdtTypeUtil.getInstance().getTypeImage(typeName);
+          }
         }
         final var extendedResult = adtObjRefNode.getAdapter(IExtendedAdtObjectInfo.class);
         if (extendedResult != null) {
@@ -270,6 +280,10 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       final ITreeNode searchResult = (ITreeNode) element;
 
       return searchResult.getName();
+    }
+
+    public void setTypeImageMapper(AdtTypeAlternativeImgMapper typeImageMapper) {
+      this.typeImageMapper = typeImageMapper;
     }
   }
 
@@ -544,9 +558,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     result = (ObjectSearchResult) search;
     if (result != null) {
       result.addListener(this);
-      updateViewerFromResult();
-      state = uiState instanceof UIState ? (UIState) uiState : null;
       searchQuery = (ObjectSearchQuery) result.getQuery();
+      adtTypeImageMapper = new AdtTypeAlternativeImgMapper(searchQuery.getSearchRequest()
+          .getOutputConfig()
+          .getAdtAltTypeImages());
+      updateLayoutFromPref();
+      updateViewerFromResult();
+      resultViewerLabelProvider.setTypeImageMapper(adtTypeImageMapper);
+      state = uiState instanceof UIState ? (UIState) uiState : null;
       projectProvider = searchQuery.getProjectProvider();
       checkFeatureAvailibility();
       if (!NewSearchUI.isQueryRunning(searchQuery)) {
@@ -656,8 +675,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     resultViewer = new TableViewer(table, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     table.setViewer((TableViewer) resultViewer);
     resultViewer.setContentProvider(new TableContentProvider());
-    resultViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new ListViewLabelProvider()));
+    resultViewerLabelProvider = new ListViewLabelProvider();
+    resultViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(resultViewerLabelProvider));
     isListLayoutActive = true;
     configureViewer();
 
@@ -681,7 +700,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     resultViewer = new TreeViewer(tree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     tree.setViewer((TreeViewer) resultViewer);
     resultViewer.setContentProvider(new TreeContentProvider());
-    resultViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
+    resultViewerLabelProvider = new ViewLabelProvider();
+    resultViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(resultViewerLabelProvider));
     isListLayoutActive = false;
     configureViewer();
   }

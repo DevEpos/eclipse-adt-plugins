@@ -47,6 +47,7 @@ public class EntityFieldInfoResult extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected IEntityFieldInfo sourceFieldInfo;
+
   /**
    * The cached value of the '{@link #getFieldInfos() <em>Field Infos</em>}' containment reference
    * list.

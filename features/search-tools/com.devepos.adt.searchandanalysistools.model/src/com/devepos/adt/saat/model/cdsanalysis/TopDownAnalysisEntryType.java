@@ -85,6 +85,7 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    * @ordered
    */
   ENTITY(5, "ENTITY", "ENTITY"),
+
   /**
    * The '<em><b>SELECT</b></em>' literal object.
    * <!-- begin-user-doc -->

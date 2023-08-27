@@ -89,6 +89,14 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    *
    * @generated
    */
+  private EClass entityFieldInfoEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
   private EClass entityFieldInfoResultEClass = null;
 
   /**
@@ -106,14 +114,6 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   private EClass whereUsedInCdsResultEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  private EClass entityFieldInfoEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -477,6 +477,138 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   @Override
+  public EClass getEntityFieldInfo() {
+    return entityFieldInfoEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_FieldName() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_EntityName() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_AltEntityName() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_SourceType() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_Type() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_Uri() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_ApiState() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_Description() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_Key() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getEntityFieldInfo_Calculated() {
+    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getEntityFieldInfo_Children() {
+    return (EReference) entityFieldInfoEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getEntityFieldInfoResult() {
     return entityFieldInfoResultEClass;
   }
@@ -622,138 +754,6 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
   @Override
   public EReference getWhereUsedInCdsResult_Entries() {
     return (EReference) whereUsedInCdsResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EClass getEntityFieldInfo() {
-    return entityFieldInfoEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_FieldName() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_EntityName() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_AltEntityName() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_SourceType() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_Type() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_Uri() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_ApiState() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_Description() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_Key() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(8);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EAttribute getEntityFieldInfo_Calculated() {
-    return (EAttribute) entityFieldInfoEClass.getEStructuralFeatures().get(9);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EReference getEntityFieldInfo_Children() {
-    return (EReference) entityFieldInfoEClass.getEStructuralFeatures().get(10);
   }
 
   /**

@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import com.devepos.adt.saat.model.objectsearch.CustomOptionType;
 import com.devepos.adt.saat.model.objectsearch.FilterType;
+import com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage;
 import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
 import com.devepos.adt.saat.model.objectsearch.IImageInfo;
@@ -116,6 +117,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       return createCustomOption();
     case IObjectSearchPackage.STRING_TO_STRING_MAP_ENTRY:
       return (EObject) createStringToStringMapEntry();
+    case IObjectSearchPackage.ADT_ALTERNATIVE_TYPE_IMAGE:
+      return createAdtAlternativeTypeImage();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -369,6 +372,18 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
   public Map.Entry<String, String> createStringToStringMapEntry() {
     StringToStringMapEntry stringToStringMapEntry = new StringToStringMapEntry();
     return stringToStringMapEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtAlternativeTypeImage createAdtAlternativeTypeImage() {
+    AdtAlternativeTypeImage adtAlternativeTypeImage = new AdtAlternativeTypeImage();
+    return adtAlternativeTypeImage;
   }
 
   /**

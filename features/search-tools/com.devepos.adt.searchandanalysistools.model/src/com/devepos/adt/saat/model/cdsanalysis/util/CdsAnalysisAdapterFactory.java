@@ -253,6 +253,22 @@ public class CdsAnalysisAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo <em>Entity Field Info</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo
+   * @generated
+   */
+  public Adapter createEntityFieldInfoAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
    * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult <em>Entity Field Info
    * Result</em>}'.
    * <!-- begin-user-doc -->
@@ -299,22 +315,6 @@ public class CdsAnalysisAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createWhereUsedInCdsResultAdapter() {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo <em>Entity Field Info</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   *
-   * @return the new adapter.
-   * @see com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo
-   * @generated
-   */
-  public Adapter createEntityFieldInfoAdapter() {
     return null;
   }
 

@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
+import com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage;
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
 import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
@@ -242,6 +243,14 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
       @SuppressWarnings("unchecked")
       Map.Entry<String, String> stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
       T result = caseStringToStringMapEntry(stringToStringMapEntry);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IObjectSearchPackage.ADT_ALTERNATIVE_TYPE_IMAGE: {
+      IAdtAlternativeTypeImage adtAlternativeTypeImage = (IAdtAlternativeTypeImage) theEObject;
+      T result = caseAdtAlternativeTypeImage(adtAlternativeTypeImage);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -551,6 +560,24 @@ public class ObjectSearchSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseStringToStringMapEntry(final Map.Entry<String, String> object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Adt Alternative Type
+   * Image</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Adt Alternative Type
+   *         Image</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAdtAlternativeTypeImage(final IAdtAlternativeTypeImage object) {
     return null;
   }
 

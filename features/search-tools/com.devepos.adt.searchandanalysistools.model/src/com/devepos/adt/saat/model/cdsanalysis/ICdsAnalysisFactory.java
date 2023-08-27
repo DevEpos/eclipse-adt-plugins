@@ -85,6 +85,16 @@ public interface ICdsAnalysisFactory extends EFactory {
   ICdsQueryNavTargets createCdsQueryNavTargets();
 
   /**
+   * Returns a new object of class '<em>Entity Field Info</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Entity Field Info</em>'.
+   * @generated
+   */
+  IEntityFieldInfo createEntityFieldInfo();
+
+  /**
    * Returns a new object of class '<em>Entity Field Info Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -113,16 +123,6 @@ public interface ICdsAnalysisFactory extends EFactory {
    * @generated
    */
   IWhereUsedInCdsResult createWhereUsedInCdsResult();
-
-  /**
-   * Returns a new object of class '<em>Entity Field Info</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @return a new object of class '<em>Entity Field Info</em>'.
-   * @generated
-   */
-  IEntityFieldInfo createEntityFieldInfo();
 
   /**
    * Returns the package supported by this factory.
