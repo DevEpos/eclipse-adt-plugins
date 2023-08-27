@@ -4,6 +4,8 @@ import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.core.resources.IProject;
@@ -17,6 +19,7 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -34,6 +37,7 @@ import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.MessageLine;
 import com.devepos.adt.base.ui.contentassist.ContentAssistSupport;
+import com.devepos.adt.base.ui.preferences.LinkToAdtPageBlocksFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.util.TextControlUtil;
@@ -45,6 +49,7 @@ import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
+import com.devepos.adt.cst.ui.internal.preferences.CodeSearchPreferencesPage;
 
 /**
  * Describes project specific settings of the Code Search
@@ -64,7 +69,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private static final int MIN_MAX_OBJECTS = 500;
   private static final int MAX_MAX_OBJECTS = 10000;
 
-  private ICodeSearchService codeSearchService;
+  private final ICodeSearchService codeSearchService;
   private String destinationId;
   private boolean pageIsInvalid;
   private boolean pageIsUseable;
@@ -81,9 +86,25 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private IAdtPluginFeatures searchFeatures;
   private ICodeSearchSettings searchSettings;
   private boolean pcreAvailable;
+  private Control linkToPreferencePageCtrl;
 
   public CodeSearchPropertyPage() {
     codeSearchService = CodeSearchFactory.getCodeSearchService();
+  }
+
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void applyData(final Object data) {
+    if (data instanceof Map) {
+      Map<?, ?> options = (Map) data;
+      boolean omit = Boolean.TRUE.equals(options.get(
+          LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY));
+      if (omit && linkToPreferencePageCtrl != null && !linkToPreferencePageCtrl.isDisposed()) {
+        linkToPreferencePageCtrl.setVisible(false);
+        ((GridData) linkToPreferencePageCtrl.getLayoutData()).exclude = true;
+        linkToPreferencePageCtrl.getParent().layout();
+      }
+    }
   }
 
   @Override
@@ -135,6 +156,14 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     Composite main = new Composite(parent, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(main);
     GridLayoutFactory.swtDefaults().applyTo(main);
+
+    var linkToPreferencePage = LinkToAdtPageBlocksFactory.createLinkToPreferencePage(
+        CodeSearchPreferencesPage.PAGE_ID, Collections.singletonMap(
+            LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY, true));
+    linkToPreferencePageCtrl = linkToPreferencePage.createControl(main, GridDataFactory
+        .fillDefaults()
+        .align(SWT.RIGHT, SWT.FILL)
+        .create());
 
     if (pageIsUseable) {
       createRegexSettings(main);

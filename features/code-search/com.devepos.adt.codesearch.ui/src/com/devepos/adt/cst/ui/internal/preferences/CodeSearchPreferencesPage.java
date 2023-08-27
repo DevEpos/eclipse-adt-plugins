@@ -1,8 +1,12 @@
 package com.devepos.adt.cst.ui.internal.preferences;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -10,7 +14,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.devepos.adt.base.ui.preferences.FieldEditorPrefPageBase;
-import com.devepos.adt.base.ui.preferences.ILinkToAdtPageBlock;
 import com.devepos.adt.base.ui.preferences.LinkToAdtPageBlocksFactory;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
@@ -27,6 +30,22 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implement
     IWorkbenchPreferencePage {
 
   public static final String PAGE_ID = "com.devepos.adt.codesearch.ui.preferences.CodeSearchPreferencesPage"; //$NON-NLS-1$
+  private Control linkToPropPageCtrl;
+
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void applyData(final Object data) {
+    if (data instanceof Map) {
+      Map<?, ?> options = (Map) data;
+      boolean omit = Boolean.TRUE.equals(options.get(
+          LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY));
+      if (omit && linkToPropPageCtrl != null && !linkToPropPageCtrl.isDisposed()) {
+        linkToPropPageCtrl.setVisible(false);
+        ((GridData) linkToPropPageCtrl.getLayoutData()).exclude = true;
+        linkToPropPageCtrl.getParent().layout();
+      }
+    }
+  }
 
   @Override
   public void init(final IWorkbench workbench) {
@@ -41,9 +60,10 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implement
 
   @Override
   protected void createPreferenceControls(final Composite parent) {
-    ILinkToAdtPageBlock linkToPropertyPage = LinkToAdtPageBlocksFactory.createLinkToPropertyPage(
-        CodeSearchPropertyPage.PAGE_ID, null);
-    linkToPropertyPage.createControl(parent, GridDataFactory.fillDefaults()
+    var linkToPropertyPage = LinkToAdtPageBlocksFactory.createLinkToPropertyPage(
+        CodeSearchPropertyPage.PAGE_ID, Collections.singletonMap(
+            LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY, true));
+    linkToPropPageCtrl = linkToPropertyPage.createControl(parent, GridDataFactory.fillDefaults()
         .align(SWT.RIGHT, SWT.FILL)
         .create());
 
