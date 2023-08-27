@@ -89,7 +89,7 @@ public class FilterInitializer {
         .getDescription(), filterConfig.getLongDescription(), getFilterImage(), filterConfig
             .isMultiple(), filterConfig.isNegatable(), contentAssist.getProposals()
                 .stream()
-                .map(p -> INamedItem.createNamedItem(p.getName(), p.getDescription(), null))
+                .map(p -> INamedItem.createNamedItem(p.getName(), p.getDescription(), p.getData()))
                 .collect(Collectors.toList()));
     filter.setProposalImageProvider(createImageProvider(contentAssist));
     return filter;
