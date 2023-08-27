@@ -14,6 +14,8 @@ import com.sap.adt.tools.core.ui.dialogs.LinkToAdtPropertyPageBlock;
  */
 @SuppressWarnings("restriction")
 public class LinkToAdtPageBlocksFactory {
+  public static final String NO_PROP_PAGE_LINK_KEY = "noPropertyPageLink"; //$NON-NLS-1$
+  public static final String NO_PREF_PAGE_LINK_KEY = "noPreferencePageLink"; //$NON-NLS-1$
 
   private static class LinkToAdtPreferencePageBlockProxy implements ILinkToAdtPageBlock {
 
