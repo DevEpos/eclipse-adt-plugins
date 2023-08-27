@@ -428,9 +428,9 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   }
 
   private void setFocus() {
-    final boolean focusOnSearchType = prefStore.getBoolean(IPreferences.FOCUS_ON_SEARCH_TYPE);
+    var initialFocus = prefStore.getString(IPreferences.INITIAL_CONTROL_FOCUS);
 
-    if (focusOnSearchType) {
+    if (InitialSearchFocus.TYPE_VIEWER.getPrefKey().equals(initialFocus)) {
       if (searchTypeViewer != null && !searchTypeViewer.getControl().isDisposed()) {
         searchTypeViewer.getControl().setFocus();
       }

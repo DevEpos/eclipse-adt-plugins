@@ -22,7 +22,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
   public void initializeDefaultPreferences() {
     final IPreferenceStore store = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     store.setDefault(IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT, true);
-    store.setDefault(IPreferences.FOCUS_ON_SEARCH_TYPE, false);
+    store.setDefault(IPreferences.INITIAL_CONTROL_FOCUS, InitialSearchFocus.FIRST_SEARCH_FIELD
+        .getPrefKey());
     store.setDefault(IPreferences.OVERWRITE_OPENED_SEARCH_QUERY, false);
     store.setDefault(IPreferences.MAX_SEARCH_RESULTS, 50);
     store.setDefault(IPreferences.SHOW_FULL_ASSOCIATION_NAME, true);

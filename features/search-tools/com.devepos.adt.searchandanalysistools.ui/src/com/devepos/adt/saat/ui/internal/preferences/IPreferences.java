@@ -52,10 +52,9 @@ public interface IPreferences {
    */
   String MAX_CDS_ANALYZER_HISTORY = "com.devepos.adt.saat.cdsanalyzer.maxHistorySize"; //$NON-NLS-1$
   /**
-   * Sets focus to search type field in object page, otherwise on the first input
-   * field
+   * Setting for the initial focus if the search dialog page is opened
    */
-  String FOCUS_ON_SEARCH_TYPE = "com.devepos.adt.saat.objectsearch.focusOnSearchType"; //$NON-NLS-1$
+  String INITIAL_CONTROL_FOCUS = "com.devepos.adt.saat.objectsearch.initialControlFocus"; //$NON-NLS-1$
   /**
    * Boolean preferences to use current text selection in object name field in
    * search dialog
