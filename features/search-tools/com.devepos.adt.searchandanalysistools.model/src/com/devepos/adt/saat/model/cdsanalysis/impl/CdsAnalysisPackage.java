@@ -22,6 +22,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisEntry;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 import com.devepos.adt.saat.model.cdsanalysis.SqlRelation;
 import com.devepos.adt.saat.model.cdsanalysis.TopDownAnalysisEntryType;
 
@@ -88,6 +90,22 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   private EClass entityFieldInfoResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass whereUsedInCdsEntryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass whereUsedInCdsResultEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -492,6 +510,127 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   @Override
+  public EClass getWhereUsedInCdsEntry() {
+    return whereUsedInCdsEntryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_Uri() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_EntityName() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_Ddlname() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_SourceType() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_Type() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_ApiState() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getWhereUsedInCdsEntry_Description() {
+    return (EAttribute) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getWhereUsedInCdsEntry_Children() {
+    return (EReference) whereUsedInCdsEntryEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getWhereUsedInCdsResult() {
+    return whereUsedInCdsResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getWhereUsedInCdsResult_Entries() {
+    return (EReference) whereUsedInCdsResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getEntityFieldInfo() {
     return entityFieldInfoEClass;
   }
@@ -730,6 +869,19 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     createEReference(entityFieldInfoResultEClass, ENTITY_FIELD_INFO_RESULT__SOURCE_FIELD_INFO);
     createEReference(entityFieldInfoResultEClass, ENTITY_FIELD_INFO_RESULT__FIELD_INFOS);
 
+    whereUsedInCdsEntryEClass = createEClass(WHERE_USED_IN_CDS_ENTRY);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__URI);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__ENTITY_NAME);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__DDLNAME);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__SOURCE_TYPE);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__TYPE);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__API_STATE);
+    createEAttribute(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__DESCRIPTION);
+    createEReference(whereUsedInCdsEntryEClass, WHERE_USED_IN_CDS_ENTRY__CHILDREN);
+
+    whereUsedInCdsResultEClass = createEClass(WHERE_USED_IN_CDS_RESULT);
+    createEReference(whereUsedInCdsResultEClass, WHERE_USED_IN_CDS_RESULT__ENTRIES);
+
     // Create enums
     sqlRelationEEnum = createEEnum(SQL_RELATION);
     topDownAnalysisEntryTypeEEnum = createEEnum(TOP_DOWN_ANALYSIS_ENTRY_TYPE);
@@ -896,6 +1048,39 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
         null, 0, -1, IEntityFieldInfoResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(whereUsedInCdsEntryEClass, IWhereUsedInCdsEntry.class, "WhereUsedInCdsEntry",
+        !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getWhereUsedInCdsEntry_Uri(), theXMLTypePackage.getString(), "uri", null, 0, 1,
+        IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_EntityName(), theXMLTypePackage.getString(), "entityName",
+        null, 0, 1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_Ddlname(), theXMLTypePackage.getString(), "ddlname", null,
+        0, 1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_SourceType(), theXMLTypePackage.getString(), "sourceType",
+        null, 0, 1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_Type(), theXMLTypePackage.getString(), "type", null, 0, 1,
+        IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_ApiState(), theXMLTypePackage.getString(), "apiState",
+        null, 0, 1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereUsedInCdsEntry_Description(), theXMLTypePackage.getString(),
+        "description", null, 0, 1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhereUsedInCdsEntry_Children(), getWhereUsedInCdsEntry(), null, "children",
+        null, 0, -1, IWhereUsedInCdsEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(whereUsedInCdsResultEClass, IWhereUsedInCdsResult.class, "WhereUsedInCdsResult",
+        !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getWhereUsedInCdsResult_Entries(), getWhereUsedInCdsEntry(), null, "entries",
+        null, 0, -1, IWhereUsedInCdsResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     // Initialize enums and add enum literals
     initEEnum(sqlRelationEEnum, SqlRelation.class, "SqlRelation");
     addEEnumLiteral(sqlRelationEEnum, SqlRelation.UNSPECIFIED);
@@ -1014,6 +1199,26 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
         "element", "namespace", "##targetNamespace" });
     addAnnotation(getEntityFieldInfoResult_FieldInfos(), source, new String[] { "kind", "element",
         "name", "entityFieldInfo", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Uri(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_EntityName(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Ddlname(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace", "name", "ddlName" });
+    addAnnotation(getWhereUsedInCdsEntry_SourceType(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Type(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_ApiState(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Description(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Children(), source, new String[] { "kind", "element",
+        "name", "whereUsedInCdsEntry", "namespace", "##targetNamespace" });
+    addAnnotation(whereUsedInCdsResultEClass, source, new String[] { "kind", "elementOnly", "name",
+        "whereUsedInCdsResult" });
+    addAnnotation(getWhereUsedInCdsResult_Entries(), source, new String[] { "kind", "element",
+        "name", "whereUsedInCdsEntry", "namespace", "##targetNamespace" });
   }
 
 } // CdsAnalysisPackage

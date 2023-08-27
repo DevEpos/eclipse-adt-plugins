@@ -20,6 +20,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfo;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisEntry;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 import com.devepos.adt.saat.model.cdsanalysis.SqlRelation;
 import com.devepos.adt.saat.model.cdsanalysis.TopDownAnalysisEntryType;
 
@@ -87,6 +89,10 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
       return createEntityFieldInfo();
     case ICdsAnalysisPackage.ENTITY_FIELD_INFO_RESULT:
       return createEntityFieldInfoResult();
+    case ICdsAnalysisPackage.WHERE_USED_IN_CDS_ENTRY:
+      return createWhereUsedInCdsEntry();
+    case ICdsAnalysisPackage.WHERE_USED_IN_CDS_RESULT:
+      return createWhereUsedInCdsResult();
     default:
       throw new IllegalArgumentException("The class '" + eClass.getName()
           + "' is not a valid classifier");
@@ -217,6 +223,30 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
   public IEntityFieldInfoResult createEntityFieldInfoResult() {
     EntityFieldInfoResult entityFieldInfoResult = new EntityFieldInfoResult();
     return entityFieldInfoResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IWhereUsedInCdsEntry createWhereUsedInCdsEntry() {
+    WhereUsedInCdsEntry whereUsedInCdsEntry = new WhereUsedInCdsEntry();
+    return whereUsedInCdsEntry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IWhereUsedInCdsResult createWhereUsedInCdsResult() {
+    WhereUsedInCdsResult whereUsedInCdsResult = new WhereUsedInCdsResult();
+    return whereUsedInCdsResult;
   }
 
   /**

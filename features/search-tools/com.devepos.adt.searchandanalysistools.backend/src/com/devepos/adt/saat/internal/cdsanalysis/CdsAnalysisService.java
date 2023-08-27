@@ -13,8 +13,6 @@ import org.eclipse.osgi.util.NLS;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.util.AdtUtil;
 import com.devepos.adt.saat.cdsanalysis.CdsAnalysisFeature;
-import com.devepos.adt.saat.cdsanalysis.CdsTopDownAnalysisContentHandler;
-import com.devepos.adt.saat.cdsanalysis.CdsUsedEntitiesAnalysisContentHandler;
 import com.devepos.adt.saat.cdsanalysis.ICdsAnalysisService;
 import com.devepos.adt.saat.cdsanalysis.ICdsFieldAnalysisSettings;
 import com.devepos.adt.saat.cdsanalysis.ICdsTopDownSettings;
@@ -22,12 +20,10 @@ import com.devepos.adt.saat.cdsanalysis.IWhereUsedInCdsAnalysisConstants;
 import com.devepos.adt.saat.internal.Activator;
 import com.devepos.adt.saat.internal.ddicaccess.EntityFieldInfoResultContentHandler;
 import com.devepos.adt.saat.internal.messages.Messages;
-import com.devepos.adt.saat.internal.search.ObjectSearchInputContentHandler;
-import com.devepos.adt.saat.internal.search.ObjectSearchResultContentHandler;
 import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntitiesResult;
 import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.ITopDownAnalysisResult;
-import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
+import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
@@ -51,7 +47,7 @@ public class CdsAnalysisService implements ICdsAnalysisService {
   }
 
   @Override
-  public IObjectSearchResult getWhereUsedInResultsForEntity(final String destinationId,
+  public IWhereUsedInCdsResult getWhereUsedInResultsForEntity(final String destinationId,
       final String entityName, final boolean searchInFromPart, final boolean localAssociationsOnly,
       final boolean releasedEntitiesOnly) {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
@@ -74,9 +70,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
 
       final var restResource = AdtRestResourceFactory.createRestResourceFactory()
           .createRestResource(resourceUri, session);
-      restResource.addContentHandler(new ObjectSearchResultContentHandler());
-      restResource.addContentHandler(new ObjectSearchInputContentHandler());
-      return restResource.get(new NullProgressMonitor(), IObjectSearchResult.class);
+      restResource.addContentHandler(new WhereUsedInCdsAnalysisContentHandler());
+      return restResource.get(new NullProgressMonitor(), IWhereUsedInCdsResult.class);
     }
     return null;
   }
