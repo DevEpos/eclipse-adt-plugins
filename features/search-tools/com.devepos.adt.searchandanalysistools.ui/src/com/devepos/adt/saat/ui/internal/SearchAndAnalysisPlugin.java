@@ -1,9 +1,14 @@
 package com.devepos.adt.saat.ui.internal;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
+import com.devepos.adt.saat.model.objectsearch.ImageRegistryId;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
@@ -30,6 +35,42 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
    */
   public static SearchAndAnalysisPlugin getDefault() {
     return plugin;
+  }
+
+  /**
+   * Returns image of a search type.
+   *
+   * @param typeConfig configuration of an object search type
+   * @return the found image or {@code null}
+   */
+  public Image getSearchTypeImage(ISearchTypeConfig typeConfig) {
+    var imageInfo = typeConfig.getImageInfo();
+    if (imageInfo == null || imageInfo.getImageId() == null) {
+      return null;
+    }
+    if (imageInfo.getImageEncoded() != null) {
+      var imageDescr = getImage(imageInfo.getImageId());
+      if (imageDescr == null) {
+        registerEncodedImage(imageInfo.getImageId(), imageInfo.getImageEncoded());
+        imageDescr = getImage(imageInfo.getImageId());
+      }
+      return imageDescr;
+    }
+    if (imageInfo.getImageRegistryId() == ImageRegistryId.ADT_OBJECT_TYPE) {
+      return AdtTypeUtil.getInstance().getTypeImage(imageInfo.getImageId());
+    }
+    return null;
+  }
+
+  /**
+   * Returns image descriptor for the given search type
+   * 
+   * @param typeConfig configuration of an object search type
+   * @return the image descriptor for the search type
+   */
+  public ImageDescriptor getSearchTypeImgDescr(ISearchTypeConfig typeConfig) {
+    var image = getSearchTypeImage(typeConfig);
+    return image != null ? ImageDescriptor.createFromImage(image) : null;
   }
 
   @Override
