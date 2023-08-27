@@ -112,8 +112,18 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
   }
 
   @Override
+  public String getParentUri() {
+    return objectReference != null ? objectReference.getParentUri() : null;
+  }
+
+  @Override
   public String getSizeAsString() {
     return children != null ? new DecimalFormat("###,###").format(children.size()) : "0";
+  }
+
+  @Override
+  public String getUri() {
+    return objectReference != null ? objectReference.getUri() : null;
   }
 
   @Override
