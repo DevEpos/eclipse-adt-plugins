@@ -29,6 +29,13 @@ import com.sap.adt.communication.session.AdtSystemSessionFactory;
 public class ObjectSearchService implements IObjectSearchService {
 
   private final Map<String, ISearchConfig> searchConfigMap = new HashMap<>();
+  private final boolean configCacheEnabled;
+
+  public ObjectSearchService() {
+    var configCacheDisabledProp = System.getProperty(
+        "com.devepos.adt.objectsearch.configCacheDisabled", Boolean.FALSE.toString());
+    configCacheEnabled = !Boolean.parseBoolean(configCacheDisabledProp);
+  }
 
   @Override
   public IAdtUriTemplateProvider getNamedItemUriTemplateProvider(
@@ -42,7 +49,7 @@ public class ObjectSearchService implements IObjectSearchService {
 
   @Override
   public ISearchConfig getSearchConfig(final String destinationId) {
-    if (searchConfigMap.containsKey(destinationId)) {
+    if (configCacheEnabled && searchConfigMap.containsKey(destinationId)) {
       return searchConfigMap.get(destinationId);
     }
     var discovery = new ObjectSearchUriDiscovery(destinationId);
@@ -55,7 +62,9 @@ public class ObjectSearchService implements IObjectSearchService {
           .createRestResource(resourceUri, session);
       restResource.addContentHandler(new ObjectSearchConfigContentHandler());
       var searchConfig = restResource.get(null, ISearchConfig.class);
-      searchConfigMap.put(destinationId, searchConfig);
+      if (configCacheEnabled) {
+        searchConfigMap.put(destinationId, searchConfig);
+      }
       return searchConfig;
     }
     return null;
