@@ -11,7 +11,6 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author stockbal
  */
 public interface IAdtObjectReferenceNode extends ICollectionTreeNode, IAdaptable {
-
   /**
    * Returns the ADT object type of the underlying ADT object reference
    *
@@ -30,6 +29,16 @@ public interface IAdtObjectReferenceNode extends ICollectionTreeNode, IAdaptable
    * @return
    */
   ObjectType getObjectType();
+
+  /**
+   * @return URI of parent of contained ADT object reference
+   */
+  String getParentUri();
+
+  /**
+   * @return URI of ADT object reference
+   */
+  String getUri();
 
   /**
    * Sets the object reference of the node
