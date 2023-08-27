@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.osgi.util.TextProcessor;
@@ -31,6 +31,7 @@ public class CopyToClipboardAction extends Action {
 
   private final List<Text> textControls = new ArrayList<>();
   private final List<StructuredViewer> viewers = new ArrayList<>();
+  private final List<IAdaptable> viewerAdapters = new ArrayList<>();
 
   public CopyToClipboardAction() {
     super();
@@ -82,9 +83,15 @@ public class CopyToClipboardAction extends Action {
     }
   }
 
+  public void registerViewerAdapter(final IAdaptable viewerAdapter) {
+    if (!viewerAdapters.contains(viewerAdapter)) {
+      viewerAdapters.add(viewerAdapter);
+    }
+  }
+
   @Override
   public void run() {
-    final Object focusedObject = getFocused();
+    final var focusedObject = getFocused();
     if (focusedObject == null) {
       return;
     }
@@ -95,16 +102,20 @@ public class CopyToClipboardAction extends Action {
     }
   }
 
+  public void unregisterViewerAdapter(IAdaptable viewerAdapter) {
+    viewerAdapters.remove(viewerAdapter);
+  }
+
   private void copyFromStructuredViewer(final StructuredViewer viewer) {
-    final Shell shell = viewer.getControl().getShell();
+    final var shell = viewer.getControl().getShell();
     if (shell == null) {
       return;
     }
 
-    final IBaseLabelProvider labelProvider = viewer.getLabelProvider();
+    final var labelProvider = viewer.getLabelProvider();
     final String lineDelim = System.getProperty("line.separator"); //$NON-NLS-1$
-    final StringBuilder buf = new StringBuilder();
-    final Iterator<?> iter = getSelection(viewer);
+    final var buf = new StringBuilder();
+    final var iter = getSelection(viewer);
     while (iter.hasNext()) {
       if (buf.length() > 0) {
         buf.append(lineDelim);
@@ -119,7 +130,7 @@ public class CopyToClipboardAction extends Action {
   }
 
   private void copyFromTextControl(final Text textControl) {
-    final Shell shell = textControl.getShell();
+    final var shell = textControl.getShell();
     if (shell == null) {
       return;
     }
@@ -143,7 +154,7 @@ public class CopyToClipboardAction extends Action {
 
   private void copyToClipboard(String text, final Shell shell) {
     text = TextProcessor.deprocess(text);
-    final Clipboard clipboard = new Clipboard(shell.getDisplay());
+    final var clipboard = new Clipboard(shell.getDisplay());
     try {
       copyToClipboard(clipboard, text, shell);
     } finally {
@@ -152,13 +163,19 @@ public class CopyToClipboardAction extends Action {
   }
 
   private Object getFocused() {
-    for (final Text textControl : textControls) {
+    for (final var textControl : textControls) {
       if (textControl.isFocusControl()) {
         return textControl;
       }
     }
-    for (final StructuredViewer viewer : viewers) {
+    for (final var viewer : viewers) {
       if (viewer.getControl().isFocusControl()) {
+        return viewer;
+      }
+    }
+    for (final var viewerAdapter : viewerAdapters) {
+      var viewer = viewerAdapter.getAdapter(StructuredViewer.class);
+      if (viewer != null && viewer.getControl().isFocusControl()) {
         return viewer;
       }
     }
@@ -166,7 +183,7 @@ public class CopyToClipboardAction extends Action {
   }
 
   private Iterator<?> getSelection(final StructuredViewer viewer) {
-    final ISelection s = viewer.getSelection();
+    final var s = viewer.getSelection();
     if (s instanceof IStructuredSelection) {
       return ((IStructuredSelection) s).iterator();
     }
