@@ -47,6 +47,7 @@ public class ObjectSearchResult extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected static final int RESULT_COUNT_EDEFAULT = 0;
+
   /**
    * The cached value of the '{@link #getResultCount() <em>Result Count</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -57,6 +58,7 @@ public class ObjectSearchResult extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected int resultCount = RESULT_COUNT_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getResultObjects() <em>Result Objects</em>}' containment
    * reference list.

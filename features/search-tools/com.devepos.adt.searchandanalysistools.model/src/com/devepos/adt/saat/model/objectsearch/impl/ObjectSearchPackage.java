@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.saat.model.objectsearch.CustomOptionType;
 import com.devepos.adt.saat.model.objectsearch.FilterType;
+import com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage;
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
 import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
@@ -188,6 +189,14 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   private EClass stringToStringMapEntryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass adtAlternativeTypeImageEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -724,8 +733,19 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
-  public EAttribute getSimpleContentProposal_Description() {
+  public EAttribute getSimpleContentProposal_Data() {
     return (EAttribute) simpleContentProposalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getSimpleContentProposal_Description() {
+    return (EAttribute) simpleContentProposalEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1109,6 +1129,17 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EReference getSearchResultOutputConfig_AdtAltTypeImages() {
+    return (EReference) searchResultOutputConfigEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getCustomOption() {
     return customOptionEClass;
   }
@@ -1199,6 +1230,39 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
   @Override
   public EAttribute getStringToStringMapEntry_Value() {
     return (EAttribute) stringToStringMapEntryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getAdtAlternativeTypeImage() {
+    return adtAlternativeTypeImageEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getAdtAlternativeTypeImage_Type() {
+    return (EAttribute) adtAlternativeTypeImageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAdtAlternativeTypeImage_ImgInfo() {
+    return (EReference) adtAlternativeTypeImageEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1323,6 +1387,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
 
     simpleContentProposalEClass = createEClass(SIMPLE_CONTENT_PROPOSAL);
     createEAttribute(simpleContentProposalEClass, SIMPLE_CONTENT_PROPOSAL__NAME);
+    createEAttribute(simpleContentProposalEClass, SIMPLE_CONTENT_PROPOSAL__DATA);
     createEAttribute(simpleContentProposalEClass, SIMPLE_CONTENT_PROPOSAL__DESCRIPTION);
 
     fixedValuesContentAssistEClass = createEClass(FIXED_VALUES_CONTENT_ASSIST);
@@ -1369,6 +1434,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         SEARCH_RESULT_OUTPUT_CONFIG__LIST_OUTPUT_SUPPORTED);
     createEAttribute(searchResultOutputConfigEClass, SEARCH_RESULT_OUTPUT_CONFIG__GROUPING_LEVELS);
     createEAttribute(searchResultOutputConfigEClass, SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST);
+    createEReference(searchResultOutputConfigEClass,
+        SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES);
 
     customOptionEClass = createEClass(CUSTOM_OPTION);
     createEAttribute(customOptionEClass, CUSTOM_OPTION__KEY);
@@ -1380,6 +1447,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     stringToStringMapEntryEClass = createEClass(STRING_TO_STRING_MAP_ENTRY);
     createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__KEY);
     createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__VALUE);
+
+    adtAlternativeTypeImageEClass = createEClass(ADT_ALTERNATIVE_TYPE_IMAGE);
+    createEAttribute(adtAlternativeTypeImageEClass, ADT_ALTERNATIVE_TYPE_IMAGE__TYPE);
+    createEReference(adtAlternativeTypeImageEClass, ADT_ALTERNATIVE_TYPE_IMAGE__IMG_INFO);
 
     // Create enums
     proposalImageSourceEEnum = createEEnum(PROPOSAL_IMAGE_SOURCE);
@@ -1547,6 +1618,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getSimpleContentProposal_Name(), theXMLTypePackage.getString(), "name", null, 0,
         1, ISimpleContentProposal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
         !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSimpleContentProposal_Data(), theXMLTypePackage.getString(), "data", null, 0,
+        1, ISimpleContentProposal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSimpleContentProposal_Description(), theXMLTypePackage.getString(),
         "description", null, 0, 1, ISimpleContentProposal.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1656,6 +1730,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getSearchResultOutputConfig_TypesForList(), theXMLTypePackage.getString(),
         "typesForList", null, 0, -1, ISearchResultOutputConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearchResultOutputConfig_AdtAltTypeImages(), getAdtAlternativeTypeImage(),
+        null, "adtAltTypeImages", null, 0, -1, ISearchResultOutputConfig.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+        !IS_DERIVED, IS_ORDERED);
 
     initEClass(customOptionEClass, ICustomOption.class, "CustomOption", !IS_ABSTRACT, !IS_INTERFACE,
         IS_GENERATED_INSTANCE_CLASS);
@@ -1684,6 +1762,15 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getStringToStringMapEntry_Value(), theXMLTypePackage.getString(), "value", null,
         0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(adtAlternativeTypeImageEClass, IAdtAlternativeTypeImage.class,
+        "AdtAlternativeTypeImage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAdtAlternativeTypeImage_Type(), theXMLTypePackage.getString(), "type", null,
+        0, 1, IAdtAlternativeTypeImage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAdtAlternativeTypeImage_ImgInfo(), getImageInfo(), null, "imgInfo", null, 0,
+        1, IAdtAlternativeTypeImage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(proposalImageSourceEEnum, ProposalImageSource.class, "ProposalImageSource");
@@ -1795,6 +1882,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "contentProposal" });
     addAnnotation(getSimpleContentProposal_Name(), source, new String[] { "kind", "attribute",
         "namespace", "##targetNamespace" });
+    addAnnotation(getSimpleContentProposal_Data(), source, new String[] { "kind", "element",
+        "namespace", "##targetNamespace" });
     addAnnotation(getSimpleContentProposal_Description(), source, new String[] { "kind",
         "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getFixedValuesContentAssist_Proposals(), source, new String[] { "kind", "element",
@@ -1851,6 +1940,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "element", "namespace", "##targetNamespace", "name", "groupingLevel" });
     addAnnotation(getSearchResultOutputConfig_TypesForList(), source, new String[] { "kind",
         "element", "name", "typeForList", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchResultOutputConfig_AdtAltTypeImages(), source, new String[] { "kind",
+        "element", "namespace", "##targetNamespace", "name", "adtAltTypeImage" });
     addAnnotation(getCustomOption_Description(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace" });
     addAnnotation(getCustomOption_OptionValues(), source, new String[] { "kind", "element",
@@ -1858,6 +1949,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     addAnnotation(getStringToStringMapEntry_Key(), source, new String[] { "kind", "attribute",
         "namespace", "##targetNamespace" });
     addAnnotation(getStringToStringMapEntry_Value(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtAlternativeTypeImage_Type(), source, new String[] { "kind", "attribute",
+        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtAlternativeTypeImage_ImgInfo(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace" });
   }
 

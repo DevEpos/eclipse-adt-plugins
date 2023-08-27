@@ -220,6 +220,18 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
    * @generated
    */
   @Override
+  public IEntityFieldInfo createEntityFieldInfo() {
+    EntityFieldInfo entityFieldInfo = new EntityFieldInfo();
+    return entityFieldInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public IEntityFieldInfoResult createEntityFieldInfoResult() {
     EntityFieldInfoResult entityFieldInfoResult = new EntityFieldInfoResult();
     return entityFieldInfoResult;
@@ -247,18 +259,6 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
   public IWhereUsedInCdsResult createWhereUsedInCdsResult() {
     WhereUsedInCdsResult whereUsedInCdsResult = new WhereUsedInCdsResult();
     return whereUsedInCdsResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IEntityFieldInfo createEntityFieldInfo() {
-    EntityFieldInfo entityFieldInfo = new EntityFieldInfo();
-    return entityFieldInfo;
   }
 
   /**

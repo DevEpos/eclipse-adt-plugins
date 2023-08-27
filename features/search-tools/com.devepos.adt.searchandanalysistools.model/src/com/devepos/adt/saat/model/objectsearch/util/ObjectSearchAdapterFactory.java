@@ -9,6 +9,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
+import com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage;
 import com.devepos.adt.saat.model.objectsearch.IContentAssist;
 import com.devepos.adt.saat.model.objectsearch.ICustomOption;
 import com.devepos.adt.saat.model.objectsearch.IFixedValuesContentAssist;
@@ -177,6 +178,11 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
       return createStringToStringMapEntryAdapter();
+    }
+
+    @Override
+    public Adapter caseAdtAlternativeTypeImage(final IAdtAlternativeTypeImage object) {
+      return createAdtAlternativeTypeImageAdapter();
     }
 
     @Override
@@ -496,6 +502,23 @@ public class ObjectSearchAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createStringToStringMapEntryAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage <em>Adt Alternative
+   * Type Image</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage
+   * @generated
+   */
+  public Adapter createAdtAlternativeTypeImageAdapter() {
     return null;
   }
 

@@ -29,6 +29,7 @@ public enum ImageRegistryId implements Enumerator {
    * @ordered
    */
   CALLING_PLUGIN(0, "CALLING_PLUGIN", "CALLING_PLUGIN"),
+
   /**
    * The '<em><b>ADT OBJECT TYPE</b></em>' literal object.
    * <!-- begin-user-doc -->

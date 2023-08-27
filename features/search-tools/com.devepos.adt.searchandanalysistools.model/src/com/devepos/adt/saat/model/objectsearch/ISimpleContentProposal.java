@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getName
  * <em>Name</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getData
+ * <em>Data</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getDescription
  * <em>Description</em>}</li>
  * </ul>
@@ -50,6 +52,33 @@ public interface ISimpleContentProposal extends EObject {
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Data</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Data</em>' attribute.
+   * @see #setData(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSimpleContentProposal_Data()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getData();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getData <em>Data</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Data</em>' attribute.
+   * @see #getData()
+   * @generated
+   */
+  void setData(String value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.

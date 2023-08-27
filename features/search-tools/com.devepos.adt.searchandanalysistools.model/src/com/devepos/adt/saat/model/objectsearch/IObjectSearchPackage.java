@@ -582,6 +582,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SIMPLE_CONTENT_PROPOSAL__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Data</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SIMPLE_CONTENT_PROPOSAL__DATA = 1;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -589,7 +599,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SIMPLE_CONTENT_PROPOSAL__DESCRIPTION = 1;
+  int SIMPLE_CONTENT_PROPOSAL__DESCRIPTION = 2;
 
   /**
    * The number of structural features of the '<em>Simple Content Proposal</em>' class.
@@ -599,7 +609,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SIMPLE_CONTENT_PROPOSAL_FEATURE_COUNT = 2;
+  int SIMPLE_CONTENT_PROPOSAL_FEATURE_COUNT = 3;
 
   /**
    * The number of operations of the '<em>Simple Content Proposal</em>' class.
@@ -1299,6 +1309,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST = 2;
 
   /**
+   * The feature id for the '<em><b>Adt Alt Type Images</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES = 3;
+
+  /**
    * The number of structural features of the '<em>Search Result Output Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1306,7 +1326,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_RESULT_OUTPUT_CONFIG_FEATURE_COUNT = 3;
+  int SEARCH_RESULT_OUTPUT_CONFIG_FEATURE_COUNT = 4;
 
   /**
    * The number of operations of the '<em>Search Result Output Config</em>' class.
@@ -1454,6 +1474,59 @@ public interface IObjectSearchPackage extends EPackage {
   int STRING_TO_STRING_MAP_ENTRY_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the
+   * '{@link com.devepos.adt.saat.model.objectsearch.impl.AdtAlternativeTypeImage <em>Adt
+   * Alternative Type Image</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.saat.model.objectsearch.impl.AdtAlternativeTypeImage
+   * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getAdtAlternativeTypeImage()
+   * @generated
+   */
+  int ADT_ALTERNATIVE_TYPE_IMAGE = 18;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_ALTERNATIVE_TYPE_IMAGE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Img Info</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_ALTERNATIVE_TYPE_IMAGE__IMG_INFO = 1;
+
+  /**
+   * The number of structural features of the '<em>Adt Alternative Type Image</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_ALTERNATIVE_TYPE_IMAGE_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Adt Alternative Type Image</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ADT_ALTERNATIVE_TYPE_IMAGE_OPERATION_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ProposalImageSource
    * <em>Proposal Image Source</em>}' enum.
    * <!-- begin-user-doc -->
@@ -1463,7 +1536,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getProposalImageSource()
    * @generated
    */
-  int PROPOSAL_IMAGE_SOURCE = 18;
+  int PROPOSAL_IMAGE_SOURCE = 19;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.FilterType
@@ -1475,7 +1548,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getFilterType()
    * @generated
    */
-  int FILTER_TYPE = 19;
+  int FILTER_TYPE = 20;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.ImageRegistryId
@@ -1487,7 +1560,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getImageRegistryId()
    * @generated
    */
-  int IMAGE_REGISTRY_ID = 20;
+  int IMAGE_REGISTRY_ID = 21;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.saat.model.objectsearch.CustomOptionType
@@ -1499,7 +1572,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getCustomOptionType()
    * @generated
    */
-  int CUSTOM_OPTION_TYPE = 21;
+  int CUSTOM_OPTION_TYPE = 22;
 
   /**
    * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ISearchConfig
@@ -2019,6 +2092,19 @@ public interface IObjectSearchPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getData <em>Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Data</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getData()
+   * @see #getSimpleContentProposal()
+   * @generated
+   */
+  EAttribute getSimpleContentProposal_Data();
+
+  /**
+   * Returns the meta object for the attribute
    * '{@link com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal#getDescription
    * <em>Description</em>}'.
    * <!-- begin-user-doc -->
@@ -2491,6 +2577,20 @@ public interface IObjectSearchPackage extends EPackage {
   EAttribute getSearchResultOutputConfig_TypesForList();
 
   /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getAdtAltTypeImages
+   * <em>Adt Alt Type Images</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Adt Alt Type Images</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getAdtAltTypeImages()
+   * @see #getSearchResultOutputConfig()
+   * @generated
+   */
+  EReference getSearchResultOutputConfig_AdtAltTypeImages();
+
+  /**
    * Returns the meta object for class '{@link com.devepos.adt.saat.model.objectsearch.ICustomOption
    * <em>Custom Option</em>}'.
    * <!-- begin-user-doc -->
@@ -2608,6 +2708,47 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EAttribute getStringToStringMapEntry_Value();
+
+  /**
+   * Returns the meta object for class
+   * '{@link com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage <em>Adt Alternative
+   * Type Image</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Adt Alternative Type Image</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage
+   * @generated
+   */
+  EClass getAdtAlternativeTypeImage();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage#getType
+   * <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage#getType()
+   * @see #getAdtAlternativeTypeImage()
+   * @generated
+   */
+  EAttribute getAdtAlternativeTypeImage_Type();
+
+  /**
+   * Returns the meta object for the reference
+   * '{@link com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage#getImgInfo <em>Img
+   * Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the reference '<em>Img Info</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage#getImgInfo()
+   * @see #getAdtAlternativeTypeImage()
+   * @generated
+   */
+  EReference getAdtAlternativeTypeImage_ImgInfo();
 
   /**
    * Returns the meta object for enum
@@ -3069,6 +3210,15 @@ public interface IObjectSearchPackage extends EPackage {
     EAttribute SIMPLE_CONTENT_PROPOSAL__NAME = eINSTANCE.getSimpleContentProposal_Name();
 
     /**
+     * The meta object literal for the '<em><b>Data</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SIMPLE_CONTENT_PROPOSAL__DATA = eINSTANCE.getSimpleContentProposal_Data();
+
+    /**
      * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3433,6 +3583,17 @@ public interface IObjectSearchPackage extends EPackage {
         .getSearchResultOutputConfig_TypesForList();
 
     /**
+     * The meta object literal for the '<em><b>Adt Alt Type Images</b></em>' containment reference
+     * list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES = eINSTANCE
+        .getSearchResultOutputConfig_AdtAltTypeImages();
+
+    /**
      * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.objectsearch.impl.CustomOption <em>Custom Option</em>}'
      * class.
@@ -3520,6 +3681,38 @@ public interface IObjectSearchPackage extends EPackage {
      * @generated
      */
     EAttribute STRING_TO_STRING_MAP_ENTRY__VALUE = eINSTANCE.getStringToStringMapEntry_Value();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.saat.model.objectsearch.impl.AdtAlternativeTypeImage <em>Adt
+     * Alternative Type Image</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.saat.model.objectsearch.impl.AdtAlternativeTypeImage
+     * @see com.devepos.adt.saat.model.objectsearch.impl.ObjectSearchPackage#getAdtAlternativeTypeImage()
+     * @generated
+     */
+    EClass ADT_ALTERNATIVE_TYPE_IMAGE = eINSTANCE.getAdtAlternativeTypeImage();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute ADT_ALTERNATIVE_TYPE_IMAGE__TYPE = eINSTANCE.getAdtAlternativeTypeImage_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Img Info</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ADT_ALTERNATIVE_TYPE_IMAGE__IMG_INFO = eINSTANCE
+        .getAdtAlternativeTypeImage_ImgInfo();
 
     /**
      * The meta object literal for the

@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Grouping Levels</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getTypesForList
  * <em>Types For List</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig#getAdtAltTypeImages
+ * <em>Adt Alt Type Images</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchResultOutputConfig()
@@ -82,5 +84,20 @@ public interface ISearchResultOutputConfig extends EObject {
    * @generated
    */
   List<String> getTypesForList();
+
+  /**
+   * Returns the value of the '<em><b>Adt Alt Type Images</b></em>' containment reference list.
+   * The list contents are of type
+   * {@link com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Adt Alt Type Images</em>' containment reference list.
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchResultOutputConfig_AdtAltTypeImages()
+   * @model containment="true"
+   *        extendedMetaData="kind='element' namespace='##targetNamespace' name='adtAltTypeImage'"
+   * @generated
+   */
+  List<IAdtAlternativeTypeImage> getAdtAltTypeImages();
 
 } // ISearchResultOutputConfig

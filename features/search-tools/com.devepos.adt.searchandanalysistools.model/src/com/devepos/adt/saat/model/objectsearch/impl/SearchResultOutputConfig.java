@@ -6,12 +6,17 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
+import com.devepos.adt.saat.model.objectsearch.IAdtAlternativeTypeImage;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
 import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
 
@@ -29,6 +34,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
  * <em>Grouping Levels</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig#getTypesForList
  * <em>Types For List</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchResultOutputConfig#getAdtAltTypeImages
+ * <em>Adt Alt Type Images</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,6 +87,18 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected EList<String> typesForList;
+
+  /**
+   * The cached value of the '{@link #getAdtAltTypeImages() <em>Adt Alt Type Images</em>}'
+   * containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getAdtAltTypeImages()
+   * @generated
+   * @ordered
+   */
+  protected EList<IAdtAlternativeTypeImage> adtAltTypeImages;
 
   /**
    * <!-- begin-user-doc -->
@@ -167,6 +186,38 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
    * @generated
    */
   @Override
+  public List<IAdtAlternativeTypeImage> getAdtAltTypeImages() {
+    if (adtAltTypeImages == null) {
+      adtAltTypeImages = new EObjectContainmentEList<>(
+          IAdtAlternativeTypeImage.class, this,
+          IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES);
+    }
+    return adtAltTypeImages;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
+    switch (featureID) {
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES:
+      return ((InternalEList<?>) getAdtAltTypeImages()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__LIST_OUTPUT_SUPPORTED:
@@ -175,6 +226,8 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
       return getGroupingLevels();
     case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST:
       return getTypesForList();
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES:
+      return getAdtAltTypeImages();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -200,6 +253,10 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
       getTypesForList().clear();
       getTypesForList().addAll((Collection<? extends String>) newValue);
       return;
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES:
+      getAdtAltTypeImages().clear();
+      getAdtAltTypeImages().addAll((Collection<? extends IAdtAlternativeTypeImage>) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -222,6 +279,9 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
     case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST:
       getTypesForList().clear();
       return;
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES:
+      getAdtAltTypeImages().clear();
+      return;
     }
     super.eUnset(featureID);
   }
@@ -241,6 +301,8 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
       return groupingLevels != null && !groupingLevels.isEmpty();
     case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__TYPES_FOR_LIST:
       return typesForList != null && !typesForList.isEmpty();
+    case IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES:
+      return adtAltTypeImages != null && !adtAltTypeImages.isEmpty();
     }
     return super.eIsSet(featureID);
   }
