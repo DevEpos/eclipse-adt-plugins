@@ -13,9 +13,6 @@ import org.eclipse.ui.actions.CompoundContributionItem;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.project.ProjectUtil;
-import com.devepos.adt.base.ui.util.AdtTypeUtil;
-import com.devepos.adt.saat.model.objectsearch.IImageInfo;
-import com.devepos.adt.saat.model.objectsearch.ImageRegistryId;
 import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
@@ -67,8 +64,9 @@ public class ObjectSearchModesMenu extends CompoundContributionItem {
         .isOK()) {
       var config = searchService.getSearchConfig(DestinationUtil.getDestinationId(currentProject));
       for (var typeConfig : config.getSearchTypes()) {
-        items.add(new ActionContributionItem(new OpenSearchDialogWithType(getTypeImage(typeConfig
-            .getImageInfo()), typeConfig.getName(), typeConfig.getLabel())));
+        items.add(new ActionContributionItem(new OpenSearchDialogWithType(SearchAndAnalysisPlugin
+            .getDefault()
+            .getSearchTypeImgDescr(typeConfig), typeConfig.getName(), typeConfig.getLabel())));
       }
     } else {
       final IAction noProjectAction = new Action(
@@ -79,26 +77,6 @@ public class ObjectSearchModesMenu extends CompoundContributionItem {
     }
 
     return items.toArray(new IContributionItem[items.size()]);
-  }
-
-  private ImageDescriptor getTypeImage(final IImageInfo imageInfo) {
-    if (imageInfo == null || imageInfo.getImageId() == null) {
-      return null;
-    }
-    var plugin = SearchAndAnalysisPlugin.getDefault();
-    if (imageInfo.getImageEncoded() != null) {
-      var imageDescr = plugin.getImageDescriptor(imageInfo.getImageId());
-      if (imageDescr == null) {
-        plugin.registerEncodedImage(imageInfo.getImageId(), imageInfo.getImageEncoded());
-        imageDescr = plugin.getImageDescriptor(imageInfo.getImageId());
-      }
-      return imageDescr;
-    }
-    if (imageInfo.getImageRegistryId() == ImageRegistryId.ADT_OBJECT_TYPE) {
-      return ImageDescriptor.createFromImage(AdtTypeUtil.getInstance()
-          .getTypeImage(imageInfo.getImageId()));
-    }
-    return null;
   }
 
   @SuppressWarnings("restriction")
