@@ -69,6 +69,8 @@ public class Messages extends NLS {
   public static String ObjectSearchPage_queryInputGroup_xtit;
   public static String ObjectSearchPage_queryOptionsGroup_xtit;
   public static String ObjectSearchPage_searchTypeConfigSerializationError_xmsg;
+  public static String ObjectSearchPreferencePage_initialControlFocus_xgrp;
+  public static String ObjectSearchPreferencePage_searchDialogSettings_xgrp;
   public static String OpenInUtil_AnalysisForOfficeNotActive_xmsg;
   public static String SearchHistorySelectionDialog_DeleteHistoryEntry_xbut;
   public static String SearchHistorySelectionDialog_InfoMessage_xmsg;
@@ -202,11 +204,12 @@ public class Messages extends NLS {
   public static String FieldWhereUsedInCdsElementInfoProvider_noFieldUsageFound_xmsg;
   public static String FieldWhereUsedInCdsElementInfoProvider_ProviderDescription_xmsg;
   public static String General_Copy_xtol;
+  public static String InitialSearchFocus_firstSearchFieldFocus_xlbl;
+  public static String InitialSearchFocus_searchTypeViewerFocus_xlbl;
   public static String MainPreferencePage_CdsViewSettings_xgrp;
   public static String MainPreferencePage_CursorAtEndSetting_xfld;
   public static String MainPreferencePage_DefaultSearchTypeSetting_xfld;
   public static String MainPreferencePage_DisplayAssociationName_xckl;
-  public static String MainPreferencePage_FocusOnSearchType_xfld;
   public static String MainPreferencePage_GeneralSettings_xgrp;
   public static String MainPreferencePage_MaxResultsSetting_xfld;
   public static String MainPreferencePage_OverwriteSearchQuerySetting_xfld;
