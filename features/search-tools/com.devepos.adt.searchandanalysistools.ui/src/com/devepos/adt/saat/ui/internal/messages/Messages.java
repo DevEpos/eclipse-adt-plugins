@@ -146,6 +146,7 @@ public class Messages extends NLS {
   public static String CdsAnalysisWelcome_Option3_xmsg;
   public static String CdsAnalysisWelcome_Option4_xmsg;
   public static String CdsAnalysisWelcome_Option5_xmsg;
+  public static String CdsAnalysisWelcomeText_runNewCdsAnalysisCommand_xlbl;
   public static String CdsAnalyzer_MaxHistoryNumberText2_fld;
   public static String CdsFieldTopDownElementInfoProvider_ProviderDescription_xmsg;
   public static String WhereUsedInCdsAnalysisView_MultipleReferencesLabelSuffix_xfld;
