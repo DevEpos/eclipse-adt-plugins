@@ -17,16 +17,17 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.ISearchResultViewPart;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -51,6 +52,7 @@ import com.devepos.adt.saat.ui.internal.help.HelpContexts;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
+import com.devepos.adt.saat.ui.internal.preferences.InitialSearchFocus;
 import com.sap.adt.communication.content.ContentHandlerException;
 
 /**
@@ -83,7 +85,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   private Label maxResultsLabel;
   private int maxResults;
 
-  private ComboViewer searchTypeViewer;
+  private TableViewer searchTypeViewer;
   private ProjectInput projectInput;
   private Scale maxResultsScale;
   private Button andOptionCheck;
@@ -119,7 +121,11 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     initializeDialogUnits(parent);
     mainComposite = new Composite(parent, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(mainComposite);
-    GridLayoutFactory.swtDefaults().spacing(10, 5).equalWidth(false).applyTo(mainComposite);
+    GridLayoutFactory.swtDefaults()
+        .spacing(10, 5)
+        .equalWidth(false)
+        .numColumns(2)
+        .applyTo(mainComposite);
     setControl(mainComposite);
 
     HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_SEARCH);
@@ -130,7 +136,10 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     searchFieldsGroup.setText(Messages.ObjectSearchPage_queryInputGroup_xtit);
     searchFieldComposite = searchFieldsGroup;
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(searchFieldComposite);
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(searchFieldComposite);
+    GridDataFactory.fillDefaults()
+        .grab(true, false)
+        .hint(500, SWT.DEFAULT)
+        .applyTo(searchFieldComposite);
 
     var customOptions = new Group(mainComposite, SWT.NONE);
     customOptions.setText(Messages.ObjectSearchPage_queryOptionsGroup_xtit);
@@ -367,11 +376,12 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
 
   private void createSearchTypeInput(final Composite parent) {
     var typeGroup = new Group(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(typeGroup);
+    GridDataFactory.fillDefaults().grab(false, true).span(1, 2).applyTo(typeGroup);
     GridLayoutFactory.swtDefaults().applyTo(typeGroup);
     typeGroup.setText(Messages.ObjectSearch_SearchTypeInput_xfld);
 
-    searchTypeViewer = new ComboViewer(typeGroup, SWT.READ_ONLY);
+    searchTypeViewer = new TableViewer(typeGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(searchTypeViewer.getControl());
     searchTypeViewer.setContentProvider(ArrayContentProvider.getInstance());
     searchTypeViewer.setLabelProvider(new LabelProvider() {
       @Override
@@ -381,11 +391,24 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         }
         return super.getText(element);
       }
+
+      @Override
+      public Image getImage(Object element) {
+        if (element instanceof ISearchTypeConfig) {
+          return SearchAndAnalysisPlugin.getDefault()
+              .getSearchTypeImage(((ISearchTypeConfig) element));
+        }
+        return null;
+      }
+
     });
 
     setTypeViewerNoProjectInput();
 
     searchTypeViewer.addSelectionChangedListener(event -> {
+      if (event.getSelection().isEmpty()) {
+        return;
+      }
       var projectStatus = allValidationStatuses.get(ObjectSearchDialogValidationSource.PROJECT
           .name());
 
@@ -403,7 +426,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   private void createSeparator(final Composite parent) {
     final Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
     separator.setVisible(true);
-    GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 5).grab(true, false).applyTo(separator);
+    GridDataFactory.fillDefaults().grab(true, false).span(2, 1).applyTo(separator);
   }
 
   private void createStatusArea(final Composite parent) {
