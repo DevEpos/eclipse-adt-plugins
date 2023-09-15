@@ -126,18 +126,25 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
     if (searchParams != null) {
       var query = new StringBuffer();
       int tagsInString = 0;
-      for (var tag : searchParams.getTags()) {
-        if (query.length() < 40) {
-          if (query.length() > 0) {
-            query.append(", "); //$NON-NLS-1$
+      var selectedTagsCount = searchParams.getTagIds().size();
+
+      if (searchParams.getTags().isEmpty()) {
+        tagsInString = selectedTagsCount;
+        query.append(String.format("%d selected Tags", tagsInString));
+      } else {
+        for (var tag : searchParams.getTags()) {
+          if (query.length() < 40) {
+            if (query.length() > 0) {
+              query.append(", "); //$NON-NLS-1$
+            }
+            query.append(tag);
+            tagsInString++;
+          } else {
+            break;
           }
-          query.append(tag);
-          tagsInString++;
-        } else {
-          break;
         }
       }
-      if (tagsInString != searchParams.getTags().size()) {
+      if (tagsInString != selectedTagsCount) {
         query.append(String.format(Messages.TaggedObjectSearchQuery_MoreTagsInQuery_xlbl,
             searchParams.getTags().size() - tagsInString));
       }
