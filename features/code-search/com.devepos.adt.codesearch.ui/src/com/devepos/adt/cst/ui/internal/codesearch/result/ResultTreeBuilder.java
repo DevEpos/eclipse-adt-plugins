@@ -16,7 +16,6 @@ import com.devepos.adt.base.ui.tree.PackageNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchableAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.launchable.LaunchablePackageNode;
 import com.devepos.adt.base.util.StringUtil;
-import com.devepos.adt.cst.model.codesearch.ICodeSearchMatch;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchObject;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
@@ -102,7 +101,7 @@ class ResultTreeBuilder {
   }
 
   public void removePackageNode(final PackageNode child) {
-    packageNodeCache.remove(child.getObjectReference().getUri());
+    packageNodeCache.remove(child.getUri());
   }
 
   /*
@@ -113,7 +112,7 @@ class ResultTreeBuilder {
 
     // Test if the package node already exists in the tree
     String uri = searchObject.getUri();
-    PackageNode packageNode = packageNodeCache.get(uri);
+    var packageNode = packageNodeCache.get(uri);
     if (packageNode == null) {
       packageNode = new LaunchablePackageNode(mainObject.getName(), null, createObjectRef(
           destinationId, mainObject, searchObject));
@@ -130,8 +129,8 @@ class ResultTreeBuilder {
       final IAdtObjectReferenceNode objectNode) {
 
     if (!searchObject.getMatches().isEmpty()) {
-      for (ICodeSearchMatch match : searchObject.getMatches()) {
-        SearchMatchNode matchNode = new SearchMatchNode(match, objectNode);
+      for (var match : searchObject.getMatches()) {
+        var matchNode = new SearchMatchNode(match, objectNode);
         objectNode.addChild(matchNode);
         flatResult.add(matchNode);
         fileMatchesCache.addNode(matchNode);
@@ -143,17 +142,16 @@ class ResultTreeBuilder {
   }
 
   private void connectPackageNodes() {
-    for (PackageNode packageNode : newPackagesToAddToTree) {
-      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(packageNode.getObjectReference()
-          .getUri());
-      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+    for (var packageNode : newPackagesToAddToTree) {
+      var adtObjRefNode = urisToNodes.get(packageNode.getUri());
+      var parentUri = adtObjRefNode.getParentUri();
 
-      if (objectRefOfNode.getParentUri() != null) {
-        IAdtObjectReferenceNode parentNode = packageNodeCache.get(objectRefOfNode.getParentUri());
+      if (parentUri != null) {
+        IAdtObjectReferenceNode parentNode = packageNodeCache.get(parentUri);
 
         if (parentNode == null) {
           throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + objectRefOfNode.getParentUri() + "' can not be resolved");
+              + parentUri + "' can not be resolved");
         }
         parentNode.addChild(adtObjRefNode);
       }
@@ -165,15 +163,15 @@ class ResultTreeBuilder {
    */
   private void connectTreeNodes() {
     for (String nodeUri : urisInCorrectTreeOrder) {
-      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
-      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+      var adtObjRefNode = urisToNodes.get(nodeUri);
 
-      if (objectRefOfNode.getParentUri() != null) {
-        IAdtObjectReferenceNode parentNode = urisToNodes.get(objectRefOfNode.getParentUri());
+      var parentUri = adtObjRefNode.getParentUri();
+      if (parentUri != null) {
+        var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
           throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + objectRefOfNode.getParentUri() + "' can not be resolved");
+              + parentUri + "' can not be resolved");
         }
         parentNode.addChild(adtObjRefNode);
       }
@@ -182,9 +180,9 @@ class ResultTreeBuilder {
 
   private IAdtObjectReferenceNode createAdtObjectRefNode(final String destinationId,
       final ICodeSearchObject searchObject, final IAdtObjRef mainObject) {
-    IAdtObjectReferenceNode objectNode = new LaunchableAdtObjectReferenceNode(mainObject.getName(),
-        mainObject.getDisplayName(), mainObject.getDescription(), createObjectRef(destinationId,
-            mainObject, searchObject));
+    var objectNode = new LaunchableAdtObjectReferenceNode(mainObject.getName(), mainObject
+        .getDisplayName(), mainObject.getDescription(), createObjectRef(destinationId, mainObject,
+            searchObject));
     if (mainObject.getOwner() != null) {
       objectNode.getProperties()
           .put(IResultPropertyNameConstants.OBJECT_RESPONSIBLE, mainObject.getOwner());
@@ -194,8 +192,8 @@ class ResultTreeBuilder {
 
   private IAdtObjectReference createObjectRef(final String destinationId,
       final IAdtObjRef adtMainObject, final ICodeSearchObject searchObject) {
-    IAdtObjectReference adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
-        adtMainObject.getName(), adtMainObject.getType(), searchObject.getUri());
+    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId, adtMainObject
+        .getName(), adtMainObject.getType(), searchObject.getUri());
     adtObjectRef.setParentUri(searchObject.getParentUri());
     return adtObjectRef;
   }
@@ -244,7 +242,7 @@ class ResultTreeBuilder {
   }
 
   private void propagateMatchCountToRoot(final ITreeNode node) {
-    ICollectionTreeNode parentNode = node.getParent();
+    var parentNode = node.getParent();
     while (parentNode != null && parentNode != rootNode) {
       Integer childMatchCount = (Integer) node.getNodeValue();
       if (childMatchCount == null) {
