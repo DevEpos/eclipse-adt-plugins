@@ -105,11 +105,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     createTagsTree(mainComposite);
     createViewerContextMenu();
     createTreeToolbar();
-
-    final Label separator = new Label(mainComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
-    separator.setVisible(false);
-    GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 5).grab(true, false).applyTo(separator);
-
     createProjectInput(mainComposite);
     createStatusArea(mainComposite);
 
@@ -218,6 +213,7 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
 
   private void createTagsTree(final Composite parent) {
     final Group tagsGroup = new Group(parent, SWT.NONE);
+    tagsGroup.setBackgroundMode(SWT.INHERIT_FORCE);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(tagsGroup);
     GridLayoutFactory.swtDefaults().applyTo(tagsGroup);
     tagsGroup.setText(Messages.TaggedObjectSearchPage_TagsGroup_xtit);
