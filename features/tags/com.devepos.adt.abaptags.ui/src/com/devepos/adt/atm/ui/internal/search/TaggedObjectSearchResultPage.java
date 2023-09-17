@@ -414,12 +414,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     resultTree = new FilterableTree(parent, null, true);
     resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTree.setViewer(resultTreeViewer);
-    resultTree.setElementMatcher(element -> {
-      var adtObjRefNode = (IAdtObjectReferenceNode) element;
-      var wordMatcher = resultTree.getWordMatcher();
-      return wordMatcher.matchesWord(adtObjRefNode.getName()) || wordMatcher.matchesWord(
-          adtObjRefNode.getDescription());
-    });
     resultTreeViewer.setContentProvider(new TreeContentProvider());
     resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
         new ViewLabelProvider()));
