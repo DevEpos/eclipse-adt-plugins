@@ -6,6 +6,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.ContentViewer;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -121,8 +124,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
     @Override
     public boolean matchesElement(final Object element) {
-      return elementMatcher != null ? elementMatcher.matchesElement(element)
-          : super.isLeafMatch(viewer, element);
+      return isLeafMatch(viewer, element);
     }
 
     @Override
@@ -143,7 +145,24 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
 
     @Override
     protected boolean isLeafMatch(final Viewer viewer, final Object element) {
-      return matchesElement(element);
+      if (elementMatcher != null) {
+        return elementMatcher.matchesElement(element);
+      } else {
+        // custom implementation to consider DelegatingStyledCellLabelProvider as well
+        String text = null;
+        var labelProvider = ((ContentViewer) viewer).getLabelProvider();
+        if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
+          var innerlabelProvider = ((DelegatingStyledCellLabelProvider) labelProvider)
+              .getStyledStringProvider();
+          text = innerlabelProvider.getStyledText(element).getString();
+        } else {
+          text = ((ILabelProvider) labelProvider).getText(element);
+        }
+        if (text == null) {
+          return false;
+        }
+        return matchesWord(text);
+      }
     }
 
     @Override
