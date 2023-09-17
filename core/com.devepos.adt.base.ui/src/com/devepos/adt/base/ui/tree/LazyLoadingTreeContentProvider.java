@@ -33,8 +33,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
   protected TreeViewer viewer;
 
-  private final int refreshModeExpansionLevel;
-  private final LazyLoadingRefreshMode refreshMode;
+  private int refreshModeExpansionLevel;
+  private LazyLoadingRefreshMode refreshMode;
   private IExpanderCheckFunction expansionCheck;
 
   /**
@@ -74,10 +74,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
   public LazyLoadingTreeContentProvider(final LazyLoadingRefreshMode refreshMode,
       final int refreshExpansionLevel) {
     viewer = null;
-    this.refreshMode = refreshMode;
-    Assert.isTrue(refreshExpansionLevel == AbstractTreeViewer.ALL_LEVELS
-        || refreshExpansionLevel > 0);
-    refreshModeExpansionLevel = refreshExpansionLevel;
+    setNodeRefreshOptions(refreshExpansionLevel, refreshMode);
   }
 
   @FunctionalInterface
@@ -128,8 +125,10 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
             return Status.CANCEL_STATUS;
           }
           monitor.beginTask(Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, -1);
+          viewer.getTree().setRedraw(false);
           viewer.refresh(lazyLoadingNode);
           refreshLazyNode();
+          viewer.getTree().setRedraw(true);
           monitor.done();
           var loadingError = wrappedLoadingError.getObject();
           if (loadingError != null) {
@@ -229,6 +228,19 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
    */
   public void setExpansionChecker(final IExpanderCheckFunction expansionCheck) {
     this.expansionCheck = expansionCheck;
+  }
+
+  /**
+   * Sets parameters for the node refresh
+   * 
+   * @param refreshExpansionLevel level to expand child nodes after they were loaded dynamically
+   * @param refreshMode           refresh mode for sub nodes
+   */
+  public void setNodeRefreshOptions(int refreshExpansionLevel, LazyLoadingRefreshMode refreshMode) {
+    Assert.isTrue(refreshExpansionLevel == AbstractTreeViewer.ALL_LEVELS
+        || refreshExpansionLevel > 0);
+    this.refreshModeExpansionLevel = refreshExpansionLevel;
+    this.refreshMode = refreshMode;
   }
 
   protected void refreshViewer() {
