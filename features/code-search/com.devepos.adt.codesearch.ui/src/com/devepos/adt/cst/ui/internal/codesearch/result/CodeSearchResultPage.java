@@ -425,7 +425,6 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   }
 
   private void configureFilterableComposite() {
-    // filterableComposite.setLeadingWildcardFiltering(false);
     filterableComposite.setElementMatcher(element -> {
       var wordMatcher = filterableComposite.getWordMatcher();
 
