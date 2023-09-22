@@ -151,6 +151,7 @@
     <eLiterals name="RIGHT_OUTER_JOIN" value="5" literal="RIGHT_OUTER_JOIN"/>
     <eLiterals name="FULL_OUTER_JOIN" value="6" literal="FULL_OUTER_JOIN"/>
     <eLiterals name="CROSS_JOIN" value="7" literal="CROSS_JOIN"/>
+    <eLiterals name="IMPLEMENTED_BY" value="8" literal="IMPLEMENTED_BY"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TopDownAnalysisEntryType">
     <eLiterals name="UNSPECIFIED" literal="UNSPECIFIED"/>
@@ -160,6 +161,7 @@
     <eLiterals name="ASSOCIATIONS" value="4" literal="ASSOCIATIONS"/>
     <eLiterals name="ENTITY" value="5" literal="ENTITY"/>
     <eLiterals name="SELECT" value="6" literal="SELECT"/>
+    <eLiterals name="ABAP" value="7" literal="ABAP"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CdsQueryNavTargets">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

@@ -105,7 +105,17 @@ public enum SqlRelation implements Enumerator {
    * @generated
    * @ordered
    */
-  CROSS_JOIN(7, "CROSS_JOIN", "CROSS_JOIN");
+  CROSS_JOIN(7, "CROSS_JOIN", "CROSS_JOIN"),
+  /**
+   * The '<em><b>IMPLEMENTED BY</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #IMPLEMENTED_BY_VALUE
+   * @generated
+   * @ordered
+   */
+  IMPLEMENTED_BY(8, "IMPLEMENTED_BY", "IMPLEMENTED_BY");
 
   /**
    * The '<em><b>UNSPECIFIED</b></em>' literal value.
@@ -204,6 +214,18 @@ public enum SqlRelation implements Enumerator {
   public static final int CROSS_JOIN_VALUE = 7;
 
   /**
+   * The '<em><b>IMPLEMENTED BY</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #IMPLEMENTED_BY
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int IMPLEMENTED_BY_VALUE = 8;
+
+  /**
    * An array of all the '<em><b>Sql Relation</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -211,7 +233,8 @@ public enum SqlRelation implements Enumerator {
    * @generated
    */
   private static final SqlRelation[] VALUES_ARRAY = new SqlRelation[] { UNSPECIFIED, FROM,
-      ASSOCIATION, INNER_JOIN, LEFT_OUTER_JOIN, RIGHT_OUTER_JOIN, FULL_OUTER_JOIN, CROSS_JOIN, };
+      ASSOCIATION, INNER_JOIN, LEFT_OUTER_JOIN, RIGHT_OUTER_JOIN, FULL_OUTER_JOIN, CROSS_JOIN,
+      IMPLEMENTED_BY, };
 
   /**
    * A public read-only list of all the '<em><b>Sql Relation</b></em>' enumerators.
@@ -286,6 +309,8 @@ public enum SqlRelation implements Enumerator {
       return FULL_OUTER_JOIN;
     case CROSS_JOIN_VALUE:
       return CROSS_JOIN;
+    case IMPLEMENTED_BY_VALUE:
+      return IMPLEMENTED_BY;
     }
     return null;
   }

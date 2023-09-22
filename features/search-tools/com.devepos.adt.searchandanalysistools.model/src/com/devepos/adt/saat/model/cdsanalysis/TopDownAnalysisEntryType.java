@@ -95,7 +95,17 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    * @generated
    * @ordered
    */
-  SELECT(6, "SELECT", "SELECT");
+  SELECT(6, "SELECT", "SELECT"),
+  /**
+   * The '<em><b>ABAP</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #ABAP_VALUE
+   * @generated
+   * @ordered
+   */
+  ABAP(7, "ABAP", "ABAP");
 
   /**
    * The '<em><b>UNSPECIFIED</b></em>' literal value.
@@ -182,6 +192,18 @@ public enum TopDownAnalysisEntryType implements Enumerator {
   public static final int SELECT_VALUE = 6;
 
   /**
+   * The '<em><b>ABAP</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #ABAP
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int ABAP_VALUE = 7;
+
+  /**
    * An array of all the '<em><b>Top Down Analysis Entry Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -189,7 +211,7 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    * @generated
    */
   private static final TopDownAnalysisEntryType[] VALUES_ARRAY = new TopDownAnalysisEntryType[] {
-      UNSPECIFIED, RESULT, UNION, UNION_ALL, ASSOCIATIONS, ENTITY, SELECT, };
+      UNSPECIFIED, RESULT, UNION, UNION_ALL, ASSOCIATIONS, ENTITY, SELECT, ABAP, };
 
   /**
    * A public read-only list of all the '<em><b>Top Down Analysis Entry Type</b></em>' enumerators.
@@ -264,6 +286,8 @@ public enum TopDownAnalysisEntryType implements Enumerator {
       return ENTITY;
     case SELECT_VALUE:
       return SELECT;
+    case ABAP_VALUE:
+      return ABAP;
     }
     return null;
   }
