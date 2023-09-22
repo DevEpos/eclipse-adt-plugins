@@ -150,8 +150,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     if (apiState != null) {
       sqlRelationInfo.setApiState(apiState);
     }
-    if (entityRef.getType() == IAdtObjectTypeConstants.DATA_DEFINITION) {
-      sqlRelationInfo.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE")));
+    if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType())) {
+      sqlRelationInfo.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE"))); //$NON-NLS-1$
     }
     if (entry.getSqlRelation() == SqlRelation.ASSOCIATION) {
       var assocName = properties.get("ASSOCIATION_NAME");

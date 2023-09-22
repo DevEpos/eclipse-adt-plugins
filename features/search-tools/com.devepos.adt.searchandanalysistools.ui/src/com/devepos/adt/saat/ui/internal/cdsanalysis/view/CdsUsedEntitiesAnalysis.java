@@ -142,7 +142,7 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
       if (apiState != null) {
         usageInfo.setApiState(apiState);
       }
-      if (entityRef.getType() == IAdtObjectTypeConstants.DATA_DEFINITION) {
+      if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType())) {
         usageInfo.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE")));
       }
       adtObjRefElemInfo.setAdditionalInfo(usageInfo);
