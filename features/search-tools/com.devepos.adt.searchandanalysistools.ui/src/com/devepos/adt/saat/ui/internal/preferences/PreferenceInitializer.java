@@ -36,6 +36,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     store.setDefault(ICdsAnalysisPreferences.WHERE_USED_USES_IN_ASSOC, false);
     store.setDefault(ICdsAnalysisPreferences.WHERE_USED_LOCAL_ASSOCIATIONS_ONLY, false);
     store.setDefault(ICdsAnalysisPreferences.WHERE_USED_ONLY_RELEASED_USAGES, false);
+    store.setDefault(ICdsAnalysisPreferences.WHERE_USED_SEARCH_RECURSIVELY, false);
 
     store.setDefault(ICdsAnalysisPreferences.FIELD_ANALYSIS_ANALYSIS_DIRECTION,
         FieldAnalysisType.TOP_DOWN.getPrefKey());

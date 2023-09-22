@@ -50,6 +50,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private Action showAssocUses;
   private Action releasedUsagesOnly;
   private Action localAssociationsOnly;
+  private Action searchRecursivelyAction;
+  private ExpandAllAction expandAllAction;
 
   public WhereUsedInCdsAnalysisView(final CdsAnalysisView parentView) {
     super(parentView);
@@ -71,13 +73,16 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     final IMenuManager menu = actionBars.getMenuManager();
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, showFromUses);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, showAssocUses);
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, searchRecursivelyAction);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, releasedUsagesOnly);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, localAssociationsOnly);
   }
 
   @Override
   protected void configureTreeViewer(final TreeViewer treeViewer) {
-    treeViewer.setContentProvider(new LazyLoadingTreeContentProvider());
+    contentProvider = new LazyLoadingTreeContentProvider();
+    contentProvider.setExpansionChecker(null);
+    treeViewer.setContentProvider(contentProvider);
     treeViewer.setUseHashlookup(true);
     treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
         new TreeViewerLabelProvider()));
@@ -86,12 +91,17 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   @Override
   protected void createActions() {
     super.createActions();
+
+    expandAllAction = new ExpandAllAction();
+    expandAllAction.setTreeViewer((TreeViewer) getViewer());
+
     showFromUses = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_ShowUsesInSelectPartAction_xmit, SearchAndAnalysisPlugin
             .getDefault()
             .getImageDescriptor(IImages.DATA_SOURCE), IAction.AS_CHECK_BOX, () -> {
               analysisResult.getSettings().setSearchFromPart(showFromUses.isChecked());
               analysisResult.updateWhereUsedProvider();
+              updateViewerFromSettings();
               refreshAnalysis();
             });
 
@@ -101,6 +111,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setSearchAssociation(showAssocUses.isChecked());
           analysisResult.updateWhereUsedProvider();
+          updateViewerFromSettings();
           refreshAnalysis();
         });
 
@@ -132,6 +143,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         analysisResult.getSettings().setSearchAssociation(true);
       }
     });
+    searchRecursivelyAction = ActionFactory.createAction("Search for References recursively", null,
+        IAction.AS_CHECK_BOX, () -> {
+          analysisResult.getSettings().setSearchRecursively(searchRecursivelyAction.isChecked());
+          expandAllAction.setEnabled(searchRecursivelyAction.isChecked());
+          updateViewerFromSettings();
+          refreshAnalysis();
+        });
+    searchRecursivelyAction.setToolTipText(
+        "References in SELECT parts of CDS Views are searched recursively");
   }
 
   @Override
@@ -150,6 +170,12 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
           IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.FIELD_ANALYSIS);
     }
+
+  @Override
+  protected void fillToolbar(final IToolBarManager tbm) {
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, expandAllAction);
+
+    super.fillToolbar(tbm);
   }
 
   @Override
@@ -171,7 +197,10 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       if (element instanceof ICollectionTreeNode) {
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
         if (size != null) {
-          text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+          if ((!analysisResult.getSettings().isSearchRecursively() || analysisResult.getSettings()
+              .isSearchAssociations()) && !"0".equals(size)) {
+            text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+          }
         }
       }
 
@@ -197,6 +226,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     final TreeViewer viewer = (TreeViewer) getViewer();
     if (analysisResult.isResultLoaded()) {
       setActionStateFromSettings();
+      updateViewerFromSettings();
       viewer.setInput(analysisResult.getResult());
       if (uiState instanceof TreeViewUiState) {
         ((TreeViewUiState) uiState).applyToTreeViewer(viewer);
@@ -209,6 +239,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       }
     } else {
       initActionState();
+      updateViewerFromSettings();
       analysisResult.createResult(lazyLoadingListener);
       viewer.setInput(analysisResult.getResult());
       analysisResult.setResultLoaded(true);
@@ -241,6 +272,9 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     IPreferenceStore prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     boolean isSearchFrom = prefStore.getBoolean(ICdsAnalysisPreferences.WHERE_USED_USES_IN_SELECT);
     boolean isSearchAssoc = prefStore.getBoolean(ICdsAnalysisPreferences.WHERE_USED_USES_IN_ASSOC);
+    boolean isSearchRecursively = prefStore.getBoolean(
+        ICdsAnalysisPreferences.WHERE_USED_SEARCH_RECURSIVELY);
+
     boolean isLocalAssocOnly = prefStore.getBoolean(
         ICdsAnalysisPreferences.WHERE_USED_LOCAL_ASSOCIATIONS_ONLY);
     boolean isReleasedUsagesOnly = prefStore.getBoolean(
@@ -250,6 +284,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     showAssocUses.setChecked(isSearchAssoc);
     releasedUsagesOnly.setChecked(isReleasedUsagesOnly);
     localAssociationsOnly.setChecked(isReleasedUsagesOnly);
+    searchRecursivelyAction.setChecked(isSearchRecursively);
+    expandAllAction.setEnabled(isSearchRecursively);
 
     if (analysisResult != null) {
       IWhereUsedInCdsSettings settings = analysisResult.getSettings();
@@ -257,14 +293,27 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       settings.setSearchAssociation(isSearchAssoc);
       settings.setLocalAssociationsOnly(isLocalAssocOnly);
       settings.setReleasedUsagesOnly(isReleasedUsagesOnly);
+      settings.setSearchRecursively(isSearchRecursively);
     }
   }
 
   private void setActionStateFromSettings() {
-    IWhereUsedInCdsSettings analysisSettings = analysisResult.getSettings();
+    var analysisSettings = analysisResult.getSettings();
     showFromUses.setChecked(analysisSettings.isSearchFromPart());
     showAssocUses.setChecked(analysisSettings.isSearchAssociations());
     localAssociationsOnly.setChecked(analysisSettings.isLocalAssociationsOnly());
     releasedUsagesOnly.setChecked(analysisSettings.isReleasedUsagesOnly());
+    searchRecursivelyAction.setChecked(analysisSettings.isSearchRecursively());
+    expandAllAction.setEnabled(analysisSettings.isSearchRecursively());
+  }
+
+  private void updateViewerFromSettings() {
+    if (analysisResult.getSettings().isSearchRecursively() && showFromUses.isChecked()
+        && !showAssocUses.isChecked()) {
+      contentProvider.setNodeRefreshOptions(TreeViewer.ALL_LEVELS,
+          LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN);
+    } else {
+      contentProvider.setNodeRefreshOptions(1, null);
+    }
   }
 }

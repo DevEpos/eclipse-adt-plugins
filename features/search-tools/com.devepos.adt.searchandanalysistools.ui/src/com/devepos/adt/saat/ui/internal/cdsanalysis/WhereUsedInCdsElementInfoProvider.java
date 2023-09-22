@@ -84,12 +84,15 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     var elementInfoResult = new ArrayList<IElementInfo>();
     var result = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .getWhereUsedInResultsForEntity(destinationId, adtObjectName, isSelectFrom, settings
-            .isLocalAssociationsOnly(), settings.isReleasedUsagesOnly());
+            .isLocalAssociationsOnly(), settings.isReleasedUsagesOnly(), settings
+                .isSearchRecursively() && !settings.isSearchAssociations());
     if (result != null && !result.getEntries().isEmpty()) {
       for (var resultObj : result.getEntries()) {
         var objectRefElemInfo = convertToObjRefElemInfo(destinationId, resultObj);
-        objectRefElemInfo.setElementInfoProvider(new WhereUsedInCdsElementInfoProvider(
-            destinationId, objectRefElemInfo.getName(), settings));
+        if (!settings.isSearchRecursively() || settings.isSearchAssociations()) {
+          objectRefElemInfo.setElementInfoProvider(new WhereUsedInCdsElementInfoProvider(
+              destinationId, objectRefElemInfo.getName(), settings));
+        }
         elementInfoResult.add(objectRefElemInfo);
       }
     }
@@ -126,10 +129,10 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
       elementInfo.setAdditionalInfo(extendedAdtObjInfo);
     }
 
-    // // handle child nodes
-    // for (var child : whereUsedEntry.getChildren()) {
-    // elementInfo.getChildren().add(convertToObjRefElemInfo(destinationId, child));
-    // }
+    // handle child nodes
+    for (var child : whereUsedEntry.getChildren()) {
+      elementInfo.getChildren().add(convertToObjRefElemInfo(destinationId, child));
+    }
     return elementInfo;
   }
 

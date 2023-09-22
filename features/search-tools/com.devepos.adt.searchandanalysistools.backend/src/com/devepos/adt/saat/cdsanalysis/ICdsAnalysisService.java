@@ -23,8 +23,20 @@ public interface ICdsAnalysisService {
    */
   IAdtUriTemplate getWhereUsedInCdsAnalysisTemplate(String destinationId);
 
+  /**
+   * Retrieves Where-Used in CDS tree for a database entity
+   * 
+   * @param destinationId         destination of ABAP project
+   * @param entityName            entity name (table/view/cds view)
+   * @param searchInFromPart      if {@code true} select parts of cds views are searched
+   * @param localAssociationsOnly if {@code true} associations of cds views are searched
+   * @param releasedEntitiesOnly  if {@code true} only released entities are searched
+   * @param searchRecursively     if {@code true} the tree is loaded recursively
+   * @return
+   */
   IWhereUsedInCdsResult getWhereUsedInResultsForEntity(String destinationId, String entityName,
-      boolean searchInFromPart, boolean localAssociationsOnly, boolean releasedEntitiesOnly);
+      boolean searchInFromPart, boolean localAssociationsOnly, boolean releasedEntitiesOnly,
+      boolean searchRecursively);
 
   /**
    * Loads SELECT Part of a single CDS View

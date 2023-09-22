@@ -94,6 +94,7 @@ public class CdsAnalysisSettingsFactory {
     private boolean searchAssociations;
     private boolean localAssociationsOnly;
     private boolean releasedUsagesOnly;
+    private boolean searchRecursively;
 
     @Override
     public boolean isLocalAssociationsOnly() {
@@ -116,6 +117,11 @@ public class CdsAnalysisSettingsFactory {
     }
 
     @Override
+    public boolean isSearchRecursively() {
+      return searchRecursively;
+    }
+
+    @Override
     public void setLocalAssociationsOnly(final boolean localAssociationsOnly) {
       this.localAssociationsOnly = localAssociationsOnly;
     }
@@ -133,6 +139,11 @@ public class CdsAnalysisSettingsFactory {
     @Override
     public void setSearchFromPart(final boolean searchFrom) {
       this.searchFrom = searchFrom;
+    }
+
+    @Override
+    public void setSearchRecursively(boolean searchRecursively) {
+      this.searchRecursively = searchRecursively;
     }
   }
 
