@@ -255,8 +255,9 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
       selectedObject = result.getFirstResult();
       selectObjectText.setText(selectedObject.getName());
 
+      validTypesForObject.clear();
+
       if (!IAdtObjectTypeConstants.DATA_DEFINITION.equals(selectedObject.getType())) {
-        validTypesForObject.clear();
         validTypesForObject.add(CdsAnalysisType.WHERE_USED);
         validTypesForObject.add(CdsAnalysisType.FIELD_ANALYSIS);
       } else {
