@@ -1,4 +1,4 @@
-package com.devepos.adt.saat.cdsanalysis;
+package com.devepos.adt.saat.internal.cdsanalysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
