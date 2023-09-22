@@ -1091,6 +1091,7 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     addEEnumLiteral(sqlRelationEEnum, SqlRelation.RIGHT_OUTER_JOIN);
     addEEnumLiteral(sqlRelationEEnum, SqlRelation.FULL_OUTER_JOIN);
     addEEnumLiteral(sqlRelationEEnum, SqlRelation.CROSS_JOIN);
+    addEEnumLiteral(sqlRelationEEnum, SqlRelation.IMPLEMENTED_BY);
 
     initEEnum(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.class,
         "TopDownAnalysisEntryType");
@@ -1101,6 +1102,7 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.ASSOCIATIONS);
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.ENTITY);
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.SELECT);
+    addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.ABAP);
 
     initEEnum(cdsQueryNavTargetEEnum, CdsQueryNavTarget.class, "CdsQueryNavTarget");
     addEEnumLiteral(cdsQueryNavTargetEEnum, CdsQueryNavTarget.EXCEL);

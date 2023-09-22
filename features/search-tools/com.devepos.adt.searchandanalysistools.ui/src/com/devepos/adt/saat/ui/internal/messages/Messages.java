@@ -125,6 +125,7 @@ public class Messages extends NLS {
   public static String CdsAnalysis_SqlRelationFrom;
   public static String CdsAnalysis_SqlRelationAssociation;
   public static String CdsAnalysis_SqlRelationFullOuterJoin;
+  public static String CdsAnalysis_SqlRelationImplementedBy;
   public static String CdsAnalysis_SqlRelationInnerJoin;
   public static String CdsAnalysis_SqlRelationLeftOuterJoin;
   public static String CdsAnalysis_SqlRelationRightOuterJoin;

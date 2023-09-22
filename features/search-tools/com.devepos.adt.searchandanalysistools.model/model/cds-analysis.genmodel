@@ -19,6 +19,7 @@
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/RIGHT_OUTER_JOIN"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/FULL_OUTER_JOIN"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/CROSS_JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//SqlRelation/IMPLEMENTED_BY"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//TopDownAnalysisEntryType">
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/UNSPECIFIED"/>
@@ -28,6 +29,7 @@
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ASSOCIATIONS"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ENTITY"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/SELECT"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ABAP"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//CdsQueryNavTarget">
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//CdsQueryNavTarget/EXCEL"/>

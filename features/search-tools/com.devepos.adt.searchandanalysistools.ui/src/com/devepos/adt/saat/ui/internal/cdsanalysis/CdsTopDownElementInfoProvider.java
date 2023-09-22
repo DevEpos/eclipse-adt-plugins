@@ -71,6 +71,22 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     return NLS.bind(Messages.CdsAnalysis_TopDownAnalysisProviderDescription_xmsg, cdsViewName);
   }
 
+  private IElementInfo convertAbapEntry(ITopDownAnalysisEntry entry) {
+    var entityRef = entry.getEntityRef();
+    var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(), entityRef
+        .getDisplayName(), entityRef.getDescription());
+    adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+        destinationId, entityRef));
+
+    adtObjRefElemInfo.setLazyLoadingSupport(false);
+
+    var sqlRelationInfo = new SqlRelationInfo();
+    sqlRelationInfo.relation = getRelationText(entry.getSqlRelation());
+
+    adtObjRefElemInfo.setAdditionalInfo(sqlRelationInfo);
+    return adtObjRefElemInfo;
+  }
+
   private IElementInfo convertCollectionEntry(final ITopDownAnalysisEntry entry) {
     String rawName = null;
     String imageId = null;
@@ -149,6 +165,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
 
     if (entry.getEntryType() == TopDownAnalysisEntryType.ENTITY) {
       return convertEntityEntry(entry);
+    } else if (entry.getEntryType() == TopDownAnalysisEntryType.ABAP) {
+      return convertAbapEntry(entry);
     }
     return convertCollectionEntry(entry);
   }
@@ -180,6 +198,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
       return Messages.CdsAnalysis_SqlRelationLeftOuterJoin;
     case RIGHT_OUTER_JOIN:
       return Messages.CdsAnalysis_SqlRelationRightOuterJoin;
+    case IMPLEMENTED_BY:
+      return Messages.CdsAnalysis_SqlRelationImplementedBy;
     default:
       return null;
     }
