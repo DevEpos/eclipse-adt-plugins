@@ -185,6 +185,11 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     final ISearchTypeConfig selectedSearchType = (ISearchTypeConfig) searchTypeViewer
         .getStructuredSelection()
         .getFirstElement();
+
+    if (prefStore.getBoolean(IPreferences.REMEMBER_LAST_SEARCH_TYPE)) {
+      prefStore.putValue(IPreferences.LAST_SEARCH_TYPE_ID, selectedSearchType.getName());
+    }
+
     queryInput.setType(selectedSearchType.getName());
     queryInput.setTypeLabel(selectedSearchType.getLabel());
     searchRequest.setOutputConfig(selectedSearchType.getOutputConfig());
@@ -583,16 +588,18 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
           if (typeInInput.isPresent()) {
             searchTypeViewer.setSelection(new StructuredSelection(typeInInput.get()));
           }
-        } else {
+        } else if (prefStore.getBoolean(IPreferences.REMEMBER_LAST_SEARCH_TYPE)) {
           // set initial type according to preferences or use first in list
-          final String defaultSearchTypeId = prefStore.getString(IPreferences.DEFAULT_SEARCH_TYPE);
-          if (defaultSearchTypeId != null) {
+          final String lastChosenTypeId = prefStore.getString(IPreferences.LAST_SEARCH_TYPE_ID);
+          if (lastChosenTypeId != null) {
             var defaultTypeConfig = typesOfProject.stream()
-                .filter(t -> t.getName().equals(defaultSearchTypeId))
+                .filter(t -> t.getName().equals(lastChosenTypeId))
                 .findFirst()
                 .orElse(typesOfProject.get(0));
             searchTypeViewer.setSelection(new StructuredSelection(defaultTypeConfig));
           }
+        } else {
+          searchTypeViewer.setSelection(new StructuredSelection(typesOfProject.get(0)));
         }
       } catch (ContentHandlerException exc) {
         // set generic content error status so user get's an idea on what needs to be done

@@ -70,6 +70,7 @@ public class Messages extends NLS {
   public static String ObjectSearchPage_queryOptionsGroup_xtit;
   public static String ObjectSearchPage_searchTypeConfigSerializationError_xmsg;
   public static String ObjectSearchPreferencePage_initialControlFocus_xgrp;
+  public static String ObjectSearchPreferencePage_RememberLastSearchTypePref_xchk;
   public static String ObjectSearchPreferencePage_searchDialogSettings_xgrp;
   public static String OpenInUtil_AnalysisForOfficeNotActive_xmsg;
   public static String SearchHistorySelectionDialog_DeleteHistoryEntry_xbut;

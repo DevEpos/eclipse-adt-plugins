@@ -38,15 +38,20 @@ public interface IPreferences {
    */
   String MAX_SEARCH_RESULTS = "com.devepos.adt.saat.objectsearch.maxSearchResults"; //$NON-NLS-1$
   /**
+   * Boolean setting to remember the last chosen object search type for the next time the search
+   * dialog is opened
+   */
+  String REMEMBER_LAST_SEARCH_TYPE = "com.devepos.adt.saat.objectsearch.rememberLastSearchType"; //$NON-NLS-1$
+  /**
    * Boolean Setting for the Detail Result of a CDS View in the Search View.<br>
    * If <code>true</code> the name of th association (e.g. _Language) will also be
    * schon for a given association
    */
   String SHOW_FULL_ASSOCIATION_NAME = "com.devepos.adt.saat.objectsearch.showAssocName"; //$NON-NLS-1$
   /**
-   * The default Search Type for the object search
+   * The last search type used in the object search
    */
-  String DEFAULT_SEARCH_TYPE = "com.devepos.adt.saat.objectsearch.defaultSearchType"; //$NON-NLS-1$
+  String LAST_SEARCH_TYPE_ID = "com.devepos.adt.saat.objectsearch.lastUsedSearchType"; //$NON-NLS-1$
   /**
    * Maximum number of history entries in the CDS Analyzer view
    */
