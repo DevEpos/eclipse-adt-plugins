@@ -39,8 +39,7 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
     addRunAnalysisActionLink(Messages.CdsAnalysisWelcome_Option2_xmsg, additional);
 
     for (var option : Arrays.asList(Messages.CdsAnalysisWelcome_Option3_xmsg,
-        Messages.CdsAnalysisWelcome_Option4_xmsg, Messages.CdsAnalysisWelcome_Option4_xmsg,
-        Messages.CdsAnalysisWelcome_Option5_xmsg)) {
+        Messages.CdsAnalysisWelcome_Option4_xmsg, Messages.CdsAnalysisWelcome_Option5_xmsg)) {
       additional.append("<li>"); //$NON-NLS-1$
       additional.append(option);
       additional.append("</li>"); //$NON-NLS-1$
