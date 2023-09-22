@@ -27,6 +27,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     store.setDefault(IPreferences.OVERWRITE_OPENED_SEARCH_QUERY, false);
     store.setDefault(IPreferences.MAX_SEARCH_RESULTS, 50);
     store.setDefault(IPreferences.SHOW_FULL_ASSOCIATION_NAME, true);
+    store.setDefault(IPreferences.REMEMBER_LAST_SEARCH_TYPE, false);
 
     store.setDefault(ICdsAnalysisPreferences.TOP_DOWN_LOAD_ASSOCIATIONS, false);
     store.setDefault(ICdsAnalysisPreferences.TOP_DOWN_SHOW_ALIAS_NAMES, true);

@@ -49,13 +49,9 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
         dialogSettingsGroup, 4);
     fields.add(maxSearchResultsEditor);
 
-    // create combo editor for default search type
-    // TODO: move to new project specific preference page
-    // final FieldEditor defaultSearchTypeEditor = new ComboFieldEditor(
-    // IPreferences.DEFAULT_SEARCH_TYPE, Messages.MainPreferencePage_DefaultSearchTypeSetting_xfld,
-    // SearchType.toNamesAndKeys(), parent);
-    // fields.add(defaultSearchTypeEditor);
-
+    addBooleanEditor(IPreferences.REMEMBER_LAST_SEARCH_TYPE,
+        Messages.ObjectSearchPreferencePage_RememberLastSearchTypePref_xchk, null,
+        dialogSettingsGroup, 2, 1);
     addBooleanEditor(IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT,
         Messages.MainPreferencePage_CursorAtEndSetting_xfld, null, dialogSettingsGroup, 2, 1);
     addBooleanEditor(IPreferences.TAKE_TEXT_SELECTION_INTO_SEARCH,
