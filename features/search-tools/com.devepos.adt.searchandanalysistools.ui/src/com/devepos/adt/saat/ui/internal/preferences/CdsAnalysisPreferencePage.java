@@ -119,6 +119,8 @@ public class CdsAnalysisPreferencePage extends FieldEditorPrefPageBase implement
         Messages.WhereUsedInCdsAnalysisView_OnlyLocallyDefinedAssocUsages_xmit, group);
     addBooleanEditor(ICdsAnalysisPreferences.WHERE_USED_ONLY_RELEASED_USAGES,
         Messages.WhereUsedInCdsAnalysisView_OnlyUsagesInReleasedEntities_xmit, group);
+    addBooleanEditor(ICdsAnalysisPreferences.WHERE_USED_SEARCH_RECURSIVELY,
+        Messages.CdsAnalysisPreferencePage_LoadFromPartReferencesRecursively, group);
 
     adjustMargins(group);
   }

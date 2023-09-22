@@ -49,7 +49,7 @@ public class CdsAnalysisService implements ICdsAnalysisService {
   @Override
   public IWhereUsedInCdsResult getWhereUsedInResultsForEntity(final String destinationId,
       final String entityName, final boolean searchInFromPart, final boolean localAssociationsOnly,
-      final boolean releasedEntitiesOnly) {
+      final boolean releasedEntitiesOnly, final boolean searchRecursively) {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
     var paramMap = new HashMap<String, Object>();
@@ -58,6 +58,9 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     if (localAssociationsOnly) {
       paramMap.put(IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_LOCAL_DECLARED_ASSOCIATIONS_ONLY,
           "X");
+    }
+    if (searchRecursively) {
+      paramMap.put(IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_SEARCH_RECURSIVELY, "X");
     }
     if (releasedEntitiesOnly) {
       paramMap.put(IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_RELEASED_ENTITIES_ONLY, "X");

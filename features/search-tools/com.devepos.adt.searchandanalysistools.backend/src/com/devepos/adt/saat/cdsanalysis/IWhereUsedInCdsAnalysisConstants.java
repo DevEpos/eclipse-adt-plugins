@@ -8,4 +8,5 @@ package com.devepos.adt.saat.cdsanalysis;
 public interface IWhereUsedInCdsAnalysisConstants {
   String QUERY_PARAM_LOCAL_DECLARED_ASSOCIATIONS_ONLY = "localDeclaredAssocOnly";
   String QUERY_PARAM_RELEASED_ENTITIES_ONLY = "releasedEntitiesOnly";
+  String QUERY_PARAM_SEARCH_RECURSIVELY = "recursiveSearch";
 }

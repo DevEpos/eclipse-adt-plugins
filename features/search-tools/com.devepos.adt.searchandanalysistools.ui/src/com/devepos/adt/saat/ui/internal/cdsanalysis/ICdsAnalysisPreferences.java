@@ -42,6 +42,10 @@ public interface ICdsAnalysisPreferences {
    */
   String WHERE_USED_LOCAL_ASSOCIATIONS_ONLY = "com.devepos.adt.saat.whereusedincds.onlyLocalDefinedAssociation"; //$NON-NLS-1$
   /**
+   * Preference for searching references recursively to the deepest level
+   */
+  String WHERE_USED_SEARCH_RECURSIVELY = "com.devepos.adt.saat.whereusedincds.searchRecursively"; //$NON-NLS-1$
+  /**
    * Preference for searching database views during field analysis bottom up
    */
   String FIELD_ANALYSIS_SEARCH_IN_DB_VIEWS = "com.devepos.adt.saat.fieldanalysis.searchDbViewUsages"; //$NON-NLS-1$

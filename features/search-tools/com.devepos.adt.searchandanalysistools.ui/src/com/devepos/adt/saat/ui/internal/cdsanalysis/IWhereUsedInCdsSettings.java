@@ -30,6 +30,11 @@ public interface IWhereUsedInCdsSettings {
   boolean isSearchFromPart();
 
   /**
+   * @return {@code true} if the where-used tree is searched recursively
+   */
+  boolean isSearchRecursively();
+
+  /**
    * Sets whether to only search in local associations
    *
    * @param localAssociationsOnly {@code true} if only local associations shall be searched
@@ -56,4 +61,9 @@ public interface IWhereUsedInCdsSettings {
    * @param searchFrom {@code true} if select from part shall be searched
    */
   void setSearchFromPart(boolean searchFrom);
+
+  /**
+   * Sets whether the results are loaded recursively
+   */
+  void setSearchRecursively(boolean searchRecursively);
 }
