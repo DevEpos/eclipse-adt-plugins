@@ -98,6 +98,7 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     case SELECT:
       rawName = Messages.CdsAnalysis_NodeNameSelect;
       imageId = IImages.SELECT_PART;
+      break;
     case RESULT:
       rawName = Messages.CdsAnalysis_NodeNameResult;
       imageId = IImages.JOIN_RESULT_SOURCE;
