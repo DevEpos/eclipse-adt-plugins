@@ -75,7 +75,7 @@ public class ObjectSearchResult implements ISearchResult {
   }
 
   public void addSearchResult(final IObjectSearchResult searchResult) {
-    final ObjectSearchResultEvent resultEvent = new ObjectSearchResultEvent(this);
+    final var resultEvent = new ObjectSearchResultEvent(this);
     if (searchResult != null && searchResult.getResultObjects().size() > 0) {
       this.searchResult = searchResult;
       resultCount = this.searchResult.getResultCount();
@@ -127,10 +127,7 @@ public class ObjectSearchResult implements ISearchResult {
     } else {
       resultsLabel = Messages.ObjectSearch_NoResults_xmsg;
     }
-    // final String label = NLS.bind(Messages.ObjectSearch_SearchResultLabel_xmsg, searchQuery
-    // .getSearchRequest(), resultsLabel);
-    final String label = NLS.bind("{0} - {1}", searchQuery.getSearchRequest(), resultsLabel);
-    return label;
+    return NLS.bind("{0} - {1}", searchQuery.getSearchRequest(), resultsLabel);
   }
 
   /**
@@ -249,7 +246,7 @@ public class ObjectSearchResult implements ISearchResult {
 
     // Test if the package node already exists in the tree
     String uri = adtObjRef.getUri();
-    PackageNode packageNode = packageNodeCache.get(uri);
+    var packageNode = packageNodeCache.get(uri);
     if (packageNode == null) {
       packageNode = new LaunchablePackageNode(adtObjRef.getName(), adtObjRef.getDescription(),
           createObjectRef(adtObjRef));
@@ -271,7 +268,7 @@ public class ObjectSearchResult implements ISearchResult {
     }
 
     for (String nodeUri : urisInCorrectTreeOrder) {
-      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
+      var adtObjRefNode = urisToNodes.get(nodeUri);
       if (adtObjRefNode instanceof PackageNode) {
         if (!isGroupedResult) {
           continue;
@@ -279,14 +276,14 @@ public class ObjectSearchResult implements ISearchResult {
         packageList.add(adtObjRefNode);
       }
 
-      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+      var parentUri = adtObjRefNode.getParentUri();
 
-      if (objectRefOfNode.getParentUri() != null) {
-        IAdtObjectReferenceNode parentNode = urisToNodes.get(objectRefOfNode.getParentUri());
+      if (parentUri != null) {
+        var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
           throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + objectRefOfNode.getParentUri() + "' can not be resolved");
+              + parentUri + "' can not be resolved");
         }
 
         if (parentNode instanceof PackageNode) {
@@ -307,8 +304,8 @@ public class ObjectSearchResult implements ISearchResult {
   }
 
   private IAdtObjectReferenceNode createAdtObjectRefNode(final IAdtObjRef adtObjRef) {
-    IAdtObjectReferenceNode objectNode = new LaunchableAdtObjectReferenceNode(adtObjRef.getName(),
-        adtObjRef.getDisplayName(), adtObjRef.getDescription(), createObjectRef(adtObjRef));
+    var objectNode = new LaunchableAdtObjectReferenceNode(adtObjRef.getName(), adtObjRef
+        .getDisplayName(), adtObjRef.getDescription(), createObjectRef(adtObjRef));
     final var extendedInfo = new ExtendedAdtObjectInfo();
     for (var prop : adtObjRef.getProperties()) {
       switch (prop.getKey()) {
@@ -335,21 +332,23 @@ public class ObjectSearchResult implements ISearchResult {
     var validListTypes = outputConfig.getTypesForList();
 
     for (String nodeUri : urisInCorrectTreeOrder) {
-      IAdtObjectReferenceNode adtObjRefNode = urisToNodes.get(nodeUri);
+      var adtObjRefNode = urisToNodes.get(nodeUri);
       if (adtObjRefNode instanceof PackageNode || !validListTypes.contains(adtObjRefNode
           .getAdtObjectType())) {
         continue;
       }
 
-      IAdtObjectReference objectRefOfNode = adtObjRefNode.getObjectReference();
+      var parentUri = adtObjRefNode.getParentUri();
 
-      if (objectRefOfNode.getParentUri() != null) {
-        IAdtObjectReferenceNode parentNode = urisToNodes.get(objectRefOfNode.getParentUri());
+      if (parentUri != null) {
+        var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
           throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + objectRefOfNode.getParentUri() + "' can not be resolved");
+              + parentUri + "' can not be resolved");
         }
+
+        adtObjRefNode.setParent(parentNode);
 
         results.add(adtObjRefNode);
       }
@@ -359,8 +358,8 @@ public class ObjectSearchResult implements ISearchResult {
   }
 
   private IAdtObjectReference createObjectRef(final IAdtObjRef adtObjRef) {
-    IAdtObjectReference adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
-        adtObjRef.getName(), adtObjRef.getType(), adtObjRef.getUri());
+    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId, adtObjRef
+        .getName(), adtObjRef.getType(), adtObjRef.getUri());
     adtObjectRef.setParentUri(adtObjRef.getParentUri());
     return adtObjectRef;
   }
@@ -371,7 +370,7 @@ public class ObjectSearchResult implements ISearchResult {
         addPackageNode(adtObjRef);
         urisInCorrectTreeOrder.add(adtObjRef.getUri());
       } else {
-        IAdtObjectReferenceNode objectNode = createAdtObjectRefNode(adtObjRef);
+        var objectNode = createAdtObjectRefNode(adtObjRef);
         urisToNodes.put(adtObjRef.getUri(), objectNode);
         urisInCorrectTreeOrder.add(adtObjRef.getUri());
       }
