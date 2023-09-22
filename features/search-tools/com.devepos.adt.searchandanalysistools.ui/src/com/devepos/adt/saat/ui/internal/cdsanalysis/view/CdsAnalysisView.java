@@ -13,6 +13,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -76,7 +77,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   private CdsAnalysis currentAnalysis;
   private boolean isPinned;
 
-  private Label description;
+  private CLabel description;
   private RefreshCurrentAnalysisAction refreshAnalysisAction;
   private CdsAnalysisHistoryDropDownAction analysesHistoryAction;
   private PinViewAction pinViewAction;
@@ -159,6 +160,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   public static void createContextMenuGroups(final IMenuManager mgr) {
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_NEW));
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_OPEN));
+    mgr.add(new Separator(IGeneralMenuConstants.GROUP_FILTERING));
     mgr.add(new Separator(IContextMenuConstants.GROUP_DB_BROWSER));
     mgr.add(new Separator(IContextMenuConstants.GROUP_CDS_ANALYSIS));
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_NODE_ACTIONS));
@@ -339,21 +341,23 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         GridLayoutFactory.fillDefaults().spacing(0, 0).applyTo(descriptionComposite);
         GridDataFactory.fillDefaults().grab(true, false).applyTo(descriptionComposite);
 
-        description = new Label(descriptionComposite, SWT.LEAD | SWT.TOP | SWT.WRAP);
+        description = new CLabel(descriptionComposite, SWT.LEAD | SWT.TOP | SWT.WRAP);
         GridDataFactory.fillDefaults()
             .align(SWT.FILL, SWT.CENTER)
             .grab(true, false)
-            .indent(5, SWT.DEFAULT)
             .applyTo(description);
         description.setText(label);
 
-        final Label separator = new Label(descriptionComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
+        final var separator = new Label(descriptionComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
         GridDataFactory.fillDefaults().grab(true, false).applyTo(separator);
         pageContent.layout();
       } else {
         description.setText(label);
         pageContent.layout();
       }
+
+      description.setImage(analysis.isFiltered() ? AdtBaseUIResources.getImage(
+          IAdtBaseImages.FILTER) : null);
     }
   }
 
