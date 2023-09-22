@@ -1006,8 +1006,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
 
     if (enable) {
       if (tbm.find(collapseAllNodesAction.getId()) == null) {
-        tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
         tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, expandAllAction);
+        tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
         tbm.appendToGroup(IContextMenuConstants.GROUP_VIEWER_SETUP, groupByPackageAction);
       }
     } else {
