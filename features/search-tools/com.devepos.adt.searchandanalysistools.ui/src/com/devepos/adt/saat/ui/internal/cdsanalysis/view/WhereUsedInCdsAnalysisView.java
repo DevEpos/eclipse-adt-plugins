@@ -1,23 +1,35 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
+import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.action.ExpandAllAction;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingListener;
 import com.devepos.adt.base.ui.tree.IStyledTreeNode;
@@ -28,6 +40,7 @@ import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
 import com.devepos.adt.saat.cdsanalysis.IWhereUsedInCdsAnalysisConstants;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
+import com.devepos.adt.saat.ui.internal.IExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
@@ -50,7 +63,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private Action showAssocUses;
   private Action releasedUsagesOnly;
   private Action localAssociationsOnly;
+  private Action filterAction;
+  private Action resetFilterAction;
+  private Action releasedEntitiesFilterAction;
   private Action searchRecursivelyAction;
+  private ITreeNode lastFilteredNode;
+  private boolean releasedEntitiesFilterActive;
+  private final ViewerFilter treeFilter = new TreeFilter();
+  private final Set<Object> filteredNodes = new HashSet<>();
+  private LazyLoadingTreeContentProvider contentProvider;
   private ExpandAllAction expandAllAction;
 
   public WhereUsedInCdsAnalysisView(final CdsAnalysisView parentView) {
@@ -60,6 +81,108 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         parentView.updateLabel();
       });
     };
+  }
+
+  private class ReleasedPathsFilterAction extends Action {
+    public ReleasedPathsFilterAction() {
+      super(Messages.WhereUsedInCdsAnalysisView_FilterOnReleasedEntities_xmit);
+    }
+
+    @Override
+    public void run() {
+      filteredNodes.clear();
+      lastFilteredNode = null;
+      releasedEntitiesFilterActive = true;
+      analysisResult.setFiltered(true);
+      getViewPart().updateLabel();
+
+      try {
+        var input = (Object[]) analysisResult.getResult();
+        var resultNode = (ICollectionTreeNode) input[0];
+        findReleasedDownward(resultNode);
+        getViewer().setFilters(treeFilter);
+      } catch (Exception exc) {
+      }
+    }
+
+    private void collectTreePathUpwards(ITreeNode node) {
+      filteredNodes.add(node);
+
+      var parent = node.getParent();
+
+      while (parent != null) {
+        filteredNodes.add(parent);
+        parent = parent.getParent();
+      }
+    }
+
+    private void findReleasedDownward(ICollectionTreeNode folderNode) {
+      var children = folderNode.getChildren();
+      if (children.isEmpty()) {
+        return;
+      }
+
+      for (var child : children) {
+        var extendedInfo = child.getAdapter(IExtendedAdtObjectInfo.class);
+        if (extendedInfo != null && extendedInfo.isReleased()) {
+          collectTreePathUpwards(child);
+        }
+        if (child instanceof ICollectionTreeNode) {
+          findReleasedDownward((ICollectionTreeNode) child);
+        }
+      }
+    }
+  }
+
+  private class TreeFilter extends ViewerFilter {
+
+    @Override
+    public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+      var node = (ITreeNode) element;
+
+      if (node.getParent() == null) {
+        return true;
+      }
+      if (releasedEntitiesFilterActive && filteredNodes.isEmpty()) {
+        return false;
+      }
+      if (filteredNodes.isEmpty() || filteredNodes.contains(element)
+          || parentElement == lastFilteredNode) {
+        return true;
+      }
+      if (lastFilteredNode == null) {
+        return false;
+      }
+      var collectionNode = (ICollectionTreeNode) lastFilteredNode;
+      if (collectionNode.getParent() == null) {
+        return false;
+      }
+      var children = collectionNode.getChildren();
+      if (isInChildren(children, element)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    private boolean isInChildren(final List<ITreeNode> children, final Object element) {
+      if (children == null || children.isEmpty()) {
+        return false;
+      }
+
+      for (var child : children) {
+        if (child == element) {
+          return true;
+        }
+        if (child instanceof ICollectionTreeNode) {
+          var grandChildren = ((ICollectionTreeNode) child).getChildren();
+          if (isInChildren(grandChildren, element)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
   }
 
   @Override
@@ -73,6 +196,9 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     final IMenuManager menu = actionBars.getMenuManager();
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, showFromUses);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, showAssocUses);
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, new Separator());
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, releasedEntitiesFilterAction);
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, resetFilterAction);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, searchRecursivelyAction);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, releasedUsagesOnly);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, localAssociationsOnly);
@@ -143,7 +269,13 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         analysisResult.getSettings().setSearchAssociation(true);
       }
     });
-    searchRecursivelyAction = ActionFactory.createAction("Search for References recursively", null,
+
+    filterAction = ActionFactory.createAction(Messages.WhereUsedInCdsAnalysisView_FilterOnSelection_xmit, AdtBaseUIResources
+        .getImageDescriptor(IAdtBaseImages.FILTER), this::filterOnSelection);
+    resetFilterAction = ActionFactory.createAction(Messages.WhereUsedInCdsAnalysisView_ResetViewerFilter_xmit, null,
+        this::resetFiltering);
+    releasedEntitiesFilterAction = new ReleasedPathsFilterAction();
+    searchRecursivelyAction = ActionFactory.createAction(Messages.WhereUsedInCdsAnalysisView_SearchFromPartReferencesRecursively_xmit, null,
         IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setSearchRecursively(searchRecursivelyAction.isChecked());
           expandAllAction.setEnabled(searchRecursivelyAction.isChecked());
@@ -151,7 +283,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
           refreshAnalysis();
         });
     searchRecursivelyAction.setToolTipText(
-        "References in SELECT parts of CDS Views are searched recursively");
+        Messages.WhereUsedInCdsAnalysisView_SearchFromPartReferencesRecursively_xtol);
   }
 
   @Override
@@ -170,6 +302,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
           IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.FIELD_ANALYSIS);
     }
+
+    var selection = getViewer().getStructuredSelection();
+    if (selection.size() == 1) {
+      var selectedNode = (ITreeNode) selection.getFirstElement();
+      if (selectedNode.getParent() != null) {
+        mgr.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, filterAction);
+      }
+    }
+  }
 
   @Override
   protected void fillToolbar(final IToolBarManager tbm) {
@@ -198,7 +339,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
         if (size != null) {
           if ((!analysisResult.getSettings().isSearchRecursively() || analysisResult.getSettings()
-              .isSearchAssociations()) && !"0".equals(size)) {
+              .isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
             text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
           }
         }
@@ -224,6 +365,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   protected void loadInput(final ViewUiState uiState) {
     checkFeatureState();
     final TreeViewer viewer = (TreeViewer) getViewer();
+    resetFiltering();
+
     if (analysisResult.isResultLoaded()) {
       setActionStateFromSettings();
       updateViewerFromSettings();
@@ -251,6 +394,9 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   protected void refreshAnalysis() {
     analysisResult.refreshAnalysis();
     getViewPart().updateLabel();
+    filteredNodes.clear();
+    lastFilteredNode = null;
+    getViewer().resetFilters();
     getViewer().refresh();
   }
 
@@ -266,6 +412,33 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     localAssociationsOnly.setEnabled(isLocalAssocOnlyFeatureAvailable);
     releasedUsagesOnly.setEnabled(whereUsedInTemplate != null && whereUsedInTemplate
         .containsVariable(IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_RELEASED_ENTITIES_ONLY));
+    releasedEntitiesFilterAction.setEnabled(releasedUsagesOnly.isEnabled());
+  }
+
+  private void filterOnSelection() {
+    filteredNodes.clear();
+    var isAlreadyFiltered = analysisResult.isFiltered();
+    analysisResult.setFiltered(true);
+
+    var viewer = getViewer();
+    var selection = viewer.getStructuredSelection();
+    for (var elem : selection) {
+      var node = (ITreeNode) elem;
+
+      lastFilteredNode = node;
+      filteredNodes.add(node);
+
+      var parent = node.getParent();
+      while (parent != null) {
+        filteredNodes.add(parent);
+        parent = parent.getParent();
+      }
+    }
+    viewer.setFilters(treeFilter);
+
+    if (!isAlreadyFiltered) {
+      getViewPart().updateLabel();
+    }
   }
 
   private void initActionState() {
@@ -295,6 +468,16 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       settings.setReleasedUsagesOnly(isReleasedUsagesOnly);
       settings.setSearchRecursively(isSearchRecursively);
     }
+  }
+
+  private void resetFiltering() {
+    analysisResult.setFiltered(false);
+    var viewer = (TreeViewer) getViewer();
+    viewer.resetFilters();
+    filteredNodes.clear();
+    releasedEntitiesFilterActive = false;
+
+    getViewPart().updateLabel();
   }
 
   private void setActionStateFromSettings() {
