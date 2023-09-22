@@ -133,6 +133,7 @@ public class Messages extends NLS {
   public static String CdsAnalysisPreferencePage_fieldAnalysisBottomUpGroup_xtit;
   public static String CdsAnalysisPreferencePage_fieldAnalysisGroup_xtit;
   public static String CdsAnalysisPreferencePage_fieldAnalysisMode_xlbl;
+  public static String CdsAnalysisPreferencePage_LoadFromPartReferencesRecursively;
   public static String CdsAnalysisPreferencePage_topDownAnalysisGroup_xtit;
   public static String CdsAnalysisPreferencePage_whereUsedInAnalysisGroup_xtit;
   public static String CdsAnalysisPreferencePage_whereUsedInPartError_xmsg;
