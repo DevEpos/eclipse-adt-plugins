@@ -8,6 +8,7 @@ import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -17,6 +18,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import com.devepos.adt.base.ui.preferences.FieldEditorPrefPageBase;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
+import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage;
 
 public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implements
     IWorkbenchPreferencePage, IPropertyChangeListener {
@@ -46,7 +48,7 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
 
     final FieldEditor maxSearchResultsEditor = new IntegerFieldEditor(
         IPreferences.MAX_SEARCH_RESULTS, Messages.MainPreferencePage_MaxResultsSetting_xfld,
-        dialogSettingsGroup, 4);
+        dialogSettingsGroup, 5);
     fields.add(maxSearchResultsEditor);
 
     addBooleanEditor(IPreferences.REMEMBER_LAST_SEARCH_TYPE,
@@ -76,5 +78,23 @@ public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implemen
      * final during their creation
      */
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(dialogSettingsGroup);
+  }
+
+  @Override
+  protected void fieldValueChanged(final FieldEditor field, final Object oldValue,
+      final Object newValue) {
+    if (!IPreferences.MAX_SEARCH_RESULTS.equals(field.getPreferenceName()) || !field.isValid()) {
+      return;
+    }
+    var maxNumberOfResults = Integer.parseInt((String) newValue);
+    if (maxNumberOfResults > ObjectSearchPage.MAX_RESULTS_UPPER_BOUND) {
+      setErrorMessage(NLS.bind(Messages.ObjectSearchPreferencePage_MaxResultsPrefError_xmsg,
+          new Object[] { ObjectSearchPage.MAX_RESULTS_UPPER_BOUND }));
+
+      setValid(false);
+    } else {
+      setValid(true);
+      setErrorMessage(null);
+    }
   }
 }

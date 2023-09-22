@@ -67,11 +67,12 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
 
   private static final int MULTIPLIER = 50;
   private static final int BIG_MULTIPLIER = 500;
-  private static final int SMALL_SCALE_LIMIT = 20;
-  private static final int MAX_SCALE = 22;
+  private static final int SMALL_SCALE_LIMIT = 10;
+  private static final int MAX_SCALE = 29;
   private static final int MIN_SCALE = 1;
   private static final int SMALL_SCALE_UPPER_BOUND = MULTIPLIER * SMALL_SCALE_LIMIT;
-  private static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND + (MAX_SCALE
+
+  public static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND + (MAX_SCALE
       - SMALL_SCALE_LIMIT) * BIG_MULTIPLIER;
 
   private final Map<String, IStatus> allValidationStatuses;
