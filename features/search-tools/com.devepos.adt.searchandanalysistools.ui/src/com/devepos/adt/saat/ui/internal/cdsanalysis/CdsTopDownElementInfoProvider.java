@@ -134,7 +134,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
         destinationId, entityRef));
 
-    if (!IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType())) {
+    if (!IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType()) || !entry.getChildren()
+        .isEmpty()) {
       adtObjRefElemInfo.setLazyLoadingSupport(false);
     } else {
       adtObjRefElemInfo.setElementInfoProvider(new CdsTopDownElementInfoProvider(destinationId,
@@ -146,7 +147,7 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     sqlRelationInfo.relation = getRelationText(entry.getSqlRelation());
 
     var properties = entityRef.getProperties();
-    var apiState = properties.get("API_STATE");
+    var apiState = properties.get("API_STATE"); //$NON-NLS-1$
     if (apiState != null) {
       sqlRelationInfo.setApiState(apiState);
     }
@@ -154,11 +155,16 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
       sqlRelationInfo.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE"))); //$NON-NLS-1$
     }
     if (entry.getSqlRelation() == SqlRelation.ASSOCIATION) {
-      var assocName = properties.get("ASSOCIATION_NAME");
-      adtObjRefElemInfo.setDisplayName(String.format("%s (%s)", assocName, adtObjRefElemInfo
+      var assocName = properties.get("ASSOCIATION_NAME"); //$NON-NLS-1$
+      adtObjRefElemInfo.setDisplayName(String.format("%s (%s)", assocName, adtObjRefElemInfo //$NON-NLS-1$
           .getDisplayName()));
     }
     adtObjRefElemInfo.setAdditionalInfo(sqlRelationInfo);
+
+    // convert and add child entries
+    for (var child : entry.getChildren()) {
+      adtObjRefElemInfo.getChildren().add(convertResultEntry(child));
+    }
     return adtObjRefElemInfo;
   }
 
