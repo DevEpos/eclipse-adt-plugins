@@ -201,6 +201,10 @@ public class ObjectSearchResult implements ISearchResult {
     return getLabel();
   }
 
+  public String getUsedSearchType() {
+    return searchQuery.getSearchRequest().getSearchType();
+  }
+
   public boolean isListLayoutActive() {
     return listLayoutActive;
   }
