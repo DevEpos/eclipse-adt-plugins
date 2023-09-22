@@ -120,6 +120,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   private ObjectSearchResult result;
   private ISearchResultViewPart searchViewPart;
   private StructuredViewer resultViewer;
+  private ViewLabelProvider resultViewerLabelProvider;
   private Composite mainComposite;
   private FilterableComposite<?, ?> filterableComposite;
   private ObjectSearchQuery searchQuery;
@@ -651,8 +652,12 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         return false;
       }
 
-      return wordMatcher.matchesWord(adtObjectRefNode.getName()) || wordMatcher.matchesWord(
-          adtObjectRefNode.getDescription());
+      var text = resultViewerLabelProvider.getStyledText(element);
+      if (text == null) {
+        return false;
+      }
+
+      return wordMatcher.matchesWord(text.getString());
     });
 
     viewerAdapter.setViewer(resultViewer);
