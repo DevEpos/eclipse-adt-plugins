@@ -21,7 +21,9 @@ public class TreeViewUiState extends ViewUiState {
       return;
     }
     if (expandedTreePaths != null) {
+      viewer.getControl().setRedraw(false);
       viewer.setExpandedTreePaths(expandedTreePaths);
+      viewer.getControl().setRedraw(true);
     }
     if (selection != null) {
       viewer.setSelection(selection);
