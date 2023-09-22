@@ -149,6 +149,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   private final IPreferenceStore prefStore;
   private ContextHelper contextHelper;
   private QueryListenerAdapter queryListener;
+  private AdtTypeAlternativeImgMapper adtTypeImageMapper;
 
   public ObjectSearchResultPage() {
     prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
