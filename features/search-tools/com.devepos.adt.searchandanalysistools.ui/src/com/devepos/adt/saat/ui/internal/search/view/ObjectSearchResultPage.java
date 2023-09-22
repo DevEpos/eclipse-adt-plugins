@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -105,7 +106,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author Ludwig Stockbauer-Muhr
  */
 public class ObjectSearchResultPage extends Page implements ISearchResultPage,
-    ISearchResultListener, ISearchResultPageExtension<ObjectSearchQuery>, IFilterableView {
+    ISearchResultListener, ISearchResultPageExtension<ObjectSearchQuery>, IFilterableView,
+    IAdaptable {
   public static final String GROUPED_BY_PACKAGE_PREF = "com.devepos.adt.saat.objectsearch.groupByPackage"; //$NON-NLS-1$
 
   public static final String LAYOUT_TREE = ObjectSearchResultPage.class.getCanonicalName()
@@ -441,6 +443,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     }
     NewSearchUI.removeQueryListener(queryListener);
     super.dispose();
+  }
+
+  @Override
+  public <T> T getAdapter(Class<T> adapter) {
+    if (adapter == StructuredViewer.class) {
+      return adapter.cast(resultViewer);
+    }
+    return null;
   }
 
   @Override
@@ -922,7 +932,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     collapseAllNodesAction.setId(ObjectSearchResultPage.class.getName() + ".collapseAllAction");
     collapseNodesAction = new CollapseTreeNodesAction();
     copyToClipBoardAction = new CopyToClipboardAction();
-    copyToClipBoardAction.registerViewer(resultViewer);
+    copyToClipBoardAction.registerViewerAdapter(this);
     groupByPackageAction = new GroupByPackageAction();
     groupByPackageAction.setId(ObjectSearchResultPage.class.getName() + ".groupBy");
     groupByPackageAction.setChecked(prefStore.getBoolean(GROUPED_BY_PACKAGE_PREF));
