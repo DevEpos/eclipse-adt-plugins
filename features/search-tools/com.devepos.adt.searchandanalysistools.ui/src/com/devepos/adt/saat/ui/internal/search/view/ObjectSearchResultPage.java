@@ -937,6 +937,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     layoutActionGroup.addAction(LAYOUT_TREE, Messages.ObjectSearchResultPage_showAsTreeAction_xlbl,
         AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.TREE_LAYOUT), true);
     layoutActionGroup.addActionToggledListener(l -> {
+      prefStore.putValue(String.format("%s.%s.layout", ObjectSearchResultPage.class
+          .getCanonicalName(), result.getUsedSearchType()), layoutActionGroup.getToggledActionId());
       updateViewerLayout();
     });
   }
@@ -971,6 +973,16 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       resultViewer.refresh();
     });
     prefStore.putValue(GROUPED_BY_PACKAGE_PREF, Boolean.toString(groupByPackageAction.isChecked()));
+  }
+
+  private void updateLayoutFromPref() {
+    if (result.supportsListLayout()) {
+      var storedLayoutForType = prefStore.getString(String.format("%s.%s.layout",
+          ObjectSearchResultPage.class.getCanonicalName(), result.getUsedSearchType()));
+      if (storedLayoutForType != null) {
+        result.setListLayoutActive(storedLayoutForType.equals(LAYOUT_LIST));
+      }
+    }
   }
 
   private void updateTreeActions(final boolean enable) {
