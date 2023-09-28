@@ -1,18 +1,9 @@
 package com.devepos.adt.base.ui.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.base.ui.IAdtBaseImages;
-import com.devepos.adt.base.ui.internal.search.favorites.ISearchFavorites;
-import com.devepos.adt.base.ui.internal.search.favorites.SearchFavoriteDescriptor;
-import com.devepos.adt.base.ui.internal.search.favorites.SearchFavoriteStorage;
-import com.devepos.adt.base.ui.internal.search.favorites.SearchFavorites;
 import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
 
 /**
@@ -25,10 +16,6 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
 
   // The shared instance
   private static AdtBaseUIPlugin plugin;
-
-  private ISearchFavorites searchFavorites;
-
-  private Map<String, SearchFavoriteDescriptor> searchFavDescriptors;
 
   /**
    * The constructor
@@ -44,31 +31,6 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
    */
   public static AdtBaseUIPlugin getDefault() {
     return plugin;
-  }
-
-  /**
-   * @return Returns all search favorites contributed to the workbench.
-   */
-  public Map<String, SearchFavoriteDescriptor> getSearchFavoriteDescriptors() {
-    if (searchFavDescriptors == null) {
-      var elements = Platform.getExtensionRegistry()
-          .getConfigurationElementsFor(PLUGIN_ID, SearchFavoriteDescriptor.EXTENSION_POINT);
-      searchFavDescriptors = createSearchFavoriteDescriptors(elements);
-    }
-    return searchFavDescriptors;
-  }
-
-  /**
-   * Returns reference to the favorites of the object search
-   *
-   * @return
-   */
-  public ISearchFavorites getSearchFavoriteManager() {
-    if (searchFavorites == null) {
-      searchFavorites = new SearchFavorites();
-      SearchFavoriteStorage.deserialize(searchFavorites);
-    }
-    return searchFavorites;
   }
 
   @Override
@@ -163,18 +125,6 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IAdtBaseImages.FAVORITES, "icons/Favorites.png");
 
     registerDeleteOvr(imageRegistry);
-  }
-
-  private Map<String, SearchFavoriteDescriptor> createSearchFavoriteDescriptors(
-      final IConfigurationElement[] elements) {
-    Map<String, SearchFavoriteDescriptor> descriptors = new HashMap<>();
-    for (var element : elements) {
-      if (element.getName().equals(SearchFavoriteDescriptor.EXTENSION_ELEMENT)) {
-        var descriptor = new SearchFavoriteDescriptor(element);
-        descriptors.put(descriptor.getTypeName(), descriptor);
-      }
-    }
-    return descriptors;
   }
 
   private void registerDeleteOvr(final ImageRegistry imageRegistry) {

@@ -12,20 +12,20 @@ import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.PlatformUI;
 
-import com.devepos.adt.base.model.searchfavorites.IBaseAttribute;
-import com.devepos.adt.base.model.searchfavorites.IBooleanAttribute;
-import com.devepos.adt.base.model.searchfavorites.IIntAttribute;
-import com.devepos.adt.base.model.searchfavorites.ILongStringAttribute;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavorite;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavoritesFactory;
-import com.devepos.adt.base.model.searchfavorites.IStringAttribute;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
-import com.devepos.adt.base.ui.search.favorites.ISearchFavoriteConnector;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBaseAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBooleanAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IIntAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ILongStringAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IStringAttribute;
 
 public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, ISearchPageListener {
   private static final String SCOPE_FILTERS_STRING = "scopeFiltersString";

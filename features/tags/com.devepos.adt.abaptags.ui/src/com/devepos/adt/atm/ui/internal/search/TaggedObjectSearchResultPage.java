@@ -67,7 +67,6 @@ import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
-import com.devepos.adt.base.ui.search.favorites.SearchFavoritesActionFactory;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -79,6 +78,7 @@ import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
 import com.devepos.adt.base.ui.util.WorkbenchUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.searchfavorites.SearchFavoritesActionFactory;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectSearchResultPage extends Page implements ISearchResultPage,

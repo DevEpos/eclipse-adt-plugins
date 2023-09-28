@@ -446,7 +446,7 @@
       </themeElementCategory>
    </extension>
    <extension
-         point="com.devepos.adt.base.ui.searchFavorites">
+         point="com.devepos.adt.searchfavorites.searchFavorites">
       <searchFavoriteConnector
             class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchFavoriteConnector"
             icon="icons/Tag.png"

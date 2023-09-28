@@ -11,16 +11,16 @@ import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
-import com.devepos.adt.base.model.searchfavorites.IBaseAttribute;
-import com.devepos.adt.base.model.searchfavorites.IBooleanAttribute;
-import com.devepos.adt.base.model.searchfavorites.IListAttribute;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavorite;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavoritesFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
-import com.devepos.adt.base.ui.search.favorites.ISearchFavoriteConnector;
+import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBaseAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBooleanAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IListAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
 
 public class TaggedObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
     ISearchPageListener {

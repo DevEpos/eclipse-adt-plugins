@@ -249,7 +249,7 @@
       </propertyTester>
    </extension>
    <extension
-         point="com.devepos.adt.base.ui.searchFavorites">
+         point="com.devepos.adt.searchfavorites.searchFavorites">
       <searchFavoriteConnector
             class="com.devepos.adt.cst.ui.internal.codesearch.CodeSearchFavoriteConnector"
             icon="icons/codesearch.png"

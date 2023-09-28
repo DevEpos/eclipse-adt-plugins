@@ -58,7 +58,8 @@ Export-Package: com.devepos.adt.base;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.backend,
    com.devepos.adt.callhierarchy.ui,
-   com.devepos.adt.searchandanalysistools.backend",
+   com.devepos.adt.searchandanalysistools.backend,
+   com.devepos.adt.searchfavorites",
  com.devepos.adt.base.elementinfo;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
