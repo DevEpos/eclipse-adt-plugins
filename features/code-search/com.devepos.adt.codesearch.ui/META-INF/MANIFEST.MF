@@ -10,6 +10,7 @@ Require-Bundle:
  com.devepos.adt.base.ui,
  com.devepos.adt.codesearch.backend,
  com.devepos.adt.codesearch.model,
+ com.devepos.adt.searchfavorites,
  com.sap.adt.communication,
  com.sap.adt.project.ui,
  com.sap.adt.ris.search.ui,

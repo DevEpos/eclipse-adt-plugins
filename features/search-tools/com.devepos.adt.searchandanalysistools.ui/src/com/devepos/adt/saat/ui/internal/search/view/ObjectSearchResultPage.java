@@ -76,7 +76,6 @@ import com.devepos.adt.base.ui.action.RadioActionGroup;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
-import com.devepos.adt.base.ui.search.favorites.SearchFavoritesActionFactory;
 import com.devepos.adt.base.ui.table.FilterableTable;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -98,6 +97,7 @@ import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.FeatureTester;
 import com.devepos.adt.saat.ui.internal.util.IImages;
+import com.devepos.adt.searchfavorites.SearchFavoritesActionFactory;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**

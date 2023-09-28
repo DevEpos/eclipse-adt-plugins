@@ -14,13 +14,6 @@ import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.PlatformUI;
 
-import com.devepos.adt.base.model.searchfavorites.IBaseAttribute;
-import com.devepos.adt.base.model.searchfavorites.IBooleanAttribute;
-import com.devepos.adt.base.model.searchfavorites.IIntAttribute;
-import com.devepos.adt.base.model.searchfavorites.IMapAttribute;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavorite;
-import com.devepos.adt.base.model.searchfavorites.ISearchFavoritesFactory;
-import com.devepos.adt.base.model.searchfavorites.IStringAttribute;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
@@ -29,7 +22,6 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchFilterHandler;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
-import com.devepos.adt.base.ui.search.favorites.ISearchFavoriteConnector;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.model.objectsearch.IObjectSearchFactory;
 import com.devepos.adt.saat.model.objectsearch.ISearchConfig;
@@ -41,6 +33,14 @@ import com.devepos.adt.saat.ui.internal.search.view.FilterInitializer;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchQuery;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchRequest;
+import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBaseAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IBooleanAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IIntAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IMapAttribute;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
+import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
+import com.devepos.adt.searchfavorites.model.searchfavorites.IStringAttribute;
 import com.sap.adt.communication.content.ContentHandlerException;
 
 public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,

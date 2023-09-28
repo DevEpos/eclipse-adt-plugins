@@ -2,7 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="searchPageExtensions" name="Search Page Extension" schema="schema/searchPageExtensions.exsd"/>
-   <extension-point id="searchFavorites" name="Search Favorite Connector" schema="schema/searchFavorites.exsd"/>
    <extension
            point="org.eclipse.core.runtime.adapters">
         <factory
@@ -52,15 +51,6 @@
         </propertyTester>
      </extension>
    <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            commandId="com.devepos.adt.base.ui.command.openQueryInSearchDialog">
-      </handler>
-      <handler
-            commandId="com.devepos.adt.base.ui.command.toggleTextFilter">
-      </handler>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <category
             id="com.devepos.adt.base.ui.commands.category"
@@ -77,12 +67,6 @@
             defaultHandler="com.devepos.adt.base.ui.internal.handlers.ToggleTextFilterHandler"
             id="com.devepos.adt.base.ui.command.toggleTextFilter"
             name="%command.toggleTextFilter.name">
-      </command>
-      <command
-            categoryId="com.devepos.adt.base.ui.commands.category"
-            defaultHandler="com.devepos.adt.base.ui.internal.handlers.ManageSearchFavoritesHandler"
-            id="com.devepos.adt.base.ui.command.manageFavorites"
-            name="%command.tools.search.showFavorites.name">
       </command>
    </extension>
    <extension
@@ -147,37 +131,6 @@
             </adapt>
          </enabledWhen>
       </page>
-   </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-               <menuContribution
-            allPopups="false"
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="com.devepos.adt.base.ui.tools.search"
-               label="Search Tools">
-            <command
-                  commandId="com.devepos.adt.base.ui.command.manageFavorites"
-                  icon="icons/search_fav.png"
-                  label="%command.tools.search.showFavorites.name"
-                  style="pulldown">
-               <visibleWhen
-                     checkEnabled="false">
-                  <reference
-                        definitionId="com.sap.adt.tools.core.ui.toolsActive">
-                  </reference>
-               </visibleWhen>
-            </command>
-         </toolbar>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:com.devepos.adt.base.ui.command.manageFavorites">
-         <dynamic
-               class="com.devepos.adt.base.ui.internal.search.favorites.ManageSearchFavoritesMenu"
-               id="com.devepos.adt.base.ui.search.dynamicFavoriteMenu">
-         </dynamic>
-      </menuContribution>   
    </extension>
 
 </plugin>

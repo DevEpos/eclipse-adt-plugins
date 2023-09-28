@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc label="Table of Contents" topic="html/overview.html">
+   <topic href="html/overview.html" label="About Search Favorites">
+   </topic>
+   <topic label="Concepts">
+      <topic href="html/manage_favorites.html" label="Manage Favorites">
+      </topic>
+      <topic href="html/new_favorite.html" label="Create New Favorite">
+      </topic>
+   </topic>
+</toc>

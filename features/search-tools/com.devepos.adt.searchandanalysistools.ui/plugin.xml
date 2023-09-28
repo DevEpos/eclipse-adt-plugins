@@ -319,7 +319,7 @@
         </onActivationSuccess>
      </extension>
      <extension
-           point="com.devepos.adt.base.ui.searchFavorites">
+           point="com.devepos.adt.searchfavorites.searchFavorites">
         <searchFavoriteConnector
               class="com.devepos.adt.saat.ui.internal.search.ObjectSearchFavoriteConnector"
               icon="icons/ABAPSearch.png"

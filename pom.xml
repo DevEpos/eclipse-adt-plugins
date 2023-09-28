@@ -38,6 +38,15 @@
 				<!--module>features/playground</module-->
 			</modules>
         </profile>		
+        <profile>
+            <id>favs</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>features/search-favorites</module>
+            </modules>
+        </profile>
     </profiles>
     <properties>
         <tycho-version>2.7.5</tycho-version>

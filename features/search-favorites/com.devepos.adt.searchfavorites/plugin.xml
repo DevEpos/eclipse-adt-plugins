@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="searchFavorites" name="Search Favorite Connector" schema="schema/searchFavorites.exsd"/>
+   <extension
+         point="org.eclipse.ui.menus">
+               <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="com.devepos.adt.searchfavorites.main"
+               label="%toolbar.favorites.label">
+            <command
+                  commandId="com.devepos.adt.searchfavorites.command.manageFavorites"
+                  icon="icons/search_fav.png"
+                  label="%command.tools.search.showFavorites.name"
+                  style="pulldown">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="com.sap.adt.tools.core.ui.toolsActive">
+                  </reference>
+               </visibleWhen>
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.devepos.adt.searchfavorites.command.manageFavorites">
+         <dynamic
+               class="com.devepos.adt.searchfavorites.internal.ManageSearchFavoritesMenu"
+               id="com.devepos.adt.searchfavorites.menu.dynamicFavoriteMenu">
+         </dynamic>
+      </menuContribution>   
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="com.devepos.adt.searchfavorites.commands.category"
+            name="%category.searchfavorites.name">
+      </category>         
+      <command
+            categoryId="com.devepos.adt.base.ui.commands.category"
+            defaultHandler="com.devepos.adt.searchfavorites.internal.handlers.ManageSearchFavoritesHandler"
+            id="com.devepos.adt.searchfavorites.command.manageFavorites"
+            name="%command.tools.search.showFavorites.name">
+      </command>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated searchfavorites -->
+      <package
+            uri="http://www.devepos.com/adt/searchfavorites"
+            class="com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesPackage"
+            genModel="model/searchfavorites.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated searchfavorites -->
+      <parser
+            type="searchfavorites"
+            class="com.devepos.adt.searchfavorites.model.searchfavorites.util.SearchFavoritesResourceFactory"/>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml">
+      </toc>
+      <toc
+            file="primaryToc.xml"
+            primary="true">
+      </toc>
+      <tocIcon
+            closedIcon="icons/toc/toc_closed.gif"
+            id="com.devepos.adt.searchfavorites.tocIcon"
+            openIcon="icons/toc/toc_open.gif">
+      </tocIcon>
+   </extension>
+
+
+</plugin>
