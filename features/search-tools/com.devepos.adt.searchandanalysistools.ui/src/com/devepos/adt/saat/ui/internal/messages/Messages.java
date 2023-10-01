@@ -69,6 +69,7 @@ public class Messages extends NLS {
   public static String ObjectSearchPage_queryInputGroup_xtit;
   public static String ObjectSearchPage_queryOptionsGroup_xtit;
   public static String ObjectSearchPage_searchTypeConfigSerializationError_xmsg;
+  public static String ObjectSearchPage_UseAndFilter_xtol;
   public static String ObjectSearchPreferencePage_initialControlFocus_xgrp;
   public static String ObjectSearchPreferencePage_MaxResultsPrefError_xmsg;
   public static String ObjectSearchPreferencePage_RememberLastSearchTypePref_xchk;
