@@ -23,4 +23,12 @@
             openIcon="icons/toc/toc_open.gif">
       </tocIcon>
    </extension>
+   <extension
+         point="com.devepos.adt.releasenotes.releaseNotes">
+      <editorConfig
+            editorTitle="ABAP Search and Analysis Tools"
+            releaseNotesId="v2.0.0 - 01.10.2023"
+            releaseNotesPath="html/changelog/latest-release.html">
+      </editorConfig>
+   </extension>
 </plugin>
