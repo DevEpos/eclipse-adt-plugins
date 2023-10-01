@@ -7,6 +7,8 @@ package com.devepos.adt.saat.ui.internal.help;
  */
 public enum HelpContexts {
   OBJECT_SEARCH("object_search"),
+  OBJECT_SEARCH_DIALOG("object_search_dialog"),
+  OBJECT_SEARCH_RESULT("object_search_result"),
   CDS_ANALYZER("cds_analyzer");
 
   private String helpContextId;
