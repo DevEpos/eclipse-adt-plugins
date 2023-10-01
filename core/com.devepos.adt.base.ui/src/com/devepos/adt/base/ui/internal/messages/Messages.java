@@ -43,6 +43,7 @@ public class Messages extends NLS {
   public static String DateSearchFilter_NoStringType_xmsg;
   public static String DateSearchFilter_NotAValidDate_xmsg;
   public static String DateSearchFilter_NotAValidDatePattern_xmsg;
+  public static String DateSearchFilter_OperatorsNotAllowedInRanges_xmsg;
   public static String SearchPatternProvider_loading_xmsg;
   public static String SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg;
   public static String SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg;

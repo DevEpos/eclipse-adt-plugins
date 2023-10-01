@@ -38,39 +38,39 @@ import com.devepos.adt.base.util.StringUtil;
 public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvider, IImageProvider,
     IAdaptable {
 
-  private static final String NUMERIC_DATE_PART_SEPARATOR = "\\.";
-  private static final String RANGE_SEPARATOR = "...";
-  private static final String RANGE_SEPARATOR_PATTERN = "\\.{3}";
-  private static final String DATE_COMPARISON_OPERATORS_PATTERN = "(<=|>=|>|<)";
-  private static final String RELATIVE_FIXED_DATE_PATTERN = "(to|yester)day|last-(week|month|year)";
-  private static final String RELATIVE_DATE_PATTERN = "([1-9](\\d*))-(days|weeks|months|years)-ago";
-  private static final String NUMERIC_YEAR_PATTERN = "\\d{4}";
+  private static final String NUMERIC_DATE_PART_SEPARATOR = "\\."; //$NON-NLS-1$
+  private static final String RANGE_SEPARATOR = "..."; //$NON-NLS-1$
+  private static final String RANGE_SEPARATOR_PATTERN = "\\.{3}"; //$NON-NLS-1$
+  private static final String DATE_COMPARISON_OPERATORS_PATTERN = "(<=|>=|>|<)"; //$NON-NLS-1$
+  private static final String RELATIVE_FIXED_DATE_PATTERN = "(to|yester)day|last-(week|month|year)"; //$NON-NLS-1$
+  private static final String RELATIVE_DATE_PATTERN = "([1-9](\\d*))-(days|weeks|months|years)-ago"; //$NON-NLS-1$
+  private static final String NUMERIC_YEAR_PATTERN = "\\d{4}"; //$NON-NLS-1$
   private static final String NUMERIC_FULL_DATE_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
-      "[1-9]\\d?", "(1[0-2]|[1-9])", "[1-9]\\d{3}");
+      "[1-9]\\d?", "(1[0-2]|[1-9])", "[1-9]\\d{3}"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   private static final String NUMERIC_DAY_MONTH_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
-      "[1-9]\\d?", "(1[0-2]|[1-9])");
+      "[1-9]\\d?", "(1[0-2]|[1-9])"); //$NON-NLS-1$ //$NON-NLS-2$
   private static final String NUMERIC_MONTH_YEAR_PATTERN = String.join(NUMERIC_DATE_PART_SEPARATOR,
-      "(1[0-2]|[1-9])", "\\d{4}");
+      "(1[0-2]|[1-9])", "\\d{4}"); //$NON-NLS-1$ //$NON-NLS-2$
 
   /**
    * RegEx Group pattern consisting of all possible date patterns
    */
-  private static final String COMBINED_DATE_REGEX_GROUP = "(" + String.join("|",
+  private static final String COMBINED_DATE_REGEX_GROUP = "(" + String.join("|", //$NON-NLS-1$ //$NON-NLS-2$
       RELATIVE_FIXED_DATE_PATTERN, RELATIVE_DATE_PATTERN, NUMERIC_FULL_DATE_PATTERN,
-      NUMERIC_DAY_MONTH_PATTERN, NUMERIC_MONTH_YEAR_PATTERN, NUMERIC_YEAR_PATTERN) + ")";
+      NUMERIC_DAY_MONTH_PATTERN, NUMERIC_MONTH_YEAR_PATTERN, NUMERIC_YEAR_PATTERN) + ")"; //$NON-NLS-1$
 
   /**
    * RegEx pattern which will match any valid date pattern.
    */
-  private static final String DATE_VALIDATION_PATTERN = "^" + COMBINED_DATE_REGEX_GROUP + "$";
+  private static final String DATE_VALIDATION_PATTERN = "^" + COMBINED_DATE_REGEX_GROUP + "$"; //$NON-NLS-1$ //$NON-NLS-2$
 
-  private static final Pattern DATE_OPERATORS_PATTERN = Pattern.compile(String.format("^%s",
+  private static final Pattern DATE_OPERATORS_PATTERN = Pattern.compile(String.format("^%s", //$NON-NLS-1$
       DATE_COMPARISON_OPERATORS_PATTERN));
 
   /**
    * Pattern for ABAP internal Date representation
    */
-  private static final String ABAP_DATE_PATTERN = "yyyyMMdd";
+  private static final String ABAP_DATE_PATTERN = "yyyyMMdd"; //$NON-NLS-1$
 
   /**
    * Formatter which uses the ABAP internal date representation
@@ -103,7 +103,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   public DateSearchFilter(final String label, final String description,
       final String longDescription, final Image image) {
     if (StringUtil.isEmpty(longDescription)) {
-      throw new IllegalArgumentException("'longDescription' must not be null or an empty String");
+      throw new IllegalArgumentException("'longDescription' must not be null or an empty String"); //$NON-NLS-1$
     }
     this.label = label;
     descriptionIntro = longDescription;
@@ -181,7 +181,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     @Override
     public void validate(final Object value) throws CoreException {
       if (!(value instanceof String)) {
-        new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
             Messages.DateSearchFilter_NoStringType_xmsg));
       }
 
@@ -232,8 +232,15 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
           throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
               Messages.DateSearchFilter_MissingUpperLimitInRange_xmsg, datePattern)));
         }
-        LocalDate startDate = convertDateString(rangeParts[0]).start;
-        LocalDate endDate = convertDateString(rangeParts[1]).end;
+        if (getOptionFromPattern(rangeParts[0]) != null || getOptionFromPattern(
+            rangeParts[1]) != null) {
+          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+              Messages.DateSearchFilter_OperatorsNotAllowedInRanges_xmsg));
+        }
+
+        LocalDate startDate = convertDateString(rangeParts[0], null).start;
+        LocalDate endDate = convertDateString(rangeParts[1], null).end;
+
         // range is only valid if start date is lesser or equal the end date
         if (startDate.compareTo(endDate) > 0) {
           throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
@@ -248,8 +255,9 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
           datePattern = datePattern.substring(option.getExternalSymbol().length());
           abapDateRange.option = option;
         }
-        LocalDateRange dateRange = convertDateString(datePattern);
+        LocalDateRange dateRange = convertDateString(datePattern, option);
         abapDateRange.low = dateRange.start.format(ABAP_DATE_FORMATTER);
+
         if (dateRange.start != dateRange.end) {
           abapDateRange.high = dateRange.end.format(ABAP_DATE_FORMATTER);
           abapDateRange.option = Option.BETWEEN;
@@ -259,27 +267,28 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       return abapDateRange.toString();
     }
 
-    private LocalDateRange convertDateString(final String datePattern) throws CoreException {
+    private LocalDateRange convertDateString(final String datePattern, Option option)
+        throws CoreException {
       if (!datePattern.matches(DATE_VALIDATION_PATTERN)) {
         throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
             Messages.DateSearchFilter_NotAValidDatePattern_xmsg, datePattern)));
       }
       // first check for some fix relative dates
       switch (datePattern) {
-      case "today":
+      case "today": //$NON-NLS-1$
         return new LocalDateRange(LocalDate.now(), true);
-      case "yesterday":
+      case "yesterday": //$NON-NLS-1$
         return new LocalDateRange(LocalDate.now().minusDays(1), true);
-      case "last-week":
+      case "last-week": //$NON-NLS-1$
         return new LocalDateRange(LocalDate.now().minusWeeks(1), true);
-      case "last-month":
+      case "last-month": //$NON-NLS-1$
         return new LocalDateRange(LocalDate.now().minusMonths(1), true);
-      case "last-year":
+      case "last-year": //$NON-NLS-1$
         return new LocalDateRange(LocalDate.now().minusYears(1), true);
       }
 
       // check if it is a fixed relative date
-      Matcher relativeDatePattern = Pattern.compile(String.format("^%s$", RELATIVE_DATE_PATTERN))
+      Matcher relativeDatePattern = Pattern.compile(String.format("^%s$", RELATIVE_DATE_PATTERN)) //$NON-NLS-1$
           .matcher(datePattern);
       if (relativeDatePattern.find()) {
         int numberOfTemporalUnit = Integer.parseInt(relativeDatePattern.group(1));
@@ -287,13 +296,13 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
         LocalDate relativeDate = LocalDate.now();
         switch (temporalUnit) {
-        case "days":
+        case "days": //$NON-NLS-1$
           return new LocalDateRange(relativeDate.minusDays(numberOfTemporalUnit), true);
-        case "weeks":
+        case "weeks": //$NON-NLS-1$
           return new LocalDateRange(relativeDate.minusWeeks(numberOfTemporalUnit), true);
-        case "months":
+        case "months": //$NON-NLS-1$
           return new LocalDateRange(relativeDate.minusMonths(numberOfTemporalUnit), true);
-        case "years":
+        case "years": //$NON-NLS-1$
           return new LocalDateRange(relativeDate.minusYears(numberOfTemporalUnit), true);
         }
       }
@@ -304,9 +313,19 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         LocalDate date = convertNumericDatePatternToDate(datePattern);
         LocalDateRange dateRange = new LocalDateRange(date, true);
         if (numericPatternType == NumericDatePatternType.MONTH_YEAR) {
-          dateRange.end = date.withDayOfMonth(date.lengthOfMonth());
+          if (option == null) {
+            dateRange.end = date.withDayOfMonth(date.lengthOfMonth());
+          } else if (option == Option.GREATER_THAN || option == Option.GREATER_EQUAL) {
+            dateRange.start = date.withDayOfMonth(date.lengthOfMonth());
+            dateRange.end = dateRange.start;
+          }
         } else if (numericPatternType == NumericDatePatternType.YEAR) {
-          dateRange.end = date.withMonth(12).withDayOfMonth(date.lengthOfMonth());
+          if (option == null) {
+            dateRange.end = date.withMonth(12).withDayOfMonth(date.lengthOfMonth());
+          } else if (option == Option.GREATER_EQUAL || option == Option.GREATER_THAN) {
+            dateRange.start = date.withMonth(12).withDayOfMonth(date.lengthOfMonth());
+            dateRange.end = dateRange.start;
+          }
         }
         return dateRange;
       }
@@ -404,12 +423,12 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   private enum Option {
-    EQUALS("EQ", "="),
-    GREATER_THAN("GT", ">"),
-    GREATER_EQUAL("GE", ">="),
-    LESSER_THAN("LT", "<"),
-    LESSER_EQUAL("LE", "<="),
-    BETWEEN("BT", "...");
+    EQUALS("EQ", "="), //$NON-NLS-1$ //$NON-NLS-2$
+    GREATER_THAN("GT", ">"), //$NON-NLS-1$ //$NON-NLS-2$
+    GREATER_EQUAL("GE", ">="), //$NON-NLS-1$ //$NON-NLS-2$
+    LESSER_THAN("LT", "<"), //$NON-NLS-1$ //$NON-NLS-2$
+    LESSER_EQUAL("LE", "<="), //$NON-NLS-1$ //$NON-NLS-2$
+    BETWEEN("BT", "..."); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String symbol;
     private String externalSymbol;
@@ -437,8 +456,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   private enum Sign {
-    INCLUDING("I"),
-    EXCLUDING("E");
+    INCLUDING("I"), //$NON-NLS-1$
+    EXCLUDING("E"); //$NON-NLS-1$
 
     private String symbol;
 
@@ -501,7 +520,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     Predicate<String> queryPattern = StringUtil.getPatternForQuery(query).asPredicate();
 
-    Pattern numericRelativePattern = Pattern.compile("^(\\d{1,3})-?");
+    Pattern numericRelativePattern = Pattern.compile("^(\\d{1,3})-?"); //$NON-NLS-1$
     Matcher numericRelativeMatcher = numericRelativePattern.matcher(query);
     if (numericRelativeMatcher.find()) {
       String numericValue = numericRelativeMatcher.group(1);
@@ -547,8 +566,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   private void initRelativeDates() {
-    dateProposals = Arrays.asList("today", "yesterday", "last-week", "last-month", "last-year");
-    relativeNumericDates = Arrays.asList("-days-ago", "-weeks-ago", "-months-ago", "-years-ago");
+    dateProposals = Arrays.asList("today", "yesterday", "last-week", "last-month", "last-year"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    relativeNumericDates = Arrays.asList("-days-ago", "-weeks-ago", "-months-ago", "-years-ago"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
   }
 
 }
