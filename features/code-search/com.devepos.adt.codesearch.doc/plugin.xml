@@ -23,4 +23,12 @@
               plugin="com.devepos.adt.codesearch.doc">
         </contexts>
    </extension>
+   <extension
+         point="com.devepos.adt.releasenotes.releaseNotes">
+      <editorConfig
+            editorTitle="ABAP Code Search"
+            releaseNotesId="v1.9.0 - 01.10.2023"
+            releaseNotesPath="html/changelog/latest-release.html">
+      </editorConfig>
+   </extension>
 </plugin>
