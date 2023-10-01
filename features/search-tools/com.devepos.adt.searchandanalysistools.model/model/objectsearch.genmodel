@@ -27,6 +27,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="objectsearch.ecore#//CustomOptionType">
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//CustomOptionType/STRING"/>
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//CustomOptionType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//CustomOptionType/COMBO"/>
     </genEnums>
     <genClasses ecoreClass="objectsearch.ecore#//SearchConfig">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchConfig/searchTypes"/>

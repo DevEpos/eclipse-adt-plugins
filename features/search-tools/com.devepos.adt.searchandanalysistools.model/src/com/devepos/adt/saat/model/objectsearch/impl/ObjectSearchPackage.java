@@ -1790,6 +1790,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEEnum(customOptionTypeEEnum, CustomOptionType.class, "CustomOptionType");
     addEEnumLiteral(customOptionTypeEEnum, CustomOptionType.STRING);
     addEEnumLiteral(customOptionTypeEEnum, CustomOptionType.BOOLEAN);
+    addEEnumLiteral(customOptionTypeEEnum, CustomOptionType.COMBO);
 
     // Create resource
     createResource(eNS_URI);
