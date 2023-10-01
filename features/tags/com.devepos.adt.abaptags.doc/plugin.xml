@@ -23,4 +23,12 @@
             plugin="com.devepos.adt.abaptags.doc">
       </contexts>
    </extension>
+   <extension
+         point="com.devepos.adt.releasenotes.releaseNotes">
+      <editorConfig
+            editorTitle="ABAP Tags"
+            releaseNotesId="v1.11.0 - 01.10.2023"
+            releaseNotesPath="html/changelog/latest-release.html">
+      </editorConfig>
+   </extension>
 </plugin>
