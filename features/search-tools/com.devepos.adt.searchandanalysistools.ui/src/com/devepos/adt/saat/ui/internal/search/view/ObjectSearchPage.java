@@ -129,7 +129,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         .applyTo(mainComposite);
     setControl(mainComposite);
 
-    HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_SEARCH);
+    HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_SEARCH_DIALOG);
 
     createSearchTypeInput(mainComposite);
 
