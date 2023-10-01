@@ -228,3 +228,18 @@ a.link:hover {
 	background: #fefeee;
 	border: 0;
 }
+
+.custom-footer {
+    border-top: 1px solid lightgray;
+    position: relative;
+    display: flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    /*Center horizontaly ie */
+    -ms-flex-pack: center;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-top: 0.5rem;
+    margin-top: 1rem;
+}
