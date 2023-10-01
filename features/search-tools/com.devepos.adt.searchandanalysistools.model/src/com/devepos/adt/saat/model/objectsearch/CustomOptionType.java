@@ -39,7 +39,17 @@ public enum CustomOptionType implements Enumerator {
    * @generated
    * @ordered
    */
-  BOOLEAN(1, "BOOLEAN", "BOOLEAN");
+  BOOLEAN(1, "BOOLEAN", "BOOLEAN"),
+  /**
+   * The '<em><b>COMBO</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #COMBO_VALUE
+   * @generated
+   * @ordered
+   */
+  COMBO(2, "COMBO", "COMBO");
 
   /**
    * The '<em><b>STRING</b></em>' literal value.
@@ -66,14 +76,26 @@ public enum CustomOptionType implements Enumerator {
   public static final int BOOLEAN_VALUE = 1;
 
   /**
+   * The '<em><b>COMBO</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #COMBO
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int COMBO_VALUE = 2;
+
+  /**
    * An array of all the '<em><b>Custom Option Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    */
-  private static final CustomOptionType[] VALUES_ARRAY = new CustomOptionType[] { STRING,
-      BOOLEAN, };
+  private static final CustomOptionType[] VALUES_ARRAY = new CustomOptionType[] { STRING, BOOLEAN,
+      COMBO, };
 
   /**
    * A public read-only list of all the '<em><b>Custom Option Type</b></em>' enumerators.
@@ -136,6 +158,8 @@ public enum CustomOptionType implements Enumerator {
       return STRING;
     case BOOLEAN_VALUE:
       return BOOLEAN;
+    case COMBO_VALUE:
+      return COMBO;
     }
     return null;
   }

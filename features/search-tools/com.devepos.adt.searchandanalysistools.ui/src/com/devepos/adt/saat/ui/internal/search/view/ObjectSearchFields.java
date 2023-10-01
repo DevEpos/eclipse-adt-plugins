@@ -8,13 +8,9 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
-import com.devepos.adt.saat.model.objectsearch.CustomOptionType;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
@@ -29,7 +25,7 @@ import com.devepos.adt.saat.ui.internal.messages.Messages;
 public class ObjectSearchFields {
 
   private final List<SearchInputField> fields = new ArrayList<>();
-  private final Map<String, Control> customOptionControls = new HashMap<>();
+  private final Map<String, ICustomSearchOptionControl> customOptionControls = new HashMap<>();
   private final Composite container;
   private final IAbapProjectProvider projectProvider;
   private ISearchTypeConfig currentSearchType;
@@ -50,12 +46,10 @@ public class ObjectSearchFields {
   public void fillCustomOptionFromQuery(
       final Map<? extends String, ? extends String> customOptions) {
     for (var key : customOptions.keySet()) {
-      var control = customOptionControls.get(key);
-      if (control != null) {
+      var optionControl = customOptionControls.get(key);
+      if (optionControl != null) {
         var value = customOptions.get(key);
-        if (control instanceof Button) {
-          ((Button) control).setSelection("X".equals(value));
-        }
+        optionControl.setOptionValue(value);
       }
     }
   }
@@ -83,8 +77,9 @@ public class ObjectSearchFields {
     var optionMap = new HashMap<String, String>();
     for (var optionKey : customOptionControls.keySet()) {
       var optionControl = customOptionControls.get(optionKey);
-      if ((optionControl instanceof Button) && ((Button) optionControl).getSelection()) {
-        optionMap.put(optionKey, "X");
+      var currentValue = optionControl.getOptionValue();
+      if (currentValue != null) {
+        optionMap.put(optionKey, currentValue);
       }
     }
     return optionMap;
@@ -216,12 +211,15 @@ public class ObjectSearchFields {
     customOptionControls.clear();
 
     for (var option : currentSearchType.getCustomOptions()) {
-      if (option.getType() == CustomOptionType.BOOLEAN) {
-        var optionControl = new Button(optionsContainer, SWT.CHECK);
-        optionControl.setText(option.getLabel());
-        if (option.getDescription() != null) {
-          optionControl.setToolTipText(option.getDescription());
-        }
+      var optionControl = CustomSearchOptionControlCreator.create(option);
+      if (optionControl == null) {
+        SearchAndAnalysisPlugin.getDefault()
+            .getLog()
+            .log(new Status(IStatus.WARNING, SearchAndAnalysisPlugin.PLUGIN_ID, String.format(
+                "Custom option '%s' for search type '%s' could not be created", option.getLabel(),
+                currentSearchType.getLabel())));
+      } else {
+        optionControl.createControl(optionsContainer);
         customOptionControls.put(option.getKey(), optionControl);
       }
     }
