@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts>
+   <context id="favorites_overview" title="Overview of DevEpos Search Favorites">
+      <description>Search Favorites provide a unified location for Searches that are integrated into the Eclipse Search to store search queries as favorites</description>
+      <topic href="html/favorites_overview.html" label="DevEpos - Search Favorites"/>
+   </context>
+</contexts>

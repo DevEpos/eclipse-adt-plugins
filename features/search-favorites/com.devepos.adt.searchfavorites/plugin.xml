@@ -75,6 +75,13 @@
             openIcon="icons/toc/toc_open.gif">
       </tocIcon>
    </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml"
+            plugin="com.devepos.adt.searchfavorites">
+      </contexts>
+   </extension>
 
 
 </plugin>
