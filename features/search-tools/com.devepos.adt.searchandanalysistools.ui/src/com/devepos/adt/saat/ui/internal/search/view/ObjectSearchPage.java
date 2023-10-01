@@ -333,6 +333,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         .align(SWT.FILL, SWT.CENTER)
         .span(3, 1)
         .applyTo(andOptionCheck);
+    andOptionCheck.setToolTipText(Messages.ObjectSearchPage_UseAndFilter_xtol);
 
     andOptionCheck.addSelectionListener(widgetSelectedAdapter(l -> searchRequest.setAndSearchActive(
         andOptionCheck.getSelection())));
