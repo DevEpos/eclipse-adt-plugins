@@ -2,7 +2,7 @@
 <toc label="Table of Contents" topic="html/overview.html">
    <topic href="html/overview.html" label="About ABAP Code Search">
    </topic>
-   <topic label="Concepts">
+   <topic href="html/overview.html" label="Concepts">
       <topic href="html/code_search.html" label="ABAP Code Search">
          <topic href="html/code_search/search_dialog.html" label="Search Dialog">
          </topic>
@@ -23,21 +23,7 @@
       </topic>
    </topic>
    <topic href="html/changelog/overview.html" label="What&apos;s New">
-      <topic href="html/changelog/v1_8_0.html" label="Version 1.8.0">
-      </topic>
-      <topic href="html/changelog/v1_6_0.html" label="Version 1.6.0">
-      </topic>
-      <topic href="html/changelog/v1_5_0.html" label="Version 1.5.0">
-      </topic>
-      <topic href="html/changelog/v1_4_0.html" label="Version 1.4.0">
-      </topic>
-      <topic href="html/changelog/v1_3_0.html" label="Version 1.3.0">
-      </topic>
-      <topic href="html/changelog/v1_2_0.html" label="Version 1.2.0">
-      </topic>
-      <topic href="html/changelog/v1_1_0.html" label="Version 1.1.0">
-      </topic>
-      <topic href="html/changelog/v1_0_0.html" label="Version 1.0.0">
+      <topic href="html/changelog/latest-release_help.html" label="Version 1.9.0">
       </topic>
    </topic>
 </toc>
