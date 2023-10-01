@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html id="doc-page">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ABAP Object Search</title>
+</head>
+
+<body id="doc-body">
+    <h2 class="heading">The Search result View</h2>
+    <h3 class="heading">Working with the Search Results</h3>
+    <p>Once a query is finished the results are displayed in the
+        Search View. For each found object there are several options available</p>
+    <ul class="list">
+        <li>Opening the object in the corresponding eclipse editor (if
+            one is registered for the type) by double clicking on it</li>
+        <li>Open one or several selected objects via the context menu
+            item <code class="code">Open</code>
+        </li>
+        <li>Assign Tags to the selected Objects
+            <div class="alert info">
+                <div class="alert-info__text"></div>
+                The <a class="link" href="https://marketplace.eclipse.org/content/abap-tags" target="_blank">ABAP
+                    Tags</a>
+                plug-in needs to be
+                installed and the <a class="link" href="https://github.com/DevEpos/abap-tags-backend"
+                    target="_blank">ABAP
+                    Tags backend</a> must be available in the selected
+                ABAP project.
+            </div>
+        </li>
+        <li>Run Code Search on selected Objects
+            <div class="alert info">
+                <div class="alert-info__text"></div>
+                The <a class="link" href="https://marketplace.eclipse.org/content/abap-code-search" target="_blank">ABAP
+                    Code Search</a>
+                plug-in needs to be
+                installed and the <a class="link" href="https://github.com/DevEpos/abap-code-search-tools"
+                    target="_blank">ABAP
+                    Code Search backend</a> must be available in the selected
+                ABAP project.
+            </div>
+        </li>
+    </ul>
+    <figure>
+        <img src="../../images/SearchView-ContextMenu.png">
+        <figcaption>Context Menu for a one or several nodes</figcaption>
+    </figure>
+    <p>
+        If the tree node represents a <em>CDS View</em>, a <em>Database
+            Table</em> or a <em>Database View</em> There are also the following
+        options available via the context menu
+    </p>
+    <ul class="list">
+        <li>Open the selected objects in the <em>Data Preview</em> of ADT
+        </li>
+        <li>Open the selected objects in the SAP GUI Transaction <em>DB
+                Browser</em><br>
+            <div class="alert info">
+                <div class="alert-info__text"></div>
+                The <a href="https://devepos.com/projects/abap-db-browser/" target="_blank" class="link">DB Browser</a>
+                feature needs to be
+                installed in the ABAP System, otherwise the option is not visible
+            </div>
+        </li>
+    </ul>
+
+    <h4 class="heading">Grouping by Package</h4>
+    <p>You can switch on the grouping by package, which shows the result objects at the correct level in the package
+        hierarchy in which they were created in the system.</p>
+
+    <h4 class="heading">Output modes</h4>
+    <p>Some search types (e.g. Method) support a flat output as well. If that is the case you can switch the output mode
+        from Tree to List via the View Menu</p>
+    <figure>
+        <img src="../../images/SearchView-ViewMenu.png">
+        <figcaption>View Menu of Search view</figcaption>
+    </figure>
+
+    <h4 class="heading">Text Filter</h4>
+    <p>For each search type and output mode it is possible to filter the results via a Text Filter.</p>
+    <figure>
+        <img src="../../images/SearchResult_TextFilter.png">
+        <figcaption>Text Filter on Search Result</figcaption>
+    </figure>
+
+    <h3 class="heading">Related Information</h3>
+    <div>
+        <a class="link" href="./search_dialog.html">Search Dialog</a>
+    </div>
+</body>
+
+</html>

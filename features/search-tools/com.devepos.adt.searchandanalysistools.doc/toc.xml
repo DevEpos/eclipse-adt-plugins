@@ -2,13 +2,13 @@
 <toc label="Table of Contents" topic="html/overview.html">
    <topic href="html/overview.html" label="About ABAP Search and Analysis Tools">
    </topic>
-   <topic label="Concepts">
+   <topic href="html/overview.html" label="Concepts">
       <topic href="html/object_search.html" label="ABAP Object Search">
-         <topic href="html/object_search/cds.html" label="CDS View">
+         <topic href="html/object_search/search_dialog.html" label="Search Dialog">
          </topic>
-         <topic href="html/object_search/dbtabview.html" label="Database Table/View">
+         <topic href="html/object_search/search_examples.html" label="Object Search Examples">
          </topic>
-         <topic href="html/object_search/classintf.html" label="Class / Interface">
+         <topic href="html/object_search/search_result.html" label="Search Result">
          </topic>
       </topic>
       <topic href="html/cds_analyzer.html" label="CDS Analyzer">
@@ -17,23 +17,7 @@
       </topic>
    </topic>
    <topic href="html/changelog/overview.html" label="What&apos;s New">
-      <topic href="html/changelog/v1_10_0.html" label="Version 1.10.0">
-      </topic>
-      <topic href="html/changelog/v1_9_0.html" label="Version 1.9.0">
-      </topic>
-      <topic href="html/changelog/v1_7_0.html" label="Version 1.7.0">
-      </topic>
-      <topic href="html/changelog/v1_6_0.html" label="Version 1.6.0">
-      </topic>
-      <topic href="html/changelog/v1_5_0.html" label="Version 1.5.0">
-      </topic>
-      <topic href="html/changelog/v1_4_0.html" label="Version 1.4.0">
-      </topic>
-      <topic href="html/changelog/v1_2_0.html" label="Version 1.2.0">
-      </topic>
-      <topic href="html/changelog/v1_1_0.html" label="Version 1.1.0">
-      </topic>
-      <topic href="html/changelog/v1_0_0.html" label="Version 1.0.0">
+      <topic href="html/changelog/latest-release_help.html" label="Version 2.0.0">
       </topic>
    </topic>
 </toc>
