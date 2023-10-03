@@ -4,6 +4,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.util.StringUtil;
@@ -131,6 +132,28 @@ public class AdtTypeUtil {
       image = AdtBaseUIResources.getImage(IAdtBaseImages.SAP_GUI_OBJECT);
     }
     return image;
+  }
+
+  /**
+   * Returns {@code true} if the given type is local class type
+   *
+   * @param adtType ADT type
+   */
+  public boolean isLocalClassType(final String adtType) {
+    return IAdtObjectTypeConstants.CLASS_LOCAL_CLASS.equals(adtType)
+        || IAdtObjectTypeConstants.FUNCTION_GROUP_LOCAL_CLASS.equals(adtType)
+        || IAdtObjectTypeConstants.PROGRAM_LOCAL_CLASS.equals(adtType);
+  }
+
+  /**
+   * Returns {@code true} if the given type is local interface type
+   *
+   * @param adtType ADT type
+   */
+  public boolean isLocalInterfaceType(final String adtType) {
+    return IAdtObjectTypeConstants.CLASS_LOCAL_INTERFACE.equals(adtType)
+        || IAdtObjectTypeConstants.FUNCTION_GROUP_LOCAL_INTERFACE.equals(adtType)
+        || IAdtObjectTypeConstants.PROGRAM_LOCAL_INTERFACE.equals(adtType);
   }
 
 }
