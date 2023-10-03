@@ -28,11 +28,10 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="%commands.openPlayground.name"
             commandId="com.devepos.adt.playground.commands.openCodePlayground">
       </handler>
    </extension>
-   <extension
+   <!--extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
@@ -44,6 +43,6 @@
                style="push">
          </command>
       </menuContribution>
-   </extension>
+   </extension-->
 
 </plugin>
