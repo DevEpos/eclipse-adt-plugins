@@ -10,7 +10,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -22,7 +24,7 @@ import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion.DeleteTaggedObjectsWizard;
-import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
@@ -98,9 +100,16 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
     var parentName = objRefNode.getPropertyValue(
         ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
     if (parentName != null) {
+      var componentType = objRefNode.getAdtObjectType();
       taggedObjectInfo.setComponentName(objRefNode.getName());
-      taggedObjectInfo.setComponentType(objRefNode.getAdtObjectType());
-      taggedObjectInfo.setObjectType(IAdtObjectTypeConstants.CLASS);
+      taggedObjectInfo.setComponentType(componentType);
+      /*
+       * Note: Function Group Includes, Function, Program Includes and Programs are all stored with
+       * the tadir type PROG.
+       */
+      taggedObjectInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
+          ? ITadirTypeConstants.CLASS
+          : ITadirTypeConstants.PROGRAM);
       taggedObjectInfo.setObjectName(parentName);
     } else {
       taggedObjectInfo.setObjectName(objRefNode.getName());

@@ -8,6 +8,11 @@
 
 - added possibility to save searches as favorites 
 - added text filter to search result view
+- local classes/interface of programs and function groups can now be tagged
+
+#### Fixed
+
+- remove tags from local components via *Tagged Object Trees* (in Project Explorer View)
 
 ## [1.10.0] - 2023-05-27
 
