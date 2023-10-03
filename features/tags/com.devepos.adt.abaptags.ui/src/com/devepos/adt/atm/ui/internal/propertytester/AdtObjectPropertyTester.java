@@ -23,7 +23,8 @@ public class AdtObjectPropertyTester extends PropertyTester {
     var adtObj = (IAdtObject) receiver;
     if (property.equals(IS_TAGGABLE)) {
       return AdtObjectCapabilities.getInstance().isTaggable(adtObj);
-    } else if (property.equals(IS_GLOBAL_TYPE)) {
+    }
+    if (property.equals(IS_GLOBAL_TYPE)) {
       var typeUtil = AdtTypeUtil.getInstance();
       var adtType = adtObj.getReference().getType();
       return !typeUtil.isLocalClassType(adtType) && !typeUtil.isLocalInterfaceType(adtType);

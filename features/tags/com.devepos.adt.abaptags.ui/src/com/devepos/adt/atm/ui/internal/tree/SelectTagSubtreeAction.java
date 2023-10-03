@@ -12,7 +12,7 @@ import com.devepos.adt.base.ui.IAdtBaseImages;
 /**
  * Action which will select all the sub tree nodes of a tag object of the contained
  * {@link TagSelectionTree} instance.
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */
@@ -62,7 +62,7 @@ public class SelectTagSubtreeAction extends Action {
 
   /**
    * Sets a runner which will be executed after a successful {@link Action#run()} call of the action
-   * 
+   *
    * @param postRun the post runner to be used
    */
   public void setPostRunHandler(final IPostRunHandler postRun) {

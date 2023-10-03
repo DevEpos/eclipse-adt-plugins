@@ -60,13 +60,8 @@ public class TagObjectsWizard extends AbstractWizardBase {
     addPage(new TagParentObjectSelectionWizardPage());
   }
 
-  /**
-   * Returns {@code true} if the tagging wizard completed with success
-   *
-   * @return {@code true} if the tagging wizard completed with success
-   */
-  public boolean wasSuccessful() {
-    return success;
+  public void clearTaggedObjects() {
+    taggedObjectList.getTaggedObjects().clear();
   }
 
   @Override
@@ -76,6 +71,25 @@ public class TagObjectsWizard extends AbstractWizardBase {
      * dialog will not be unnecessarily big at initial open due to some pages
      * needing more space
      */
+  }
+
+  public ITagPreviewInfo getCurrentTagPreviewInfo() {
+    return tagPreviewInfo;
+  }
+
+  public IAdtObjRefList getSelectedObjects() {
+    return selectedAdtObjRefList;
+  }
+
+  public List<ITag> getSelectedTags() {
+    if (selectedTags == null) {
+      selectedTags = new ArrayList<>();
+    }
+    return selectedTags;
+  }
+
+  public ITaggedObjectList getTaggedObjectList() {
+    return taggedObjectList;
   }
 
   @Override
@@ -114,12 +128,13 @@ public class TagObjectsWizard extends AbstractWizardBase {
     return true;
   }
 
-  public void clearTaggedObjects() {
-    taggedObjectList.getTaggedObjects().clear();
-  }
-
-  public IAdtObjRefList getSelectedObjects() {
-    return selectedAdtObjRefList;
+  public void setCurrentTagPreviewInfo(final ITagPreviewInfo tagPreviewInfo) {
+    if (tagPreviewInfo != null) {
+      this.tagPreviewInfo = tagPreviewInfo;
+    } else {
+      this.tagPreviewInfo.getTags().clear();
+      this.tagPreviewInfo.getAdtObjectRefs().clear();
+    }
   }
 
   public void setSelectedObjects(final IAdtObjRefList selectedObjects) {
@@ -131,32 +146,17 @@ public class TagObjectsWizard extends AbstractWizardBase {
 
   }
 
-  public ITaggedObjectList getTaggedObjectList() {
-    return taggedObjectList;
-  }
-
-  public ITagPreviewInfo getCurrentTagPreviewInfo() {
-    return tagPreviewInfo;
-  }
-
-  public void setCurrentTagPreviewInfo(final ITagPreviewInfo tagPreviewInfo) {
-    if (tagPreviewInfo != null) {
-      this.tagPreviewInfo = tagPreviewInfo;
-    } else {
-      this.tagPreviewInfo.getTags().clear();
-      this.tagPreviewInfo.getAdtObjectRefs().clear();
-    }
-  }
-
   public void setSelectedTags(final List<ITag> tags) {
     selectedTags = tags;
 
   }
 
-  public List<ITag> getSelectedTags() {
-    if (selectedTags == null) {
-      selectedTags = new ArrayList<>();
-    }
-    return selectedTags;
+  /**
+   * Returns {@code true} if the tagging wizard completed with success
+   *
+   * @return {@code true} if the tagging wizard completed with success
+   */
+  public boolean wasSuccessful() {
+    return success;
   }
 }

@@ -50,15 +50,11 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author stockbal
  */
 public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
-  private enum ValidationSource {
-    PROJECT,
-    OBJECTS
-  }
-
   public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
-  private final Set<ObjectToBeTagged> objects = new HashSet<>();
 
+  private final Set<ObjectToBeTagged> objects = new HashSet<>();
   private ProjectInput projectInput;
+
   private TableViewer objectsViewer;
   private ToolBar tableToolbar;
   private ToolItem selectObjectsTbButton;
@@ -69,6 +65,76 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     setTitle(Messages.TaggableObjectSelectionWizardPage_Title_xtit);
     setDescription(Messages.TaggableObjectSelectionWizardPage_Description_xmsg);
 
+  }
+
+  class AdtObjectLabelProvider extends LabelProvider implements ILabelProvider,
+      IStyledLabelProvider {
+
+    @Override
+    public Image getImage(final Object element) {
+      final ObjectToBeTagged selectedObj = (ObjectToBeTagged) element;
+      final IAdtObjectReference ref = selectedObj.getRef();
+      return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      final StyledString text = new StyledString();
+      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
+      final IAdtObjectReference ref = objectToBeTagged.getRef();
+
+      text.append(ref.getName());
+      String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(ref.getType());
+      if (typeLabel == null) {
+        typeLabel = AdtTypeUtil.getInstance()
+            .getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
+      }
+      if (typeLabel != null) {
+        text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+      }
+
+      return text;
+    }
+
+    @Override
+    public String getText(final Object element) {
+      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
+      final IAdtObjectReference ref = objectToBeTagged.getRef();
+      return ref.getName();
+    }
+  }
+
+  class ObjectToBeTagged {
+    private final IAdtObjectReference ref;
+
+    public ObjectToBeTagged(final IAdtObjectReference ref) {
+      this.ref = ref;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj instanceof ObjectToBeTagged) {
+        return ((ObjectToBeTagged) obj).ref.getUri().equals(ref.getUri());
+      }
+      return super.equals(obj);
+    }
+
+    /**
+     * @return the ref
+     */
+    public IAdtObjectReference getRef() {
+      return ref;
+    }
+
+    @Override
+    public int hashCode() {
+      return ref.getUri().hashCode();
+    }
+  }
+
+  private enum ValidationSource {
+    PROJECT,
+    OBJECTS
   }
 
   @Override
@@ -251,70 +317,5 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       }
     }
     updatePageCompletedStatus(pageStatus);
-  }
-
-  class AdtObjectLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
-
-    @Override
-    public Image getImage(final Object element) {
-      final ObjectToBeTagged selectedObj = (ObjectToBeTagged) element;
-      final IAdtObjectReference ref = selectedObj.getRef();
-      return AdtTypeUtil.getInstance().getTypeImage(ref.getType());
-    }
-
-    @Override
-    public StyledString getStyledText(final Object element) {
-      final StyledString text = new StyledString();
-      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
-      final IAdtObjectReference ref = objectToBeTagged.getRef();
-
-      text.append(ref.getName());
-      String typeLabel = AdtTypeUtil.getInstance().getTypeDescription(ref.getType());
-      if (typeLabel == null) {
-        typeLabel = AdtTypeUtil.getInstance()
-            .getTypeDescriptionByProject(ref.getType(), getWizard().getProject());
-      }
-      if (typeLabel != null) {
-        text.append(" (" + typeLabel + ")", StyledString.QUALIFIER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-      }
-
-      return text;
-    }
-
-    @Override
-    public String getText(final Object element) {
-      final ObjectToBeTagged objectToBeTagged = (ObjectToBeTagged) element;
-      final IAdtObjectReference ref = objectToBeTagged.getRef();
-      return ref.getName();
-    }
-  }
-
-  class ObjectToBeTagged {
-    private final IAdtObjectReference ref;
-
-    public ObjectToBeTagged(final IAdtObjectReference ref) {
-      this.ref = ref;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj instanceof ObjectToBeTagged) {
-        return ((ObjectToBeTagged) obj).ref.getUri().equals(ref.getUri());
-      }
-      return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-      return ref.getUri().hashCode();
-    }
-
-    /**
-     * @return the ref
-     */
-    public IAdtObjectReference getRef() {
-      return ref;
-    }
   }
 }

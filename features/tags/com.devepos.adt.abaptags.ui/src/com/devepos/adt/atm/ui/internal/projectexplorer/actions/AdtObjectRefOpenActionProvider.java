@@ -28,10 +28,6 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
 
   }
 
-  protected IStructuredSelection getSelection() {
-    return (IStructuredSelection) getContext().getSelection();
-  }
-
   @Override
   public void fillContextMenu(final IMenuManager menu) {
     super.fillContextMenu(menu);
@@ -42,6 +38,10 @@ public class AdtObjectRefOpenActionProvider extends CommonActionProvider {
       openAction.selectionChanged(selection);
       menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, openAction);
     }
+  }
+
+  protected IStructuredSelection getSelection() {
+    return (IStructuredSelection) getContext().getSelection();
   }
 
   private void initOpenAction() {

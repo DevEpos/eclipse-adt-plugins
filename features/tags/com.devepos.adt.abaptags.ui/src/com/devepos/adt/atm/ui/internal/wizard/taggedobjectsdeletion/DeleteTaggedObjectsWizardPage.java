@@ -295,8 +295,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
 
     for (var colSpec : ColumnViewerSpec.values()) {
-      if ((colSpec == ColumnViewerSpec.PARENT_OBJECT && hideParentObjectCol)
-          || (colSpec == ColumnViewerSpec.PARENT_TAG && hideParentTagCol)) {
+      if (colSpec == ColumnViewerSpec.PARENT_OBJECT && hideParentObjectCol
+          || colSpec == ColumnViewerSpec.PARENT_TAG && hideParentTagCol) {
         continue;
       }
       var tableColumn = new TableViewerColumn(taggedObjectsViewer, SWT.NONE);

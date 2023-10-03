@@ -166,114 +166,6 @@ public class AbapObjectTagsView extends ViewPart {
     }
   }
 
-  private class UnassignTagsAction extends Action {
-    public UnassignTagsAction() {
-      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
-          .getSharedImages()
-          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
-    }
-
-    @Override
-    public void run() {
-      var deleteTagsStatus = taggingService.testTaggedObjectDeletionFeatureAvailability(
-          getProject());
-      if (!deleteTagsStatus.isOK()) {
-        MessageDialog.openError(getSite().getShell(),
-            Messages.AbapTagManagerView_ErrorMessageTitle_xtit, deleteTagsStatus.getMessage());
-        return;
-      }
-      final List<ITaggedObjectInfo> tgobjList = collectJobPayload();
-      if (tgobjList == null || tgobjList.isEmpty()) {
-        return;
-      }
-
-      final var wizard = new DeleteTaggedObjectsWizard();
-      wizard.setProject(getProject());
-      wizard.getTaggedObjectListRequest().getTaggedObjectInfos().addAll(tgobjList);
-      final var dialog = new WizardDialog(getSite().getShell(), wizard);
-      dialog.open();
-
-      if (wizard.hasDeletionOccurred()) {
-        refreshCurrentNode();
-      }
-    }
-
-    private List<ITaggedObjectInfo> collectJobPayload() {
-      var tgobjList = new ArrayList<ITaggedObjectInfo>();
-
-      var selObjects = treeViewer.getStructuredSelection().toList();
-
-      for (var selObj : selObjects) {
-        if (selObj instanceof IAdtObjectReferenceNode) {
-          var objRefNode = (IAdtObjectReferenceNode) selObj;
-          var parentNode = objRefNode.getParent();
-          // check if parent node itself is also selected, then we do skip it
-          if (!(parentNode instanceof FolderTreeNode) || selObjects.contains(parentNode)) {
-            continue;
-          }
-          var tagOfNode = parentNode.getAdapter(IAdtObjectTag.class);
-          if (tagOfNode == null) {
-            continue;
-          }
-          addTaggedObject(tgobjList, (IAdtObjectReferenceNode) parentNode.getParent(), objRefNode,
-              tagOfNode);
-        } else {
-          var treeNode = (ITreeNode) selObj;
-          var tagOfNode = treeNode.getAdapter(IAdtObjectTag.class);
-          if (tagOfNode == null) {
-            continue;
-          }
-
-          // check if parent is component
-          var parentObjNode = treeNode.getParent();
-          if (!(parentObjNode instanceof IAdtObjectReferenceNode)) {
-            // TODO: we should actually raise an error here as this should not happen
-            continue;
-          }
-
-          addTaggedObject(tgobjList, (IAdtObjectReferenceNode) parentObjNode, null, tagOfNode);
-        }
-      }
-
-      return tgobjList;
-    }
-
-    private void addTaggedObject(final List<ITaggedObjectInfo> tgobjInfos,
-        final IAdtObjectReferenceNode tagOwningObjRefNode, final IAdtObjectReferenceNode parent,
-        final IAdtObjectTag tag) {
-
-      var taggedObjInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
-
-      var parentObjName = tagOwningObjRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
-      if (parentObjName != null) {
-        var componentType = tagOwningObjRefNode.getAdtObjectType();
-        taggedObjInfo.setObjectName(parentObjName);
-        /*
-         * Note: Function Group Includes, Function, Program Includes and Programs are all stored
-         * with
-         * the tadir type PROG.
-         */
-        taggedObjInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
-            ? ITadirTypeConstants.CLASS
-            : ITadirTypeConstants.PROGRAM);
-        taggedObjInfo.setComponentType(tagOwningObjRefNode.getAdtObjectType());
-        taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
-      } else {
-        taggedObjInfo.setObjectName(tagOwningObjRefNode.getName());
-        taggedObjInfo.setObjectAltName(tagOwningObjRefNode.getDisplayName());
-        taggedObjInfo.setObjectType(tagOwningObjRefNode.getAdtObjectType());
-      }
-      taggedObjInfo.setTagId(tag.getId());
-      taggedObjInfo.setParentTagId(tag.getParentTagId());
-      if (parent != null) {
-        taggedObjInfo.setParentObjectName(parent.getName());
-        taggedObjInfo.setParentObjectType(parent.getAdtObjectType());
-      }
-      tgobjInfos.add(taggedObjInfo);
-    }
-  }
-
   private class TaggedObjectInfoProvider implements IElementInfoProvider {
 
     private final String objectUri;
@@ -350,21 +242,6 @@ public class AbapObjectTagsView extends ViewPart {
 
     }
 
-    private void collectParentObject(final String destinationId, final IAdtObjectTag tag,
-        final ElementInfoCollection tagElementInfoColl) {
-      IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
-          .getParentObjectName(), tag.getParentObjectDisplayName(), null);
-      parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-          destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
-              .getParentObjectUri()));
-      tagElementInfoColl.getChildren().add(parentObjectRef);
-      // clear the parent object information from the tag
-      tag.setParentObjectName(null);
-      tag.setParentObjectAltName(null);
-      tag.setParentObjectType(null);
-      tag.setParentObjectUri(null);
-    }
-
     private void collectObjectTags(final String destinationId, final ITaggedObject taggedObject,
         final AdtObjectReferenceElementInfo adtObjRefElemInfo) {
       final Map<TagKey, List<IAdtObjectTag>> hierarchicalTags = new HashMap<>();
@@ -389,6 +266,21 @@ public class AbapObjectTagsView extends ViewPart {
       if (!hierarchicalTags.isEmpty()) {
         addHierarchicalTags(destinationId, adtObjRefElemInfo, hierarchicalTags);
       }
+    }
+
+    private void collectParentObject(final String destinationId, final IAdtObjectTag tag,
+        final ElementInfoCollection tagElementInfoColl) {
+      IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
+          .getParentObjectName(), tag.getParentObjectDisplayName(), null);
+      parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
+          destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
+              .getParentObjectUri()));
+      tagElementInfoColl.getChildren().add(parentObjectRef);
+      // clear the parent object information from the tag
+      tag.setParentObjectName(null);
+      tag.setParentObjectAltName(null);
+      tag.setParentObjectType(null);
+      tag.setParentObjectUri(null);
     }
 
     private List<IElementInfo> convertToElementInfo(final String destinationId,
@@ -502,6 +394,114 @@ public class AbapObjectTagsView extends ViewPart {
       viewer.setInput(currentInput);
     }
 
+  }
+
+  private class UnassignTagsAction extends Action {
+    public UnassignTagsAction() {
+      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
+          .getSharedImages()
+          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+    }
+
+    @Override
+    public void run() {
+      var deleteTagsStatus = taggingService.testTaggedObjectDeletionFeatureAvailability(
+          getProject());
+      if (!deleteTagsStatus.isOK()) {
+        MessageDialog.openError(getSite().getShell(),
+            Messages.AbapTagManagerView_ErrorMessageTitle_xtit, deleteTagsStatus.getMessage());
+        return;
+      }
+      final List<ITaggedObjectInfo> tgobjList = collectJobPayload();
+      if (tgobjList == null || tgobjList.isEmpty()) {
+        return;
+      }
+
+      final var wizard = new DeleteTaggedObjectsWizard();
+      wizard.setProject(getProject());
+      wizard.getTaggedObjectListRequest().getTaggedObjectInfos().addAll(tgobjList);
+      final var dialog = new WizardDialog(getSite().getShell(), wizard);
+      dialog.open();
+
+      if (wizard.hasDeletionOccurred()) {
+        refreshCurrentNode();
+      }
+    }
+
+    private void addTaggedObject(final List<ITaggedObjectInfo> tgobjInfos,
+        final IAdtObjectReferenceNode tagOwningObjRefNode, final IAdtObjectReferenceNode parent,
+        final IAdtObjectTag tag) {
+
+      var taggedObjInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
+
+      var parentObjName = tagOwningObjRefNode.getPropertyValue(
+          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      if (parentObjName != null) {
+        var componentType = tagOwningObjRefNode.getAdtObjectType();
+        taggedObjInfo.setObjectName(parentObjName);
+        /*
+         * Note: Function Group Includes, Function, Program Includes and Programs are all stored
+         * with
+         * the tadir type PROG.
+         */
+        taggedObjInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
+            ? ITadirTypeConstants.CLASS
+            : ITadirTypeConstants.PROGRAM);
+        taggedObjInfo.setComponentType(tagOwningObjRefNode.getAdtObjectType());
+        taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
+      } else {
+        taggedObjInfo.setObjectName(tagOwningObjRefNode.getName());
+        taggedObjInfo.setObjectAltName(tagOwningObjRefNode.getDisplayName());
+        taggedObjInfo.setObjectType(tagOwningObjRefNode.getAdtObjectType());
+      }
+      taggedObjInfo.setTagId(tag.getId());
+      taggedObjInfo.setParentTagId(tag.getParentTagId());
+      if (parent != null) {
+        taggedObjInfo.setParentObjectName(parent.getName());
+        taggedObjInfo.setParentObjectType(parent.getAdtObjectType());
+      }
+      tgobjInfos.add(taggedObjInfo);
+    }
+
+    private List<ITaggedObjectInfo> collectJobPayload() {
+      var tgobjList = new ArrayList<ITaggedObjectInfo>();
+
+      var selObjects = treeViewer.getStructuredSelection().toList();
+
+      for (var selObj : selObjects) {
+        if (selObj instanceof IAdtObjectReferenceNode) {
+          var objRefNode = (IAdtObjectReferenceNode) selObj;
+          var parentNode = objRefNode.getParent();
+          // check if parent node itself is also selected, then we do skip it
+          if (!(parentNode instanceof FolderTreeNode) || selObjects.contains(parentNode)) {
+            continue;
+          }
+          var tagOfNode = parentNode.getAdapter(IAdtObjectTag.class);
+          if (tagOfNode == null) {
+            continue;
+          }
+          addTaggedObject(tgobjList, (IAdtObjectReferenceNode) parentNode.getParent(), objRefNode,
+              tagOfNode);
+        } else {
+          var treeNode = (ITreeNode) selObj;
+          var tagOfNode = treeNode.getAdapter(IAdtObjectTag.class);
+          if (tagOfNode == null) {
+            continue;
+          }
+
+          // check if parent is component
+          var parentObjNode = treeNode.getParent();
+          if (!(parentObjNode instanceof IAdtObjectReferenceNode)) {
+            // TODO: we should actually raise an error here as this should not happen
+            continue;
+          }
+
+          addTaggedObject(tgobjList, (IAdtObjectReferenceNode) parentObjNode, null, tagOfNode);
+        }
+      }
+
+      return tgobjList;
+    }
   }
 
   /**
@@ -680,28 +680,6 @@ public class AbapObjectTagsView extends ViewPart {
     treeResult = new TreeInput(treeViewer);
   }
 
-  private boolean isSelectionValidForDeletion(final IStructuredSelection sel) {
-    for (var selObj : sel.toList()) {
-      if (selObj instanceof IAdtObjectReferenceNode) {
-        var objRefNode = (IAdtObjectReferenceNode) selObj;
-        var parentNode = objRefNode.getParent();
-        if (!(parentNode instanceof FolderTreeNode)) {
-          continue;
-        }
-        IAdtObjectTag tag = parentNode.getAdapter(IAdtObjectTag.class);
-        if (tag != null) {
-          return true;
-        }
-      } else {
-        var tag = ((ITreeNode) selObj).getAdapter(IAdtObjectTag.class);
-        if (tag != null) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   private void fillContextMenu(final IMenuManager menu) {
     final IStructuredSelection selection = treeViewer.getStructuredSelection();
     if (selection == null || selection.isEmpty()) {
@@ -846,6 +824,28 @@ public class AbapObjectTagsView extends ViewPart {
     tbm.add(otherObjectAction);
     tbm.add(new Separator());
     tbm.add(refreshAction);
+  }
+
+  private boolean isSelectionValidForDeletion(final IStructuredSelection sel) {
+    for (var selObj : sel.toList()) {
+      if (selObj instanceof IAdtObjectReferenceNode) {
+        var objRefNode = (IAdtObjectReferenceNode) selObj;
+        var parentNode = objRefNode.getParent();
+        if (!(parentNode instanceof FolderTreeNode)) {
+          continue;
+        }
+        IAdtObjectTag tag = parentNode.getAdapter(IAdtObjectTag.class);
+        if (tag != null) {
+          return true;
+        }
+      } else {
+        var tag = ((ITreeNode) selObj).getAdapter(IAdtObjectTag.class);
+        if (tag != null) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private void onOtherObjectAction(final IAdtRisSearchResultProxy result) {

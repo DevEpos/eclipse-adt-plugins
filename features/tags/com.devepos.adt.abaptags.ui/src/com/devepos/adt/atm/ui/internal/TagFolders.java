@@ -25,6 +25,15 @@ public class TagFolders {
   }
 
   /**
+   * Clears tags from all folders
+   */
+  public void clearTags() {
+    for (TagFolder tagFolder : folders.values()) {
+      tagFolder.getTags().clear();
+    }
+  }
+
+  /**
    * Retrieves folder for the given type
    *
    * @param type the folder type
@@ -32,15 +41,6 @@ public class TagFolders {
    */
   public TagFolder getFolderByType(final TagFolderType type) {
     return folders.get(type);
-  }
-
-  /**
-   * Clears tags from all folders
-   */
-  public void clearTags() {
-    for (TagFolder tagFolder : folders.values()) {
-      tagFolder.getTags().clear();
-    }
   }
 
   /**

@@ -16,7 +16,7 @@ public enum HelpContexts {
   OBJECT_TAGS("object_tags"),
   TAGGED_OBJECT_SEARCH("tagged_object_search");
 
-  private String helpContextId;
+  private final String helpContextId;
 
   HelpContexts(final String contextId) {
     helpContextId = contextId;

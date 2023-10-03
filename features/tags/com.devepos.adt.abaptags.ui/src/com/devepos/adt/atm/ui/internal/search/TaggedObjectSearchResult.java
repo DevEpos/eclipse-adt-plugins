@@ -23,11 +23,11 @@ import com.devepos.adt.base.ui.tree.launchable.LaunchableAdtObjectReferenceNode;
 import com.devepos.adt.base.util.StringUtil;
 
 public class TaggedObjectSearchResult implements ISearchResult {
+  private static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
   private final TaggedObjectSearchQuery query;
   private final List<ISearchResultListener> resultListeners = new ArrayList<>();
   private ITaggedObjectList internalSearchResult;
   private IAdtObjectReferenceNode[] treeResult;
-  private static final IAdtObjectReferenceNode[] EMPTY_RESULT = new IAdtObjectReferenceNode[0];
   private int resultCount;
   private boolean hasMoreResults;
   private boolean isGroupedResult;
@@ -41,9 +41,31 @@ public class TaggedObjectSearchResult implements ISearchResult {
     resultListeners.add(l);
   }
 
+  public void addSearchResult(final ITaggedObjectList result) {
+    if (result != null && result.getTaggedObjects().size() > 0) {
+      internalSearchResult = result;
+      resultCount = result.getTaggedObjects().size();
+    } else {
+      internalSearchResult = null;
+      treeResult = null;
+      resultCount = 0;
+    }
+    informListener(new TaggedObjectSearchResultEvent(this));
+  }
+
+  public void cleanup() {
+    hasMoreResults = false;
+    internalSearchResult = null;
+    treeResult = null;
+    resultCount = 0;
+    final TaggedObjectSearchResultEvent resultEvent = new TaggedObjectSearchResultEvent(this);
+    resultEvent.setCleanup(true);
+    informListener(resultEvent);
+  }
+
   @Override
-  public void removeListener(final ISearchResultListener l) {
-    resultListeners.remove(l);
+  public ImageDescriptor getImageDescriptor() {
+    return AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.TAG);
   }
 
   @Override
@@ -69,48 +91,8 @@ public class TaggedObjectSearchResult implements ISearchResult {
   }
 
   @Override
-  public String getTooltip() {
-    return getLabel();
-  }
-
-  @Override
-  public ImageDescriptor getImageDescriptor() {
-    return AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.TAG);
-  }
-
-  @Override
   public ISearchQuery getQuery() {
     return query;
-  }
-
-  public void cleanup() {
-    hasMoreResults = false;
-    internalSearchResult = null;
-    treeResult = null;
-    resultCount = 0;
-    final TaggedObjectSearchResultEvent resultEvent = new TaggedObjectSearchResultEvent(this);
-    resultEvent.setCleanup(true);
-    informListener(resultEvent);
-  }
-
-  public void setHasMoreResults(final boolean hasMoreResults) {
-    this.hasMoreResults = hasMoreResults;
-  }
-
-  public void addSearchResult(final ITaggedObjectList result) {
-    if (result != null && result.getTaggedObjects().size() > 0) {
-      internalSearchResult = result;
-      resultCount = result.getTaggedObjects().size();
-    } else {
-      internalSearchResult = null;
-      treeResult = null;
-      resultCount = 0;
-    }
-    informListener(new TaggedObjectSearchResultEvent(this));
-  }
-
-  protected void informListener(final TaggedObjectSearchResultEvent resultEvent) {
-    resultListeners.stream().forEach(l -> l.searchResultChanged(resultEvent));
   }
 
   /**
@@ -136,6 +118,29 @@ public class TaggedObjectSearchResult implements ISearchResult {
     return treeResult;
   }
 
+  @Override
+  public String getTooltip() {
+    return getLabel();
+  }
+
+  @Override
+  public void removeListener(final ISearchResultListener l) {
+    resultListeners.remove(l);
+  }
+
+  public void setHasMoreResults(final boolean hasMoreResults) {
+    this.hasMoreResults = hasMoreResults;
+  }
+
+  protected void informListener(final TaggedObjectSearchResultEvent resultEvent) {
+    resultListeners.stream().forEach(l -> l.searchResultChanged(resultEvent));
+  }
+
+  private void createGroupedResult() {
+    // TODO Auto-generated method stub
+
+  }
+
   private void createResult() {
     final var nodes = new ArrayList<IAdtObjectReferenceNode>();
 
@@ -152,11 +157,6 @@ public class TaggedObjectSearchResult implements ISearchResult {
       nodes.add(objRefNode);
     }
     treeResult = nodes.toArray(new IAdtObjectReferenceNode[nodes.size()]);
-  }
-
-  private void createGroupedResult() {
-    // TODO Auto-generated method stub
-
   }
 
 }

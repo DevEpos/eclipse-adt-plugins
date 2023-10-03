@@ -36,7 +36,7 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
 
   @Override
   public Color getForeground(final Object element) {
-    if ((colSpec != ColumnViewerSpec.ISSUES && element instanceof DeletableTaggedObject)
+    if (colSpec != ColumnViewerSpec.ISSUES && element instanceof DeletableTaggedObject
         && !((DeletableTaggedObject) element).isDeletable(true)) {
       return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
     }

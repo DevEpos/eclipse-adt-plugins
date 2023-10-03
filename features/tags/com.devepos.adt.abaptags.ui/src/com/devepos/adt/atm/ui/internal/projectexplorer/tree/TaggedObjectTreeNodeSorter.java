@@ -31,11 +31,11 @@ public class TaggedObjectTreeNodeSorter extends ViewerComparator {
       if (tag != null) {
         if (StringUtil.isEmpty(tag.getOwner())) {
           return -2;
-        } else if (tag.isSharedForMe()) {
-          return -3;
-        } else {
-          return -4;
         }
+        if (tag.isSharedForMe()) {
+          return -3;
+        }
+        return -4;
       }
       return -1;
     }

@@ -16,17 +16,6 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 public class TaggedObjectTreeContentProvider implements ITreeContentProvider {
 
   @Override
-  public Object[] getElements(final Object inputElement) {
-    if (inputElement instanceof ITaggedObjectList) {
-      return ((ITaggedObjectList) inputElement).getTaggedObjects().toArray();
-    }
-    if (inputElement instanceof List<?>) {
-      return ((List<?>) inputElement).toArray();
-    }
-    return new Object[0];
-  }
-
-  @Override
   public Object[] getChildren(final Object parentElement) {
     if (parentElement instanceof ITaggedObject) {
       return ((ITaggedObject) parentElement).getTags()
@@ -36,6 +25,17 @@ public class TaggedObjectTreeContentProvider implements ITreeContentProvider {
           .toArray();
     }
     return null;
+  }
+
+  @Override
+  public Object[] getElements(final Object inputElement) {
+    if (inputElement instanceof ITaggedObjectList) {
+      return ((ITaggedObjectList) inputElement).getTaggedObjects().toArray();
+    }
+    if (inputElement instanceof List<?>) {
+      return ((List<?>) inputElement).toArray();
+    }
+    return new Object[0];
   }
 
   @Override

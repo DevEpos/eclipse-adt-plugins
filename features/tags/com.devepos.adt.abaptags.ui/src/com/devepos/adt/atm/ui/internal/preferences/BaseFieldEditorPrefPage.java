@@ -52,12 +52,9 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage implements
     }
   }
 
-  @Override
-  protected void performDefaults() {
-    for (final FieldEditor field : fields) {
-      field.loadDefault();
-    }
-    super.performDefaults();
+  protected BooleanFieldEditor addBooleanEditor(final String preferenceId, final String labelText,
+      final Composite parent) {
+    return addBooleanEditor(preferenceId, labelText, parent, 1, 1);
   }
 
   protected BooleanFieldEditor addBooleanEditor(final String preferenceId, final String labelText,
@@ -74,9 +71,8 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage implements
     return booleanEditor;
   }
 
-  protected BooleanFieldEditor addBooleanEditor(final String preferenceId, final String labelText,
-      final Composite parent) {
-    return addBooleanEditor(preferenceId, labelText, parent, 1, 1);
+  protected void addEditor(final FieldEditor editor) {
+    fields.add(editor);
   }
 
   protected void adjustMargins(final Composite composite) {
@@ -97,8 +93,12 @@ public abstract class BaseFieldEditorPrefPage extends PreferencePage implements
     }
   }
 
-  protected void addEditor(final FieldEditor editor) {
-    fields.add(editor);
+  @Override
+  protected void performDefaults() {
+    for (final FieldEditor field : fields) {
+      field.loadDefault();
+    }
+    super.performDefaults();
   }
 
 }

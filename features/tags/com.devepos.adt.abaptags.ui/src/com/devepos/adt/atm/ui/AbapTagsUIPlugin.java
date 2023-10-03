@@ -27,6 +27,15 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
     super(PLUGIN_ID);
   }
 
+  /**
+   * Returns the shared instance
+   *
+   * @return the shared instance
+   */
+  public static AbapTagsUIPlugin getDefault() {
+    return plugin;
+  }
+
   @Override
   public void start(final BundleContext context) throws Exception {
     super.start(context);
@@ -37,15 +46,6 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
-  }
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static AbapTagsUIPlugin getDefault() {
-    return plugin;
   }
 
   @Override

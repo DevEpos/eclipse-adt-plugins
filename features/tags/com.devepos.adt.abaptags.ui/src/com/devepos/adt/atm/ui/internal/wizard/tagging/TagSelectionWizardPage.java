@@ -418,7 +418,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     });
   }
 
-  private void createTreeHeaderArea(Composite parent) {
+  private void createTreeHeaderArea(final Composite parent) {
     var headerArea = new Composite(parent, SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(3).applyTo(headerArea);
     GridDataFactory.fillDefaults().applyTo(headerArea);

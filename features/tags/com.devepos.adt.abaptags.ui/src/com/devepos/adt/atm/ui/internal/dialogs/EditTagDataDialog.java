@@ -122,20 +122,6 @@ public class EditTagDataDialog extends TitleAreaDialog {
     });
   }
 
-  private void createNameInput() {
-    final var nameLabel = new Label(mainComposite, SWT.NONE);
-    nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
-    AdtSWTUtilFactory.getOrCreateSWTUtil().setMandatory(nameLabel, true);
-
-    nameInput = new Text(mainComposite, SWT.BORDER);
-    GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
-    nameInput.setTextLimit(60);
-    if (tag.getName() != null) {
-      nameInput.setText(tag.getName());
-    }
-    nameInput.addModifyListener(this::onModifyTagName);
-  }
-
   private void createHierarchyInput() {
     if (!(tag.eContainer() instanceof ITag)) {
       return;
@@ -149,6 +135,20 @@ public class EditTagDataDialog extends TitleAreaDialog {
     String hierarchyText = getHierarchyAsText();
     input.setText(hierarchyText);
     input.setToolTipText(hierarchyText);
+  }
+
+  private void createNameInput() {
+    final var nameLabel = new Label(mainComposite, SWT.NONE);
+    nameLabel.setText(Messages.EditTagDataDialog_NameInput_xlbl);
+    AdtSWTUtilFactory.getOrCreateSWTUtil().setMandatory(nameLabel, true);
+
+    nameInput = new Text(mainComposite, SWT.BORDER);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(nameInput);
+    nameInput.setTextLimit(60);
+    if (tag.getName() != null) {
+      nameInput.setText(tag.getName());
+    }
+    nameInput.addModifyListener(this::onModifyTagName);
   }
 
   private void enableOkButton(final boolean enable) {

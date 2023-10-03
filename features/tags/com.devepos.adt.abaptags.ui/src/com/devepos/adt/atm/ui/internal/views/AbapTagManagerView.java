@@ -292,7 +292,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       }
       if (inputElement instanceof TagFolder) {
         return ((TagFolder) inputElement).getTags().toArray();
-      } else if (inputElement instanceof ITag) {
+      }
+      if (inputElement instanceof ITag) {
         return ((ITag) inputElement).getChildTags().toArray();
       }
       return null;
