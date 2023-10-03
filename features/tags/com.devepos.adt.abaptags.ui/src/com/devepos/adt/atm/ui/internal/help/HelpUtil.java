@@ -11,6 +11,16 @@ import org.eclipse.ui.PlatformUI;
 public class HelpUtil {
 
   /**
+   * Returns the fully qualified help context id for the given context
+   *
+   * @param context relative id of a help context
+   * @return
+   */
+  public static String getFullyQualifiedContextId(final HelpContexts context) {
+    return "com.devepos.adt.abaptags.doc." + context.getHelpContextId();
+  }
+
+  /**
    * Sets the help with the given context id to the given control
    *
    * @param control   a control
@@ -21,15 +31,5 @@ public class HelpUtil {
       return;
     }
     PlatformUI.getWorkbench().getHelpSystem().setHelp(control, getFullyQualifiedContextId(context));
-  }
-
-  /**
-   * Returns the fully qualified help context id for the given context
-   *
-   * @param context relative id of a help context
-   * @return
-   */
-  public static String getFullyQualifiedContextId(final HelpContexts context) {
-    return "com.devepos.adt.abaptags.doc." + context.getHelpContextId();
   }
 }

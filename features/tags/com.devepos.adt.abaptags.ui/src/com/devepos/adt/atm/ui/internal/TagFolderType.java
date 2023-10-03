@@ -15,8 +15,8 @@ public enum TagFolderType {
   SHARED(IImages.SHARED_TAGS_FOLDER, Messages.AbapTagManagerView_SharedTagsFolder_xlbl),
   GLOBAL(IImages.GLOBAL_TAGS_FOLDER, Messages.AbapTagManagerView_GlobalTagsFolder_xlbl);
 
-  private Image folderImage;
-  private String folderName;
+  private final Image folderImage;
+  private final String folderName;
 
   TagFolderType(final String folderImageId, final String folderName) {
     folderImage = AbapTagsUIPlugin.getDefault().getImage(folderImageId);

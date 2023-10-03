@@ -45,12 +45,6 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
   }
 
   @Override
-  public String getText(final Object element) {
-    final ITagBase node = (ITagBase) element;
-    return node.getName();
-  }
-
-  @Override
   public Image getImage(final Object element) {
     if (element instanceof ITag) {
       return ImageUtil.getImageForTag((ITag) element, false);
@@ -70,6 +64,22 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
     return text;
   }
 
+  @Override
+  public String getText(final Object element) {
+    final ITagBase node = (ITagBase) element;
+    return node.getName();
+  }
+
+  protected void appendCounterText(final ITag tag, final StyledString text) {
+    if (noCounterText) {
+      return;
+    }
+    if (!StringUtil.isEmpty(tag.getId())) {
+      text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+  }
+
   protected void appendDescription(final ITag tagNode, final StyledString text) {
     if (noDescription) {
       return;
@@ -86,15 +96,5 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
     } else {
       text.append(tag.getName());
     }
-  }
-
-  protected void appendCounterText(final ITag tag, final StyledString text) {
-    if (noCounterText) {
-      return;
-    }
-    if (!StringUtil.isEmpty(tag.getId())) {
-      text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
   }
 }

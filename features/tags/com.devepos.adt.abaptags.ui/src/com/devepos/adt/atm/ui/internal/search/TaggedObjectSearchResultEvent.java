@@ -13,12 +13,12 @@ public class TaggedObjectSearchResultEvent extends SearchResultEvent {
     super(searchResult);
   }
 
-  public void setCleanup(final boolean cleanup) {
-    this.cleanup = cleanup;
-  }
-
   public boolean isCleanup() {
     return cleanup;
+  }
+
+  public void setCleanup(final boolean cleanup) {
+    this.cleanup = cleanup;
   }
 
 }

@@ -50,16 +50,16 @@ public class TagFolder {
   }
 
   /**
-   * @return {@code true} if the folder has tags
-   */
-  public boolean hasTags() {
-    return !tags.isEmpty();
-  }
-
-  /**
    * @return the type of the tags folder
    */
   public TagFolderType getType() {
     return folderType;
+  }
+
+  /**
+   * @return {@code true} if the folder has tags
+   */
+  public boolean hasTags() {
+    return !tags.isEmpty();
   }
 }

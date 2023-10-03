@@ -93,9 +93,9 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     // delete menu groups if at least one tag node is selected
     if (tagSelected) {
       deleteUnusedMenuGroups(menu);
-    } else if (Stream.of(selection).anyMatch(o -> o instanceof IAdtObjectReferenceNode)) {
-      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new RemoveAssignedTagsAction(this
-          .getActionSite()));
+    } else if (Stream.of(selection).anyMatch(IAdtObjectReferenceNode.class::isInstance)) {
+      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new RemoveAssignedTagsAction(
+          getActionSite()));
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }
 

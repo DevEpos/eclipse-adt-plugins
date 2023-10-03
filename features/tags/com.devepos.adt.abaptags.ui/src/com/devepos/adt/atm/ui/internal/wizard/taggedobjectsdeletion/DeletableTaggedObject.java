@@ -44,6 +44,18 @@ public class DeletableTaggedObject {
     parentObjects.add(object);
   }
 
+  public boolean areChildrenMarkedForDeletion() {
+    if (childObjects.isEmpty()) {
+      return true;
+    }
+    for (var child : childObjects) {
+      if (!selectedObjectsForDeletion.contains(child)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public void clearTransientMessage() {
     transientMessage = null;
     transientMessageType = null;
@@ -136,18 +148,6 @@ public class DeletableTaggedObject {
       return areChildrenMarkedForDeletion();
     }
     return false;
-  }
-
-  public boolean areChildrenMarkedForDeletion() {
-    if (childObjects.isEmpty()) {
-      return true;
-    }
-    for (var child : childObjects) {
-      if (!selectedObjectsForDeletion.contains(child)) {
-        return false;
-      }
-    }
-    return true;
   }
 
   public void setDeletionCheckInfo(final ITaggedObjectDeletionCheckObject deletionCheckInfo) {

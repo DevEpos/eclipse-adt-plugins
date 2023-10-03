@@ -10,9 +10,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.actions.SelectionListenerAction;
-import org.eclipse.ui.internal.IWorkbenchConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -84,15 +82,6 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
     }
   }
 
-  private IProject getProjectFromSelection() {
-    var firstSelectedObj = viewer.getStructuredSelection().getFirstElement();
-    if (firstSelectedObj instanceof IAdtObjectReferenceNode) {
-      return ((IAdtObjectReferenceNode) firstSelectedObj).getAdapter(IProjectProvider.class)
-          .getProject();
-    }
-    return null;
-  }
-
   private void addTaggedObjectInfo(final IAdtObjectReferenceNode objRefNode,
       final List<ITaggedObjectInfo> objectInfos, final Set<ILazyLoadingNode> nodesToUpdate) {
     var taggedObjectInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
@@ -147,6 +136,15 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
       }
     }
     objectInfos.add(taggedObjectInfo);
+  }
+
+  private IProject getProjectFromSelection() {
+    var firstSelectedObj = viewer.getStructuredSelection().getFirstElement();
+    if (firstSelectedObj instanceof IAdtObjectReferenceNode) {
+      return ((IAdtObjectReferenceNode) firstSelectedObj).getAdapter(IProjectProvider.class)
+          .getProject();
+    }
+    return null;
   }
 
   private IStatus getTagRemovalFeatureStatus(final IProject project) {

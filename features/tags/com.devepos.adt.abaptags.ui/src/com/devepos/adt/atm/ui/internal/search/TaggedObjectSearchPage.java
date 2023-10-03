@@ -118,11 +118,6 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     SearchPageUtil.notifySearchPageListeners(this);
   }
 
-  private void createActions() {
-    selectSubTreeAction = new SelectTagSubtreeAction(tagsTree);
-    selectSubTreeAction.setPostRunHandler(() -> updateOKStatus());
-  }
-
   @Override
   public boolean performAction() {
     if (currentStatus != null && currentStatus.getSeverity() == IStatus.ERROR) {
@@ -171,6 +166,11 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
   public void setVisible(final boolean visible) {
     super.setVisible(visible);
     updateOKStatus();
+  }
+
+  private void createActions() {
+    selectSubTreeAction = new SelectTagSubtreeAction(tagsTree);
+    selectSubTreeAction.setPostRunHandler(this::updateOKStatus);
   }
 
   private void createProjectInput(final Composite parent) {

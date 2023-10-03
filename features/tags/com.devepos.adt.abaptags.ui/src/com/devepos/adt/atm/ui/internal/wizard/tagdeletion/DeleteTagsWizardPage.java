@@ -304,8 +304,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(String.format(Messages.DeleteTagsWizardPage_TagSelectionFormat_xmsg, checkedCount == 0 ? "No" //$NON-NLS-2$
-        : String.valueOf(checkedCount), checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+    selectionInfo.setText(String.format(Messages.DeleteTagsWizardPage_TagSelectionFormat_xmsg,
+        checkedCount == 0 ? "No" : String.valueOf(checkedCount), checkedCount == 1 ? "" : "s", //$NON-NLS-2$ //$NON-NLS-3$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
 
     getWizard().setCanFinish(checkedCount > 0);

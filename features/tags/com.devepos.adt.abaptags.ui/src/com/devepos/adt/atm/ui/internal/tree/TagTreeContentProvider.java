@@ -15,8 +15,12 @@ public class TagTreeContentProvider implements ITreeContentProvider {
 
   private TagSearchScope visibleTagScope = TagSearchScope.ALL;
 
-  public void setVisbleTagScope(final TagSearchScope scope) {
-    visibleTagScope = scope;
+  @Override
+  public Object[] getChildren(final Object parentElement) {
+    if (parentElement instanceof ITag) {
+      return ((ITag) parentElement).getChildTags().toArray();
+    }
+    return null;
   }
 
   @SuppressWarnings("unchecked")
@@ -53,14 +57,6 @@ public class TagTreeContentProvider implements ITreeContentProvider {
   }
 
   @Override
-  public Object[] getChildren(final Object parentElement) {
-    if (parentElement instanceof ITag) {
-      return ((ITag) parentElement).getChildTags().toArray();
-    }
-    return null;
-  }
-
-  @Override
   public Object getParent(final Object element) {
     if (!(element instanceof ITag)) {
       return null;
@@ -83,6 +79,10 @@ public class TagTreeContentProvider implements ITreeContentProvider {
       return tag.getChildTags().size() > 0;
     }
     return false;
+  }
+
+  public void setVisbleTagScope(final TagSearchScope scope) {
+    visibleTagScope = scope;
   }
 
 }

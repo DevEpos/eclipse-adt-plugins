@@ -34,6 +34,40 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
   }
 
   @Override
+  public boolean canRerun() {
+    return true;
+  }
+
+  @Override
+  public boolean canRunInBackground() {
+    return true;
+  }
+
+  @Override
+  public String getDestinationId() {
+    return projectProvider != null ? projectProvider.getDestinationId() : ""; //$NON-NLS-1$
+  }
+
+  @Override
+  public String getLabel() {
+    return searchParams != null ? Messages.TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg
+        : ""; //$NON-NLS-1$
+  }
+
+  public IAbapProjectProvider getProjectProvider() {
+    return projectProvider;
+  }
+
+  public ITaggedObjectSearchParams getSearchParams() {
+    return searchParams;
+  }
+
+  @Override
+  public TaggedObjectSearchResult getSearchResult() {
+    return searchResult;
+  }
+
+  @Override
   public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
     searchResult.cleanup();
     // update the max results parameter as it could have changed in the mean time
@@ -67,10 +101,8 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
     return Status.OK_STATUS;
   }
 
-  @Override
-  public String getLabel() {
-    return searchParams != null ? Messages.TaggedObjectSearchQuery_TaggedObjectSearchLabel_xmsg
-        : ""; //$NON-NLS-1$
+  public void setProjectProvider(final IAbapProjectProvider projectProvider) {
+    this.projectProvider = projectProvider;
   }
 
   @Override
@@ -80,37 +112,6 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
       return String.format("'%s'", getQuery()); //$NON-NLS-1$
     }
     return String.format("'%s' [%s]", getQuery(), destinationInfo); //$NON-NLS-1$
-  }
-
-  @Override
-  public boolean canRerun() {
-    return true;
-  }
-
-  @Override
-  public boolean canRunInBackground() {
-    return true;
-  }
-
-  @Override
-  public TaggedObjectSearchResult getSearchResult() {
-    return searchResult;
-  }
-
-  public String getDestinationId() {
-    return projectProvider != null ? projectProvider.getDestinationId() : ""; //$NON-NLS-1$
-  }
-
-  public ITaggedObjectSearchParams getSearchParams() {
-    return searchParams;
-  }
-
-  public void setProjectProvider(final IAbapProjectProvider projectProvider) {
-    this.projectProvider = projectProvider;
-  }
-
-  public IAbapProjectProvider getProjectProvider() {
-    return projectProvider;
   }
 
   private String getDestinationInfo() {
@@ -133,15 +134,14 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
         query.append(String.format("%d selected Tags", tagsInString));
       } else {
         for (var tag : searchParams.getTags()) {
-          if (query.length() < 40) {
-            if (query.length() > 0) {
-              query.append(", "); //$NON-NLS-1$
-            }
-            query.append(tag);
-            tagsInString++;
-          } else {
+          if (query.length() >= 40) {
             break;
           }
+          if (query.length() > 0) {
+            query.append(", "); //$NON-NLS-1$
+          }
+          query.append(tag);
+          tagsInString++;
         }
       }
       if (tagsInString != selectedTagsCount) {
