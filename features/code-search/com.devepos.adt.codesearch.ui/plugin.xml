@@ -175,6 +175,7 @@
          point="org.eclipse.search.searchPages">
       <page
             class="com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog"
+            enabled="true"
             icon="icons/codesearch.png"
             id="com.devepos.adt.codesearch.ui.searchpage.codeSearch"
             label="%searchPage.codesearch.label"
