@@ -277,6 +277,7 @@
            point="org.eclipse.search.searchPages">
         <page
               class="com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage"
+              enabled="true"
               icon="icons/ABAPSearch.png"
               id="com.devepos.adt.saat.ObjectSearchPage"
               label="%searchpage.objectsearch.name"
