@@ -12,7 +12,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchCommandConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
@@ -22,9 +24,11 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
 
 /**
  *
@@ -96,6 +100,19 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     } else if (Stream.of(selection).anyMatch(IAdtObjectReferenceNode.class::isInstance)) {
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new RemoveAssignedTagsAction(
           getActionSite()));
+      var typeUtil = AdtTypeUtil.getInstance();
+      // Adds delete command if no local type is selected
+      if (!Stream.of(selection)
+          .filter(IAdtObjectReferenceNode.class::isInstance)
+          .map(IAdtObjectReferenceNode.class::cast)
+          .anyMatch(obj -> typeUtil.isLocalClassType(obj.getAdtObjectType()) || typeUtil
+              .isLocalInterfaceType(obj.getAdtObjectType()))) {
+        MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_EDIT,
+            "com.sap.adt.deletion.ui.command.delete", PlatformUI.getWorkbench() //$NON-NLS-1$
+                .getSharedImages()
+                .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
+            Messages.TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl, null);
+      }
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }
 
