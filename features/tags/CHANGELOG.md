@@ -9,6 +9,7 @@
 - added possibility to save searches as favorites 
 - added text filter to search result view
 - local classes/interface of programs and function groups can now be tagged
+- enable Object deletion from *Tagged Object Trees* (in Project Explorer View)
 
 #### Fixed
 

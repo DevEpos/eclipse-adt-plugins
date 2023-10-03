@@ -230,6 +230,31 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?endof=group.edit">
+         <command
+               commandId="com.sap.adt.deletion.ui.command.delete"
+               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete.png"
+               label="%command.delete.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and">
+                     <adapt
+                           type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+                        <test
+                              property="com.devepos.adt.atm.ui.adtObject.isGlobalType">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
@@ -244,7 +269,7 @@
             class="com.devepos.adt.atm.ui.internal.propertytester.AdtObjectPropertyTester"
             id="com.devepos.adt.atm.ui.AdtObjectPropertyTester"
             namespace="com.devepos.adt.atm.ui.adtObject"
-            properties="isTaggable"
+            properties="isTaggable,isGlobalType"
             type="com.devepos.adt.base.ui.adtobject.IAdtObject">
       </propertyTester>
    </extension>
