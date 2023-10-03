@@ -262,6 +262,7 @@
          point="org.eclipse.search.searchPages">
       <page
             class="com.devepos.adt.atm.ui.internal.search.TaggedObjectSearchPage"
+            enabled="true"
             icon="icons/Tag.png"
             id="com.devepos.adt.atm.ui.searchpage.tags"
             label="%tag.searchpage.label"
