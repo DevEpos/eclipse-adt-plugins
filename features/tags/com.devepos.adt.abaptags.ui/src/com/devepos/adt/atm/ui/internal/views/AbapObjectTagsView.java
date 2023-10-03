@@ -833,7 +833,12 @@ public class AbapObjectTagsView extends ViewPart {
   private void initToolbar(final IActionBars actionBars) {
     actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(),
         refreshAction);
-    final IToolBarManager tbm = actionBars.getToolBarManager();
+    actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.DELETE.getId(),
+        unassignTagsAction);
+    actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.COPY.getId(),
+        copyToClipBoardAction);
+
+    final var tbm = actionBars.getToolBarManager();
     tbm.add(linkToEditorAction);
     tbm.add(new Separator());
     tbm.add(addTagsAction);
