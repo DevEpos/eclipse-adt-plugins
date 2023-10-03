@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -68,7 +67,7 @@ import com.devepos.adt.atm.ui.internal.util.AdtObjectUtil;
 import com.devepos.adt.atm.ui.internal.util.ITaggedObjectPropertyNameConstants;
 import com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion.DeleteTaggedObjectsWizard;
 import com.devepos.adt.atm.ui.internal.wizard.tagging.TagObjectsWizard;
-import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.elementinfo.AdtObjectReferenceElementInfo;
@@ -248,8 +247,16 @@ public class AbapObjectTagsView extends ViewPart {
       var parentObjName = tagOwningObjRefNode.getPropertyValue(
           ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
       if (parentObjName != null) {
+        var componentType = tagOwningObjRefNode.getAdtObjectType();
         taggedObjInfo.setObjectName(parentObjName);
-        taggedObjInfo.setObjectType(IAdtObjectTypeConstants.CLASS);
+        /*
+         * Note: Function Group Includes, Function, Program Includes and Programs are all stored
+         * with
+         * the tadir type PROG.
+         */
+        taggedObjInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
+            ? ITadirTypeConstants.CLASS
+            : ITadirTypeConstants.PROGRAM);
         taggedObjInfo.setComponentType(tagOwningObjRefNode.getAdtObjectType());
         taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
       } else {

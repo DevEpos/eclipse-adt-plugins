@@ -22,9 +22,9 @@ public class AdtObjectUtil {
     if (type != null) {
       AdtTypeUtil typeUtil = AdtTypeUtil.getInstance();
       String typeLabel = null;
-      if (type.equals(IAdtObjectTypeConstants.LOCAL_CLASS)) {
+      if (typeUtil.isLocalClassType(type)) {
         typeLabel = Messages.TypeLabels_LocalClass_xlbl;
-      } else if (type.equals(IAdtObjectTypeConstants.LOCAL_INTERFACE)) {
+      } else if (typeUtil.isLocalInterfaceType(type)) {
         typeLabel = Messages.TypeLabels_LocalInterface_xlbl;
       } else {
         if (type.equals(IAdtObjectTypeConstants.DATA_DEFINITION)) {

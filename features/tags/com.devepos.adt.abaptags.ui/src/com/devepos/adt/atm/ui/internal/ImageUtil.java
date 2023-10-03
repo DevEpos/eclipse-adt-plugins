@@ -22,17 +22,17 @@ public class ImageUtil {
 
   /**
    * Retrieves correct image for ADT Object
-   * 
+   *
    * @param objRef adt object reference
    * @return
    */
-  public static Image getAdtObjRefImage(IAdtObjRef objRef) {
+  public static Image getAdtObjRefImage(final IAdtObjRef objRef) {
     return objRef == null ? null : getAdtTypeImage(objRef.getType());
   }
 
   /**
    * Retrieves correct image for ADT type
-   * 
+   *
    * @param adtType adt type
    * @return
    */
@@ -40,10 +40,10 @@ public class ImageUtil {
     if (type == null) {
       return null;
     }
-    if (IAdtObjectTypeConstants.LOCAL_CLASS.equals(type)) {
+    if (AdtTypeUtil.getInstance().isLocalClassType(type)) {
       return ImageUtil.getLocalClassImage();
     }
-    if (IAdtObjectTypeConstants.LOCAL_INTERFACE.equals(type)) {
+    if (AdtTypeUtil.getInstance().isLocalInterfaceType(type)) {
       return ImageUtil.getLocalInterfaceImage();
     }
     if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(type)) {

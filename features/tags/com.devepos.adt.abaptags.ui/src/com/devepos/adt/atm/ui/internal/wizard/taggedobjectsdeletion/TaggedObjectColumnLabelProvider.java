@@ -16,9 +16,9 @@ import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.ImageUtil;
 import com.devepos.adt.atm.ui.internal.util.IColorConstants;
-import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
 
 class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
     DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
@@ -36,10 +36,9 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
 
   @Override
   public Color getForeground(final Object element) {
-    if ((colSpec != ColumnViewerSpec.ISSUES) && (element instanceof DeletableTaggedObject)) {
-      if (!((DeletableTaggedObject) element).isDeletable(true)) {
-        return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
-      }
+    if ((colSpec != ColumnViewerSpec.ISSUES && element instanceof DeletableTaggedObject)
+        && !((DeletableTaggedObject) element).isDeletable(true)) {
+      return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
     }
     return null;
   }
@@ -141,7 +140,8 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
 
   private Image getObjectImage(final DeletableTaggedObject taggedObject) {
     if (taggedObject.getComponentType() != null) {
-      return taggedObject.getComponentType().equals(IAdtObjectTypeConstants.LOCAL_CLASS) ? ImageUtil
+      var typeUtil = AdtTypeUtil.getInstance();
+      return typeUtil.isLocalClassType(taggedObject.getComponentType()) ? ImageUtil
           .getLocalClassImage() : ImageUtil.getLocalInterfaceImage();
     }
     return ImageUtil.getAdtTypeImage(taggedObject.getObjectType());
