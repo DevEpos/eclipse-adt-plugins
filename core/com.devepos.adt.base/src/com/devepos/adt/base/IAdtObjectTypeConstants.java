@@ -41,11 +41,11 @@ public interface IAdtObjectTypeConstants {
   /**
    * Type for Local Class in Global Class
    */
-  String LOCAL_CLASS = "CLAS/OCL";
+  String CLASS_LOCAL_CLASS = "CLAS/OCL";
   /**
    * Type for Local Interface in Global Class
    */
-  String LOCAL_INTERFACE = "CLAS/ON";
+  String CLASS_LOCAL_INTERFACE = "CLAS/ON";
   /**
    * Global Workbench Type for Interfaces
    */
@@ -66,6 +66,14 @@ public interface IAdtObjectTypeConstants {
    * Subroutine in program
    */
   String PROGRAM_SUBROUTINE = "PROG/PU";
+  /**
+   * Local Class in Program (Include)
+   */
+  String PROGRAM_LOCAL_CLASS = "PROG/PL";
+  /**
+   * Local Interface in Program (Include)
+   */
+  String PROGRAM_LOCAL_INTERFACE = "PROG/PN";
   /**
    * Program source of a Business Object Type
    */
@@ -109,4 +117,12 @@ public interface IAdtObjectTypeConstants {
    * Global workbench Type for Function Group includes
    */
   String FUNCTION_INCLUDE = "FUGR/I";
+  /**
+   * Local Class in Function Group Include
+   */
+  String FUNCTION_GROUP_LOCAL_CLASS = "FUGR/PL";
+  /**
+   * Local Interface in Function Group Include
+   */
+  String FUNCTION_GROUP_LOCAL_INTERFACE = "FUGR/PN";
 }
