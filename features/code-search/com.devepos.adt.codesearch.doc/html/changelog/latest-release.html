@@ -7,12 +7,6 @@
     <title>Release Notes of ABAP Code Search 1.9.0</title>
 </head>
 
-<!-- 
-     IMPORTANT:
-     HTTP/S links do not use _blank here, so the release notes editor can manually navigate them to the current default browser 
-     instead of opening the automatically in the default SWT browser 
--->
-
 <body id="doc-body">
     <h2 class="heading">Release Notes of ABAP Code Search 1.9.0</h2>
 
@@ -36,9 +30,21 @@
 
     <footer class="custom-footer">
         <div>© 2022-present DevEpos.com, Ludwig Stockbauer-Muhr<br>
-            Visit <a class="link" href="https://devepos.com">https://devepos.com</a>
+            Visit <a class="link" href="https://devepos.com" target="_blank">https://devepos.com</a>
         </div>
     </footer>
+
+    <!-- Removes 'target' from a tags if shown in release notes editor -->
+    <script type="text/javascript">
+        if (window.location.href.lastIndexOf('file', 0) === 0) {
+            var links = document.querySelectorAll('a');
+            Array.prototype.forEach.call(links, function (link) {
+                if (link.attributes.target) {
+                    link.removeAttribute('target');
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
