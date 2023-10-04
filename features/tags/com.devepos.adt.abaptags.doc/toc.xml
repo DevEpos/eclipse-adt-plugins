@@ -27,6 +27,8 @@
       </topic>
       <topic href="html/tagged_object_tree.html" label="Tagged Object Tree">
       </topic>
+      <topic href="html/tagged_components.html" label="Tagged Components">
+      </topic>
    </topic>
    <topic href="html/changelog/overview.html" label="What&apos;s New">
       <topic href="html/changelog/latest-release.html" label="Version 1.11.0">
