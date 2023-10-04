@@ -7,17 +7,11 @@
     <title>Release Notes of ABAP Search and Analysis Tools 2.0.0</title>
 </head>
 
-<!-- 
-     IMPORTANT:
-     HTTP/S links do not use _blank here, so the release notes editor can manually navigate them to the current default browser 
-     instead of opening the automatically in the default SWT browser 
--->
-
 <body id="doc-body">
     <h2 class="heading">Release Notes of ABAP Search and Analysis Tools 2.0.0</h2>
     <div class="alert warning">
         <div class="alert-attention__text"></div>
-        Due to breaking changes in this release, the abapGit repository <a class="link"
+        Due to breaking changes in this release, the abapGit repository <a class="link" target="_blank"
             href="https://github.com/devepos/abap-search-tools">abap-search-tools</a> needs to be
         updated to version
         <strong>2.0.0</strong> in the targeting ABAP system
@@ -58,9 +52,21 @@
 
     <footer class="custom-footer">
         <div>© 2019-present DevEpos.com, Ludwig Stockbauer-Muhr<br>
-            Visit <a class="link" href="https://devepos.com">https://devepos.com</a>
+            Visit <a class="link" target="_blank" href="https://devepos.com">https://devepos.com</a>
         </div>
     </footer>
+
+    <!-- Removes 'target' from a tags if shown in release notes editor -->
+    <script type="text/javascript">
+        if (window.location.href.lastIndexOf('file', 0) === 0) {
+            var links = document.querySelectorAll('a');
+            Array.prototype.forEach.call(links, function (link) {
+                if (link.attributes.target) {
+                    link.removeAttribute('target');
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
