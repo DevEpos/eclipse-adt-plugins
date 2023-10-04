@@ -45,7 +45,7 @@ import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
-import com.devepos.adt.saat.ui.internal.help.HelpContexts;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
@@ -135,6 +135,11 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     }
 
     @Override
+    public HelpContextId getHelpContextId() {
+      return HelpContextId.CDS_ANALYZER;
+    }
+
+    @Override
     public void setFocus() {
       infoText.setFocus();
     }
@@ -193,6 +198,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     if (analysis.equals(currentAnalysis)) {
       showCdsAnalysis(null);
       partActivated(defaultPart);
+      updateHelp(null);
     }
     viewStates.remove(analysis);
 
@@ -218,10 +224,10 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     getPageBook().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     CdsAnalysisManager.getInstance().addCdsAnalysisListener(this);
 
-    HelpUtil.setHelp(pageContent, HelpContexts.CDS_ANALYZER);
-
     initializeToolBar();
     initializePageSwitcher();
+
+    updateHelp(null);
 
     showLatestAnalysis();
   }
@@ -404,7 +410,6 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     actionBars.setGlobalActionHandler(ActionFactory.REFRESH.getId(), refreshAnalysisAction);
     updateViewActions();
     actionBars.updateActionBars();
-
   }
 
   @Override
@@ -501,6 +506,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         // part.setLastActivation(++fActivationCount);
         partActivated(part);
         page.setFocus();
+        updateHelp(page);
       }
 
       // connect to the new pages
@@ -517,6 +523,11 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     }
     final CdsAnalysis[] analyses = CdsAnalysisManager.getInstance().getAnalyses();
     showCdsAnalysis(analyses[0]);
+  }
+
+  private void updateHelp(final CdsAnalysisPage<?> page) {
+    HelpUtil.setHelp(pageContent, page == null ? HelpContextId.CDS_ANALYZER
+        : page.getHelpContextId());
   }
 
 }

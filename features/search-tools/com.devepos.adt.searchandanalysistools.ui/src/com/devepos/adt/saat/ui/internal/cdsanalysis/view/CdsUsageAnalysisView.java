@@ -29,6 +29,7 @@ import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
@@ -217,6 +218,11 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
       return c2.compareTo(c1);
     }
 
+  }
+
+  @Override
+  public HelpContextId getHelpContextId() {
+    return HelpContextId.CDS_ANALYZER_USED_ENTITIES_ANALYSIS;
   }
 
   @Override

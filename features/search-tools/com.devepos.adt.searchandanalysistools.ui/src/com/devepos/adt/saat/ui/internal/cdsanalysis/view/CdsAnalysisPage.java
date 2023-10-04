@@ -60,6 +60,7 @@ import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.SelectionProviderAdapter;
 import com.devepos.adt.saat.ui.internal.SelectionProviderProxy;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -184,6 +185,11 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
   public Control getControl() {
     return composite;
   }
+
+  /**
+   * @return the help context id of the analysis page
+   */
+  public abstract HelpContextId getHelpContextId();
 
   /**
    * Returns the owning view of this page

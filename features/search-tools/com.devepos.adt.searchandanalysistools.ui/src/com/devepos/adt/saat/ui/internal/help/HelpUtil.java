@@ -16,8 +16,8 @@ public class HelpUtil {
    * @param context relative id of a help context
    * @return
    */
-  public static String getFullyQualifiedContextId(final HelpContexts context) {
-    return "com.devepos.adt.searchandanalysistools.doc." + context.getHelpContextId();
+  public static String getFullyQualifiedContextId(final HelpContextId context) {
+    return "com.devepos.adt.searchandanalysistools.doc." + context.name().toLowerCase();
   }
 
   /**
@@ -26,7 +26,7 @@ public class HelpUtil {
    * @param control   a control
    * @param contextId relative id of a help context
    */
-  public static void setHelp(final Control control, final HelpContexts context) {
+  public static void setHelp(final Control control, final HelpContextId context) {
     if (control == null || control.isDisposed()) {
       return;
     }

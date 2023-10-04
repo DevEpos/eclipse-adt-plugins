@@ -48,7 +48,7 @@ import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.search.IObjectSearchService;
 import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
-import com.devepos.adt.saat.ui.internal.help.HelpContexts;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
@@ -129,7 +129,7 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         .applyTo(mainComposite);
     setControl(mainComposite);
 
-    HelpUtil.setHelp(mainComposite, HelpContexts.OBJECT_SEARCH_DIALOG);
+    HelpUtil.setHelp(mainComposite, HelpContextId.OBJECT_SEARCH_DIALOG);
 
     createSearchTypeInput(mainComposite);
 
