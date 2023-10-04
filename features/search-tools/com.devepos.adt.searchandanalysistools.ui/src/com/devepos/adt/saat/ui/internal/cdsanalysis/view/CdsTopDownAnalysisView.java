@@ -43,6 +43,7 @@ import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ISqlRelationInfo;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
@@ -183,6 +184,11 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
   public void dispose() {
     super.dispose();
     JFaceResources.getColorRegistry().removeListener(colorPropertyChangeListener);
+  }
+
+  @Override
+  public HelpContextId getHelpContextId() {
+    return HelpContextId.CDS_ANALYZER_TOP_DOWN_ANALYSIS;
   }
 
   @Override

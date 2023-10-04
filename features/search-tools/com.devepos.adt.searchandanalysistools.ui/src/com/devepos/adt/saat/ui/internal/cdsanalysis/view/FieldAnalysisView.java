@@ -43,6 +43,7 @@ import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.FieldAnalysisType;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
@@ -109,6 +110,11 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
         control.requestLayout();
       }
     });
+  }
+
+  @Override
+  public HelpContextId getHelpContextId() {
+    return HelpContextId.CDS_ANALYZER_FIELD_ANALYSIS;
   }
 
   @Override

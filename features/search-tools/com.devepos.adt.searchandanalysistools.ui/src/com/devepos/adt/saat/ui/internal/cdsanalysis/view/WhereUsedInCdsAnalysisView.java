@@ -54,6 +54,7 @@ import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.IWhereUsedInCdsSettings;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
@@ -213,6 +214,11 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     if (contextHelper != null) {
       contextHelper.deactivateAllContexts();
     }
+  }
+
+  @Override
+  public HelpContextId getHelpContextId() {
+    return HelpContextId.CDS_ANALYZER_WHERE_USED_ANALYSIS;
   }
 
   @Override

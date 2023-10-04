@@ -14,7 +14,7 @@ import org.eclipse.ui.handlers.IHandlerService;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.ViewPartInfo;
 import com.devepos.adt.saat.ui.internal.handlers.RunCdsAnalysisHandler;
-import com.devepos.adt.saat.ui.internal.help.HelpContexts;
+import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -49,7 +49,7 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
 
   @Override
   protected String getHelpContextId() {
-    return HelpUtil.getFullyQualifiedContextId(HelpContexts.CDS_ANALYZER);
+    return HelpUtil.getFullyQualifiedContextId(HelpContextId.CDS_ANALYZER);
   }
 
   @Override
