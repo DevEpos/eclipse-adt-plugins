@@ -18,12 +18,24 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.part.IPageSite;
 
+import com.devepos.adt.base.ui.ContextHelper;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
+import com.devepos.adt.base.ui.IGeneralContextConstants;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
+import com.devepos.adt.base.ui.action.CommandFactory;
+import com.devepos.adt.base.ui.tree.FilterableTree;
+import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.IFilterableView;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.cdsanalysis.ICdsEntityUsageInfo;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
@@ -40,10 +52,14 @@ import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
  * @see {@link CdsAnalyzerPage}
  * @author stockbal
  */
-public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysis> {
+public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysis> implements
+    IFilterableView {
+
   private final List<Column> columns;
+  private ContextHelper contextHelper;
 
   private SortListener sortListener;
+  private FilterableTree resultTree;
 
   public CdsUsageAnalysisView(final CdsAnalysisView parentView) {
     super(parentView);
@@ -220,9 +236,71 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
 
   }
 
+  private class UiState extends TreeViewUiState {
+    private String textFilterState;
+
+    @Override
+    public void applyToTreeViewer(final TreeViewer viewer) {
+      super.applyToTreeViewer(viewer);
+      if (!StringUtil.isEmpty(textFilterState)) {
+        resultTree.setFilterText(textFilterState, false);
+        resultTree.setFilterVisible(true);
+      } else {
+        resultTree.resetFilter(false);
+        resultTree.setFilterVisible(false);
+      }
+    }
+
+    @Override
+    public void setFromTreeViewer(final TreeViewer viewer) {
+      super.setFromTreeViewer(viewer);
+      textFilterState = resultTree.getFilterString();
+    }
+
+  }
+
+  @Override
+  public void dispose() {
+    super.dispose();
+    if (contextHelper != null) {
+      contextHelper.deactivateAllContexts();
+    }
+  }
+
   @Override
   public HelpContextId getHelpContextId() {
     return HelpContextId.CDS_ANALYZER_USED_ENTITIES_ANALYSIS;
+  }
+
+  @Override
+  public void init(final IPageSite pageSite) {
+    super.init(pageSite);
+    contextHelper = ContextHelper.createForServiceLocator(getSite());
+    contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+  }
+
+  @Override
+  public void setActionBars(final IActionBars actionBars) {
+    super.setActionBars(actionBars);
+    final var menu = actionBars.getMenuManager();
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory.createContribItemById(
+        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+  }
+
+  @Override
+  public void toggleTextFilterVisibility() {
+    if (resultTree != null && !resultTree.isDisposed()) {
+      resultTree.toggleFilterVisiblity();
+    }
+  }
+
+  @Override
+  protected void clearViewerInput() {
+    super.clearViewerInput();
+    if (resultTree != null) {
+      resultTree.resetFilter();
+      resultTree.setFilterVisible(false);
+    }
   }
 
   @Override
@@ -237,6 +315,25 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
 
     tree.setSortColumn(tree.getColumn(Column.USED_ENTITY_COUNT.ordinal()));
     tree.setSortDirection(SWT.DOWN);
+  }
+
+  @Override
+  protected TreeViewer createTreeViewer(final Composite parent) {
+    resultTree = new FilterableTree(parent, null, true);
+    var resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+    resultTree.setViewer(resultTreeViewer);
+
+    resultTree.setElementMatcher(element -> {
+      if (element instanceof IAdtObjectReferenceNode) {
+        final var node = (IAdtObjectReferenceNode) element;
+        return resultTree.getWordMatcher().matchesWord(node.getName()) || resultTree
+            .getWordMatcher()
+            .matchesWord(node.getDescription());
+      }
+      return false;
+    });
+
+    return resultTreeViewer;
   }
 
   @Override
@@ -263,28 +360,31 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
 
   @Override
   protected ViewUiState getUiState() {
-    final TreeViewUiState uiState = new TreeViewUiState();
+    final var uiState = new UiState();
     uiState.setFromTreeViewer((TreeViewer) getViewer());
     return uiState;
   }
 
   @Override
   protected void loadInput(final ViewUiState uiState) {
-    final TreeViewer viewer = (TreeViewer) getViewer();
+    final var viewer = (TreeViewer) getViewer();
     viewer.setInput(analysisResult.getResult());
 
     if (analysisResult.isResultLoaded()) {
       // update ui state
       if (uiState instanceof TreeViewUiState) {
         ((TreeViewUiState) uiState).applyToTreeViewer(viewer);
+        viewer.refresh(false);
       }
     } else {
+      resetFiltering();
       analysisResult.setResultLoaded(true);
     }
   }
 
   @Override
   protected void refreshAnalysis() {
+    resetFiltering();
     ((ILazyLoadingNode) getViewer().getInput()).resetLoadedState();
     getViewer().refresh();
   }
@@ -304,5 +404,10 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     for (final Column column : columns) {
       createColumn(treeViewer, column);
     }
+  }
+
+  private void resetFiltering() {
+    resultTree.resetFilter();
+    resultTree.setFilterVisible(false);
   }
 }
