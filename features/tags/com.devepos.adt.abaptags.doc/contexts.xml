@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contexts>
-   <context id="tag_wizard">
+   <context id="tag_wizard" title="Tag Objects Wizard">
       <topic href="html/tag_wizard/index.html" label="Tag Objects Wizard"/>
    </context>
    <context id="unassign_tags_wizard_tag_selection">
@@ -18,10 +18,10 @@
       <description>On this page you select the ADT objects to which you want to assign tags</description>
       <topic href="html/tag_wizard/object_selection.html" label="Select Objects"/>
    </context>
-   <context id="tag_manager">
+   <context id="tag_manager" title="ABAP Tag Manager">
       <topic href="html/tag_manager.html" label="Tag Manager"/>
    </context>
-   <context id="object_tags">
+   <context id="object_tags" title="Object Tags View">
       <topic href="html/object_tags.html" label="Object Tags"/>
    </context>
    <context id="tagged_object_search">

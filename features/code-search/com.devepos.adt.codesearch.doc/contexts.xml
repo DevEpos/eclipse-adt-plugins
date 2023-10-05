@@ -3,22 +3,22 @@
    <context id="code_search" title="Help for ABAP Code Search">
       <topic href="html/code_search.html" label="ABAP Code Search"/>
    </context>
-   <context id="code_search_dialog">
+   <context id="code_search_dialog" title="ABAP Code Search - Dialog">
       <description>ABAP Code Search can be used to search in ABAP sources in an ABAP system</description>
       <topic href="html/code_search/search_dialog.html" label="ABAP Code Search - Dialog"/>
    </context>
-   <context id="code_search_result">
+   <context id="code_search_result" title="ABAP Code Search - Result">
       <topic href="html/code_search/search_result.html" label="ABAP Code Search - Result"/>
    </context>
-   <context id="code_search_preferences">
+   <context id="code_search_preferences" title="ABAP Code Search - Preferences">
       <description>Configure workspace wide preferences for the ABAP Code Search</description>
       <topic href="html/code_search/preferences.html" label="ABAP Code Search - Preferences"/>
    </context>
-   <context id="code_search_properties">
+   <context id="code_search_properties" title="ABAP Code Search - Properties">
       <description>Configure project specific properties for the ABAP Code Search</description>
       <topic href="html/code_search/properties.html" label="ABAP Code Search - Properties"/>
    </context>
-   <context id="result_csv_export">
+   <context id="result_csv_export" title="ABAP Code Search - File Export for Results">
       <description>Exporting code search results to a text file</description>
       <topic href="html/code_search/csv_export.html" label="ABAP Code Search - File Export for Results"/>
    </context>
