@@ -9,10 +9,12 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ContentViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -23,6 +25,7 @@ import org.eclipse.ui.progress.UIJob;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.event.KeyEventUtil;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Composite with a hideable filter text at the top and a {@link ColumnViewer}
@@ -41,13 +44,14 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   protected boolean isQuickSelection;
   private String filterPlaceHolderText;
   private UIJob filterJob;
-  private final long filterDelay = 200L;
+  private long filterDelay = 200L;
   private boolean isFilterVisible;
   private IElementMatcher elementMatcher;
   private IWordMatcher wordMatcher;
   private Text filterText;
   private Composite filterComposite;
   private boolean toolbarMode;
+  private final ModifyListener filterChangedListener;
 
   /**
    * Creates new Filtered composite.<br>
@@ -82,6 +86,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
       final boolean hideFilterControls, final boolean enableToolbarMode) {
     super(parent, SWT.NONE);
 
+    filterChangedListener = e -> filterStringChanged();
     filterPlaceHolderText = placeholderText != null ? placeholderText
         : AdtBaseUIResources.getString(IAdtBaseStrings.FilterPlaceHolder_xmsg);
     filterJob = createFilterJob();
@@ -90,6 +95,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     patternFilter = new PatternFilter();
     patternFilter.setIncludeLeadingWildcard(true);
     setFilterVisible(!hideFilterControls);
+
   }
 
   /**
@@ -147,22 +153,21 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     protected boolean isLeafMatch(final Viewer viewer, final Object element) {
       if (elementMatcher != null) {
         return elementMatcher.matchesElement(element);
-      } else {
-        // custom implementation to consider DelegatingStyledCellLabelProvider as well
-        String text = null;
-        var labelProvider = ((ContentViewer) viewer).getLabelProvider();
-        if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
-          var innerlabelProvider = ((DelegatingStyledCellLabelProvider) labelProvider)
-              .getStyledStringProvider();
-          text = innerlabelProvider.getStyledText(element).getString();
-        } else {
-          text = ((ILabelProvider) labelProvider).getText(element);
-        }
-        if (text == null) {
-          return false;
-        }
-        return matchesWord(text);
       }
+      // custom implementation to consider DelegatingStyledCellLabelProvider as well
+      String text = null;
+      var labelProvider = ((ContentViewer) viewer).getLabelProvider();
+      if (labelProvider instanceof DelegatingStyledCellLabelProvider) {
+        var innerlabelProvider = ((DelegatingStyledCellLabelProvider) labelProvider)
+            .getStyledStringProvider();
+        text = innerlabelProvider.getStyledText(element).getString();
+      } else {
+        text = ((ILabelProvider) labelProvider).getText(element);
+      }
+      if (text == null) {
+        return false;
+      }
+      return matchesWord(text);
     }
 
     @Override
@@ -238,11 +243,27 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   }
 
   /**
-   * Resets the filter text
+   * Resets the filter text.<br>
+   * The viewer filtering will be done inside a UI job, that is started with a delay
    */
   public void resetFilter() {
-    if (isFilterControlLive()) {
-      filterText.setText("");
+    resetFilter(true);
+  }
+
+  /**
+   * Resets the filter text
+   *
+   * @param withJob if {@code true} the filter will be resetted inside an UI job
+   */
+  public void resetFilter(final boolean withJob) {
+    if (isFilterControlLive() && !StringUtil.isEmpty(filterText.getText())) {
+      if (withJob) {
+        filterText.setText("");
+      } else {
+        filterText.removeModifyListener(filterChangedListener);
+        filterText.setText("");
+        filterText.addModifyListener(filterChangedListener);
+      }
     }
   }
 
@@ -257,13 +278,45 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   }
 
   /**
-   * Sets a new text in the filter text control
+   * Sets the job delay for the filter job
+   *
+   * @param delay the delay in milliseconds
+   */
+  public void setFilterDelay(final long delay) {
+    filterDelay = delay;
+  }
+
+  /**
+   * Sets a new text in the filter text control.<br>
+   * The subsequent viewer filtering will be performed in a UI Job with the currently set delay.
    *
    * @param filter the text for the filter
+   *
+   * @see #setFilterDelay(long)
+   *
    */
   public void setFilterText(final String filter) {
+    setFilterText(filter, true);
+  }
+
+  /**
+   * Sets a new text in the filter text control. If {@code withJob} is supplied with {@code false}
+   * the caller has to take care to call {@link StructuredViewer#refresh()} so the filter will be
+   * applied to the underlying viewer.
+   *
+   * @param filter  the new filter text
+   * @param withJob if {@code true}, filtering the viewer will be performed inside a UI Job
+   */
+  public void setFilterText(final String filter, final boolean withJob) {
     if (isFilterControlLive() && filter != null) {
-      filterText.setText(filter);
+      if (withJob) {
+        filterText.setText(filter);
+      } else {
+        filterText.removeModifyListener(filterChangedListener);
+        filterText.setText(filter);
+        patternFilter.setPattern(filter);
+        filterText.addModifyListener(filterChangedListener);
+      }
     }
   }
 
@@ -273,7 +326,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    * @param visible if {@code true} the filter controls will be shown
    */
   public void setFilterVisible(final boolean visible) {
-    if (isFilterVisible == visible) {
+    if (!isFilterControlLive() || isFilterVisible == visible) {
       return;
     }
     isFilterVisible = visible;
@@ -457,7 +510,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
         }
         String filterString = getFilterString();
         patternFilter.setPattern(filterString);
-        viewer.refresh();
+        viewer.refresh(false);
         if (getViewerItemsCount() > 0 && filterString != null && filterString.trim().length() > 0) {
           beforeUpdatingSelection();
           if (isQuickSelection) {
@@ -515,10 +568,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
         updateSelection(true);
       }
     });
-    filterText.addModifyListener(e -> {
-      filterStringChanged();
-    });
-
+    filterText.addModifyListener(filterChangedListener);
   }
 
   private boolean isFilterControlLive() {
