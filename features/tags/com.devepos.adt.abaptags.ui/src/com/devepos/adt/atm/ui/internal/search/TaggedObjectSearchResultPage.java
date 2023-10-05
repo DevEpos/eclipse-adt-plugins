@@ -89,7 +89,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private FilterableTree resultTree;
   private TreeViewer resultTreeViewer;
   private TaggedObjectSearchResult result;
-  private ViewerState state;
+  private UiState state;
   private IAction searchFavoritesAction;
   private Composite mainComposite;
   private TaggedObjectSearchQuery searchQuery;
@@ -125,6 +125,18 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         return result.getResultForTree(false);
       }
       return new Object[0];
+    }
+  }
+
+  private class UiState extends ViewerState {
+    private String filterText;
+
+    public String getFilterText() {
+      return filterText;
+    }
+
+    public void setFilterText(String filterText) {
+      this.filterText = filterText;
     }
   }
 
@@ -299,9 +311,10 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   @Override
   public Object getUIState() {
     if (resultTree != null && !resultTree.isDisposed()) {
-      final ViewerState uiState = new ViewerState();
+      final var uiState = new UiState();
       uiState.setExpandedPaths(resultTreeViewer.getExpandedTreePaths());
       uiState.setSelection(resultTreeViewer.getSelection());
+      uiState.setFilterText(resultTree.getFilterString());
       return uiState;
     }
     return null;
@@ -363,7 +376,6 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     if (resultTree != null && !resultTree.isDisposed()) {
       resultTree.setFocus();
     }
-
   }
 
   @Override
@@ -382,7 +394,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     if (result != null) {
       result.addListener(this);
       resultTreeViewer.setInput(result);
-      state = uiState instanceof ViewerState ? (ViewerState) uiState : null;
+      state = uiState instanceof UiState ? (UiState) uiState : null;
       searchQuery = (TaggedObjectSearchQuery) result.getQuery();
       projectProvider = searchQuery.getProjectProvider();
       if (!NewSearchUI.isQueryRunning(searchQuery)) {
@@ -538,6 +550,14 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
           resultTreeViewer.setExpandedTreePaths(state.getExpandedPaths());
         } finally {
           resultTreeViewer.getControl().setRedraw(true);
+        }
+
+        if (!StringUtil.isEmpty(state.getFilterText())) {
+          resultTree.setFilterText(state.getFilterText(), false);
+          resultTree.setFilterVisible(true);
+        } else {
+          resultTree.resetFilter(false);
+          resultTree.setFilterVisible(false);
         }
       }
       resultTreeViewer.getControl().setFocus();
