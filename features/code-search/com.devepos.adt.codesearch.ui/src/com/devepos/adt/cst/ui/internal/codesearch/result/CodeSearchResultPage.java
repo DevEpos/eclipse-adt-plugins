@@ -46,6 +46,7 @@ import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
+import com.devepos.adt.base.ui.ViewerState;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
@@ -117,6 +118,19 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     initializeActions();
   }
 
+  private class UiState extends ViewerState {
+    private String filterText;
+
+    public String getFilterText() {
+      return filterText;
+    }
+
+    public void setFilterText(String filterText) {
+      this.filterText = filterText;
+    }
+
+  }
+
   @Override
   public void createControl(final Composite parent) {
     super.createControl(parent);
@@ -161,6 +175,14 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   public CodeSearchQuery getSearchQuery() {
     var searchResult = getInput();
     return searchResult != null ? (CodeSearchQuery) searchResult.getQuery() : null;
+  }
+
+  @Override
+  public Object getUIState() {
+    var state = new UiState();
+    state.setSelection(getViewer().getSelection());
+    state.setFilterText(filterableComposite.getFilterString());
+    return state;
   }
 
   public boolean isPackageGroupingEnabled() {
@@ -210,13 +232,28 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
 
   @Override
   public void setInput(final ISearchResult newSearch, final Object viewState) {
-    super.setInput(newSearch, viewState);
+    super.setInput(newSearch, viewState != null && viewState instanceof UiState
+        ? ((UiState) viewState).getSelection()
+        : viewState);
 
     updateContinueAction();
 
-    if (filterableComposite != null && !filterableComposite.isDisposed()) {
+    if (filterableComposite == null || filterableComposite.isDisposed()) {
+      return;
+    }
+
+    if (newSearch == null) {
       filterableComposite.resetFilter();
       filterableComposite.setFilterVisible(false);
+    } else if (viewState != null && viewState instanceof UiState) {
+      var filterText = ((UiState) viewState).getFilterText();
+      if (!StringUtil.isEmpty(filterText)) {
+        filterableComposite.setFilterText(filterText, false);
+        filterableComposite.setFilterVisible(true);
+      } else {
+        filterableComposite.resetFilter(false);
+        filterableComposite.setFilterVisible(false);
+      }
     }
   }
 
