@@ -26,7 +26,7 @@ public class TreeViewUiState extends ViewUiState {
       viewer.getControl().setRedraw(true);
     }
     if (selection != null) {
-      viewer.setSelection(selection);
+      viewer.setSelection(selection, true);
     }
   }
 

@@ -286,7 +286,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       return searchResult.getName();
     }
 
-    public void setTypeImageMapper(AdtTypeAlternativeImgMapper typeImageMapper) {
+    public void setTypeImageMapper(final AdtTypeAlternativeImgMapper typeImageMapper) {
       this.typeImageMapper = typeImageMapper;
     }
   }
@@ -368,7 +368,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
    */
   private static class UIState {
     private ISelection selection;
-
+    private String filterText;
     private TreePath[] expandedPaths;
 
     /**
@@ -376,6 +376,10 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
      */
     public TreePath[] getExpandedPaths() {
       return expandedPaths;
+    }
+
+    public String getFilterText() {
+      return filterText;
     }
 
     /**
@@ -399,13 +403,16 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       this.expandedPaths = expandedPaths;
     }
 
+    public void setFilterText(final String filterText) {
+      this.filterText = filterText;
+    }
+
     /**
      * @param selection the selectedObject to set
      */
     public void setSelection(final ISelection selection) {
       this.selection = selection;
     }
-
   }
 
   @Override
@@ -448,7 +455,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   }
 
   @Override
-  public <T> T getAdapter(Class<T> adapter) {
+  public <T> T getAdapter(final Class<T> adapter) {
     if (adapter == StructuredViewer.class) {
       return adapter.cast(resultViewer);
     }
@@ -494,6 +501,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         uiState.setExpandedPaths(((TreeViewer) resultViewer).getExpandedTreePaths());
       }
       uiState.setSelection(resultViewer.getSelection());
+      uiState.setFilterText(filterableComposite.getFilterString());
       return uiState;
     }
     return null;
@@ -558,14 +566,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
 
   @Override
   public void setInput(final ISearchResult search, final Object uiState) {
+    if (search == null && filterableComposite != null) {
+      filterableComposite.resetFilter();
+      filterableComposite.setFilterVisible(false);
+    }
     if (result != null) {
       // clean up old search
       result.removeListener(this);
       resultViewer.setInput(null);
-      if (filterableComposite != null) {
-        filterableComposite.resetFilter();
-        filterableComposite.setFilterVisible(false);
-      }
     }
     result = (ObjectSearchResult) search;
     if (result != null) {
@@ -799,8 +807,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         }
       }
 
-      if ((isTreeViewer && (!selectionHasExpandedNodes || !hasCollapsedPackages))
-          && (selectedObject instanceof ICollectionTreeNode)) {
+      if (isTreeViewer && (!selectionHasExpandedNodes || !hasCollapsedPackages)
+          && selectedObject instanceof ICollectionTreeNode) {
         var collectionNode = (ICollectionTreeNode) selectedObject;
         if (collectionNode.hasChildren()) {
           if (((TreeViewer) resultViewer).getExpandedState(selectedObject)) {
@@ -1048,6 +1056,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
           treeViewer.getControl().setRedraw(true);
         }
       }
+      // update text filter
+      if (state != null && !StringUtil.isEmpty(state.getFilterText())) {
+        filterableComposite.setFilterText(state.getFilterText(), false);
+        filterableComposite.setFilterVisible(true);
+      } else {
+        filterableComposite.resetFilter();
+        filterableComposite.setFilterVisible(false);
+      }
       resultViewer.getControl().setFocus();
       IAdtObjectReferenceNode[] result = null;
       if (isListLayoutActive) {
@@ -1057,7 +1073,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       }
       if (result != null && result.length > 0) {
         if (state != null && state.hasSelection()) {
-          resultViewer.setSelection(state.getSelection());
+          resultViewer.setSelection(state.getSelection(), true);
         } else {
           resultViewer.setSelection(new StructuredSelection(result[0]));
         }
