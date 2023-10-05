@@ -11,6 +11,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
@@ -44,6 +45,7 @@ import com.devepos.adt.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
 import com.devepos.adt.saat.cdsanalysis.IWhereUsedInCdsAnalysisConstants;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
@@ -120,7 +122,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       }
     }
 
-    private void collectTreePathUpwards(ITreeNode node) {
+    private void collectTreePathUpwards(final ITreeNode node) {
       filteredNodes.add(node);
 
       var parent = node.getParent();
@@ -131,7 +133,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       }
     }
 
-    private void findReleasedDownward(ICollectionTreeNode folderNode) {
+    private void findReleasedDownward(final ICollectionTreeNode folderNode) {
       var children = folderNode.getChildren();
       if (children.isEmpty()) {
         return;
@@ -152,7 +154,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private class TreeFilter extends ViewerFilter {
 
     @Override
-    public Object[] filter(Viewer viewer, Object parent, Object[] elements) {
+    public Object[] filter(final Viewer viewer, final Object parent, final Object[] elements) {
       if (!selectionFilterActive && !releasedEntitiesFilterActive) {
         return elements;
       }
@@ -208,6 +210,41 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     }
   }
 
+  private class UiState extends TreeViewUiState {
+    private ITreeNode lastFilteredNodeState;
+    private boolean releasedEntitiesFilterActiveState;
+    private boolean selectionFilterActiveState;
+    private final Set<Object> filteredNodesState = new HashSet<>();
+    private String textFilterState;
+
+    @Override
+    public void applyToTreeViewer(final TreeViewer viewer) {
+      super.applyToTreeViewer(viewer);
+      lastFilteredNode = lastFilteredNodeState;
+      filteredNodes.addAll(filteredNodesState);
+      releasedEntitiesFilterActive = releasedEntitiesFilterActiveState;
+      selectionFilterActive = selectionFilterActiveState;
+      if (!StringUtil.isEmpty(textFilterState)) {
+        resultTree.setFilterText(textFilterState, false);
+        resultTree.setFilterVisible(true);
+      } else {
+        resultTree.resetFilter(false);
+        resultTree.setFilterVisible(false);
+      }
+    }
+
+    @Override
+    public void setFromTreeViewer(final TreeViewer viewer) {
+      super.setFromTreeViewer(viewer);
+      lastFilteredNodeState = lastFilteredNode;
+      releasedEntitiesFilterActiveState = releasedEntitiesFilterActive;
+      selectionFilterActiveState = selectionFilterActive;
+      filteredNodesState.clear();
+      filteredNodesState.addAll(filteredNodes);
+      textFilterState = resultTree.getFilterString();
+    }
+  }
+
   @Override
   public void dispose() {
     super.dispose();
@@ -222,7 +259,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   }
 
   @Override
-  public void init(IPageSite pageSite) {
+  public void init(final IPageSite pageSite) {
     super.init(pageSite);
     contextHelper = ContextHelper.createForServiceLocator(getSite());
     contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
@@ -249,6 +286,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   public void toggleTextFilterVisibility() {
     if (resultTree != null && !resultTree.isDisposed()) {
       resultTree.toggleFilterVisiblity();
+    }
+  }
+
+  @Override
+  protected void clearViewerInput() {
+    super.clearViewerInput();
+    if (resultTree != null) {
+      resultTree.resetFilter();
+      resultTree.setFilterVisible(false);
     }
   }
 
@@ -338,7 +384,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   }
 
   @Override
-  protected TreeViewer createTreeViewer(Composite parent) {
+  protected TreeViewer createTreeViewer(final Composite parent) {
     resultTree = new FilterableTree(parent, null, true);
     var resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTreeViewer.addFilter(treeFilter);
@@ -397,11 +443,9 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
       if (element instanceof ICollectionTreeNode) {
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
-        if (size != null) {
-          if ((!analysisResult.getSettings().isSearchRecursively() || analysisResult.getSettings()
-              .isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
-            text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
-          }
+        if ((size != null) && ((!analysisResult.getSettings().isSearchRecursively()
+            || analysisResult.getSettings().isSearchAssociations()) && !"0".equals(size))) { //$NON-NLS-1$
+          text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
         }
       }
 
@@ -416,7 +460,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
   @Override
   protected ViewUiState getUiState() {
-    final TreeViewUiState uiState = new TreeViewUiState();
+    final var uiState = new UiState();
     uiState.setFromTreeViewer((TreeViewer) getViewer());
     return uiState;
   }
@@ -424,15 +468,16 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   @Override
   protected void loadInput(final ViewUiState uiState) {
     checkFeatureState();
-    final TreeViewer viewer = (TreeViewer) getViewer();
-    resetFiltering(false);
+
+    final var viewer = (TreeViewer) getViewer();
 
     if (analysisResult.isResultLoaded()) {
       setActionStateFromSettings();
       updateViewerFromSettings();
       viewer.setInput(analysisResult.getResult());
-      if (uiState instanceof TreeViewUiState) {
-        ((TreeViewUiState) uiState).applyToTreeViewer(viewer);
+      if (uiState instanceof UiState) {
+        ((UiState) uiState).applyToTreeViewer(viewer);
+        viewer.refresh(false);
       } else {
         final Object[] input = (Object[]) viewer.getInput();
         if (input != null && input.length >= 1) {
@@ -440,7 +485,10 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
           viewer.setSelection(new StructuredSelection(input[0]));
         }
       }
+      getViewPart().updateLabel();
     } else {
+      resetFiltering(false);
+      hideTextFilter();
       initActionState();
       updateViewerFromSettings();
       analysisResult.createResult(lazyLoadingListener);
@@ -498,6 +546,10 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     }
   }
 
+  private void hideTextFilter() {
+    resultTree.setFilterVisible(false);
+  }
+
   private void initActionState() {
     IPreferenceStore prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     boolean isSearchFrom = prefStore.getBoolean(ICdsAnalysisPreferences.WHERE_USED_USES_IN_SELECT);
@@ -527,7 +579,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     }
   }
 
-  private void resetFiltering(boolean refreshViewer) {
+  private void resetFiltering(final boolean refreshViewer) {
     analysisResult.setFiltered(false);
     filteredNodes.clear();
     lastFilteredNode = null;
@@ -554,7 +606,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private void updateViewerFromSettings() {
     if (analysisResult.getSettings().isSearchRecursively() && showFromUses.isChecked()
         && !showAssocUses.isChecked()) {
-      contentProvider.setNodeRefreshOptions(TreeViewer.ALL_LEVELS,
+      contentProvider.setNodeRefreshOptions(AbstractTreeViewer.ALL_LEVELS,
           LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN);
     } else {
       contentProvider.setNodeRefreshOptions(1, null);
