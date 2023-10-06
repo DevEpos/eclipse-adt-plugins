@@ -67,6 +67,7 @@ public class Messages extends NLS {
   public static String ToggleViewLayoutAction_VerticalOrientation_xmit;
   public static String ToggleViewLayoutAction_SingleOrientation_xmit;
   public static String UserNameSelectionDialog_FilterLabel;
+  public static String UserSearchFilter_CurrentlyLoggedOnUser_xlbl;
   public static String KeyValueNamedItemFilter_valuePartNotAllowedDuringNegation_xmsg;
   static {
     // initialize resource bundle

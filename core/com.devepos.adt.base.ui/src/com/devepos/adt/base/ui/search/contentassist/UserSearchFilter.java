@@ -24,9 +24,9 @@ import com.sap.adt.tools.core.system.IAbapSystemInfo;
 import com.sap.adt.tools.core.system.IUser;
 
 /**
- * Search filter for "owner"
+ * Search filter for User (e.g. owner or changedby)
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  */
 @SuppressWarnings("restriction")
 public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
@@ -37,17 +37,24 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   private final String filterLabel;
   private final String description;
   private String longDescription;
+  private final boolean includeMeValue;
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel) {
-    this(projectProvider, filterLabel, null, null);
+    this(projectProvider, filterLabel, null, null, true);
   }
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel,
       final String description, final String longDescription) {
+    this(projectProvider, filterLabel, description, longDescription, true);
+  }
+
+  public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel,
+      final String description, final String longDescription, boolean includeMeValue) {
     this.projectProvider = projectProvider;
     this.filterLabel = filterLabel;
     this.description = description;
     this.longDescription = longDescription;
+    this.includeMeValue = includeMeValue;
   }
 
   @Override
@@ -72,7 +79,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   public String getLongDescription() {
     if (longDescription == null) {
       longDescription = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] {
-          filterLabel, "smith" });
+          filterLabel, "smith" }); //$NON-NLS-1$
     }
     return longDescription;
   }
@@ -80,19 +87,29 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public List<IContentProposal> getProposalList(final String query) throws CoreException {
     final List<IContentProposal> proposals = new ArrayList<>();
+
+    var proposalImage = getProposalImage();
+
+    if (includeMeValue) {
+      // add additional user 'me' which represents the currently logged on user
+      proposals.add(new SearchFilterValueProposal("ME", this, //$NON-NLS-1$
+          Messages.UserSearchFilter_CurrentlyLoggedOnUser_xlbl, query, proposalImage));
+    }
+
     try {
-      final List<IUser> users = getUsers(query);
+      final var users = getUsers(query);
+
       if (users != null) {
-        for (final IUser user : users) {
+        for (final var user : users) {
           proposals.add(new SearchFilterValueProposal(user.getId(), this, user.getText(), query,
-              getProposalImage()));
+              proposalImage));
           if (proposals.size() >= 50) {
             break;
           }
         }
       }
     } catch (final Exception e) {
-      final IStatus status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, e.getMessage());
+      final var status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, e.getMessage());
       throw new CoreException(status);
     }
     return proposals;
@@ -139,7 +156,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       final String destination = projectProvider.getDestinationId();
       if (destination != null && projectProvider.ensureLoggedOn()) {
         final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destination);
-        users = systemInfo.getUsers(new NullProgressMonitor(), String.valueOf(query) + "*", 50);
+        users = systemInfo.getUsers(new NullProgressMonitor(), String.valueOf(query) + "*", 50); //$NON-NLS-1$
       }
     } catch (final OperationCanceledException ex) {
     }
