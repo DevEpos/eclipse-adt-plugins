@@ -67,7 +67,7 @@ public class ObjectSearchRequest {
   }
 
   public String getQuery() {
-    var queryTextBuffer = new StringBuffer();
+    StringBuilder queryTextBuffer = new StringBuilder();
     for (var field : queryInput.getFields()) {
       if (queryTextBuffer.length() != 0) {
         queryTextBuffer.append("; ");

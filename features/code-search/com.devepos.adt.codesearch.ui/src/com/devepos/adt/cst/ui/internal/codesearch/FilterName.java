@@ -22,8 +22,8 @@ public enum FilterName {
   PACKAGE(PackageSearchFilter.FILTER_NAME, "packageName"),
   SEARCH_PATTERN(null, "searchPattern");
 
-  private String contentAssistName;
-  private String uriParamName;
+  private final String contentAssistName;
+  private final String uriParamName;
   private static Map<String, String> CONTENT_ASSIST_TO_URI_PARAM_MAP;
 
   FilterName(final String contentAssistName, final String uriParamName) {

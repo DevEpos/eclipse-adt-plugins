@@ -21,7 +21,7 @@ public final class SearchFavoritesUtil {
   public static String getFavoriteDisplayName(final ISearchFavorite favorite,
       final SearchFavoriteDescriptor descriptor) {
     // TODO: check if label provider exists via descriptor to change the label of a favorite
-    var labelBuffer = new StringBuffer();
+    StringBuilder labelBuffer = new StringBuilder();
     labelBuffer.append("[");
     if (favorite.isProjectIndependent()) {
       labelBuffer.append("?");
@@ -39,7 +39,7 @@ public final class SearchFavoritesUtil {
   /**
    * Checks if the favorite's attributes match the given {@code destinationId}, {@code searchType}
    * and {@code description}
-   * 
+   *
    * @param f             a search favorite
    * @param destinationId destination Id of an ABAP project
    * @param searchType    internal identifier of a search type
@@ -48,11 +48,7 @@ public final class SearchFavoritesUtil {
    */
   public static boolean matchesFavAttributes(final ISearchFavorite f, final String destinationId,
       final String searchType, final String description) {
-    if (!description.equalsIgnoreCase(f.getDescription())) {
-      return false;
-    }
-
-    if (!(f.getDestinationId() == null && destinationId == null || destinationId.equals(f
+    if (!description.equalsIgnoreCase(f.getDescription()) || (((f.getDestinationId() != null) || (destinationId != null)) && !destinationId.equals(f
         .getDestinationId()))) {
       return false;
     }

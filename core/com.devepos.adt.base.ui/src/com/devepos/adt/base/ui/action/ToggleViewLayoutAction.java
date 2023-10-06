@@ -148,7 +148,7 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
   private ViewLayoutOrientation getInitialOrientation() {
     IPreferenceStore prefStore = settings.getPrefStore();
     String prefKey = settings.getPrefKey();
-    if ((prefStore == null) || StringUtil.isEmpty(prefKey)) {
+    if (prefStore == null || StringUtil.isEmpty(prefKey)) {
       return settings.isAutomaticEnabled() ? ViewLayoutOrientation.AUTOMATIC
           : ViewLayoutOrientation.VERTICAL;
     }

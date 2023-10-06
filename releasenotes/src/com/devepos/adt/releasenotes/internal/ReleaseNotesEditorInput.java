@@ -15,7 +15,7 @@ import com.devepos.adt.releasenotes.internal.messages.Messages;
 
 public class ReleaseNotesEditorInput implements IEditorInput, IPersistableElement {
 
-  private URL url;
+  private final URL url;
   private final String plugin;
   private final String path;
   private final String tabTitle;

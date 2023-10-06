@@ -92,7 +92,7 @@ public class EntityFieldInfoResult extends MinimalEObjectImpl.Container implemen
     if (sourceFieldInfo != null && sourceFieldInfo.eIsProxy()) {
       InternalEObject oldSourceFieldInfo = (InternalEObject) sourceFieldInfo;
       sourceFieldInfo = (IEntityFieldInfo) eResolveProxy(oldSourceFieldInfo);
-      if ((sourceFieldInfo != oldSourceFieldInfo) && eNotificationRequired()) {
+      if (sourceFieldInfo != oldSourceFieldInfo && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             ICdsAnalysisPackage.ENTITY_FIELD_INFO_RESULT__SOURCE_FIELD_INFO, oldSourceFieldInfo,
             sourceFieldInfo));

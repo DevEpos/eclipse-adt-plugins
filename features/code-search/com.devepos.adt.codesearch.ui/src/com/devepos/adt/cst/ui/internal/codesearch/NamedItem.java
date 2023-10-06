@@ -18,10 +18,10 @@ public enum NamedItem implements INamedItemType, IImageProvider {
       IAdtBaseImages.APPLICATION_COMPONENT)),
   SERVER_GROUP("servergroup", null, true, true);
 
-  private String discoveryTerm;
-  private boolean caseSensitive;
-  private boolean isBuffered;
-  private Image image;
+  private final String discoveryTerm;
+  private final boolean caseSensitive;
+  private final boolean isBuffered;
+  private final Image image;
 
   NamedItem(final String discoveryTerm, final Image image) {
     this(discoveryTerm, image, false, false);

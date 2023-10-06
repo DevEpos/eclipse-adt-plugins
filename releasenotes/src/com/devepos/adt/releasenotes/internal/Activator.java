@@ -60,10 +60,10 @@ public class Activator extends AbstractUIPlugin {
 
   /**
    * Logs exception as warning to eclipse log
-   * 
+   *
    * @param exc error that occurred
    */
-  public void logWarning(Exception exc) {
+  public void logWarning(final Exception exc) {
     getLog().log(new Status(IStatus.WARNING, PLUGIN_ID, exc.getMessage(), exc));
   }
 

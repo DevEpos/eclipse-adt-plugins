@@ -68,8 +68,9 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
         .getImage(IImages.RUN_NEW_ANALYSIS));
     addHyperlinkListener(IHyperlinkListener.linkActivatedAdapter(t -> {
       if (t.getHref().equals(RUN_NEW_ANALYSIS_HREF)) {
-        IEvaluationContext context = ((IHandlerService) PlatformUI.getWorkbench()
-            .<IHandlerService>getService(IHandlerService.class)).getCurrentState();
+        IEvaluationContext context = PlatformUI.getWorkbench()
+            .<IHandlerService>getService(IHandlerService.class)
+            .getCurrentState();
         try {
           new RunCdsAnalysisHandler().execute(new ExecutionEvent(null, Collections.emptyMap(), null,
               context));
@@ -80,7 +81,8 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
     }));
   }
 
-  private void addRunAnalysisActionLink(String textBeforeActionLink, StringBuffer buffer) {
+  private void addRunAnalysisActionLink(final String textBeforeActionLink,
+      final StringBuffer buffer) {
     buffer.append(String.format("<li>%s <img align=\"middle\" href=\"%s\"/> <a href=\"%s\">", //$NON-NLS-1$
         textBeforeActionLink, RUN_NEW_ANALYSIS_HREF, RUN_NEW_ANALYSIS_HREF));
     buffer.append(Messages.CdsAnalysisWelcomeText_runNewCdsAnalysisCommand_xlbl);

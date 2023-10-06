@@ -118,14 +118,14 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     initializeActions();
   }
 
-  private class UiState extends ViewerState {
+  private static class UiState extends ViewerState {
     private String filterText;
 
     public String getFilterText() {
       return filterText;
     }
 
-    public void setFilterText(String filterText) {
+    public void setFilterText(final String filterText) {
       this.filterText = filterText;
     }
 
@@ -232,7 +232,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
 
   @Override
   public void setInput(final ISearchResult newSearch, final Object viewState) {
-    super.setInput(newSearch, viewState != null && viewState instanceof UiState
+    super.setInput(newSearch, viewState instanceof UiState
         ? ((UiState) viewState).getSelection()
         : viewState);
 
@@ -245,7 +245,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     if (newSearch == null) {
       filterableComposite.resetFilter();
       filterableComposite.setFilterVisible(false);
-    } else if (viewState != null && viewState instanceof UiState) {
+    } else if (viewState instanceof UiState) {
       var filterText = ((UiState) viewState).getFilterText();
       if (!StringUtil.isEmpty(filterText)) {
         filterableComposite.setFilterText(filterText, false);

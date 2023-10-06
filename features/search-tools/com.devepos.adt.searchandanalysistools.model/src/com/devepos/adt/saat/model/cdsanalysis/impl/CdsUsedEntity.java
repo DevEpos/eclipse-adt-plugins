@@ -146,7 +146,7 @@ public class CdsUsedEntity extends MinimalEObjectImpl.Container implements ICdsU
     if (usageInformation != null && usageInformation.eIsProxy()) {
       InternalEObject oldUsageInformation = (InternalEObject) usageInformation;
       usageInformation = (ICdsUsedEntityInformation) eResolveProxy(oldUsageInformation);
-      if ((usageInformation != oldUsageInformation) && eNotificationRequired()) {
+      if (usageInformation != oldUsageInformation && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             ICdsAnalysisPackage.CDS_USED_ENTITY__USAGE_INFORMATION, oldUsageInformation,
             usageInformation));

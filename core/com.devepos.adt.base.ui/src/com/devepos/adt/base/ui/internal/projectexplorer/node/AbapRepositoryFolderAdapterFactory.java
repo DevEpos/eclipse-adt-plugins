@@ -38,7 +38,8 @@ public class AbapRepositoryFolderAdapterFactory implements IAdapterFactory {
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null, null,
           packages != null && !packages.isEmpty() ? packages.stream().collect(Collectors.toList())
               : null));
-    } else if (adaptableObject instanceof AbapRepositoryCategoryFolderNode) {
+    }
+    if (adaptableObject instanceof AbapRepositoryCategoryFolderNode) {
       AbapRepositoryCategoryFolderNode node = (AbapRepositoryCategoryFolderNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), node.getCategory(),
           null, null, getPackages(node)));

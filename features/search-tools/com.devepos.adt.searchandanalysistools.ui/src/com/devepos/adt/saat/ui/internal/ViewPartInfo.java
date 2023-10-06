@@ -117,22 +117,22 @@ public abstract class ViewPartInfo extends ScrolledComposite {
 
   /**
    * Sets image for an {@code img} tag
-   * 
+   *
    * @param hrefId href of the {@code img} tag
    * @param image  the image to set
    */
-  protected void setImage(String hrefId, Image image) {
+  protected void setImage(final String hrefId, final Image image) {
     partInfoText.setImage(hrefId, image);
   }
 
-  protected void addHyperlinkListener(IHyperlinkListener l) {
+  protected void addHyperlinkListener(final IHyperlinkListener l) {
     partInfoText.addHyperlinkListener(l);
   }
 
   /*
    * Adds help link
    */
-  private void addHelpLink(StringBuffer body) {
+  private void addHelpLink(final StringBuffer body) {
     final String helpLinkText = getHelpLinkText();
     if (helpLinkText == null) {
       return;

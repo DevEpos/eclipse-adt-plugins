@@ -136,7 +136,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
 
     private String concatStrings(final String... values) {
-      StringBuffer buffer = new StringBuffer();
+      StringBuilder buffer = new StringBuilder();
       for (var val : values) {
         if (val != null) {
           buffer.append(val);

@@ -18,9 +18,9 @@ public enum ClassInclude implements IIncludeToSearch {
   TESTS("tests", Messages.ClassInclude_testClassesInclude_xlbl, 0x400),
   MACROS("macros", Messages.ClassInclude_macrosInclude_xlbl, 0x800);
 
-  private String apiName;
-  private int bit;
-  private String label;
+  private final String apiName;
+  private final int bit;
+  private final String label;
 
   ClassInclude(final String apiName, final String label, final int bit) {
     this.apiName = apiName;

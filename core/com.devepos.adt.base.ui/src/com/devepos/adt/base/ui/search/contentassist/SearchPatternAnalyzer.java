@@ -114,7 +114,7 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
         filterValidator = (IValidator) filter;
       }
 
-      if ((filterValidator != null) && (filterValidator != null)) {
+      if (filterValidator != null && filterValidator != null) {
         for (final String value : filterValues) {
           filterValidator.validate(value);
         }

@@ -25,7 +25,7 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
 public class CodeSearchScopeFilters implements ISearchFilterProvider {
   private static final List<ISearchFilter> EMPTY_FILTERS = new ArrayList<>();
   private List<ISearchFilter> parameters;
-  private IAbapProjectProvider projectProvider;
+  private final IAbapProjectProvider projectProvider;
 
   public CodeSearchScopeFilters(final IAbapProjectProvider projectProvider) {
     this.projectProvider = projectProvider;
@@ -43,9 +43,9 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
           .getCodeSearchService()
           .getNamedItemUriTemplateProvider(projectProvider), NamedItem.APPLICATION_COMPONENT));
       parameters.add(new DateSearchFilter(FilterName.CREATED_DATE.getContentAssistName(),
-          Messages.CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg, AdtBaseUIResources.format(
-              IAdtBaseStrings.SearchFilter_CreatedDateFilterDescription_xmsg,
-              FilterName.CREATED_DATE.getContentAssistName()), null));
+          Messages.CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg, AdtBaseUIResources
+              .format(IAdtBaseStrings.SearchFilter_CreatedDateFilterDescription_xmsg,
+                  FilterName.CREATED_DATE.getContentAssistName()), null));
     }
 
     if (!projectProvider.ensureLoggedOn()) {

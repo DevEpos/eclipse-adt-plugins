@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Represents control of a custom search option
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public interface ICustomSearchOptionControl {

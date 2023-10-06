@@ -53,7 +53,7 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
 
   /**
    * Removes favorite entries that match the given criteria
-   * 
+   *
    * @param destinationId the destination id of the project
    * @param searchType    the object type of the search
    * @param description   the description of a favorite

@@ -128,14 +128,14 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     }
   }
 
-  private class UiState extends ViewerState {
+  private static class UiState extends ViewerState {
     private String filterText;
 
     public String getFilterText() {
       return filterText;
     }
 
-    public void setFilterText(String filterText) {
+    public void setFilterText(final String filterText) {
       this.filterText = filterText;
     }
   }

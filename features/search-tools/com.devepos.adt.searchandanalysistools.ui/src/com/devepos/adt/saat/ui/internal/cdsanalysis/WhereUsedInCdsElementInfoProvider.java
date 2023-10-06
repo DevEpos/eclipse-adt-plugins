@@ -111,8 +111,8 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     updateSearchParameters(null);
   }
 
-  private IAdtObjectReferenceElementInfo convertToObjRefElemInfo(String destinationId,
-      IWhereUsedInCdsEntry whereUsedEntry) {
+  private IAdtObjectReferenceElementInfo convertToObjRefElemInfo(final String destinationId,
+      final IWhereUsedInCdsEntry whereUsedEntry) {
     if (whereUsedEntry == null) {
       return null;
     }

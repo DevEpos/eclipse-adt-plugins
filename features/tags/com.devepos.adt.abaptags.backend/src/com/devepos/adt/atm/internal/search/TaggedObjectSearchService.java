@@ -60,7 +60,8 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
     return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
         .getTaggedObjectInfosGetListUri() != null ? Status.OK_STATUS
             : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, String.format(
-                Messages.TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg, project.toString()));
+                Messages.TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg,
+                project.toString()));
   }
 
 }

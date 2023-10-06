@@ -106,7 +106,7 @@ public class FieldHierarchyViewer extends TreeViewer {
         return image;
 
       case 1:
-        if ((adtObjectRefNode != null && fieldInfo != null) && fieldInfo.isCalculated()) {
+        if (adtObjectRefNode != null && fieldInfo != null && fieldInfo.isCalculated()) {
           return SearchAndAnalysisPlugin.getDefault().getImage(IImages.FUNCTION);
         }
         return null;

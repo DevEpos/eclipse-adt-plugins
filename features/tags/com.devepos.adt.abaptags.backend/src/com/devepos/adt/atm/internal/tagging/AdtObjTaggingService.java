@@ -153,8 +153,7 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       return Status.OK_STATUS;
     }
     return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg,
-        project.getName()));
+        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg, project.getName()));
   }
 
 }

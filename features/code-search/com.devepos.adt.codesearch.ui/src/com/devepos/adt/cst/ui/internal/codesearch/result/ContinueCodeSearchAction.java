@@ -11,7 +11,7 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
 
 /**
  * Action to continue a cancelled or interrupted {@link CodeSearchQuery}
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  *
  */

@@ -71,7 +71,7 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     return NLS.bind(Messages.CdsAnalysis_TopDownAnalysisProviderDescription_xmsg, cdsViewName);
   }
 
-  private IElementInfo convertAbapEntry(ITopDownAnalysisEntry entry) {
+  private IElementInfo convertAbapEntry(final ITopDownAnalysisEntry entry) {
     var entityRef = entry.getEntityRef();
     var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(), entityRef
         .getDisplayName(), entityRef.getDescription());
@@ -172,7 +172,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
 
     if (entry.getEntryType() == TopDownAnalysisEntryType.ENTITY) {
       return convertEntityEntry(entry);
-    } else if (entry.getEntryType() == TopDownAnalysisEntryType.ABAP) {
+    }
+    if (entry.getEntryType() == TopDownAnalysisEntryType.ABAP) {
       return convertAbapEntry(entry);
     }
     return convertCollectionEntry(entry);

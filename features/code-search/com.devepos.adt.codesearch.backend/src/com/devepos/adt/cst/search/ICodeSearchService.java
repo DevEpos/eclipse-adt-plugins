@@ -66,7 +66,7 @@ public interface ICodeSearchService {
 
   /**
    * Returns {@code true} if the parameter is supported in the Code Search API
-   * 
+   *
    * @param queryParameter name of a query parameter
    * @param project        the project to use
    * @return

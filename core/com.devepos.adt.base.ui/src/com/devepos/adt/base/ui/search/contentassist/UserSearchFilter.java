@@ -49,7 +49,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   public UserSearchFilter(final IAbapProjectProvider projectProvider, final String filterLabel,
-      final String description, final String longDescription, boolean includeMeValue) {
+      final String description, final String longDescription, final boolean includeMeValue) {
     this.projectProvider = projectProvider;
     this.filterLabel = filterLabel;
     this.description = description;

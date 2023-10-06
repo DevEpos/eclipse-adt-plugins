@@ -161,7 +161,7 @@ public class EditTagDataDialog extends TitleAreaDialog {
   private String getHierarchyAsText() {
     var parentTag = (ITag) tag.eContainer();
     var bottomUpParents = new LinkedList<String>();
-    var hierarchyText = new StringBuffer();
+    StringBuilder hierarchyText = new StringBuilder();
 
     while (parentTag != null) {
       bottomUpParents.addFirst(parentTag.getName());

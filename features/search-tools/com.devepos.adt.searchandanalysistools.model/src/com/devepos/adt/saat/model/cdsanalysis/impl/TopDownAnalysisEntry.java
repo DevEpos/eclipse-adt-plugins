@@ -357,8 +357,8 @@ public class TopDownAnalysisEntry extends MinimalEObjectImpl.Container implement
   @Override
   public List<ITopDownAnalysisEntry> getChildren() {
     if (children == null) {
-      children = new EObjectContainmentEList<>(ITopDownAnalysisEntry.class,
-          this, ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__CHILDREN);
+      children = new EObjectContainmentEList<>(ITopDownAnalysisEntry.class, this,
+          ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__CHILDREN);
     }
     return children;
   }
