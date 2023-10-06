@@ -440,7 +440,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
     if (correctParentTag != null && correctParentTag.eIsProxy()) {
       InternalEObject oldCorrectParentTag = (InternalEObject) correctParentTag;
       correctParentTag = (ITag) eResolveProxy(oldCorrectParentTag);
-      if ((correctParentTag != oldCorrectParentTag) && eNotificationRequired()) {
+      if (correctParentTag != oldCorrectParentTag && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG, oldCorrectParentTag,
             correctParentTag));

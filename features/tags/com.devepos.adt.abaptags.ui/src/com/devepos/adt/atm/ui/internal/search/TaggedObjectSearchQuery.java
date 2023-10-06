@@ -125,7 +125,7 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
 
   private String getQuery() {
     if (searchParams != null) {
-      var query = new StringBuffer();
+      StringBuilder query = new StringBuilder();
       int tagsInString = 0;
       var selectedTagsCount = searchParams.getTagIds().size();
 

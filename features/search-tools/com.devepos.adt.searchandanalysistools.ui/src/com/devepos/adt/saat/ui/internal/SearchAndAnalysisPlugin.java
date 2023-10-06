@@ -43,7 +43,7 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
    * @param typeConfig configuration of an object search type
    * @return the found image or {@code null}
    */
-  public Image getSearchTypeImage(ISearchTypeConfig typeConfig) {
+  public Image getSearchTypeImage(final ISearchTypeConfig typeConfig) {
     var imageInfo = typeConfig.getImageInfo();
     if (imageInfo == null || imageInfo.getImageId() == null) {
       return null;
@@ -64,11 +64,11 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
 
   /**
    * Returns image descriptor for the given search type
-   * 
+   *
    * @param typeConfig configuration of an object search type
    * @return the image descriptor for the search type
    */
-  public ImageDescriptor getSearchTypeImgDescr(ISearchTypeConfig typeConfig) {
+  public ImageDescriptor getSearchTypeImgDescr(final ISearchTypeConfig typeConfig) {
     var image = getSearchTypeImage(typeConfig);
     return image != null ? ImageDescriptor.createFromImage(image) : null;
   }

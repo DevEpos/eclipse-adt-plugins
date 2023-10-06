@@ -337,7 +337,7 @@ public class CodeSearchQuerySpecification {
 
   private String getLongQueryString() {
     if (queryStringLong == null) {
-      StringBuffer query = new StringBuffer();
+      StringBuilder query = new StringBuilder();
       query.append(Messages.CodeSearchQuerySpecification_patternQueryPart_xtol);
       query.append("\n   ");
       query.append(singlePattern ? patterns.replaceAll(Text.DELIMITER, ESCAPED_LINE_BREAK_STR)
@@ -362,7 +362,7 @@ public class CodeSearchQuerySpecification {
 
   private String getShortQueryString() {
     if (queryStringShort == null) {
-      StringBuffer buffer = new StringBuffer();
+      StringBuilder buffer = new StringBuilder();
       buffer.append("'");
       buffer.append(singlePattern ? patterns.replaceAll(Text.DELIMITER, ESCAPED_LINE_BREAK_STR)
           : patterns.replaceAll(Text.DELIMITER, ","));

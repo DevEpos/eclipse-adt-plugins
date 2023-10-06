@@ -2,11 +2,11 @@ package com.devepos.adt.base.ui.search.contentassist;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -64,7 +64,7 @@ public class DateSearchFilterTest {
     /*
      * relative dates cannot really be tested without changing the outcome all the
      * time
-     * 
+     *
      * assertEquals(converter.convert(">=last-week"), "IGE20211231");
      * assertEquals(converter.convert("2-weeks-ago"), "IEQ20211224");
      */

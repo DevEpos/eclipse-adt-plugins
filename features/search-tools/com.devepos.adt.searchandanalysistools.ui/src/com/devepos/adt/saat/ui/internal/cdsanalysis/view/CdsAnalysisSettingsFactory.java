@@ -142,7 +142,7 @@ public class CdsAnalysisSettingsFactory {
     }
 
     @Override
-    public void setSearchRecursively(boolean searchRecursively) {
+    public void setSearchRecursively(final boolean searchRecursively) {
       this.searchRecursively = searchRecursively;
     }
   }

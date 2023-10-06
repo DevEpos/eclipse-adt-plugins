@@ -28,10 +28,10 @@ import com.sap.adt.util.ui.swt.IAdtSWTUtil;
  */
 public class IncludeFlagsDialog extends TrayDialog {
 
-  private List<Button> includeCheckBoxes = new ArrayList<>();
+  private final List<Button> includeCheckBoxes = new ArrayList<>();
   private int includeFlags;
-  private IIncludeToSearch[] includes;
-  private String dialogTitle;
+  private final IIncludeToSearch[] includes;
+  private final String dialogTitle;
   private Composite checksGroup;
 
   public IncludeFlagsDialog(final Shell shell, final String dialogTitle, final int includeFlags,

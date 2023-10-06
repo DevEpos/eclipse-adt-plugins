@@ -23,7 +23,7 @@ public class SearchMatchNode extends TreeNodeBase implements IStyledTreeNode {
   private static final StyledString.Styler HIGHLIGHT_STYLER = StyledString
       .createColorRegistryStyler(null, "org.eclipse.search.ui.match.highlight"); //$NON-NLS-1$
 
-  private ICodeSearchMatch match;
+  private final ICodeSearchMatch match;
 
   public SearchMatchNode(final ICodeSearchMatch match, final ICollectionTreeNode parent) {
     super(match.getSnippet(), match.getSnippet(), "", parent); //$NON-NLS-1$

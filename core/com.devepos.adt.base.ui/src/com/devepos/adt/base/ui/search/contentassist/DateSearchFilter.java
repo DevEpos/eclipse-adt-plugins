@@ -131,7 +131,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     @Override
     public String toString() {
-      StringBuffer buffer = new StringBuffer();
+      StringBuilder buffer = new StringBuilder();
       buffer.append(sign);
       buffer.append(option);
       buffer.append(low);
@@ -267,7 +267,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       return abapDateRange.toString();
     }
 
-    private LocalDateRange convertDateString(final String datePattern, Option option)
+    private LocalDateRange convertDateString(final String datePattern, final Option option)
         throws CoreException {
       if (!datePattern.matches(DATE_VALIDATION_PATTERN)) {
         throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
@@ -430,8 +430,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     LESSER_EQUAL("LE", "<="), //$NON-NLS-1$ //$NON-NLS-2$
     BETWEEN("BT", "..."); //$NON-NLS-1$ //$NON-NLS-2$
 
-    private String symbol;
-    private String externalSymbol;
+    private final String symbol;
+    private final String externalSymbol;
 
     Option(final String symbol, final String externalSymbol) {
       this.symbol = symbol;
@@ -459,7 +459,7 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     INCLUDING("I"), //$NON-NLS-1$
     EXCLUDING("E"); //$NON-NLS-1$
 
-    private String symbol;
+    private final String symbol;
 
     Sign(final String symbol) {
       this.symbol = symbol;

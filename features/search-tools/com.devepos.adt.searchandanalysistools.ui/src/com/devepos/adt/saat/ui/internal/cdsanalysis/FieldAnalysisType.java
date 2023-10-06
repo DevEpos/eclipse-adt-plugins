@@ -11,8 +11,8 @@ public enum FieldAnalysisType {
   TOP_DOWN(Messages.FieldAnalysisType_topDownName_xlbl, "topDown"), // $NON-NLS-2$
   BOTTOM_UP(Messages.FieldAnalysisType_bottomUpName_xlbl, "bottomUp"); // $NON-NLS-2$
 
-  private String label;
-  private String prefKey;
+  private final String label;
+  private final String prefKey;
 
   FieldAnalysisType(final String label, final String prefKey) {
     this.label = label;

@@ -6,10 +6,10 @@ public enum InitialSearchFocus {
   TYPE_VIEWER(Messages.InitialSearchFocus_searchTypeViewerFocus_xlbl, "typeViewer"), // $NON-NLS-2$
   FIRST_SEARCH_FIELD(Messages.InitialSearchFocus_firstSearchFieldFocus_xlbl, "searchField"); // $NON-NLS-2$
 
-  private String label;
-  private String prefKey;
+  private final String label;
+  private final String prefKey;
 
-  private InitialSearchFocus(String label, String prefKey) {
+  InitialSearchFocus(final String label, final String prefKey) {
     this.label = label;
     this.prefKey = prefKey;
   }

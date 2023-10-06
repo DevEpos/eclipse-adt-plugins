@@ -11,7 +11,7 @@ public enum CdsAnalysisFeature {
   FIELD_ANALYSIS_TOP_DOWN("Field Analysis - Top-Down"),
   FIELD_ANALYSIS_WHERE_USED("Field Analysis - Where-Used");
 
-  private String name;
+  private final String name;
 
   CdsAnalysisFeature(final String name) {
     this.name = name;

@@ -80,7 +80,8 @@ public class SearchFavorites implements ISearchFavorites {
   }
 
   @Override
-  public void removeMatchingEntries(String destinationId, String searchType, String description) {
+  public void removeMatchingEntries(final String destinationId, final String searchType,
+      final String description) {
     entries.removeAll(entries.stream()
         .filter(f -> SearchFavoritesUtil.matchesFavAttributes(f, destinationId, searchType,
             description))

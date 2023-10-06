@@ -20,8 +20,8 @@ public enum CdsSourceType implements IDataSourceType {
   PROJECTION("P", IImages.SOURCE_TYPE_PROJECTION_ENTITY_OVR),
   HIERARCHY("H", IImages.SOURCE_TYPE_HIERARCHY_ENTITY_OVR);
 
-  private String imageId;
-  private String id;
+  private final String imageId;
+  private final String id;
 
   CdsSourceType(final String id, final String imageId) {
     this.imageId = imageId;

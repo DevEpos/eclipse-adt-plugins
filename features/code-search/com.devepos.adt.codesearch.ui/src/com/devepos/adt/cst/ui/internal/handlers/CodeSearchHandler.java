@@ -164,7 +164,7 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
 
       collectObjectInformation(project);
 
-      StringBuffer filterString = new StringBuffer();
+      StringBuilder filterString = new StringBuilder();
 
       querySpecs.setIgnoreCaseCheck(true);
       if (!objectNames.isEmpty()) {

@@ -32,7 +32,7 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
 public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
   private static final String WILDCARD = "*"; //$NON-NLS-1$
-  private Map<String, IAdtObjectTypeProxy> adtTypeMap = new TreeMap<>();
+  private final Map<String, IAdtObjectTypeProxy> adtTypeMap = new TreeMap<>();
   private String description;
   private Image image;
 

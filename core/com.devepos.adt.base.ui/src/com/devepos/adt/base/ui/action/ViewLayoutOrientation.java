@@ -20,7 +20,7 @@ public enum ViewLayoutOrientation {
    */
   AUTOMATIC(-1);
 
-  private int swtOrientation;
+  private final int swtOrientation;
 
   ViewLayoutOrientation(final int swtOrientation) {
     this.swtOrientation = swtOrientation;

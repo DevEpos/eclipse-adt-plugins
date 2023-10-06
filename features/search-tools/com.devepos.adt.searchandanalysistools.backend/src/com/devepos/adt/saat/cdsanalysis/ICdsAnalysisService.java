@@ -25,7 +25,7 @@ public interface ICdsAnalysisService {
 
   /**
    * Retrieves Where-Used in CDS tree for a database entity
-   * 
+   *
    * @param destinationId         destination of ABAP project
    * @param entityName            entity name (table/view/cds view)
    * @param searchInFromPart      if {@code true} select parts of cds views are searched

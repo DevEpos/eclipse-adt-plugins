@@ -12,7 +12,7 @@ import java.util.Set;
  *
  */
 class FileMatchesCache {
-  private Map<String, Set<SearchMatchNode>> cache = new HashMap<>();
+  private final Map<String, Set<SearchMatchNode>> cache = new HashMap<>();
 
   /**
    * Adds the given match node to the cache

@@ -3,6 +3,8 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -313,7 +315,11 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     if (analysis != null) {
       newPage = configRegistry.findPageForType(analysis.getType());
       if (newPage == null) {
-        // TODO: log error message that page could not be created
+        SearchAndAnalysisPlugin.getDefault()
+            .getLog()
+            .log(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
+                "CDS Analysis page for analysis type " + analysis.getType()
+                    + " could not be created"));
         return;
       }
     }

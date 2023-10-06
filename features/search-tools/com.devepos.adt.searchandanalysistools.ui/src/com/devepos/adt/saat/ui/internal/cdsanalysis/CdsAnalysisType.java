@@ -26,7 +26,7 @@ public enum CdsAnalysisType {
    */
   FIELD_ANALYSIS(Messages.CdsAnalysisType_fieldAnalysis_xlbl);
 
-  private String label;
+  private final String label;
 
   CdsAnalysisType(final String label) {
     this.label = label;

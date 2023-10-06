@@ -13,7 +13,7 @@ public enum HelpContexts {
   CODE_SEARCH_PROPERTIES("code_search_properties"),
   CODE_SEARCH_EXPORT_DIALOG("result_csv_export");
 
-  private String helpContextId;
+  private final String helpContextId;
 
   HelpContexts(final String contextId) {
     helpContextId = contextId;

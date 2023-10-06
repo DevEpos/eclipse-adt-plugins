@@ -10,7 +10,7 @@ package com.devepos.adt.cst.ui.internal.codesearch;
 public class IncludeFlagsParameter {
 
   private int includeFlags;
-  private IIncludeToSearch[] possibleIncludes;
+  private final IIncludeToSearch[] possibleIncludes;
   private boolean allIncludes = true;
 
   public IncludeFlagsParameter(final IIncludeToSearch[] possibleIncludes) {

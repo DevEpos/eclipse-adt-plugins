@@ -23,7 +23,7 @@ public class PlainTextContentHandler implements IContentHandler<String> {
       var bos = new ByteArrayOutputStream((int) body.getContentLength());
       body.writeTo(bos);
 
-      return (String) clazz.getConstructor(byte[].class, Charset.class)
+      return clazz.getConstructor(byte[].class, Charset.class)
           .newInstance(bos.toByteArray(), StandardCharsets.UTF_8);
     } catch (final Exception e) {
       throw new ContentHandlerException(e.getMessage());

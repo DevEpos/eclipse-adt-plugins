@@ -50,7 +50,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
     VALID_VIRT_FOLDER_TYPE_KEYS.addAll(CodeSearchRelevantWbTypesUtil
         .getPossibleValuesForTypeFilter()
         .stream()
-        .map(t -> t.toLowerCase())
+        .map(String::toLowerCase)
         .collect(Collectors.toList()));
   }
 
@@ -110,23 +110,21 @@ public class CodeSearchPropertyTester extends PropertyTester {
           // - DICTIONARY (7.40) -> DDLS
           // - DICTIONARY (7.50) -> invalid
           // do not block the property test too much
-          if (IAbapRepositoryFolderNode.CATEGORY_DICTIONARY.equals(category)) {
-            if (AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
-              try {
-                IAdtRisObjectTypeRegistry typeRegistry = AdtRisObjectTypeRegistry.getInstance(
-                    destinationId, new NullProgressMonitor());
-                List<AdtRisParameterProposal> foundObjectTypes = typeRegistry
-                    .getObjectTypeProposalList(
-                        IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES);
-                return foundObjectTypes == null || foundObjectTypes.isEmpty();
-              } catch (Exception e) {
-                // exception handling not necessary
-              }
-            } else {
-              return false;
+          if (!IAbapRepositoryFolderNode.CATEGORY_DICTIONARY.equals(category)) {
+            return true;
+          }
+          if (AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
+            try {
+              IAdtRisObjectTypeRegistry typeRegistry = AdtRisObjectTypeRegistry.getInstance(
+                  destinationId, new NullProgressMonitor());
+              List<AdtRisParameterProposal> foundObjectTypes = typeRegistry
+                  .getObjectTypeProposalList(IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES);
+              return foundObjectTypes == null || foundObjectTypes.isEmpty();
+            } catch (Exception e) {
+              // exception handling not necessary
             }
           } else {
-            return true;
+            return false;
           }
         }
         String type = folder.getType();

@@ -400,10 +400,10 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
       }
 
       @Override
-      public Image getImage(Object element) {
+      public Image getImage(final Object element) {
         if (element instanceof ISearchTypeConfig) {
           return SearchAndAnalysisPlugin.getDefault()
-              .getSearchTypeImage(((ISearchTypeConfig) element));
+              .getSearchTypeImage((ISearchTypeConfig) element);
         }
         return null;
       }

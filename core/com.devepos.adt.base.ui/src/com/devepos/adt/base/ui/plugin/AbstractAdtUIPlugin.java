@@ -193,7 +193,7 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
         overlayImageIds).anyMatch(id -> id != null)) {
       return image;
     }
-    final StringBuffer overlayImageKeyBuffer = new StringBuffer(image.toString());
+    final StringBuilder overlayImageKeyBuffer = new StringBuilder(image.toString());
     for (int i = 0; i < overlayImageIds.length; i++) {
       final String imageId = overlayImageIds[i];
       if (imageId == null) {

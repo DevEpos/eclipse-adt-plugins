@@ -443,8 +443,9 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
       if (element instanceof ICollectionTreeNode) {
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
-        if ((size != null) && ((!analysisResult.getSettings().isSearchRecursively()
-            || analysisResult.getSettings().isSearchAssociations()) && !"0".equals(size))) { //$NON-NLS-1$
+        if (size != null && (!analysisResult.getSettings().isSearchRecursively() || analysisResult
+            .getSettings()
+            .isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
           text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
         }
       }

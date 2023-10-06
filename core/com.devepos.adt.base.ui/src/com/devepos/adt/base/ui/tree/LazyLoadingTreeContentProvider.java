@@ -161,7 +161,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
         return;
       }
       for (final ITreeNode child : children.stream()
-          .filter(child -> child instanceof ICollectionTreeNode)
+          .filter(ICollectionTreeNode.class::isInstance)
           .collect(Collectors.toList())) {
         if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN) {
           expandNode(child);
@@ -232,14 +232,15 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
   /**
    * Sets parameters for the node refresh
-   * 
+   *
    * @param refreshExpansionLevel level to expand child nodes after they were loaded dynamically
    * @param refreshMode           refresh mode for sub nodes
    */
-  public void setNodeRefreshOptions(int refreshExpansionLevel, LazyLoadingRefreshMode refreshMode) {
+  public void setNodeRefreshOptions(final int refreshExpansionLevel,
+      final LazyLoadingRefreshMode refreshMode) {
     Assert.isTrue(refreshExpansionLevel == AbstractTreeViewer.ALL_LEVELS
         || refreshExpansionLevel > 0);
-    this.refreshModeExpansionLevel = refreshExpansionLevel;
+    refreshModeExpansionLevel = refreshExpansionLevel;
     this.refreshMode = refreshMode;
   }
 

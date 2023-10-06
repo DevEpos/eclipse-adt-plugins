@@ -15,7 +15,7 @@ public enum SearchParameter {
   SCOPE_OFFSET("scopeOffset"),
   SEQUENTIAL_MATCHING("seqMatching");
 
-  private String uriParamName;
+  private final String uriParamName;
 
   SearchParameter(final String uriParamName) {
     this.uriParamName = uriParamName;

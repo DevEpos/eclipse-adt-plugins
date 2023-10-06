@@ -340,8 +340,7 @@ public class Tag extends TagBase implements ITag {
   @Override
   public EList<ITag> getChildTags() {
     if (childTags == null) {
-      childTags = new EObjectContainmentEList<>(ITag.class, this,
-          IAbapTagsPackage.TAG__CHILD_TAGS);
+      childTags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAGS);
     }
     return childTags;
   }

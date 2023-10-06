@@ -118,7 +118,7 @@ public abstract class CdsAnalysis {
    */
   public abstract void refreshAnalysis();
 
-  public void setFiltered(boolean filtered) {
+  public void setFiltered(final boolean filtered) {
     this.filtered = filtered;
   }
 

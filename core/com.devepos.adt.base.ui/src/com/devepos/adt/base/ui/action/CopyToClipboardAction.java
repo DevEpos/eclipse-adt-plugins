@@ -102,7 +102,7 @@ public class CopyToClipboardAction extends Action {
     }
   }
 
-  public void unregisterViewerAdapter(IAdaptable viewerAdapter) {
+  public void unregisterViewerAdapter(final IAdaptable viewerAdapter) {
     viewerAdapters.remove(viewerAdapter);
   }
 

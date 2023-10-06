@@ -29,25 +29,24 @@ public class ReleaseNotesEditorInputPersist implements IElementFactory {
     String path = memento.getString(PATH_MEMENTO_KEY);
     String tabTitle = memento.getString(TAB_TITLE_MEMENTO_KEY);
 
-    if (plugin != null && path != null && tabTitle != null && !plugin.isEmpty() && !path.isEmpty()
-        && !tabTitle.isEmpty()) {
-      try {
-        var editorInput = new ReleaseNotesEditorInput(plugin, path, tabTitle);
-        return editorInput;
-      } catch (Exception exc) {
-        Activator.getDefault().logWarning(exc);
+    if ((plugin == null) || (path == null) || (tabTitle == null) || plugin.isEmpty() || path
+        .isEmpty() || tabTitle.isEmpty()) {
+      return null;
+    }
+    try {
+      var editorInput = new ReleaseNotesEditorInput(plugin, path, tabTitle);
+      return editorInput;
+    } catch (Exception exc) {
+      Activator.getDefault().logWarning(exc);
 
-        var releaseNotesForPlugin = Activator.getDefault().getLatestReleaseNotesForPlugin(plugin);
-        if (releaseNotesForPlugin.isPresent()) {
-          try {
-            return new ReleaseNotesEditorInput(releaseNotesForPlugin.get());
-          } catch (Exception exc2) {
-            Activator.getDefault().logWarning(exc2);
-          }
+      var releaseNotesForPlugin = Activator.getDefault().getLatestReleaseNotesForPlugin(plugin);
+      if (releaseNotesForPlugin.isPresent()) {
+        try {
+          return new ReleaseNotesEditorInput(releaseNotesForPlugin.get());
+        } catch (Exception exc2) {
+          Activator.getDefault().logWarning(exc2);
         }
-        return null;
       }
-    } else {
       return null;
     }
   }

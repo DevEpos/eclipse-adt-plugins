@@ -36,9 +36,9 @@ import com.sap.adt.tools.core.urimapping.AdtUriMappingServiceFactory;
 @SuppressWarnings("restriction")
 public class CodeSearchEditorMatcher implements IEditorMatchAdapter {
 
-  private IProject project;
-  private CodeSearchResult searchResult;
-  private IPlainTextFragmentHandler plainTextFragmentHandler;
+  private final IProject project;
+  private final CodeSearchResult searchResult;
+  private final IPlainTextFragmentHandler plainTextFragmentHandler;
 
   public CodeSearchEditorMatcher(final CodeSearchResult searchResult, final IProject project) {
     this.project = project;

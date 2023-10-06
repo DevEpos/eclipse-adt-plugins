@@ -74,8 +74,8 @@ public class TaggedObjectInfoList extends MinimalEObjectImpl.Container implement
   @Override
   public EList<ITaggedObjectInfo> getTaggedObjectInfos() {
     if (taggedObjectInfos == null) {
-      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class,
-          this, IAbapTagsPackage.TAGGED_OBJECT_INFO_LIST__TAGGED_OBJECT_INFOS);
+      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class, this,
+          IAbapTagsPackage.TAGGED_OBJECT_INFO_LIST__TAGGED_OBJECT_INFOS);
     }
     return taggedObjectInfos;
   }

@@ -74,8 +74,7 @@ public class CodeSearchScopeParameters extends MinimalEObjectImpl.Container impl
   @Override
   public EList<ICodeSearchScopeParameter> getParameters() {
     if (parameters == null) {
-      parameters = new EObjectContainmentEList<>(
-          ICodeSearchScopeParameter.class, this,
+      parameters = new EObjectContainmentEList<>(ICodeSearchScopeParameter.class, this,
           ICodeSearchPackage.CODE_SEARCH_SCOPE_PARAMETERS__PARAMETERS);
     }
     return parameters;

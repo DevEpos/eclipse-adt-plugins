@@ -176,7 +176,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
    * @param child  child node that should be removed
    */
   public void removeChildeNode(final ICollectionTreeNode parent, final ITreeNode child) {
-    if ((child instanceof PackageNode) && (resultTree != null)) {
+    if (child instanceof PackageNode && resultTree != null) {
       resultTree.removePackageNode((PackageNode) child);
     }
     parent.removeChild(child);

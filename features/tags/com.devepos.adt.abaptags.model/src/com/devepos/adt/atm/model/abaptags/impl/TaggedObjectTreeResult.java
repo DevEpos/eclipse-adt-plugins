@@ -142,8 +142,8 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container impleme
   @Override
   public EList<ITaggedObjectTreeObject> getObjects() {
     if (objects == null) {
-      objects = new EObjectContainmentEList<>(ITaggedObjectTreeObject.class,
-          this, IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS);
+      objects = new EObjectContainmentEList<>(ITaggedObjectTreeObject.class, this,
+          IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS);
     }
     return objects;
   }
