@@ -56,7 +56,6 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
 
   private ObjectSearchQuery currentQuery;
 
-  @SuppressWarnings("unchecked")
   private static ObjectSearchRequest createRequestFromFavorite(final ISearchFavorite favorite) {
     final var searchRequest = new ObjectSearchRequest();
     for (var favAttribute : favorite.getAttributes()) {
@@ -88,8 +87,10 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
         searchRequest.setMaxResults(((IIntAttribute) favAttribute).getValue());
         break;
       case CUSTOM_OPTIONS:
-        var entries = ((IMapAttribute) favAttribute).getEntries();
-        searchRequest.getQueryInput().getCustomOptions().putAll((Map<String, String>) entries);
+        ((IMapAttribute) favAttribute).getEntries()
+            .forEach(entry -> searchRequest.getQueryInput()
+                .getCustomOptions()
+                .put(entry.getKey(), entry.getValue()));
         break;
       }
     }
