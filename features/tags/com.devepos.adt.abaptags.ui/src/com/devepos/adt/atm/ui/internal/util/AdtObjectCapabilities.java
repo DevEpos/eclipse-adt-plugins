@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 
 /**
@@ -59,7 +60,10 @@ public class AdtObjectCapabilities {
    * @param adtType adt workbench type
    */
   public boolean isTypeTaggable(final String adtType) {
-    return adtType != null && taggableObjectTypes.contains(adtType);
+    if (adtType == null) {
+      return false;
+    }
+    return isRestrictedType(adtType) ? taggableObjectTypes.contains(adtType) : true;
   }
 
   /**
@@ -69,7 +73,11 @@ public class AdtObjectCapabilities {
    * @param adtType ADT workbench type
    */
   public boolean isTypeValidForObjectTagsView(final String adtType) {
-    return adtType != null && validTypesForObjectTagsView.contains(adtType);
+    if (adtType == null) {
+      return false;
+    }
+    return isRestrictedType(adtType) ? validTypesForObjectTagsView.contains(adtType)
+        : true;
   }
 
   public boolean isValidForObjectTagsView(final IAdtObject adtObject) {
@@ -77,5 +85,17 @@ public class AdtObjectCapabilities {
       return false;
     }
     return isTypeValidForObjectTagsView(adtObject.getReference().getType());
+  }
+
+  /*
+   * Some types have sub types that are not relevant at all places/views, therefore a restriction to
+   * certain sub types is required.
+   *
+   * This method checks if a type needs restriction or not
+   */
+  private boolean isRestrictedType(final String adtType) {
+    return ITadirTypeConstants.CLASS.startsWith(adtType) || ITadirTypeConstants.FUNCTION_GROUP
+        .startsWith(adtType) || ITadirTypeConstants.PROGRAM.startsWith(adtType)
+        || ITadirTypeConstants.TABLE.startsWith(adtType);
   }
 }
