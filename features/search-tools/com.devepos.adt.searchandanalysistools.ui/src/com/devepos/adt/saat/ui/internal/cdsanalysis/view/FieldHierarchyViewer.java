@@ -95,6 +95,8 @@ public class FieldHierarchyViewer extends TreeViewer {
           final String[] overlayImageIds = new String[4];
           if (IExtendedAdtObjectInfo.API_STATE_RELEASED.equals(fieldInfo.getApiState())) {
             overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+          } else if (IExtendedAdtObjectInfo.API_STATE_DEPRECATED.equals(fieldInfo.getApiState())) {
+            overlayImageIds[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
           }
           var sourceType = fieldInfo.getSourceType() != null ? CdsSourceType.getFromId(fieldInfo
               .getSourceType()) : null;

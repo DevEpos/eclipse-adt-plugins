@@ -223,6 +223,10 @@ public interface IImages {
    */
   String RELEASED_API_OVR = "IMG_OVR_RELEASED";
   /**
+   * Image for an overlay image which signals a deprecated API
+   */
+  String DEPRECATED_API_OVR = "IMG_OVR_DEPRECATED";
+  /**
    * Image for Where used in analysis
    */
   String WHERE_USED_IN = "IMG_WHERE_USED_IN";

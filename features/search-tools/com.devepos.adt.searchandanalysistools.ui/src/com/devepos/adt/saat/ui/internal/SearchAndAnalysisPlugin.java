@@ -139,6 +139,7 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
 
     // register overlay images
     registerImage(imageRegistry, IImages.RELEASED_API_OVR, "icons/ovr/Released.png");
+    registerImage(imageRegistry, IImages.DEPRECATED_API_OVR, "icons/ovr/Deprecated.png");
     registerImage(imageRegistry, IImages.SOURCE_TYPE_FUNCTION_OVR, "icons/ovr/Function.png");
     registerImage(imageRegistry, IImages.SOURCE_TYPE_ABSTRACT_ENTITY_OVR,
         "icons/ovr/AbstractEntity.png");
