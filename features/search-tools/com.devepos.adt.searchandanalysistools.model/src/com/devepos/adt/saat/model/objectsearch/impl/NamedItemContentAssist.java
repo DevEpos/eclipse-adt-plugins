@@ -23,6 +23,8 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
  * <em>Category Term</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.NamedItemContentAssist#getSecondaryCategoryTerm
  * <em>Secondary Category Term</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.NamedItemContentAssist#getInitialFilter
+ * <em>Initial Filter</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,6 +97,28 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
    * @ordered
    */
   protected String secondaryCategoryTerm = SECONDARY_CATEGORY_TERM_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getInitialFilter() <em>Initial Filter</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getInitialFilter()
+   * @generated
+   * @ordered
+   */
+  protected static final String INITIAL_FILTER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getInitialFilter() <em>Initial Filter</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getInitialFilter()
+   * @generated
+   * @ordered
+   */
+  protected String initialFilter = INITIAL_FILTER_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -208,6 +232,34 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
    * @generated
    */
   @Override
+  public String getInitialFilter() {
+    return initialFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setInitialFilter(final String newInitialFilter) {
+    String oldInitialFilter = initialFilter;
+    initialFilter = newInitialFilter;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER, oldInitialFilter,
+          initialFilter));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
     switch (featureID) {
     case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__CATEGORY_SCHEME:
@@ -216,6 +268,8 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
       return getCategoryTerm();
     case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM:
       return getSecondaryCategoryTerm();
+    case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER:
+      return getInitialFilter();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -237,6 +291,9 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
       return;
     case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM:
       setSecondaryCategoryTerm((String) newValue);
+      return;
+    case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER:
+      setInitialFilter((String) newValue);
       return;
     }
     super.eSet(featureID, newValue);
@@ -260,6 +317,9 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
     case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM:
       setSecondaryCategoryTerm(SECONDARY_CATEGORY_TERM_EDEFAULT);
       return;
+    case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER:
+      setInitialFilter(INITIAL_FILTER_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -282,6 +342,9 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
     case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM:
       return SECONDARY_CATEGORY_TERM_EDEFAULT == null ? secondaryCategoryTerm != null
           : !SECONDARY_CATEGORY_TERM_EDEFAULT.equals(secondaryCategoryTerm);
+    case IObjectSearchPackage.NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER:
+      return INITIAL_FILTER_EDEFAULT == null ? initialFilter != null
+          : !INITIAL_FILTER_EDEFAULT.equals(initialFilter);
     }
     return super.eIsSet(featureID);
   }
@@ -305,6 +368,8 @@ public class NamedItemContentAssist extends ContentAssist implements INamedItemC
     result.append(categoryTerm);
     result.append(", secondaryCategoryTerm: ");
     result.append(secondaryCategoryTerm);
+    result.append(", initialFilter: ");
+    result.append(initialFilter);
     result.append(')');
     return result.toString();
   }

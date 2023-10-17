@@ -125,12 +125,12 @@ public class FilterInitializer {
           .getNamedItemUriTemplateProvider(projectProvider), INamedItemType.create(contentAssist
               .getCategoryTerm(), false, contentAssist.isCachingPossible()), INamedItemType.create(
                   contentAssist.getSecondaryCategoryTerm(), false, false), filterConfig.getName(),
-          null);
+          contentAssist.getInitialFilter());
     } else {
       filter = new NamedItemFilter(projectProvider, ObjectSearchServiceFactory.getSearchService()
           .getNamedItemUriTemplateProvider(projectProvider), INamedItemType.create(contentAssist
               .getCategoryTerm(), false, contentAssist.isCachingPossible()), filterConfig.getName(),
-          null);
+          contentAssist.getInitialFilter());
     }
     filter.setDescription(filterConfig.getDescription());
     filter.setLongDescription(filterConfig.getLongDescription());

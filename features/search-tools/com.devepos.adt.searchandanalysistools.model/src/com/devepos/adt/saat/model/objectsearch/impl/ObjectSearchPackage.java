@@ -843,6 +843,17 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EAttribute getNamedItemContentAssist_InitialFilter() {
+    return (EAttribute) namedItemContentAssistEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getUserContentAssist() {
     return userContentAssistEClass;
   }
@@ -1401,6 +1412,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     createEAttribute(namedItemContentAssistEClass, NAMED_ITEM_CONTENT_ASSIST__CATEGORY_TERM);
     createEAttribute(namedItemContentAssistEClass,
         NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM);
+    createEAttribute(namedItemContentAssistEClass, NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER);
 
     userContentAssistEClass = createEClass(USER_CONTENT_ASSIST);
 
@@ -1649,6 +1661,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getNamedItemContentAssist_SecondaryCategoryTerm(), ecorePackage.getEString(),
         "secondaryCategoryTerm", null, 0, 1, INamedItemContentAssist.class, !IS_TRANSIENT,
         !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getNamedItemContentAssist_InitialFilter(), theXMLTypePackage.getString(),
+        "initialFilter", null, 0, 1, INamedItemContentAssist.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(userContentAssistEClass, IUserContentAssist.class, "UserContentAssist", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1897,6 +1912,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "categoryTerm", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getNamedItemContentAssist_SecondaryCategoryTerm(), source, new String[] { "name",
         "secondaryCategoryTerm", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getNamedItemContentAssist_InitialFilter(), source, new String[] { "name",
+        "initialFilter", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(searchQueryInputEClass, source, new String[] { "kind", "elementOnly", "name",
         "queryInput" });
     addAnnotation(getSearchQueryInput_Type(), source, new String[] { "name", "type", "kind",

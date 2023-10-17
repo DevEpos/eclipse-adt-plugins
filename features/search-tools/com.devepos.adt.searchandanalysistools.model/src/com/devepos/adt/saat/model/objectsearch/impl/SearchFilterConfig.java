@@ -664,7 +664,7 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
     if (imageInfo != null && imageInfo.eIsProxy()) {
       InternalEObject oldImageInfo = (InternalEObject) imageInfo;
       imageInfo = (IImageInfo) eResolveProxy(oldImageInfo);
-      if (imageInfo != oldImageInfo && eNotificationRequired()) {
+      if ((imageInfo != oldImageInfo) && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO, oldImageInfo, imageInfo));
       }

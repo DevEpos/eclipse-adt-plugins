@@ -277,8 +277,9 @@ public class CustomOption extends MinimalEObjectImpl.Container implements ICusto
   @Override
   public Map<String, String> getOptionValues() {
     if (optionValues == null) {
-      optionValues = new EcoreEMap<>(IObjectSearchPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
-          StringToStringMapEntry.class, this, IObjectSearchPackage.CUSTOM_OPTION__OPTION_VALUES);
+      optionValues = new EcoreEMap<>(
+          IObjectSearchPackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class,
+          this, IObjectSearchPackage.CUSTOM_OPTION__OPTION_VALUES);
     }
     return optionValues.map();
   }
