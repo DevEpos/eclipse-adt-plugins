@@ -871,6 +871,16 @@ public interface IObjectSearchPackage extends EPackage {
   int NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM = CONTENT_ASSIST_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Initial Filter</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER = CONTENT_ASSIST_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Named Item Content Assist</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -878,7 +888,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int NAMED_ITEM_CONTENT_ASSIST_FEATURE_COUNT = CONTENT_ASSIST_FEATURE_COUNT + 3;
+  int NAMED_ITEM_CONTENT_ASSIST_FEATURE_COUNT = CONTENT_ASSIST_FEATURE_COUNT + 4;
 
   /**
    * The number of operations of the '<em>Named Item Content Assist</em>' class.
@@ -2227,6 +2237,20 @@ public interface IObjectSearchPackage extends EPackage {
   EAttribute getNamedItemContentAssist_SecondaryCategoryTerm();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist#getInitialFilter
+   * <em>Initial Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Initial Filter</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist#getInitialFilter()
+   * @see #getNamedItemContentAssist()
+   * @generated
+   */
+  EAttribute getNamedItemContentAssist_InitialFilter();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.saat.model.objectsearch.IUserContentAssist <em>User Content
    * Assist</em>}'.
@@ -3316,6 +3340,16 @@ public interface IObjectSearchPackage extends EPackage {
      */
     EAttribute NAMED_ITEM_CONTENT_ASSIST__SECONDARY_CATEGORY_TERM = eINSTANCE
         .getNamedItemContentAssist_SecondaryCategoryTerm();
+
+    /**
+     * The meta object literal for the '<em><b>Initial Filter</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute NAMED_ITEM_CONTENT_ASSIST__INITIAL_FILTER = eINSTANCE
+        .getNamedItemContentAssist_InitialFilter();
 
     /**
      * The meta object literal for the

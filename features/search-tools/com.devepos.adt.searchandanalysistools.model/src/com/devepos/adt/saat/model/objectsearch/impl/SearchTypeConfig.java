@@ -223,7 +223,7 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
     if (imageInfo != null && imageInfo.eIsProxy()) {
       InternalEObject oldImageInfo = (InternalEObject) imageInfo;
       imageInfo = (IImageInfo) eResolveProxy(oldImageInfo);
-      if (imageInfo != oldImageInfo && eNotificationRequired()) {
+      if ((imageInfo != oldImageInfo) && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             IObjectSearchPackage.SEARCH_TYPE_CONFIG__IMAGE_INFO, oldImageInfo, imageInfo));
       }
@@ -343,8 +343,8 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
   @Override
   public List<ISearchTypeInputFieldConfig> getInputs() {
     if (inputs == null) {
-      inputs = new EObjectContainmentEList<>(ISearchTypeInputFieldConfig.class, this,
-          IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS);
+      inputs = new EObjectContainmentEList<>(
+          ISearchTypeInputFieldConfig.class, this, IObjectSearchPackage.SEARCH_TYPE_CONFIG__INPUTS);
     }
     return inputs;
   }

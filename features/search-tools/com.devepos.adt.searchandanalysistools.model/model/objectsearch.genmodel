@@ -86,6 +86,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//NamedItemContentAssist/categoryScheme"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//NamedItemContentAssist/categoryTerm"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//NamedItemContentAssist/secondaryCategoryTerm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//NamedItemContentAssist/initialFilter"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//UserContentAssist"/>
     <genClasses ecoreClass="objectsearch.ecore#//SearchQueryInput">

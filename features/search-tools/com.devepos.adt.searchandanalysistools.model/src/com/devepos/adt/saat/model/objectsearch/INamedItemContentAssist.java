@@ -17,6 +17,8 @@ package com.devepos.adt.saat.model.objectsearch;
  * <em>Category Term</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist#getSecondaryCategoryTerm
  * <em>Secondary Category Term</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist#getInitialFilter
+ * <em>Initial Filter</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getNamedItemContentAssist()
@@ -102,5 +104,32 @@ public interface INamedItemContentAssist extends IContentAssist {
    * @generated
    */
   void setSecondaryCategoryTerm(String value);
+
+  /**
+   * Returns the value of the '<em><b>Initial Filter</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Initial Filter</em>' attribute.
+   * @see #setInitialFilter(String)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getNamedItemContentAssist_InitialFilter()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+   *        extendedMetaData="name='initialFilter' kind='attribute' namespace='##targetNamespace'"
+   * @generated
+   */
+  String getInitialFilter();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.INamedItemContentAssist#getInitialFilter
+   * <em>Initial Filter</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Initial Filter</em>' attribute.
+   * @see #getInitialFilter()
+   * @generated
+   */
+  void setInitialFilter(String value);
 
 } // INamedItemContentAssist

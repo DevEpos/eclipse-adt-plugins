@@ -417,9 +417,9 @@ public class SearchQueryInput extends MinimalEObjectImpl.Container implements IS
   @Override
   public Map<String, String> getCustomOptions() {
     if (customOptions == null) {
-      customOptions = new EcoreEMap<>(IObjectSearchPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
-          StringToStringMapEntry.class, this,
-          IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS);
+      customOptions = new EcoreEMap<>(
+          IObjectSearchPackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class,
+          this, IObjectSearchPackage.SEARCH_QUERY_INPUT__CUSTOM_OPTIONS);
     }
     return customOptions.map();
   }
