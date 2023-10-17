@@ -50,16 +50,17 @@ public interface INamedItemService {
    * by supplying a concrete name, description and custmo data string (wildcards
    * are also possible).
    *
-   * @param type        the type of {@link INamedItem} to retrieve
-   * @param maxResults  number of results to be retrieved from the service
-   * @param name        optional filter for a specific named item
-   * @param description optional filter for a named item with a certain
-   *                    description
-   * @param data        optional filter for a named item with a certain custom
-   *                    data string
+   * @param type          the type of {@link INamedItem} to retrieve
+   * @param maxResults    number of results to be retrieved from the service
+   * @param name          optional filter for a specific named item
+   * @param description   optional filter for a named item with a certain
+   *                      description
+   * @param data          optional filter for a named item with a certain custom
+   *                      data string
+   * @param initialFilter initial filter for named items - only relevant for buffered types
    * @return
    */
   List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults, final String name,
-      final String description, final String data);
+      final String description, final String data, final String initialNameFilter);
 
 }

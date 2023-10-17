@@ -9,6 +9,7 @@ import com.devepos.adt.base.nameditem.INamedItem;
 import com.devepos.adt.base.nameditem.INamedItemService;
 import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.util.AdtUtil;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
@@ -31,24 +32,24 @@ public class NamedItemService implements INamedItemService {
 
   @Override
   public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults) {
-    return getNamedItems(type, maxResults, null, null, null);
+    return getNamedItems(type, maxResults, null, null, null, null);
   }
 
   @Override
   public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
       final String name) {
-    return getNamedItems(type, maxResults, name, null, null);
+    return getNamedItems(type, maxResults, name, null, null, null);
   }
 
   @Override
   public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
       final String name, final String description) {
-    return getNamedItems(type, maxResults, name, description, null);
+    return getNamedItems(type, maxResults, name, description, null, null);
   }
 
   @Override
   public List<INamedItem> getNamedItems(final INamedItemType type, final int maxResults,
-      final String name, final String description, final String data) {
+      final String name, final String description, final String data, final String initialFilter) {
 
     List<INamedItem> namedItems = null;
 
@@ -56,7 +57,7 @@ public class NamedItemService implements INamedItemService {
         .getDiscoveryTerm());
     if (template != null) {
       if (type.isBuffered()) {
-        namedItems = getCachedNamedItems(type, maxResults, template);
+        namedItems = getCachedNamedItems(type, maxResults, initialFilter, template);
       } else {
         namedItems = getFilteredItemsFromBackend(maxResults, name, description, data, template);
       }
@@ -90,9 +91,13 @@ public class NamedItemService implements INamedItemService {
   }
 
   private List<INamedItem> getCachedNamedItems(final INamedItemType type, final int maxResults,
-      final IAdtUriTemplate template) {
+      final String nameFilter, final IAdtUriTemplate template) {
     List<INamedItem> namedItems;
     var cache = NamedItemCache.getInstance();
+
+    if (!StringUtil.isEmpty(nameFilter)) {
+      template.set("name", nameFilter);
+    }
     var uri = template.expand();
     synchronized (cache) {
       if (cache.containsKey(destination, uri)) {
