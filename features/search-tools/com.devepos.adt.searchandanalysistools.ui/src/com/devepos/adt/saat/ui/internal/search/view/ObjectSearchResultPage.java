@@ -245,6 +245,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
           }
           if (extendedResult.isReleased()) {
             overlayImages[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+          } else if (extendedResult.isDeprecated()) {
+            overlayImages[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
           }
           image = SearchAndAnalysisPlugin.getDefault().overlayImage(image, overlayImages);
         }

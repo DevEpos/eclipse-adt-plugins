@@ -28,9 +28,12 @@ public interface IExtendedAdtObjectInfo {
   IDataSourceType getSourceType();
 
   /**
-   * Returns <code>true</code> if the result object is released
-   *
-   * @return
+   * @return {@code true} if the result object is released
    */
   boolean isReleased();
+
+  /**
+   * @return {@code true} if the result object is deprecated
+   */
+  boolean isDeprecated();
 }

@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal;
 public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
 
   private boolean isReleased;
+  private boolean isDeprecated;
   private String owner;
   private IDataSourceType sourceType;
 
@@ -21,6 +22,11 @@ public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
     return isReleased;
   }
 
+  @Override
+  public boolean isDeprecated() {
+    return isDeprecated;
+  }
+
   /**
    * Sets the API State of the ADT Object
    *
@@ -35,7 +41,7 @@ public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
       return;
     }
     if (API_STATE_DEPRECATED.equals(apiState)) {
-      isReleased = false;
+      isDeprecated = true;
     } else if (API_STATE_RELEASED.equals(apiState)) {
       isReleased = true;
     }
