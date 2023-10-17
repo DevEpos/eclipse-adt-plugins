@@ -49,6 +49,7 @@ public class InternalNamedItemProposalProvider {
   private ProposalContentStyle proposalContentStyle = ProposalContentStyle.INSERT;
   private Image proposalImage;
   private final IAdtUriTemplateProvider uriTemplateProvider;
+  private final String initialQuery;
 
   /**
    * Create instance of the named item proposal provider
@@ -67,6 +68,7 @@ public class InternalNamedItemProposalProvider {
     this.projectProvider = projectProvider;
     this.namedItemType = namedItemType;
     this.uriTemplateProvider = uriTemplateProvider;
+    this.initialQuery = initialQuery;
 
     /*
      * collect image from named item type to be used as the default image for
@@ -188,7 +190,7 @@ public class InternalNamedItemProposalProvider {
     try {
       if (getNamedItemService()) {
         var namedItemResult = namedItemService.getNamedItems(namedItemType, MAX_ITEMS,
-            getQueryString(query), null, dataFilter);
+            getQueryString(query), null, dataFilter, initialQuery);
 
         if (namedItemResult != null) {
           if (namedItemType.isBuffered()) {
