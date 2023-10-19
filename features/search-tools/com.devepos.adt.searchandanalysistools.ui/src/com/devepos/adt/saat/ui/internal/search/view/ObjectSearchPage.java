@@ -105,7 +105,6 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     projectProvider = new AbapProjectProxy(null);
     searchRequest = new ObjectSearchRequest();
     searchRequest.setProjectProvider(projectProvider);
-    searchRequest.setReadApiState(true);
     searchService = ObjectSearchServiceFactory.getSearchService();
 
     allValidationStatuses = new HashMap<>();
