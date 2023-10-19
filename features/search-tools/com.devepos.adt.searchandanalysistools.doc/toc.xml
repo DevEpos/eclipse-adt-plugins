@@ -12,6 +12,14 @@
          </topic>
       </topic>
       <topic href="html/cds_analyzer.html" label="CDS Analyzer">
+         <topic href="html/cds_analysis/top_down.html" label="Top-Down Analysis">
+         </topic>
+         <topic href="html/cds_analysis/where_used_in_cds.html" label="Where-Used in CDS Analysis">
+         </topic>
+         <topic href="html/cds_analysis/used_entities.html" label="Used Entities Analysis">
+         </topic>
+         <topic href="html/cds_analysis/field_analysis.html" label="Field Analysis">
+         </topic>
       </topic>
       <topic href="html/additional_features.html" label="Additional Features">
       </topic>
