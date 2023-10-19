@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html id="doc-page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <title>CDS Analyzer - Field Analysis</title>
+</head>
+
+<body id="doc-body">
+    <h2 class="heading">Field Analysis</h2>
+    <p>The Field Analysis provides an Analysis for a Field of a CDS
+        View (or Database Table/View). You can either display the field origin
+        for a given field or show where a field is used</p>
+    <div class="alert info">
+        <div class="alert-info__text"></div>
+        The Where-Used mode only shows the usage in fields. If a field is only
+        used inside a <strong>Join Condition</strong> or in the <strong>Where</strong>-Clause
+        the CDS view will not be listed as a usage
+    </div>
+
+    <h4 class="heading">Field Origin (Top-Down)</h4>
+    <figure id="figure6">
+        <img src="../../images/CdsAnalyzer-FieldAnalysis-TopDown.png">
+        <figcaption>
+            Example of <i>Field Analysis (Top-Down)</i>
+        </figcaption>
+    </figure>
+
+    <h4 class="heading">Usages in Fields (Bottom-Up)</h4>
+    <figure id="figure7">
+        <img src="../../images/CdsAnalyzer-FieldAnalysis-WhereUsed.png">
+        <figcaption>
+            Example of <i>Field Analysis (Where-Used)</i>
+        </figcaption>
+    </figure>
+
+    <h3 class="heading">Other Analyses</h3>
+    <div>
+        <a class="link" href="./top_down.html">Top Down Analysis</a>
+    </div>
+    <div>
+        <a class="link" href="./where_used_in_cds.html">Where-Used Analysis</a>
+    </div>
+    <div>
+        <a class="link" href="./used_entities.html">Used Entities Analysis</a>
+    </div>
+</body>
+
+</html>
