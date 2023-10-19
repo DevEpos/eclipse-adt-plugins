@@ -19,6 +19,7 @@ import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.search.ISearchFilter;
+import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.AbapCore;
 import com.sap.adt.tools.core.system.IAbapSystemInfo;
 import com.sap.adt.tools.core.system.IUser;
@@ -30,6 +31,8 @@ import com.sap.adt.tools.core.system.IUser;
  */
 @SuppressWarnings("restriction")
 public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
+
+  private static final String LOGGED_ON_USER = "ME";
 
   private final IAbapProjectProvider projectProvider;
   private Image image;
@@ -90,9 +93,9 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
     var proposalImage = getProposalImage();
 
-    if (includeMeValue) {
-      // add additional user 'me' which represents the currently logged on user
-      proposals.add(new SearchFilterValueProposal("ME", this, //$NON-NLS-1$
+    // add additional user 'me' which represents the currently logged on user
+    if (includeMeValue && StringUtil.getPatternForQuery(query, false).matcher(LOGGED_ON_USER).matches()) {
+      proposals.add(new SearchFilterValueProposal(LOGGED_ON_USER, this,
           Messages.UserSearchFilter_CurrentlyLoggedOnUser_xlbl, query, proposalImage));
     }
 
