@@ -95,7 +95,6 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
       }
     }
 
-    searchRequest.setReadApiState(true);
     searchRequest.setDestinationId(favorite.getDestinationId());
     return searchRequest;
   }
