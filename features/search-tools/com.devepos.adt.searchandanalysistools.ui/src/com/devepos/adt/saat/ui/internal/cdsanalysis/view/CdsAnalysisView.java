@@ -196,6 +196,11 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   }
 
   @Override
+  public void analysisAdded(CdsAnalysis analysis) {
+    analysesHistoryAction.updateEnablement();
+  }
+
+  @Override
   public void analysisRemoved(final CdsAnalysis analysis) {
     if (analysis.equals(currentAnalysis)) {
       showCdsAnalysis(null);
@@ -424,9 +429,8 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   }
 
   void updateViewActions() {
-    final boolean historyHasAnalyses = CdsAnalysisManager.getInstance().hasAnalyses();
-    analysesHistoryAction.setEnabled(historyHasAnalyses);
-    refreshAnalysisAction.setEnabled(historyHasAnalyses);
+    analysesHistoryAction.updateEnablement();
+    refreshAnalysisAction.setEnabled(currentAnalysis != null);
   }
 
   private void createActions() {
@@ -436,7 +440,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     refreshAnalysisAction.setActionDefinitionId(IWorkbenchCommandConstants.FILE_REFRESH);
 
     analysesHistoryAction = new CdsAnalysisHistoryDropDownAction(this);
-    refreshAnalysisAction.setEnabled(false);
+    analysesHistoryAction.updateEnablement();
     pinViewAction = new PinViewAction(this);
     openPreferencesAction = new OpenPreferencesAction(IPreferences.CDS_ANALYSIS_PREF_PAGE_ID);
   }

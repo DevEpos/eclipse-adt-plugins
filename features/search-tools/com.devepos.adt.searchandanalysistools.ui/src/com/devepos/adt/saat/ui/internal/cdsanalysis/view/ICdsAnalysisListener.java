@@ -13,4 +13,11 @@ public interface ICdsAnalysisListener {
    * @param analysis the removed analysis
    */
   void analysisRemoved(CdsAnalysis analysis);
+
+  /**
+   * Notifies listener that an analysis was added
+   * 
+   * @param analysis the new analysis
+   */
+  void analysisAdded(CdsAnalysis analysis);
 }

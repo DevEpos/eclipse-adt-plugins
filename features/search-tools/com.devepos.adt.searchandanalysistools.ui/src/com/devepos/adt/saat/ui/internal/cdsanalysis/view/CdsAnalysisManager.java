@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
@@ -61,13 +60,14 @@ public class CdsAnalysisManager {
   /**
    * Adds the given CDS analysis result at the top of the list
    *
-   * @param result the result to be added
+   * @param analysis the analysis to be added
    */
-  public void addAnalysis(final CdsAnalysis result) {
+  public void addAnalysis(final CdsAnalysis analysis) {
     establishHistoryLimit();
     synchronized (this) {
-      analyses.add(0, result);
+      analyses.add(0, analysis);
     }
+    fireAdded(analysis);
   }
 
   /**
@@ -78,16 +78,6 @@ public class CdsAnalysisManager {
   public void addCdsAnalysisListener(final ICdsAnalysisListener l) {
     synchronized (listeners) {
       listeners.add(l);
-    }
-  }
-
-  public void fireRemoved(final CdsAnalysis analysis) {
-    final Set<ICdsAnalysisListener> copiedListeners = new HashSet<>();
-    synchronized (listeners) {
-      copiedListeners.addAll(listeners);
-    }
-    for (ICdsAnalysisListener l : copiedListeners) {
-      l.analysisRemoved(analysis);
     }
   }
 
@@ -185,7 +175,7 @@ public class CdsAnalysisManager {
      * retrieve CDS analyzer view Note: At this time only one active view is
      * possible.
      */
-    final CdsAnalysisView cdsAnalyzerView = CdsAnalysisViewManager.getInstance()
+    final var cdsAnalyzerView = CdsAnalysisViewManager.getInstance()
         .activateCdsAnalysisView(openInNew);
     if (cdsAnalyzerView != null) {
       cdsAnalyzerView.setFocus();
@@ -202,12 +192,32 @@ public class CdsAnalysisManager {
       return;
     }
     int numberQueriesNotShown = 0;
-    final CdsAnalysisViewManager viewManager = CdsAnalysisViewManager.getInstance();
-    final CdsAnalysis[] analyses = getAnalyses();
-    for (final CdsAnalysis analysis : analyses) {
+    final var viewManager = CdsAnalysisViewManager.getInstance();
+    final var analyses = getAnalyses();
+    for (final var analysis : analyses) {
       if (!viewManager.isAnalysisShown(analysis) && ++numberQueriesNotShown >= historyLimit) {
         removeAnalysis(analysis);
       }
+    }
+  }
+
+  private void fireAdded(final CdsAnalysis analysis) {
+    final var copiedListeners = new HashSet<ICdsAnalysisListener>();
+    synchronized (listeners) {
+      copiedListeners.addAll(listeners);
+    }
+    for (var l : copiedListeners) {
+      l.analysisAdded(analysis);
+    }
+  }
+
+  private void fireRemoved(final CdsAnalysis analysis) {
+    final var copiedListeners = new HashSet<ICdsAnalysisListener>();
+    synchronized (listeners) {
+      copiedListeners.addAll(listeners);
+    }
+    for (var l : copiedListeners) {
+      l.analysisRemoved(analysis);
     }
   }
 
