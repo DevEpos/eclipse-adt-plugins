@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -513,12 +514,25 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   }
 
   @Override
-  public List<IContentProposal> getProposalList(final String query) throws CoreException {
+  public List<IContentProposal> getProposalList(String query) throws CoreException {
     if (dateProposals == null) {
       initRelativeDates();
     }
 
-    Predicate<String> queryPattern = StringUtil.getPatternForQuery(query).asPredicate();
+    // check if query is after range
+    var rangeSeparatorIndex = query.indexOf(RANGE_SEPARATOR);
+    if (rangeSeparatorIndex != -1) {
+      query = query.substring(rangeSeparatorIndex + 3);
+    }
+
+    // check if query starts with comparator
+    var comparisonMatcher = DATE_OPERATORS_PATTERN.matcher(query);
+    if (comparisonMatcher.find()) {
+      query = query.substring(comparisonMatcher.group(1).length());
+    }
+
+    final var atomicQuery = new AtomicReference<>(query);
+    Predicate<String> queryPattern = StringUtil.getPatternForQuery(query).asMatchPredicate();
 
     Pattern numericRelativePattern = Pattern.compile("^(\\d{1,3})-?"); //$NON-NLS-1$
     Matcher numericRelativeMatcher = numericRelativePattern.matcher(query);
@@ -527,14 +541,14 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       return relativeNumericDates.stream()
           .map(relative -> numericValue + relative)
           .filter(queryPattern)
-          .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, query,
-              getImage()))
+          .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, atomicQuery
+              .get(), getImage()))
           .collect(Collectors.toList());
     }
     return dateProposals.stream()
         .filter(queryPattern)
-        .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, query,
-            getImage()))
+        .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, atomicQuery
+            .get(), getImage()))
         .collect(Collectors.toList());
   }
 

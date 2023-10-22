@@ -121,6 +121,30 @@ public class DateSearchFilterTest {
   }
 
   @Test
+  void testProposalsWithRange() {
+    Exception exc = null;
+    try {
+      var results = cut.getProposalList("2-months-ago...t");
+      assertEquals(1, results.size());
+    } catch (CoreException e) {
+      exc = e;
+    }
+    assertNull(exc);
+  }
+
+  @Test
+  void testProposalsWithComparator() {
+    Exception exc = null;
+    try {
+      var results = cut.getProposalList(">=2-");
+      assertEquals(4, results.size());
+    } catch (CoreException e) {
+      exc = e;
+    }
+    assertNull(exc);
+  }
+
+  @Test
   void testProposalsWith() {
     Exception exc = null;
     try {
