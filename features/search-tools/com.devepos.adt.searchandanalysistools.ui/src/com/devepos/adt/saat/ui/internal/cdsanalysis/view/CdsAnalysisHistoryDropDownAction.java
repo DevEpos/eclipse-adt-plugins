@@ -117,6 +117,13 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
     super.setEnabled(enabled);
   }
 
+  /**
+   * Updates the enabled state of the action depending on the availability of CDS Analysis results
+   */
+  public void updateEnablement() {
+    setEnabled(CdsAnalysisManager.getInstance().hasAnalyses());
+  }
+
   /*
    * Adds the given action to the given menu
    */
