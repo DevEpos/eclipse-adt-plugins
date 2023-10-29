@@ -232,8 +232,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
 
   @Override
   public void setInput(final ISearchResult newSearch, final Object viewState) {
-    super.setInput(newSearch, viewState instanceof UiState
-        ? ((UiState) viewState).getSelection()
+    super.setInput(newSearch, viewState instanceof UiState ? ((UiState) viewState).getSelection()
         : viewState);
 
     updateContinueAction();
@@ -326,7 +325,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   @Override
   protected TableViewer createTableViewer(final Composite parent) {
     disposeControls();
-    var table = new FilterableTable(parent, null, true, false);
+    var table = new FilterableTable(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     filterableComposite = table;
     var resultViewer = new TableViewer(table, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     table.setViewer(resultViewer);
@@ -339,7 +338,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   @Override
   protected TreeViewer createTreeViewer(final Composite parent) {
     disposeControls();
-    var tree = new FilterableTree(parent, null, true, false);
+    var tree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     filterableComposite = tree;
     var resultViewer = new TreeViewer(tree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     tree.setViewer(resultViewer);

@@ -29,6 +29,7 @@ import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.action.CommandFactory;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.IFilterableView;
@@ -319,7 +320,7 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
 
   @Override
   protected TreeViewer createTreeViewer(final Composite parent) {
-    resultTree = new FilterableTree(parent, null, true);
+    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     var resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTree.setViewer(resultTreeViewer);
 

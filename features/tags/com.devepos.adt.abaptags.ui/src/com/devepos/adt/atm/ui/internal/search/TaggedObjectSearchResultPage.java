@@ -65,6 +65,7 @@ import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
@@ -422,8 +423,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
    * Creates the result tree of the object search
    */
   private void createResultTree(final Composite parent) {
-
-    resultTree = new FilterableTree(parent, null, true);
+    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTree.setViewer(resultTreeViewer);
     resultTreeViewer.setContentProvider(new TreeContentProvider());

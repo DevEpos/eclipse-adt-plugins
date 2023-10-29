@@ -64,7 +64,7 @@ public class TagSelectionTree {
   }
 
   public void createControl(final Composite parent) {
-    tagsTree = new FilterableTree(parent, null, false, true) {
+    tagsTree = new FilterableTree(parent, null, false, FilterableComposite.TOOLBAR) {
       @Override
       protected void filterJobCompleted() {
         super.filterJobCompleted();

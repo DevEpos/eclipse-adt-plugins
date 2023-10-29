@@ -21,8 +21,8 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
    *
    */
   public FilterableTable(final Composite parent, final String placeholderText,
-      final boolean hideFilterControls, final boolean enableToolbarMode) {
-    super(parent, placeholderText, hideFilterControls, enableToolbarMode);
+      final boolean hideFilterControls, final int mode) {
+    super(parent, placeholderText, hideFilterControls, mode);
   }
 
   @Override
