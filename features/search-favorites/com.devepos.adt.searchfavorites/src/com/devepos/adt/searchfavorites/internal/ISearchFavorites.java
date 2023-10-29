@@ -1,5 +1,6 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.devepos.adt.base.util.IModificationProvider;
@@ -15,9 +16,31 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
   /**
    * Adds the given entry to the search favorites
    *
-   * @param entry
+   * @param entry fav to be added
+   */
+  void addFavorite(ISearchFavorite entry, int index);
+
+  /**
+   * Adds list of favorites at the given index of the existing favorites
+   * 
+   * @param list  list of favorites
+   * @param index index where favorites should be inserted
+   */
+  void addFavorites(Collection<ISearchFavorite> list, int index);
+
+  /**
+   * Adds the given entry to the search favorites
+   *
+   * @param entry fav to be added
    */
   void addFavorite(ISearchFavorite entry);
+
+  /**
+   * Adds list of favorites to the end of the existing favorites
+   * 
+   * @param list list of favorites
+   */
+  void addFavorites(Collection<ISearchFavorite> list);
 
   /**
    * Returns <code>true</code> if there is favorite with the given description
@@ -30,11 +53,22 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
   boolean contains(String destinationId, String searchType, String description);
 
   /**
-   * Returns the favorites of the object search
+   * Returns the available search favorite
    *
-   * @return
+   * @return list of search favorites
    */
   List<ISearchFavorite> getFavorites();
+
+  /**
+   * Returns the available search favorite
+   * 
+   * @param ignoreHidden if <code>true</code> only favorites are not marked as hidden will be
+   *                     returned
+   * @return list of search favorites
+   * 
+   * @see {@link ISearchFavorite#setHidden(boolean)}
+   */
+  List<ISearchFavorite> getFavorites(boolean ignoreHidden);
 
   /**
    * Returns <code>true</code> if there is at least one history entry, otherwise

@@ -22,17 +22,17 @@ public final class SearchFavoritesUtil {
       final SearchFavoriteDescriptor descriptor) {
     // TODO: check if label provider exists via descriptor to change the label of a favorite
     StringBuilder labelBuffer = new StringBuilder();
-    labelBuffer.append("[");
+    labelBuffer.append("["); //$NON-NLS-1$
     if (favorite.isProjectIndependent()) {
-      labelBuffer.append("?");
+      labelBuffer.append("?"); //$NON-NLS-1$
     } else {
       labelBuffer.append(DestinationUtil.getSystemId(favorite.getDestinationId()));
     }
-    labelBuffer.append("] ");
+    labelBuffer.append("] "); //$NON-NLS-1$
     labelBuffer.append(favorite.getDescription());
-    labelBuffer.append(" (");
+    labelBuffer.append(" ("); //$NON-NLS-1$
     labelBuffer.append(descriptor.getTypeLabel());
-    labelBuffer.append(")");
+    labelBuffer.append(")"); //$NON-NLS-1$
     return labelBuffer.toString();
   }
 

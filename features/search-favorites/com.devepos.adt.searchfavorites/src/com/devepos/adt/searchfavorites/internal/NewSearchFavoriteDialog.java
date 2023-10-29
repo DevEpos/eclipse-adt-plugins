@@ -23,6 +23,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
+import com.devepos.adt.searchfavorites.internal.preferences.IPreferences;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
 
 /**
@@ -128,7 +129,21 @@ public class NewSearchFavoriteDialog extends StatusDialog {
       favManager.removeMatchingEntries(newFavorite.getDestinationId(), newFavorite.getSearchType(),
           newFavorite.getDescription());
     }
-    favManager.addFavorite(newFavorite);
+    var prefStore = Activator.getDefault().getPreferenceStore();
+
+    var appendNewEntry = true;
+    if (!prefStore.getBoolean(IPreferences.MAKE_NEW_FAVS_VISIBLE)) {
+      newFavorite.setHidden(true);
+    } else if (prefStore.getBoolean(IPreferences.INSERT_NEW_FAVS_AT_START)) {
+      appendNewEntry = false;
+    }
+
+    if (appendNewEntry) {
+      favManager.addFavorite(newFavorite);
+    } else {
+      favManager.addFavorite(newFavorite, 0);
+    }
+
     SearchFavoriteStorage.serialize();
     super.okPressed();
   }

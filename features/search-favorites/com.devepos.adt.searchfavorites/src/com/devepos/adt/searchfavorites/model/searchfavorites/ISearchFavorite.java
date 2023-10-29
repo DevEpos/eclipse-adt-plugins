@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Destination Id</em>}</li>
  * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#isProjectIndependent
  * <em>Project Independent</em>}</li>
+ * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#isHidden
+ * <em>Hidden</em>}</li>
  * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#getAttributes
  * <em>Attributes</em>}</li>
  * </ul>
@@ -182,6 +184,32 @@ public interface ISearchFavorite extends EObject {
    * @generated
    */
   void setProjectIndependent(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Hidden</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Hidden</em>' attribute.
+   * @see #setHidden(boolean)
+   * @see com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesPackage#getSearchFavorite_Hidden()
+   * @model
+   * @generated
+   */
+  boolean isHidden();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#isHidden
+   * <em>Hidden</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Hidden</em>' attribute.
+   * @see #isHidden()
+   * @generated
+   */
+  void setHidden(boolean value);
 
   /**
    * Sets the value of the

@@ -2,6 +2,7 @@
 package com.devepos.adt.searchfavorites.internal;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +25,26 @@ public class SearchFavorites implements ISearchFavorites {
   }
 
   @Override
+  public void addFavorite(ISearchFavorite entry, int index) {
+    entries.add(index, entry);
+    notifyModificationListeners(ModificationKind.ADDED);
+  }
+
+  @Override
+  public void addFavorites(Collection<ISearchFavorite> list, int index) {
+    entries.addAll(index, list);
+    notifyModificationListeners(ModificationKind.ADDED);
+  }
+
+  @Override
   public void addFavorite(final ISearchFavorite entry) {
     entries.add(entry);
+    notifyModificationListeners(ModificationKind.ADDED);
+  }
+
+  @Override
+  public void addFavorites(Collection<ISearchFavorite> list) {
+    entries.addAll(list);
     notifyModificationListeners(ModificationKind.ADDED);
   }
 
@@ -45,6 +64,12 @@ public class SearchFavorites implements ISearchFavorites {
   @Override
   public List<ISearchFavorite> getFavorites() {
     return entries;
+  }
+
+  @Override
+  public List<ISearchFavorite> getFavorites(boolean ignoreHidden) {
+    return ignoreHidden ? entries
+        : entries.stream().filter(f -> !f.isHidden()).collect(Collectors.toList());
   }
 
   @Override

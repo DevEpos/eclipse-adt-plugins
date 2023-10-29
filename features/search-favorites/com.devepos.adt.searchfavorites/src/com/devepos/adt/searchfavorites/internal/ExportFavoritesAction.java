@@ -25,12 +25,12 @@ public class ExportFavoritesAction extends Action {
     final var shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
     final var dialog = new FileDialog(shell, SWT.SAVE);
     dialog.setFilterNames(new String[] { "XML (*.xml)", //$NON-NLS-1$
-        Messages.ImportFavoritesAction_AllFilesFileType_xmit });
+        Messages.FavoritesImporter_AllFilesFileType_xmit });
     dialog.setFilterExtensions(new String[] { "*.xml", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
     dialog.setFileName("favorites.xml"); //$NON-NLS-1$
 
     final var exportFileName = dialog.open();
-    if (!exportFileName.equals("")) { //$NON-NLS-1$
+    if (!"".equals(exportFileName)) { //$NON-NLS-1$
       final var favorites = Activator.getDefault().getSearchFavoriteManager();
       SearchFavoriteStorage.serialize(favorites, exportFileName);
     }

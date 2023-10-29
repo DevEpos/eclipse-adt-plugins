@@ -38,6 +38,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/destinationId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/projectIndependent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute searchfavorites.ecore#//SearchFavorite/hidden"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference searchfavorites.ecore#//SearchFavorite/attributes"/>
     </genClasses>
     <genClasses ecoreClass="searchfavorites.ecore#//SearchFavorites">
