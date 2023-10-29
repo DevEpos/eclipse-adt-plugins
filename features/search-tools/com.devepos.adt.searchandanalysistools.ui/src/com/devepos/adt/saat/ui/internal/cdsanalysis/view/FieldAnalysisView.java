@@ -268,7 +268,7 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   }
 
   @Override
-  protected void refreshAnalysis() {
+  protected void refreshAnalysis(boolean global) {
     final Object[] nodes = (Object[]) fieldsTree.getViewer().getInput();
     if (nodes == null) {
       return;
@@ -276,7 +276,7 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     boolean refreshFieldsTree = true;
     final IStructuredSelection selection = (IStructuredSelection) fieldsTree.getViewer()
         .getSelection();
-    if (selection != null && !selection.isEmpty() && !(selection
+    if (!global && selection != null && !selection.isEmpty() && !(selection
         .getFirstElement() instanceof IAdtObjectReferenceNode)) {
       refreshFieldsTree = false;
     }
@@ -286,7 +286,9 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
       hierarchyView.clearInputCache();
       analysisResult.refreshAnalysis();
       getViewPart().updateLabel();
-      getViewer().refresh();
+      var viewer = (TreeViewer) getViewer();
+      viewer.expandAll();
+      viewer.refresh();
     } else {
       hierarchyView.reloadFieldInput();
     }

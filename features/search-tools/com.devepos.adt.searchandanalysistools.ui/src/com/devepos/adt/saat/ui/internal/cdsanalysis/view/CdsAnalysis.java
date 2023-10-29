@@ -16,7 +16,6 @@ public abstract class CdsAnalysis {
 
   protected final IAdtObjectReferenceElementInfo adtObjectInfo;
   private boolean isResultLoaded;
-  private boolean filtered;
 
   /**
    * Creates new result instance for the given ADT object element information and
@@ -98,10 +97,6 @@ public abstract class CdsAnalysis {
    */
   public abstract CdsAnalysisType getType();
 
-  public boolean isFiltered() {
-    return filtered;
-  }
-
   /**
    * Returns <code>true</code> if the result of the analysis was already
    * determined
@@ -117,10 +112,6 @@ public abstract class CdsAnalysis {
    * Refreshes this analysis
    */
   public abstract void refreshAnalysis();
-
-  public void setFiltered(final boolean filtered) {
-    this.filtered = filtered;
-  }
 
   /**
    * Updates the loaded status of the result
