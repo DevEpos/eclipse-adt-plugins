@@ -10,6 +10,8 @@ import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.ObjectType;
@@ -48,6 +50,8 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
     if (selectedObjects == null || selectedObjects.isEmpty() || selectedObjects.size() > 1) {
       return null;
     }
+    var trigger = event.getTrigger();
+    boolean openInNewWindow = trigger instanceof Event && ((Event) trigger).stateMask == SWT.CTRL;
     final IAdtObject selectedObject = selectedObjects.get(0);
     final IProject project = selectedObject.getProject();
     if (!canExecute(selectedObject)) {
@@ -65,7 +69,7 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
         .getProject()));
     final IAdtObjectReference objectRef = selectedObject.getReference();
     if (objectRef != null && objectRef.getUri() != null) {
-      analyzeObject(objectRef, abapProject.getDestinationId());
+      analyzeObject(objectRef, abapProject.getDestinationId(), openInNewWindow);
     }
     return null;
 
@@ -97,7 +101,8 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
     return FeatureTester.isCdsAnalysisAvailable(project);
   }
 
-  private void analyzeObject(final IAdtObjectReference objectRef, final String destinationId) {
+  private void analyzeObject(final IAdtObjectReference objectRef, final String destinationId,
+      final boolean openInNewWindow) {
     final CdsAnalysisManager analysisManager = CdsAnalysisManager.getInstance();
     final CdsAnalysisKey analysisKey = new CdsAnalysisKey(mode, objectRef.getUri(), destinationId);
     final CdsAnalysis existing = analysisManager.getExistingAnalysis(analysisKey);
@@ -114,7 +119,7 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
               PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                 analysisManager.addAnalysis(newAnalysis);
                 analysisManager.registerAnalysis(analysisKey, newAnalysis);
-                analysisManager.showAnalysis(newAnalysis, false);
+                analysisManager.showAnalysis(newAnalysis, openInNewWindow);
               });
             }
           });
