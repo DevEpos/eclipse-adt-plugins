@@ -36,4 +36,8 @@ public interface IAdtBaseStrings {
   String Destinations_DestinationNotValid_xmsg = "Destinations_DestinationNotValid_xmsg";
 
   String SearchFilter_CreatedDateFilterDescription_xmsg = "SearchFilter_CreatedDateFilterDescription_xmsg";
+
+  String Dialog_Information_xtit = "Dialog_Information_xtit";
+  String Dialog_Warning_xtit = "Dialog_Warning_xtit";
+  String Dialog_Error_xtit = "Dialog_Error_xtit";
 }
