@@ -1043,7 +1043,7 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
 
   private void updateUiState() {
     Display.getDefault().asyncExec(() -> {
-      if (resultViewer == null || resultViewer.getControl().isDisposed()) {
+      if (resultViewer == null || resultViewer.getControl().isDisposed() || result == null) {
         return;
       }
       if (resultViewer instanceof TreeViewer && state != null && state.getExpandedPaths() != null) {
@@ -1064,17 +1064,17 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
         filterableComposite.setFilterVisible(false);
       }
       resultViewer.getControl().setFocus();
-      IAdtObjectReferenceNode[] result = null;
+      IAdtObjectReferenceNode[] results = null;
       if (isListLayoutActive) {
-        result = this.result.getResultForList();
+        results = result.getResultForList();
       } else {
-        result = this.result.getResultForTree(groupByPackageAction.isChecked());
+        results = result.getResultForTree(groupByPackageAction.isChecked());
       }
-      if (result != null && result.length > 0) {
+      if (results != null && results.length > 0) {
         if (state != null && state.hasSelection()) {
           resultViewer.setSelection(state.getSelection(), true);
         } else {
-          resultViewer.setSelection(new StructuredSelection(result[0]));
+          resultViewer.setSelection(new StructuredSelection(results[0]));
         }
       }
       resultViewer.refresh();
