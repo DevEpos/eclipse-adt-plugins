@@ -119,6 +119,10 @@ public class Messages extends NLS {
   public static String CdsAnalysis_MaxHistoryNumberText_xfld;
   public static String CdsAnalysis_NodeNameResult;
   public static String CdsAnalysis_NodeNameAssociations;
+  public static String CdsAnalysis_NodeNameExcept;
+  public static String CdsAnalysis_NodeNameExceptAll;
+  public static String CdsAnalysis_NodeNameIntersect;
+  public static String CdsAnalysis_NodeNameIntersectAll;
   public static String CdsAnalysis_NodeNameSelect;
   public static String CdsAnalysis_NodeNameUnionSelect;
   public static String CdsAnalysis_NodeNameUnionSelectAll;

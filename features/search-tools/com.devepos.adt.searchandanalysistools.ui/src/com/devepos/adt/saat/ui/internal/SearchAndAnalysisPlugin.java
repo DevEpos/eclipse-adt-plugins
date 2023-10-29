@@ -124,6 +124,8 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IImages.WHERE_USED_IN, "icons/WhereUsedInCds.png");
     registerImage(imageRegistry, IImages.USAGE_ANALYZER, "icons/CdsUsageAnalyzer.png");
     registerImage(imageRegistry, IImages.UNION, "icons/Union.png");
+    registerImage(imageRegistry, IImages.INTERSECT, "icons/Intersect.png");
+    registerImage(imageRegistry, IImages.EXCEPT, "icons/Except.png");
     registerImage(imageRegistry, IImages.JOIN_RESULT_SOURCE, "icons/JoinedDataSource.png");
     registerImage(imageRegistry, IImages.KEY_COLUMN, "icons/KeyColumn.png");
     registerImage(imageRegistry, IImages.FIELD_TOP_DOWN, "icons/FieldTopDown.png");

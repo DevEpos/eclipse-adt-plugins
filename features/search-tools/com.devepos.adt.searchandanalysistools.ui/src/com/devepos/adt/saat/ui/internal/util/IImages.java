@@ -207,9 +207,17 @@ public interface IImages {
    */
   String USAGE_ANALYZER = "IMG_CDS_USAGE_ANALYZER";
   /**
-   * Image for SQL Union
+   * Image for CDS Union
    */
   String UNION = "IMG_UNION";
+  /**
+   * Image for CDS Except
+   */
+  String EXCEPT = "IMG_EXCEPT";
+  /**
+   * Image for CDS Intersect
+   */
+  String INTERSECT = "IMG_INTERSECT";
   /**
    * Image for Select part of SQL
    */
