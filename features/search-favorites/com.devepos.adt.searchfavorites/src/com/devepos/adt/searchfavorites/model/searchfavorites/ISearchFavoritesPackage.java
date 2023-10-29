@@ -530,6 +530,16 @@ public interface ISearchFavoritesPackage extends EPackage {
   int SEARCH_FAVORITE__PROJECT_INDEPENDENT = 3;
 
   /**
+   * The feature id for the '<em><b>Hidden</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_FAVORITE__HIDDEN = 4;
+
+  /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -537,7 +547,7 @@ public interface ISearchFavoritesPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FAVORITE__ATTRIBUTES = 4;
+  int SEARCH_FAVORITE__ATTRIBUTES = 5;
 
   /**
    * The number of structural features of the '<em>Search Favorite</em>' class.
@@ -547,7 +557,7 @@ public interface ISearchFavoritesPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FAVORITE_FEATURE_COUNT = 5;
+  int SEARCH_FAVORITE_FEATURE_COUNT = 6;
 
   /**
    * The number of operations of the '<em>Search Favorite</em>' class.
@@ -899,6 +909,20 @@ public interface ISearchFavoritesPackage extends EPackage {
   EAttribute getSearchFavorite_ProjectIndependent();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#isHidden
+   * <em>Hidden</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Hidden</em>'.
+   * @see com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#isHidden()
+   * @see #getSearchFavorite()
+   * @generated
+   */
+  EAttribute getSearchFavorite_Hidden();
+
+  /**
    * Returns the meta object for the containment reference list
    * '{@link com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite#getAttributes
    * <em>Attributes</em>}'.
@@ -1198,6 +1222,15 @@ public interface ISearchFavoritesPackage extends EPackage {
      */
     EAttribute SEARCH_FAVORITE__PROJECT_INDEPENDENT = eINSTANCE
         .getSearchFavorite_ProjectIndependent();
+
+    /**
+     * The meta object literal for the '<em><b>Hidden</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_FAVORITE__HIDDEN = eINSTANCE.getSearchFavorite_Hidden();
 
     /**
      * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list

@@ -14,13 +14,13 @@ import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 
 public class SearchFavoriteDescriptor {
-  public static final String EXTENSION_POINT = "searchFavorites";
-  public static final String EXTENSION_ELEMENT = "searchFavoriteConnector";
+  public static final String EXTENSION_POINT = "searchFavorites"; //$NON-NLS-1$
+  public static final String EXTENSION_ELEMENT = "searchFavoriteConnector"; //$NON-NLS-1$
 
-  private static final String SEARCH_TYPE_ATTRIBUTE = "searchType";
-  private static final String SEARCH_TYPE_LABEL_ATTRIBUTE = "searchTypeLabel";
-  private static final String ICON_ATTRIBUTE = "icon";
-  private static final String CLASS_ATTRIBUTE = "class";
+  private static final String SEARCH_TYPE_ATTRIBUTE = "searchType"; //$NON-NLS-1$
+  private static final String SEARCH_TYPE_LABEL_ATTRIBUTE = "searchTypeLabel"; //$NON-NLS-1$
+  private static final String ICON_ATTRIBUTE = "icon"; //$NON-NLS-1$
+  private static final String CLASS_ATTRIBUTE = "class"; //$NON-NLS-1$
 
   private final IConfigurationElement element;
   private ISearchFavoriteConnector favoriteConnector;

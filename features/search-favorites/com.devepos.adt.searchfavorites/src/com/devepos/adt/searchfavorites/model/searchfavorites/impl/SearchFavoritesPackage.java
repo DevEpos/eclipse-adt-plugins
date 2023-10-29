@@ -433,8 +433,19 @@ public class SearchFavoritesPackage extends EPackageImpl implements ISearchFavor
    * @generated
    */
   @Override
+  public EAttribute getSearchFavorite_Hidden() {
+    return (EAttribute) searchFavoriteEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EReference getSearchFavorite_Attributes() {
-    return (EReference) searchFavoriteEClass.getEStructuralFeatures().get(4);
+    return (EReference) searchFavoriteEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -523,6 +534,7 @@ public class SearchFavoritesPackage extends EPackageImpl implements ISearchFavor
     createEAttribute(searchFavoriteEClass, SEARCH_FAVORITE__DESCRIPTION);
     createEAttribute(searchFavoriteEClass, SEARCH_FAVORITE__DESTINATION_ID);
     createEAttribute(searchFavoriteEClass, SEARCH_FAVORITE__PROJECT_INDEPENDENT);
+    createEAttribute(searchFavoriteEClass, SEARCH_FAVORITE__HIDDEN);
     createEReference(searchFavoriteEClass, SEARCH_FAVORITE__ATTRIBUTES);
 
     searchFavoritesEClass = createEClass(SEARCH_FAVORITES);
@@ -634,6 +646,9 @@ public class SearchFavoritesPackage extends EPackageImpl implements ISearchFavor
     initEAttribute(getSearchFavorite_ProjectIndependent(), ecorePackage.getEBoolean(),
         "projectIndependent", null, 0, 1, ISearchFavorite.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearchFavorite_Hidden(), ecorePackage.getEBoolean(), "hidden", null, 0, 1,
+        ISearchFavorite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSearchFavorite_Attributes(), getBaseAttribute(), null, "attributes", null, 0,
         -1, ISearchFavorite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

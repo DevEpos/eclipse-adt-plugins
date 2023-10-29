@@ -1,22 +1,29 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.osgi.util.NLS;
+import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
@@ -27,20 +34,21 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
+import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
+import com.devepos.adt.base.ui.table.FilterableTable;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
+import com.devepos.adt.searchfavorites.internal.preferences.IPreferences;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
 /**
@@ -58,16 +66,22 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   private IStructuredSelection dndSelection;
 
   private final List<ISearchFavorite> input;
-  private final List<ISearchFavorite> removedEntries;
+  private final List<ISearchFavorite> newEntries = new ArrayList<>();
+  private final List<ISearchFavorite> removedEntries = new ArrayList<>();
+  private final Set<ISearchFavorite> hiddenFavorites = new HashSet<>();
 
-  private TableViewer viewer;
+  private FilterableTable favoritesTable;
+  private CheckboxTableViewer viewer;
   private Button removeButton;
-  private boolean orderChanged;
-  private boolean newFavsImported;
-
   private Button moveUpButton;
-
   private Button moveDownButton;
+  private ViewerFilter visiblityFilter;
+
+  private boolean orderChanged;
+  private boolean visibilityChanged;
+  private boolean showHiddenFavs;
+  private boolean makeNewFavsVisible;
+  private boolean insertNewFavsAtBeginning;
 
   public ManageSearchFavoritesDialog(final Shell parent) {
     super(parent);
@@ -76,12 +90,26 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     input = new ArrayList<>(Activator.getDefault().getSearchFavoriteManager().getFavorites());
     if (input != null && !input.isEmpty()) {
       setInitialSelections(input.get(0));
+      input.stream().filter(ISearchFavorite::isHidden).forEach(hiddenFavorites::add);
     }
-    removedEntries = new ArrayList<>();
-    setHelpAvailable(false);
+    setHelpAvailable(true);
+    visiblityFilter = new ViewerFilter() {
+      @Override
+      public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+        if (showHiddenFavs) {
+          return true;
+        }
+        return !hiddenFavorites.contains(element);
+      }
+    };
+    showHiddenFavs = true;
+
+    var prefStore = Activator.getDefault().getPreferenceStore();
+    makeNewFavsVisible = prefStore.getBoolean(IPreferences.MAKE_NEW_FAVS_VISIBLE);
+    insertNewFavsAtBeginning = prefStore.getBoolean(IPreferences.INSERT_NEW_FAVS_AT_START);
   }
 
-  private static final class FavoriteLabelProvider extends LabelProvider {
+  private final class FavoriteLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
     private final Map<String, SearchFavoriteDescriptor> descriptors = Activator.getDefault()
         .getSearchFavoriteDescriptors();
@@ -111,8 +139,24 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     @Override
     public String getText(final Object element) {
       var favorite = (ISearchFavorite) element;
-      return SearchFavoritesUtil.getFavoriteDisplayName(favorite, descriptors.get(favorite
-          .getSearchType()));
+      var displayName = SearchFavoritesUtil.getFavoriteDisplayName(favorite, descriptors.get(
+          favorite.getSearchType()));
+
+      return displayName;
+    }
+
+    @Override
+    public StyledString getStyledText(final Object element) {
+      var styledString = new StyledString();
+      var text = getText(element);
+      if (newEntries.contains(element)) {
+        text = "*" + text; //$NON-NLS-1$
+        styledString.append(text, StylerFactory.ITALIC_STYLER);
+      } else {
+        styledString.append(text);
+      }
+
+      return styledString;
     }
 
   }
@@ -150,15 +194,11 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   @Override
   protected void createButtonsForButtonBar(final Composite parent) {
     createButton(parent, IDialogConstants.OPEN_ID, IDialogConstants.OPEN_LABEL, true);
-    createButton(parent, IMPORT_ID, Messages.ImportFavoritesAction_ImportFavoritesAction_xmit,
-        false);
+    createButton(parent, IMPORT_ID, Messages.FavoritesImporter_ImportFavoritesAction_xmit, false);
     createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
     createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
   }
 
-  /*
-   * Overrides method from Dialog
-   */
   @Override
   protected Control createDialogArea(final Composite container) {
     final var ancestor = (Composite) super.createDialogArea(container);
@@ -170,10 +210,31 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(parent);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(parent);
 
-    viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER
-        | SWT.FULL_SELECTION);
+    HelpUtil.setHelp(ancestor, "manage_favorites"); //$NON-NLS-1$
+
+    createFavoritesTable(parent);
+
+    addSideButtons(parent);
+    applyDialogFont(ancestor);
+
+    var label = new Label(parent, SWT.NONE);
+    label.setText(Messages.ManageSearchFavoritesDialog_HiddedFavoriteInfoMessage_xlbl);
+    return ancestor;
+  }
+
+  private void createFavoritesTable(final Composite parent) {
+    favoritesTable = new FilterableTable(parent, null, false, FilterableComposite.TEXT_NO_MARGIN) {
+      @Override
+      protected void filterJobCompleted() {
+        updateCheckedElements();
+      }
+    };
+    viewer = CheckboxTableViewer.newCheckList(favoritesTable, SWT.MULTI | SWT.H_SCROLL
+        | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
+
+    favoritesTable.setViewer(viewer);
     viewer.setContentProvider(new ArrayContentProvider());
-    viewer.setLabelProvider(new FavoriteLabelProvider());
+    viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new FavoriteLabelProvider()));
     viewer.addSelectionChangedListener(event -> validateDialogState());
 
     final var table = viewer.getTable();
@@ -184,17 +245,27 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       }
     });
     GridDataFactory.fillDefaults()
-        // .span(1, 2)
         .hint(convertWidthInCharsToPixels(WIDTH_IN_CHARACTERS), convertHeightInCharsToPixels(15))
         .grab(true, true)
         .applyTo(table);
 
-    addSideButtons(parent);
-
-    applyDialogFont(ancestor);
-
+    viewer.addCheckStateListener(l -> {
+      var favorite = (ISearchFavorite) l.getElement();
+      if (l.getChecked()) {
+        hiddenFavorites.remove(favorite);
+      } else {
+        hiddenFavorites.add(favorite);
+      }
+      visibilityChanged = true;
+      if (!showHiddenFavs) {
+        viewer.refresh();
+      }
+    });
+    viewer.addFilter(visiblityFilter);
     // set input & selections last, so all the widgets are created.
     viewer.setInput(input);
+    updateCheckedElements();
+    viewer.refresh();
     viewer.getTable().setFocus();
 
     // register Drag-n-Drop Support
@@ -226,9 +297,11 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
         // add an item
         performDrop(targetIndex);
       }
-
     });
-    return ancestor;
+  }
+
+  private void updateCheckedElements() {
+    viewer.setCheckedElements(input.stream().filter(f -> !f.isHidden()).toArray());
   }
 
   @Override
@@ -251,11 +324,6 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
         .getDialogSettingsSection("DialogBounds_ManageSearchFavoritesDialog"); //$NON-NLS-1$
   }
 
-  @Override
-  protected int getDialogBoundsStrategy() {
-    return DIALOG_PERSISTSIZE;
-  }
-
   /*
    * Overrides method from Dialog
    */
@@ -267,9 +335,12 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       Activator.getDefault().getSearchFavoriteManager().removeFavorite(favoriteEntry);
       favUpdateRequired = true;
     }
-    if (!input.isEmpty() && (orderChanged || newFavsImported)) {
+    if (!input.isEmpty() && (orderChanged || !newEntries.isEmpty() || visibilityChanged)) {
       final var favorites = Activator.getDefault().getSearchFavoriteManager().getFavorites();
       favorites.clear();
+      input.forEach(f -> {
+        f.setHidden(hiddenFavorites.contains(f));
+      });
       favorites.addAll(input);
       favUpdateRequired = true;
     }
@@ -301,8 +372,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
     removeButton = new Button(buttonContainer, SWT.PUSH);
     removeButton.setText(Messages.ManageSearchFavoritesDialog_removeFavorite_xbut);
-    removeButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(
-        e -> removeFavorite()));
+    removeButton.addSelectionListener(widgetSelectedAdapter(e -> removeFavorite()));
     GridDataFactory.fillDefaults()
         .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
         .applyTo(removeButton);
@@ -311,64 +381,80 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     GridDataFactory.fillDefaults().hint(15, SWT.DEFAULT).applyTo(sep);
 
     moveUpButton = new Button(buttonContainer, SWT.PUSH);
-    moveUpButton.setText("Move &Up");
+    moveUpButton.setText(Messages.ManageSearchFavoritesDialog_MovUp_xbtn);
     GridDataFactory.fillDefaults()
         .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
         .applyTo(moveUpButton);
-    moveUpButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> moveFavorite(
-        -1)));
+    moveUpButton.addSelectionListener(widgetSelectedAdapter(e -> moveFavorite(-1)));
 
     moveDownButton = new Button(buttonContainer, SWT.PUSH);
-    moveDownButton.setText("Move &Down");
+    moveDownButton.setText(Messages.ManageSearchFavoritesDialog_MoveDown_xbtn);
     GridDataFactory.fillDefaults()
         .align(SWT.BEGINNING, SWT.BEGINNING)
         .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
         .applyTo(moveDownButton);
-    moveDownButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> moveFavorite(
-        1)));
+    moveDownButton.addSelectionListener(widgetSelectedAdapter(e -> moveFavorite(1)));
+
+    sep = new Label(buttonContainer, SWT.SEPARATOR | SWT.HORIZONTAL);
+    GridDataFactory.fillDefaults().hint(15, SWT.DEFAULT).applyTo(sep);
+
+    var selectAll = new Button(buttonContainer, SWT.PUSH);
+    selectAll.setText(Messages.ManageSearchFavoritesDialog_ShowAll_xbtn);
+    selectAll.addSelectionListener(widgetSelectedAdapter(e -> selectAll(true)));
+    GridDataFactory.fillDefaults()
+        .align(SWT.BEGINNING, SWT.BEGINNING)
+        .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
+        .applyTo(selectAll);
+
+    var unselectAll = new Button(buttonContainer, SWT.PUSH);
+    unselectAll.setText(Messages.ManageSearchFavoritesDialog_HideAll);
+    unselectAll.addSelectionListener(widgetSelectedAdapter(e -> selectAll(false)));
+    GridDataFactory.fillDefaults()
+        .align(SWT.BEGINNING, SWT.BEGINNING)
+        .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
+        .applyTo(unselectAll);
+
+    var showUncheckedFavsButton = new Button(buttonContainer, SWT.TOGGLE);
+    showUncheckedFavsButton.setText(Messages.ManageSearchFavoritesDialog_ShowHidden_xbtn);
+    showUncheckedFavsButton.setSelection(showHiddenFavs);
+    showUncheckedFavsButton.addSelectionListener(widgetSelectedAdapter(e -> {
+      showHiddenFavs = showUncheckedFavsButton.getSelection();
+      viewer.refresh(false);
+    }));
+    GridDataFactory.fillDefaults()
+        .align(SWT.BEGINNING, SWT.BEGINNING)
+        .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
+        .applyTo(showUncheckedFavsButton);
+  }
+
+  private void selectAll(final boolean selectAll) {
+    visibilityChanged = true;
+    hiddenFavorites.clear();
+    if (!selectAll) {
+      hiddenFavorites.addAll(input);
+    }
+    viewer.refresh();
+    viewer.setAllChecked(selectAll);
   }
 
   private void importFavorites() {
-    final var shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-    final var dialog = new FileDialog(shell, SWT.OPEN);
-    dialog.setFilterNames(new String[] { "XML (*.xml)", //$NON-NLS-1$
-        Messages.ImportFavoritesAction_AllFilesFileType_xmit });
-    dialog.setFilterExtensions(new String[] { "*.xml", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
-    dialog.setFileName("favorites.xml"); //$NON-NLS-1$
-
-    final var importFileName = dialog.open();
-    if ("".equals(importFileName)) { //$NON-NLS-1$
-      return;
-    }
-
-    final var importedFavorites = new SearchFavorites();
-    SearchFavoriteStorage.deserialize(importedFavorites, importFileName);
-
-    if (!importedFavorites.hasEntries()) {
-      return;
-    }
-
-    var favoritesInFile = importedFavorites.getFavorites().size();
-    var importCount = 0;
-    for (var newFav : importedFavorites.getFavorites()) {
-      if (input.stream()
-          .anyMatch(f -> SearchFavoritesUtil.matchesFavAttributes(f, newFav.getDestinationId(),
-              newFav.getSearchType(), newFav.getDescription()))) {
-        continue;
+    var importer = new FavoritesImporter(importedFavs -> {
+      newEntries.addAll(importedFavs);
+      if (!makeNewFavsVisible) {
+        hiddenFavorites.addAll(importedFavs);
       }
-      input.add(newFav);
-      importCount++;
-    }
-
-    if (importCount > 0) {
+      if (makeNewFavsVisible && insertNewFavsAtBeginning) {
+        input.addAll(0, importedFavs);
+      } else {
+        input.addAll(importedFavs);
+      }
       viewer.refresh();
-      newFavsImported = true;
-      MessageDialog.openInformation(shell, Messages.ImportFavoritesAction_ImportSuccess_xtit, NLS
-          .bind(Messages.ImportFavoritesAction_ImportSuccess_xmsg, importCount, favoritesInFile));
-    } else {
-      MessageDialog.openInformation(shell, Messages.ImportFavoritesAction_ImportSuccess_xtit,
-          Messages.ImportFavoritesAction_NoFavoritesImported_xmsg);
-    }
+      updateCheckedElements();
+    }, favToBeImported -> input.stream()
+        .anyMatch(f -> SearchFavoritesUtil.matchesFavAttributes(f, favToBeImported
+            .getDestinationId(), favToBeImported.getSearchType(), favToBeImported
+                .getDescription())));
+    importer.run();
   }
 
   private void moveFavorite(final int indexChange) {
@@ -428,15 +514,33 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   private void removeFavorite() {
     final var selection = viewer.getStructuredSelection();
+    final var firstSelectedIndex = input.indexOf(selection.getFirstElement());
     final var favorites = selection.iterator();
     while (favorites.hasNext()) {
       final var curr = (ISearchFavorite) favorites.next();
-      removedEntries.add(curr);
+      if (newEntries.isEmpty() || !newEntries.remove(curr)) {
+        removedEntries.add(curr);
+      }
+      if (!hiddenFavorites.isEmpty()) {
+        hiddenFavorites.remove(curr);
+      }
       input.remove(curr);
       viewer.remove(curr);
     }
-    if (viewer.getSelection().isEmpty() && !input.isEmpty()) {
-      viewer.setSelection(new StructuredSelection(input.get(0)));
+
+    if (input.isEmpty()) {
+      return;
     }
+
+    var newSelectionIndex = 0;
+    if (firstSelectedIndex == 0) {
+      newSelectionIndex = 0;
+    } else if (firstSelectedIndex >= input.size()) {
+      newSelectionIndex = input.size() - 1;
+    } else {
+      newSelectionIndex = firstSelectedIndex;
+    }
+
+    viewer.setSelection(new StructuredSelection(input.get(newSelectionIndex)));
   }
 }

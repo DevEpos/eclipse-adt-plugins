@@ -82,6 +82,21 @@
             plugin="com.devepos.adt.searchfavorites">
       </contexts>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.devepos.adt.preferences"
+            class="com.devepos.adt.searchfavorites.internal.preferences.MainPreferencePage"
+            id="com.devepos.adt.searchfavorites.mainPrefs"
+            name="%prefPages.main.name">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.devepos.adt.searchfavorites.internal.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 
 </plugin>

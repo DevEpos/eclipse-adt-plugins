@@ -4,4 +4,8 @@
       <description>Search Favorites provide a unified location for Searches that are integrated into the Eclipse Search to store search queries as favorites</description>
       <topic href="html/favorites_overview.html" label="DevEpos - Search Favorites"/>
    </context>
+   <context id="manage_favorites" title="Manage DevEpos Search Favorites">
+      <description>Dialog to manage and start search favorites for Eclipse Search</description>
+      <topic href="html/manage_favorites.html" label="DevEpos - Search Favorites"/>
+   </context>
 </contexts>

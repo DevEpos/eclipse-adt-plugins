@@ -22,7 +22,7 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.util.SearchFavorite
  * @author Ludwig Stockbauer-Muhr
  */
 public class SearchFavoriteStorage {
-  private static final String FAVORITES = "favorites.xml";
+  private static final String FAVORITES = "favorites.xml"; //$NON-NLS-1$
 
   /**
    * Deserializes the object search favorites into the default location of the
@@ -32,7 +32,11 @@ public class SearchFavoriteStorage {
    *                  into
    */
   public static void deserialize(final ISearchFavorites favorites) {
-    deserialize(favorites, getFavoritesFilePath());
+    try {
+      deserialize(favorites, getFavoritesFilePath());
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -42,30 +46,29 @@ public class SearchFavoriteStorage {
    * @param favorites the favorites where the stored favorites should be
    *                  deserialized into
    * @param filePath  the path to the file where the favorites should be read from
+   * @throws IOException
    */
-  public static void deserialize(final ISearchFavorites favorites, final String filePath) {
+  public static void deserialize(final ISearchFavorites favorites, final String filePath)
+      throws IOException {
     if (favorites == null || filePath == null || !new File(filePath).exists()) {
       return;
     }
     // Obtain a new resource set
     final var factory = new SearchFavoritesResourceFactory();
-    try {
-      final var resource = factory.createResource(URI.createFileURI(filePath));
-      final var options = createEmfResourceOptions();
-      resource.load(options);
-      final EList<EObject> resourceContents = resource.getContents();
-      // List of favorites is the root
-      if (resourceContents != null && resourceContents.size() == 1) {
-        final var root = resourceContents.get(0);
-        if (!(root instanceof com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorites)) {
-          return;
-        }
-        var modelFavorites = (com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorites) root;
-        modelFavorites.getFavorites().forEach(fav -> favorites.addFavorite(fav));
+    final var resource = factory.createResource(URI.createFileURI(filePath));
+    final var options = createEmfResourceOptions();
+    resource.load(options);
+    final EList<EObject> resourceContents = resource.getContents();
+    // List of favorites is the root
+    if (resourceContents != null && resourceContents.size() == 1) {
+      final var root = resourceContents.get(0);
+      if (!(root instanceof com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorites)) {
+        return;
       }
-    } catch (final IllegalArgumentException | IOException e) {
-      e.printStackTrace();
+      var modelFavorites = (com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorites) root;
+      modelFavorites.getFavorites().forEach(fav -> favorites.addFavorite(fav));
     }
+
   }
 
   /**
@@ -97,7 +100,7 @@ public class SearchFavoriteStorage {
       resourceContents.add(eFavorites);
       final Map<String, Object> options = createEmfResourceOptions();
       resource.save(options);
-    } catch (final IllegalArgumentException | IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
   }

@@ -17,8 +17,8 @@ public class RunSearchFavoriteAction extends Action {
 
     setImageDescriptor(favoriteDescriptor.getIcon());
     var actionText = SearchFavoritesUtil.getFavoriteDisplayName(favorite, favoriteDescriptor);
-    if (actionText.indexOf("@") != -1) {
-      actionText = actionText.concat("@");
+    if (actionText.indexOf("@") != -1) { //$NON-NLS-1$
+      actionText = actionText.concat("@"); //$NON-NLS-1$
     }
     setText(actionText);
   }

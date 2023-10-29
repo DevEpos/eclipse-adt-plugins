@@ -69,8 +69,9 @@ public class MapAttribute extends BaseAttribute implements IMapAttribute {
   @Override
   public EMap<String, String> getEntries() {
     if (entries == null) {
-      entries = new EcoreEMap<>(ISearchFavoritesPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
-          StringToStringMapEntry.class, this, ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES);
+      entries = new EcoreEMap<>(
+          ISearchFavoritesPackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class,
+          this, ISearchFavoritesPackage.MAP_ATTRIBUTE__ENTRIES);
     }
     return entries;
   }

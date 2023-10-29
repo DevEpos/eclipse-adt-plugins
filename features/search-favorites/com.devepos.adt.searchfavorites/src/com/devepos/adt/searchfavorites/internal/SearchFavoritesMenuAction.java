@@ -1,8 +1,12 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.window.Window;
@@ -28,15 +32,54 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 @SuppressWarnings("restriction")
 public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
   private Menu menu;
-  private final ISearchFavorites favoriteManager;
   private final String searchType;
+
+  /**
+   * Creates action contribution items for the search favorite in the given favorites container
+   * 
+   * @param favorites container with favorites
+   * @return list of action contribution items to be used in a menu
+   */
+  public static List<IContributionItem> createFavoriteContributionItems(
+      ISearchFavorites favorites) {
+    List<IContributionItem> favoriteItems = new ArrayList<>();
+    if (!favorites.hasEntries()) {
+      final var noFavoritesAction = new Action(Messages.Search_NoSearchFavorites_xmit) {
+      };
+      noFavoritesAction.setEnabled(false);
+      favoriteItems.add(new ActionContributionItem(noFavoritesAction));
+    } else {
+      var favoriteDescriptors = Activator.getDefault().getSearchFavoriteDescriptors();
+      var accelerator = 1;
+      for (final var favorite : favorites.getFavorites(false)) {
+        var descriptor = favoriteDescriptors.get(favorite.getSearchType());
+        if (descriptor == null) {
+          // TODO: throw exception
+          continue;
+        }
+        var favoriteAction = new RunSearchFavoriteAction(descriptor, favorite);
+        if (accelerator < 10) {
+          favoriteAction.setText(String.format("&%d %s", accelerator++, favoriteAction.getText())); //$NON-NLS-1$
+        }
+        favoriteItems.add(new ActionContributionItem(favoriteAction));
+      }
+
+      if (favoriteItems.isEmpty()) {
+        final var noFavoritesAction = new Action(Messages.SearchFavoritesMenuAction_AllFavsAreHidden_xmit) {
+        };
+        noFavoritesAction.setEnabled(false);
+        favoriteItems.add(new ActionContributionItem(noFavoritesAction));
+      }
+    }
+
+    return favoriteItems;
+  }
 
   public SearchFavoritesMenuAction(final String searchType) {
     super(Messages.Search_SearchFavoritesAction_xtol, AdtBaseUIResources.getImageDescriptor(
         IAdtBaseImages.FAVORITES));
     setMenuCreator(this);
     this.searchType = searchType;
-    favoriteManager = Activator.getDefault().getSearchFavoriteManager();
   }
 
   @Override
@@ -53,44 +96,37 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
     }
     menu = new Menu(parent);
 
-    var organizeFavoritesAction = ActionFactory.createAction(Messages.Search_OrganizeFavorites_xmit,
-        null, this::openOrganizeFavoritesDialog);
-    organizeFavoritesAction.setEnabled(favoriteManager.hasEntries());
+    var favorites = Activator.getDefault().getSearchFavoriteManager();
 
     final var createFavoriteAction = ActionFactory.createAction(
         Messages.Search_CreateFavoriteFromCurrentQuery_xmit, null, this::createNewFavorite);
 
-    if (!favoriteManager.hasEntries()) {
-      final var noFavoritesAction = new Action(Messages.Search_NoSearchFavorites_xmit) {
-      };
-      noFavoritesAction.setEnabled(false);
-      addActionToMenu(menu, noFavoritesAction);
-    } else {
-      var favoriteDescriptors = Activator.getDefault().getSearchFavoriteDescriptors();
-      for (final var favorite : favoriteManager.getFavorites()) {
-        var descriptor = favoriteDescriptors.get(favorite.getSearchType());
-        if (descriptor == null) {
-          // TODO: throw exception
-          continue;
-        }
-        addActionToMenu(menu, new RunSearchFavoriteAction(descriptor, favorite));
-      }
-    }
+    createFavoriteContributionItems(favorites).forEach(item -> item.fill(menu, -1));
     var separator = new Separator();
 
     separator.fill(menu, -1);
 
     addActionToMenu(menu, createFavoriteAction);
-    addActionToMenu(menu, organizeFavoritesAction);
-
-    separator = new Separator();
-    separator.fill(menu, -1);
-    addActionToMenu(menu, new ImportFavoritesAction());
-    final var exportAction = new ExportFavoritesAction();
-    exportAction.setEnabled(favoriteManager.hasEntries());
-    addActionToMenu(menu, exportAction);
+    addActionToMenu(menu, ActionFactory.createAction(Messages.Search_ManageFavorites_xmit, null,
+        SearchFavoritesMenuAction::openOrganizeFavoritesDialog));
 
     return menu;
+  }
+
+  /*
+   * Opens a dialog to organize all the favorites
+   */
+  public static void openOrganizeFavoritesDialog() {
+    final SelectionDialog favoritesDialog = new ManageSearchFavoritesDialog(PlatformUI
+        .getWorkbench()
+        .getActiveWorkbenchWindow()
+        .getShell());
+    if (favoritesDialog.open() == Window.OK) {
+      final var chosenEntries = favoritesDialog.getResult();
+      if (chosenEntries != null && chosenEntries.length == 1) {
+        SearchFavoriteRunner.runSearchFavorite((ISearchFavorite) chosenEntries[0]);
+      }
+    }
   }
 
   @Override
@@ -134,21 +170,5 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
     }
     new NewSearchFavoriteDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
         searchType, (IAbapProjectSearchQuery) searchQuery).open();
-  }
-
-  /*
-   * Opens a dialog to organize all the favorites
-   */
-  private void openOrganizeFavoritesDialog() {
-    final SelectionDialog favoritesDialog = new ManageSearchFavoritesDialog(PlatformUI
-        .getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getShell());
-    if (favoritesDialog.open() == Window.OK) {
-      final var chosenEntries = favoritesDialog.getResult();
-      if (chosenEntries != null && chosenEntries.length == 1) {
-        SearchFavoriteRunner.runSearchFavorite((ISearchFavorite) chosenEntries[0]);
-      }
-    }
   }
 }

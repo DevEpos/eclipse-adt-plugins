@@ -43,6 +43,8 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.IStringAttribute;
  * <em>Destination Id</em>}</li>
  * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.impl.SearchFavorite#isProjectIndependent
  * <em>Project Independent</em>}</li>
+ * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.impl.SearchFavorite#isHidden
+ * <em>Hidden</em>}</li>
  * <li>{@link com.devepos.adt.searchfavorites.model.searchfavorites.impl.SearchFavorite#getAttributes
  * <em>Attributes</em>}</li>
  * </ul>
@@ -65,6 +67,16 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
   protected static final String SEARCH_TYPE_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getSearchType()
+   * @generated
+   * @ordered
+   */
+  protected String searchType = SEARCH_TYPE_EDEFAULT;
+  /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -76,6 +88,16 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
   protected static final String DESCRIPTION_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
+  /**
    * The default value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -86,6 +108,16 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
    */
   protected static final String DESTINATION_ID_EDEFAULT = null;
 
+  /**
+   * The cached value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getDestinationId()
+   * @generated
+   * @ordered
+   */
+  protected String destinationId = DESTINATION_ID_EDEFAULT;
   /**
    * The default value of the '{@link #isProjectIndependent() <em>Project Independent</em>}'
    * attribute.
@@ -99,39 +131,6 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
   protected static final boolean PROJECT_INDEPENDENT_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #getSearchType() <em>Search Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getSearchType()
-   * @generated
-   * @ordered
-   */
-  protected String searchType = SEARCH_TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getDestinationId() <em>Destination Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getDestinationId()
-   * @generated
-   * @ordered
-   */
-  protected String destinationId = DESTINATION_ID_EDEFAULT;
-
-  /**
    * The cached value of the '{@link #isProjectIndependent() <em>Project Independent</em>}'
    * attribute.
    * <!-- begin-user-doc -->
@@ -143,6 +142,26 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
    */
   protected boolean projectIndependent = PROJECT_INDEPENDENT_EDEFAULT;
 
+  /**
+   * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isHidden()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean HIDDEN_EDEFAULT = false;
+  /**
+   * The cached value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isHidden()
+   * @generated
+   * @ordered
+   */
+  protected boolean hidden = HIDDEN_EDEFAULT;
   /**
    * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference
    * list.
@@ -182,6 +201,8 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
       return getDestinationId();
     case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
       return isProjectIndependent();
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__HIDDEN:
+      return isHidden();
     case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
       return getAttributes();
     }
@@ -224,6 +245,8 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
           : !DESTINATION_ID_EDEFAULT.equals(destinationId);
     case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
       return projectIndependent != PROJECT_INDEPENDENT_EDEFAULT;
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__HIDDEN:
+      return hidden != HIDDEN_EDEFAULT;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
       return attributes != null && !attributes.isEmpty();
     }
@@ -251,6 +274,9 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
       return;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
       setProjectIndependent((Boolean) newValue);
+      return;
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__HIDDEN:
+      setHidden((Boolean) newValue);
       return;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
       getAttributes().clear();
@@ -280,6 +306,9 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
       return;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__PROJECT_INDEPENDENT:
       setProjectIndependent(PROJECT_INDEPENDENT_EDEFAULT);
+      return;
+    case ISearchFavoritesPackage.SEARCH_FAVORITE__HIDDEN:
+      setHidden(HIDDEN_EDEFAULT);
       return;
     case ISearchFavoritesPackage.SEARCH_FAVORITE__ATTRIBUTES:
       getAttributes().clear();
@@ -449,6 +478,33 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
    * @generated
    */
   @Override
+  public boolean isHidden() {
+    return hidden;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setHidden(final boolean newHidden) {
+    boolean oldHidden = hidden;
+    hidden = newHidden;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          ISearchFavoritesPackage.SEARCH_FAVORITE__HIDDEN, oldHidden, hidden));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public void setSearchType(final String newSearchType) {
     String oldSearchType = searchType;
     searchType = newSearchType;
@@ -479,6 +535,8 @@ public class SearchFavorite extends MinimalEObjectImpl.Container implements ISea
     result.append(destinationId);
     result.append(", projectIndependent: ");
     result.append(projectIndependent);
+    result.append(", hidden: ");
+    result.append(hidden);
     result.append(')');
     return result.toString();
   }
