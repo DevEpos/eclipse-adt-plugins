@@ -178,6 +178,11 @@ a.link:hover {
     text-decoration: underline;
 }
 
+a.link.external::after {
+    content: url('../icons/external-link.png');
+    padding-left: 3px;
+}
+
 .button {
     font-family: arial, sans-serif;
 }
