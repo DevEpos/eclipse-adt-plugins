@@ -385,7 +385,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
   @Override
   protected TreeViewer createTreeViewer(final Composite parent) {
-    resultTree = new FilterableTree(parent, null, true);
+    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     var resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTreeViewer.addFilter(treeFilter);
     resultTree.setViewer(resultTreeViewer);

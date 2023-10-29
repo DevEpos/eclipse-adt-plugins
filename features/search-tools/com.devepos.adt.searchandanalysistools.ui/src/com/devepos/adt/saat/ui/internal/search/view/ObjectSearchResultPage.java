@@ -690,7 +690,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   }
 
   private void createTableViewer() {
-    var table = new FilterableTable(mainComposite, null, true, false);
+    var table = new FilterableTable(mainComposite, null, true,
+        FilterableComposite.TEXT_SMALL_H_MARGIN);
     filterableComposite = table;
     table.addKeyListenerForFilterFocus();
     resultViewer = new TableViewer(table, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -716,7 +717,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
    * Creates the result tree of the object search
    */
   private void createTreeViewer() {
-    var tree = new FilterableTree(mainComposite, null, true, false);
+    var tree = new FilterableTree(mainComposite, null, true,
+        FilterableComposite.TEXT_SMALL_H_MARGIN);
     filterableComposite = tree;
     resultViewer = new TreeViewer(tree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     tree.setViewer((TreeViewer) resultViewer);

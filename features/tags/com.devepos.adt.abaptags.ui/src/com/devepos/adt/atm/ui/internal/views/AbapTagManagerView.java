@@ -600,7 +600,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void createViewer(final Composite parent) {
-    tree = new FilterableTree(parent, null, true);
+    tree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     tree.setElementMatcher(element -> {
       if (element instanceof ITag) {
         final ITag tag = (ITag) element;

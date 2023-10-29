@@ -41,6 +41,20 @@ import com.devepos.adt.base.util.StringUtil;
 public abstract class FilterableComposite<V extends ColumnViewer, C extends Control> extends
     Composite {
 
+  /**
+   * Text Filter Control will not use the full width of the viewer, so a toolbar can be shown next
+   * to the filter control.
+   */
+  public static final int TOOLBAR = 1 << 1;
+  /**
+   * The Filter Control will be created with a horizontal margin of <code>5</code>
+   */
+  public static final int TEXT_SMALL_H_MARGIN = 1 << 2;
+  /**
+   * The Filter Control will be created with no horizontal margin
+   */
+  public static final int TEXT_NO_MARGIN = 1 << 4;
+
   protected V viewer;
   protected C viewerControl;
 
@@ -54,8 +68,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   private IWordMatcher wordMatcher;
   private Text filterText;
   private Composite filterComposite;
-  private boolean toolbarMode;
   private final ModifyListener filterChangedListener;
+  private int mode;
 
   /**
    * Creates new Filtered composite.<br>
@@ -70,7 +84,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    */
   public FilterableComposite(final Composite parent, final String placeholderText,
       final boolean hideFilterControls) {
-    this(parent, placeholderText, hideFilterControls, false);
+    this(parent, placeholderText, hideFilterControls, TEXT_NO_MARGIN);
   }
 
   /**
@@ -83,18 +97,18 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    *                           filter text will be used
    * @param hideFilterControls if {@code true} the filter controls are initially
    *                           hidden
-   * @param enableToolbarMode  if {@code true} then the filter control will not occupy the full
+   * @param mode               if {@code true} then the filter control will not occupy the full
    *                           width of the viewer
    */
   public FilterableComposite(final Composite parent, final String placeholderText,
-      final boolean hideFilterControls, final boolean enableToolbarMode) {
+      final boolean hideFilterControls, final int mode) {
     super(parent, SWT.NONE);
 
     filterChangedListener = e -> filterStringChanged();
     filterPlaceHolderText = placeholderText != null ? placeholderText
         : AdtBaseUIResources.getString(IAdtBaseStrings.FilterPlaceHolder_xmsg);
     filterJob = createFilterJob();
-    toolbarMode = enableToolbarMode;
+    this.mode = mode;
     createControl(parent);
     patternFilter = new PatternFilter();
     patternFilter.setIncludeLeadingWildcard(true);
@@ -552,8 +566,12 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
    */
   private void createFilterText(final Composite parent) {
     filterComposite = new Composite(parent, SWT.NONE);
+
+    int hMargin = ((mode & TEXT_SMALL_H_MARGIN) == TEXT_SMALL_H_MARGIN) ? 5 : 0;
+    boolean toolbarMode = (mode & TOOLBAR) == TOOLBAR;
+
     GridLayoutFactory.swtDefaults()
-        .margins(toolbarMode ? 0 : 5, 0)
+        .margins(hMargin, 0)
         .numColumns(toolbarMode ? 2 : 1)
         .applyTo(filterComposite);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(filterComposite);

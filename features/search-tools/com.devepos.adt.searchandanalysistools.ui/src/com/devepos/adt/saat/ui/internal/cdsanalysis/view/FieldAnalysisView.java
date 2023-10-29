@@ -296,7 +296,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
    * Creates the filtered tree for the display of the fields of a database entity
    */
   private FilterableTree createFilteredTree(final Composite parent) {
-    final FilterableTree tree = new FilterableTree(parent, "type filter text", false) {
+    final FilterableTree tree = new FilterableTree(parent, "type filter text", false,
+        FilterableComposite.TEXT_SMALL_H_MARGIN) {
       @Override
       protected void filterStringChanged() {
         super.filterStringChanged();

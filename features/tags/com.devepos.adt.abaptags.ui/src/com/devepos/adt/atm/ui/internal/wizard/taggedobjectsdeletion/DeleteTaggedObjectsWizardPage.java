@@ -44,6 +44,7 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.table.FilterableTable;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.StringUtil;
@@ -148,7 +149,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
   private class TaggedObjectsTable extends FilterableTable {
     public TaggedObjectsTable(final Composite parent) {
-      super(parent, null, false, true); // $NON-NLS-1$
+      super(parent, null, false, FilterableComposite.TOOLBAR); // $NON-NLS-1$
       setElementMatcher(l -> {
         var taggedObject = (DeletableTaggedObject) l;
         var wordMatcher = getWordMatcher();

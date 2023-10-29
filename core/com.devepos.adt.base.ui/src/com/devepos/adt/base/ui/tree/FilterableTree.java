@@ -35,8 +35,8 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
    * @see {@link FilterableComposite#FilterableComposite(Composite, String, boolean, boolean)
    */
   public FilterableTree(final Composite parent, final String placeholderText,
-      final boolean hideFilterControls, final boolean enableToolbarMode) {
-    super(parent, placeholderText, hideFilterControls, enableToolbarMode);
+      final boolean hideFilterControls, final int mode) {
+    super(parent, placeholderText, hideFilterControls, mode);
   }
 
   /**
