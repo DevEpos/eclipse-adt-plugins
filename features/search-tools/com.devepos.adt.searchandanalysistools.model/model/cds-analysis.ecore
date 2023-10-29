@@ -162,6 +162,10 @@
     <eLiterals name="ENTITY" value="5" literal="ENTITY"/>
     <eLiterals name="SELECT" value="6" literal="SELECT"/>
     <eLiterals name="ABAP" value="7" literal="ABAP"/>
+    <eLiterals name="EXCEPT" value="8" literal="EXCEPT"/>
+    <eLiterals name="EXCEPT_ALL" value="9" literal="EXCEPT_ALL"/>
+    <eLiterals name="INTERSECT" value="10" literal="INTERSECT"/>
+    <eLiterals name="INTERSECT_ALL" value="11" literal="INTERSECT_ALL"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CdsQueryNavTargets">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

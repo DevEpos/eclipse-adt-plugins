@@ -1103,6 +1103,10 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.ENTITY);
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.SELECT);
     addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.ABAP);
+    addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.EXCEPT);
+    addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.EXCEPT_ALL);
+    addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.INTERSECT);
+    addEEnumLiteral(topDownAnalysisEntryTypeEEnum, TopDownAnalysisEntryType.INTERSECT_ALL);
 
     initEEnum(cdsQueryNavTargetEEnum, CdsQueryNavTarget.class, "CdsQueryNavTarget");
     addEEnumLiteral(cdsQueryNavTargetEEnum, CdsQueryNavTarget.EXCEL);

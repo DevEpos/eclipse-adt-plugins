@@ -188,8 +188,7 @@ public class SearchResultOutputConfig extends MinimalEObjectImpl.Container imple
   @Override
   public List<IAdtAlternativeTypeImage> getAdtAltTypeImages() {
     if (adtAltTypeImages == null) {
-      adtAltTypeImages = new EObjectContainmentEList<>(
-          IAdtAlternativeTypeImage.class, this,
+      adtAltTypeImages = new EObjectContainmentEList<>(IAdtAlternativeTypeImage.class, this,
           IObjectSearchPackage.SEARCH_RESULT_OUTPUT_CONFIG__ADT_ALT_TYPE_IMAGES);
     }
     return adtAltTypeImages;

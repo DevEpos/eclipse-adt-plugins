@@ -122,7 +122,7 @@ public class AdtAlternativeTypeImage extends MinimalEObjectImpl.Container implem
     if (imgInfo != null && imgInfo.eIsProxy()) {
       InternalEObject oldImgInfo = (InternalEObject) imgInfo;
       imgInfo = (IImageInfo) eResolveProxy(oldImgInfo);
-      if ((imgInfo != oldImgInfo) && eNotificationRequired()) {
+      if (imgInfo != oldImgInfo && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             IObjectSearchPackage.ADT_ALTERNATIVE_TYPE_IMAGE__IMG_INFO, oldImgInfo, imgInfo));
       }
