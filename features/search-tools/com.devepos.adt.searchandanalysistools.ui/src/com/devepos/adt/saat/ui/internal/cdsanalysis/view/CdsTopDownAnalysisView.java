@@ -1,17 +1,22 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -19,21 +24,42 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchCommandConstants;
+import org.eclipse.ui.part.IPageSite;
 
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.ContextHelper;
+import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
+import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.action.ActionFactory;
+import com.devepos.adt.base.ui.action.CommandFactory;
+import com.devepos.adt.base.ui.action.ExpandAllAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
+import com.devepos.adt.base.ui.controls.FilterableComposite;
+import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
+import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.IFilterableView;
+import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.IStyledTreeNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.ui.tree.LazyLoadingTreeViewer;
 import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
+import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.model.cdsanalysis.TopDownAnalysisEntryType;
 import com.devepos.adt.saat.ui.internal.IColorConstants;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
@@ -54,15 +80,26 @@ import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
  * @see {@link CdsAnalyzerPage}
  * @author stockbal
  */
-public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> {
+public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> implements
+    IFilterableView {
 
   private Action showDescriptions;
-
   private Action showAliasNames;
   private Action loadAssociations;
-  private final List<Column> columns;
+  private Action filterAction;
+  private Action resetFilterAction;
+  private Action refreshNodesAction;
   private OpenColorPreferencePageAction showColorsAndFontsPrefs;
+  private FilterableTree resultTree;
+
+  private final List<Column> columns;
+  private final ViewerFilter treeFilter = new TreeFilter();
+  private final Set<Object> filteredNodes = new HashSet<>();
+  private boolean selectionFilterActive;
+  private ITreeNode lastFilteredNode;
   private final IPropertyChangeListener colorPropertyChangeListener;
+  private ContextHelper contextHelper;
+  private ExpandAllAction expandAllAction;
 
   public CdsTopDownAnalysisView(final CdsAnalysisView parentView) {
     super(parentView);
@@ -180,15 +217,117 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
 
   }
 
+  private class TreeFilter extends ViewerFilter {
+
+    @Override
+    public Object[] filter(final Viewer viewer, final Object parent, final Object[] elements) {
+      if (!selectionFilterActive) {
+        return elements;
+      }
+      return super.filter(viewer, parent, elements);
+    }
+
+    @Override
+    public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+      var node = (ITreeNode) element;
+
+      if (node.getParent() == null) {
+        return true;
+      }
+      if (filteredNodes.isEmpty()) {
+        return false;
+      }
+      if (filteredNodes.isEmpty() || filteredNodes.contains(element)
+          || parentElement == lastFilteredNode) {
+        return true;
+      }
+      if (lastFilteredNode == null) {
+        return false;
+      }
+      var collectionNode = (ICollectionTreeNode) lastFilteredNode;
+      if (collectionNode.getParent() == null) {
+        return false;
+      }
+      var children = collectionNode.getChildren();
+      if (isInChildren(children, element)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    private boolean isInChildren(final List<ITreeNode> children, final Object element) {
+      if (children == null || children.isEmpty()) {
+        return false;
+      }
+
+      for (var child : children) {
+        if (child == element) {
+          return true;
+        }
+        if (child instanceof ICollectionTreeNode) {
+          var grandChildren = ((ICollectionTreeNode) child).getChildren();
+          if (isInChildren(grandChildren, element)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+  }
+
+  private class UiState extends TreeViewUiState {
+    private ITreeNode lastFilteredNodeState;
+    private boolean selectionFilterActiveState;
+    private final Set<Object> filteredNodesState = new HashSet<>();
+    private String textFilterState;
+
+    @Override
+    public void applyToTreeViewer(final TreeViewer viewer) {
+      super.applyToTreeViewer(viewer);
+      lastFilteredNode = lastFilteredNodeState;
+      filteredNodes.addAll(filteredNodesState);
+      selectionFilterActive = selectionFilterActiveState;
+      if (!StringUtil.isEmpty(textFilterState)) {
+        resultTree.setFilterText(textFilterState, false);
+        resultTree.setFilterVisible(true);
+      } else {
+        resultTree.resetFilter(false);
+        resultTree.setFilterVisible(false);
+      }
+      setFiltered(selectionFilterActive);
+    }
+
+    @Override
+    public void setFromTreeViewer(final TreeViewer viewer) {
+      super.setFromTreeViewer(viewer);
+      lastFilteredNodeState = lastFilteredNode;
+      selectionFilterActiveState = selectionFilterActive;
+      filteredNodesState.clear();
+      filteredNodesState.addAll(filteredNodes);
+      textFilterState = resultTree.getFilterString();
+    }
+  }
+
   @Override
   public void dispose() {
     super.dispose();
     JFaceResources.getColorRegistry().removeListener(colorPropertyChangeListener);
+    if (contextHelper != null) {
+      contextHelper.deactivateAllContexts();
+    }
   }
 
   @Override
   public HelpContextId getHelpContextId() {
     return HelpContextId.CDS_ANALYZER_TOP_DOWN_ANALYSIS;
+  }
+
+  @Override
+  public void init(IPageSite pageSite) {
+    super.init(pageSite);
+    contextHelper = ContextHelper.createForServiceLocator(getSite());
+    contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
   }
 
   @Override
@@ -200,15 +339,35 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
     menu.appendToGroup(IGeneralMenuConstants.GROUP_PROPERTIES, new Separator());
     menu.appendToGroup(IGeneralMenuConstants.GROUP_PROPERTIES, loadAssociations);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, showColorsAndFontsPrefs);
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, resetFilterAction);
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory.createContribItemById(
+        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+  }
+
+  @Override
+  public void toggleTextFilterVisibility() {
+    if (resultTree != null && !resultTree.isDisposed()) {
+      resultTree.toggleFilterVisiblity();
+    }
+  }
+
+  @Override
+  protected void clearViewerInput() {
+    super.clearViewerInput();
+    if (resultTree != null) {
+      resultTree.resetFilter();
+      resultTree.setFilterVisible(false);
+    }
   }
 
   @Override
   protected void configureTreeViewer(final TreeViewer treeViewer) {
     final LazyLoadingTreeContentProvider contentProvider = new LazyLoadingTreeContentProvider(
-        LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN, 1);
+        LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN, AbstractTreeViewer.ALL_LEVELS);
     contentProvider.setExpansionChecker(node -> {
       final ISqlRelationInfo relation = node.getAdapter(ISqlRelationInfo.class);
-      return relation != null && !"ASSOCIATIONS".equals(relation.getType()); //$NON-NLS-1$
+      return relation != null && !TopDownAnalysisEntryType.ASSOCIATIONS.name()
+          .equals(relation.getType());
     });
     treeViewer.setContentProvider(contentProvider);
     treeViewer.setUseHashlookup(true);
@@ -220,6 +379,11 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
   @Override
   protected void createActions() {
     super.createActions();
+    expandAllAction = new ExpandAllAction();
+    expandAllAction.setTreeViewer((TreeViewer) getViewer());
+    expandAllAction.setText(AdtBaseUIResources.getString(
+        IAdtBaseStrings.ExpandAllLoadedNodes_xlbl));
+
     showDescriptions = ActionFactory.createAction(
         Messages.CdsTopDownAnalysisView_ShowDescriptionsToggleAction_xmit, null,
         IAction.AS_CHECK_BOX, () -> {
@@ -236,12 +400,45 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
         Messages.CdsTopDownAnalysisView_LoadAssociationsToggleAction_xmit, null,
         IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setLoadAssociations(loadAssociations.isChecked());
-          refreshAnalysis();
+          refreshAnalysis(true);
         });
     showColorsAndFontsPrefs = new OpenColorPreferencePageAction();
     showColorsAndFontsPrefs.setColorId(IColorConstants.CDS_ANALYSIS_ALIAS_NAME);
     showColorsAndFontsPrefs.setCategories(IColorConstants.SAAT_COLOR_CATEGORY,
         IColorConstants.CDS_ANALYSIS_CATEGORY);
+    filterAction = ActionFactory.createAction(
+        Messages.WhereUsedInCdsAnalysisView_FilterOnSelection_xmit, AdtBaseUIResources
+            .getImageDescriptor(IAdtBaseImages.FILTER), this::filterOnSelection);
+    resetFilterAction = ActionFactory.createAction(
+        Messages.WhereUsedInCdsAnalysisView_ResetViewerFilter_xmit, null, () -> resetFiltering(
+            true));
+
+    refreshNodesAction = ActionFactory.createAction(
+        Messages.CdsAnalysis_RefreshAnalysisForNode_xlbl, AdtBaseUIResources.getImageDescriptor(
+            IAdtBaseImages.REFRESH), () -> {
+              refreshAnalysis(false);
+            });
+    refreshNodesAction.setActionDefinitionId(IWorkbenchCommandConstants.FILE_REFRESH);
+  }
+
+  @Override
+  protected TreeViewer createTreeViewer(final Composite parent) {
+    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
+    var resultTreeViewer = new LazyLoadingTreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL
+        | SWT.V_SCROLL);
+    resultTreeViewer.addFilter(treeFilter);
+    resultTree.setViewer(resultTreeViewer);
+    resultTree.setElementMatcher(element -> {
+      if (element instanceof IAdtObjectReferenceNode) {
+        final var node = (IAdtObjectReferenceNode) element;
+        final var wordMatcher = resultTree.getWordMatcher();
+
+        return wordMatcher.matchesWord(node.getName()) || wordMatcher.matchesWord(node
+            .getDescription()) || wordMatcher.matchesWord(node.getDisplayName());
+      }
+      return false;
+    });
+    return resultTreeViewer;
   }
 
   @Override
@@ -264,6 +461,24 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
       SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
           IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.FIELD_ANALYSIS);
     }
+
+    var selection = getViewer().getStructuredSelection();
+    if (selection.size() == 1) {
+      var selectedNode = (ITreeNode) selection.getFirstElement();
+      if (selectedNode.getParent() != null) {
+        mgr.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, filterAction);
+      }
+    }
+
+    if (Stream.of(selection.toArray()).anyMatch(ILazyLoadingNode.class::isInstance)) {
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, refreshNodesAction);
+    }
+  }
+
+  @Override
+  protected void fillToolbar(IToolBarManager tbm) {
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, expandAllAction);
+    super.fillToolbar(tbm);
   }
 
   @Override
@@ -309,7 +524,7 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
 
   @Override
   protected ViewUiState getUiState() {
-    final TreeViewUiState uiState = new TreeViewUiState();
+    final var uiState = new UiState();
     uiState.setFromTreeViewer((TreeViewer) getViewer());
     return uiState;
   }
@@ -320,11 +535,13 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
 
     if (analysisResult.isResultLoaded()) {
       setActionStateFromSettings();
+      resetFiltering(true);
       viewer.setInput(analysisResult.getResult());
       // update ui state
-      if (uiState instanceof TreeViewUiState) {
-        ((TreeViewUiState) uiState).applyToTreeViewer(viewer);
+      if (uiState instanceof UiState) {
+        ((UiState) uiState).applyToTreeViewer(viewer);
       } else {
+        setFiltered(false);
         final Object[] input = (Object[]) viewer.getInput();
         if (input != null && input.length >= 1) {
           viewer.expandToLevel(input[0], 1);
@@ -332,20 +549,37 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
         }
       }
     } else {
+      resetFiltering(false);
+      hideTextFilter();
       initActionState();
       analysisResult.createElementInfoProvider();
       analysisResult.setResultLoaded(true);
       viewer.setInput(analysisResult.getResult());
-      viewer.expandAll();
+      viewer.expandAll(true);
     }
   }
 
   @Override
   protected void refreshAnalysis(boolean global) {
-    final TreeViewer viewer = (TreeViewer) getViewer();
-    viewer.collapseAll();
-    analysisResult.refreshAnalysis();
-    viewer.expandAll();
+    var viewer = (TreeViewer) getViewer();
+    var selectedElements = viewer.getStructuredSelection().toList();
+
+    boolean refreshRoot = global || selectedElements.contains(analysisResult.getResult()[0]);
+    if (!refreshRoot) {
+      // reset all lazy nodes in the selection
+      for (var elem : selectedElements) {
+        if (elem instanceof ILazyLoadingNode) {
+          ((ILazyLoadingNode) elem).resetLoadedState();
+          viewer.refresh(elem);
+          viewer.expandToLevel(elem, AbstractTreeViewer.ALL_LEVELS, true);
+        }
+      }
+    } else {
+      resetFiltering(false);
+      analysisResult.refreshAnalysis();
+      viewer.refresh();
+      viewer.expandAll(true);
+    }
   }
 
   private void createColumn(final TreeViewer treeViewer, final Column column) {
@@ -361,6 +595,36 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
     for (final Column column : columns) {
       createColumn(treeViewer, column);
     }
+  }
+
+  private void filterOnSelection() {
+    selectionFilterActive = true;
+    filteredNodes.clear();
+    var isAlreadyFiltered = isFiltered();
+    setFiltered(true);
+
+    var viewer = getViewer();
+    var selectedElement = viewer.getStructuredSelection().getFirstElement();
+    var node = (ITreeNode) selectedElement;
+
+    lastFilteredNode = node;
+    filteredNodes.add(node);
+
+    var parent = node.getParent();
+    while (parent != null) {
+      filteredNodes.add(parent);
+      parent = parent.getParent();
+    }
+
+    getViewer().refresh(false);
+
+    if (!isAlreadyFiltered) {
+      getViewPart().updateLabel();
+    }
+  }
+
+  private void hideTextFilter() {
+    resultTree.setFilterVisible(false);
   }
 
   private void initActionState() {
@@ -383,11 +647,23 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
     }
   }
 
+  private void resetFiltering(final boolean refreshViewer) {
+    setFiltered(false);
+    filteredNodes.clear();
+    lastFilteredNode = null;
+    selectionFilterActive = false;
+    resultTree.resetFilter();
+
+    if (refreshViewer) {
+      getViewer().refresh(false);
+    }
+    getViewPart().updateLabel();
+  }
+
   private void setActionStateFromSettings() {
     ICdsTopDownSettingsUi analysisSettings = analysisResult.getSettings();
     showDescriptions.setChecked(analysisSettings.isShowDescriptions());
     showAliasNames.setChecked(analysisSettings.isShowAliasNames());
     loadAssociations.setChecked(analysisSettings.isLoadAssociations());
   }
-
 }
