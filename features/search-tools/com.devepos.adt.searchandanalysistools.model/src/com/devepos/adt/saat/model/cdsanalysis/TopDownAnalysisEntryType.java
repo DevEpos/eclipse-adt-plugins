@@ -105,7 +105,47 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    * @generated
    * @ordered
    */
-  ABAP(7, "ABAP", "ABAP");
+  ABAP(7, "ABAP", "ABAP"),
+  /**
+   * The '<em><b>EXCEPT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #EXCEPT_VALUE
+   * @generated
+   * @ordered
+   */
+  EXCEPT(8, "EXCEPT", "EXCEPT"),
+  /**
+   * The '<em><b>EXCEPT ALL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #EXCEPT_ALL_VALUE
+   * @generated
+   * @ordered
+   */
+  EXCEPT_ALL(9, "EXCEPT_ALL", "EXCEPT_ALL"),
+  /**
+   * The '<em><b>INTERSECT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #INTERSECT_VALUE
+   * @generated
+   * @ordered
+   */
+  INTERSECT(10, "INTERSECT", "INTERSECT"),
+  /**
+   * The '<em><b>INTERSECT ALL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #INTERSECT_ALL_VALUE
+   * @generated
+   * @ordered
+   */
+  INTERSECT_ALL(11, "INTERSECT_ALL", "INTERSECT_ALL");
 
   /**
    * The '<em><b>UNSPECIFIED</b></em>' literal value.
@@ -204,6 +244,54 @@ public enum TopDownAnalysisEntryType implements Enumerator {
   public static final int ABAP_VALUE = 7;
 
   /**
+   * The '<em><b>EXCEPT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #EXCEPT
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int EXCEPT_VALUE = 8;
+
+  /**
+   * The '<em><b>EXCEPT ALL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #EXCEPT_ALL
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int EXCEPT_ALL_VALUE = 9;
+
+  /**
+   * The '<em><b>INTERSECT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #INTERSECT
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int INTERSECT_VALUE = 10;
+
+  /**
+   * The '<em><b>INTERSECT ALL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #INTERSECT_ALL
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int INTERSECT_ALL_VALUE = 11;
+
+  /**
    * An array of all the '<em><b>Top Down Analysis Entry Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -211,7 +299,8 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    * @generated
    */
   private static final TopDownAnalysisEntryType[] VALUES_ARRAY = new TopDownAnalysisEntryType[] {
-      UNSPECIFIED, RESULT, UNION, UNION_ALL, ASSOCIATIONS, ENTITY, SELECT, ABAP, };
+      UNSPECIFIED, RESULT, UNION, UNION_ALL, ASSOCIATIONS, ENTITY, SELECT, ABAP, EXCEPT, EXCEPT_ALL,
+      INTERSECT, INTERSECT_ALL, };
 
   /**
    * A public read-only list of all the '<em><b>Top Down Analysis Entry Type</b></em>' enumerators.
@@ -288,6 +377,14 @@ public enum TopDownAnalysisEntryType implements Enumerator {
       return SELECT;
     case ABAP_VALUE:
       return ABAP;
+    case EXCEPT_VALUE:
+      return EXCEPT;
+    case EXCEPT_ALL_VALUE:
+      return EXCEPT_ALL;
+    case INTERSECT_VALUE:
+      return INTERSECT;
+    case INTERSECT_ALL_VALUE:
+      return INTERSECT_ALL;
     }
     return null;
   }

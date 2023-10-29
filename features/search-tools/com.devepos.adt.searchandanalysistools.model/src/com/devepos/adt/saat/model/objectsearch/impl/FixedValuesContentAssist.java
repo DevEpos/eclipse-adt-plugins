@@ -73,8 +73,8 @@ public class FixedValuesContentAssist extends ContentAssist implements IFixedVal
   @Override
   public List<ISimpleContentProposal> getProposals() {
     if (proposals == null) {
-      proposals = new EObjectContainmentEList<>(ISimpleContentProposal.class,
-          this, IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS);
+      proposals = new EObjectContainmentEList<>(ISimpleContentProposal.class, this,
+          IObjectSearchPackage.FIXED_VALUES_CONTENT_ASSIST__PROPOSALS);
     }
     return proposals;
   }

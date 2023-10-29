@@ -30,6 +30,10 @@
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ENTITY"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/SELECT"/>
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/ABAP"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/EXCEPT"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/EXCEPT_ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/INTERSECT"/>
+      <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//TopDownAnalysisEntryType/INTERSECT_ALL"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="cds-analysis.ecore#//CdsQueryNavTarget">
       <genEnumLiterals ecoreEnumLiteral="cds-analysis.ecore#//CdsQueryNavTarget/EXCEL"/>
