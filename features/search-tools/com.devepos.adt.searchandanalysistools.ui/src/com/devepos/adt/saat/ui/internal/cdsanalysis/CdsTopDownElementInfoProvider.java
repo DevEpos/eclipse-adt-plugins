@@ -111,6 +111,22 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
       rawName = Messages.CdsAnalysis_NodeNameUnionSelectAll;
       imageId = IImages.UNION;
       break;
+    case EXCEPT:
+      rawName = Messages.CdsAnalysis_NodeNameExcept;
+      imageId = IImages.EXCEPT;
+      break;
+    case EXCEPT_ALL:
+      rawName = Messages.CdsAnalysis_NodeNameExceptAll;
+      imageId = IImages.EXCEPT;
+      break;
+    case INTERSECT:
+      rawName = Messages.CdsAnalysis_NodeNameIntersect;
+      imageId = IImages.INTERSECT;
+      break;
+    case INTERSECT_ALL:
+      rawName = Messages.CdsAnalysis_NodeNameIntersectAll;
+      imageId = IImages.INTERSECT;
+      break;
     default:
       return null;
     }
