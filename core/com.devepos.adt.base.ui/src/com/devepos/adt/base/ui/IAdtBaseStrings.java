@@ -25,6 +25,7 @@ public interface IAdtBaseStrings {
 
   String CollapseTree_xlbl = "CollapseTree_xlbl";
   String ExpandTree_xlbl = "ExpandTree_xlbl";
+  String ExpandAllLoadedNodes_xlbl = "ExpandAllLoadedNodes_xlbl";
 
   String SelectAll_xlbl = "SelectAll_xlbl";
   String DeselectAll_xlbl = "DeselectAll_xlbl";
