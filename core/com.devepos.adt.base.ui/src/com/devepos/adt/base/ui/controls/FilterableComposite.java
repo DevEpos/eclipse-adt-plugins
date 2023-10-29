@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ContentViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
@@ -25,6 +26,9 @@ import org.eclipse.ui.progress.UIJob;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.event.KeyEventUtil;
+import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
+import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
+import com.devepos.adt.base.ui.tree.LoadingTreeItemsNode;
 import com.devepos.adt.base.util.StringUtil;
 
 /**
@@ -147,6 +151,21 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
         }
       }
       super.setPattern(patternString);
+    }
+
+    @Override
+    protected boolean isParentMatch(Viewer viewer, Object element) {
+      if (viewer instanceof AbstractTreeViewer && ((AbstractTreeViewer) viewer)
+          .getContentProvider() instanceof LazyLoadingTreeContentProvider) {
+        // prevent lazy loading if element is lazy loading node and content is not yet loaded
+        if (element instanceof ILazyLoadingNode && !((ILazyLoadingNode) element).isLoaded()) {
+          return false;
+          // loading nodes always match otherwise the expand will not be performed
+        } else if (element instanceof LoadingTreeItemsNode) {
+          return true;
+        }
+      }
+      return super.isParentMatch(viewer, element);
     }
 
     @Override

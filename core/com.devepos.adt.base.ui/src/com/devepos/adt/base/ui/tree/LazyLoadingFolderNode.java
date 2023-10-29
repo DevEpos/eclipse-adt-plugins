@@ -73,7 +73,7 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
 
   @Override
   public boolean hasChildren() {
-    return true;
+    return !(isLoaded && (children == null || children.isEmpty()));
   }
 
   @Override

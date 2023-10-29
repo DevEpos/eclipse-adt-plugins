@@ -35,7 +35,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
 
   private int refreshModeExpansionLevel;
   private LazyLoadingRefreshMode refreshMode;
-  private IExpanderCheckFunction expansionCheck;
+  private INodeExpansionCheck expansionCheck;
 
   /**
    * Creates new instance of a tree content provider that support lazy loading of
@@ -78,7 +78,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
   }
 
   @FunctionalInterface
-  public interface IExpanderCheckFunction {
+  public interface INodeExpansionCheck {
     /**
      * If the given tree node should be expanded the method has to return
      * <code>true</code> <br>
@@ -89,89 +89,6 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
      * @return <code>true</code> if the given node should be expanded
      */
     boolean shouldExpandNode(ITreeNode node);
-  }
-
-  /**
-   * Job for loading the child nodes of an element
-   *
-   * @author stockbal
-   */
-  protected class ChildElementLoader implements ICoreRunnable {
-    private final Display display;
-    private final ILazyLoadingNode lazyLoadingNode;
-
-    public ChildElementLoader(final Display display, final ILazyLoadingNode lazyLoadingNode) {
-      this.display = display;
-      this.lazyLoadingNode = lazyLoadingNode;
-
-    }
-
-    @Override
-    public void run(final IProgressMonitor monitor) throws CoreException {
-      var wrappedLoadingError = new ObjectContainer<CoreException>(null);
-      try {
-        lazyLoadingNode.loadChildren();
-      } catch (final CoreException exc) {
-        wrappedLoadingError.setObject(exc);
-      }
-      monitor.done();
-      final WorkbenchJob treeUpdateJob = new WorkbenchJob(display,
-          Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg) {
-
-        @Override
-        public IStatus runInUIThread(final IProgressMonitor monitor) {
-          final Control control = viewer.getControl();
-          if (control.isDisposed()) {
-            return Status.CANCEL_STATUS;
-          }
-          monitor.beginTask(Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, -1);
-          viewer.getTree().setRedraw(false);
-          viewer.refresh(lazyLoadingNode);
-          refreshLazyNode();
-          viewer.getTree().setRedraw(true);
-          monitor.done();
-          var loadingError = wrappedLoadingError.getObject();
-          if (loadingError != null) {
-            return loadingError.getStatus();
-          }
-          return Status.OK_STATUS;
-        }
-      };
-      treeUpdateJob.setSystem(true);
-      treeUpdateJob.schedule();
-    }
-
-    private void expandNode(final ITreeNode child) {
-      if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
-        return;
-      }
-      viewer.expandToLevel(child, refreshModeExpansionLevel, true);
-    }
-
-    private void refreshLazyNode() {
-      final LazyLoadingRefreshMode refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
-          ? LazyLoadingTreeContentProvider.this.refreshMode
-          : lazyLoadingNode.getContentRefreshMode();
-      if (refreshMode == LazyLoadingRefreshMode.ROOT_ONLY
-          || !(lazyLoadingNode instanceof ICollectionTreeNode)) {
-        return;
-      }
-      final List<ITreeNode> children = ((ICollectionTreeNode) lazyLoadingNode).getChildren();
-      if (children == null || children.isEmpty()) {
-        return;
-      }
-      for (final ITreeNode child : children.stream()
-          .filter(ICollectionTreeNode.class::isInstance)
-          .collect(Collectors.toList())) {
-        if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN) {
-          expandNode(child);
-        } else if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN
-            && !(child instanceof ILazyLoadingNode)) {
-          expandNode(child);
-        }
-      }
-    }
-
   }
 
   @Override
@@ -226,7 +143,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
    * @param expansionCheck the check function to be used during expansion of a
    *                       {@link ICollectionNode}
    */
-  public void setExpansionChecker(final IExpanderCheckFunction expansionCheck) {
+  public void setExpansionChecker(final INodeExpansionCheck expansionCheck) {
     this.expansionCheck = expansionCheck;
   }
 
@@ -263,7 +180,93 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
     }
     Job.create(jobName, new ChildElementLoader(viewer.getControl().getDisplay(), lazyNode))
         .schedule();
-
   }
 
+  /**
+   * Job for loading the child nodes of an element
+   *
+   * @author Ludwig Stockbauer-Muhr
+   */
+  protected class ChildElementLoader implements ICoreRunnable {
+    private final Display display;
+    private final ILazyLoadingNode lazyLoadingNode;
+
+    public ChildElementLoader(final Display display, final ILazyLoadingNode lazyLoadingNode) {
+      this.display = display;
+      this.lazyLoadingNode = lazyLoadingNode;
+
+    }
+
+    @Override
+    public void run(final IProgressMonitor monitor) throws CoreException {
+      var wrappedLoadingError = new ObjectContainer<CoreException>(null);
+      try {
+        lazyLoadingNode.loadChildren();
+      } catch (final CoreException exc) {
+        wrappedLoadingError.setObject(exc);
+      }
+      monitor.done();
+      final WorkbenchJob treeUpdateJob = new WorkbenchJob(display,
+          Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg) {
+
+        @Override
+        public IStatus runInUIThread(final IProgressMonitor monitor) {
+          final Control control = viewer.getControl();
+          if (control.isDisposed()) {
+            return Status.CANCEL_STATUS;
+          }
+          monitor.beginTask(Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, -1);
+          refreshLazyNode();
+          monitor.done();
+          var loadingError = wrappedLoadingError.getObject();
+          if (loadingError != null) {
+            return loadingError.getStatus();
+          }
+          return Status.OK_STATUS;
+        }
+      };
+      treeUpdateJob.setSystem(true);
+      treeUpdateJob.schedule();
+    }
+
+    private void refreshLazyNode() {
+      viewer.refresh(lazyLoadingNode);
+      final var refreshMode = LazyLoadingTreeContentProvider.this.refreshMode != null
+          ? LazyLoadingTreeContentProvider.this.refreshMode
+          : lazyLoadingNode.getContentRefreshMode();
+      if (refreshMode == LazyLoadingRefreshMode.ROOT_ONLY
+          || !(lazyLoadingNode instanceof ICollectionTreeNode)) {
+        return;
+      }
+      expandChildren(refreshMode, ((ICollectionTreeNode) lazyLoadingNode).getChildren());
+    }
+
+    private void expandChildren(final LazyLoadingRefreshMode refreshMode,
+        final List<ITreeNode> children) {
+      if (children == null || children.isEmpty()) {
+        return;
+      }
+      for (final ITreeNode child : children.stream()
+          .filter(ICollectionTreeNode.class::isInstance)
+          .collect(Collectors.toList())) {
+        if (refreshMode == LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN
+            && child instanceof ILazyLoadingNode) {
+          continue;
+        }
+        expandNode(child, refreshMode);
+      }
+    }
+
+    private void expandNode(final ITreeNode child, LazyLoadingRefreshMode refreshMode) {
+      if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
+        return;
+      }
+      if (viewer instanceof LazyLoadingTreeViewer) {
+        ((LazyLoadingTreeViewer) viewer).expandNode(child, refreshModeExpansionLevel,
+            refreshMode == LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
+      } else {
+        viewer.expandToLevel(child, refreshModeExpansionLevel, true);
+      }
+    }
+  }
 }
