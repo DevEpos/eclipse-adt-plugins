@@ -69,7 +69,7 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
 
   @Override
   public boolean hasChildren() {
-    return true;
+    return !(isLoaded && (children == null || children.isEmpty()));
   }
 
   @Override
