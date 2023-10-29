@@ -81,6 +81,7 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
   private MenuManager menuMgr;
   private SelectionProviderProxy selectionProvider;
   private CopyToClipboardAction copyToClipBoardAction;
+  private boolean filtered;
 
   public CdsAnalysisPage(final CdsAnalysisView viewPart) {
     parentView = viewPart;
@@ -198,6 +199,14 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
    */
   public CdsAnalysisView getViewPart() {
     return parentView;
+  }
+
+  public boolean isFiltered() {
+    return filtered;
+  }
+
+  public void setFiltered(final boolean filtered) {
+    this.filtered = filtered;
   }
 
   @Override
@@ -488,8 +497,10 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
 
   /**
    * Refreshes the current analysis content
+   * 
+   * @param global if {@code global} the whole analysis will be refreshed
    */
-  protected abstract void refreshAnalysis();
+  protected abstract void refreshAnalysis(boolean global);
 
   /**
    * Register listeners for the {@link TreeViewer} <br>

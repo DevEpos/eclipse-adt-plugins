@@ -341,7 +341,7 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis> 
   }
 
   @Override
-  protected void refreshAnalysis() {
+  protected void refreshAnalysis(boolean global) {
     final TreeViewer viewer = (TreeViewer) getViewer();
     viewer.collapseAll();
     analysisResult.refreshAnalysis();

@@ -55,7 +55,7 @@ public class CdsTopDownAnalysis extends CdsAnalysis {
   }
 
   @Override
-  public Object getResult() {
+  public Object[] getResult() {
     return new Object[] { cdsNode };
   }
 

@@ -388,7 +388,7 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
   }
 
   @Override
-  protected void refreshAnalysis() {
+  protected void refreshAnalysis(boolean global) {
     resetFiltering();
     ((ILazyLoadingNode) getViewer().getInput()).resetLoadedState();
     getViewer().refresh();

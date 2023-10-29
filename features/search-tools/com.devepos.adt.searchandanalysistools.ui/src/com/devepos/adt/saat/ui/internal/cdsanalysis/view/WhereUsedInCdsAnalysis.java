@@ -78,7 +78,7 @@ public class WhereUsedInCdsAnalysis extends CdsAnalysis {
   }
 
   @Override
-  public Object getResult() {
+  public Object[] getResult() {
     return new Object[] { node };
   }
 

@@ -322,7 +322,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
               analysisResult.getSettings().setSearchFromPart(showFromUses.isChecked());
               analysisResult.updateWhereUsedProvider();
               updateViewerFromSettings();
-              refreshAnalysis();
+              refreshAnalysis(true);
             });
 
     showAssocUses = ActionFactory.createAction(
@@ -332,7 +332,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
           analysisResult.getSettings().setSearchAssociation(showAssocUses.isChecked());
           analysisResult.updateWhereUsedProvider();
           updateViewerFromSettings();
-          refreshAnalysis();
+          refreshAnalysis(true);
         });
 
     localAssociationsOnly = ActionFactory.createAction(
@@ -340,7 +340,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setLocalAssociationsOnly(localAssociationsOnly.isChecked());
           analysisResult.updateWhereUsedProvider();
-          refreshAnalysis();
+          refreshAnalysis(true);
         });
     localAssociationsOnly.setEnabled(false);
 
@@ -349,7 +349,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         IAction.AS_CHECK_BOX, () -> {
           analysisResult.getSettings().setReleasedUsagesOnly(releasedUsagesOnly.isChecked());
           analysisResult.updateWhereUsedProvider();
-          refreshAnalysis();
+          refreshAnalysis(true);
         });
     showAssocUses.addPropertyChangeListener(event -> {
       if (!showAssocUses.isChecked()) {
@@ -377,7 +377,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
           analysisResult.getSettings().setSearchRecursively(searchRecursivelyAction.isChecked());
           expandAllAction.setEnabled(searchRecursivelyAction.isChecked());
           updateViewerFromSettings();
-          refreshAnalysis();
+          refreshAnalysis(true);
         });
     searchRecursivelyAction.setToolTipText(
         Messages.WhereUsedInCdsAnalysisView_SearchFromPartReferencesRecursively_xtol);
@@ -504,7 +504,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   }
 
   @Override
-  protected void refreshAnalysis() {
+  protected void refreshAnalysis(boolean global) {
     resetFiltering(false);
     analysisResult.refreshAnalysis();
     getViewer().refresh();
@@ -528,8 +528,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private void filterOnSelection() {
     selectionFilterActive = true;
     filteredNodes.clear();
-    var isAlreadyFiltered = analysisResult.isFiltered();
-    analysisResult.setFiltered(true);
+    var isAlreadyFiltered = isFiltered();
+    setFiltered(true);
 
     var viewer = getViewer();
     var selectedElement = viewer.getStructuredSelection().getFirstElement();
@@ -585,7 +585,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   }
 
   private void resetFiltering(final boolean refreshViewer) {
-    analysisResult.setFiltered(false);
+    setFiltered(false);
     filteredNodes.clear();
     lastFilteredNode = null;
     releasedEntitiesFilterActive = false;

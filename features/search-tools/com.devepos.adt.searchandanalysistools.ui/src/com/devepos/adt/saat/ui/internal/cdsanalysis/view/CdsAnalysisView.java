@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
@@ -113,8 +114,12 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     }
 
     @Override
+    public void runWithEvent(Event event) {
+      getActivePage().refreshAnalysis(event.keyCode == 0);
+    }
+
     public void run() {
-      getActivePage().refreshAnalysis();
+      getActivePage().refreshAnalysis(true);
     }
 
   }
@@ -160,7 +165,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     }
 
     @Override
-    protected void refreshAnalysis() {
+    protected void refreshAnalysis(boolean global) {
     }
   }
 
@@ -316,10 +321,13 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   }
 
   public void showCdsAnalysis(final CdsAnalysis analysis) {
-    CdsAnalysisPage<?> newPage = null;
+    if (currentAnalysis == analysis) {
+      return;
+    }
+    CdsAnalysisPage<?> analysisPage = null;
     if (analysis != null) {
-      newPage = configRegistry.findPageForType(analysis.getType());
-      if (newPage == null) {
+      analysisPage = configRegistry.findPageForType(analysis.getType());
+      if (analysisPage == null) {
         SearchAndAnalysisPlugin.getDefault()
             .getLog()
             .log(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
@@ -328,7 +336,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         return;
       }
     }
-    internalShowCdsAnalysisPage(newPage, analysis);
+    internalShowCdsAnalysisPage(analysisPage, analysis);
   }
 
   /**
@@ -373,7 +381,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         pageContent.layout();
       }
 
-      description.setImage(analysis.isFiltered() ? AdtBaseUIResources.getImage(
+      description.setImage(getActivePage().isFiltered() ? AdtBaseUIResources.getImage(
           IAdtBaseImages.FILTER) : null);
     }
   }
@@ -532,7 +540,10 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
       return;
     }
     final CdsAnalysis[] analyses = CdsAnalysisManager.getInstance().getAnalyses();
-    showCdsAnalysis(analyses[0]);
+    var latestAnalysis = analyses[0];
+    if (!CdsAnalysisViewManager.getInstance().isAnalysisShown(latestAnalysis)) {
+      showCdsAnalysis(latestAnalysis);
+    }
   }
 
   private void updateHelp(final CdsAnalysisPage<?> page) {
