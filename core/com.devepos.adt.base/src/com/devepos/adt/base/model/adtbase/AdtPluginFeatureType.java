@@ -79,8 +79,8 @@ public enum AdtPluginFeatureType implements Enumerator {
    *
    * @generated
    */
-  public static final List<AdtPluginFeatureType> VALUES = Collections.unmodifiableList(Arrays
-      .asList(VALUES_ARRAY));
+  public static final List<AdtPluginFeatureType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->

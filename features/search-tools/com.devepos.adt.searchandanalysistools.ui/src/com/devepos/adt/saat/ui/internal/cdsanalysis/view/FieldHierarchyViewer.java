@@ -60,8 +60,8 @@ public class FieldHierarchyViewer extends TreeViewer {
    *
    * @author stockbal
    */
-  static class FieldHierarchyViewerCellLabelProvider extends StyledCellLabelProvider implements
-      IStyledLabelProvider {
+  static class FieldHierarchyViewerCellLabelProvider extends StyledCellLabelProvider
+      implements IStyledLabelProvider {
 
     private final int columnIndex;
 
@@ -98,8 +98,9 @@ public class FieldHierarchyViewer extends TreeViewer {
           } else if (IExtendedAdtObjectInfo.API_STATE_DEPRECATED.equals(fieldInfo.getApiState())) {
             overlayImageIds[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
           }
-          var sourceType = fieldInfo.getSourceType() != null ? CdsSourceType.getFromId(fieldInfo
-              .getSourceType()) : null;
+          var sourceType = fieldInfo.getSourceType() != null
+              ? CdsSourceType.getFromId(fieldInfo.getSourceType())
+              : null;
           if (sourceType != null) {
             overlayImageIds[IDecoration.BOTTOM_RIGHT] = sourceType.getImageId();
           }

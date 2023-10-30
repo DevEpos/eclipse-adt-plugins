@@ -30,8 +30,8 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
  *
  * @generated
  */
-public class CodeSearchScopeParameters extends MinimalEObjectImpl.Container implements
-    ICodeSearchScopeParameters {
+public class CodeSearchScopeParameters extends MinimalEObjectImpl.Container
+    implements ICodeSearchScopeParameters {
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference
    * list.

@@ -34,8 +34,8 @@ public class DeleteTaggedObjectsWizard extends AbstractWizardBase {
 
   public DeleteTaggedObjectsWizard() {
     setWindowTitle(Messages.DeleteTaggedObjectsWizard_Title_xtit);
-    setDefaultPageImageDescriptor(AbapTagsUIPlugin.getDefault()
-        .getImageDescriptor(IImages.DELETE_TAGS_FROM_OBJ_WIZBAN));
+    setDefaultPageImageDescriptor(
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.DELETE_TAGS_FROM_OBJ_WIZBAN));
     setNeedsProgressMonitor(true);
 
   }
@@ -43,9 +43,8 @@ public class DeleteTaggedObjectsWizard extends AbstractWizardBase {
   @Override
   public void addPages() {
     if (taggedObjectListRequest == null || taggedObjectListRequest.getTaggedObjectIds().isEmpty()
-        && taggedObjectListRequest.getTagIds().isEmpty() && taggedObjectListRequest
-            .getTaggedObjectInfos()
-            .isEmpty()) {
+        && taggedObjectListRequest.getTagIds().isEmpty()
+        && taggedObjectListRequest.getTaggedObjectInfos().isEmpty()) {
       addPage(new TagSelectionWizardPage());
     }
     addPage(new DeleteTaggedObjectsWizardPage());
@@ -82,8 +81,8 @@ public class DeleteTaggedObjectsWizard extends AbstractWizardBase {
       getContainer().run(true, false, monitor -> {
         monitor.beginTask(Messages.DeleteTaggedObjectsWizard_RemovingTagsJobTitle_xmsg, -1);
         var taggingService = AdtObjTaggingServiceFactory.createTaggingService();
-        final IStatus status = taggingService.deleteTaggedObjects(DestinationUtil.getDestinationId(
-            getProject()), deleteRequest);
+        final IStatus status = taggingService
+            .deleteTaggedObjects(DestinationUtil.getDestinationId(getProject()), deleteRequest);
         monitor.done();
         if (status.isOK()) {
           deletionOccurred = true;

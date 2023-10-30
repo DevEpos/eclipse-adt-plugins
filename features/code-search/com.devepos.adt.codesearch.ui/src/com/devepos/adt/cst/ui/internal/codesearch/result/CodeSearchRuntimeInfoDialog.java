@@ -236,13 +236,13 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     if (searchedObjects == null || searchedObjects.isDisposed()) {
       return;
     }
-    float percentage = (float) runtimeInfo.getSearchedObjectsCount() / runtimeInfo
-        .getObjectScopeCount() * 100;
+    float percentage = (float) runtimeInfo.getSearchedObjectsCount()
+        / runtimeInfo.getObjectScopeCount() * 100;
 
-    searchedObjects.setText(String.format(
-        Messages.CodeSearchRuntimeInfoDialog_searchedObjectCountPattern_xtxt, defaultFormat.format(
-            runtimeInfo.getSearchedObjectsCount()), defaultFormat.format(runtimeInfo
-                .getObjectScopeCount()), (int) percentage));
+    searchedObjects
+        .setText(String.format(Messages.CodeSearchRuntimeInfoDialog_searchedObjectCountPattern_xtxt,
+            defaultFormat.format(runtimeInfo.getSearchedObjectsCount()),
+            defaultFormat.format(runtimeInfo.getObjectScopeCount()), (int) percentage));
 
     searchedSources.setText(defaultFormat.format(runtimeInfo.getSearchedSourcesCount()));
     searchedLoC.setText(defaultFormat.format(runtimeInfo.getSearchedLinesOfCode()));

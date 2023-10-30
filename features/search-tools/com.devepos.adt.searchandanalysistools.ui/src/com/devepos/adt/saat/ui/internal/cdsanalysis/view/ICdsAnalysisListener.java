@@ -16,7 +16,7 @@ public interface ICdsAnalysisListener {
 
   /**
    * Notifies listener that an analysis was added
-   * 
+   *
    * @param analysis the new analysis
    */
   void analysisAdded(CdsAnalysis analysis);

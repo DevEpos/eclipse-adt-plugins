@@ -24,8 +24,8 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-class CodeSearchResultLabelProvider extends LabelProvider implements ILabelProvider,
-    IStyledLabelProvider, IToolTipProvider {
+class CodeSearchResultLabelProvider extends LabelProvider
+    implements ILabelProvider, IStyledLabelProvider, IToolTipProvider {
 
   private final NumberFormat matchCountFormat = new DecimalFormat("###,###");
 
@@ -76,9 +76,10 @@ class CodeSearchResultLabelProvider extends LabelProvider implements ILabelProvi
         }
         Integer matchCount = (Integer) searchResult.getNodeValue();
         if (matchCount != null) {
-          text.append(String.format(" %s %s", matchCountFormat.format(matchCount), matchCount > 1
-              ? Messages.CodeSearchResultLabelProvider_multiMatchesSuffix_xmsg
-              : Messages.CodeSearchResultLabelProvider_singleMatchSuffix_xmsg),
+          text.append(
+              String.format(" %s %s", matchCountFormat.format(matchCount),
+                  matchCount > 1 ? Messages.CodeSearchResultLabelProvider_multiMatchesSuffix_xmsg
+                      : Messages.CodeSearchResultLabelProvider_singleMatchSuffix_xmsg),
               StyledString.COUNTER_STYLER);
         }
       }

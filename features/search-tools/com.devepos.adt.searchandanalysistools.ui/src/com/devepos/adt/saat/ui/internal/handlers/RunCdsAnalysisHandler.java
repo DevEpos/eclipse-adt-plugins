@@ -42,8 +42,8 @@ public class RunCdsAnalysisHandler extends AbstractHandler {
       IProject project = dialog.getProject();
       String destinationId = DestinationUtil.getDestinationId(project);
       CdsAnalysisManager analysisManager = CdsAnalysisManager.getInstance();
-      CdsAnalysisKey analysisKey = new CdsAnalysisKey(dialog.getSelectedAnalysisType(), objectRef
-          .getUri(), destinationId);
+      CdsAnalysisKey analysisKey = new CdsAnalysisKey(dialog.getSelectedAnalysisType(),
+          objectRef.getUri(), destinationId);
       CdsAnalysis existing = analysisManager.getExistingAnalysis(analysisKey);
       if (existing == null) {
         // determine ADT information about CDS view
@@ -53,8 +53,9 @@ public class RunCdsAnalysisHandler extends AbstractHandler {
               var adtObjRef = ElementInfoRetrievalServiceFactory.createService()
                   .retrieveBasicElementInformation(destinationId, objectRef.getUri());
               if (adtObjRef != null) {
-                final CdsAnalysis newAnalysis = createAnalysisForType(AdtObjRefToElemInfoConverter
-                    .convert(destinationId, adtObjRef), dialog.getSelectedAnalysisType());
+                final CdsAnalysis newAnalysis = createAnalysisForType(
+                    AdtObjRefToElemInfoConverter.convert(destinationId, adtObjRef),
+                    dialog.getSelectedAnalysisType());
                 PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                   analysisManager.addAnalysis(newAnalysis);
                   analysisManager.registerAnalysis(analysisKey, newAnalysis);

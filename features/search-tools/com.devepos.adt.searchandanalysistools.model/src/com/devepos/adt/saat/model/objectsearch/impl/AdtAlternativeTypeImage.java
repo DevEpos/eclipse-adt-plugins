@@ -28,8 +28,8 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
  *
  * @generated
  */
-public class AdtAlternativeTypeImage extends MinimalEObjectImpl.Container implements
-    IAdtAlternativeTypeImage {
+public class AdtAlternativeTypeImage extends MinimalEObjectImpl.Container
+    implements IAdtAlternativeTypeImage {
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->

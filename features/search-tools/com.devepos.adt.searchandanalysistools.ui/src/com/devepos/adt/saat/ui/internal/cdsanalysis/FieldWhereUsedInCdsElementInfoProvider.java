@@ -54,10 +54,8 @@ public class FieldWhereUsedInCdsElementInfoProvider implements IElementInfoProvi
     if (isRoot) {
       var elementInfos = new ArrayList<IElementInfo>();
       elementInfos.add(new SimpleElementInfo(
-          Messages.FieldWhereUsedInCdsElementInfoProvider_noFieldUsageFound_xmsg, PlatformUI
-              .getWorkbench()
-              .getSharedImages()
-              .getImage(ISharedImages.IMG_OBJS_INFO_TSK)));
+          Messages.FieldWhereUsedInCdsElementInfoProvider_noFieldUsageFound_xmsg,
+          PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_INFO_TSK)));
       return elementInfos;
     }
     return null;
@@ -76,8 +74,9 @@ public class FieldWhereUsedInCdsElementInfoProvider implements IElementInfoProvi
   private List<IElementInfo> convertToElemInfoList(final List<IEntityFieldInfo> fieldInfos) {
     var elementInfos = new ArrayList<IElementInfo>();
     for (var fieldInfo : fieldInfos) {
-      var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(), fieldInfo
-          .getAltEntityName() == null ? fieldInfo.getEntityName() : fieldInfo.getAltEntityName(),
+      var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(),
+          fieldInfo.getAltEntityName() == null ? fieldInfo.getEntityName()
+              : fieldInfo.getAltEntityName(),
           null);
       objRefElemInfo.setAdditionalInfo(fieldInfo);
       objRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(

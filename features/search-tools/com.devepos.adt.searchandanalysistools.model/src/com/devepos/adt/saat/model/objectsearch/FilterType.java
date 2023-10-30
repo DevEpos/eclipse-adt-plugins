@@ -104,8 +104,8 @@ public enum FilterType implements Enumerator {
    *
    * @generated
    */
-  public static final List<FilterType> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<FilterType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Filter Type</b></em>' literal with the specified literal value.

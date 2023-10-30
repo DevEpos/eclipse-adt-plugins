@@ -26,8 +26,8 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameter;
  *
  * @generated
  */
-public class CodeSearchScopeParameter extends MinimalEObjectImpl.Container implements
-    ICodeSearchScopeParameter {
+public class CodeSearchScopeParameter extends MinimalEObjectImpl.Container
+    implements ICodeSearchScopeParameter {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->

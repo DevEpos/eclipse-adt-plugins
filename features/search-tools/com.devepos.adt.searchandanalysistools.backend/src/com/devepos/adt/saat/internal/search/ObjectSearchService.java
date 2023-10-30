@@ -32,8 +32,8 @@ public class ObjectSearchService implements IObjectSearchService {
   private final boolean configCacheEnabled;
 
   public ObjectSearchService() {
-    var configCacheDisabledProp = System.getProperty(
-        "com.devepos.adt.objectsearch.configCacheDisabled", Boolean.FALSE.toString());
+    var configCacheDisabledProp = System
+        .getProperty("com.devepos.adt.objectsearch.configCacheDisabled", Boolean.FALSE.toString());
     configCacheEnabled = !Boolean.parseBoolean(configCacheDisabledProp);
   }
 
@@ -95,7 +95,7 @@ public class ObjectSearchService implements IObjectSearchService {
     if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getObjectSearchUri() != null) {
       return Status.OK_STATUS;
     }
-    return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-        "ABAP Object Search (v2) is not available in project ''{0}''", project.getName()));
+    return new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+        NLS.bind("ABAP Object Search (v2) is not available in project ''{0}''", project.getName()));
   }
 }

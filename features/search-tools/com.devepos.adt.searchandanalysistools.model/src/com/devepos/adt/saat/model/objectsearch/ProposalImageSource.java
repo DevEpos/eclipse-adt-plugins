@@ -105,8 +105,8 @@ public enum ProposalImageSource implements Enumerator {
    *
    * @generated
    */
-  public static final List<ProposalImageSource> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<ProposalImageSource> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Proposal Image Source</b></em>' literal with the specified literal value.

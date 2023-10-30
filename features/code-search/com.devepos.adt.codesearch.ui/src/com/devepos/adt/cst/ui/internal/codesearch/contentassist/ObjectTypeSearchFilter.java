@@ -128,22 +128,22 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
   private void initAdtTypes() {
     AdtTypeUtil typeUtil = AdtTypeUtil.getInstance();
     adtTypeMap.put(ITadirTypeConstants.CLASS, typeUtil.getType(IAdtObjectTypeConstants.CLASS));
-    adtTypeMap.put(ITadirTypeConstants.INTERFACE, typeUtil.getType(
-        IAdtObjectTypeConstants.INTERFACE));
+    adtTypeMap.put(ITadirTypeConstants.INTERFACE,
+        typeUtil.getType(IAdtObjectTypeConstants.INTERFACE));
     adtTypeMap.put(ITadirTypeConstants.PROGRAM, typeUtil.getType(IAdtObjectTypeConstants.PROGRAM));
-    adtTypeMap.put(ITadirTypeConstants.TYPE_GROUP, typeUtil.getType(
-        IAdtObjectTypeConstants.TYPE_GROUP));
-    adtTypeMap.put(ITadirTypeConstants.DATA_DEFINITION, typeUtil.getType(
-        IAdtObjectTypeConstants.DATA_DEFINITION));
-    adtTypeMap.put(ITadirTypeConstants.METADATA_EXTENSION, typeUtil.getType(
-        IAdtObjectTypeConstants.METADATA_EXTENSION));
-    adtTypeMap.put(ITadirTypeConstants.ACCESS_CONTROL, typeUtil.getType(
-        IAdtObjectTypeConstants.ACCESS_CONTROL));
-    adtTypeMap.put(ITadirTypeConstants.BEHAVIOR_DEFINITION, typeUtil.getType(
-        IAdtObjectTypeConstants.BEHAVIOR_DEFINITION));
-    adtTypeMap.put(ITadirTypeConstants.SIMPLE_TRANSFORMATION, typeUtil.getType(
-        IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION));
-    adtTypeMap.put(ITadirTypeConstants.FUNCTION_GROUP, typeUtil.getType(
-        IAdtObjectTypeConstants.FUNCTION_GROUP));
+    adtTypeMap.put(ITadirTypeConstants.TYPE_GROUP,
+        typeUtil.getType(IAdtObjectTypeConstants.TYPE_GROUP));
+    adtTypeMap.put(ITadirTypeConstants.DATA_DEFINITION,
+        typeUtil.getType(IAdtObjectTypeConstants.DATA_DEFINITION));
+    adtTypeMap.put(ITadirTypeConstants.METADATA_EXTENSION,
+        typeUtil.getType(IAdtObjectTypeConstants.METADATA_EXTENSION));
+    adtTypeMap.put(ITadirTypeConstants.ACCESS_CONTROL,
+        typeUtil.getType(IAdtObjectTypeConstants.ACCESS_CONTROL));
+    adtTypeMap.put(ITadirTypeConstants.BEHAVIOR_DEFINITION,
+        typeUtil.getType(IAdtObjectTypeConstants.BEHAVIOR_DEFINITION));
+    adtTypeMap.put(ITadirTypeConstants.SIMPLE_TRANSFORMATION,
+        typeUtil.getType(IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION));
+    adtTypeMap.put(ITadirTypeConstants.FUNCTION_GROUP,
+        typeUtil.getType(IAdtObjectTypeConstants.FUNCTION_GROUP));
   }
 }

@@ -105,15 +105,15 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class ObjectSearchResultPage extends Page implements ISearchResultPage,
-    ISearchResultListener, ISearchResultPageExtension<ObjectSearchQuery>, IFilterableView,
-    IAdaptable {
+public class ObjectSearchResultPage extends Page
+    implements ISearchResultPage, ISearchResultListener,
+    ISearchResultPageExtension<ObjectSearchQuery>, IFilterableView, IAdaptable {
   public static final String GROUPED_BY_PACKAGE_PREF = "com.devepos.adt.saat.objectsearch.groupByPackage"; //$NON-NLS-1$
 
-  public static final String LAYOUT_TREE = ObjectSearchResultPage.class.getCanonicalName()
-      + "treeLayoutEnabled";
-  public static final String LAYOUT_LIST = ObjectSearchResultPage.class.getCanonicalName()
-      + "listLayoutEnabled";
+  public static final String LAYOUT_TREE = ObjectSearchResultPage.class.getCanonicalName() +
+      "treeLayoutEnabled";
+  public static final String LAYOUT_LIST = ObjectSearchResultPage.class.getCanonicalName() +
+      "listLayoutEnabled";
 
   private String id;
   private UIState state;
@@ -210,8 +210,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   /**
    * Custom view label provider for the Result Tree
    */
-  static class ViewLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
+  static class ViewLabelProvider extends LabelProvider
+      implements ILabelProvider, IStyledLabelProvider {
 
     protected AdtTypeAlternativeImgMapper typeImageMapper;
 
@@ -292,8 +292,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     private TreeViewer viewer;
 
     public ExpandSelectedFolderNodesAction() {
-      super(Messages.ObjectSearch_ExpandNodeAction_xmsg, AdtBaseUIResources.getImageDescriptor(
-          IAdtBaseImages.EXPAND_ALL));
+      super(Messages.ObjectSearch_ExpandNodeAction_xmsg,
+          AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EXPAND_ALL));
     }
 
     @Override
@@ -431,8 +431,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     queryListener = new QueryListenerAdapter() {
       @Override
       public void queryStarting(final ISearchQuery query) {
-        if (result != null && query.getSearchResult() != null && result.equals(query
-            .getSearchResult())) {
+        if (result != null && query.getSearchResult() != null
+            && result.equals(query.getSearchResult())) {
           if (filterableComposite != null && filterableComposite.isFilterVisible()) {
             Display.getDefault().asyncExec(() -> filterableComposite.toggleFilterVisiblity());
           }
@@ -541,8 +541,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   @Override
   public void setActionBars(final IActionBars actionBars) {
     final IToolBarManager tbm = actionBars.getToolBarManager();
-    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
-        IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
+    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory
+        .createContribItemById(IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
     tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, favoritesAction);
     copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
     actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyToClipBoardAction);
@@ -576,9 +576,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     if (result != null) {
       result.addListener(this);
       searchQuery = (ObjectSearchQuery) result.getQuery();
-      adtTypeImageMapper = new AdtTypeAlternativeImgMapper(searchQuery.getSearchRequest()
-          .getOutputConfig()
-          .getAdtAltTypeImages());
+      adtTypeImageMapper = new AdtTypeAlternativeImgMapper(
+          searchQuery.getSearchRequest().getOutputConfig().getAdtAltTypeImages());
       updateLayoutFromPref();
       updateViewerFromResult();
       resultViewerLabelProvider.setTypeImageMapper(adtTypeImageMapper);
@@ -630,12 +629,12 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     isCdsUsedEntitiesAnalysisAvailable = false;
     isCdsAnalysisAvailable = false;
     if (projectProvider != null && projectProvider.ensureLoggedOn()) {
-      isDbBrowserIntegrationAvailable = FeatureTester.isSapGuiDbBrowserAvailable(projectProvider
-          .getProject());
-      isCdsTopDownAnalysisAvailable = FeatureTester.isCdsTopDownAnalysisAvailable(projectProvider
-          .getProject());
-      isCdsUsedEntitiesAnalysisAvailable = FeatureTester.isCdsUsedEntitiesAnalysisAvailable(
-          projectProvider.getProject());
+      isDbBrowserIntegrationAvailable = FeatureTester
+          .isSapGuiDbBrowserAvailable(projectProvider.getProject());
+      isCdsTopDownAnalysisAvailable = FeatureTester
+          .isCdsTopDownAnalysisAvailable(projectProvider.getProject());
+      isCdsUsedEntitiesAnalysisAvailable = FeatureTester
+          .isCdsUsedEntitiesAnalysisAvailable(projectProvider.getProject());
       isCdsAnalysisAvailable = FeatureTester.isCdsAnalysisAvailable(projectProvider.getProject());
     }
 
@@ -763,10 +762,10 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     menu.add(new Separator(IContextMenuConstants.GROUP_NEW));
     menu.add(new Separator(IContextMenuConstants.GROUP_EDIT));
     menu.add(new GroupMarker(IContextMenuConstants.GROUP_OPEN));
-    menu.add(new GroupMarker(
-        com.devepos.adt.saat.ui.internal.IContextMenuConstants.GROUP_DB_BROWSER));
-    menu.add(new GroupMarker(
-        com.devepos.adt.saat.ui.internal.IContextMenuConstants.GROUP_CDS_ANALYSIS));
+    menu.add(
+        new GroupMarker(com.devepos.adt.saat.ui.internal.IContextMenuConstants.GROUP_DB_BROWSER));
+    menu.add(
+        new GroupMarker(com.devepos.adt.saat.ui.internal.IContextMenuConstants.GROUP_CDS_ANALYSIS));
     menu.add(new GroupMarker(IGeneralMenuConstants.GROUP_NODE_ACTIONS));
     menu.add(new GroupMarker(IContextMenuConstants.GROUP_SEARCH));
 
@@ -822,13 +821,13 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     // fill Open object action
     if (!adtObjRefs.isEmpty()) {
       menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new Separator());
-      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(projectProvider
-          .getProject(), adtObjRefs));
+      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+          new OpenAdtObjectAction(projectProvider.getProject(), adtObjRefs));
     }
     // Fill Data Preview actions
     if (!previewAdtObjRefs.isEmpty()) {
-      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(
-          projectProvider.getProject(), previewAdtObjRefs, true));
+      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+          new ExecuteAdtObjectAction(projectProvider.getProject(), previewAdtObjRefs, true));
       if (isDbBrowserIntegrationAvailable) {
         menu.appendToGroup(com.devepos.adt.saat.ui.internal.IContextMenuConstants.GROUP_DB_BROWSER,
             new Separator());
@@ -851,8 +850,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     }
 
     if (!adtObjRefs.isEmpty() && selectionSize == 1) {
-      additionalItems.add(CommandFactory.createContribItemById(
-          IGeneralCommandConstants.WHERE_USED_IN, true, null));
+      additionalItems.add(
+          CommandFactory.createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
     }
 
     // fill CDS analysis actions
@@ -907,8 +906,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     if (!additionalItems.isEmpty()) {
       // if 'additions' node is created as separator if it is not needed than the context menu will
       // end with a separator which is not pretty
-      menu.add(launchableNodeCount == selectionSize ? new Separator(
-          IWorkbenchActionConstants.MB_ADDITIONS)
+      menu.add(launchableNodeCount == selectionSize
+          ? new Separator(IWorkbenchActionConstants.MB_ADDITIONS)
           : new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
       for (var item : additionalItems) {
         menu.insertBefore(IWorkbenchActionConstants.MB_ADDITIONS, item);
@@ -939,8 +938,8 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
   }
 
   private void initializeActions() {
-    favoritesAction = SearchFavoritesActionFactory.createSearchFavoritesAction(
-        ObjectSearchQuery.SEARCH_FAVORITE_TYPE);
+    favoritesAction = SearchFavoritesActionFactory
+        .createSearchFavoritesAction(ObjectSearchQuery.SEARCH_FAVORITE_TYPE);
     collapseAllNodesAction = new CollapseAllTreeNodesAction();
     collapseAllNodesAction.setId(ObjectSearchResultPage.class.getName() + ".collapseAllAction");
     collapseNodesAction = new CollapseTreeNodesAction();
@@ -960,8 +959,9 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
     layoutActionGroup.addAction(LAYOUT_TREE, Messages.ObjectSearchResultPage_showAsTreeAction_xlbl,
         AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.TREE_LAYOUT), true);
     layoutActionGroup.addActionToggledListener(l -> {
-      prefStore.putValue(String.format("%s.%s.layout", ObjectSearchResultPage.class
-          .getCanonicalName(), result.getUsedSearchType()), layoutActionGroup.getToggledActionId());
+      prefStore.putValue(String.format("%s.%s.layout",
+          ObjectSearchResultPage.class.getCanonicalName(), result.getUsedSearchType()),
+          layoutActionGroup.getToggledActionId());
       updateViewerLayout();
     });
   }
@@ -977,14 +977,14 @@ public class ObjectSearchResultPage extends Page implements ISearchResultPage,
       layoutActionGroup.setActionChecked(result.isListLayoutActive() ? LAYOUT_LIST : LAYOUT_TREE);
       viewMenu.add(new Separator());
     }
-    viewMenu.add(CommandFactory.createContribItemById(
-        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    viewMenu.add(CommandFactory
+        .createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
     viewMenu.add(new Separator());
     viewMenu.add(openPreferencesAction);
 
     if (result.supportsListLayout()) {
-      updateTreeActions(!((ObjectSearchResult) getSearchQuery().getSearchResult())
-          .isListLayoutActive());
+      updateTreeActions(
+          !((ObjectSearchResult) getSearchQuery().getSearchResult()).isListLayoutActive());
     } else {
       updateTreeActions(true);
     }

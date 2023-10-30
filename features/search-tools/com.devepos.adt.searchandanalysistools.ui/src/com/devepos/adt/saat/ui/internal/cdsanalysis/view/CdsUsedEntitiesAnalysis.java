@@ -36,9 +36,9 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
 
   public CdsUsedEntitiesAnalysis(final IAdtObjectReferenceElementInfo cdsViewAdtObj) {
     super(cdsViewAdtObj);
-    node = new LazyLoadingAdtObjectReferenceNode(cdsViewAdtObj.getName(), cdsViewAdtObj
-        .getDisplayName(), cdsViewAdtObj.getDescription(), cdsViewAdtObj.getAdtObjectReference(),
-        null);
+    node = new LazyLoadingAdtObjectReferenceNode(cdsViewAdtObj.getName(),
+        cdsViewAdtObj.getDisplayName(), cdsViewAdtObj.getDescription(),
+        cdsViewAdtObj.getAdtObjectReference(), null);
     final IDestinationProvider destProvider = cdsViewAdtObj.getAdapter(IDestinationProvider.class);
     node.setElementInfoProvider(new IElementInfoProvider() {
       @Override
@@ -48,21 +48,22 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
         }
         var usedEntitiesResult = CdsAnalysisServiceFactory.getCdsAnalysisService()
             .loadUsedEntitiesAnalysis(cdsViewAdtObj.getName(), destProvider.getDestinationId());
-        return usedEntitiesResult != null ? convertToElementInfoList(destProvider
-            .getDestinationId(), usedEntitiesResult) : null;
+        return usedEntitiesResult != null
+            ? convertToElementInfoList(destProvider.getDestinationId(), usedEntitiesResult)
+            : null;
       }
 
       @Override
       public String getProviderDescription() {
-        return NLS.bind(Messages.CdsAnalysis_UsageAnalysisProviderDescription_xmsg, cdsViewAdtObj
-            .getDisplayName());
+        return NLS.bind(Messages.CdsAnalysis_UsageAnalysisProviderDescription_xmsg,
+            cdsViewAdtObj.getDisplayName());
       }
 
     });
   }
 
-  private static final class CdsEntityUsageInfo extends ExtendedAdtObjectInfo implements
-      ICdsEntityUsageInfo {
+  private static final class CdsEntityUsageInfo extends ExtendedAdtObjectInfo
+      implements ICdsEntityUsageInfo {
     public int occurrence;
     public int usedEntitiesCount;
     public int usedJoinCount;
@@ -126,10 +127,10 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
     var elements = new ArrayList<IElementInfo>();
     for (var entry : usedEntitiesResult.getUsedEntities()) {
       var entityRef = entry.getEntityRef();
-      var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(), entityRef
-          .getDisplayName(), entityRef.getDescription());
-      adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-          destinationId, entityRef));
+      var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(),
+          entityRef.getDisplayName(), entityRef.getDescription());
+      adtObjRefElemInfo.setAdtObjectReference(
+          AdtObjectReferenceModelFactory.createReference(destinationId, entityRef));
       var usageInfo = new CdsEntityUsageInfo();
       var usageInfoModel = entry.getUsageInformation();
       usageInfo.occurrence = usageInfoModel.getOccurrence();

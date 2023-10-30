@@ -10,8 +10,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class LaunchableAdtObjectReferenceNode extends AdtObjectReferenceNode implements
-    ILaunchableNode {
+public class LaunchableAdtObjectReferenceNode extends AdtObjectReferenceNode
+    implements ILaunchableNode {
 
   public LaunchableAdtObjectReferenceNode(final ICollectionTreeNode parent) {
     super(parent);

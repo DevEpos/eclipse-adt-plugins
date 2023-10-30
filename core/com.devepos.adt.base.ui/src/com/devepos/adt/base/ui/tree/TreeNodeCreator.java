@@ -108,8 +108,8 @@ public class TreeNodeCreator {
         lazyLoadingElement.getImage(), null, parent);
     lazyFolder.setNodeValue(lazyLoadingElement.getAdditionalInfo());
     lazyFolder.getProperties().putAll(lazyLoadingElement.getProperties());
-    ((ILazyLoadingNode) lazyFolder).setContentRefreshMode(lazyLoadingElement
-        .getContentRefreshMode());
+    ((ILazyLoadingNode) lazyFolder)
+        .setContentRefreshMode(lazyLoadingElement.getContentRefreshMode());
     if (lazyFolder != null) {
       parent.addChild(lazyFolder);
     }
@@ -132,8 +132,9 @@ public class TreeNodeCreator {
 
   protected void addSimpleNode(final IElementInfo elementInfo,
       final ICollectionTreeNode collection) {
-    final ITreeNode simpleNode = new SimpleInfoTreeNode(elementInfo.getName(), elementInfo
-        .getDisplayName(), elementInfo.getImage(), elementInfo.getDescription(), collection);
+    final ITreeNode simpleNode = new SimpleInfoTreeNode(elementInfo.getName(),
+        elementInfo.getDisplayName(), elementInfo.getImage(), elementInfo.getDescription(),
+        collection);
     simpleNode.setNodeValue(elementInfo.getAdditionalInfo());
     simpleNode.getProperties().putAll(elementInfo.getProperties());
     collection.addChild(simpleNode);
@@ -146,12 +147,12 @@ public class TreeNodeCreator {
     IAdtObjectReferenceNode adtObjectRefNode;
     if (isNodeLaunchable(adtObjElementInfo)) {
       adtObjectRefNode = new LaunchableAdtObjectReferenceNode(adtObjElementInfo.getName(),
-          adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo
-              .getAdtObjectReference(), collection);
+          adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(),
+          adtObjElementInfo.getAdtObjectReference(), collection);
     } else {
-      adtObjectRefNode = new AdtObjectReferenceNode(adtObjElementInfo.getName(), adtObjElementInfo
-          .getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo
-              .getAdtObjectReference(), collection);
+      adtObjectRefNode = new AdtObjectReferenceNode(adtObjElementInfo.getName(),
+          adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(),
+          adtObjElementInfo.getAdtObjectReference(), collection);
     }
     return adtObjectRefNode;
   }
@@ -161,13 +162,14 @@ public class TreeNodeCreator {
       final ICollectionTreeNode collection) {
     IAdtObjectReferenceNode adtObjectRefNode;
     if (isNodeLaunchable(adtObjElementInfo)) {
-      adtObjectRefNode = new LaunchableLazyLoadingAdtObjectReferenceNode(adtObjElementInfo
-          .getName(), adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(),
-          adtObjElementInfo.getAdtObjectReference(), collection);
+      adtObjectRefNode = new LaunchableLazyLoadingAdtObjectReferenceNode(
+          adtObjElementInfo.getName(), adtObjElementInfo.getDisplayName(),
+          adtObjElementInfo.getDescription(), adtObjElementInfo.getAdtObjectReference(),
+          collection);
     } else {
       adtObjectRefNode = new LazyLoadingAdtObjectReferenceNode(adtObjElementInfo.getName(),
-          adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(), adtObjElementInfo
-              .getAdtObjectReference(), collection);
+          adtObjElementInfo.getDisplayName(), adtObjElementInfo.getDescription(),
+          adtObjElementInfo.getAdtObjectReference(), collection);
     }
     final ILazyLoadingNode lazyLoadingNode = (ILazyLoadingNode) adtObjectRefNode;
     lazyLoadingNode.setContentRefreshMode(adtObjElementInfo.getContentRefreshMode());

@@ -33,11 +33,11 @@ public class CommandPossibleChecker {
   public boolean canCommandBeEnabled(final String commandId) {
     switch (commandId) {
     case ICommandConstants.CDS_TOP_DOWN_ANALYSIS:
-      return isSingleCdsSelection() && FeatureTester.isCdsTopDownAnalysisAvailable(
-          selectedAdtObjects.get(0).getProject());
+      return isSingleCdsSelection()
+          && FeatureTester.isCdsTopDownAnalysisAvailable(selectedAdtObjects.get(0).getProject());
     case ICommandConstants.USED_ENTITIES_ANALYSIS:
-      return isSingleCdsSelection() && FeatureTester.isCdsUsedEntitiesAnalysisAvailable(
-          selectedAdtObjects.get(0).getProject());
+      return isSingleCdsSelection() && FeatureTester
+          .isCdsUsedEntitiesAnalysisAvailable(selectedAdtObjects.get(0).getProject());
     case ICommandConstants.WHERE_USED_IN_CDS_ANALYSIS:
       return hasSingleSelection(true);
     case ICommandConstants.FIELD_ANALYSIS:
@@ -128,8 +128,8 @@ public class CommandPossibleChecker {
   }
 
   private boolean isSingleCdsSelection() {
-    return hasSingleSelection() && selectedAdtObjects.get(0)
-        .getObjectType() == ObjectType.DATA_DEFINITION;
+    return hasSingleSelection()
+        && selectedAdtObjects.get(0).getObjectType() == ObjectType.DATA_DEFINITION;
   }
 
 }

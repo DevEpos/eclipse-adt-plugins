@@ -74,8 +74,8 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  * @see {@link CdsAnalyzerPage}
  * @author stockbal
  */
-public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAnalysis> implements
-    IFilterableView {
+public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAnalysis>
+    implements IFilterableView {
   private final ILazyLoadingListener lazyLoadingListener;
   private Action showFromUses;
   private Action showAssocUses;
@@ -123,7 +123,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       getViewPart().updateLabel();
 
       try {
-        var input = (Object[]) analysisResult.getResult();
+        var input = analysisResult.getResult();
         var resultNode = (ICollectionTreeNode) input[0];
         findReleasedDownward(resultNode);
         var viewer = (TreeViewer) getViewer();
@@ -293,8 +293,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, new Separator());
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, releasedEntitiesFilterAction);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, resetFilterAction);
-    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory.createContribItemById(
-        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory
+        .createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, searchRecursivelyAction);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, releasedUsagesOnly);
     menu.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, localAssociationsOnly);
@@ -322,8 +322,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     contentProvider.setExpansionChecker(null);
     treeViewer.setContentProvider(contentProvider);
     treeViewer.setUseHashlookup(true);
-    treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new TreeViewerLabelProvider()));
+    treeViewer
+        .setLabelProvider(new DelegatingStyledCellLabelProvider(new TreeViewerLabelProvider()));
   }
 
   @Override
@@ -332,18 +332,18 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
     expandAllAction = new ExpandAllAction();
     expandAllAction.setTreeViewer((TreeViewer) getViewer());
-    expandAllAction.setText(AdtBaseUIResources.getString(
-        IAdtBaseStrings.ExpandAllLoadedNodes_xlbl));
+    expandAllAction
+        .setText(AdtBaseUIResources.getString(IAdtBaseStrings.ExpandAllLoadedNodes_xlbl));
 
     showFromUses = ActionFactory.createAction(
-        Messages.WhereUsedInCdsAnalysisView_ShowUsesInSelectPartAction_xmit, SearchAndAnalysisPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.DATA_SOURCE), IAction.AS_CHECK_BOX, () -> {
-              analysisResult.getSettings().setSearchFromPart(showFromUses.isChecked());
-              analysisResult.updateWhereUsedProvider();
-              updateViewerFromSettings();
-              refreshAnalysis(true);
-            });
+        Messages.WhereUsedInCdsAnalysisView_ShowUsesInSelectPartAction_xmit,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.DATA_SOURCE),
+        IAction.AS_CHECK_BOX, () -> {
+          analysisResult.getSettings().setSearchFromPart(showFromUses.isChecked());
+          analysisResult.updateWhereUsedProvider();
+          updateViewerFromSettings();
+          refreshAnalysis(true);
+        });
 
     showAssocUses = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_ShowUsesInAssociationsAction_xmit,
@@ -385,11 +385,11 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     });
 
     filterAction = ActionFactory.createAction(
-        Messages.WhereUsedInCdsAnalysisView_FilterOnSelection_xmit, AdtBaseUIResources
-            .getImageDescriptor(IAdtBaseImages.FILTER), this::filterOnSelection);
+        Messages.WhereUsedInCdsAnalysisView_FilterOnSelection_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.FILTER), this::filterOnSelection);
     resetFilterAction = ActionFactory.createAction(
-        Messages.WhereUsedInCdsAnalysisView_ResetViewerFilter_xmit, null, () -> resetFiltering(
-            true));
+        Messages.WhereUsedInCdsAnalysisView_ResetViewerFilter_xmit, null,
+        () -> resetFiltering(true));
     releasedEntitiesFilterAction = new ReleasedPathsFilterAction();
     searchRecursivelyAction = ActionFactory.createAction(
         Messages.WhereUsedInCdsAnalysisView_SearchFromPartReferencesRecursively_xmit, null,
@@ -402,18 +402,18 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
         Messages.WhereUsedInCdsAnalysisView_SearchFromPartReferencesRecursively_xtol);
 
     refreshNodesAction = ActionFactory.createAction(
-        Messages.CdsAnalysis_RefreshAnalysisForNode_xlbl, AdtBaseUIResources.getImageDescriptor(
-            IAdtBaseImages.REFRESH), () -> {
-              refreshAnalysis(false);
-            });
+        Messages.CdsAnalysis_RefreshAnalysisForNode_xlbl,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), () -> {
+          refreshAnalysis(false);
+        });
     refreshNodesAction.setActionDefinitionId(IWorkbenchCommandConstants.FILE_REFRESH);
   }
 
   @Override
   protected TreeViewer createTreeViewer(final Composite parent) {
     resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
-    var resultTreeViewer = new LazyLoadingTreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL
-        | SWT.V_SCROLL);
+    var resultTreeViewer = new LazyLoadingTreeViewer(resultTree,
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTreeViewer.addFilter(treeFilter);
     resultTree.setViewer(resultTreeViewer);
     return resultTreeViewer;
@@ -478,9 +478,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
       if (element instanceof ICollectionTreeNode) {
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
-        if (size != null && (!analysisResult.getSettings().isSearchRecursively() || analysisResult
-            .getSettings()
-            .isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
+        if (size != null && (!analysisResult.getSettings().isSearchRecursively()
+            || analysisResult.getSettings().isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
           text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
         }
       }
@@ -537,7 +536,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   }
 
   @Override
-  protected void refreshAnalysis(boolean global) {
+  protected void refreshAnalysis(final boolean global) {
     var viewer = (TreeViewer) getViewer();
     var selectedElements = viewer.getStructuredSelection().toList();
 
@@ -566,8 +565,8 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     var whereUsedInTemplate = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .getWhereUsedInCdsAnalysisTemplate(destProvider.getDestinationId());
 
-    boolean isLocalAssocOnlyFeatureAvailable = whereUsedInTemplate != null && whereUsedInTemplate
-        .containsVariable(
+    boolean isLocalAssocOnlyFeatureAvailable = whereUsedInTemplate != null
+        && whereUsedInTemplate.containsVariable(
             IWhereUsedInCdsAnalysisConstants.QUERY_PARAM_LOCAL_DECLARED_ASSOCIATIONS_ONLY);
     localAssociationsOnly.setEnabled(isLocalAssocOnlyFeatureAvailable);
     releasedUsagesOnly.setEnabled(whereUsedInTemplate != null && whereUsedInTemplate
@@ -609,13 +608,13 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     IPreferenceStore prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     boolean isSearchFrom = prefStore.getBoolean(ICdsAnalysisPreferences.WHERE_USED_USES_IN_SELECT);
     boolean isSearchAssoc = prefStore.getBoolean(ICdsAnalysisPreferences.WHERE_USED_USES_IN_ASSOC);
-    boolean isSearchRecursively = prefStore.getBoolean(
-        ICdsAnalysisPreferences.WHERE_USED_SEARCH_RECURSIVELY);
+    boolean isSearchRecursively = prefStore
+        .getBoolean(ICdsAnalysisPreferences.WHERE_USED_SEARCH_RECURSIVELY);
 
-    boolean isLocalAssocOnly = prefStore.getBoolean(
-        ICdsAnalysisPreferences.WHERE_USED_LOCAL_ASSOCIATIONS_ONLY);
-    boolean isReleasedUsagesOnly = prefStore.getBoolean(
-        ICdsAnalysisPreferences.WHERE_USED_ONLY_RELEASED_USAGES);
+    boolean isLocalAssocOnly = prefStore
+        .getBoolean(ICdsAnalysisPreferences.WHERE_USED_LOCAL_ASSOCIATIONS_ONLY);
+    boolean isReleasedUsagesOnly = prefStore
+        .getBoolean(ICdsAnalysisPreferences.WHERE_USED_ONLY_RELEASED_USAGES);
 
     showFromUses.setChecked(isSearchFrom);
     showAssocUses.setChecked(isSearchAssoc);

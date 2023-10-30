@@ -64,16 +64,16 @@ public class CdsAnalysisWelcomeText extends ViewPartInfo {
 
   @Override
   protected void setAdditionalInfo() {
-    setImage(RUN_NEW_ANALYSIS_HREF, SearchAndAnalysisPlugin.getDefault()
-        .getImage(IImages.RUN_NEW_ANALYSIS));
+    setImage(RUN_NEW_ANALYSIS_HREF,
+        SearchAndAnalysisPlugin.getDefault().getImage(IImages.RUN_NEW_ANALYSIS));
     addHyperlinkListener(IHyperlinkListener.linkActivatedAdapter(t -> {
       if (t.getHref().equals(RUN_NEW_ANALYSIS_HREF)) {
         IEvaluationContext context = PlatformUI.getWorkbench()
             .<IHandlerService>getService(IHandlerService.class)
             .getCurrentState();
         try {
-          new RunCdsAnalysisHandler().execute(new ExecutionEvent(null, Collections.emptyMap(), null,
-              context));
+          new RunCdsAnalysisHandler()
+              .execute(new ExecutionEvent(null, Collections.emptyMap(), null, context));
         } catch (ExecutionException x) {
           x.printStackTrace();
         }

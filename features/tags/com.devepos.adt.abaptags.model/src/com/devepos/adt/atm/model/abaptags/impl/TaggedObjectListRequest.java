@@ -39,8 +39,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
  *
  * @generated
  */
-public class TaggedObjectListRequest extends MinimalEObjectImpl.Container implements
-    ITaggedObjectListRequest {
+public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
+    implements ITaggedObjectListRequest {
   /**
    * The cached value of the '{@link #getTagIds() <em>Tag Ids</em>}' attribute list.
    * <!-- begin-user-doc -->

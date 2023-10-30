@@ -55,8 +55,8 @@ public enum FilterName {
     if (CONTENT_ASSIST_TO_URI_PARAM_MAP == null) {
       CONTENT_ASSIST_TO_URI_PARAM_MAP = new HashMap<>();
       for (FilterName filter : FilterName.values()) {
-        if (filter.contentAssistName != null && !filter.contentAssistName.equals(
-            filter.uriParamName)) {
+        if (filter.contentAssistName != null
+            && !filter.contentAssistName.equals(filter.uriParamName)) {
           CONTENT_ASSIST_TO_URI_PARAM_MAP.put(filter.contentAssistName, filter.uriParamName);
         }
       }

@@ -20,8 +20,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  *
  * @author stockbal
  */
-public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode implements
-    ILazyLoadingNode {
+public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode
+    implements ILazyLoadingNode {
   private boolean isLoading;
   private boolean isLoaded;
   private IElementInfoProvider provider;
@@ -69,7 +69,7 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
 
   @Override
   public boolean hasChildren() {
-    return !(isLoaded && (children == null || children.isEmpty()));
+    return (!isLoaded || ((children != null) && !children.isEmpty()));
   }
 
   @Override
@@ -144,8 +144,8 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode im
       new TreeNodeCreator(this).createSubNodes(elements);
     } catch (Throwable t) {
       addChild(new LoadingErrorNode(this, Messages.LazyLoadingNode_ErrorDuringLoading_xmsg, t));
-      throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t.getMessage(),
-          t));
+      throw new CoreException(
+          new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t.getMessage(), t));
     }
   }
 }

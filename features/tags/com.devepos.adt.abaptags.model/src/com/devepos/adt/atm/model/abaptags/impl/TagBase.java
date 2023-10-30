@@ -124,8 +124,8 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
     String oldId = id;
     id = newId;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG_BASE__ID, oldId,
-          id));
+      eNotify(
+          new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG_BASE__ID, oldId, id));
     }
   }
 

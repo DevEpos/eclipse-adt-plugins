@@ -28,8 +28,8 @@ import com.devepos.adt.saat.model.cdsanalysis.ICdsQueryNavTargets;
  *
  * @generated
  */
-public class CdsQueryNavTargets extends MinimalEObjectImpl.Container implements
-    ICdsQueryNavTargets {
+public class CdsQueryNavTargets extends MinimalEObjectImpl.Container
+    implements ICdsQueryNavTargets {
   /**
    * The cached value of the '{@link #getNavigationTargets() <em>Navigation Targets</em>}' attribute
    * list.

@@ -32,8 +32,8 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
  *
  * @generated
  */
-public class CodeSearchSettings extends MinimalEObjectImpl.Container implements
-    ICodeSearchSettings {
+public class CodeSearchSettings extends MinimalEObjectImpl.Container
+    implements ICodeSearchSettings {
   /**
    * The default value of the '{@link #isParallelEnabled() <em>Parallel Enabled</em>}' attribute.
    * <!-- begin-user-doc -->

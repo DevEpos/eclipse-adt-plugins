@@ -44,8 +44,8 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
     this.actionSite = actionSite;
     viewer = actionSite.getStructuredViewer();
     setText(Messages.RemoveAssignedTagsAction_ActionName_xlbl);
-    setImageDescriptor(AbapTagsUIPlugin.getDefault()
-        .getImageDescriptor(IImages.REMOVE_ASSIGNED_TAGS));
+    setImageDescriptor(
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.REMOVE_ASSIGNED_TAGS));
   }
 
   @Override
@@ -86,8 +86,8 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
       final List<ITaggedObjectInfo> objectInfos, final Set<ILazyLoadingNode> nodesToUpdate) {
     var taggedObjectInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
 
-    var parentName = objRefNode.getPropertyValue(
-        ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+    var parentName = objRefNode
+        .getPropertyValue(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
     if (parentName != null) {
       var componentType = objRefNode.getAdtObjectType();
       taggedObjectInfo.setComponentName(objRefNode.getName());
@@ -96,9 +96,9 @@ class RemoveAssignedTagsAction extends SelectionListenerAction {
        * Note: Function Group Includes, Function, Program Includes and Programs are all stored with
        * the tadir type PROG.
        */
-      taggedObjectInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
-          ? ITadirTypeConstants.CLASS
-          : ITadirTypeConstants.PROGRAM);
+      taggedObjectInfo.setObjectType(
+          componentType.startsWith(ITadirTypeConstants.CLASS) ? ITadirTypeConstants.CLASS
+              : ITadirTypeConstants.PROGRAM);
       taggedObjectInfo.setObjectName(parentName);
     } else {
       taggedObjectInfo.setObjectName(objRefNode.getName());

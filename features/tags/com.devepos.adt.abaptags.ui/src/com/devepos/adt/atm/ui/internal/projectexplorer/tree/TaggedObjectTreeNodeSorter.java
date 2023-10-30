@@ -61,8 +61,8 @@ public class TaggedObjectTreeNodeSorter extends ViewerComparator {
   private String getLabel(final Object o1) {
     if (o1 instanceof IAdtObjectReferenceNode) {
       var objRefNode = (IAdtObjectReferenceNode) o1;
-      var parentObjName = objRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      var parentObjName = objRefNode
+          .getPropertyValue(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
       var label = objRefNode.getAdtObjectType() + objRefNode.getName();
       return parentObjName != null ? label + parentObjName : label;
     }

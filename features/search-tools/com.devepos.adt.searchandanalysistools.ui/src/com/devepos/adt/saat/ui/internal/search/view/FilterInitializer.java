@@ -75,9 +75,9 @@ public class FilterInitializer {
     }
     // 3) Still no search filter created means a standard text search filter without any proposal
     // support
-    return new SearchFilter(filterConfig.getName(), filterConfig.getDescription(), filterConfig
-        .getLongDescription(), getFilterImage(), filterConfig.isWildcardsAllowed(), filterConfig
-            .isMultiple(), filterConfig.isNegatable());
+    return new SearchFilter(filterConfig.getName(), filterConfig.getDescription(),
+        filterConfig.getLongDescription(), getFilterImage(), filterConfig.isWildcardsAllowed(),
+        filterConfig.isMultiple(), filterConfig.isNegatable());
   }
 
   private ISearchFilter createFixedNamedItemFilter(final IFixedValuesContentAssist contentAssist) {
@@ -85,12 +85,13 @@ public class FilterInitializer {
       throw new IllegalArgumentException(
           "A Fixed Values Search filter cannot have an empty proposals list!");
     }
-    var filter = new FixedNamedItemSearchFilter(filterConfig.getName(), filterConfig
-        .getDescription(), filterConfig.getLongDescription(), getFilterImage(), filterConfig
-            .isMultiple(), filterConfig.isNegatable(), contentAssist.getProposals()
-                .stream()
-                .map(p -> INamedItem.createNamedItem(p.getName(), p.getDescription(), p.getData()))
-                .collect(Collectors.toList()));
+    var filter = new FixedNamedItemSearchFilter(filterConfig.getName(),
+        filterConfig.getDescription(), filterConfig.getLongDescription(), getFilterImage(),
+        filterConfig.isMultiple(), filterConfig.isNegatable(),
+        contentAssist.getProposals()
+            .stream()
+            .map(p -> INamedItem.createNamedItem(p.getName(), p.getDescription(), p.getData()))
+            .collect(Collectors.toList()));
     filter.setProposalImageProvider(createImageProvider(contentAssist));
     return filter;
   }
@@ -110,8 +111,8 @@ public class FilterInitializer {
         }
         return new ProposalImageProvider(contentAssist.getProposalImageRegistryId());
       }
-    } else if (source == ProposalImageSource.FIXED && contentAssist.getProposalImages()
-        .size() == 1) {
+    } else if (source == ProposalImageSource.FIXED
+        && contentAssist.getProposalImages().size() == 1) {
       return new ProposalImageProvider(registerImage(contentAssist.getProposalImages().get(0)));
     }
     return null;
@@ -120,17 +121,20 @@ public class FilterInitializer {
   private ISearchFilter createNamedItemFilter(final INamedItemContentAssist contentAssist) {
     NamedItemFilter filter = null;
     if (filterConfig.isKeyValuePair() && contentAssist.getSecondaryCategoryTerm() != null) {
-      filter = new KeyValueNamedItemFilter(projectProvider, ObjectSearchServiceFactory
-          .getSearchService()
-          .getNamedItemUriTemplateProvider(projectProvider), INamedItemType.create(contentAssist
-              .getCategoryTerm(), false, contentAssist.isCachingPossible()), INamedItemType.create(
-                  contentAssist.getSecondaryCategoryTerm(), false, false), filterConfig.getName(),
-          contentAssist.getInitialFilter());
+      filter = new KeyValueNamedItemFilter(projectProvider,
+          ObjectSearchServiceFactory.getSearchService()
+              .getNamedItemUriTemplateProvider(projectProvider),
+          INamedItemType.create(contentAssist.getCategoryTerm(), false,
+              contentAssist.isCachingPossible()),
+          INamedItemType.create(contentAssist.getSecondaryCategoryTerm(), false, false),
+          filterConfig.getName(), contentAssist.getInitialFilter());
     } else {
-      filter = new NamedItemFilter(projectProvider, ObjectSearchServiceFactory.getSearchService()
-          .getNamedItemUriTemplateProvider(projectProvider), INamedItemType.create(contentAssist
-              .getCategoryTerm(), false, contentAssist.isCachingPossible()), filterConfig.getName(),
-          contentAssist.getInitialFilter());
+      filter = new NamedItemFilter(projectProvider,
+          ObjectSearchServiceFactory.getSearchService()
+              .getNamedItemUriTemplateProvider(projectProvider),
+          INamedItemType.create(contentAssist.getCategoryTerm(), false,
+              contentAssist.isCachingPossible()),
+          filterConfig.getName(), contentAssist.getInitialFilter());
     }
     filter.setDescription(filterConfig.getDescription());
     filter.setLongDescription(filterConfig.getLongDescription());
@@ -154,8 +158,8 @@ public class FilterInitializer {
   }
 
   private ISearchFilter createUserFilter(final IUserContentAssist contentAssist) {
-    var userFilter = new UserSearchFilter(projectProvider, filterConfig.getName(), filterConfig
-        .getDescription(), filterConfig.getLongDescription());
+    var userFilter = new UserSearchFilter(projectProvider, filterConfig.getName(),
+        filterConfig.getDescription(), filterConfig.getLongDescription());
     var filterImage = getFilterImage();
     if (filterImage != null) {
       userFilter.setImage(filterImage);

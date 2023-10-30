@@ -98,14 +98,14 @@ public class CodeSearchQuery implements IAbapProjectSearchQuery {
     // check project availability
     IAbapProjectProvider projectProvider = querySpecs.getProjectProvider();
     if (projectProvider == null) {
-      projectProvider = AbapProjectProviderAccessor.getProviderForDestination(querySpecs
-          .getDestinationId());
+      projectProvider = AbapProjectProviderAccessor
+          .getProviderForDestination(querySpecs.getDestinationId());
       querySpecs.setProjectProvider(projectProvider);
     }
     final String destinationId = querySpecs.getDestinationId();
     if (destinationId == null) {
-      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, AdtBaseUIResources.format(
-          IAdtBaseStrings.Destinations_DestinationNotValid_xmsg, destinationId));
+      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, AdtBaseUIResources
+          .format(IAdtBaseStrings.Destinations_DestinationNotValid_xmsg, destinationId));
     }
     IStatus logonStatus = ProjectUtil.ensureLoggedOnToProject(projectProvider.getProject());
     if (!logonStatus.isOK()) {
@@ -140,8 +140,8 @@ public class CodeSearchQuery implements IAbapProjectSearchQuery {
       final int workUnits) {
     // update current percentage of progress
     if (currentOffset > 0) {
-      int workedUnits = (int) Math.ceil((scope.getObjectCount() - currentOffset)
-          / WORK_UNITS_PACKAGE);
+      int workedUnits = (int) Math
+          .ceil((scope.getObjectCount() - currentOffset) / WORK_UNITS_PACKAGE);
       monitor.worked(workUnits - workedUnits);
     }
   }
@@ -171,8 +171,8 @@ public class CodeSearchQuery implements IAbapProjectSearchQuery {
       ICodeSearchResult serviceSearchResult = service.search(destinationId, uriParams, monitor);
       searchResult.addResult(serviceSearchResult, System.currentTimeMillis() - startTime);
 
-      monitor.worked((int) Math.ceil(serviceSearchResult.getNumberOfSearchedObjects()
-          / WORK_UNITS_PACKAGE));
+      monitor.worked(
+          (int) Math.ceil(serviceSearchResult.getNumberOfSearchedObjects() / WORK_UNITS_PACKAGE));
       currentOffset += serviceSearchResult.getNumberOfSearchedObjects();
     }
     monitor.done();

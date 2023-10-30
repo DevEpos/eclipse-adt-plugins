@@ -59,14 +59,14 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
     }
     if (!isFeatureAvailable(project)) {
       MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          Messages.Dialog_InfoTitle_xmsg, NLS.bind(getFeatureUnavailableMessage(), DestinationUtil
-              .getDestinationId(project)));
+          Messages.Dialog_InfoTitle_xmsg,
+          NLS.bind(getFeatureUnavailableMessage(), DestinationUtil.getDestinationId(project)));
       return null;
     }
     final IAbapProject abapProject = selectedObject.getProject().getAdapter(IAbapProject.class);
     // register the abapProject
-    AbapProjectProviderAccessor.registerProjectProvider(new AbapProjectProxy(selectedObject
-        .getProject()));
+    AbapProjectProviderAccessor
+        .registerProjectProvider(new AbapProjectProxy(selectedObject.getProject()));
     final IAdtObjectReference objectRef = selectedObject.getReference();
     if (objectRef != null && objectRef.getUri() != null) {
       analyzeObject(objectRef, abapProject.getDestinationId(), openInNewWindow);
@@ -114,8 +114,8 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
             var adtObjRef = ElementInfoRetrievalServiceFactory.createService()
                 .retrieveBasicElementInformation(destinationId, objectRef.getUri());
             if (adtObjRef != null) {
-              final CdsAnalysis newAnalysis = createTypedAnalysis(AdtObjRefToElemInfoConverter
-                  .convert(destinationId, adtObjRef));
+              final CdsAnalysis newAnalysis = createTypedAnalysis(
+                  AdtObjRefToElemInfoConverter.convert(destinationId, adtObjRef));
               PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                 analysisManager.addAnalysis(newAnalysis);
                 analysisManager.registerAnalysis(analysisKey, newAnalysis);

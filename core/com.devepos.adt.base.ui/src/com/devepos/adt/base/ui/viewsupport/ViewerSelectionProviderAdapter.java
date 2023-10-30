@@ -14,8 +14,8 @@ import org.eclipse.jface.viewers.Viewer;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class ViewerSelectionProviderAdapter implements ISelectionProvider,
-    ISelectionChangedListener {
+public class ViewerSelectionProviderAdapter
+    implements ISelectionProvider, ISelectionChangedListener {
   private final ArrayList<ISelectionChangedListener> fListeners = new ArrayList<>(5);
   private Viewer viewer;
 
@@ -37,8 +37,8 @@ public class ViewerSelectionProviderAdapter implements ISelectionProvider,
   @Override
   public void selectionChanged(final SelectionChangedEvent event) {
     // forward to my listeners
-    final SelectionChangedEvent wrappedEvent = new SelectionChangedEvent(this, event
-        .getSelection());
+    final SelectionChangedEvent wrappedEvent = new SelectionChangedEvent(this,
+        event.getSelection());
     for (final ISelectionChangedListener listener : fListeners) {
       listener.selectionChanged(wrappedEvent);
     }

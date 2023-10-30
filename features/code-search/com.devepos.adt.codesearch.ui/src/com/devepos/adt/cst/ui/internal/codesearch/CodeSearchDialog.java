@@ -57,8 +57,8 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
-public class CodeSearchDialog extends DialogPage implements ISearchPage,
-    IChangeableSearchPage<CodeSearchQuery> {
+public class CodeSearchDialog extends DialogPage
+    implements ISearchPage, IChangeableSearchPage<CodeSearchQuery> {
   public static final String PAGE_ID = "com.devepos.adt.codesearch.ui.searchpage.codeSearch"; //$NON-NLS-1$
 
   private static final String LAST_PROJECT_PREF = "lastProject"; //$NON-NLS-1$
@@ -233,18 +233,17 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
   private void collectExtensionSectionParameters() {
     for (ISearchPageParameterSection section : extensionParamSections) {
       querySpecs.getExtensionObjectScopeFilters()
-          .put(section.getParameterId(), section.getParameterValues()
-              .stream()
-              .collect(Collectors.joining(",")));
+          .put(section.getParameterId(),
+              section.getParameterValues().stream().collect(Collectors.joining(",")));
     }
   }
 
   private void collectQuerySpecs() {
     querySpecs.setPatterns(patternsText.getText());
     String objectScopeFilterText = filterInput.getText();
-    querySpecs.setObjectScopeFilters(filterHandler.getSearchFiltersAsStringMap(
-        objectScopeFilterText, FilterName.getContentAssistToUriParamNameMap(), ","),
-        objectScopeFilterText);
+    querySpecs
+        .setObjectScopeFilters(filterHandler.getSearchFiltersAsStringMap(objectScopeFilterText,
+            FilterName.getContentAssistToUriParamNameMap(), ","), objectScopeFilterText);
     querySpecs.setIgnoreCaseCheck(ignoreCaseCheck.getSelection());
     querySpecs.setIgnoreCommentLines(ignoreCommentLinesCheck.getSelection());
     querySpecs.setObjectNames(objectNameInput.getText());
@@ -285,8 +284,8 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
 
     sequentialMatchingCheck = new Button(group, SWT.CHECK);
     sequentialMatchingCheck.setText(Messages.CodeSearchDialog_sequentialMatchingOption_xchk);
-    sequentialMatchingCheck.setToolTipText(
-        Messages.CodeSearchDialog_seqeuentialMatchingOption_xtol);
+    sequentialMatchingCheck
+        .setToolTipText(Messages.CodeSearchDialog_seqeuentialMatchingOption_xtol);
     sequentialMatchingCheck.addSelectionListener(widgetSelectedAdapter(e -> {
       updateOptionSelection();
       updateOptionEnabledment();
@@ -304,15 +303,15 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
         paramSection.addLayoutChangeListener(() -> mainComposite.layout(true));
       }
     } catch (CoreException e) {
-      MessageDialog.openError(getShell(), Messages.CodeSearchDialog_extensionInitError_xtit, e
-          .getMessage());
+      MessageDialog.openError(getShell(), Messages.CodeSearchDialog_extensionInitError_xtit,
+          e.getMessage());
     }
   }
 
   private void createIncludeConfigOptions(final Composite parent) {
     classIncludeConfigGroup = new IncludeFlagsRadioButtonGroup(
-        Messages.CodeSearchDialog_classIncludesRadioGroup_xlbl, querySpecs
-            .getClassIncludesParam()) {
+        Messages.CodeSearchDialog_classIncludesRadioGroup_xlbl,
+        querySpecs.getClassIncludesParam()) {
       @Override
       protected IncludeFlagsDialog createDialog() {
         return new IncludeFlagsDialog(getShell(), groupTitle, includeFlagsParam.getIncludeFlags(),
@@ -359,8 +358,8 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
     classIncludeConfigGroup.createControl(parent);
 
     fugrIncludeConfigGroup = new IncludeFlagsRadioButtonGroup(
-        Messages.CodeSearchDialog_functionGroupIncludesRadioGroup_xlbl, querySpecs
-            .getFugrIncludesParam());
+        Messages.CodeSearchDialog_functionGroupIncludesRadioGroup_xlbl,
+        querySpecs.getFugrIncludesParam());
 
     fugrIncludeConfigGroup.createControl(parent);
 
@@ -563,8 +562,8 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
     try {
       PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
         validationStatusAtom.set(CodeSearchFactory.getCodeSearchService()
-            .validatePatterns(projectProvider.getDestinationId(), querySpecs
-                .getPatternForValidationCall(), uriParams));
+            .validatePatterns(projectProvider.getDestinationId(),
+                querySpecs.getPatternForValidationCall(), uriParams));
       });
     } catch (InvocationTargetException e) {
       e.printStackTrace();
@@ -599,15 +598,16 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
 
   private void setProjectInExtensionSections() {
     IProject project = projectProvider.getProject();
-    IAdtPluginFeatures searchScopeFeatures = project != null ? CodeSearchFactory
-        .getCodeSearchService()
-        .getSearchScopeFeatures(projectProvider.getDestinationId()) : null;
+    IAdtPluginFeatures searchScopeFeatures = project != null
+        ? CodeSearchFactory.getCodeSearchService()
+            .getSearchScopeFeatures(projectProvider.getDestinationId())
+        : null;
 
     for (ISearchPageParameterSection section : extensionParamSections) {
       if (project != null) {
         // check feature availability
-        if (searchScopeFeatures != null && searchScopeFeatures.isFeatureEnabled("parameters."
-            + section.getParameterId())) {
+        if (searchScopeFeatures != null
+            && searchScopeFeatures.isFeatureEnabled("parameters." + section.getParameterId())) {
           section.setProject(project);
           section.setEnabledStatus(Status.OK_STATUS);
         } else {
@@ -722,8 +722,8 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
     if (validatedStatus.getSeverity() == IStatus.OK) {
       Optional<IStatus> lastErrorStatus = allValidationStatuses.entrySet()
           .stream()
-          .filter(entry -> entry.getKey() != type && entry.getValue()
-              .getSeverity() == IStatus.ERROR)
+          .filter(
+              entry -> entry.getKey() != type && entry.getValue().getSeverity() == IStatus.ERROR)
           .map(Entry::getValue)
           .findFirst();
       setStatus(lastErrorStatus.orElse(Status.OK_STATUS));
@@ -743,17 +743,19 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
       validateAndSetStatus(new Status(IStatus.OK, CodeSearchUIPlugin.PLUGIN_ID, null, null),
           ValidationSource.FILTERS);
     } catch (final CoreException e) {
-      validateAndSetStatus(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, e.getMessage(),
-          e), ValidationSource.FILTERS);
+      validateAndSetStatus(
+          new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, e.getMessage(), e),
+          ValidationSource.FILTERS);
     }
   }
 
   private void validateSearchPatterns() {
     if (isSearchPatternProvided()) {
-      if (sequentialMatchingCheck.getSelection() && patternsText.getText()
-          .split(Text.DELIMITER).length < 2) {
-        validateAndSetStatus(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-            Messages.CodeSearchDialog_invalidPatternCountForSeqMatching_xmsg),
+      if (sequentialMatchingCheck.getSelection()
+          && patternsText.getText().split(Text.DELIMITER).length < 2) {
+        validateAndSetStatus(
+            new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+                Messages.CodeSearchDialog_invalidPatternCountForSeqMatching_xmsg),
             ValidationSource.SEARCH_PATTERN);
         return;
       }
@@ -773,11 +775,11 @@ public class CodeSearchDialog extends DialogPage implements ISearchPage,
 
   private void writeDialogSettings() {
     IDialogSettings dialogSettings = getDialogSettings();
-    dialogSettings.put(CLASS_INCLUDES_ALL_ENABLED, querySpecs.getClassIncludesParam()
-        .isAllIncludes());
+    dialogSettings.put(CLASS_INCLUDES_ALL_ENABLED,
+        querySpecs.getClassIncludesParam().isAllIncludes());
     dialogSettings.put(CLASS_INCLUDES_BITS, querySpecs.getClassIncludesParam().getIncludeFlags());
-    dialogSettings.put(FUGR_INCLUDES_ALL_ENABLED, querySpecs.getFugrIncludesParam()
-        .isAllIncludes());
+    dialogSettings.put(FUGR_INCLUDES_ALL_ENABLED,
+        querySpecs.getFugrIncludesParam().isAllIncludes());
     dialogSettings.put(FUGR_INCLUDES_BITS, querySpecs.getFugrIncludesParam().getIncludeFlags());
     dialogSettings.put(LAST_PROJECT_PREF, projectProvider.getProjectName());
     dialogSettings.put(PROGRAM_INCLUDES_EXPAND_ENABLED, querySpecs.isExpandProgramIncludes());

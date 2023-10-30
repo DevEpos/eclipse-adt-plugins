@@ -13,8 +13,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class TaggedObjectDelCheckResultContentHandler extends
-    AbstractEmfContentHandler<ITaggedObjectDeletionCheckResult> {
+public class TaggedObjectDelCheckResultContentHandler
+    extends AbstractEmfContentHandler<ITaggedObjectDeletionCheckResult> {
 
   public TaggedObjectDelCheckResultContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".tgobjDelCheckResult");

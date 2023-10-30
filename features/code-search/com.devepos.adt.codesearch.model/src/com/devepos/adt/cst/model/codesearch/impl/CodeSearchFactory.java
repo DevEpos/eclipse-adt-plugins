@@ -81,8 +81,8 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
     case ICodeSearchPackage.CODE_SEARCH_SCOPE_PARAMETERS:
       return createCodeSearchScopeParameters();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 

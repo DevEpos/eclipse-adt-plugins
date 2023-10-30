@@ -127,8 +127,8 @@ public enum MesssageType implements Enumerator {
    *
    * @generated
    */
-  public static final List<MesssageType> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<MesssageType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * <!-- begin-user-doc -->

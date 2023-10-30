@@ -120,8 +120,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
     case IObjectSearchPackage.ADT_ALTERNATIVE_TYPE_IMAGE:
       return createAdtAlternativeTypeImage();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 
@@ -143,8 +143,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
     case IObjectSearchPackage.CUSTOM_OPTION_TYPE:
       return createCustomOptionTypeFromString(eDataType, initialValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -166,8 +166,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
     case IObjectSearchPackage.CUSTOM_OPTION_TYPE:
       return convertCustomOptionTypeToString(eDataType, instanceValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -396,8 +396,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       final String initialValue) {
     ProposalImageSource result = ProposalImageSource.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -423,8 +423,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       final String initialValue) {
     FilterType result = FilterType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -449,8 +449,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       final String initialValue) {
     ImageRegistryId result = ImageRegistryId.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -476,8 +476,8 @@ public class ObjectSearchFactory extends EFactoryImpl implements IObjectSearchFa
       final String initialValue) {
     CustomOptionType result = CustomOptionType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }

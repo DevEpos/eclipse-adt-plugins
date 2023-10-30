@@ -1729,10 +1729,10 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE.getEPackage(
-        IAdtBasePackage.eNS_URI);
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-        XMLTypePackage.eNS_URI);
+    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+        .getEPackage(IAdtBasePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+        .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
 
@@ -2034,10 +2034,10 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEClass(taggedObjectDeletionCheckRequestEClass, ITaggedObjectDeletionCheckRequest.class,
         "TaggedObjectDeletionCheckRequest", !IS_ABSTRACT, !IS_INTERFACE,
         IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTaggedObjectDeletionCheckRequest_TaggedObjectIds(), theXMLTypePackage
-        .getString(), "taggedObjectIds", null, 0, -1, ITaggedObjectDeletionCheckRequest.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-        IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckRequest_TaggedObjectIds(),
+        theXMLTypePackage.getString(), "taggedObjectIds", null, 0, -1,
+        ITaggedObjectDeletionCheckRequest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(taggedObjectDeletionCheckResultEClass, ITaggedObjectDeletionCheckResult.class,
         "TaggedObjectDeletionCheckResult", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2059,14 +2059,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getTaggedObjectDeletionCheckObject_Message(), ecorePackage.getEString(),
         "message", null, 0, 1, ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTaggedObjectDeletionCheckObject_MessageType(), theAdtBasePackage
-        .getMessageType(), "messageType", null, 0, 1, ITaggedObjectDeletionCheckObject.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-        IS_ORDERED);
-    initEAttribute(getTaggedObjectDeletionCheckObject_DependentObjectIds(), theXMLTypePackage
-        .getString(), "dependentObjectIds", null, 0, -1, ITaggedObjectDeletionCheckObject.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-        IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_MessageType(),
+        theAdtBasePackage.getMessageType(), "messageType", null, 0, 1,
+        ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectDeletionCheckObject_DependentObjectIds(),
+        theXMLTypePackage.getString(), "dependentObjectIds", null, 0, -1,
+        ITaggedObjectDeletionCheckObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(taggedObjectDeleteRequestEClass, ITaggedObjectDeleteRequest.class,
         "TaggedObjectDeleteRequest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2126,17 +2126,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(tagBaseEClass, source, new String[] { "kind", "elementOnly", "name", "tagBase" });
-    addAnnotation(getTagBase_Id(), source, new String[] { "kind", "attribute", "name", "id",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getTagBase_Name(), source, new String[] { "kind", "attribute", "name", "name",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getTagBase_Owner(), source, new String[] { "kind", "attribute", "name", "owner",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getTagBase_Id(), source,
+        new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+    addAnnotation(getTagBase_Name(), source,
+        new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+    addAnnotation(getTagBase_Owner(), source,
+        new String[] { "kind", "attribute", "name", "owner", "namespace", "##targetNamespace" });
     addAnnotation(tagEClass, source, new String[] { "kind", "elementOnly", "name", "tag" });
     addAnnotation(getTag_Description(), source, new String[] { "kind", "attribute", "name",
         "description", "namespace", "##targetNamespace" });
-    addAnnotation(getTag_ChildTags(), source, new String[] { "kind", "element", "name", "tag",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getTag_ChildTags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
     addAnnotation(getTag_CreatedBy(), source, new String[] { "kind", "attribute", "name",
         "createdBy", "namespace", "##targetNamespace" });
     addAnnotation(getTag_CreatedDateTime(), source, new String[] { "kind", "attribute", "name",
@@ -2147,21 +2147,21 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "changedDateTime", "namespace", "##targetNamespace" });
     addAnnotation(getTag_TaggedObjectCount(), source, new String[] { "kind", "attribute", "name",
         "taggedObjectCount", "namespace", "##targetNamespace" });
-    addAnnotation(getTag_Shared(), source, new String[] { "kind", "attribute", "name", "shared",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getTag_Shared(), source,
+        new String[] { "kind", "attribute", "name", "shared", "namespace", "##targetNamespace" });
     addAnnotation(getTag_SharedForMe(), source, new String[] { "kind", "attribute", "name",
         "sharedForMe", "namespace", "##targetNamespace" });
-    addAnnotation(getTag_Changed(), source, new String[] { "kind", "attribute", "name", "changed",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getTag_Changed(), source,
+        new String[] { "kind", "attribute", "name", "changed", "namespace", "##targetNamespace" });
     addAnnotation(getTag_ParentTagId(), source, new String[] { "kind", "attribute", "name",
         "parentTagId", "namespace", "##targetNamespace" });
     addAnnotation(getTag_SharedUsers(), source, new String[] { "kind", "element", "name", "user",
         "namespace", "http://www.devepos.com/adt/base" });
     addAnnotation(tagListEClass, source, new String[] { "kind", "elementOnly", "name", "tags" });
-    addAnnotation(getTagList_Tags(), source, new String[] { "kind", "element", "name", "tag",
-        "namespace", "##targetNamespace" });
-    addAnnotation(adtObjectTagEClass, source, new String[] { "kind", "elementOnly", "name",
-        "adtObjectTag" });
+    addAnnotation(getTagList_Tags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
+    addAnnotation(adtObjectTagEClass, source,
+        new String[] { "kind", "elementOnly", "name", "adtObjectTag" });
     addAnnotation(getAdtObjectTag_ParentObjectName(), source, new String[] { "kind", "attribute",
         "name", "parentObjectName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjectTag_ParentObjectAltName(), source, new String[] { "kind", "attribute",
@@ -2172,38 +2172,38 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "name", "parentObjectUri", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjectTag_ParentTagId(), source, new String[] { "kind", "attribute", "name",
         "parentTagId", "namespace", "##targetNamespace" });
-    addAnnotation(tagPreviewInfoEClass, source, new String[] { "kind", "elementOnly", "name",
-        "tagPreviewInfo" });
-    addAnnotation(getTagPreviewInfo_Tags(), source, new String[] { "kind", "element", "name", "tag",
-        "namespace", "##targetNamespace" });
+    addAnnotation(tagPreviewInfoEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagPreviewInfo" });
+    addAnnotation(getTagPreviewInfo_Tags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
     addAnnotation(getTagPreviewInfo_AdtObjectRefs(), source, new String[] { "kind", "element",
         "name", "adtObjRef", "namespace", "http://www.devepos.com/adt/base" });
-    addAnnotation(taggedObjectEClass, source, new String[] { "kind", "elementOnly", "name",
-        "taggedObject" });
+    addAnnotation(taggedObjectEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObject" });
     addAnnotation(getTaggedObject_ObjectRef(), source, new String[] { "kind", "element", "name",
         "adtObjRef", "namespace", "http://www.devepos.com/adt/base" });
     addAnnotation(getTaggedObject_Tags(), source, new String[] { "kind", "element", "name",
         "adtObjectTag", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectListEClass, source, new String[] { "kind", "elementOnly", "name",
-        "taggedObjects" });
+    addAnnotation(taggedObjectListEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjects" });
     addAnnotation(getTaggedObjectList_TaggedObjects(), source, new String[] { "kind", "element",
         "name", "taggedObject", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectTreeRequestEClass, source, new String[] { "kind", "elementOnly",
-        "name", "taggedObjectTreeRequest" });
-    addAnnotation(getTaggedObjectTreeRequest_TagId(), source, new String[] { "name", "tagId",
-        "namespace", "##targetNamespace", "kind", "attribute" });
+    addAnnotation(taggedObjectTreeRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectTreeRequest" });
+    addAnnotation(getTaggedObjectTreeRequest_TagId(), source,
+        new String[] { "name", "tagId", "namespace", "##targetNamespace", "kind", "attribute" });
     addAnnotation(getTaggedObjectTreeRequest_ParentObjectName(), source, new String[] { "kind",
         "attribute", "name", "parentObjectName", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectTreeRequest_ParentObjectType(), source, new String[] { "kind",
         "attribute", "name", "parentObjectType", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectSearchParamsEClass, source, new String[] { "kind", "elementOnly",
-        "name", "taggedObjectSearchParams" });
-    addAnnotation(getTaggedObjectSearchParams_TagIds(), source, new String[] { "kind", "element",
-        "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectSearchParamsEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectSearchParams" });
+    addAnnotation(getTaggedObjectSearchParams_TagIds(), source,
+        new String[] { "kind", "element", "name", "tagId", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_SearchScope(), source, new String[] { "kind",
         "attribute", "name", "searchScope", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectSearchParams_Query(), source, new String[] { "kind", "attribute",
-        "name", "query", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectSearchParams_Query(), source,
+        new String[] { "kind", "attribute", "name", "query", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_QueryType(), source, new String[] { "kind",
         "attribute", "name", "queryType", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_ResultGroupLevel(), source, new String[] { "kind",
@@ -2220,22 +2220,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "tagInfoType", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectSearchParams_ExcludeComponents(), source, new String[] { "kind",
         "attribute", "name", "excludeComponents", "namespace", "##targetNamespace" });
-    addAnnotation(tagDeletionCheckResultEClass, source, new String[] { "kind", "elementOnly",
-        "name", "deletionCheckResult" });
-    addAnnotation(getTagDeletionCheckResult_CheckedTags(), source, new String[] { "kind", "element",
-        "name", "checkedTag", "namespace", "##targetNamespace" });
-    addAnnotation(tagDeletionCheckObjectEClass, source, new String[] { "kind", "elementOnly",
-        "name", "checkedTag" });
-    addAnnotation(getTagDeletionCheckObject_TagId(), source, new String[] { "name", "tagId",
-        "namespace", "##targetNamespace", "kind", "attribute" });
+    addAnnotation(tagDeletionCheckResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "deletionCheckResult" });
+    addAnnotation(getTagDeletionCheckResult_CheckedTags(), source,
+        new String[] { "kind", "element", "name", "checkedTag", "namespace", "##targetNamespace" });
+    addAnnotation(tagDeletionCheckObjectEClass, source,
+        new String[] { "kind", "elementOnly", "name", "checkedTag" });
+    addAnnotation(getTagDeletionCheckObject_TagId(), source,
+        new String[] { "name", "tagId", "namespace", "##targetNamespace", "kind", "attribute" });
     addAnnotation(getTagDeletionCheckObject_Deletable(), source, new String[] { "kind", "attribute",
         "name", "isDeletable", "namespace", "##targetNamespace" });
-    addAnnotation(getTagDeletionCheckObject_Message(), source, new String[] { "kind", "attribute",
-        "name", "message", "namespace", "##targetNamespace" });
+    addAnnotation(getTagDeletionCheckObject_Message(), source,
+        new String[] { "kind", "attribute", "name", "message", "namespace", "##targetNamespace" });
     addAnnotation(getTagDeletionCheckObject_MessageType(), source, new String[] { "kind",
         "attribute", "name", "messageType", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectTreeObjectEClass, source, new String[] { "kind", "elementOnly",
-        "name", "object" });
+    addAnnotation(taggedObjectTreeObjectEClass, source,
+        new String[] { "kind", "elementOnly", "name", "object" });
     addAnnotation(getTaggedObjectTreeObject_ObjectRef(), source, new String[] { "kind", "element",
         "name", "adtObjRef", "namespace", "http://www.devepos.com/adt/base" });
     addAnnotation(getTaggedObjectTreeObject_TaggedObjectCount(), source, new String[] { "kind",
@@ -2244,34 +2244,34 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "parentTagId", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectTreeObject_Expandable(), source, new String[] { "kind",
         "attribute", "name", "expandable", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectTreeResultEClass, source, new String[] { "kind", "elementOnly",
-        "name", "tagTreeResult" });
+    addAnnotation(taggedObjectTreeResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagTreeResult" });
     addAnnotation(getTaggedObjectTreeResult_TaggedObjectCount(), source, new String[] { "kind",
         "attribute", "name", "taggedObjectCount", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectTreeResult_Objects(), source, new String[] { "kind", "element",
-        "name", "object", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectTreeResult_Tags(), source, new String[] { "kind", "element",
-        "name", "tag", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectListRequestEClass, source, new String[] { "kind", "elementOnly",
-        "name", "taggedObjectListRequest" });
-    addAnnotation(getTaggedObjectListRequest_TagIds(), source, new String[] { "kind", "element",
-        "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectTreeResult_Objects(), source,
+        new String[] { "kind", "element", "name", "object", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectTreeResult_Tags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectListRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectListRequest" });
+    addAnnotation(getTaggedObjectListRequest_TagIds(), source,
+        new String[] { "kind", "element", "name", "tagId", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectListRequest_TaggedObjectIds(), source, new String[] { "kind",
         "element", "name", "taggedObjectId", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectListRequest_TaggedObjectInfos(), source, new String[] { "kind",
         "element", "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectListRequest_LoadChildObjects(), source, new String[] { "kind",
         "attribute", "namespace", "##targetNamespace", "name", "loadChildObjects" });
-    addAnnotation(taggedObjectInfoEClass, source, new String[] { "kind", "elementOnly", "name",
-        "taggedObjectInfo" });
-    addAnnotation(getTaggedObjectInfo_Id(), source, new String[] { "kind", "attribute", "name",
-        "id", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectInfo_TagId(), source, new String[] { "kind", "attribute", "name",
-        "tagId", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectInfo_TagName(), source, new String[] { "kind", "attribute", "name",
-        "tagName", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectInfo_TagType(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
+    addAnnotation(taggedObjectInfoEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectInfo" });
+    addAnnotation(getTaggedObjectInfo_Id(), source,
+        new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagId(), source,
+        new String[] { "kind", "attribute", "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagName(), source,
+        new String[] { "kind", "attribute", "name", "tagName", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectInfo_TagType(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectInfo_ObjectName(), source, new String[] { "kind", "attribute",
         "name", "objectName", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectInfo_ObjectAltName(), source, new String[] { "kind", "attribute",
@@ -2292,32 +2292,32 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "attribute", "name", "parentObjectAltName", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectInfo_ParentObjectType(), source, new String[] { "kind",
         "attribute", "name", "parentObjectType", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectInfoListEClass, source, new String[] { "kind", "elementOnly", "name",
-        "taggedObjectInfos" });
+    addAnnotation(taggedObjectInfoListEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectInfos" });
     addAnnotation(getTaggedObjectInfoList_TaggedObjectInfos(), source, new String[] { "kind",
         "element", "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectDeletionCheckRequestEClass, source, new String[] { "kind",
-        "elementOnly", "name", "taggedObjectDelCheckRequest" });
+    addAnnotation(taggedObjectDeletionCheckRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectDelCheckRequest" });
     addAnnotation(getTaggedObjectDeletionCheckRequest_TaggedObjectIds(), source, new String[] {
         "kind", "element", "namespace", "##targetNamespace", "name", "taggedObjectId" });
-    addAnnotation(taggedObjectDeletionCheckResultEClass, source, new String[] { "kind",
-        "elementOnly", "name", "taggedObjectDelCheckResult" });
+    addAnnotation(taggedObjectDeletionCheckResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectDelCheckResult" });
     addAnnotation(getTaggedObjectDeletionCheckResult_CheckedObjects(), source, new String[] {
         "kind", "element", "namespace", "##targetNamespace", "name", "checkedObject" });
-    addAnnotation(taggedObjectDeletionCheckObjectEClass, source, new String[] { "kind",
-        "elementOnly", "name", "taggedObjectDeletionCheckObject" });
+    addAnnotation(taggedObjectDeletionCheckObjectEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectDeletionCheckObject" });
     addAnnotation(getTaggedObjectDeletionCheckObject_TaggedObjectId(), source, new String[] {
         "name", "taggedObjectId", "namespace", "##targetNamespace", "kind", "attribute" });
     addAnnotation(getTaggedObjectDeletionCheckObject_Deletable(), source, new String[] { "kind",
         "attribute", "name", "deletable", "namespace", "##targetNamespace" });
-    addAnnotation(getTaggedObjectDeletionCheckObject_Message(), source, new String[] { "kind",
-        "attribute", "name", "message", "namespace", "##targetNamespace" });
+    addAnnotation(getTaggedObjectDeletionCheckObject_Message(), source,
+        new String[] { "kind", "attribute", "name", "message", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectDeletionCheckObject_MessageType(), source, new String[] { "kind",
         "attribute", "name", "messageType", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectDeletionCheckObject_DependentObjectIds(), source, new String[] {
         "kind", "element", "name", "dependentObjectId", "namespace", "##targetNamespace" });
-    addAnnotation(taggedObjectDeleteRequestEClass, source, new String[] { "kind", "elementOnly",
-        "name", "taggedObjectDelRequest" });
+    addAnnotation(taggedObjectDeleteRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "taggedObjectDelRequest" });
     addAnnotation(getTaggedObjectDeleteRequest_ObjectId(), source, new String[] { "name",
         "taggedObjectId", "namespace", "##targetNamespace", "kind", "element" });
   }

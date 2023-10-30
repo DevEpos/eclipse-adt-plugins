@@ -59,14 +59,13 @@ public class ObjectSearchModesMenu extends CompoundContributionItem {
 
     var searchService = ObjectSearchServiceFactory.getSearchService();
     var currentProject = ProjectUtil.getCurrentAbapProject();
-    if (currentProject != null && ProjectUtil.isLoggedOnToProject(currentProject) && searchService
-        .testObjectSearchFeatureAvailability(currentProject)
-        .isOK()) {
+    if (currentProject != null && ProjectUtil.isLoggedOnToProject(currentProject)
+        && searchService.testObjectSearchFeatureAvailability(currentProject).isOK()) {
       var config = searchService.getSearchConfig(DestinationUtil.getDestinationId(currentProject));
       for (var typeConfig : config.getSearchTypes()) {
-        items.add(new ActionContributionItem(new OpenSearchDialogWithType(SearchAndAnalysisPlugin
-            .getDefault()
-            .getSearchTypeImgDescr(typeConfig), typeConfig.getName(), typeConfig.getLabel())));
+        items.add(new ActionContributionItem(new OpenSearchDialogWithType(
+            SearchAndAnalysisPlugin.getDefault().getSearchTypeImgDescr(typeConfig),
+            typeConfig.getName(), typeConfig.getLabel())));
       }
     } else {
       final IAction noProjectAction = new Action(

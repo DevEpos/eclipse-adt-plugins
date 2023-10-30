@@ -49,9 +49,11 @@ public class DateSearchFilterTest {
     IValidator validator = cut.getAdapter(IValidator.class);
     assertNotNull(validator);
 
-    Stream.of("1.1", "15.12", "<=yesterday", "!28.2", "16.12.1987", "8.2020...1.1.2021", "2023",
-        "3-months-ago", "last-year", "last-month", "last-week", "2-weeks-ago", "2-years-ago",
-        "2-months-ago", "2-days-ago").forEach(pattern -> {
+    Stream
+        .of("1.1", "15.12", "<=yesterday", "!28.2", "16.12.1987", "8.2020...1.1.2021", "2023",
+            "3-months-ago", "last-year", "last-month", "last-week", "2-weeks-ago", "2-years-ago",
+            "2-months-ago", "2-days-ago")
+        .forEach(pattern -> {
           assertDoesNotThrow(() -> validator.validate(pattern));
         });
   }
@@ -77,13 +79,13 @@ public class DateSearchFilterTest {
     if (day.length() == 1) {
       day = "0" + day;
     }
-    assertEquals(String.format("ILT%s%s%s", now.getYear(), month, day), converter.convert(
-        "<today"));
+    assertEquals(String.format("ILT%s%s%s", now.getYear(), month, day),
+        converter.convert("<today"));
     assertEquals("EGE20200228", converter.convert("!>=28.2.2020"));
 
     String toYear = String.valueOf(LocalDate.now().getYear() + 1);
-    assertEquals("IBT" + LocalDate.now().getYear() + "0101" + toYear + "0531", converter.convert(
-        "1.1...5." + toYear));
+    assertEquals("IBT" + LocalDate.now().getYear() + "0101" + toYear + "0531",
+        converter.convert("1.1...5." + toYear));
   }
 
   @Test

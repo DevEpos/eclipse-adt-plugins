@@ -21,8 +21,8 @@ public class Startup implements IStartup {
 
   @Override
   public void earlyStartup() {
-    var preferences = InstanceScope.INSTANCE.getNode(FrameworkUtil.getBundle(Startup.class)
-        .getSymbolicName());
+    var preferences = InstanceScope.INSTANCE
+        .getNode(FrameworkUtil.getBundle(Startup.class).getSymbolicName());
     for (var descriptor : Activator.getDefault().getEditorConfigDescriptors()) {
       var oldReleaseNotes = preferences.get(descriptor.getPlugin(), (String) null);
       if (oldReleaseNotes == null || !oldReleaseNotes.equals(descriptor.getReleaseNotesId())) {
@@ -37,8 +37,8 @@ public class Startup implements IStartup {
     }
   }
 
-  private void openReleaseNotes(final IReleaseNotesConfig releaseNotesConfig) throws IOException,
-      PartInitException {
+  private void openReleaseNotes(final IReleaseNotesConfig releaseNotesConfig)
+      throws IOException, PartInitException {
     var editorInput = new ReleaseNotesEditorInput(releaseNotesConfig);
     IWorkbenchPage activePage = PlatformUI.getWorkbench()
         .getActiveWorkbenchWindow()
@@ -47,8 +47,8 @@ public class Startup implements IStartup {
   }
 
   private void openReleaseNotesAsync(final IReleaseNotesConfig releaseNotesConfig) {
-    var uiJob = new UIJob(Messages.Startup_releaseNotesJobPrefix_xmsg + releaseNotesConfig
-        .getEditorTitle()) {
+    var uiJob = new UIJob(
+        Messages.Startup_releaseNotesJobPrefix_xmsg + releaseNotesConfig.getEditorTitle()) {
       @Override
       public IStatus runInUIThread(final IProgressMonitor monitor) {
         try {

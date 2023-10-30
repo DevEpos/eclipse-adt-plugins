@@ -142,13 +142,13 @@ public class ResultExporter {
 
     IAdtObjectReference object = objectNode.getObjectReference();
 
-    rowEntries.add(getCsvValue(objectNode.getPropertyValue(
-        IResultPropertyNameConstants.OBJECT_RESPONSIBLE)));
+    rowEntries.add(
+        getCsvValue(objectNode.getPropertyValue(IResultPropertyNameConstants.OBJECT_RESPONSIBLE)));
     rowEntries.add(getCsvValue(adtTypeUtil.getTypeDescription(object.getType())));
     rowEntries.add(getCsvValue(object.getName()));
 
-    rowEntries.add(getCsvValue(subObject != null ? adtTypeUtil.getTypeDescription(subObject
-        .getType()) : "")); //$NON-NLS-1$
+    rowEntries.add(
+        getCsvValue(subObject != null ? adtTypeUtil.getTypeDescription(subObject.getType()) : "")); //$NON-NLS-1$
     rowEntries.add(getCsvValue(subObject != null ? subObject.getName() : "")); //$NON-NLS-1$
 
     try {

@@ -26,8 +26,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
  *
  * @generated
  */
-public class TaggedObjectDeletionCheckRequest extends MinimalEObjectImpl.Container implements
-    ITaggedObjectDeletionCheckRequest {
+public class TaggedObjectDeletionCheckRequest extends MinimalEObjectImpl.Container
+    implements ITaggedObjectDeletionCheckRequest {
   /**
    * The cached value of the '{@link #getTaggedObjectIds() <em>Tagged Object Ids</em>}' attribute
    * list.

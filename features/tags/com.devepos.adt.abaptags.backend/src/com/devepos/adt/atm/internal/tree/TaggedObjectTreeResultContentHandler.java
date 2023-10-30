@@ -8,8 +8,8 @@ import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.base.content.AbstractEmfContentHandler;
 import com.sap.adt.communication.content.AdtMediaType;
 
-public class TaggedObjectTreeResultContentHandler extends
-    AbstractEmfContentHandler<ITaggedObjectTreeResult> {
+public class TaggedObjectTreeResultContentHandler
+    extends AbstractEmfContentHandler<ITaggedObjectTreeResult> {
 
   public TaggedObjectTreeResultContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".taggedobjecttreeresult");

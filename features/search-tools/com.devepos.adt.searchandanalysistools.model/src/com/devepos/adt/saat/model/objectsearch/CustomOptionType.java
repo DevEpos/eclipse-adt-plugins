@@ -104,8 +104,8 @@ public enum CustomOptionType implements Enumerator {
    *
    * @generated
    */
-  public static final List<CustomOptionType> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<CustomOptionType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Custom Option Type</b></em>' literal with the specified literal value.

@@ -38,8 +38,8 @@ public class CopyToClipboardAction extends Action {
     setText(Messages.General_Copy_xtol);
     setToolTipText(Messages.General_Copy_xtol);
     final ISharedImages workbenchImages = PlatformUI.getWorkbench().getSharedImages();
-    setDisabledImageDescriptor(workbenchImages.getImageDescriptor(
-        ISharedImages.IMG_TOOL_COPY_DISABLED));
+    setDisabledImageDescriptor(
+        workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY_DISABLED));
     setImageDescriptor(workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
     setHoverImageDescriptor(workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
   }

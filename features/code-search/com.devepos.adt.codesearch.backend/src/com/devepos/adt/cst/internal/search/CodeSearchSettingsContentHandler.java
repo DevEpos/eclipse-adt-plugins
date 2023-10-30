@@ -14,8 +14,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchSettingsContentHandler extends
-    AbstractEmfContentHandler<ICodeSearchSettings> {
+public class CodeSearchSettingsContentHandler
+    extends AbstractEmfContentHandler<ICodeSearchSettings> {
 
   public CodeSearchSettingsContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".codesearchSettings");

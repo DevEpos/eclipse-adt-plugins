@@ -4,8 +4,8 @@ import org.eclipse.core.runtime.IAdaptable;
 
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
-public interface IAdtObjectReferenceElementInfo extends IElementInfoCollection,
-    ILazyLoadingElementInfo, IAdaptable {
+public interface IAdtObjectReferenceElementInfo
+    extends IElementInfoCollection, ILazyLoadingElementInfo, IAdaptable {
 
   /**
    * @return the ADT object reference of the element

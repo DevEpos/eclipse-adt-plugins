@@ -96,8 +96,8 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   /*
    * Label provider for a single column in this Table Viewer
    */
-  private class ColumnLabelProvider extends CellLabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
+  private class ColumnLabelProvider extends CellLabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
 
     private final Column column;
 
@@ -200,8 +200,8 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
   /*
    * Label provider for the selected result part
    */
-  private static class ItemsLabelProvider extends LabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+  private static class ItemsLabelProvider extends LabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {
@@ -267,11 +267,12 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
         ParentObjectFilterDialog.this.destinationId, ParentObjectFilterDialog.this.parameters);
 
     if (taggedObjList != null && !taggedObjList.getTaggedObjects().isEmpty()) {
-      return new SearchResultObject(taggedObjList.getTaggedObjects()
-          .stream()
-          .limit(parameters.getMaxResults())
-          .collect(Collectors.toList()), taggedObjList.getTaggedObjects().size() <= parameters
-              .getMaxResults());
+      return new SearchResultObject(
+          taggedObjList.getTaggedObjects()
+              .stream()
+              .limit(parameters.getMaxResults())
+              .collect(Collectors.toList()),
+          taggedObjList.getTaggedObjects().size() <= parameters.getMaxResults());
     }
     return new SearchResultObject(new ArrayList<>(), true);
   }

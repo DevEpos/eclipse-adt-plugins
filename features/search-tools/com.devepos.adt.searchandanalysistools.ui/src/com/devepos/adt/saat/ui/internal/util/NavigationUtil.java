@@ -22,16 +22,16 @@ public class NavigationUtil {
    */
   public static void navigateToEntityColumn(final String entityName, final String fieldName,
       final String destinationId) {
-    final Job loadFieldUriJob = Job.create(NLS.bind(Messages.NavigationUtil_navigationJob_xtit,
-        entityName, fieldName), monitor -> {
+    final Job loadFieldUriJob = Job.create(
+        NLS.bind(Messages.NavigationUtil_navigationJob_xtit, entityName, fieldName), monitor -> {
           final IDdicRepositoryAccess ddicRepoAccess = DdicRepositoryAccessFactory.getDdicAccess();
           final IAdtObjectReference adtObjectRef = ddicRepoAccess.getColumnUri(destinationId,
               entityName, fieldName);
           if (adtObjectRef != null) {
             PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-              AdtUIUtil.navigateWithObjectReference(adtObjectRef, AbapProjectProviderAccessor
-                  .getProviderForDestination(destinationId)
-                  .getProject());
+              AdtUIUtil.navigateWithObjectReference(adtObjectRef,
+                  AbapProjectProviderAccessor.getProviderForDestination(destinationId)
+                      .getProject());
             });
           }
           monitor.done();

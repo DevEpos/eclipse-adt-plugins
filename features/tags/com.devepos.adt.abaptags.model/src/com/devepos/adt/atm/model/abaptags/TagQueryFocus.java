@@ -79,8 +79,8 @@ public enum TagQueryFocus implements Enumerator {
    *
    * @generated
    */
-  public static final List<TagQueryFocus> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<TagQueryFocus> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Tag Query Focus</b></em>' literal with the specified literal value.

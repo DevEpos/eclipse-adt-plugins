@@ -74,8 +74,8 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       return restResource.post(null, ITagPreviewInfo.class, previewInfo);
     } catch (final ResourceException exc) {
       exc.printStackTrace();
-      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
-          .getMessage()));
+      throw new CoreException(
+          new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
     }
   }
 
@@ -92,14 +92,15 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
           .createRestResource(uriDiscovery.getTaggingUri(), session);
       restResource.addContentHandler(new TaggedObjectListContentHandler());
 
-      final var objectList = restResource.get(null, ITaggedObjectList.class, new QueryParameter(
-          "objectUri", objectUri)); //$NON-NLS-1$
-      return objectList != null && !objectList.getTaggedObjects().isEmpty() ? objectList
-          .getTaggedObjects() : null;
+      final var objectList = restResource.get(null, ITaggedObjectList.class,
+          new QueryParameter("objectUri", objectUri)); //$NON-NLS-1$
+      return objectList != null && !objectList.getTaggedObjects().isEmpty()
+          ? objectList.getTaggedObjects()
+          : null;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
-      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
-          .getMessage()));
+      throw new CoreException(
+          new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
     }
   }
 
@@ -139,8 +140,8 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
       restResource.post(null, ITaggedObjectList.class, taggedObjectList);
     } catch (final ResourceException exc) {
       exc.printStackTrace();
-      throw new CoreException(new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc
-          .getMessage()));
+      throw new CoreException(
+          new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage()));
     }
   }
 
@@ -148,8 +149,8 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
   public IStatus testTaggedObjectDeletionFeatureAvailability(final IProject project) {
     final var destinationId = DestinationUtil.getDestinationId(project);
     final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-    if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .getTaggedObjectDeletionUri() != null) {
+    if (uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getTaggedObjectDeletionUri() != null) {
       return Status.OK_STATUS;
     }
     return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(

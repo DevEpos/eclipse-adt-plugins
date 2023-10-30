@@ -82,8 +82,8 @@ public enum ImageRegistryId implements Enumerator {
    *
    * @generated
    */
-  public static final List<ImageRegistryId> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<ImageRegistryId> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Image Registry Id</b></em>' literal with the specified literal value.

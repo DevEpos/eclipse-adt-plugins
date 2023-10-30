@@ -37,10 +37,9 @@ public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider 
       if (topDownResult.getFieldInfos().isEmpty() && topDownResult.getSourceFieldInfo() != null
           && topDownResult.getSourceFieldInfo().isCalculated()) {
         var elementInfos = new ArrayList<IElementInfo>();
-        elementInfos.add(new SimpleElementInfo(
-            Messages.FieldAnalysisContentHandler_CalculatedField_xmsg, SearchAndAnalysisPlugin
-                .getDefault()
-                .getImage(IImages.FUNCTION)));
+        elementInfos
+            .add(new SimpleElementInfo(Messages.FieldAnalysisContentHandler_CalculatedField_xmsg,
+                SearchAndAnalysisPlugin.getDefault().getImage(IImages.FUNCTION)));
         return elementInfos;
       }
       return convertToElemInfoList(topDownResult.getFieldInfos());
@@ -57,8 +56,9 @@ public class CdsFieldTopDownElementInfoProvider implements IElementInfoProvider 
   private List<IElementInfo> convertToElemInfoList(final List<IEntityFieldInfo> topDownResult) {
     var elementInfos = new ArrayList<IElementInfo>();
     for (var fieldInfo : topDownResult) {
-      var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(), fieldInfo
-          .getAltEntityName() == null ? fieldInfo.getEntityName() : fieldInfo.getAltEntityName(),
+      var objRefElemInfo = new AdtObjectReferenceElementInfo(fieldInfo.getEntityName(),
+          fieldInfo.getAltEntityName() == null ? fieldInfo.getEntityName()
+              : fieldInfo.getAltEntityName(),
           null);
       objRefElemInfo.setAdditionalInfo(fieldInfo);
       objRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(

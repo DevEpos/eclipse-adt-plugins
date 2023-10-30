@@ -28,8 +28,8 @@ import com.devepos.adt.saat.model.objectsearch.ISimpleContentProposal;
  *
  * @generated
  */
-public class SimpleContentProposal extends MinimalEObjectImpl.Container implements
-    ISimpleContentProposal {
+public class SimpleContentProposal extends MinimalEObjectImpl.Container
+    implements ISimpleContentProposal {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->

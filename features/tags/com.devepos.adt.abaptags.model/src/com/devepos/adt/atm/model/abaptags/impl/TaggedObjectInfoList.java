@@ -30,8 +30,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfoList;
  *
  * @generated
  */
-public class TaggedObjectInfoList extends MinimalEObjectImpl.Container implements
-    ITaggedObjectInfoList {
+public class TaggedObjectInfoList extends MinimalEObjectImpl.Container
+    implements ITaggedObjectInfoList {
   /**
    * The cached value of the '{@link #getTaggedObjectInfos() <em>Tagged Object Infos</em>}'
    * containment reference list.

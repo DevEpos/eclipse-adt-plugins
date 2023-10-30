@@ -30,8 +30,8 @@ import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation;
  *
  * @generated
  */
-public class CdsUsedEntityInformation extends MinimalEObjectImpl.Container implements
-    ICdsUsedEntityInformation {
+public class CdsUsedEntityInformation extends MinimalEObjectImpl.Container
+    implements ICdsUsedEntityInformation {
   /**
    * The default value of the '{@link #getOccurrence() <em>Occurrence</em>}' attribute.
    * <!-- begin-user-doc -->

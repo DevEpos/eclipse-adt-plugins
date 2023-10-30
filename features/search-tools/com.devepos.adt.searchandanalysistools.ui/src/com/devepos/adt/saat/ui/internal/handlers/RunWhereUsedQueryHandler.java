@@ -81,8 +81,8 @@ public class RunWhereUsedQueryHandler extends AbstractHandler {
         .getActiveWorkbenchWindow()
         .getActivePage();
     final IWorkbenchPart activeSearchView = activeSearchPage.getActivePart();
-    if (activeSearchPage != null && activeSearchView != null && activeSearchPage.isPartVisible(
-        activeSearchView)) {
+    if (activeSearchPage != null && activeSearchView != null
+        && activeSearchPage.isPartVisible(activeSearchView)) {
       activeSearchPage.bringToTop(activeSearchView);
     }
 
@@ -95,8 +95,8 @@ public class RunWhereUsedQueryHandler extends AbstractHandler {
       final IAdtObjectReference adtObjectRef) {
     final Display display = HandlerUtil.getActiveShell(event).getDisplay();
 
-    final Job readDdlsUriJob = Job.create(
-        Messages.ElementInfoProvider_RetrievingElementInfoDescription_xmsg, monitor -> {
+    final Job readDdlsUriJob = Job
+        .create(Messages.ElementInfoProvider_RetrievingElementInfoDescription_xmsg, monitor -> {
           var ddlsObjectInfo = ElementInfoRetrievalServiceFactory.createService()
               .retrieveBasicElementInformation(DestinationUtil.getDestinationId(project),
                   adtObjectRef.getName(), ObjectType.DATA_DEFINITION);

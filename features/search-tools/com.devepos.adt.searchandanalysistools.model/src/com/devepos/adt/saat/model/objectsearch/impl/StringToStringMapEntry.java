@@ -28,8 +28,8 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage;
  *
  * @generated
  */
-public class StringToStringMapEntry extends MinimalEObjectImpl.Container implements
-    BasicEMap.Entry<String, String> {
+public class StringToStringMapEntry extends MinimalEObjectImpl.Container
+    implements BasicEMap.Entry<String, String> {
   /**
    * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
    * <!-- begin-user-doc -->

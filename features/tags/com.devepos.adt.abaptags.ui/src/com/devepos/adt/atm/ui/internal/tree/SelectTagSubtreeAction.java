@@ -22,8 +22,8 @@ public class SelectTagSubtreeAction extends Action {
   private IPostRunHandler postRun;
 
   public SelectTagSubtreeAction(final TagSelectionTree tagSelectTree) {
-    super(Messages.TagSelectionWizardPage_SelectSubTreeAction_xmit, AdtBaseUIResources
-        .getImageDescriptor(IAdtBaseImages.CHECK));
+    super(Messages.TagSelectionWizardPage_SelectSubTreeAction_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.CHECK));
     tagTree = tagSelectTree;
   }
 

@@ -816,8 +816,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-        XMLTypePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+        .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
 
@@ -996,73 +996,73 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    */
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-    addAnnotation(adtObjRefEClass, source, new String[] { "name", "adtObjRef", "kind",
-        "elementOnly" });
+    addAnnotation(adtObjRefEClass, source,
+        new String[] { "name", "adtObjRef", "kind", "elementOnly" });
     addAnnotation(getAdtObjRef_Description(), source, new String[] { "kind", "attribute", "name",
         "description", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtObjRef_Name(), source, new String[] { "kind", "attribute", "name", "name",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Name(), source,
+        new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_AlternativeName(), source, new String[] { "kind", "attribute",
         "name", "alternativeName", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_PackageName(), source, new String[] { "kind", "attribute", "name",
         "packageName", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtObjRef_Type(), source, new String[] { "kind", "attribute", "name", "type",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Type(), source,
+        new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_TadirType(), source, new String[] { "kind", "attribute", "name",
         "tadirType", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtObjRef_Uri(), source, new String[] { "kind", "attribute", "name", "uri",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Uri(), source,
+        new String[] { "kind", "attribute", "name", "uri", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_ParentUri(), source, new String[] { "kind", "attribute", "name",
         "parentUri", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_ParentName(), source, new String[] { "kind", "attribute", "name",
         "parentName", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtObjRef_Owner(), source, new String[] { "kind", "attribute", "name", "owner",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Owner(), source,
+        new String[] { "kind", "attribute", "name", "owner", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_CreatedOn(), source, new String[] { "kind", "attribute", "name",
         "createdOn", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_ChangedBy(), source, new String[] { "kind", "attribute", "name",
         "changedBy", "namespace", "##targetNamespace" });
     addAnnotation(getAdtObjRef_ChangedOn(), source, new String[] { "kind", "attribute", "name",
         "changedOn", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtObjRef_Properties(), source, new String[] { "kind", "element", "namespace",
-        "##targetNamespace", "name", "property" });
-    addAnnotation(adtObjRefListEClass, source, new String[] { "name", "adtObjRefs", "kind",
-        "elementOnly" });
-    addAnnotation(getAdtObjRefList_ObjectReferences(), source, new String[] { "kind", "element",
-        "name", "adtObjRef", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtObjRef_Properties(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace", "name", "property" });
+    addAnnotation(adtObjRefListEClass, source,
+        new String[] { "name", "adtObjRefs", "kind", "elementOnly" });
+    addAnnotation(getAdtObjRefList_ObjectReferences(), source,
+        new String[] { "kind", "element", "name", "adtObjRef", "namespace", "##targetNamespace" });
     addAnnotation(userEClass, source, new String[] { "name", "user", "kind", "elementOnly" });
-    addAnnotation(getUser_Name(), source, new String[] { "kind", "attribute", "name", "name",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getUser_Text(), source, new String[] { "kind", "attribute", "name", "text",
-        "namespace", "##targetNamespace" });
-    addAnnotation(adtPluginFeatureEClass, source, new String[] { "name", "pluginFeature", "kind",
-        "elementOnly" });
-    addAnnotation(getAdtPluginFeature_Name(), source, new String[] { "kind", "attribute", "name",
-        "name", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtPluginFeature_Endpoint(), source, new String[] { "kind", "attribute",
-        "name", "endpoint", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtPluginFeature_Type(), source, new String[] { "kind", "attribute", "name",
-        "type", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtPluginFeature_Enabled(), source, new String[] { "kind", "attribute", "name",
-        "enabled", "namespace", "##targetNamespace" });
-    addAnnotation(getAdtPluginFeature_Category(), source, new String[] { "kind", "attribute",
-        "name", "category", "namespace", "##targetNamespace" });
+    addAnnotation(getUser_Name(), source,
+        new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+    addAnnotation(getUser_Text(), source,
+        new String[] { "kind", "attribute", "name", "text", "namespace", "##targetNamespace" });
+    addAnnotation(adtPluginFeatureEClass, source,
+        new String[] { "name", "pluginFeature", "kind", "elementOnly" });
+    addAnnotation(getAdtPluginFeature_Name(), source,
+        new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Endpoint(), source,
+        new String[] { "kind", "attribute", "name", "endpoint", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Type(), source,
+        new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Enabled(), source,
+        new String[] { "kind", "attribute", "name", "enabled", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtPluginFeature_Category(), source,
+        new String[] { "kind", "attribute", "name", "category", "namespace", "##targetNamespace" });
     addAnnotation(getAdtPluginFeature_Description(), source, new String[] { "kind", "attribute",
         "name", "description", "namespace", "##targetNamespace" });
-    addAnnotation(adtPluginFeatureListEClass, source, new String[] { "name", "pluginFeatures",
-        "kind", "elementOnly" });
+    addAnnotation(adtPluginFeatureListEClass, source,
+        new String[] { "name", "pluginFeatures", "kind", "elementOnly" });
     addAnnotation(getAdtPluginFeatureList_Features(), source, new String[] { "kind", "element",
         "name", "pluginFeature", "namespace", "##targetNamespace" });
-    addAnnotation(responseMessageEClass, source, new String[] { "kind", "elementOnly", "name",
-        "responseMessage" });
-    addAnnotation(getResponseMessage_Type(), source, new String[] { "kind", "attribute", "name",
-        "type", "namespace", "##targetNamespace" });
-    addAnnotation(getResponseMessage_Content(), source, new String[] { "kind", "attribute", "name",
-        "content", "namespace", "##targetNamespace" });
+    addAnnotation(responseMessageEClass, source,
+        new String[] { "kind", "elementOnly", "name", "responseMessage" });
+    addAnnotation(getResponseMessage_Type(), source,
+        new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
+    addAnnotation(getResponseMessage_Content(), source,
+        new String[] { "kind", "attribute", "name", "content", "namespace", "##targetNamespace" });
     addAnnotation(getResponseMessage_Occurrences(), source, new String[] { "kind", "attribute",
         "name", "occurrences", "namespace", "##targetNamespace" });
-    addAnnotation(responseMessageListEClass, source, new String[] { "kind", "elementOnly", "name",
-        "responseMessages" });
+    addAnnotation(responseMessageListEClass, source,
+        new String[] { "kind", "elementOnly", "name", "responseMessages" });
     addAnnotation(getResponseMessageList_Messages(), source, new String[] { "kind", "element",
         "name", "responseMessage", "namespace", "##targetNamespace" });
   }

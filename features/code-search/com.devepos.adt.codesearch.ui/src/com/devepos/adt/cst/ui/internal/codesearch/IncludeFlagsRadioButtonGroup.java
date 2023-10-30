@@ -89,8 +89,9 @@ public class IncludeFlagsRadioButtonGroup {
       return;
     }
 
-    link.setText(NLS.bind("(<a>{0} of {1} selected</a>)", new Object[] { includeFlagsParam
-        .getSelectedIncludeCount(), includeFlagsParam.getPossibleIncludes().length }));
+    link.setText(NLS.bind("(<a>{0} of {1} selected</a>)",
+        new Object[] { includeFlagsParam.getSelectedIncludeCount(),
+            includeFlagsParam.getPossibleIncludes().length }));
   }
 
   protected IncludeFlagsDialog createDialog() {

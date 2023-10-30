@@ -80,14 +80,14 @@ public class ShowInObjectTagsHandler extends AbstractHandler {
     if (contextOrEvent instanceof IEvaluationContext) {
       Collection<?> collection;
       final Object defaultVariable = ((IEvaluationContext) contextOrEvent).getDefaultVariable();
-      if (defaultVariable instanceof Collection && (collection = (Collection<?>) defaultVariable)
-          .size() == 1) {
+      if (defaultVariable instanceof Collection
+          && (collection = (Collection<?>) defaultVariable).size() == 1) {
         final Object[] array = collection.toArray();
         return array[0];
       }
     } else if (contextOrEvent instanceof ExecutionEvent) {
-      final IStructuredSelection selection = HandlerUtil.getCurrentStructuredSelection(
-          (ExecutionEvent) contextOrEvent);
+      final IStructuredSelection selection = HandlerUtil
+          .getCurrentStructuredSelection((ExecutionEvent) contextOrEvent);
       return selection.getFirstElement();
     }
     return null;

@@ -39,20 +39,20 @@ public class WhereUsedInCdsAnalysis extends CdsAnalysis {
    */
   public void createResult(final ILazyLoadingListener l) {
     final ILazyLoadingListener lazyLoadingListener = count -> {
-      rootWhereUsedCount = NLS.bind(count == 1
-          ? Messages.WhereUsedInCdsAnalysisView_SingleReferenceLabelSuffix_xfld
-          : Messages.WhereUsedInCdsAnalysisView_MultipleReferencesLabelSuffix_xfld,
+      rootWhereUsedCount = NLS.bind(
+          count == 1 ? Messages.WhereUsedInCdsAnalysisView_SingleReferenceLabelSuffix_xfld
+              : Messages.WhereUsedInCdsAnalysisView_MultipleReferencesLabelSuffix_xfld,
           new DecimalFormat("###,###") //$NON-NLS-1$
               .format(count));
     };
-    node = new LazyLoadingAdtObjectReferenceNode(adtObjectInfo.getName(), adtObjectInfo
-        .getDisplayName(), adtObjectInfo.getDescription(), adtObjectInfo.getAdtObjectReference(),
-        null);
+    node = new LazyLoadingAdtObjectReferenceNode(adtObjectInfo.getName(),
+        adtObjectInfo.getDisplayName(), adtObjectInfo.getDescription(),
+        adtObjectInfo.getAdtObjectReference(), null);
     node.setNodeValue(adtObjectInfo.getAdditionalInfo());
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
-    rootWhereUsedProvider = new WhereUsedInCdsElementInfoProvider(destProvider != null
-        ? destProvider.getDestinationId()
-        : null, adtObjectInfo.getName(), settings);
+    rootWhereUsedProvider = new WhereUsedInCdsElementInfoProvider(
+        destProvider != null ? destProvider.getDestinationId() : null, adtObjectInfo.getName(),
+        settings);
     cdsWhereUsedNode = node;
     node.setElementInfoProvider(rootWhereUsedProvider);
     node.addLazyLoadingListener(lazyLoadingListener);

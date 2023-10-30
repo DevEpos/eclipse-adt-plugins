@@ -81,8 +81,8 @@ public enum ResultGroupLevel implements Enumerator {
    *
    * @generated
    */
-  public static final List<ResultGroupLevel> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<ResultGroupLevel> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Result Group Level</b></em>' literal with the specified literal value.

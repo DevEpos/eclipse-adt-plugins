@@ -51,8 +51,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
  *
  * @generated
  */
-public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
-    ISearchFilterConfig {
+public class SearchFilterConfig extends MinimalEObjectImpl.Container
+    implements ISearchFilterConfig {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -635,12 +635,14 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container implements
     if (newContentAssist != contentAssist) {
       NotificationChain msgs = null;
       if (contentAssist != null) {
-        msgs = ((InternalEObject) contentAssist).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, null, msgs);
+        msgs = ((InternalEObject) contentAssist).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST,
+            null, msgs);
       }
       if (newContentAssist != null) {
-        msgs = ((InternalEObject) newContentAssist).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST, null, msgs);
+        msgs = ((InternalEObject) newContentAssist).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST,
+            null, msgs);
       }
       msgs = basicSetContentAssist(newContentAssist, msgs);
       if (msgs != null) {

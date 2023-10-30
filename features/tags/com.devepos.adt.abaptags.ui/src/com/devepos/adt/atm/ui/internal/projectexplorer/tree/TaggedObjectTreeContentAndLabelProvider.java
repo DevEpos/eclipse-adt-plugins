@@ -172,14 +172,14 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
     private AdtObjectReferenceElementInfo createAdtObjectRef(final ITaggedObjectTreeObject o) {
       var objectRef = o.getObjectRef();
-      var adtObjectRefEmf = AdtObjectReferenceModelFactory.createReference(destinationId, objectRef
-          .getName(), objectRef.getType(), objectRef.getUri());
-      var objectElementInfo = new AdtObjectReferenceElementInfo(objectRef.getName(), objectRef
-          .getDisplayName(), objectRef.getDescription());
+      var adtObjectRefEmf = AdtObjectReferenceModelFactory.createReference(destinationId,
+          objectRef.getName(), objectRef.getType(), objectRef.getUri());
+      var objectElementInfo = new AdtObjectReferenceElementInfo(objectRef.getName(),
+          objectRef.getDisplayName(), objectRef.getDescription());
       if (!StringUtil.isEmpty(objectRef.getParentName())) {
         objectElementInfo.getProperties()
-            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, objectRef
-                .getParentName());
+            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME,
+                objectRef.getParentName());
       }
       objectElementInfo.setAdtObjectReference(adtObjectRefEmf);
       // mark this adt object element info as launchable, so the project explorer will create the
@@ -188,8 +188,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           .put(ILaunchableNode.class.getName(), Boolean.TRUE.toString()); // $NON-NLS-1$
       if (o.isExpandable()) {
         objectElementInfo.setLazyLoadingSupport(true);
-        objectElementInfo.setElementInfoProvider(new TaggedObjectTreeLoader(destinationId, o
-            .getParentTagId() != null ? o.getParentTagId() : tagId, adtObjectRefEmf));
+        objectElementInfo.setElementInfoProvider(new TaggedObjectTreeLoader(destinationId,
+            o.getParentTagId() != null ? o.getParentTagId() : tagId, adtObjectRefEmf));
       }
       return objectElementInfo;
     }
@@ -220,8 +220,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
         if (hasObjectsForTag || !t.getChildTags().isEmpty()) {
           // lazy loading of tag is not required
-          var tagNode = new ElementInfoCollection(t.getName(), t.getName(), null, t
-              .getDescription());
+          var tagNode = new ElementInfoCollection(t.getName(), t.getName(), null,
+              t.getDescription());
           tagNode.setAdditionalInfo(t);
           if (!t.getChildTags().isEmpty()) {
             processChildNodes(tagNode, t.getChildTags());
@@ -302,8 +302,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       if (nodeTag != null) {
         ITreeNode lastParentBeforeRoot = (ITreeNode) element;
         while (lastParentBeforeRoot != null) {
-          if (lastParentBeforeRoot.getParent() != null && lastParentBeforeRoot.getParent()
-              .getParent() == null) {
+          if (lastParentBeforeRoot.getParent() != null
+              && lastParentBeforeRoot.getParent().getParent() == null) {
             break;
           }
           lastParentBeforeRoot = lastParentBeforeRoot.getParent();
@@ -391,8 +391,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       if (sessionProp instanceof Object[]) {
         return (Object[]) sessionProp;
       }
-      var lazyNode = new RootNode(new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(
-          project)));
+      var lazyNode = new RootNode(
+          new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(project)));
       sessionProp = new Object[] { lazyNode };
       project.setSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE, sessionProp);
       return (Object[]) sessionProp;
@@ -416,11 +416,11 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     if (showObjectTypes) {
       AdtObjectUtil.appendAdtTypeDescription(objRefNode, text);
     }
-    var parentName = objRefNode.getPropertyValue(
-        ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+    var parentName = objRefNode
+        .getPropertyValue(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
     if (parentName != null) {
-      text.append(" [" + parentName + "]", StylerFactory.createCustomStyler(SWT.NORMAL,
-          IColorConstants.COMP_PARENT_COLOR, null));
+      text.append(" [" + parentName + "]",
+          StylerFactory.createCustomStyler(SWT.NORMAL, IColorConstants.COMP_PARENT_COLOR, null));
     }
 
     if (showDescriptions && !StringUtil.isEmpty(objRefNode.getDescription())) {

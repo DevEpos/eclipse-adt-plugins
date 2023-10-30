@@ -140,8 +140,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     @Override
     public String getText(final Object element) {
       var favorite = (ISearchFavorite) element;
-      var displayName = SearchFavoritesUtil.getFavoriteDisplayName(favorite, descriptors.get(
-          favorite.getSearchType()));
+      var displayName = SearchFavoritesUtil.getFavoriteDisplayName(favorite,
+          descriptors.get(favorite.getSearchType()));
 
       return displayName;
     }
@@ -233,8 +233,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
         updateFilterInfo();
       }
     };
-    viewer = CheckboxTableViewer.newCheckList(favoritesTable, SWT.MULTI | SWT.H_SCROLL
-        | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
+    viewer = CheckboxTableViewer.newCheckList(favoritesTable,
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 
     favoritesTable.setViewer(viewer);
     viewer.setContentProvider(new ArrayContentProvider());
@@ -309,9 +309,9 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     if (input.isEmpty()) {
       filteredInfo.setText(Messages.ManageSearchFavoritesDialog_NoFavoritesAvailable_xlbl);
     } else {
-      filteredInfo.setText(String.format(
-          Messages.ManageSearchFavoritesDialog_FilteredFavoritesInfo_xlbl, viewer.getTable()
-              .getItemCount(), input.size()));
+      filteredInfo
+          .setText(String.format(Messages.ManageSearchFavoritesDialog_FilteredFavoritesInfo_xlbl,
+              viewer.getTable().getItemCount(), input.size()));
     }
   }
 
@@ -371,8 +371,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
     removeButton.setEnabled(elementsSelected > 0);
     moveUpButton.setEnabled(elementsSelected > 0 && input.indexOf(sel.getFirstElement()) > 0);
-    moveDownButton.setEnabled(elementsSelected > 0 && Stream.of(sel.toArray())
-        .allMatch(o -> input.indexOf(o) < input.size() - 1));
+    moveDownButton.setEnabled(elementsSelected > 0
+        && Stream.of(sel.toArray()).allMatch(o -> input.indexOf(o) < input.size() - 1));
 
     final var openButton = getButton(IDialogConstants.OPEN_ID);
     if (openButton != null) {
@@ -470,9 +470,9 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       updateCheckedElements();
       updateFilterInfo();
     }, favToBeImported -> input.stream()
-        .anyMatch(f -> SearchFavoritesUtil.matchesFavAttributes(f, favToBeImported
-            .getDestinationId(), favToBeImported.getSearchType(), favToBeImported
-                .getDescription())));
+        .anyMatch(
+            f -> SearchFavoritesUtil.matchesFavAttributes(f, favToBeImported.getDestinationId(),
+                favToBeImported.getSearchType(), favToBeImported.getDescription())));
     importer.run();
   }
 

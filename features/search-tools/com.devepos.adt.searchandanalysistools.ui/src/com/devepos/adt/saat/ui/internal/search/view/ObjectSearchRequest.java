@@ -36,9 +36,9 @@ public class ObjectSearchRequest {
       return super.equals(object);
     }
     final ObjectSearchRequest otherEntry = (ObjectSearchRequest) object;
-    return query.equalsIgnoreCase(otherEntry.getQuery()) && destinationId.equalsIgnoreCase(
-        otherEntry.getDestinationId()) && queryInput.isCombineFiltersWithAnd() == otherEntry
-            .isAndSearchActive();
+    return query.equalsIgnoreCase(otherEntry.getQuery())
+        && destinationId.equalsIgnoreCase(otherEntry.getDestinationId())
+        && queryInput.isCombineFiltersWithAnd() == otherEntry.isAndSearchActive();
   }
 
   public String getDestinationId() {
@@ -72,8 +72,8 @@ public class ObjectSearchRequest {
       if (queryTextBuffer.length() != 0) {
         queryTextBuffer.append("; ");
       }
-      queryTextBuffer.append(String.format("%s: %s", field.getLabel().replaceAll("&", ""), field
-          .getRawInput()));
+      queryTextBuffer.append(
+          String.format("%s: %s", field.getLabel().replaceAll("&", ""), field.getRawInput()));
     }
     return queryTextBuffer.toString();
   }

@@ -75,8 +75,8 @@ public class CodeSearchEditorMatcher implements IEditorMatchAdapter {
     if (fileUri == null) {
       return new Match[0];
     }
-    Set<SearchMatchNode> matchNodesInFile = searchResult.getMatchNodesForFileUri(fileUri
-        .toString());
+    Set<SearchMatchNode> matchNodesInFile = searchResult
+        .getMatchNodesForFileUri(fileUri.toString());
     if (matchNodesInFile != null) {
       for (SearchMatchNode matchNode : matchNodesInFile) {
         Match match = getMatch(matchNode, document);

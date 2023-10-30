@@ -158,8 +158,8 @@ public class SearchFavoritesPackage extends EPackageImpl implements ISearchFavor
    */
   public static ISearchFavoritesPackage init() {
     if (isInited) {
-      return (ISearchFavoritesPackage) EPackage.Registry.INSTANCE.getEPackage(
-          ISearchFavoritesPackage.eNS_URI);
+      return (ISearchFavoritesPackage) EPackage.Registry.INSTANCE
+          .getEPackage(ISearchFavoritesPackage.eNS_URI);
     }
 
     // Obtain or create and register package
@@ -677,14 +677,14 @@ public class SearchFavoritesPackage extends EPackageImpl implements ISearchFavor
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(getLongStringAttribute_Value(), source, new String[] { "kind", "element" });
-    addAnnotation(getListAttribute_Values(), source, new String[] { "name", "value", "kind",
-        "element" });
-    addAnnotation(getMapAttribute_Entries(), source, new String[] { "kind", "element", "name",
-        "entry" });
-    addAnnotation(getSearchFavorite_Attributes(), source, new String[] { "kind", "element", "name",
-        "attribute" });
-    addAnnotation(getSearchFavorites_Favorites(), source, new String[] { "kind", "element", "name",
-        "favorite" });
+    addAnnotation(getListAttribute_Values(), source,
+        new String[] { "name", "value", "kind", "element" });
+    addAnnotation(getMapAttribute_Entries(), source,
+        new String[] { "kind", "element", "name", "entry" });
+    addAnnotation(getSearchFavorite_Attributes(), source,
+        new String[] { "kind", "element", "name", "attribute" });
+    addAnnotation(getSearchFavorites_Favorites(), source,
+        new String[] { "kind", "element", "name", "favorite" });
   }
 
 } // SearchFavoritesPackage

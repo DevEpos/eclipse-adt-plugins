@@ -97,8 +97,8 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   public void applyData(final Object data) {
     if (data instanceof Map) {
       Map<?, ?> options = (Map) data;
-      boolean omit = Boolean.TRUE.equals(options.get(
-          LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY));
+      boolean omit = Boolean.TRUE
+          .equals(options.get(LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY));
       if (omit && linkToPreferencePageCtrl != null && !linkToPreferencePageCtrl.isDisposed()) {
         linkToPreferencePageCtrl.setVisible(false);
         ((GridData) linkToPreferencePageCtrl.getLayoutData()).exclude = true;
@@ -158,12 +158,10 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     GridLayoutFactory.swtDefaults().applyTo(main);
 
     var linkToPreferencePage = LinkToAdtPageBlocksFactory.createLinkToPreferencePage(
-        CodeSearchPreferencesPage.PAGE_ID, Collections.singletonMap(
-            LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY, true));
-    linkToPreferencePageCtrl = linkToPreferencePage.createControl(main, GridDataFactory
-        .fillDefaults()
-        .align(SWT.RIGHT, SWT.FILL)
-        .create());
+        CodeSearchPreferencesPage.PAGE_ID,
+        Collections.singletonMap(LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY, true));
+    linkToPreferencePageCtrl = linkToPreferencePage.createControl(main,
+        GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).create());
 
     if (pageIsUseable) {
       createRegexSettings(main);
@@ -283,15 +281,15 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
 
     pcreExtendedDisabled.setText(Messages.CodeSearchPropertyPage_disablePcreExtendedModePref_xchk);
     pcreExtendedDisabled.setEnabled(pcreAvailable);
-    pcreExtendedDisabled.setToolTipText(
-        Messages.CodeSearchPropertyPage_disablePcreExtendedModePref_xtol);
+    pcreExtendedDisabled
+        .setToolTipText(Messages.CodeSearchPropertyPage_disablePcreExtendedModePref_xtol);
 
     pcreSingleLineEnabled = new Button(group, SWT.CHECK);
     pcreSingleLineEnabled.setEnabled(pcreAvailable);
-    pcreSingleLineEnabled.setText(
-        Messages.CodeSearchPropertyPage_enablePcreSingleLineModePref_xchk);
-    pcreSingleLineEnabled.setToolTipText(
-        Messages.CodeSearchPropertyPage_enablePcreSingleLineModePref_xtol);
+    pcreSingleLineEnabled
+        .setText(Messages.CodeSearchPropertyPage_enablePcreSingleLineModePref_xchk);
+    pcreSingleLineEnabled
+        .setToolTipText(Messages.CodeSearchPropertyPage_enablePcreSingleLineModePref_xtol);
   }
 
   private void determineAvailableFeatures() {
@@ -299,19 +297,18 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
       return;
     }
     searchFeatures = codeSearchService.getSearchSettingsFeatures(destinationId);
-    pcreAvailable = searchFeatures != null && searchFeatures.isFeatureEnabled(
-        PCRE_AVAILABLE_FEATURE);
+    pcreAvailable = searchFeatures != null
+        && searchFeatures.isFeatureEnabled(PCRE_AVAILABLE_FEATURE);
   }
 
   private boolean isPageDirty() {
     if (searchSettings == null) {
       return false;
     }
-    if (searchSettings.isParallelEnabled() != parallelEnabled.getSelection() || searchSettings
-        .isPcreExtendedDisabled() != pcreExtendedDisabled.getSelection() || pcreSingleLineEnabled
-            .getSelection() != searchSettings.isPcreSingleLineEnabled() || !serverGroupText
-                .getText()
-                .equals(searchSettings.getParallelServerGroup())) {
+    if (searchSettings.isParallelEnabled() != parallelEnabled.getSelection()
+        || searchSettings.isPcreExtendedDisabled() != pcreExtendedDisabled.getSelection()
+        || pcreSingleLineEnabled.getSelection() != searchSettings.isPcreSingleLineEnabled()
+        || !serverGroupText.getText().equals(searchSettings.getParallelServerGroup())) {
       return true;
 
     }
@@ -418,15 +415,15 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
       int maxObjects = Integer.parseInt(parlPackageSize.getText());
       if (maxObjects < MIN_MAX_OBJECTS || maxObjects > MAX_MAX_OBJECTS) {
         pageIsInvalid = true;
-        setErrorMessage(MessageFormat.format(
-            Messages.CodeSearchPropertyPage_invalidParlPackageSize_xmsg, MIN_MAX_OBJECTS,
-            MAX_MAX_OBJECTS));
+        setErrorMessage(
+            MessageFormat.format(Messages.CodeSearchPropertyPage_invalidParlPackageSize_xmsg,
+                MIN_MAX_OBJECTS, MAX_MAX_OBJECTS));
       }
     } catch (NumberFormatException exc) {
       pageIsInvalid = true;
-      setErrorMessage(MessageFormat.format(
-          Messages.CodeSearchPropertyPage_invalidParlPackageSize_xmsg, MIN_MAX_OBJECTS,
-          MAX_MAX_OBJECTS));
+      setErrorMessage(
+          MessageFormat.format(Messages.CodeSearchPropertyPage_invalidParlPackageSize_xmsg,
+              MIN_MAX_OBJECTS, MAX_MAX_OBJECTS));
     }
   }
 }

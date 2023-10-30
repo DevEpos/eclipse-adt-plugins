@@ -20,8 +20,8 @@ import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.search.view.ObjectSearchPage;
 
-public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase implements
-    IWorkbenchPreferencePage, IPropertyChangeListener {
+public class ObjectSearchPreferencePage extends FieldEditorPrefPageBase
+    implements IWorkbenchPreferencePage, IPropertyChangeListener {
 
   @Override
   public void init(final IWorkbench workbench) {

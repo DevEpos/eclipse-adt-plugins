@@ -21,8 +21,8 @@ public class ContinueCodeSearchAction extends Action {
 
   public ContinueCodeSearchAction(
       final ISearchResultPageExtension<CodeSearchQuery> searchResultPage) {
-    super(Messages.ContinueCodeSearchAction_actionName_xlbl, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.CONTINUE));
+    super(Messages.ContinueCodeSearchAction_actionName_xlbl,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.CONTINUE));
     this.searchResultPage = searchResultPage;
   }
 

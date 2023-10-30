@@ -42,8 +42,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     if (!discovery.isResourceDiscoverySuccessful()) {
       return null;
     }
-    return discovery.getCdsAnalysisTemplate(
-        CdsAnalysisUriDiscovery.DISCOVERY_TEMPLATE_WHERE_USED_IN_FROM);
+    return discovery
+        .getCdsAnalysisTemplate(CdsAnalysisUriDiscovery.DISCOVERY_TEMPLATE_WHERE_USED_IN_FROM);
   }
 
   @Override
@@ -109,8 +109,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
 
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
-    return getFieldAnalysis(destinationId, discovery.createFieldTopDownCdsAnalysisResourceUri(
-        cdsView, field));
+    return getFieldAnalysis(destinationId,
+        discovery.createFieldTopDownCdsAnalysisResourceUri(cdsView, field));
   }
 
   @Override
@@ -196,8 +196,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     var discovery = new CdsAnalysisUriDiscovery(destinationId);
 
     if (!discovery.isResourceDiscoverySuccessful()) {
-      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-          Messages.FeatureStatus_CdsAnalysisFeatureNotAvailable_xmsg, projectName));
+      return new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+          NLS.bind(Messages.FeatureStatus_CdsAnalysisFeatureNotAvailable_xmsg, projectName));
     }
 
     boolean isFeatureAvailable = true;
@@ -205,14 +205,14 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     if (feature == CdsAnalysisFeature.GENERAL) {
       isFeatureAvailable = discovery.isCdsFeatureAvailable(CdsAnalysisFeature.GENERAL);
     } else if (feature == CdsAnalysisFeature.FIELD_ANALYSIS) {
-      if (!discovery.isCdsFeatureAvailable(CdsAnalysisFeature.FIELD_ANALYSIS_TOP_DOWN) && !discovery
-          .isCdsFeatureAvailable(CdsAnalysisFeature.FIELD_ANALYSIS_WHERE_USED)) {
+      if (!discovery.isCdsFeatureAvailable(CdsAnalysisFeature.FIELD_ANALYSIS_TOP_DOWN)
+          && !discovery.isCdsFeatureAvailable(CdsAnalysisFeature.FIELD_ANALYSIS_WHERE_USED)) {
         isFeatureAvailable = false;
       }
 
     } else if (feature == CdsAnalysisFeature.WHERE_USED) {
-      if (!discovery.isCdsFeatureAvailable(CdsAnalysisFeature.WHERE_USED_IN_ASSOC) && !discovery
-          .isCdsFeatureAvailable(CdsAnalysisFeature.WHERE_USED_IN_FROM)) {
+      if (!discovery.isCdsFeatureAvailable(CdsAnalysisFeature.WHERE_USED_IN_ASSOC)
+          && !discovery.isCdsFeatureAvailable(CdsAnalysisFeature.WHERE_USED_IN_FROM)) {
         isFeatureAvailable = false;
 
       }
@@ -221,8 +221,8 @@ public class CdsAnalysisService implements ICdsAnalysisService {
     }
 
     return isFeatureAvailable ? Status.OK_STATUS
-        : new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-            Messages.FeatureStatus_GeneralFeatureNotAvailable_xmsg, feature.getName(),
-            projectName));
+        : new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+            NLS.bind(Messages.FeatureStatus_GeneralFeatureNotAvailable_xmsg, feature.getName(),
+                projectName));
   }
 }

@@ -113,8 +113,8 @@ public class XmlStreamParser {
     @Override
     public String getAttributeValue(final String namespacePrefix, final String attributeName) {
       return getAttributes().stream()
-          .filter(a -> a.getName().equals(attributeName) && a.getNamespace()
-              .equals(namespacePrefix))
+          .filter(
+              a -> a.getName().equals(attributeName) && a.getNamespace().equals(namespacePrefix))
           .findFirst()
           .orElse(new Attribute())
           .getValue();

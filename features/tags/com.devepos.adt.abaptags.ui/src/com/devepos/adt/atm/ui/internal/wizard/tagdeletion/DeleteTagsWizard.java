@@ -26,8 +26,8 @@ public class DeleteTagsWizard extends AbstractWizardBase {
   public DeleteTagsWizard(final ITagList tagList) {
     tagsForDeletion = tagList;
     setWindowTitle(Messages.DeleteTagsWizard_WizardTitle_xtit);
-    setDefaultPageImageDescriptor(AbapTagsUIPlugin.getDefault()
-        .getImageDescriptor(IImages.DELETE_TAGS_WIZBAN));
+    setDefaultPageImageDescriptor(
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.DELETE_TAGS_WIZBAN));
     setNeedsProgressMonitor(true);
   }
 
@@ -47,8 +47,8 @@ public class DeleteTagsWizard extends AbstractWizardBase {
   @Override
   public boolean performFinish() {
     var tagsService = AbapTagsServiceFactory.createTagsService();
-    final IStatus status = tagsService.deleteTags(getFinalizedTagsForDeletion(), DestinationUtil
-        .getDestinationId(getProject()), TagSearchScope.ALL);
+    final IStatus status = tagsService.deleteTags(getFinalizedTagsForDeletion(),
+        DestinationUtil.getDestinationId(getProject()), TagSearchScope.ALL);
     if (status.isOK()) {
       deletionOccurred = true;
       return true;

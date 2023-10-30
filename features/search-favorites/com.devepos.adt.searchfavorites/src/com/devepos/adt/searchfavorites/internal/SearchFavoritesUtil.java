@@ -48,8 +48,9 @@ public final class SearchFavoritesUtil {
    */
   public static boolean matchesFavAttributes(final ISearchFavorite f, final String destinationId,
       final String searchType, final String description) {
-    if (!description.equalsIgnoreCase(f.getDescription()) || (((f.getDestinationId() != null) || (destinationId != null)) && !destinationId.equals(f
-        .getDestinationId()))) {
+    if (!description.equalsIgnoreCase(f.getDescription())
+        || (f.getDestinationId() != null || destinationId != null)
+            && !destinationId.equals(f.getDestinationId())) {
       return false;
     }
 

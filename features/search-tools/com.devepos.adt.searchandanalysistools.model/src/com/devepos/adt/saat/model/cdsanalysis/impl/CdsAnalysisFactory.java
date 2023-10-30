@@ -94,8 +94,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
     case ICdsAnalysisPackage.WHERE_USED_IN_CDS_RESULT:
       return createWhereUsedInCdsResult();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 
@@ -115,8 +115,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
     case ICdsAnalysisPackage.CDS_QUERY_NAV_TARGET:
       return createCdsQueryNavTargetFromString(eDataType, initialValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -136,8 +136,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
     case ICdsAnalysisPackage.CDS_QUERY_NAV_TARGET:
       return convertCdsQueryNavTargetToString(eDataType, instanceValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -271,8 +271,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
       final String initialValue) {
     SqlRelation result = SqlRelation.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -297,8 +297,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
       final EDataType eDataType, final String initialValue) {
     TopDownAnalysisEntryType result = TopDownAnalysisEntryType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -324,8 +324,8 @@ public class CdsAnalysisFactory extends EFactoryImpl implements ICdsAnalysisFact
       final String initialValue) {
     CdsQueryNavTarget result = CdsQueryNavTarget.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }

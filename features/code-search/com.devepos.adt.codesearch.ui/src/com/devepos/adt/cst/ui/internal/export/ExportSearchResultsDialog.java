@@ -127,9 +127,10 @@ public class ExportSearchResultsDialog extends TitleAreaDialog {
 
   @Override
   protected void okPressed() {
-    var exporter = new ResultExporter(DestinationUtil.getSystemId(DestinationUtil.getDestinationId(
-        project)), rootResultNode, getDelimiter(), generateColHeaders.getSelection(), fileInput
-            .getText(), qualifierCombo.getText(), useQualifierWhenRequired.getSelection(),
+    var exporter = new ResultExporter(
+        DestinationUtil.getSystemId(DestinationUtil.getDestinationId(project)), rootResultNode,
+        getDelimiter(), generateColHeaders.getSelection(), fileInput.getText(),
+        qualifierCombo.getText(), useQualifierWhenRequired.getSelection(),
         useMatchMarker.getSelection() ? matchMarker.getText() : null);
     try {
       exporter.run();
@@ -214,8 +215,8 @@ public class ExportSearchResultsDialog extends TitleAreaDialog {
     GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(generateColHeaders);
 
     useQualifierWhenRequired = new Button(group, SWT.CHECK);
-    useQualifierWhenRequired.setText(
-        Messages.ExportSearchResultsDialog_UseQualifierOnlyWhenRequiredOption_xchk);
+    useQualifierWhenRequired
+        .setText(Messages.ExportSearchResultsDialog_UseQualifierOnlyWhenRequiredOption_xchk);
     useQualifierWhenRequired.setSelection(true);
     GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(useQualifierWhenRequired);
 

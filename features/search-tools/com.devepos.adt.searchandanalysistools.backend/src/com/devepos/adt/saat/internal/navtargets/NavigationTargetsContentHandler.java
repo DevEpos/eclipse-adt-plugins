@@ -14,8 +14,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  *
  * @author stockbal
  */
-public class NavigationTargetsContentHandler extends
-    AbstractEmfContentHandler<ICdsQueryNavTargets> {
+public class NavigationTargetsContentHandler
+    extends AbstractEmfContentHandler<ICdsQueryNavTargets> {
 
   public NavigationTargetsContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".cdsquerynavtargets");

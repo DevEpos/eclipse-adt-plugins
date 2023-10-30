@@ -75,7 +75,7 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
   }
 
   private void registerUserTagSharedOverlayImage(final ImageRegistry reg) {
-    overlayImage(reg.get(IImages.USER_TAG), IImages.USER_TAG_W_SHARED_OVERLAY, AdtBaseUIResources
-        .getImage(IAdtBaseImages.SHARE_OVR), IDecoration.BOTTOM_RIGHT);
+    overlayImage(reg.get(IImages.USER_TAG), IImages.USER_TAG_W_SHARED_OVERLAY,
+        AdtBaseUIResources.getImage(IAdtBaseImages.SHARE_OVR), IDecoration.BOTTOM_RIGHT);
   }
 }

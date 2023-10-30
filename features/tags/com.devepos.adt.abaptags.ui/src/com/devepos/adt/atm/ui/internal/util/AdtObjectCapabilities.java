@@ -76,8 +76,7 @@ public class AdtObjectCapabilities {
     if (adtType == null) {
       return false;
     }
-    return isRestrictedType(adtType) ? validTypesForObjectTagsView.contains(adtType)
-        : true;
+    return isRestrictedType(adtType) ? validTypesForObjectTagsView.contains(adtType) : true;
   }
 
   public boolean isValidForObjectTagsView(final IAdtObject adtObject) {
@@ -94,8 +93,9 @@ public class AdtObjectCapabilities {
    * This method checks if a type needs restriction or not
    */
   private boolean isRestrictedType(final String adtType) {
-    return ITadirTypeConstants.CLASS.startsWith(adtType) || ITadirTypeConstants.FUNCTION_GROUP
-        .startsWith(adtType) || ITadirTypeConstants.PROGRAM.startsWith(adtType)
+    return ITadirTypeConstants.CLASS.startsWith(adtType)
+        || ITadirTypeConstants.FUNCTION_GROUP.startsWith(adtType)
+        || ITadirTypeConstants.PROGRAM.startsWith(adtType)
         || ITadirTypeConstants.TABLE.startsWith(adtType);
   }
 }

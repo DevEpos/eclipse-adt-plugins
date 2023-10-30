@@ -72,9 +72,9 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
       var results = new ArrayList<IContentProposal>();
       while (resultIterator.hasNext()) {
         var foundItem = resultIterator.next();
-        var proposal = new SearchFilterValueProposal(foundItem.getName(), this, foundItem
-            .getDescription(), NamedItemFilter.getDescriptionFromItem(foundItem.getData()), query,
-            null, proposalImageProvider);
+        var proposal = new SearchFilterValueProposal(foundItem.getName(), this,
+            foundItem.getDescription(), NamedItemFilter.getDescriptionFromItem(foundItem.getData()),
+            query, null, proposalImageProvider);
         proposal.setData(foundItem);
         results.add(proposal);
       }

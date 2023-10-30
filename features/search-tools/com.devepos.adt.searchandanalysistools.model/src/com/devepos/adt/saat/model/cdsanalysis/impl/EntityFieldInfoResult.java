@@ -35,8 +35,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
  *
  * @generated
  */
-public class EntityFieldInfoResult extends MinimalEObjectImpl.Container implements
-    IEntityFieldInfoResult {
+public class EntityFieldInfoResult extends MinimalEObjectImpl.Container
+    implements IEntityFieldInfoResult {
   /**
    * The cached value of the '{@link #getSourceFieldInfo() <em>Source Field Info</em>}' reference.
    * <!-- begin-user-doc -->

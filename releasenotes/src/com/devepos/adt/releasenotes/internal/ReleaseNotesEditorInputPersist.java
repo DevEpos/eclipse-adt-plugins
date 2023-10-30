@@ -29,8 +29,8 @@ public class ReleaseNotesEditorInputPersist implements IElementFactory {
     String path = memento.getString(PATH_MEMENTO_KEY);
     String tabTitle = memento.getString(TAB_TITLE_MEMENTO_KEY);
 
-    if ((plugin == null) || (path == null) || (tabTitle == null) || plugin.isEmpty() || path
-        .isEmpty() || tabTitle.isEmpty()) {
+    if (plugin == null || path == null || tabTitle == null || plugin.isEmpty() || path.isEmpty()
+        || tabTitle.isEmpty()) {
       return null;
     }
     try {

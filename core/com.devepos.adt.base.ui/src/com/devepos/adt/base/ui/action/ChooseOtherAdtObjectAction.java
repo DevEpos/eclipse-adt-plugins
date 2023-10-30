@@ -22,8 +22,8 @@ public class ChooseOtherAdtObjectAction extends Action {
 
   public ChooseOtherAdtObjectAction(final boolean multipleSelection,
       final Consumer<IAdtRisSearchResultProxy> runConsumer) {
-    super(Messages.ChooseOtherAdtObjectAction_ActionText_xtol, AdtBaseUIResources
-        .getImageDescriptor(IAdtBaseImages.OTHER_OBJECT));
+    super(Messages.ChooseOtherAdtObjectAction_ActionText_xtol,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.OTHER_OBJECT));
     this.multipleSelection = multipleSelection;
     this.runConsumer = runConsumer;
   }

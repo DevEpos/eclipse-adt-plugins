@@ -33,8 +33,8 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
 
       @Override
       public void proposalAccepted(final IContentProposal proposal) {
-        if (proposal instanceof SearchFilterProposal && ((SearchFilterProposal) proposal)
-            .hasProposalSupport()) {
+        if (proposal instanceof SearchFilterProposal
+            && ((SearchFilterProposal) proposal).hasProposalSupport()) {
           // this call is needed, otherwise a new proposal pop up will not open,
           // regardless of the inserted ":" character
           Reflection.forObject(getContentProposalAdapter()).invoke("autoActivate");
@@ -53,8 +53,8 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
         if (proposal.getKey().equalsIgnoreCase(insertedText)) {
           final String queryAfterInsert = text.getText();
           final int caretPosition = text.getCaretPosition();
-          final int caretBeforeLexem = caretPosition - insertedText.length() - proposal.getLexeme()
-              .length();
+          final int caretBeforeLexem = caretPosition - insertedText.length()
+              - proposal.getLexeme().length();
           final String adjustedProposal = queryAfterInsert.substring(0, caretBeforeLexem)
               + insertedText;
           final String query = adjustedProposal + queryAfterInsert.substring(caretPosition);

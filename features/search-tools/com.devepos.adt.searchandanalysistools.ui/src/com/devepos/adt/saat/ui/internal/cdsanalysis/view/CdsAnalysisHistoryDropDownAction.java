@@ -30,8 +30,8 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
   private final CdsAnalysisView analysisView;
 
   public CdsAnalysisHistoryDropDownAction(final CdsAnalysisView analysisView) {
-    super(Messages.CdsAnalysis_SwitchAnalysisPages_xtol, SearchAndAnalysisPlugin.getDefault()
-        .getImageDescriptor(IImages.HISTORY_LIST));
+    super(Messages.CdsAnalysis_SwitchAnalysisPages_xtol,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.HISTORY_LIST));
     setMenuCreator(this);
     this.analysisView = analysisView;
   }
@@ -139,10 +139,8 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
       analyses.add(analysis);
     }
 
-    final ManageCdsAnalysesDialog dialog = new ManageCdsAnalysesDialog(analyses, PlatformUI
-        .getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getShell());
+    final ManageCdsAnalysesDialog dialog = new ManageCdsAnalysesDialog(analyses,
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
     if (dialog.open() == Window.OK) {
       final CdsAnalysis selectedAnalysis = dialog.getSelectedAnalysis();
       if (selectedAnalysis != null) {

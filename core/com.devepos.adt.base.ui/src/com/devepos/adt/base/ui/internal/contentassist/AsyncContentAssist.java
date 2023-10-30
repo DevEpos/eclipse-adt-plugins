@@ -154,8 +154,8 @@ public class AsyncContentAssist extends ContentAssist {
     }
   }
 
-  private void resizePopupDeferred(final PopupDialog popup) throws NoSuchMethodException,
-      IllegalAccessException, InvocationTargetException {
+  private void resizePopupDeferred(final PopupDialog popup)
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     if (queryResults == null || queryResults.size() == 0) {
       popup.close();
       return;
@@ -174,8 +174,8 @@ public class AsyncContentAssist extends ContentAssist {
     queryResults.clear();
     queryResults.addAll(newProposals);
 
-    final IContentProposal[] proposals = newProposals.toArray(new IContentProposal[newProposals
-        .size()]);
+    final IContentProposal[] proposals = newProposals
+        .toArray(new IContentProposal[newProposals.size()]);
 
     final PopupDialog popup = getProposalsPopup();
     if (popup != null) {
@@ -183,8 +183,8 @@ public class AsyncContentAssist extends ContentAssist {
         popup.close();
       } else {
         Reflection.forObject(popup)
-            .invoke("setProposals", new Class[] { IContentProposal[].class }, new Object[] {
-                proposals });
+            .invoke("setProposals", new Class[] { IContentProposal[].class },
+                new Object[] { proposals });
         try {
           resizePopupDeferred(popup);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

@@ -79,8 +79,8 @@ import com.sap.adt.tools.core.ui.navigation.AdtNavigationServiceFactory;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
-    ISearchResultPageExtension<CodeSearchQuery>, IQueryListener, IFilterableView {
+public class CodeSearchResultPage extends AbstractTextSearchViewPage
+    implements ISearchResultPageExtension<CodeSearchQuery>, IQueryListener, IFilterableView {
 
   private static final String GROUP_BY_PACKAGE_PREF = "codeSearch.result.groupByPackageEnabled"; //$NON-NLS-1$
 
@@ -224,16 +224,16 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     menuMgr.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, openRuntimeInformation);
     menuMgr.appendToGroup(IContextMenuConstants.GROUP_PROPERTIES, openPreferencesAction);
     menuMgr.add(new Separator());
-    menuMgr.add(CommandFactory.createContribItemById(
-        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    menuMgr.add(CommandFactory
+        .createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
     menuMgr.add(new Separator());
     menuMgr.add(exportResultsAction);
   }
 
   @Override
   public void setInput(final ISearchResult newSearch, final Object viewState) {
-    super.setInput(newSearch, viewState instanceof UiState ? ((UiState) viewState).getSelection()
-        : viewState);
+    super.setInput(newSearch,
+        viewState instanceof UiState ? ((UiState) viewState).getSelection() : viewState);
 
     updateContinueAction();
 
@@ -296,8 +296,8 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     viewer.setContentProvider(contentProvider);
     viewer.setUseHashlookup(true);
     ColumnViewerToolTipSupport.enableFor(viewer);
-    viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new CodeSearchResultLabelProvider()));
+    viewer.setLabelProvider(
+        new DelegatingStyledCellLabelProvider(new CodeSearchResultLabelProvider()));
   }
 
   @Override
@@ -307,8 +307,8 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     viewer.setContentProvider(contentProvider);
     viewer.setUseHashlookup(true);
     ColumnViewerToolTipSupport.enableFor(viewer);
-    viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new CodeSearchResultLabelProvider()));
+    viewer.setLabelProvider(
+        new DelegatingStyledCellLabelProvider(new CodeSearchResultLabelProvider()));
     viewer.setComparator(new ViewerComparator() {
 
       @Override
@@ -380,8 +380,9 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
       }
       // check if code searchable object is selected (clas,intf, ... or package)
       if (!codeSearchableObjSelected && selObj instanceof IAdtObjectReferenceNode
-          && (relevantAdtTypesForCodeSearch.contains(((IAdtObjectReferenceNode) selObj)
-              .getAdtObjectType()) || ((IAdtObjectReferenceNode) selObj).getAdtObjectType()
+          && (relevantAdtTypesForCodeSearch
+              .contains(((IAdtObjectReferenceNode) selObj).getAdtObjectType())
+              || ((IAdtObjectReferenceNode) selObj).getAdtObjectType()
                   .equals(IAdtObjectTypeConstants.PACKAGE))) {
         codeSearchableObjSelected = true;
       }
@@ -422,8 +423,8 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   @Override
   protected void fillToolbar(final IToolBarManager tbm) {
     super.fillToolbar(tbm);
-    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
-        IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
+    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory
+        .createContribItemById(IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
     tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, searchFavoritesAction);
     if (getLayout() != FLAG_LAYOUT_FLAT) {
       tbm.appendToGroup(IContextMenuConstants.GROUP_VIEWER_SETUP, new Separator(GROUP_GROUPING));
@@ -495,9 +496,9 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
           Messages.CodeSearchResultPage_NoResultsForExport_xmsg);
       return;
     }
-    var exportResultsDialog = new ExportSearchResultsDialog(getSite().getShell(), searchResult
-        .getResultTree(), ((CodeSearchQuery) getInput().getQuery()).getProjectProvider()
-            .getProject());
+    var exportResultsDialog = new ExportSearchResultsDialog(getSite().getShell(),
+        searchResult.getResultTree(),
+        ((CodeSearchQuery) getInput().getQuery()).getProjectProvider().getProject());
     exportResultsDialog.open();
   }
 
@@ -509,50 +510,52 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   }
 
   private void initializeActions() {
-    searchFavoritesAction = SearchFavoritesActionFactory.createSearchFavoritesAction(
-        CodeSearchQuery.SEARCH_FAVORITE_TYPE);
+    searchFavoritesAction = SearchFavoritesActionFactory
+        .createSearchFavoritesAction(CodeSearchQuery.SEARCH_FAVORITE_TYPE);
     continueSearchAction = new ContinueCodeSearchAction(this);
     continueSearchAction.setEnabled(false);
-    openPreferencesAction = ActionFactory.createAction(
-        Messages.CodeSearchResultPage_openSearchPreferencesAction_xlbl, null, () -> {
-          PreferencesUtil.createPreferenceDialogOn(null, CodeSearchPreferencesPage.PAGE_ID,
-              new String[] { CodeSearchPreferencesPage.PAGE_ID }, (Object) null).open();
+    openPreferencesAction = ActionFactory
+        .createAction(Messages.CodeSearchResultPage_openSearchPreferencesAction_xlbl, null, () -> {
+          PreferencesUtil
+              .createPreferenceDialogOn(null, CodeSearchPreferencesPage.PAGE_ID,
+                  new String[] { CodeSearchPreferencesPage.PAGE_ID }, (Object) null)
+              .open();
         });
     exportResultsAction = ActionFactory.createAction(
         Messages.CodeSearchResultPage_ExportResultAction_xtit, null, this::exportResults);
     groupByPackageAction = new PreferenceToggleAction(
-        Messages.CodeSearchResultPage_groupByPackageAction_xtol, AdtBaseUIResources
-            .getImageDescriptor(IAdtBaseImages.PACKAGE), GROUP_BY_PACKAGE_PREF, true,
+        Messages.CodeSearchResultPage_groupByPackageAction_xtol,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.PACKAGE), GROUP_BY_PACKAGE_PREF, true,
         CodeSearchUIPlugin.getDefault().getPreferenceStore());
-    openRuntimeInformation = ActionFactory.createAction(
-        Messages.CodeSearchResultPage_showRuntimInfoDialogAction_xlbl, null, () -> {
-          CodeSearchRuntimeInfoDialog dialog = new CodeSearchRuntimeInfoDialog(getViewPart()
-              .getViewSite()
-              .getShell(), ((CodeSearchResult) getInput()).getRuntimeInfo());
+    openRuntimeInformation = ActionFactory
+        .createAction(Messages.CodeSearchResultPage_showRuntimInfoDialogAction_xlbl, null, () -> {
+          CodeSearchRuntimeInfoDialog dialog = new CodeSearchRuntimeInfoDialog(
+              getViewPart().getViewSite().getShell(),
+              ((CodeSearchResult) getInput()).getRuntimeInfo());
           dialog.open();
         });
 
-    expandPackageNodeAction = ActionFactory.createAction(AdtBaseUIResources.getString(
-        IAdtBaseStrings.ExpandTree_xlbl), AdtBaseUIResources.getImageDescriptor(
-            IAdtBaseImages.EXPAND_ALL), () -> {
-              TreeViewer viewer = (TreeViewer) getViewer();
-              IStructuredSelection selection = viewer.getStructuredSelection();
+    expandPackageNodeAction = ActionFactory.createAction(
+        AdtBaseUIResources.getString(IAdtBaseStrings.ExpandTree_xlbl),
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EXPAND_ALL), () -> {
+          TreeViewer viewer = (TreeViewer) getViewer();
+          IStructuredSelection selection = viewer.getStructuredSelection();
 
-              BusyIndicator.showWhile(getSite().getShell().getDisplay(), () -> {
-                viewer.getControl().setRedraw(false);
-                try {
-                  for (final Object selectedObject : selection.toList()) {
-                    final PackageNode node = (PackageNode) selectedObject;
-                    viewer.setExpandedState(node, true);
-                    for (final PackageNode subNode : node.getSubPackages()) {
-                      viewer.setExpandedState(subNode, true);
-                    }
-                  }
-                } finally {
-                  viewer.getControl().setRedraw(true);
+          BusyIndicator.showWhile(getSite().getShell().getDisplay(), () -> {
+            viewer.getControl().setRedraw(false);
+            try {
+              for (final Object selectedObject : selection.toList()) {
+                final PackageNode node = (PackageNode) selectedObject;
+                viewer.setExpandedState(node, true);
+                for (final PackageNode subNode : node.getSubPackages()) {
+                  viewer.setExpandedState(subNode, true);
                 }
-              });
-            });
+              }
+            } finally {
+              viewer.getControl().setRedraw(true);
+            }
+          });
+        });
   }
 
   private boolean navigateToElement(final Object element, final boolean activate) {
@@ -586,10 +589,10 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
       return;
     }
 
-    List<String> groupsToDelete = new ArrayList<>(Arrays.asList(
-        IContextMenuConstants.GROUP_GENERATE, IContextMenuConstants.GROUP_SEARCH,
-        IContextMenuConstants.GROUP_BUILD, IContextMenuConstants.GROUP_GOTO,
-        IContextMenuConstants.GROUP_VIEWER_SETUP, IContextMenuConstants.GROUP_PROPERTIES));
+    List<String> groupsToDelete = new ArrayList<>(
+        Arrays.asList(IContextMenuConstants.GROUP_GENERATE, IContextMenuConstants.GROUP_SEARCH,
+            IContextMenuConstants.GROUP_BUILD, IContextMenuConstants.GROUP_GOTO,
+            IContextMenuConstants.GROUP_VIEWER_SETUP, IContextMenuConstants.GROUP_PROPERTIES));
     if (additionalGroups != null && !additionalGroups.isEmpty()) {
       additionalGroups.forEach(groupsToDelete::add);
     }

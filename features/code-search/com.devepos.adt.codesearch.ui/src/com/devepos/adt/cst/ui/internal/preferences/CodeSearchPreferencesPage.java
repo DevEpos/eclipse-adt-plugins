@@ -26,8 +26,8 @@ import com.devepos.adt.cst.ui.internal.pages.CodeSearchPropertyPage;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implements
-    IWorkbenchPreferencePage {
+public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
+    implements IWorkbenchPreferencePage {
 
   public static final String PAGE_ID = "com.devepos.adt.codesearch.ui.preferences.CodeSearchPreferencesPage"; //$NON-NLS-1$
   private Control linkToPropPageCtrl;
@@ -37,8 +37,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implement
   public void applyData(final Object data) {
     if (data instanceof Map) {
       Map<?, ?> options = (Map) data;
-      boolean omit = Boolean.TRUE.equals(options.get(
-          LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY));
+      boolean omit = Boolean.TRUE
+          .equals(options.get(LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY));
       if (omit && linkToPropPageCtrl != null && !linkToPropPageCtrl.isDisposed()) {
         linkToPropPageCtrl.setVisible(false);
         ((GridData) linkToPropPageCtrl.getLayoutData()).exclude = true;
@@ -61,11 +61,10 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implement
   @Override
   protected void createPreferenceControls(final Composite parent) {
     var linkToPropertyPage = LinkToAdtPageBlocksFactory.createLinkToPropertyPage(
-        CodeSearchPropertyPage.PAGE_ID, Collections.singletonMap(
-            LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY, true));
-    linkToPropPageCtrl = linkToPropertyPage.createControl(parent, GridDataFactory.fillDefaults()
-        .align(SWT.RIGHT, SWT.FILL)
-        .create());
+        CodeSearchPropertyPage.PAGE_ID,
+        Collections.singletonMap(LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY, true));
+    linkToPropPageCtrl = linkToPropertyPage.createControl(parent,
+        GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).create());
 
     createSearchDialogSettings(parent);
   }
@@ -85,8 +84,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase implement
     final Group includeSettingsGroup = createGroup(
         Messages.CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl, group);
     addBooleanEditor(ICodeSearchPrefs.REMEMBER_INCLUDE_SETTINGS,
-        Messages.CodeSearchPreferencesPage_useFromPreviousSearch_xchk, createEditorParent(
-            includeSettingsGroup));
+        Messages.CodeSearchPreferencesPage_useFromPreviousSearch_xchk,
+        createEditorParent(includeSettingsGroup));
 
     final Group singlePatternModeGroup = createGroup(
         Messages.CodeSearchPreferencesPage_singlePatternModeSettingsGroup_xlbl, group);

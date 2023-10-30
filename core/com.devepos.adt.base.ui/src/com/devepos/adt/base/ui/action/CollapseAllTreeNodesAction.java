@@ -20,8 +20,8 @@ public class CollapseAllTreeNodesAction extends Action {
   }
 
   public CollapseAllTreeNodesAction(final TreeViewer viewer) {
-    super(Messages.Actions_CollapseAllNodes_xmit, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.COLLAPSE_ALL));
+    super(Messages.Actions_CollapseAllNodes_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.COLLAPSE_ALL));
     this.viewer = viewer;
   }
 

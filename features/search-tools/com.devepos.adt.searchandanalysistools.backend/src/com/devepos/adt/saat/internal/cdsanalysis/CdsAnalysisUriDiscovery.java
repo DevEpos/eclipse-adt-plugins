@@ -17,8 +17,8 @@ class CdsAnalysisUriDiscovery extends SearchToolsUriDiscovery {
   static final String DISCOVERY_TEMPLATE_WHERE_USED_IN_FROM = "/whereUsedIn/from"; //$NON-NLS-1$
 
   private static final String DISCOVERY_SCHEME = SCHEME_URL_BASE_V2 + "/cds/analysis"; //$NON-NLS-1$
-  private static final String DISCOVERY_RELATION_CDS_ANALYSIS = RELATIONS_SCHEME_BASE_V2
-      + "/cds/analysis"; //$NON-NLS-1$
+  private static final String DISCOVERY_RELATION_CDS_ANALYSIS = RELATIONS_SCHEME_BASE_V2 +
+      "/cds/analysis"; //$NON-NLS-1$
   private static final String DISCOVERY_TEMPLATE_TOP_DOWN = "/topDown"; //$NON-NLS-1$
   private static final String DISCOVERY_TEMPLATE_WHERE_USED_IN_ASSOC = "/whereUsedIn/associations"; //$NON-NLS-1$
   private static final String DISCOVERY_TEMPLATE_USED_ENTITES = "/usedEntities"; //$NON-NLS-1$
@@ -130,8 +130,8 @@ class CdsAnalysisUriDiscovery extends SearchToolsUriDiscovery {
    * @return ADT URI template for the CDS Analysis Resource
    */
   public IAdtUriTemplate getCdsAnalysisTemplate(final String templateUriPart) {
-    return getTemplate(DISCOVERY_TERM_CDS_ANALYSIS, DISCOVERY_RELATION_CDS_ANALYSIS
-        + templateUriPart);
+    return getTemplate(DISCOVERY_TERM_CDS_ANALYSIS,
+        DISCOVERY_RELATION_CDS_ANALYSIS + templateUriPart);
   }
 
   /**

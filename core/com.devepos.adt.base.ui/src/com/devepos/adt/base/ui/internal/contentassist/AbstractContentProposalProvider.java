@@ -27,9 +27,8 @@ import com.devepos.adt.base.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  */
 abstract class AbstractContentProposalProvider implements IContentProposalProvider, IContentAssist {
-  private static final KeyStroke DEFAULT_ACTIVATION_KEYSTROKE = KeyStroke.getInstance(isMacOS()
-      ? SWT.MOD4
-      : SWT.MOD1, SWT.SPACE);
+  private static final KeyStroke DEFAULT_ACTIVATION_KEYSTROKE = KeyStroke
+      .getInstance(isMacOS() ? SWT.MOD4 : SWT.MOD1, SWT.SPACE);
   private final KeyStroke triggeringKeyStroke;
   private final ContentProposalAdapter contentProposalAdapter;
 
@@ -74,8 +73,8 @@ abstract class AbstractContentProposalProvider implements IContentProposalProvid
       if (Platform.isRunning()) {
         final IBindingService service = PlatformUI.getWorkbench().getService(IBindingService.class);
         if (service != null) {
-          final TriggerSequence binding = service.getBestActiveBindingFor(
-              "org.eclipse.ui.edit.text.contentAssist.proposals");
+          final TriggerSequence binding = service
+              .getBestActiveBindingFor("org.eclipse.ui.edit.text.contentAssist.proposals");
           if (binding instanceof KeySequence) {
             final KeyStroke[] keyStrokes = ((KeySequence) binding).getKeyStrokes();
             if (keyStrokes.length == 1) {

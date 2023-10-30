@@ -36,12 +36,12 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
 
   /**
    * Creates action contribution items for the search favorite in the given favorites container
-   * 
+   *
    * @param favorites container with favorites
    * @return list of action contribution items to be used in a menu
    */
   public static List<IContributionItem> createFavoriteContributionItems(
-      ISearchFavorites favorites) {
+      final ISearchFavorites favorites) {
     List<IContributionItem> favoriteItems = new ArrayList<>();
     if (!favorites.hasEntries()) {
       final var noFavoritesAction = new Action(Messages.Search_NoSearchFavorites_xmit) {
@@ -65,7 +65,8 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
       }
 
       if (favoriteItems.isEmpty()) {
-        final var noFavoritesAction = new Action(Messages.SearchFavoritesMenuAction_AllFavsAreHidden_xmit) {
+        final var noFavoritesAction = new Action(
+            Messages.SearchFavoritesMenuAction_AllFavsAreHidden_xmit) {
         };
         noFavoritesAction.setEnabled(false);
         favoriteItems.add(new ActionContributionItem(noFavoritesAction));
@@ -76,8 +77,8 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
   }
 
   public SearchFavoritesMenuAction(final String searchType) {
-    super(Messages.Search_SearchFavoritesAction_xtol, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.FAVORITES));
+    super(Messages.Search_SearchFavoritesAction_xtol,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.FAVORITES));
     setMenuCreator(this);
     this.searchType = searchType;
   }
@@ -117,10 +118,8 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
    * Opens a dialog to organize all the favorites
    */
   public static void openOrganizeFavoritesDialog() {
-    final SelectionDialog favoritesDialog = new ManageSearchFavoritesDialog(PlatformUI
-        .getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getShell());
+    final SelectionDialog favoritesDialog = new ManageSearchFavoritesDialog(
+        PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
     if (favoritesDialog.open() == Window.OK) {
       final var chosenEntries = favoritesDialog.getResult();
       if (chosenEntries != null && chosenEntries.length == 1) {

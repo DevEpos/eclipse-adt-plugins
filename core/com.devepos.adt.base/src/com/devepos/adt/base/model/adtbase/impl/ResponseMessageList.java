@@ -35,8 +35,8 @@ import com.devepos.adt.base.model.adtbase.IResponseMessageList;
  *
  * @generated
  */
-public class ResponseMessageList extends MinimalEObjectImpl.Container implements
-    IResponseMessageList {
+public class ResponseMessageList extends MinimalEObjectImpl.Container
+    implements IResponseMessageList {
   /**
    * The cached value of the '{@link #getMessages() <em>Messages</em>}' containment reference list.
    * <!-- begin-user-doc -->

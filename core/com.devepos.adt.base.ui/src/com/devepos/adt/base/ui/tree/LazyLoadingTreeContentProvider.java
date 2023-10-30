@@ -155,8 +155,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
    */
   public void setNodeRefreshOptions(final int refreshExpansionLevel,
       final LazyLoadingRefreshMode refreshMode) {
-    Assert.isTrue(refreshExpansionLevel == AbstractTreeViewer.ALL_LEVELS
-        || refreshExpansionLevel > 0);
+    Assert.isTrue(
+        refreshExpansionLevel == AbstractTreeViewer.ALL_LEVELS || refreshExpansionLevel > 0);
     refreshModeExpansionLevel = refreshExpansionLevel;
     this.refreshMode = refreshMode;
   }
@@ -257,7 +257,7 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       }
     }
 
-    private void expandNode(final ITreeNode child, LazyLoadingRefreshMode refreshMode) {
+    private void expandNode(final ITreeNode child, final LazyLoadingRefreshMode refreshMode) {
       if (expansionCheck != null && !expansionCheck.shouldExpandNode(child)) {
         return;
       }

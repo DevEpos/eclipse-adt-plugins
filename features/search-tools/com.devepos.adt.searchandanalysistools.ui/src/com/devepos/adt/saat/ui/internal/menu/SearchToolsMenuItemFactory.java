@@ -53,8 +53,8 @@ public class SearchToolsMenuItemFactory {
     }
 
     Assert.isTrue(label != null && imageId != null);
-    MenuItemFactory.addCommandItem(mgr, groupId, commandId, SearchAndAnalysisPlugin.getDefault()
-        .getImageDescriptor(imageId), label, null);
+    MenuItemFactory.addCommandItem(mgr, groupId, commandId,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(imageId), label, null);
   }
 
   /**
@@ -84,7 +84,8 @@ public class SearchToolsMenuItemFactory {
     MenuItemFactory.addCommandItem(mgr, groupId, ICommandConstants.OPEN_IN_DB_BROWSER,
         SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.DB_BROWSER_DATA_PREVIEW),
         skipSelscreen ? Messages.ObjectSearch_OpenInDbBrowserAndSkip_xmit
-            : Messages.ObjectSearch_OpenInDbBrowser_xmit, new String[][] { {
-                OpenInDbBrowserHandler.PARAM_SKIP_SELSCREEN, String.valueOf(skipSelscreen) } });
+            : Messages.ObjectSearch_OpenInDbBrowser_xmit,
+        new String[][] {
+            { OpenInDbBrowserHandler.PARAM_SKIP_SELSCREEN, String.valueOf(skipSelscreen) } });
   }
 }

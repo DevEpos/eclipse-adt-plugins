@@ -35,8 +35,8 @@ public class SelectionProviderAdapter implements ISelectionProvider, ISelectionC
   @Override
   public void selectionChanged(final SelectionChangedEvent event) {
     // forward to my listeners
-    final SelectionChangedEvent wrappedEvent = new SelectionChangedEvent(this, event
-        .getSelection());
+    final SelectionChangedEvent wrappedEvent = new SelectionChangedEvent(this,
+        event.getSelection());
     for (final ISelectionChangedListener listener : fListeners) {
       listener.selectionChanged(wrappedEvent);
     }

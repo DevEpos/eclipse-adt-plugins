@@ -223,12 +223,14 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
     if (newAdtMainObject != adtMainObject) {
       NotificationChain msgs = null;
       if (adtMainObject != null) {
-        msgs = ((InternalEObject) adtMainObject).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - ICodeSearchPackage.CODE_SEARCH_OBJECT__ADT_MAIN_OBJECT, null, msgs);
+        msgs = ((InternalEObject) adtMainObject).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - ICodeSearchPackage.CODE_SEARCH_OBJECT__ADT_MAIN_OBJECT, null,
+            msgs);
       }
       if (newAdtMainObject != null) {
-        msgs = ((InternalEObject) newAdtMainObject).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - ICodeSearchPackage.CODE_SEARCH_OBJECT__ADT_MAIN_OBJECT, null, msgs);
+        msgs = ((InternalEObject) newAdtMainObject).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - ICodeSearchPackage.CODE_SEARCH_OBJECT__ADT_MAIN_OBJECT, null,
+            msgs);
       }
       msgs = basicSetAdtMainObject(newAdtMainObject, msgs);
       if (msgs != null) {

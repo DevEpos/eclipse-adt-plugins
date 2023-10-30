@@ -49,8 +49,8 @@ public class CdsActivationService implements ICdsActivationService {
     var discovery = new CdsActivationUriDiscovery(DestinationUtil.getDestinationId(project));
 
     if (!discovery.isResourceDiscoverySuccessful() || discovery.getCdsPostActivationUri() == null) {
-      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-          "CDS Post Activation Services are not available in ''{0}''", project.getName()));
+      return new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+          NLS.bind("CDS Post Activation Services are not available in ''{0}''", project.getName()));
     }
     return Status.OK_STATUS;
   }

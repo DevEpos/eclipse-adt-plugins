@@ -105,8 +105,8 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
    */
   protected IAdtUriTemplate getTemplate(final String term, final String relation) {
     IAdtUriTemplate template = null;
-    final IAdtDiscoveryCollectionMember collectionMember = discovery.getCollectionMember(
-        discoveryScheme, term, new NullProgressMonitor());
+    final IAdtDiscoveryCollectionMember collectionMember = discovery
+        .getCollectionMember(discoveryScheme, term, new NullProgressMonitor());
     if (collectionMember != null) {
       final IAdtTemplateLink templateLink = collectionMember.getTemplateLink(relation);
       if (templateLink != null) {
@@ -125,8 +125,8 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
   protected URI getUriFromCollectionMember(final String discoveryTerm) {
     URI uri = null;
     try {
-      final IAdtDiscoveryCollectionMember collectionMember = discovery.getCollectionMember(
-          discoveryScheme, discoveryTerm, null);
+      final IAdtDiscoveryCollectionMember collectionMember = discovery
+          .getCollectionMember(discoveryScheme, discoveryTerm, null);
       if (collectionMember != null) {
         uri = collectionMember.getUri();
       }

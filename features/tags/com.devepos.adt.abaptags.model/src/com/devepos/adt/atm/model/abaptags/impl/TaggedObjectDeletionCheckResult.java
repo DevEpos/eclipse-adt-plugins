@@ -30,8 +30,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
  *
  * @generated
  */
-public class TaggedObjectDeletionCheckResult extends MinimalEObjectImpl.Container implements
-    ITaggedObjectDeletionCheckResult {
+public class TaggedObjectDeletionCheckResult extends MinimalEObjectImpl.Container
+    implements ITaggedObjectDeletionCheckResult {
   /**
    * The cached value of the '{@link #getCheckedObjects() <em>Checked Objects</em>}' containment
    * reference list.

@@ -79,19 +79,20 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     private void checkMultipleValuesAllowed(final ISearchFilter filter, final String[] filterValues)
         throws CoreException {
       if (!filter.supportsMultipleValues() && filterValues.length > 1) {
-        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-            Messages.SearchPatternAnalyzer_ErrorFilterAllowsOnlySingleValues_xmsg, filter
-                .getLabel())));
+        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+            NLS.bind(Messages.SearchPatternAnalyzer_ErrorFilterAllowsOnlySingleValues_xmsg,
+                filter.getLabel())));
       }
     }
 
     private void checkNegatedValues(final ISearchFilter filter, final String[] filterValues)
         throws CoreException {
-      if (!filter.supportsNegatedValues() && Stream.of(filterValues)
-          .anyMatch(StringUtil::startsWithNegationCharacter)) {
-        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, MessageFormat
-            .format(Messages.SearchPatternAnalyzer_ErrorFilterDoesNotSupportNegation_xmsg, filter
-                .getLabel())));
+      if (!filter.supportsNegatedValues()
+          && Stream.of(filterValues).anyMatch(StringUtil::startsWithNegationCharacter)) {
+        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+            MessageFormat.format(
+                Messages.SearchPatternAnalyzer_ErrorFilterDoesNotSupportNegation_xmsg,
+                filter.getLabel())));
       }
     }
 
@@ -99,9 +100,9 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
         throws CoreException {
       if (!filter.supportsPatternValues() && Stream.of(filterValues)
           .anyMatch(value -> value.contains(ANY_VALUE_CHAR) || value.contains(SOME_VALUE_CHAR))) {
-        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-            Messages.SearchPatternAnalyzer_ErrorWildcardsNotSupportedInFilter_xmsg, filter
-                .getLabel())));
+        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+            NLS.bind(Messages.SearchPatternAnalyzer_ErrorWildcardsNotSupportedInFilter_xmsg,
+                filter.getLabel())));
       }
     }
 
@@ -129,9 +130,9 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
           final List<IContentProposal> proposalList = ((ITextQueryProposalProvider) filter)
               .getProposalList(value);
           if (!isValueInProposalList(proposalList, value)) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-                Messages.SearchPatternAnalyzer_ErrorUnsupportedFilterValue_xmsg, filter.getLabel(),
-                value)));
+            throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+                NLS.bind(Messages.SearchPatternAnalyzer_ErrorUnsupportedFilterValue_xmsg,
+                    filter.getLabel(), value)));
           }
         }
       }
@@ -196,16 +197,16 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     final String searchTerm = getSearchTerm(searchPattern);
 
     if (!isSearchTermAllowed && !searchTerm.isEmpty()) {
-      final String errorMessage = NLS.bind(
-          Messages.SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg, searchTerm);
+      final String errorMessage = NLS
+          .bind(Messages.SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg, searchTerm);
       throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, errorMessage));
     }
 
     // find the first invalid part in the search pattern
     for (final String part : condensedPattern.split(SPACE)) {
       if (!part.isEmpty() && !isFilter(part) && !part.equalsIgnoreCase(searchTerm)) {
-        final String errorMessage = NLS.bind(
-            Messages.SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg, part);
+        final String errorMessage = NLS
+            .bind(Messages.SearchPatternAnalyzer_ErrorInvalidSearchFilter_xmsg, part);
         throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, errorMessage));
       }
     }
@@ -240,8 +241,10 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
 
     // collect filter values for a single filter in all found filter sections
     for (final String filterSection : filterSections) {
-      List<String> rawFilterValues = Stream.of(filterSection.substring(filterKeyLower.length() + 1)
-          .split(VALUE_LIST_SEP)).filter(value -> !value.isEmpty()).collect(Collectors.toList());
+      List<String> rawFilterValues = Stream
+          .of(filterSection.substring(filterKeyLower.length() + 1).split(VALUE_LIST_SEP))
+          .filter(value -> !value.isEmpty())
+          .collect(Collectors.toList());
       List<String> convertedFilterValues = null;
 
       if (filterConverter != null) {
@@ -273,14 +276,16 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     for (final ISearchFilter searchFilter : filters) {
       // no query part so every filter gets added to the proposal list
       if (lastPart.isEmpty()) {
-        filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
-            .getImage(), searchFilter.getDescription(), searchFilter.getLongDescription(), null,
-            searchFilter instanceof ITextQueryProposalProvider));
+        filterProposals
+            .add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter.getImage(),
+                searchFilter.getDescription(), searchFilter.getLongDescription(), null,
+                searchFilter instanceof ITextQueryProposalProvider));
       } else {
         if (searchFilter.getLabel().startsWith(lastPart)) {
-          filterProposals.add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter
-              .getImage(), searchFilter.getDescription(), searchFilter.getLongDescription(),
-              lastPart, searchFilter instanceof ITextQueryProposalProvider));
+          filterProposals
+              .add(new SearchFilterProposal(searchFilter.getLabel(), searchFilter.getImage(),
+                  searchFilter.getDescription(), searchFilter.getLongDescription(), lastPart,
+                  searchFilter instanceof ITextQueryProposalProvider));
         }
       }
     }
@@ -378,8 +383,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     final String filterValuesString = part.substring(filter.getLabel().length() + 1);
     // Error -> no filter values supplied
     if (filterValuesString.isEmpty()) {
-      throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-          Messages.SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg, part)));
+      throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+          NLS.bind(Messages.SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg, part)));
     }
 
     final String[] filterValues = filterValuesString.split(VALUE_LIST_SEP);
@@ -408,8 +413,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
   private boolean isFilter(final String part) throws CoreException {
     if (filters != null) {
       for (final ISearchFilter filter : filters) {
-        if (part.startsWith(filter.getLabel() + FILTER_KEY_END) && checkFilterValuesProvided(part,
-            filter)) {
+        if (part.startsWith(filter.getLabel() + FILTER_KEY_END)
+            && checkFilterValuesProvided(part, filter)) {
           return true;
         }
       }
@@ -429,8 +434,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
 
   private boolean isValueInProposalList(final List<IContentProposal> proposalList,
       final String value) {
-    return proposalList != null && proposalList.stream()
-        .anyMatch(proposal -> proposal.getLabel().equalsIgnoreCase(value));
+    return proposalList != null
+        && proposalList.stream().anyMatch(proposal -> proposal.getLabel().equalsIgnoreCase(value));
   }
 
   private void updateSearchFilters() {

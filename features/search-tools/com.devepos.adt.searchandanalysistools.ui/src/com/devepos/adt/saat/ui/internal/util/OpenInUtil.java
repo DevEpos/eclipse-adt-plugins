@@ -73,9 +73,11 @@ public class OpenInUtil {
         .openEditorAndStartTransaction(project, "ZSAT_ADT_QRYMONOPEN", true, //$NON-NLS-1$
             Stream.of(new String[][] { { "ENTITY_ID", cdsViewName.toUpperCase() } }) //$NON-NLS-1$
                 .collect(Collectors.toMap(data -> data[0], data -> data[1])));
-    AdtUIUtil.overrideSapGuiPartTitle(sapGuipart, project, cdsViewName, String.format(
-        "%s (Query Monitor)", //$NON-NLS-1$
-        cdsViewName), SearchAndAnalysisPlugin.getDefault().getImage(IImages.ANALYTICAL_QUERY));
+    AdtUIUtil
+        .overrideSapGuiPartTitle(sapGuipart, project, cdsViewName,
+            String.format("%s (Query Monitor)", //$NON-NLS-1$
+                cdsViewName),
+            SearchAndAnalysisPlugin.getDefault().getImage(IImages.ANALYTICAL_QUERY));
   }
 
   /**

@@ -22,8 +22,8 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.IListAttribute;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
 
-public class TaggedObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
-    ISearchPageListener {
+public class TaggedObjectSearchFavoriteConnector
+    implements ISearchFavoriteConnector, ISearchPageListener {
   private static final String TAGS_OPTION = "tags";
   private static final String MATCHES_ALL_TAGS_OPTION = "matchesAllTags";
 
@@ -64,12 +64,12 @@ public class TaggedObjectSearchFavoriteConnector implements ISearchFavoriteConne
 
   @Override
   public void runSearchFromFavorite(final ISearchFavorite favorite) {
-    final var projectProvider = AbapProjectProviderAccessor.getProviderForDestination(favorite
-        .getDestinationId());
+    final var projectProvider = AbapProjectProviderAccessor
+        .getProviderForDestination(favorite.getDestinationId());
     if (projectProvider == null || !projectProvider.hasProject()) {
       MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          "Error", MessageFormat.format("No Project found for destination ''{0}''", favorite
-              .getDestinationId()));
+          "Error", MessageFormat.format("No Project found for destination ''{0}''",
+              favorite.getDestinationId()));
       openFavoriteInSearchDialog(favorite);
     } else {
       if (!projectProvider.ensureLoggedOn()) {

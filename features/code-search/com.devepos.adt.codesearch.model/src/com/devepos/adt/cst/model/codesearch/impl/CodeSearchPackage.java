@@ -132,8 +132,8 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
    */
   public static ICodeSearchPackage init() {
     if (isInited) {
-      return (ICodeSearchPackage) EPackage.Registry.INSTANCE.getEPackage(
-          ICodeSearchPackage.eNS_URI);
+      return (ICodeSearchPackage) EPackage.Registry.INSTANCE
+          .getEPackage(ICodeSearchPackage.eNS_URI);
     }
 
     // Obtain or create and register package
@@ -604,10 +604,10 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-        XMLTypePackage.eNS_URI);
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE.getEPackage(
-        IAdtBasePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+        .getEPackage(XMLTypePackage.eNS_URI);
+    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+        .getEPackage(IAdtBasePackage.eNS_URI);
 
     // Create type parameters
 
@@ -650,10 +650,10 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
         "searchObjects", null, 0, -1, ICodeSearchResult.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
-    initEReference(getCodeSearchResult_ResponseMessageList(), theAdtBasePackage
-        .getResponseMessageList(), null, "responseMessageList", null, 0, 1, ICodeSearchResult.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-        !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCodeSearchResult_ResponseMessageList(),
+        theAdtBasePackage.getResponseMessageList(), null, "responseMessageList", null, 0, 1,
+        ICodeSearchResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCodeSearchResult_NumberOfResults(), theXMLTypePackage.getInt(),
         "numberOfResults", null, 0, 1, ICodeSearchResult.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -730,26 +730,26 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
    */
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-    addAnnotation(codeSearchObjectEClass, source, new String[] { "kind", "elementOnly", "name",
-        "searchObject" });
-    addAnnotation(getCodeSearchObject_Uri(), source, new String[] { "kind", "attribute", "name",
-        "uri", "namespace", "##targetNamespace" });
+    addAnnotation(codeSearchObjectEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchObject" });
+    addAnnotation(getCodeSearchObject_Uri(), source,
+        new String[] { "kind", "attribute", "name", "uri", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchObject_ParentUri(), source, new String[] { "kind", "attribute",
         "name", "parentUri", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchObject_AdtMainObject(), source, new String[] { "kind", "element",
         "name", "adtMainObject", "namespace", "http://www.devepos.com/adt/base" });
-    addAnnotation(getCodeSearchObject_Matches(), source, new String[] { "kind", "element", "name",
-        "match", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchMatchEClass, source, new String[] { "kind", "elementOnly", "name",
-        "codeSearchMatch" });
-    addAnnotation(getCodeSearchMatch_Uri(), source, new String[] { "kind", "attribute", "name",
-        "uri", "namespace", "##targetNamespace" });
-    addAnnotation(getCodeSearchMatch_Snippet(), source, new String[] { "kind", "element", "name",
-        "snippet", "namespace", "##targetNamespace" });
+    addAnnotation(getCodeSearchObject_Matches(), source,
+        new String[] { "kind", "element", "name", "match", "namespace", "##targetNamespace" });
+    addAnnotation(codeSearchMatchEClass, source,
+        new String[] { "kind", "elementOnly", "name", "codeSearchMatch" });
+    addAnnotation(getCodeSearchMatch_Uri(), source,
+        new String[] { "kind", "attribute", "name", "uri", "namespace", "##targetNamespace" });
+    addAnnotation(getCodeSearchMatch_Snippet(), source,
+        new String[] { "kind", "element", "name", "snippet", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchMatch_LongSnippet(), source, new String[] { "kind", "element",
         "name", "longSnippet", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "result" });
+    addAnnotation(codeSearchResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "result" });
     addAnnotation(getCodeSearchResult_SearchObjects(), source, new String[] { "kind", "element",
         "name", "searchObject", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchResult_ResponseMessageList(), source, new String[] { "kind",
@@ -764,8 +764,8 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
         "attribute", "name", "linesOfSearchedCode", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchResult_QueryTimeInMs(), source, new String[] { "kind", "attribute",
         "name", "queryTimeInMs", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchSettingsEClass, source, new String[] { "kind", "elementOnly", "name",
-        "settings" });
+    addAnnotation(codeSearchSettingsEClass, source,
+        new String[] { "kind", "elementOnly", "name", "settings" });
     addAnnotation(getCodeSearchSettings_ParallelEnabled(), source, new String[] { "kind",
         "attribute", "name", "parallelEnabled", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchSettings_ParallelServerGroup(), source, new String[] { "kind",
@@ -776,20 +776,20 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
         "attribute", "name", "pcreExtendedDisabled", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchSettings_PcreSingleLineEnabled(), source, new String[] { "kind",
         "attribute", "name", "pcreSingleLineEnabled", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchScopeParameterEClass, source, new String[] { "kind", "elementOnly",
-        "name", "scopeParameter" });
-    addAnnotation(getCodeSearchScopeParameter_Name(), source, new String[] { "kind", "attribute",
-        "name", "name", "namespace", "##targetNamespace" });
-    addAnnotation(getCodeSearchScopeParameter_Value(), source, new String[] { "kind", "attribute",
-        "name", "value", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchScopeEClass, source, new String[] { "kind", "elementOnly", "name",
-        "searchScope" });
-    addAnnotation(getCodeSearchScope_Id(), source, new String[] { "kind", "attribute", "name", "id",
-        "namespace", "##targetNamespace" });
+    addAnnotation(codeSearchScopeParameterEClass, source,
+        new String[] { "kind", "elementOnly", "name", "scopeParameter" });
+    addAnnotation(getCodeSearchScopeParameter_Name(), source,
+        new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+    addAnnotation(getCodeSearchScopeParameter_Value(), source,
+        new String[] { "kind", "attribute", "name", "value", "namespace", "##targetNamespace" });
+    addAnnotation(codeSearchScopeEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchScope" });
+    addAnnotation(getCodeSearchScope_Id(), source,
+        new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
     addAnnotation(getCodeSearchScope_ObjectCount(), source, new String[] { "kind", "attribute",
         "name", "objectCount", "namespace", "##targetNamespace" });
-    addAnnotation(codeSearchScopeParametersEClass, source, new String[] { "kind", "elementOnly",
-        "name", "searchScopeParameters" });
+    addAnnotation(codeSearchScopeParametersEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchScopeParameters" });
     addAnnotation(getCodeSearchScopeParameters_Parameters(), source, new String[] { "kind",
         "element", "name", "scopeParameter", "namespace", "##targetNamespace" });
   }

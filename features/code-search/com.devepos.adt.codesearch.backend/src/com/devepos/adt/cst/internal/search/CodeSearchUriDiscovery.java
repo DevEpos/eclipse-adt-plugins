@@ -14,8 +14,8 @@ import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
  */
 public class CodeSearchUriDiscovery extends CodeSearchToolsUriDiscoveryBase {
 
-  private static final String DISCOVERY_RELATION_CODE_SEARCH = DISCOVERY_RELATION_ROOT
-      + "/codesearch"; //$NON-NLS-1$
+  private static final String DISCOVERY_RELATION_CODE_SEARCH = DISCOVERY_RELATION_ROOT +
+      "/codesearch"; //$NON-NLS-1$
 
   private static final String DISCOVERY_TERM_CODE_SEARCH = "codesearch";
   private static final String DISCOVERY_TERM_CODE_SEARCH_SCOPE = "codesearchScope";

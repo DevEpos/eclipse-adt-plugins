@@ -16,8 +16,8 @@ public class ElementInfoUriDiscovery extends SearchToolsUriDiscovery {
   private static final String ELEMENT_INFO_SCHEME_PART = "/elementinfo"; //$NON-NLS-1$
   private static final String DISCOVERY_RELATION_ELEMENT_INFO = RELATIONS_SCHEME_BASE_V2
       + ELEMENT_INFO_SCHEME_PART;
-  private static final String DISCOVERY_RELATION_ELEMENT_INFO_BY_URI = DISCOVERY_RELATION_ELEMENT_INFO
-      + "/byUri";
+  private static final String DISCOVERY_RELATION_ELEMENT_INFO_BY_URI = DISCOVERY_RELATION_ELEMENT_INFO +
+      "/byUri";
   private static final String DISCOVERY_TERM_ELEMENT_INFO = "elementinfo";
 
   /**

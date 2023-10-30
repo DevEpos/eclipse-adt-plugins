@@ -114,8 +114,8 @@ class ResultTreeBuilder {
     String uri = searchObject.getUri();
     var packageNode = packageNodeCache.get(uri);
     if (packageNode == null) {
-      packageNode = new LaunchablePackageNode(mainObject.getName(), null, createObjectRef(
-          destinationId, mainObject, searchObject));
+      packageNode = new LaunchablePackageNode(mainObject.getName(), null,
+          createObjectRef(destinationId, mainObject, searchObject));
       packageNodeCache.put(uri, packageNode);
       newPackagesToAddToTree.add(packageNode);
       urisToNodes.put(uri, packageNode);
@@ -150,8 +150,8 @@ class ResultTreeBuilder {
         IAdtObjectReferenceNode parentNode = packageNodeCache.get(parentUri);
 
         if (parentNode == null) {
-          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + parentUri + "' can not be resolved");
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
+              parentUri + "' can not be resolved");
         }
         parentNode.addChild(adtObjRefNode);
       }
@@ -170,8 +170,8 @@ class ResultTreeBuilder {
         var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
-          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + parentUri + "' can not be resolved");
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
+              parentUri + "' can not be resolved");
         }
         parentNode.addChild(adtObjRefNode);
       }
@@ -180,9 +180,9 @@ class ResultTreeBuilder {
 
   private IAdtObjectReferenceNode createAdtObjectRefNode(final String destinationId,
       final ICodeSearchObject searchObject, final IAdtObjRef mainObject) {
-    var objectNode = new LaunchableAdtObjectReferenceNode(mainObject.getName(), mainObject
-        .getDisplayName(), mainObject.getDescription(), createObjectRef(destinationId, mainObject,
-            searchObject));
+    var objectNode = new LaunchableAdtObjectReferenceNode(mainObject.getName(),
+        mainObject.getDisplayName(), mainObject.getDescription(),
+        createObjectRef(destinationId, mainObject, searchObject));
     if (mainObject.getOwner() != null) {
       objectNode.getProperties()
           .put(IResultPropertyNameConstants.OBJECT_RESPONSIBLE, mainObject.getOwner());
@@ -192,8 +192,8 @@ class ResultTreeBuilder {
 
   private IAdtObjectReference createObjectRef(final String destinationId,
       final IAdtObjRef adtMainObject, final ICodeSearchObject searchObject) {
-    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId, adtMainObject
-        .getName(), adtMainObject.getType(), searchObject.getUri());
+    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
+        adtMainObject.getName(), adtMainObject.getType(), searchObject.getUri());
     adtObjectRef.setParentUri(searchObject.getParentUri());
     return adtObjectRef;
   }

@@ -25,13 +25,13 @@ public class SearchFavorites implements ISearchFavorites {
   }
 
   @Override
-  public void addFavorite(ISearchFavorite entry, int index) {
+  public void addFavorite(final ISearchFavorite entry, final int index) {
     entries.add(index, entry);
     notifyModificationListeners(ModificationKind.ADDED);
   }
 
   @Override
-  public void addFavorites(Collection<ISearchFavorite> list, int index) {
+  public void addFavorites(final Collection<ISearchFavorite> list, final int index) {
     entries.addAll(index, list);
     notifyModificationListeners(ModificationKind.ADDED);
   }
@@ -43,7 +43,7 @@ public class SearchFavorites implements ISearchFavorites {
   }
 
   @Override
-  public void addFavorites(Collection<ISearchFavorite> list) {
+  public void addFavorites(final Collection<ISearchFavorite> list) {
     entries.addAll(list);
     notifyModificationListeners(ModificationKind.ADDED);
   }
@@ -67,7 +67,7 @@ public class SearchFavorites implements ISearchFavorites {
   }
 
   @Override
-  public List<ISearchFavorite> getFavorites(boolean ignoreHidden) {
+  public List<ISearchFavorite> getFavorites(final boolean ignoreHidden) {
     return ignoreHidden ? entries
         : entries.stream().filter(f -> !f.isHidden()).collect(Collectors.toList());
   }

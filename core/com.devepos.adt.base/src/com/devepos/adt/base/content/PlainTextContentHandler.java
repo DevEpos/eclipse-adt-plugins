@@ -42,8 +42,9 @@ public class PlainTextContentHandler implements IContentHandler<String> {
 
   @Override
   public IMessageBody serialize(final String dataObject, final Charset charset) {
-    return new ByteArrayMessageBody(AdtMediaType.TEXT_PLAIN, charset != null ? dataObject.getBytes(
-        charset) : dataObject.getBytes(StandardCharsets.UTF_8));
+    return new ByteArrayMessageBody(AdtMediaType.TEXT_PLAIN,
+        charset != null ? dataObject.getBytes(charset)
+            : dataObject.getBytes(StandardCharsets.UTF_8));
   }
 
 }

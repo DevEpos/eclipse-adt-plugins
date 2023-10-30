@@ -76,8 +76,8 @@ public class KeyValueNamedItemFilter extends NamedItemFilter implements IValidat
       }
       final String valueQuery = StringUtil.removeNegationCharacter(queryParts[1].replaceAll("%", //$NON-NLS-1$
           "")); //$NON-NLS-1$
-      return valuePartProposalProvider.getProposals(valueQuery, StringUtil.removeNegationCharacter(
-          queryParts[0]));
+      return valuePartProposalProvider.getProposals(valueQuery,
+          StringUtil.removeNegationCharacter(queryParts[0]));
     }
     return super.getProposalList(query);
   }

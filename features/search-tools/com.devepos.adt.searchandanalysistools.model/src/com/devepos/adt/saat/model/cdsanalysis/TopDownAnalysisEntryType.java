@@ -309,8 +309,8 @@ public enum TopDownAnalysisEntryType implements Enumerator {
    *
    * @generated
    */
-  public static final List<TopDownAnalysisEntryType> VALUES = Collections.unmodifiableList(Arrays
-      .asList(VALUES_ARRAY));
+  public static final List<TopDownAnalysisEntryType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Top Down Analysis Entry Type</b></em>' literal with the specified literal

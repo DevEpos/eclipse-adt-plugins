@@ -45,12 +45,12 @@ public class DynamicOpenInMenuUtility {
     private final boolean cdsAnalysisAvailable;
 
     public DynamicOpenInMenuManager(final List<IAdtObject> adtObjects, final IProject project) {
-      super(Messages.AdtObjectMenu_MainMenuEntry, SearchAndAnalysisPlugin.getDefault()
-          .getImageDescriptor(IImages.CDS_ANALYZER), ID);
+      super(Messages.AdtObjectMenu_MainMenuEntry,
+          SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.CDS_ANALYZER), ID);
       this.adtObjects = adtObjects;
       this.project = project;
-      cdsAnalysisAvailable = this.adtObjects.size() == 1 && FeatureTester.isCdsAnalysisAvailable(
-          project);
+      cdsAnalysisAvailable = this.adtObjects.size() == 1
+          && FeatureTester.isCdsAnalysisAvailable(project);
       setRemoveAllWhenShown(true);
       addMenuListener(this);
     }
@@ -102,9 +102,8 @@ public class DynamicOpenInMenuUtility {
     private final IProject project;
 
     public ExternalNavigationTargetsMenu(final IAdtObject adtObject, final IProject project) {
-      super(Messages.AdtObjectMenu_ExtnernalNavigationTargets_xmit, SearchAndAnalysisPlugin
-          .getDefault()
-          .getImageDescriptor(IImages.EXTERNAL_TOOLS), ID);
+      super(Messages.AdtObjectMenu_ExtnernalNavigationTargets_xmit,
+          SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.EXTERNAL_TOOLS), ID);
       this.adtObject = adtObject;
       this.project = project;
       setRemoveAllWhenShown(true);
@@ -122,8 +121,8 @@ public class DynamicOpenInMenuUtility {
         case EXCEL:
           add(new OpenWithAnalysisForOfficeExecutable(DestinationUtil.getDestinationId(project),
               adtObject.getName()).createAction(
-                  Messages.ElementInformation_AnalysisForOfficeTarget_xtit, SearchAndAnalysisPlugin
-                      .getDefault()
+                  Messages.ElementInformation_AnalysisForOfficeTarget_xtit,
+                  SearchAndAnalysisPlugin.getDefault()
                       .getImageDescriptor(IImages.EXCEL_APPLICATION)));
           break;
         case QUERY_MONITOR:
@@ -153,8 +152,8 @@ public class DynamicOpenInMenuUtility {
       final String objectName = adtObject.getName();
       final ObjectType objectType = adtObject.getObjectType();
 
-      final Job job = new Job(NLS.bind(Messages.AdtObjectMenu_DynamicMenuItemsLoadingJob_xmsg,
-          objectName)) {
+      final Job job = new Job(
+          NLS.bind(Messages.AdtObjectMenu_DynamicMenuItemsLoadingJob_xmsg, objectName)) {
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
 

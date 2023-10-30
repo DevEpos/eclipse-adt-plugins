@@ -266,12 +266,14 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
     if (newResponseMessageList != responseMessageList) {
       NotificationChain msgs = null;
       if (responseMessageList != null) {
-        msgs = ((InternalEObject) responseMessageList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - ICodeSearchPackage.CODE_SEARCH_RESULT__RESPONSE_MESSAGE_LIST, null, msgs);
+        msgs = ((InternalEObject) responseMessageList).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - ICodeSearchPackage.CODE_SEARCH_RESULT__RESPONSE_MESSAGE_LIST,
+            null, msgs);
       }
       if (newResponseMessageList != null) {
-        msgs = ((InternalEObject) newResponseMessageList).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - ICodeSearchPackage.CODE_SEARCH_RESULT__RESPONSE_MESSAGE_LIST, null, msgs);
+        msgs = ((InternalEObject) newResponseMessageList).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - ICodeSearchPackage.CODE_SEARCH_RESULT__RESPONSE_MESSAGE_LIST,
+            null, msgs);
       }
       msgs = basicSetResponseMessageList(newResponseMessageList, msgs);
       if (msgs != null) {

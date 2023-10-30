@@ -46,8 +46,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsEntry;
  *
  * @generated
  */
-public class WhereUsedInCdsEntry extends MinimalEObjectImpl.Container implements
-    IWhereUsedInCdsEntry {
+public class WhereUsedInCdsEntry extends MinimalEObjectImpl.Container
+    implements IWhereUsedInCdsEntry {
   /**
    * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.
    * <!-- begin-user-doc -->

@@ -164,8 +164,8 @@ public class ManageCdsAnalysesDialog extends StatusDialog {
     GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(parent);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(parent);
 
-    viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER
-        | SWT.FULL_SELECTION);
+    viewer = new TableViewer(parent,
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
     viewer.setContentProvider(new ArrayContentProvider());
     viewer.setLabelProvider(new CdsAnalysisLabelProvider());
     viewer.addSelectionChangedListener(event -> validateDialogState());
@@ -204,8 +204,8 @@ public class ManageCdsAnalysesDialog extends StatusDialog {
     maxHistoryLabel.setText(Messages.CdsAnalysis_MaxHistoryNumberText_xfld + " "); //$NON-NLS-1$
     maxHistorySizeText = new Text(maxHistoryComposite, SWT.BORDER | SWT.LEFT);
     maxHistorySizeText.setTextLimit(2);
-    maxHistorySizeText.setText(String.valueOf(prefStore.getInt(
-        IPreferences.MAX_CDS_ANALYZER_HISTORY)));
+    maxHistorySizeText
+        .setText(String.valueOf(prefStore.getInt(IPreferences.MAX_CDS_ANALYZER_HISTORY)));
     maxHistorySizeText.addModifyListener(e -> {
       validateDialogState();
     });
