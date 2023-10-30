@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -16,6 +17,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
@@ -52,7 +54,7 @@ public class FavoritesImporter {
     dialog.setFileName("favorites.xml"); //$NON-NLS-1$
 
     final var importFileName = dialog.open();
-    if ("".equals(importFileName)) { //$NON-NLS-1$
+    if (StringUtil.isEmpty(importFileName)) {
       return;
     }
 
@@ -60,14 +62,15 @@ public class FavoritesImporter {
 
     try {
       SearchFavoriteStorage.deserialize(importedFavorites, importFileName);
-    } catch (IOException e) {
+      // Hint: WrappedException is required to catch erroneous imports with old file format
+    } catch (IOException | WrappedException e) {
       MessageDialog.openError(shell, AdtBaseUIResources.getString(
           IAdtBaseStrings.Dialog_Error_xtit), MessageFormat.format(
               Messages.FavoritesImporter_ImportFailed_xmsg, importFileName));
       Activator.getDefault()
           .getLog()
-          .log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Favorite Import from file failed!", //$NON-NLS-1$
-              e));
+          .log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Favorite Import from file " //$NON-NLS-1$
+              + importFileName + " failed", e)); //$NON-NLS-1$
       return;
     }
 
@@ -88,6 +91,7 @@ public class FavoritesImporter {
         skippedFavCount++;
         continue;
       }
+      newFav.setHidden(false);
       entriesToBeAdded.add(newFav);
       importCount++;
     }
