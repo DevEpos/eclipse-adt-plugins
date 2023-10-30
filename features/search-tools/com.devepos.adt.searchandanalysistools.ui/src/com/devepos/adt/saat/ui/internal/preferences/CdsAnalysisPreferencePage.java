@@ -21,8 +21,8 @@ import com.devepos.adt.saat.ui.internal.cdsanalysis.FieldAnalysisType;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsAnalysisPreferences;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 
-public class CdsAnalysisPreferencePage extends FieldEditorPrefPageBase implements
-    IWorkbenchPreferencePage, IPropertyChangeListener {
+public class CdsAnalysisPreferencePage extends FieldEditorPrefPageBase
+    implements IWorkbenchPreferencePage, IPropertyChangeListener {
 
   @Override
   public void init(final IWorkbench workbench) {
@@ -44,13 +44,13 @@ public class CdsAnalysisPreferencePage extends FieldEditorPrefPageBase implement
       return;
     }
     if (!(Boolean) newValue) {
-      BooleanFieldEditor usedInSelectFromPrefEditor = (BooleanFieldEditor) fieldMap.get(
-          ICdsAnalysisPreferences.WHERE_USED_USES_IN_SELECT);
-      BooleanFieldEditor usedInAssocPrefEditor = (BooleanFieldEditor) fieldMap.get(
-          ICdsAnalysisPreferences.WHERE_USED_USES_IN_ASSOC);
+      BooleanFieldEditor usedInSelectFromPrefEditor = (BooleanFieldEditor) fieldMap
+          .get(ICdsAnalysisPreferences.WHERE_USED_USES_IN_SELECT);
+      BooleanFieldEditor usedInAssocPrefEditor = (BooleanFieldEditor) fieldMap
+          .get(ICdsAnalysisPreferences.WHERE_USED_USES_IN_ASSOC);
 
-      if (!usedInSelectFromPrefEditor.getBooleanValue() && !usedInAssocPrefEditor
-          .getBooleanValue()) {
+      if (!usedInSelectFromPrefEditor.getBooleanValue()
+          && !usedInAssocPrefEditor.getBooleanValue()) {
         setErrorMessage(NLS.bind(Messages.CdsAnalysisPreferencePage_whereUsedInPartError_xmsg,
             new Object[] { Messages.WhereUsedInCdsAnalysisView_ShowUsesInSelectPartAction_xmit,
                 Messages.WhereUsedInCdsAnalysisView_ShowUsesInAssociationsAction_xmit }));

@@ -67,8 +67,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
   }
 
-  class AdtObjectLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
+  class AdtObjectLabelProvider extends LabelProvider
+      implements ILabelProvider, IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {
@@ -185,8 +185,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
   protected void createProjectInput(final Composite root) {
     projectInput = new ProjectInput(true);
     projectInput.createControl(root, new Point(5, 5));
-    projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
-        .testTagsFeatureAvailability(project));
+    projectInput.addProjectValidator(
+        project -> AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project));
     projectInput.addStatusChangeListener(status -> {
       if (status.isOK()) {
         final IProject newProject = projectInput.getProjectProvider().getProject();
@@ -211,8 +211,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(container);
 
     final Label objectsViewerLabel = new Label(container, SWT.NONE);
-    objectsViewerLabel.setText(
-        Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
+    objectsViewerLabel
+        .setText(Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.CENTER)
         .grab(true, false)
@@ -222,8 +222,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
     objectsViewer = new TableViewer(container, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.VIRTUAL);
     objectsViewer.setContentProvider(new ArrayContentProvider());
-    objectsViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new AdtObjectLabelProvider()));
+    objectsViewer
+        .setLabelProvider(new DelegatingStyledCellLabelProvider(new AdtObjectLabelProvider()));
 
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.FILL)
@@ -248,8 +248,9 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     selectObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.OPEN_ABAP_REPO_TYPE));
     selectObjectsTbButton.setToolTipText("Select Objects"); //$NON-NLS-1$
     selectObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
-      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(parent
-          .getShell(), Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
+      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
+          parent.getShell(),
+          Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
           this.getClass().getCanonicalName() + ".dialog", true, null, getWizard().getProject()); //$NON-NLS-1$
       if (result == null) {
         return;
@@ -264,8 +265,8 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     removeObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
     removeObjectsTbButton.setEnabled(false);
     removeObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
-    removeObjectsTbButton.setToolTipText(
-        Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
+    removeObjectsTbButton
+        .setToolTipText(Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
     removeObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
       removeSelectedObjects();
       validatePage(null, ValidationSource.OBJECTS);

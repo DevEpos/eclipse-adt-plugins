@@ -184,7 +184,8 @@ public class FieldHierarchyView implements IDestinationProvider {
           .isOK() && currentInputObjectType == ObjectType.DATA_DEFINITION) {
         topDownNode = new LazyLoadingFolderNode(currentEntityName, currentEntityName,
             new CdsFieldTopDownElementInfoProvider(getDestinationId(), currentEntityName,
-                fieldName), node.getParent().getImage(), null, null);
+                fieldName),
+            node.getParent().getImage(), null, null);
         topDownNode.getProperties().put(ICdsAnalysisConstants.FIELD_PROP, node.getDisplayName());
       }
       input = new FieldHierarchyViewerInput(hierarchyTreeViewer, topDownNode, currentEntityName,
@@ -284,13 +285,13 @@ public class FieldHierarchyView implements IDestinationProvider {
       return;
     }
 
-    menu.appendToGroup(IGeneralMenuConstants.GROUP_OPEN, new Action(
-        Messages.FieldHierarchyView_NavigateToFieldAction_xmit) {
-      @Override
-      public void run() {
-        NavigationUtil.navigateToEntityColumn(entityName, fieldName, getDestinationId());
-      }
-    });
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_OPEN,
+        new Action(Messages.FieldHierarchyView_NavigateToFieldAction_xmit) {
+          @Override
+          public void run() {
+            NavigationUtil.navigateToEntityColumn(entityName, fieldName, getDestinationId());
+          }
+        });
 
   }
 
@@ -327,13 +328,11 @@ public class FieldHierarchyView implements IDestinationProvider {
   private void createToolbarActions() {
     actionToggleGroup = new RadioActionGroup();
     actionToggleGroup.addAction(TOP_DOWN_ACTION,
-        Messages.FieldHierarchyViewer_FieldOriginModeButton_xtol, SearchAndAnalysisPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.FIELD_TOP_DOWN), true);
+        Messages.FieldHierarchyViewer_FieldOriginModeButton_xtol,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.FIELD_TOP_DOWN), true);
     actionToggleGroup.addAction(WHERE_USED_ACTION,
-        Messages.FieldHierarchyViewer_FieldReferencesModeButton_xtol, SearchAndAnalysisPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.FIELD_WHERE_USED), false);
+        Messages.FieldHierarchyViewer_FieldReferencesModeButton_xtol,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.FIELD_WHERE_USED), false);
     actionToggleGroup.addActionToggledListener(actionId -> {
       final boolean isTopDown = TOP_DOWN_ACTION.equals(actionId);
       hierarchyTreeViewer.updateInput(isTopDown);
@@ -342,15 +341,15 @@ public class FieldHierarchyView implements IDestinationProvider {
       settings.setTopDown(isTopDown);
     });
     searchCalcFieldsAction = ActionFactory.createAction(
-        Messages.FieldHierarchyView_CalculatedFieldsSearch_xtol, SearchAndAnalysisPlugin
-            .getDefault()
-            .getImageDescriptor(IImages.FUNCTION), IAction.AS_CHECK_BOX, () -> {
-              if (currentFieldInput == null) {
-                return;
-              }
-              settings.setSearchInCalcFields(searchCalcFieldsAction.isChecked());
-              reloadFieldInput();
-            });
+        Messages.FieldHierarchyView_CalculatedFieldsSearch_xtol,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.FUNCTION),
+        IAction.AS_CHECK_BOX, () -> {
+          if (currentFieldInput == null) {
+            return;
+          }
+          settings.setSearchInCalcFields(searchCalcFieldsAction.isChecked());
+          reloadFieldInput();
+        });
   }
 
   private void fillToolbar(final ToolBarManager fieldTbm) {
@@ -380,8 +379,9 @@ public class FieldHierarchyView implements IDestinationProvider {
   private void updateToolbarLabel(final boolean topDown) {
     hierarchyViewerPaneLabel.setImage(fieldNode.getImage());
     final StringBuilder infoLabelText = new StringBuilder(
-        currentInputObjectType != ObjectType.DATA_DEFINITION ? fieldNode.getDisplayName()
-            .toUpperCase() : fieldNode.getDisplayName());
+        currentInputObjectType != ObjectType.DATA_DEFINITION
+            ? fieldNode.getDisplayName().toUpperCase()
+            : fieldNode.getDisplayName());
     infoLabelText.append("   ["); //$NON-NLS-1$
     if (topDown) {
       infoLabelText.append(Messages.FieldHierarchyView_FieldOriginModeHeading_xfld);

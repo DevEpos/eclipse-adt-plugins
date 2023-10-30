@@ -13,8 +13,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  *
  * @author stockbal
  */
-public class CdsTopDownAnalysisContentHandler extends
-    AbstractEmfContentHandler<ITopDownAnalysisResult> {
+public class CdsTopDownAnalysisContentHandler
+    extends AbstractEmfContentHandler<ITopDownAnalysisResult> {
 
   public CdsTopDownAnalysisContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".cdstopdownresult");

@@ -45,8 +45,8 @@ public class SearchPageExtensionsRegistry {
     List<ISearchPageParameterSection> parameterSections = new ArrayList<>();
 
     for (IConfigurationElement element : elements) {
-      if (!PARAMETER_SECTION_ELEMENT.equals(element.getName()) && !pageId.equals(element
-          .getAttribute(PAGE_ID_ATTRIBUTE))) {
+      if (!PARAMETER_SECTION_ELEMENT.equals(element.getName())
+          && !pageId.equals(element.getAttribute(PAGE_ID_ATTRIBUTE))) {
         continue;
       }
       ISearchPageParameterSection paramSection = (ISearchPageParameterSection) element

@@ -68,8 +68,8 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
       }
     } else if (adapter == com.sap.adt.tools.core.IAdtObjectReference.class) {
       try {
-        return adapter.cast(AdtObjectReferenceAdapterFactory.adaptToNonEmfAdtObjectRef(
-            objectReference));
+        return adapter
+            .cast(AdtObjectReferenceAdapterFactory.adaptToNonEmfAdtObjectRef(objectReference));
       } catch (final ClassCastException exc) {
       }
     } else if (adapter == IAdtObjectReference.class) {

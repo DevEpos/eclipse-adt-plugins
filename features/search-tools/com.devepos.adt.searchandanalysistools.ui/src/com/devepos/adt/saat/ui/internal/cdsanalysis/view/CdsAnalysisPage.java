@@ -120,8 +120,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     }
   }
 
-  class TreeViewerLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
+  class TreeViewerLabelProvider extends LabelProvider
+      implements ILabelProvider, IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {
@@ -232,11 +232,11 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     analysisResult = (T) analysis;
     if (analysis != null) {
       final IAdtObjectReferenceElementInfo adtObjectInfo = analysis.getAdtObjectInfo();
-      final IDestinationProvider destProvider = ((IAdaptable) adtObjectInfo).getAdapter(
-          IDestinationProvider.class);
+      final IDestinationProvider destProvider = ((IAdaptable) adtObjectInfo)
+          .getAdapter(IDestinationProvider.class);
       if (destProvider != null) {
-        projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destProvider
-            .getDestinationId());
+        projectProvider = AbapProjectProviderAccessor
+            .getProviderForDestination(destProvider.getDestinationId());
       }
       loadInput(uiState);
     }
@@ -334,11 +334,11 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     if (projectProvider != null) {
       final List<IAdtObjectReference> selectedObjRefs = commandChecker.getSelectedAdtObjectRefs();
 
-      mgr.appendToGroup(IGeneralMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(projectProvider
-          .getProject(), selectedObjRefs));
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_OPEN,
+          new OpenAdtObjectAction(projectProvider.getProject(), selectedObjRefs));
       if (commandChecker.hasSelection(true)) {
-        mgr.appendToGroup(IGeneralMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(
-            projectProvider.getProject(), selectedObjRefs, true));
+        mgr.appendToGroup(IGeneralMenuConstants.GROUP_OPEN,
+            new ExecuteAdtObjectAction(projectProvider.getProject(), selectedObjRefs, true));
       }
     }
 
@@ -355,8 +355,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
    */
   protected void fillToolbar(final IToolBarManager tbm) {
     if (viewer instanceof TreeViewer) {
-      tbm.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, new CollapseAllTreeNodesAction(
-          (TreeViewer) viewer));
+      tbm.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS,
+          new CollapseAllTreeNodesAction((TreeViewer) viewer));
     }
   }
 
@@ -386,8 +386,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
         }
       }
       if (element instanceof IAdaptable) {
-        final IExtendedAdtObjectInfo extendedSearchResultInfo = ((IAdaptable) element).getAdapter(
-            IExtendedAdtObjectInfo.class);
+        final IExtendedAdtObjectInfo extendedSearchResultInfo = ((IAdaptable) element)
+            .getAdapter(IExtendedAdtObjectInfo.class);
         if (extendedSearchResultInfo != null) {
           final String[] overlayIds = new String[4];
           if (extendedSearchResultInfo.isReleased()) {
@@ -468,8 +468,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
       final IAdtObjectReferenceNode selectedAdtObject = (IAdtObjectReferenceNode) treeNode;
 
       if (selectedAdtObject != null) {
-        final IDestinationProvider destProvider = selectedAdtObject.getAdapter(
-            IDestinationProvider.class);
+        final IDestinationProvider destProvider = selectedAdtObject
+            .getAdapter(IDestinationProvider.class);
         if (destProvider != null) {
           final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
               .getProviderForDestination(destProvider.getDestinationId());
@@ -497,7 +497,7 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
 
   /**
    * Refreshes the current analysis content
-   * 
+   *
    * @param global if {@code global} the whole analysis will be refreshed
    */
   protected abstract void refreshAnalysis(boolean global);

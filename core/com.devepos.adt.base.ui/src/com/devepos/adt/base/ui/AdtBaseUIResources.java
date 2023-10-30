@@ -19,8 +19,8 @@ public class AdtBaseUIResources {
   /**
    * The JFace resource bundle; eagerly initialized.
    */
-  private static final ResourceBundle bundle = ResourceBundle.getBundle(
-      "com.devepos.adt.base.ui.messages"); //$NON-NLS-1$
+  private static final ResourceBundle bundle = ResourceBundle
+      .getBundle("com.devepos.adt.base.ui.messages"); //$NON-NLS-1$
 
   /**
    * Returns the formatted message for the given key in ADT Tools Base's resource

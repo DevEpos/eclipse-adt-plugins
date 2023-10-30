@@ -38,8 +38,8 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
         return null;
       }
       final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
-      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, file
-          .getProject()));
+      return adapterType
+          .cast(new AdtObject(objRef.getName(), objRef, objectType, file.getProject()));
     } else if (adaptableObject instanceof IAdtFormEditor) {
       final IFile file = ((IAdtFormEditor) adaptableObject).getModelFile();
       final IAdtObjectReference objRef = Adapters.adapt(file, IAdtObjectReference.class);
@@ -47,8 +47,8 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
         return null;
       }
       final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
-      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, file
-          .getProject()));
+      return adapterType
+          .cast(new AdtObject(objRef.getName(), objRef, objectType, file.getProject()));
     } else if (adaptableObject instanceof TreeNode) {
       final IAdtObjectReference objRef = Adapters.adapt(adaptableObject, IAdtObjectReference.class);
       if (objRef == null) {
@@ -67,8 +67,8 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
         final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
             .getProviderForDestination(destProvider.getDestinationId());
         if (projectProvider != null) {
-          return adapterType.cast(new AdtObject(objRefNode.getName(), objRefNode
-              .getObjectReference(), objectType, projectProvider.getProject()));
+          return adapterType.cast(new AdtObject(objRefNode.getName(),
+              objRefNode.getObjectReference(), objectType, projectProvider.getProject()));
         }
       }
     } else if (adaptableObject instanceof IAdaptable) {
@@ -83,8 +83,8 @@ public class AdtObjectAdapterFactory implements IAdapterFactory {
         return null;
       }
       final ObjectType objectType = ObjectType.getFromAdtType(objRef.getType());
-      return adapterType.cast(new AdtObject(objRef.getName(), objRef, objectType, projectProvider
-          .getProject()));
+      return adapterType
+          .cast(new AdtObject(objRef.getName(), objRef, objectType, projectProvider.getProject()));
     }
     return null;
   }

@@ -278,8 +278,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    */
   public static IObjectSearchPackage init() {
     if (isInited) {
-      return (IObjectSearchPackage) EPackage.Registry.INSTANCE.getEPackage(
-          IObjectSearchPackage.eNS_URI);
+      return (IObjectSearchPackage) EPackage.Registry.INSTANCE
+          .getEPackage(IObjectSearchPackage.eNS_URI);
     }
 
     // Obtain or create and register package
@@ -1499,10 +1499,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-        XMLTypePackage.eNS_URI);
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE.getEPackage(
-        IAdtBasePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+        .getEPackage(XMLTypePackage.eNS_URI);
+    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+        .getEPackage(IAdtBasePackage.eNS_URI);
 
     // Create type parameters
 
@@ -1735,10 +1735,10 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
 
     initEClass(searchResultOutputConfigEClass, ISearchResultOutputConfig.class,
         "SearchResultOutputConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getSearchResultOutputConfig_ListOutputSupported(), theXMLTypePackage
-        .getBoolean(), "listOutputSupported", null, 0, 1, ISearchResultOutputConfig.class,
-        !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-        IS_ORDERED);
+    initEAttribute(getSearchResultOutputConfig_ListOutputSupported(),
+        theXMLTypePackage.getBoolean(), "listOutputSupported", null, 0, 1,
+        ISearchResultOutputConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSearchResultOutputConfig_GroupingLevels(), theXMLTypePackage.getString(),
         "groupingLevels", null, 0, -1, ISearchResultOutputConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1824,44 +1824,44 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    */
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-    addAnnotation(searchConfigEClass, source, new String[] { "kind", "elementOnly", "name",
-        "searchConfig" });
-    addAnnotation(getSearchConfig_SearchTypes(), source, new String[] { "name", "searchType",
-        "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(searchTypeConfigEClass, source, new String[] { "kind", "elementOnly", "name",
-        "searchType" });
-    addAnnotation(getSearchTypeConfig_Name(), source, new String[] { "name", "name", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeConfig_Label(), source, new String[] { "name", "label", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeConfig_ImageInfo(), source, new String[] { "name", "imageInfo",
-        "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(searchConfigEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchConfig" });
+    addAnnotation(getSearchConfig_SearchTypes(), source,
+        new String[] { "name", "searchType", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(searchTypeConfigEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchType" });
+    addAnnotation(getSearchTypeConfig_Name(), source,
+        new String[] { "name", "name", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeConfig_Label(), source,
+        new String[] { "name", "label", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeConfig_ImageInfo(), source,
+        new String[] { "name", "imageInfo", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getSearchTypeConfig_CustomOptions(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "customOption" });
     addAnnotation(getSearchTypeConfig_OutputConfig(), source, new String[] { "kind", "element",
         "name", "resultOutputConfig", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeConfig_Inputs(), source, new String[] { "name", "input", "kind",
-        "element", "namespace", "##targetNamespace" });
-    addAnnotation(searchTypeInputFieldConfigEClass, source, new String[] { "kind", "elementOnly",
-        "name", "input" });
-    addAnnotation(getSearchTypeInputFieldConfig_Name(), source, new String[] { "name", "name",
-        "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeInputFieldConfig_Label(), source, new String[] { "name", "label",
-        "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeInputFieldConfig_Mixed(), source, new String[] { "name", "mixed",
-        "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchTypeInputFieldConfig_Filters(), source, new String[] { "name", "filter",
-        "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(searchFilterConfigEClass, source, new String[] { "kind", "elementOnly", "name",
-        "filter" });
-    addAnnotation(getSearchFilterConfig_Name(), source, new String[] { "name", "name", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchFilterConfig_DataType(), source, new String[] { "name", "dataType",
-        "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeConfig_Inputs(), source,
+        new String[] { "name", "input", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(searchTypeInputFieldConfigEClass, source,
+        new String[] { "kind", "elementOnly", "name", "input" });
+    addAnnotation(getSearchTypeInputFieldConfig_Name(), source,
+        new String[] { "name", "name", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeInputFieldConfig_Label(), source,
+        new String[] { "name", "label", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeInputFieldConfig_Mixed(), source,
+        new String[] { "name", "mixed", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchTypeInputFieldConfig_Filters(), source,
+        new String[] { "name", "filter", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(searchFilterConfigEClass, source,
+        new String[] { "kind", "elementOnly", "name", "filter" });
+    addAnnotation(getSearchFilterConfig_Name(), source,
+        new String[] { "name", "name", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_DataType(), source,
+        new String[] { "name", "dataType", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_MaxLength(), source, new String[] { "name", "maxLength",
         "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchFilterConfig_Multiple(), source, new String[] { "name", "multiple",
-        "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_Multiple(), source,
+        new String[] { "name", "multiple", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_Negatable(), source, new String[] { "name", "negatable",
         "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_KeyValuePair(), source, new String[] { "name",
@@ -1870,18 +1870,18 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_LongDescription(), source, new String[] { "name",
         "longDescription", "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchFilterConfig_Internal(), source, new String[] { "name", "internal",
-        "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchFilterConfig_WildcardsAllowed(), source, new String[] { "name",
-        "patterns", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_Internal(), source,
+        new String[] { "name", "internal", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_WildcardsAllowed(), source,
+        new String[] { "name", "patterns", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_ContentAssist(), source, new String[] { "name",
         "contentAssist", "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchFilterConfig_ImageInfo(), source, new String[] { "name", "imageInfo",
-        "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(imageInfoEClass, source, new String[] { "kind", "elementOnly", "name",
-        "proposalImage" });
-    addAnnotation(getImageInfo_ImageId(), source, new String[] { "name", "imageId", "kind",
-        "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_ImageInfo(), source,
+        new String[] { "name", "imageInfo", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(imageInfoEClass, source,
+        new String[] { "kind", "elementOnly", "name", "proposalImage" });
+    addAnnotation(getImageInfo_ImageId(), source,
+        new String[] { "name", "imageId", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getImageInfo_ImageEncoded(), source, new String[] { "name", "imageEncoded",
         "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getImageInfo_ImageRegistryId(), source, new String[] { "name", "imageRegistryId",
@@ -1892,20 +1892,20 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "proposalImageRegistryId", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getContentAssist_ProposalImages(), source, new String[] { "name", "proposalImage",
         "kind", "element", "namespace", "##targetNamespace" });
-    addAnnotation(getContentAssist_CachingPossible(), source, new String[] { "name", "caching",
-        "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(simpleContentProposalEClass, source, new String[] { "kind", "elementOnly", "name",
-        "contentProposal" });
-    addAnnotation(getSimpleContentProposal_Name(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getSimpleContentProposal_Data(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getSimpleContentProposal_Description(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getFixedValuesContentAssist_Proposals(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace", "name", "proposal" });
-    addAnnotation(getRisContentAssist_ObjectTypes(), source, new String[] { "name", "objectType",
-        "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(getContentAssist_CachingPossible(), source,
+        new String[] { "name", "caching", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(simpleContentProposalEClass, source,
+        new String[] { "kind", "elementOnly", "name", "contentProposal" });
+    addAnnotation(getSimpleContentProposal_Name(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSimpleContentProposal_Data(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSimpleContentProposal_Description(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getFixedValuesContentAssist_Proposals(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace", "name", "proposal" });
+    addAnnotation(getRisContentAssist_ObjectTypes(), source,
+        new String[] { "name", "objectType", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getNamedItemContentAssist_CategoryScheme(), source, new String[] { "name",
         "categoryScheme", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getNamedItemContentAssist_CategoryTerm(), source, new String[] { "name",
@@ -1914,64 +1914,64 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         "secondaryCategoryTerm", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getNamedItemContentAssist_InitialFilter(), source, new String[] { "name",
         "initialFilter", "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(searchQueryInputEClass, source, new String[] { "kind", "elementOnly", "name",
-        "queryInput" });
-    addAnnotation(getSearchQueryInput_Type(), source, new String[] { "name", "type", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchQueryInput_MaxRows(), source, new String[] { "name", "maxRows", "kind",
-        "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(searchQueryInputEClass, source,
+        new String[] { "kind", "elementOnly", "name", "queryInput" });
+    addAnnotation(getSearchQueryInput_Type(), source,
+        new String[] { "name", "type", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryInput_MaxRows(), source,
+        new String[] { "name", "maxRows", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchQueryInput_CombineFiltersWithAnd(), source, new String[] { "name",
         "combineFiltersWithAnd", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchQueryInput_WithApiState(), source, new String[] { "name", "withApiState",
         "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchQueryInput_RowLimitDisabled(), source, new String[] { "name",
         "rowLimitDisabled", "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchQueryInput_Fields(), source, new String[] { "name", "field", "kind",
-        "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryInput_Fields(), source,
+        new String[] { "name", "field", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getSearchQueryInput_CustomOptions(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "customOption" });
-    addAnnotation(searchQueryFieldEClass, source, new String[] { "kind", "elementOnly", "name",
-        "field" });
-    addAnnotation(getSearchQueryField_Name(), source, new String[] { "name", "name", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchQueryField_Values(), source, new String[] { "name", "value", "kind",
-        "element", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchQueryField_Filters(), source, new String[] { "name", "filter", "kind",
-        "element", "namespace", "##targetNamespace" });
-    addAnnotation(searchQueryFilterEClass, source, new String[] { "kind", "elementOnly", "name",
-        "filter" });
-    addAnnotation(getSearchQueryFilter_Name(), source, new String[] { "name", "name", "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getSearchQueryFilter_Values(), source, new String[] { "name", "value", "kind",
-        "element", "namespace", "##targetNamespace" });
-    addAnnotation(objectSearchResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "searchResult" });
-    addAnnotation(getObjectSearchResult_ResultCount(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
+    addAnnotation(searchQueryFieldEClass, source,
+        new String[] { "kind", "elementOnly", "name", "field" });
+    addAnnotation(getSearchQueryField_Name(), source,
+        new String[] { "name", "name", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryField_Values(), source,
+        new String[] { "name", "value", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryField_Filters(), source,
+        new String[] { "name", "filter", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(searchQueryFilterEClass, source,
+        new String[] { "kind", "elementOnly", "name", "filter" });
+    addAnnotation(getSearchQueryFilter_Name(), source,
+        new String[] { "name", "name", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchQueryFilter_Values(), source,
+        new String[] { "name", "value", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(objectSearchResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchResult" });
+    addAnnotation(getObjectSearchResult_ResultCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getObjectSearchResult_ResultObjects(), source, new String[] { "name", "adtObjRef",
         "kind", "element", "namespace", "http://www.devepos.com/adt/base" });
-    addAnnotation(searchResultOutputConfigEClass, source, new String[] { "kind", "elementOnly",
-        "name", "searchResultOutputConfig" });
-    addAnnotation(getSearchResultOutputConfig_ListOutputSupported(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(searchResultOutputConfigEClass, source,
+        new String[] { "kind", "elementOnly", "name", "searchResultOutputConfig" });
+    addAnnotation(getSearchResultOutputConfig_ListOutputSupported(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchResultOutputConfig_GroupingLevels(), source, new String[] { "kind",
         "element", "namespace", "##targetNamespace", "name", "groupingLevel" });
     addAnnotation(getSearchResultOutputConfig_TypesForList(), source, new String[] { "kind",
         "element", "name", "typeForList", "namespace", "##targetNamespace" });
     addAnnotation(getSearchResultOutputConfig_AdtAltTypeImages(), source, new String[] { "kind",
         "element", "namespace", "##targetNamespace", "name", "adtAltTypeImage" });
-    addAnnotation(getCustomOption_Description(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getCustomOption_Description(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getCustomOption_OptionValues(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "optionValue" });
-    addAnnotation(getStringToStringMapEntry_Key(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getStringToStringMapEntry_Value(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getAdtAlternativeTypeImage_Type(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getAdtAlternativeTypeImage_ImgInfo(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getStringToStringMapEntry_Key(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getStringToStringMapEntry_Value(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtAlternativeTypeImage_Type(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getAdtAlternativeTypeImage_ImgInfo(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace" });
   }
 
 } // ObjectSearchPackage

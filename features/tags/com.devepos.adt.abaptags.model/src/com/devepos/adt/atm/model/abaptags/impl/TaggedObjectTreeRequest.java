@@ -28,8 +28,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
  *
  * @generated
  */
-public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container implements
-    ITaggedObjectTreeRequest {
+public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container
+    implements ITaggedObjectTreeRequest {
   /**
    * The default value of the '{@link #getTagId() <em>Tag Id</em>}' attribute.
    * <!-- begin-user-doc -->

@@ -148,9 +148,11 @@ public class ObjectSearchFields {
     }
 
     if (currentSearchType == null) {
-      status.validateAndSetStatus(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, NLS
-          .bind(Messages.ObjectSearch_SearchTypeNotSupported_xmsg, currentSearchType.getLabel(),
-              projectProvider.getProjectName()), null),
+      status.validateAndSetStatus(
+          new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
+              NLS.bind(Messages.ObjectSearch_SearchTypeNotSupported_xmsg,
+                  currentSearchType.getLabel(), projectProvider.getProjectName()),
+              null),
           ObjectSearchDialogValidationSource.SEARCH_TYPE.name());
       status.updateOKStatus();
       return;
@@ -177,8 +179,8 @@ public class ObjectSearchFields {
     updateCustomOptions();
 
     if (filtersValid) {
-      status.validateAndSetStatus(Status.OK_STATUS, ObjectSearchDialogValidationSource.SEARCH_TYPE
-          .name());
+      status.validateAndSetStatus(Status.OK_STATUS,
+          ObjectSearchDialogValidationSource.SEARCH_TYPE.name());
       status.updateOKStatus();
     }
 
@@ -215,9 +217,9 @@ public class ObjectSearchFields {
       if (optionControl == null) {
         SearchAndAnalysisPlugin.getDefault()
             .getLog()
-            .log(new Status(IStatus.WARNING, SearchAndAnalysisPlugin.PLUGIN_ID, String.format(
-                "Custom option '%s' for search type '%s' could not be created", option.getLabel(),
-                currentSearchType.getLabel())));
+            .log(new Status(IStatus.WARNING, SearchAndAnalysisPlugin.PLUGIN_ID,
+                String.format("Custom option '%s' for search type '%s' could not be created",
+                    option.getLabel(), currentSearchType.getLabel())));
       } else {
         optionControl.createControl(optionsContainer);
         customOptionControls.put(option.getKey(), optionControl);

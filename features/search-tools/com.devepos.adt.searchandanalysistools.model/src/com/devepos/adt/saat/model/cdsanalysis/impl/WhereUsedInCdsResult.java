@@ -31,8 +31,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IWhereUsedInCdsResult;
  *
  * @generated
  */
-public class WhereUsedInCdsResult extends MinimalEObjectImpl.Container implements
-    IWhereUsedInCdsResult {
+public class WhereUsedInCdsResult extends MinimalEObjectImpl.Container
+    implements IWhereUsedInCdsResult {
   /**
    * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference list.
    * <!-- begin-user-doc -->

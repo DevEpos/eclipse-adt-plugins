@@ -166,8 +166,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     projectInput.addProjectValidator(project -> {
       var tagFeatureStatus = tagsService.testTagsFeatureAvailability(project);
-      return tagFeatureStatus.isOK() ? taggingService.testTaggedObjectDeletionFeatureAvailability(
-          project) : tagFeatureStatus;
+      return tagFeatureStatus.isOK()
+          ? taggingService.testTaggedObjectDeletionFeatureAvailability(project)
+          : tagFeatureStatus;
     });
     projectInput.addStatusChangeListener(status -> {
       projectInvalid = !status.isOK();
@@ -176,8 +177,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         final var newProject = projectInput.getProjectProvider().getProject();
         final var oldProject = wizard.getProject();
         wizard.setProject(newProject);
-        if (newProject != oldProject || tagSelectionTree != null && !tagSelectionTree
-            .hasViewerInput()) {
+        if (newProject != oldProject
+            || tagSelectionTree != null && !tagSelectionTree.hasViewerInput()) {
           tagSelectionTree.setCheckedTags(null);
           refreshTags();
         }

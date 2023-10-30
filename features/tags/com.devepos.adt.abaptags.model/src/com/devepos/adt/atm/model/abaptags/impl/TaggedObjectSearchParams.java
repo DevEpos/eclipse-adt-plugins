@@ -56,8 +56,8 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
  *
  * @generated
  */
-public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container implements
-    ITaggedObjectSearchParams {
+public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
+    implements ITaggedObjectSearchParams {
   private final Set<String> tags = new TreeSet<>();
   /**
    * The cached value of the '{@link #getTagIds() <em>Tag Ids</em>}' attribute list.

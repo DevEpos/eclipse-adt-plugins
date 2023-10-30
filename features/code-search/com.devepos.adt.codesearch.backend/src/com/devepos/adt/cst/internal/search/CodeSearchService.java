@@ -212,10 +212,11 @@ public class CodeSearchService implements ICodeSearchService {
     final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
         .createRestResource(settingsUri, session);
     try {
-      restResource.post(new NullProgressMonitor(), String.class, patterns, uriParameters.keySet()
-          .stream()
-          .map(k -> new QueryParameter(k, uriParameters.get(k)))
-          .toArray(IQueryParameter[]::new));
+      restResource.post(new NullProgressMonitor(), String.class, patterns,
+          uriParameters.keySet()
+              .stream()
+              .map(k -> new QueryParameter(k, uriParameters.get(k)))
+              .toArray(IQueryParameter[]::new));
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();

@@ -57,8 +57,8 @@ public class NavigationTargetService implements INavigationTargetService {
   public IStatus testNavigationTargetsAvailable(final IProject project) {
     var discovery = new NavigationTargetsUriDiscovery(DestinationUtil.getDestinationId(project));
     if (!discovery.isResourceDiscoverySuccessful() || discovery.getNavTargetsUri() == null) {
-      return new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-          "Navigation Targets are not available in ''{0}''", project.getName()));
+      return new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+          NLS.bind("Navigation Targets are not available in ''{0}''", project.getName()));
     }
     return Status.OK_STATUS;
   }

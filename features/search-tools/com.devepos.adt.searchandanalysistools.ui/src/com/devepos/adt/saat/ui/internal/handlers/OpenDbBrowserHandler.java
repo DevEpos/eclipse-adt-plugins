@@ -59,8 +59,8 @@ public class OpenDbBrowserHandler extends DbBrowserCommandHandler {
                 .collect(Collectors.toMap(data -> data[0], data -> data[1])));
 
     AdtUIUtil.overrideSapGuiPartTitle(part, currentProject, Messages.DbBrowser_xtit,
-        Messages.DbBrowser_xtit, SearchAndAnalysisPlugin.getDefault()
-            .getImage(IImages.DB_BROWSER_DATA_PREVIEW));
+        Messages.DbBrowser_xtit,
+        SearchAndAnalysisPlugin.getDefault().getImage(IImages.DB_BROWSER_DATA_PREVIEW));
     return null;
   }
 

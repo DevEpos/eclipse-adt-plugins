@@ -79,8 +79,8 @@ class MatchViewerUpdater {
          * - node was removed from the root node
          * - node was removed from a package node but the package grouping is turned off
          */
-        if (!isRootNodeAdjusted && parent == result.getResultTree() || parent instanceof PackageNode
-            && !resultPage.isPackageGroupingEnabled()) {
+        if (!isRootNodeAdjusted && parent == result.getResultTree()
+            || parent instanceof PackageNode && !resultPage.isPackageGroupingEnabled()) {
           isRootNodeAdjusted = true;
         }
 

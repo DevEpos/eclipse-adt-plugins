@@ -67,8 +67,8 @@ import com.devepos.adt.saat.ui.internal.util.IImages;
  *
  * @author stockbal
  */
-public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListener,
-    ICdsAnalysisResultListener, IPinnableView {
+public class CdsAnalysisView extends PageBookView
+    implements ICdsAnalysisListener, ICdsAnalysisResultListener, IPinnableView {
 
   public static final String VIEW_ID = "com.devepos.adt.saat.views.cdsanalyzer"; //$NON-NLS-1$
 
@@ -109,15 +109,16 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
    */
   private class RefreshCurrentAnalysisAction extends Action {
     public RefreshCurrentAnalysisAction() {
-      super(Messages.CdsAnalysis_RefreshAction_xtol, AdtBaseUIResources.getImageDescriptor(
-          IAdtBaseImages.REFRESH));
+      super(Messages.CdsAnalysis_RefreshAction_xtol,
+          AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH));
     }
 
     @Override
-    public void runWithEvent(Event event) {
+    public void runWithEvent(final Event event) {
       getActivePage().refreshAnalysis(event.keyCode == 0);
     }
 
+    @Override
     public void run() {
       getActivePage().refreshAnalysis(true);
     }
@@ -165,7 +166,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     }
 
     @Override
-    protected void refreshAnalysis(boolean global) {
+    protected void refreshAnalysis(final boolean global) {
     }
   }
 
@@ -201,7 +202,7 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   }
 
   @Override
-  public void analysisAdded(CdsAnalysis analysis) {
+  public void analysisAdded(final CdsAnalysis analysis) {
     analysesHistoryAction.updateEnablement();
   }
 
@@ -269,8 +270,8 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
       return (T) superAdapter;
     }
     if (adapter == IShowInSource.class) {
-      return (T) (IShowInSource) () -> new ShowInContext(null, getSelectionProvider()
-          .getSelection());
+      return (T) (IShowInSource) () -> new ShowInContext(null,
+          getSelectionProvider().getSelection());
     }
     return null;
   }
@@ -331,8 +332,8 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         SearchAndAnalysisPlugin.getDefault()
             .getLog()
             .log(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
-                "CDS Analysis page for analysis type " + analysis.getType()
-                    + " could not be created"));
+                "CDS Analysis page for analysis type " + analysis.getType() +
+                    " could not be created"));
         return;
       }
     }
@@ -381,8 +382,8 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
         pageContent.layout();
       }
 
-      description.setImage(getActivePage().isFiltered() ? AdtBaseUIResources.getImage(
-          IAdtBaseImages.FILTER) : null);
+      description.setImage(
+          getActivePage().isFiltered() ? AdtBaseUIResources.getImage(IAdtBaseImages.FILTER) : null);
     }
   }
 
@@ -489,9 +490,10 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
     final IActionBars actionBars = getViewSite().getActionBars();
     final IToolBarManager tbm = actionBars.getToolBarManager();
     createToolBarGroups(tbm);
-    tbm.appendToGroup(IGeneralMenuConstants.GROUP_NEW, CommandFactory.createContribItem(
-        ICommandConstants.RUN_CDS_ANALYSIS, SearchAndAnalysisPlugin.getDefault()
-            .getImageDescriptor(IImages.RUN_NEW_ANALYSIS), null, null));
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_NEW,
+        CommandFactory.createContribItem(ICommandConstants.RUN_CDS_ANALYSIS,
+            SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.RUN_NEW_ANALYSIS), null,
+            null));
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, refreshAnalysisAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_GOTO, analysesHistoryAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, pinViewAction);
@@ -547,8 +549,8 @@ public class CdsAnalysisView extends PageBookView implements ICdsAnalysisListene
   }
 
   private void updateHelp(final CdsAnalysisPage<?> page) {
-    HelpUtil.setHelp(pageContent, page == null ? HelpContextId.CDS_ANALYZER
-        : page.getHelpContextId());
+    HelpUtil.setHelp(pageContent,
+        page == null ? HelpContextId.CDS_ANALYZER : page.getHelpContextId());
   }
 
 }

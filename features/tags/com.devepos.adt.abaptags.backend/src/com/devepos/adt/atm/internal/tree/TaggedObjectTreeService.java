@@ -35,11 +35,12 @@ public class TaggedObjectTreeService implements ITaggedObjectTreeService {
   public IStatus testTreeFeatureAvailability(final IProject project) {
     final var destinationId = DestinationUtil.getDestinationId(project);
     var uriDiscovery = new TaggedObjectTreeUriDiscovery(destinationId);
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .getTaggedObjectTreeUri() != null ? Status.OK_STATUS
-            : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, String.format(
-                Messages.TaggedObjectTreeService_TaggedObjectTreesNotAvailable_xmsg, project
-                    .toString()));
+    return uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getTaggedObjectTreeUri() != null
+            ? Status.OK_STATUS
+            : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+                String.format(Messages.TaggedObjectTreeService_TaggedObjectTreesNotAvailable_xmsg,
+                    project.toString()));
   }
 
 }

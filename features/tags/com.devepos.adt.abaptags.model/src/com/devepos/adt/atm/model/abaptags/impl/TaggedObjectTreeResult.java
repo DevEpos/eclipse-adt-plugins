@@ -37,8 +37,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
  *
  * @generated
  */
-public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container implements
-    ITaggedObjectTreeResult {
+public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container
+    implements ITaggedObjectTreeResult {
   /**
    * The default value of the '{@link #getTaggedObjectCount() <em>Tagged Object Count</em>}'
    * attribute.

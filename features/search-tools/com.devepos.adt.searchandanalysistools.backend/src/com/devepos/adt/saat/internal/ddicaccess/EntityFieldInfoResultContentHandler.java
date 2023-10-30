@@ -8,8 +8,8 @@ import com.devepos.adt.saat.model.cdsanalysis.IEntityFieldInfoResult;
 import com.devepos.adt.saat.model.cdsanalysis.util.CdsAnalysisResourceFactory;
 import com.sap.adt.communication.content.AdtMediaType;
 
-public class EntityFieldInfoResultContentHandler extends
-    AbstractEmfContentHandler<IEntityFieldInfoResult> {
+public class EntityFieldInfoResultContentHandler
+    extends AbstractEmfContentHandler<IEntityFieldInfoResult> {
 
   public EntityFieldInfoResultContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".entityfieldresult");

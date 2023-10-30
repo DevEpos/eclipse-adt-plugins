@@ -122,8 +122,8 @@ public enum AdtPluginFeatureCategory implements Enumerator {
    *
    * @generated
    */
-  public static final List<AdtPluginFeatureCategory> VALUES = Collections.unmodifiableList(Arrays
-      .asList(VALUES_ARRAY));
+  public static final List<AdtPluginFeatureCategory> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->

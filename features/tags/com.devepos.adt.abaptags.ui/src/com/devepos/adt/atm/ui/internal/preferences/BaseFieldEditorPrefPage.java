@@ -16,8 +16,8 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 
-public abstract class BaseFieldEditorPrefPage extends PreferencePage implements
-    IWorkbenchPreferencePage, IPropertyChangeListener {
+public abstract class BaseFieldEditorPrefPage extends PreferencePage
+    implements IWorkbenchPreferencePage, IPropertyChangeListener {
 
   protected final List<FieldEditor> fields = new ArrayList<>();
 

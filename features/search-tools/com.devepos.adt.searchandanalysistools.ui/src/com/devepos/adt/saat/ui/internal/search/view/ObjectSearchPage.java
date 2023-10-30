@@ -72,8 +72,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   private static final int MIN_SCALE = 1;
   private static final int SMALL_SCALE_UPPER_BOUND = MULTIPLIER * SMALL_SCALE_LIMIT;
 
-  public static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND + (MAX_SCALE
-      - SMALL_SCALE_LIMIT) * BIG_MULTIPLIER;
+  public static final int MAX_RESULTS_UPPER_BOUND = SMALL_SCALE_UPPER_BOUND
+      + (MAX_SCALE - SMALL_SCALE_LIMIT) * BIG_MULTIPLIER;
 
   private final Map<String, IStatus> allValidationStatuses;
   private ISearchPageContainer pageContainer;
@@ -235,8 +235,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
   @Override
   public void setInputFromSearchQuery(final ObjectSearchQuery query) {
     final ObjectSearchRequest request = query.getSearchRequest();
-    final boolean doSetCursorToEnd = prefStore.getBoolean(
-        IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT);
+    final boolean doSetCursorToEnd = prefStore
+        .getBoolean(IPreferences.CURSOR_AT_END_OF_SEARCH_INPUT);
     final IAbapProjectProvider projectProvider = request.getProjectProvider();
     if (projectProvider != null && projectProvider.hasProject()) {
       projectInput.setProjectName(projectProvider.getProjectName());
@@ -304,8 +304,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     if (validatedStatus.getSeverity() == IStatus.OK) {
       Optional<IStatus> lastErrorStatus = allValidationStatuses.entrySet()
           .stream()
-          .filter(entry -> entry.getKey() != source && entry.getValue()
-              .getSeverity() == IStatus.ERROR)
+          .filter(
+              entry -> entry.getKey() != source && entry.getValue().getSeverity() == IStatus.ERROR)
           .map(Entry::getValue)
           .findFirst();
       setStatus(lastErrorStatus.orElse(Status.OK_STATUS));
@@ -334,8 +334,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         .applyTo(andOptionCheck);
     andOptionCheck.setToolTipText(Messages.ObjectSearchPage_UseAndFilter_xtol);
 
-    andOptionCheck.addSelectionListener(widgetSelectedAdapter(l -> searchRequest.setAndSearchActive(
-        andOptionCheck.getSelection())));
+    andOptionCheck.addSelectionListener(widgetSelectedAdapter(
+        l -> searchRequest.setAndSearchActive(andOptionCheck.getSelection())));
   }
 
   private void createMaxResultsScale(final Composite parent) {
@@ -370,8 +370,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
     projectInput.setUseDedicatedComposite(true);
     projectInput.createControl(parent);
 
-    projectInput.addProjectValidator(project -> searchService.testObjectSearchFeatureAvailability(
-        project));
+    projectInput
+        .addProjectValidator(project -> searchService.testObjectSearchFeatureAvailability(project));
     projectInput.addStatusChangeListener(status -> {
       validateAndSetStatus(status, ObjectSearchDialogValidationSource.PROJECT.name());
       updateSearchTypeViewer(null);
@@ -415,8 +415,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
       if (event.getSelection().isEmpty()) {
         return;
       }
-      var projectStatus = allValidationStatuses.get(ObjectSearchDialogValidationSource.PROJECT
-          .name());
+      var projectStatus = allValidationStatuses
+          .get(ObjectSearchDialogValidationSource.PROJECT.name());
 
       if (projectStatus.isOK() && !(searchTypeViewer.getInput() instanceof String)) {
         final ISearchTypeConfig selectedSearchType = (ISearchTypeConfig) event
@@ -528,8 +528,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
 
   private void setTypeViewerNoProjectInput() {
     searchTypeViewer.setInput(new String[] { Messages.ObjectSearchPage_noProjectInput_xmsg });
-    searchTypeViewer.setSelection(new StructuredSelection(((String[]) searchTypeViewer
-        .getInput())[0]));
+    searchTypeViewer
+        .setSelection(new StructuredSelection(((String[]) searchTypeViewer.getInput())[0]));
   }
 
   private void updateMaxResults() {
@@ -544,8 +544,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         this.maxResults = MAX_RESULTS_UPPER_BOUND;
         maxResultsScale.setSelection(MAX_SCALE);
       } else if (maxResults >= SMALL_SCALE_UPPER_BOUND && maxResults < MAX_RESULTS_UPPER_BOUND) {
-        maxResultsScale.setSelection(SMALL_SCALE_LIMIT + (maxResults - SMALL_SCALE_UPPER_BOUND)
-            / BIG_MULTIPLIER);
+        maxResultsScale.setSelection(
+            SMALL_SCALE_LIMIT + (maxResults - SMALL_SCALE_UPPER_BOUND) / BIG_MULTIPLIER);
         this.maxResults = maxResults;
       } else {
         int maxResultScalePref = maxResults / MULTIPLIER;
@@ -606,8 +606,8 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         // set generic content error status so user get's an idea on what needs to be done
         validateAndSetStatus(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
             MessageFormat.format(Messages.ObjectSearchPage_searchTypeConfigSerializationError_xmsg,
-                projectProvider.getProjectName())), ObjectSearchDialogValidationSource.SEARCH_TYPE
-                    .name());
+                projectProvider.getProjectName())),
+            ObjectSearchDialogValidationSource.SEARCH_TYPE.name());
         // logs actual content issue
         SearchAndAnalysisPlugin.getDefault()
             .getLog()

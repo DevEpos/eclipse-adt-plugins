@@ -37,8 +37,8 @@ public class ReleaseNotesEditorInput implements IEditorInput, IPersistableElemen
     var bundleUrl = bundle.getEntry(path);
     url = FileLocator.toFileURL(bundleUrl);
     if (bundleUrl == null || url == null) {
-      throw new FileNotFoundException(String.format(
-          "Path cannot be found in plugin: plugin=%s, path=%s", plugin, path)); //$NON-NLS-1$
+      throw new FileNotFoundException(
+          String.format("Path cannot be found in plugin: plugin=%s, path=%s", plugin, path)); //$NON-NLS-1$
     }
   }
 

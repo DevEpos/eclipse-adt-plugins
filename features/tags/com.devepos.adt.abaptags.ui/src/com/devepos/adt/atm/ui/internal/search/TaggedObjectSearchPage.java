@@ -46,8 +46,8 @@ import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.util.StatusUtil;
 
-public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
-    IChangeableSearchPage<TaggedObjectSearchQuery> {
+public class TaggedObjectSearchPage extends DialogPage
+    implements ISearchPage, IChangeableSearchPage<TaggedObjectSearchQuery> {
 
   public static final String PAGE_ID = "com.devepos.adt.atm.ui.searchpage.tags"; //$NON-NLS-1$
   private static final String LAST_PROJECT_PREF = "com.devepos.adt.abaptags.ui.taggedObjectSearch.lastProject"; //$NON-NLS-1$
@@ -178,8 +178,8 @@ public class TaggedObjectSearchPage extends DialogPage implements ISearchPage,
     projectProvider = projectInput.getProjectProvider();
 
     projectInput.createControl(parent);
-    projectInput.addProjectValidator(project -> AbapTagsServiceFactory.createTagsService()
-        .testTagsFeatureAvailability(project));
+    projectInput.addProjectValidator(
+        project -> AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project));
     projectInput.addStatusChangeListener(status -> {
       if (status.isOK()) {
         final IProject newProject = projectInput.getProjectProvider().getProject();

@@ -36,8 +36,8 @@ import com.devepos.adt.base.util.StringUtil;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvider, IImageProvider,
-    IAdaptable {
+public class DateSearchFilter
+    implements ISearchFilter, ITextQueryProposalProvider, IImageProvider, IAdaptable {
 
   private static final String NUMERIC_DATE_PART_SEPARATOR = "\\."; //$NON-NLS-1$
   private static final String RANGE_SEPARATOR = "..."; //$NON-NLS-1$
@@ -76,8 +76,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   /**
    * Formatter which uses the ABAP internal date representation
    */
-  private static final DateTimeFormatter ABAP_DATE_FORMATTER = DateTimeFormatter.ofPattern(
-      ABAP_DATE_PATTERN);
+  private static final DateTimeFormatter ABAP_DATE_FORMATTER = DateTimeFormatter
+      .ofPattern(ABAP_DATE_PATTERN);
 
   private ExternalDateConverter converter;
 
@@ -230,11 +230,11 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         abapDateRange.option = Option.BETWEEN;
         String[] rangeParts = datePattern.split(RANGE_SEPARATOR_PATTERN);
         if (rangeParts == null || rangeParts.length != 2) {
-          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-              Messages.DateSearchFilter_MissingUpperLimitInRange_xmsg, datePattern)));
+          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+              NLS.bind(Messages.DateSearchFilter_MissingUpperLimitInRange_xmsg, datePattern)));
         }
-        if (getOptionFromPattern(rangeParts[0]) != null || getOptionFromPattern(
-            rangeParts[1]) != null) {
+        if (getOptionFromPattern(rangeParts[0]) != null
+            || getOptionFromPattern(rangeParts[1]) != null) {
           throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
               Messages.DateSearchFilter_OperatorsNotAllowedInRanges_xmsg));
         }
@@ -244,8 +244,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
         // range is only valid if start date is lesser or equal the end date
         if (startDate.compareTo(endDate) > 0) {
-          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-              Messages.DateSearchFilter_LowerLimitGreaterThanUpperLimit_xmsg, datePattern)));
+          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS
+              .bind(Messages.DateSearchFilter_LowerLimitGreaterThanUpperLimit_xmsg, datePattern)));
         }
         abapDateRange.low = startDate.format(ABAP_DATE_FORMATTER);
         abapDateRange.high = endDate.format(ABAP_DATE_FORMATTER);
@@ -271,8 +271,8 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     private LocalDateRange convertDateString(final String datePattern, final Option option)
         throws CoreException {
       if (!datePattern.matches(DATE_VALIDATION_PATTERN)) {
-        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-            Messages.DateSearchFilter_NotAValidDatePattern_xmsg, datePattern)));
+        throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+            NLS.bind(Messages.DateSearchFilter_NotAValidDatePattern_xmsg, datePattern)));
       }
       // first check for some fix relative dates
       switch (datePattern) {
@@ -340,11 +340,11 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         final NumericDatePatternType numericDatePatternType) throws DateTimeException {
       switch (numericDatePatternType) {
       case FULL:
-        return LocalDate.of(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]), Integer
-            .parseInt(dateParts[0]));
+        return LocalDate.of(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]),
+            Integer.parseInt(dateParts[0]));
       case DAY_MONTH:
-        return LocalDate.of(LocalDate.now().getYear(), Integer.parseInt(dateParts[1]), Integer
-            .parseInt(dateParts[0]));
+        return LocalDate.of(LocalDate.now().getYear(), Integer.parseInt(dateParts[1]),
+            Integer.parseInt(dateParts[0]));
       case MONTH_YEAR:
         return LocalDate.of(Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0]), 1);
       case YEAR:
@@ -364,14 +364,14 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       String[] dateParts = datePattern.split(NUMERIC_DATE_PART_SEPARATOR);
       NumericDatePatternType patternType = getNumericDatePatternType(dateParts);
       if (patternType == null) {
-        throw new CoreException(createErrorStatus(NLS.bind(
-            Messages.DateSearchFilter_NotAValidDate_xmsg, datePattern)));
+        throw new CoreException(
+            createErrorStatus(NLS.bind(Messages.DateSearchFilter_NotAValidDate_xmsg, datePattern)));
       }
       try {
         return convertNumericDatePartsToDate(dateParts, patternType);
       } catch (DateTimeException exc) {
-        throw new CoreException(createErrorStatus(NLS.bind(
-            Messages.DateSearchFilter_NotAValidDate_xmsg, datePattern)));
+        throw new CoreException(
+            createErrorStatus(NLS.bind(Messages.DateSearchFilter_NotAValidDate_xmsg, datePattern)));
       }
     }
 
@@ -541,14 +541,14 @@ public class DateSearchFilter implements ISearchFilter, ITextQueryProposalProvid
       return relativeNumericDates.stream()
           .map(relative -> numericValue + relative)
           .filter(queryPattern)
-          .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, atomicQuery
-              .get(), getImage()))
+          .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null,
+              atomicQuery.get(), getImage()))
           .collect(Collectors.toList());
     }
     return dateProposals.stream()
         .filter(queryPattern)
-        .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null, atomicQuery
-            .get(), getImage()))
+        .map(datePattern -> new SearchFilterValueProposal(datePattern, this, null,
+            atomicQuery.get(), getImage()))
         .collect(Collectors.toList());
   }
 

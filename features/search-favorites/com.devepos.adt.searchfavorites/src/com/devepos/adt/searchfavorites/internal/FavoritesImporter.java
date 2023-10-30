@@ -64,9 +64,9 @@ public class FavoritesImporter {
       SearchFavoriteStorage.deserialize(importedFavorites, importFileName);
       // Hint: WrappedException is required to catch erroneous imports with old file format
     } catch (IOException | WrappedException e) {
-      MessageDialog.openError(shell, AdtBaseUIResources.getString(
-          IAdtBaseStrings.Dialog_Error_xtit), MessageFormat.format(
-              Messages.FavoritesImporter_ImportFailed_xmsg, importFileName));
+      MessageDialog.openError(shell,
+          AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit),
+          MessageFormat.format(Messages.FavoritesImporter_ImportFailed_xmsg, importFileName));
       Activator.getDefault()
           .getLog()
           .log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Favorite Import from file " //$NON-NLS-1$
@@ -75,8 +75,8 @@ public class FavoritesImporter {
     }
 
     if (!importedFavorites.hasEntries()) {
-      MessageDialog.openInformation(shell, AdtBaseUIResources.getString(
-          IAdtBaseStrings.Dialog_Information_xtit),
+      MessageDialog.openInformation(shell,
+          AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Information_xtit),
           Messages.FavoritesImporter_NoFavoritesInFile_xmsg);
       return;
     }
@@ -98,8 +98,8 @@ public class FavoritesImporter {
 
     if (importCount > 0) {
       afterImport.accept(entriesToBeAdded);
-      StringBuilder importMessage = new StringBuilder().append(MessageFormat.format(
-          Messages.FavoritesImporter_ImportSuccess_xmsg, importCount, favCountInFile));
+      StringBuilder importMessage = new StringBuilder().append(MessageFormat
+          .format(Messages.FavoritesImporter_ImportSuccess_xmsg, importCount, favCountInFile));
       if (skippedFavCount > 0) {
         importMessage.append("\n") //$NON-NLS-1$
             .append(MessageFormat.format(Messages.FavoritesImporter_ExistingFavoritesSkipped_xmsg,

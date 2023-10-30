@@ -117,12 +117,12 @@ public class NewSearchFavoriteDialog extends StatusDialog {
     }
 
     var favManager = Activator.getDefault().getSearchFavoriteManager();
-    if (favManager.contains(newFavorite.getDestinationId(), newFavorite.getSearchType(), newFavorite
-        .getDescription())) {
+    if (favManager.contains(newFavorite.getDestinationId(), newFavorite.getSearchType(),
+        newFavorite.getDescription())) {
       // Overwrite?
       if (!MessageDialog.openQuestion(getShell(),
-          Messages.NewSearchFavoriteDialog_FavAlreadyExists_xtit, String.format(
-              Messages.NewSearchFavoriteDialog_FavAlreadyExists_xmsg, favoriteDescription,
+          Messages.NewSearchFavoriteDialog_FavAlreadyExists_xtit,
+          String.format(Messages.NewSearchFavoriteDialog_FavAlreadyExists_xmsg, favoriteDescription,
               descriptor.getTypeLabel()))) {
         return;
       }
@@ -205,8 +205,8 @@ public class NewSearchFavoriteDialog extends StatusDialog {
 
     // flag "is project independent"
     final var isProjectIndependentCheckBox = new Button(group, SWT.CHECK);
-    isProjectIndependentCheckBox.setText(
-        Messages.NewSearchFavoriteDialog_ProjectIndependentSetting_xckl);
+    isProjectIndependentCheckBox
+        .setText(Messages.NewSearchFavoriteDialog_ProjectIndependentSetting_xckl);
     isProjectIndependentCheckBox.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(final SelectionEvent e) {
@@ -244,10 +244,10 @@ public class NewSearchFavoriteDialog extends StatusDialog {
     group.setText(Messages.NewSearchFavoriteDialog_SearchParameters_xgrp);
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(group);
 
-    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_Project_xfld, searchQuery
-        .getDestinationId(), group);
-    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_SearchType_xfld, descriptor
-        .getTypeLabel(), group);
+    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_Project_xfld,
+        searchQuery.getDestinationId(), group);
+    createReadOnlyTextWithLabel(Messages.NewSearchFavoriteDialog_SearchType_xfld,
+        descriptor.getTypeLabel(), group);
   }
 
 }

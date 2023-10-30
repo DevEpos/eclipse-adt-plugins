@@ -44,11 +44,11 @@ public class FieldHierarchyViewerInput {
    * Creates the Where-Used node for the Where-Used analysis
    */
   public void createWhereUsedNode(final ICdsFieldAnalysisSettings settings) {
-    whereUsedProvider = new FieldWhereUsedInCdsElementInfoProvider(destinationProvider
-        .getDestinationId(), baseEntityName, baseFieldName, settings);
+    whereUsedProvider = new FieldWhereUsedInCdsElementInfoProvider(
+        destinationProvider.getDestinationId(), baseEntityName, baseFieldName, settings);
     whereUsedProvider.setRoot(true);
-    whereUsedNode = new FieldHierarchyViewerNode(new LazyLoadingFolderNode(baseFieldName,
-        whereUsedProvider, null, null));
+    whereUsedNode = new FieldHierarchyViewerNode(
+        new LazyLoadingFolderNode(baseFieldName, whereUsedProvider, null, null));
   }
 
   public FieldHierarchyViewerNode getCurrentInput() {

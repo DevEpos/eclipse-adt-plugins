@@ -80,8 +80,8 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
       return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
           Messages.TaggedObjectSearchQuery_NoProjectError_xmsg);
     }
-    final IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(projectProvider
-        .getProject());
+    final IStatus loggedOnStatus = ProjectUtil
+        .ensureLoggedOnToProject(projectProvider.getProject());
     if (!loggedOnStatus.isOK()) {
       return loggedOnStatus;
     }

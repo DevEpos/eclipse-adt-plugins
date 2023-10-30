@@ -61,8 +61,8 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
 
   @Override
   public String getLongDescription() {
-    return NLS.bind(Messages.SearchFilter_DescriptionPackageFilter_xmsg, new Object[] { FILTER_NAME,
-        "test" });
+    return NLS.bind(Messages.SearchFilter_DescriptionPackageFilter_xmsg,
+        new Object[] { FILTER_NAME, "test" });
   }
 
   @Override
@@ -76,8 +76,8 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
             IAdtObjectTypeConstants.PACKAGE);
         if (packageList != null) {
           for (final IAdtObjectReference objRef : packageList) {
-            result.add(new SearchFilterValueProposal(objRef.getName(), this, objRef
-                .getDescription(), query, getProposalImage()));
+            result.add(new SearchFilterValueProposal(objRef.getName(), this,
+                objRef.getDescription(), query, getProposalImage()));
           }
         }
       }

@@ -98,11 +98,12 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
         break;
       }
     }
-    specs.setObjectScopeFilters(favorite.getMapAttribute(SCOPE_FILTERS)
-        .entrySet()
-        .stream()
-        .collect(Collectors.toMap(Entry::getKey, Entry::getValue)), favorite.getAttribute(
-            SCOPE_FILTERS_STRING, ""));
+    specs.setObjectScopeFilters(
+        favorite.getMapAttribute(SCOPE_FILTERS)
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(Entry::getKey, Entry::getValue)),
+        favorite.getAttribute(SCOPE_FILTERS_STRING, ""));
     favorite.getMapAttribute(EXTENSION_FILTERS)
         .stream()
         .forEach(f -> specs.getExtensionObjectScopeFilters().put(f.getKey(), f.getValue()));
@@ -143,14 +144,16 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
 
     addFavAttribute(attributes, QUERY_INPUT, querySpecs.getPatterns(), true);
     addFavAttribute(attributes, SCOPE_FILTERS_STRING, querySpecs.getObjectScopeFiltersString());
-    addFavAttribute(attributes, SCOPE_FILTERS, querySpecs.getObjectScopeFilters()
-        .entrySet()
-        .stream()
-        .collect(Collectors.toMap(Entry::getKey, f -> (String) f.getValue())));
-    addFavAttribute(attributes, EXTENSION_FILTERS, querySpecs.getExtensionObjectScopeFilters()
-        .entrySet()
-        .stream()
-        .collect(Collectors.toMap(Entry::getKey, f -> (String) f.getValue())));
+    addFavAttribute(attributes, SCOPE_FILTERS,
+        querySpecs.getObjectScopeFilters()
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(Entry::getKey, f -> (String) f.getValue())));
+    addFavAttribute(attributes, EXTENSION_FILTERS,
+        querySpecs.getExtensionObjectScopeFilters()
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(Entry::getKey, f -> (String) f.getValue())));
     addFavAttribute(attributes, OBJECT_NAMES, querySpecs.getObjectNames());
 
     var classIncludes = querySpecs.getClassIncludesParam();
@@ -173,12 +176,12 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
 
   @Override
   public void runSearchFromFavorite(final ISearchFavorite favorite) {
-    final var projectProvider = AbapProjectProviderAccessor.getProviderForDestination(favorite
-        .getDestinationId());
+    final var projectProvider = AbapProjectProviderAccessor
+        .getProviderForDestination(favorite.getDestinationId());
     if (projectProvider == null || !projectProvider.hasProject()) {
       MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          "Error", MessageFormat.format("No Project found for destination ''{0}''", favorite
-              .getDestinationId()));
+          "Error", MessageFormat.format("No Project found for destination ''{0}''",
+              favorite.getDestinationId()));
       openFavoriteInSearchDialog(favorite);
     } else {
       final var specs = createQuerySpecsFromFavorite(favorite);

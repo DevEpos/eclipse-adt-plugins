@@ -27,8 +27,8 @@ public class SystemService implements ISystemService {
     }
     final IAbapSystemInfo systemInfo = AbapCore.getInstance().getAbapSystemInfo(destinationId);
     List<IUser> users = new ArrayList<>();
-    for (com.sap.adt.tools.core.system.IUser adtUser : systemInfo.getUsers(
-        new NullProgressMonitor())) {
+    for (com.sap.adt.tools.core.system.IUser adtUser : systemInfo
+        .getUsers(new NullProgressMonitor())) {
       IUser user = IAdtBaseFactory.eINSTANCE.createUser();
       user.setName(adtUser.getId());
       user.setText(adtUser.getText());

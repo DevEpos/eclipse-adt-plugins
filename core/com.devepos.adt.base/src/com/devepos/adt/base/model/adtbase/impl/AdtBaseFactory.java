@@ -63,8 +63,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public static IAdtBaseFactory init() {
     try {
-      IAdtBaseFactory theAdtBaseFactory = (IAdtBaseFactory) EPackage.Registry.INSTANCE.getEFactory(
-          IAdtBasePackage.eNS_URI);
+      IAdtBaseFactory theAdtBaseFactory = (IAdtBaseFactory) EPackage.Registry.INSTANCE
+          .getEFactory(IAdtBasePackage.eNS_URI);
       if (theAdtBaseFactory != null) {
         return theAdtBaseFactory;
       }
@@ -143,8 +143,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
     case IAdtBasePackage.ISTATUS:
       return convertIStatusToString(eDataType, instanceValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -173,8 +173,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
     case IAdtBasePackage.STRING_TO_STRING_MAP_ENTRY:
       return (EObject) createStringToStringMapEntry();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 
@@ -220,8 +220,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       final EDataType eDataType, final String initialValue) {
     AdtPluginFeatureCategory result = AdtPluginFeatureCategory.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -246,8 +246,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       final String initialValue) {
     AdtPluginFeatureType result = AdtPluginFeatureType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -271,8 +271,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
     case IAdtBasePackage.ISTATUS:
       return createIStatusFromString(eDataType, initialValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -306,8 +306,8 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
       final String initialValue) {
     MessageType result = MessageType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }

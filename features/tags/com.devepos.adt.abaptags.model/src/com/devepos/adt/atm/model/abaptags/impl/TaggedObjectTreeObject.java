@@ -33,8 +33,8 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRef;
  *
  * @generated
  */
-public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container implements
-    ITaggedObjectTreeObject {
+public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
+    implements ITaggedObjectTreeObject {
   /**
    * The cached value of the '{@link #getObjectRef() <em>Object Ref</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -179,12 +179,14 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container impleme
     if (newObjectRef != objectRef) {
       NotificationChain msgs = null;
       if (objectRef != null) {
-        msgs = ((InternalEObject) objectRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF, null, msgs);
+        msgs = ((InternalEObject) objectRef).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF, null,
+            msgs);
       }
       if (newObjectRef != null) {
-        msgs = ((InternalEObject) newObjectRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF, null, msgs);
+        msgs = ((InternalEObject) newObjectRef).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF, null,
+            msgs);
       }
       msgs = basicSetObjectRef(newObjectRef, msgs);
       if (msgs != null) {

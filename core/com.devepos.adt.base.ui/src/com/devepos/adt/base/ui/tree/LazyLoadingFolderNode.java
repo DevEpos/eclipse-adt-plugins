@@ -73,7 +73,7 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
 
   @Override
   public boolean hasChildren() {
-    return !(isLoaded && (children == null || children.isEmpty()));
+    return (!isLoaded || ((children != null) && !children.isEmpty()));
   }
 
   @Override
@@ -99,8 +99,8 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
       }
     } catch (Throwable t) {
       addChild(new LoadingErrorNode(this, Messages.LazyLoadingNode_ErrorDuringLoading_xmsg, t));
-      loadingError = new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t
-          .getMessage(), t));
+      loadingError = new CoreException(
+          new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, t.getMessage(), t));
     }
     isLoading = false;
     isLoaded = true;

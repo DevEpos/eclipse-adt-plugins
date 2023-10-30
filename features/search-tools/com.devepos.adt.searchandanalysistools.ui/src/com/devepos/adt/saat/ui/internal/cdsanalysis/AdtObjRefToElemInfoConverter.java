@@ -20,10 +20,10 @@ public class AdtObjRefToElemInfoConverter {
     if (adtObjRef == null) {
       return null;
     }
-    var elementInfo = new AdtObjectReferenceElementInfo(adtObjRef.getName(), adtObjRef
-        .getDisplayName(), adtObjRef.getDescription());
-    elementInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
-        adtObjRef));
+    var elementInfo = new AdtObjectReferenceElementInfo(adtObjRef.getName(),
+        adtObjRef.getDisplayName(), adtObjRef.getDescription());
+    elementInfo.setAdtObjectReference(
+        AdtObjectReferenceModelFactory.createReference(destinationId, adtObjRef));
     adtObjRef.getProperties()
         .forEach(p -> elementInfo.getProperties().put(p.getKey(), p.getValue()));
 

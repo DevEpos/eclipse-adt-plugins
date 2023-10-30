@@ -88,10 +88,10 @@ public class CodeSearchQuerySpecification {
     if (sequentialMatching) {
       uriParameters.put(SearchParameter.SEQUENTIAL_MATCHING.getUriName(), true);
     }
-    uriParameters.put(SearchParameter.CLASS_INCLUDES.getUriName(), getClassIncludesParam()
-        .getUriParamValue());
-    uriParameters.put(SearchParameter.FUGR_INCLUDES.getUriName(), getFugrIncludesParam()
-        .getUriParamValue());
+    uriParameters.put(SearchParameter.CLASS_INCLUDES.getUriName(),
+        getClassIncludesParam().getUriParamValue());
+    uriParameters.put(SearchParameter.FUGR_INCLUDES.getUriName(),
+        getFugrIncludesParam().getUriParamValue());
 
     if (expandProgIncludes) {
       uriParameters.put(SearchParameter.EXPAND_PROG_INCLUDES.getUriName(), true);
@@ -131,8 +131,8 @@ public class CodeSearchQuerySpecification {
       return super.equals(object);
     }
     final CodeSearchQuerySpecification otherEntry = (CodeSearchQuerySpecification) object;
-    return getQuery(false).equalsIgnoreCase(otherEntry.getQuery(false)) && getDestinationId()
-        .equalsIgnoreCase(otherEntry.getDestinationId())
+    return getQuery(false).equalsIgnoreCase(otherEntry.getQuery(false))
+        && getDestinationId().equalsIgnoreCase(otherEntry.getDestinationId())
         && matchAllPatterns == otherEntry.matchAllPatterns;
   }
 
@@ -331,8 +331,8 @@ public class CodeSearchQuerySpecification {
       return "";
     }
     final IDestinationData destData = projectProvider.getDestinationData();
-    return String.format("%s-%s", destData.getSystemConfiguration().getSystemId(), destData
-        .getClient());
+    return String.format("%s-%s", destData.getSystemConfiguration().getSystemId(),
+        destData.getClient());
   }
 
   private String getLongQueryString() {

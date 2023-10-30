@@ -243,8 +243,8 @@ public enum SqlRelation implements Enumerator {
    *
    * @generated
    */
-  public static final List<SqlRelation> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<SqlRelation> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Sql Relation</b></em>' literal with the specified literal value.

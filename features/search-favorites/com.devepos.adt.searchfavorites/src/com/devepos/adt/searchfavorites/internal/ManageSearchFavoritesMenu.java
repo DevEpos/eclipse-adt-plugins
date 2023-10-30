@@ -37,9 +37,9 @@ public class ManageSearchFavoritesMenu extends CompoundContributionItem {
     items.addAll(SearchFavoritesMenuAction.createFavoriteContributionItems(favoritesManager));
 
     items.add(new Separator());
-    items.add(new ActionContributionItem(ActionFactory.createAction(
-        Messages.Search_ManageFavorites_xmit, null,
-        SearchFavoritesMenuAction::openOrganizeFavoritesDialog)));
+    items.add(
+        new ActionContributionItem(ActionFactory.createAction(Messages.Search_ManageFavorites_xmit,
+            null, SearchFavoritesMenuAction::openOrganizeFavoritesDialog)));
     items.add(new Separator());
     items.add(new ActionContributionItem(new ImportFavoritesAction()));
 

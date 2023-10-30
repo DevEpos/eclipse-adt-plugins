@@ -189,8 +189,8 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
    * @return
    */
   public Image overlayImage(final Image image, final String[] overlayImageIds) {
-    if (overlayImageIds == null || overlayImageIds.length > IDecoration.UNDERLAY || !Stream.of(
-        overlayImageIds).anyMatch(id -> id != null)) {
+    if (overlayImageIds == null || overlayImageIds.length > IDecoration.UNDERLAY
+        || !Stream.of(overlayImageIds).anyMatch(id -> id != null)) {
       return image;
     }
     final StringBuilder overlayImageKeyBuffer = new StringBuilder(image.toString());
@@ -231,8 +231,8 @@ public abstract class AbstractAdtUIPlugin extends AbstractUIPlugin {
    */
   public Image registerEncodedImage(final String imageId, final String encodedImage) {
     var imageBytes = Base64.getDecoder().decode(encodedImage);
-    var imageDescr = ImageDescriptor.createFromImageDataProvider(d -> new ImageData(
-        new ByteArrayInputStream(imageBytes)));
+    var imageDescr = ImageDescriptor
+        .createFromImageDataProvider(d -> new ImageData(new ByteArrayInputStream(imageBytes)));
     var registry = getImageRegistry();
     if (registry.get(imageId) != null) {
       throw new IllegalStateException("duplicate imageId in image registry.");

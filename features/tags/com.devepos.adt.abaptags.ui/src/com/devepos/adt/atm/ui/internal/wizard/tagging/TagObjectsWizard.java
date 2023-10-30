@@ -44,8 +44,8 @@ public class TagObjectsWizard extends AbstractWizardBase {
   }
 
   public TagObjectsWizard(final boolean skipObjectSelection) {
-    setDefaultPageImageDescriptor(AbapTagsUIPlugin.getDefault()
-        .getImageDescriptor(IImages.TAGS_WIZBAN_DEFAULT));
+    setDefaultPageImageDescriptor(
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.TAGS_WIZBAN_DEFAULT));
     setWindowTitle(Messages.TagObjectsWizard_WizardTitle_xtit);
     setNeedsProgressMonitor(true);
     this.skipObjectSelection = skipObjectSelection;

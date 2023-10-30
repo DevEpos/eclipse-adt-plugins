@@ -33,8 +33,8 @@ public class OpenInDbBrowserHandler extends DbBrowserCommandHandler {
         }
       }
       for (final IAdtObject adtObject : selectedAdtObjects) {
-        OpenInUtil.openEntity(adtObject.getProject(), adtObject.getName(), adtObject.getObjectType()
-            .getId(), skipSelscreen);
+        OpenInUtil.openEntity(adtObject.getProject(), adtObject.getName(),
+            adtObject.getObjectType().getId(), skipSelscreen);
       }
     }
 

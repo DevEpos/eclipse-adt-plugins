@@ -39,8 +39,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
  *
  * @generated
  */
-public class SearchTypeInputFieldConfig extends MinimalEObjectImpl.Container implements
-    ISearchTypeInputFieldConfig {
+public class SearchTypeInputFieldConfig extends MinimalEObjectImpl.Container
+    implements ISearchTypeInputFieldConfig {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->

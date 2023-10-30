@@ -53,8 +53,8 @@ public class NamedItemService implements INamedItemService {
 
     List<INamedItem> namedItems = null;
 
-    final IAdtUriTemplate template = uriTemplateProvider.getTemplateByDiscoveryTerm(type
-        .getDiscoveryTerm());
+    final IAdtUriTemplate template = uriTemplateProvider
+        .getTemplateByDiscoveryTerm(type.getDiscoveryTerm());
     if (template != null) {
       if (type.isBuffered()) {
         namedItems = getCachedNamedItems(type, maxResults, initialFilter, template);

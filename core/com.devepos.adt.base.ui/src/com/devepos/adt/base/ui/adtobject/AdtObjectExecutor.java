@@ -24,8 +24,9 @@ public class AdtObjectExecutor {
    */
   public static void executeObject(final IProject project, final IAdtObjectReference objectRef) {
     AdtObjectExecutionUtilFactory.getInstance()
-        .executeObject(project, AdtObjectReferenceModelFactory.createReference(null, objectRef
-            .getName(), objectRef.getType(), objectRef.getUri()), null, new NullProgressMonitor());
+        .executeObject(project, AdtObjectReferenceModelFactory.createReference(null,
+            objectRef.getName(), objectRef.getType(), objectRef.getUri()), null,
+            new NullProgressMonitor());
   }
 
 }

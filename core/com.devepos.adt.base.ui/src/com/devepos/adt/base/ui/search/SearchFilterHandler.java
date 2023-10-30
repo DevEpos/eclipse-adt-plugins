@@ -101,8 +101,8 @@ public class SearchFilterHandler {
     if (delimiter == null) {
       throw new IllegalArgumentException("Parameter 'delimiter' must not be null!");
     }
-    return getSearchFilters(pattern, externalFilterNames, filterValues -> filterValues.stream()
-        .collect(Collectors.joining(delimiter)));
+    return getSearchFilters(pattern, externalFilterNames,
+        filterValues -> filterValues.stream().collect(Collectors.joining(delimiter)));
   }
 
   /**

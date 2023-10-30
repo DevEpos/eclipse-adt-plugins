@@ -146,13 +146,13 @@ public class TaggedObjectSearchResult implements ISearchResult {
 
     for (final ITaggedObject taggedObject : internalSearchResult.getTaggedObjects()) {
       final var objectRef = taggedObject.getObjectRef();
-      final var objRefNode = new LaunchableAdtObjectReferenceNode(objectRef.getName(), objectRef
-          .getDisplayName(), objectRef.getDescription(), AdtObjectReferenceModelFactory
-              .createReference(query.getDestinationId(), objectRef));
+      final var objRefNode = new LaunchableAdtObjectReferenceNode(objectRef.getName(),
+          objectRef.getDisplayName(), objectRef.getDescription(),
+          AdtObjectReferenceModelFactory.createReference(query.getDestinationId(), objectRef));
       if (!StringUtil.isEmpty(objectRef.getParentName())) {
         objRefNode.getProperties()
-            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, objectRef
-                .getParentName());
+            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME,
+                objectRef.getParentName());
       }
       nodes.add(objRefNode);
     }

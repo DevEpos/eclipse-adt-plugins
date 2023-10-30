@@ -21,14 +21,14 @@ public class ExpandAllAction extends Action {
    * Creates new instance of the receiver
    */
   public ExpandAllAction() {
-    super(Messages.Actions_ExpandAll_xmit, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.EXPAND_ALL));
+    super(Messages.Actions_ExpandAll_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EXPAND_ALL));
   }
 
   @Override
   public void run() {
-    if (treeViewer == null || treeViewer.getControl() == null || treeViewer.getControl()
-        .isDisposed()) {
+    if (treeViewer == null || treeViewer.getControl() == null
+        || treeViewer.getControl().isDisposed()) {
       return;
     }
     treeViewer.getControl().setRedraw(false);

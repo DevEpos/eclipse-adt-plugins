@@ -47,11 +47,11 @@ public class CodeSearchPropertyTester extends PropertyTester {
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_CORE_DATA_SERVICES);
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_TRANSFORMATIONS);
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_SOURCE_LIBRARY);
-    VALID_VIRT_FOLDER_TYPE_KEYS.addAll(CodeSearchRelevantWbTypesUtil
-        .getPossibleValuesForTypeFilter()
-        .stream()
-        .map(String::toLowerCase)
-        .collect(Collectors.toList()));
+    VALID_VIRT_FOLDER_TYPE_KEYS
+        .addAll(CodeSearchRelevantWbTypesUtil.getPossibleValuesForTypeFilter()
+            .stream()
+            .map(String::toLowerCase)
+            .collect(Collectors.toList()));
   }
 
   public CodeSearchPropertyTester() {
@@ -113,29 +113,28 @@ public class CodeSearchPropertyTester extends PropertyTester {
           if (!IAbapRepositoryFolderNode.CATEGORY_DICTIONARY.equals(category)) {
             return true;
           }
-          if (AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
-            try {
-              IAdtRisObjectTypeRegistry typeRegistry = AdtRisObjectTypeRegistry.getInstance(
-                  destinationId, new NullProgressMonitor());
-              List<AdtRisParameterProposal> foundObjectTypes = typeRegistry
-                  .getObjectTypeProposalList(IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES);
-              return foundObjectTypes == null || foundObjectTypes.isEmpty();
-            } catch (Exception e) {
-              // exception handling not necessary
-            }
-          } else {
+          if (!AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
             return false;
+          }
+          try {
+            IAdtRisObjectTypeRegistry typeRegistry = AdtRisObjectTypeRegistry
+                .getInstance(destinationId, new NullProgressMonitor());
+            List<AdtRisParameterProposal> foundObjectTypes = typeRegistry
+                .getObjectTypeProposalList(IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES);
+            return foundObjectTypes == null || foundObjectTypes.isEmpty();
+          } catch (Exception e) {
+            // exception handling not necessary
           }
         }
         String type = folder.getType();
-        return type != null && CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler()
-            .contains(type);
+        return type != null
+            && CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler().contains(type);
       };
     }
 
-    boolean isProjectValid = project != null ? CodeSearchFactory.getCodeSearchService()
-        .testCodeSearchFeatureAvailability(project)
-        .isOK() : false;
+    boolean isProjectValid = project != null
+        ? CodeSearchFactory.getCodeSearchService().testCodeSearchFeatureAvailability(project).isOK()
+        : false;
 
     return additionalCheck != null ? additionalCheck.get() && isProjectValid : isProjectValid;
   }

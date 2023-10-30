@@ -37,8 +37,8 @@ public class AdtObjectUtil {
             typeLabel = typeUtil.getTypeDescriptionByProject(type, projectProvider.getProject());
             if (typeLabel == null) {
               // finally try to read the type of the TADIR type
-              typeLabel = typeUtil.getTypeDescriptionByProject(type.substring(0, 4), projectProvider
-                  .getProject());
+              typeLabel = typeUtil.getTypeDescriptionByProject(type.substring(0, 4),
+                  projectProvider.getProject());
             }
           }
         }

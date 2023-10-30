@@ -29,8 +29,8 @@ public class CodeSearchRelevantWbTypesUtil {
 
     for (String filter : types) {
       if (possibleTypes.stream().anyMatch(f -> f.equalsIgnoreCase(filter))) {
-        if (filter.equals(ITadirTypeConstants.EXECUTABLE_REPORT) || filter.equals(
-            ITadirTypeConstants.INCLUDE)) {
+        if (filter.equals(ITadirTypeConstants.EXECUTABLE_REPORT)
+            || filter.equals(ITadirTypeConstants.INCLUDE)) {
           validTypes.add(ITadirTypeConstants.PROGRAM);
         } else {
           validTypes.add(filter);

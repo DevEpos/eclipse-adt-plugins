@@ -35,8 +35,8 @@ public class SearchPageUtil {
     if (searchPageOpenListeners.isEmpty()) {
       return;
     }
-    ISearchPageListener[] copiedListeners = searchPageOpenListeners.toArray(
-        new ISearchPageListener[searchPageOpenListeners.size()]);
+    ISearchPageListener[] copiedListeners = searchPageOpenListeners
+        .toArray(new ISearchPageListener[searchPageOpenListeners.size()]);
     searchPageOpenListeners.clear();
     for (ISearchPageListener l : copiedListeners) {
       l.pageOpened(searchPage);

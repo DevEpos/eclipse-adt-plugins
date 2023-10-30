@@ -20,8 +20,8 @@ import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 
-class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
-    DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
+class TaggedObjectColumnLabelProvider extends CellLabelProvider
+    implements DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
 
   protected final ColumnViewerSpec colSpec;
 
@@ -116,8 +116,8 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
   private void appendObjectName(final DeletableTaggedObject taggedObject, final StyledString text) {
     if (taggedObject.getComponentName() != null) {
       text.append(taggedObject.getComponentName());
-      text.append(String.format(" [%s]", taggedObject.getObjectName()), StylerFactory
-          .createCustomStyler(SWT.NORMAL, IColorConstants.COMP_PARENT_COLOR, null));
+      text.append(String.format(" [%s]", taggedObject.getObjectName()),
+          StylerFactory.createCustomStyler(SWT.NORMAL, IColorConstants.COMP_PARENT_COLOR, null));
     } else {
       text.append(taggedObject.getObjectName());
     }
@@ -141,8 +141,9 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider implements
   private Image getObjectImage(final DeletableTaggedObject taggedObject) {
     if (taggedObject.getComponentType() != null) {
       var typeUtil = AdtTypeUtil.getInstance();
-      return typeUtil.isLocalClassType(taggedObject.getComponentType()) ? ImageUtil
-          .getLocalClassImage() : ImageUtil.getLocalInterfaceImage();
+      return typeUtil.isLocalClassType(taggedObject.getComponentType())
+          ? ImageUtil.getLocalClassImage()
+          : ImageUtil.getLocalInterfaceImage();
     }
     return ImageUtil.getAdtTypeImage(taggedObject.getObjectType());
   }

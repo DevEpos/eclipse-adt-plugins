@@ -35,12 +35,12 @@ public class ContentProposalUtil {
    */
   public static String getProposalContent(final String proposalValue, final String wordToComplete,
       final ProposalContentStyle proposalContentStyle, final boolean caseSensitive) {
-    String content = String.valueOf(caseSensitive ? proposalValue
-        : proposalValue.toLowerCase(Locale.ENGLISH));
+    String content = String
+        .valueOf(caseSensitive ? proposalValue : proposalValue.toLowerCase(Locale.ENGLISH));
 
     if (proposalContentStyle == ProposalContentStyle.INSERT && wordToComplete != null
-        && !wordToComplete.isEmpty() && content.startsWith(caseSensitive ? wordToComplete
-            : wordToComplete.toLowerCase())) {
+        && !wordToComplete.isEmpty()
+        && content.startsWith(caseSensitive ? wordToComplete : wordToComplete.toLowerCase())) {
       content = content.substring(wordToComplete.length());
     }
     return content;

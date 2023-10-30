@@ -16,8 +16,8 @@ import com.devepos.adt.searchfavorites.internal.messages.Messages;
  */
 public class ExportFavoritesAction extends Action {
   public ExportFavoritesAction() {
-    super(Messages.ExportFavoritesAction_ActionTitle_xmit, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.EXPORT));
+    super(Messages.ExportFavoritesAction_ActionTitle_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EXPORT));
   }
 
   @Override

@@ -53,8 +53,8 @@ import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
  * @see {@link CdsAnalyzerPage}
  * @author stockbal
  */
-public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysis> implements
-    IFilterableView {
+public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysis>
+    implements IFilterableView {
 
   private final List<Column> columns;
   private ContextHelper contextHelper;
@@ -72,8 +72,8 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
    *
    * @author stockbal
    */
-  class ColumnLabelProvider extends CellLabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+  class ColumnLabelProvider extends CellLabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
     private final Column column;
 
@@ -284,8 +284,8 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
   public void setActionBars(final IActionBars actionBars) {
     super.setActionBars(actionBars);
     final var menu = actionBars.getMenuManager();
-    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory.createContribItemById(
-        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    menu.appendToGroup(IGeneralMenuConstants.GROUP_FILTERING, CommandFactory
+        .createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
   }
 
   @Override
@@ -327,9 +327,8 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     resultTree.setElementMatcher(element -> {
       if (element instanceof IAdtObjectReferenceNode) {
         final var node = (IAdtObjectReferenceNode) element;
-        return resultTree.getWordMatcher().matchesWord(node.getName()) || resultTree
-            .getWordMatcher()
-            .matchesWord(node.getDescription());
+        return resultTree.getWordMatcher().matchesWord(node.getName())
+            || resultTree.getWordMatcher().matchesWord(node.getDescription());
       }
       return false;
     });
@@ -388,7 +387,7 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
   }
 
   @Override
-  protected void refreshAnalysis(boolean global) {
+  protected void refreshAnalysis(final boolean global) {
     resetFiltering();
     ((ILazyLoadingNode) getViewer().getInput()).resetLoadedState();
     getViewer().refresh();
@@ -398,8 +397,8 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     final TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
     viewerColumn.getColumn().setText(column.headerText);
     viewerColumn.getColumn().setToolTipText(column.tooltip);
-    viewerColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new ColumnLabelProvider(
-        column)));
+    viewerColumn
+        .setLabelProvider(new DelegatingStyledCellLabelProvider(new ColumnLabelProvider(column)));
     viewerColumn.getColumn().setWidth(column.defaultWidth);
     viewerColumn.getColumn().setMoveable(true);
     viewerColumn.getColumn().addListener(SWT.Selection, sortListener);

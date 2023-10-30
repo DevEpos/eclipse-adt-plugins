@@ -13,8 +13,8 @@ import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
  *
  * @author stockbal
  */
-public class AdtObjectReferenceElementInfo extends ElementInfoBase implements
-    IAdtObjectReferenceElementInfo {
+public class AdtObjectReferenceElementInfo extends ElementInfoBase
+    implements IAdtObjectReferenceElementInfo {
 
   private IAdtObjectReference objectReference;
   private List<IElementInfo> children;

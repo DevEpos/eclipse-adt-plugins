@@ -316,12 +316,14 @@ public class SearchTypeConfig extends MinimalEObjectImpl.Container implements IS
     if (newOutputConfig != outputConfig) {
       NotificationChain msgs = null;
       if (outputConfig != null) {
-        msgs = ((InternalEObject) outputConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null, msgs);
+        msgs = ((InternalEObject) outputConfig).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null,
+            msgs);
       }
       if (newOutputConfig != null) {
-        msgs = ((InternalEObject) newOutputConfig).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null, msgs);
+        msgs = ((InternalEObject) newOutputConfig).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - IObjectSearchPackage.SEARCH_TYPE_CONFIG__OUTPUT_CONFIG, null,
+            msgs);
       }
       msgs = basicSetOutputConfig(newOutputConfig, msgs);
       if (msgs != null) {

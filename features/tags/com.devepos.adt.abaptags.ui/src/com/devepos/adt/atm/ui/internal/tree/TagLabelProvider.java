@@ -85,8 +85,8 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
       return;
     }
     if (tagNode.getDescription() != null) {
-      text.append("  " + tagNode.getDescription(), StylerFactory.createCustomStyler(SWT.ITALIC,
-          JFacePreferences.DECORATIONS_COLOR, null));
+      text.append("  " + tagNode.getDescription(),
+          StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR, null));
     }
   }
 

@@ -242,12 +242,13 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
     browseObjectsButton.setText(Messages.RunNewCdsAnalysisDialog_selectObject_xbtn);
 
     browseObjectsButton.addSelectionListener(widgetSelectedAdapter(e -> {
-      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(parent
-          .getShell(), Messages.RunNewCdsAnalysisDialog_selectObjectDialog_xtit, this.getClass()
-              .getCanonicalName() + ".dialog", false, Arrays.asList(
-                  IAdtObjectTypeConstants.DATA_DEFINITION,
-                  IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE,
-                  IAdtObjectTypeConstants.VIEW_DEFINITION_TYPE), projectProvider.getProject());
+      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
+          parent.getShell(), Messages.RunNewCdsAnalysisDialog_selectObjectDialog_xtit,
+          this.getClass().getCanonicalName() + ".dialog", false,
+          Arrays.asList(IAdtObjectTypeConstants.DATA_DEFINITION,
+              IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE,
+              IAdtObjectTypeConstants.VIEW_DEFINITION_TYPE),
+          projectProvider.getProject());
       if (result == null) {
         return;
       }

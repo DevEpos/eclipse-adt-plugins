@@ -124,8 +124,8 @@ public enum TagSearchScope implements Enumerator {
    *
    * @generated
    */
-  public static final List<TagSearchScope> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<TagSearchScope> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Tag Search Scope</b></em>' literal with the specified literal value.

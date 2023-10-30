@@ -83,9 +83,9 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     }
     var elementInfoResult = new ArrayList<IElementInfo>();
     var result = CdsAnalysisServiceFactory.getCdsAnalysisService()
-        .getWhereUsedInResultsForEntity(destinationId, adtObjectName, isSelectFrom, settings
-            .isLocalAssociationsOnly(), settings.isReleasedUsagesOnly(), settings
-                .isSearchRecursively() && !settings.isSearchAssociations());
+        .getWhereUsedInResultsForEntity(destinationId, adtObjectName, isSelectFrom,
+            settings.isLocalAssociationsOnly(), settings.isReleasedUsagesOnly(),
+            settings.isSearchRecursively() && !settings.isSearchAssociations());
     if (result != null && !result.getEntries().isEmpty()) {
       for (var resultObj : result.getEntries()) {
         var objectRefElemInfo = convertToObjRefElemInfo(destinationId, resultObj);
@@ -116,8 +116,8 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     if (whereUsedEntry == null) {
       return null;
     }
-    var elementInfo = new AdtObjectReferenceElementInfo(whereUsedEntry.getDdlname(), whereUsedEntry
-        .getEntityName(), whereUsedEntry.getDescription());
+    var elementInfo = new AdtObjectReferenceElementInfo(whereUsedEntry.getDdlname(),
+        whereUsedEntry.getEntityName(), whereUsedEntry.getDescription());
     elementInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
         whereUsedEntry.getDdlname(), whereUsedEntry.getType(), whereUsedEntry.getUri()));
 
@@ -148,8 +148,8 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
     }
     final WhereUsedInCdsElementInfoProvider provider = new WhereUsedInCdsElementInfoProvider(
         destinationId, adtObjectName, settings, searchFrom);
-    return new LazyLoadingElementInfo(name, name, SearchAndAnalysisPlugin.getDefault()
-        .getImage(imageId), provider);
+    return new LazyLoadingElementInfo(name, name,
+        SearchAndAnalysisPlugin.getDefault().getImage(imageId), provider);
   }
 
   /**

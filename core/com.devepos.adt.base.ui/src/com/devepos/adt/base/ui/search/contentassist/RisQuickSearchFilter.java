@@ -67,8 +67,8 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
   @Override
   public String getLongDescription() {
     return longDescription != null ? longDescription
-        : NLS.bind(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg, new Object[] {
-            filterName, "test" });
+        : NLS.bind(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg,
+            new Object[] { filterName, "test" });
   }
 
   @Override
@@ -81,9 +81,9 @@ public class RisQuickSearchFilter implements ISearchFilter, ITextQueryProposalPr
             objectTypes);
         if (searchResult != null) {
           for (final var objRef : searchResult) {
-            result.add(new SearchFilterValueProposal(objRef.getName(), this, objRef
-                .getDescription(), query, AdtTypeUtil.getInstance()
-                    .getTypeImage(objRef.getType())));
+            result
+                .add(new SearchFilterValueProposal(objRef.getName(), this, objRef.getDescription(),
+                    query, AdtTypeUtil.getInstance().getTypeImage(objRef.getType())));
           }
         }
       }

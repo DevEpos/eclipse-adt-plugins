@@ -27,8 +27,8 @@ public class OpenQueryInSearchDialogAction extends Action implements ISearchPage
   private final String pageId;
 
   public OpenQueryInSearchDialogAction(final String pageId) {
-    super(Messages.Actions_OpenQueryInSearchDialog_xmit, AdtBaseUIResources.getImageDescriptor(
-        IAdtBaseImages.SEARCH));
+    super(Messages.Actions_OpenQueryInSearchDialog_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SEARCH));
     this.pageId = pageId;
   }
 
@@ -46,8 +46,8 @@ public class OpenQueryInSearchDialogAction extends Action implements ISearchPage
       return;
     }
     ISearchResultViewPart resultViewPart = NewSearchUI.getSearchResultView();
-    if (resultViewPart == null || !(resultViewPart
-        .getActivePage() instanceof ISearchResultPageExtension<?>)) {
+    if (resultViewPart == null
+        || !(resultViewPart.getActivePage() instanceof ISearchResultPageExtension<?>)) {
       return;
     }
     resultPageExt = (ISearchResultPageExtension<?>) resultViewPart.getActivePage();

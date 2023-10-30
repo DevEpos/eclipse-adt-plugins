@@ -43,8 +43,8 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFac
 import com.devepos.adt.searchfavorites.model.searchfavorites.IStringAttribute;
 import com.sap.adt.communication.content.ContentHandlerException;
 
-public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
-    ISearchPageListener {
+public class ObjectSearchFavoriteConnector
+    implements ISearchFavoriteConnector, ISearchPageListener {
 
   private static final String MAX_RESULTS_OPTION = "maxResults";
   private static final String AND_SEARCH_ACTIVE_OPTION = "andSearchActive";
@@ -162,32 +162,34 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
 
     addFavAttribute(favOptions, AND_SEARCH_ACTIVE_OPTION, searchRequest.isAndSearchActive());
     addFavAttribute(favOptions, SEARCH_TYPE_OPTION, searchRequest.getSearchType());
-    addFavAttribute(favOptions, SEARCH_TYPE_LABEL_OPTION, searchRequest.getQueryInput()
-        .getTypeLabel());
+    addFavAttribute(favOptions, SEARCH_TYPE_LABEL_OPTION,
+        searchRequest.getQueryInput().getTypeLabel());
     addFavAttribute(favOptions, MAX_RESULTS_OPTION, searchRequest.getMaxResults());
 
     var queryInput = searchRequest.getQueryInput();
     addFavAttribute(favOptions, CUSTOM_OPTIONS, queryInput.getCustomOptions());
 
-    addFavAttribute(favOptions, FIELDS, queryInput.getFields()
-        .stream()
-        .filter(f -> f.getFilters().isEmpty())
-        .collect(Collectors.toMap(ISearchQueryField::getName, ISearchQueryField::getRawInput)));
+    addFavAttribute(favOptions, FIELDS,
+        queryInput.getFields()
+            .stream()
+            .filter(f -> f.getFilters().isEmpty())
+            .collect(Collectors.toMap(ISearchQueryField::getName, ISearchQueryField::getRawInput)));
 
-    addFavAttribute(favOptions, FIELDS_WITH_FILTER, queryInput.getFields()
-        .stream()
-        .filter(f -> !f.getFilters().isEmpty())
-        .collect(Collectors.toMap(ISearchQueryField::getName, ISearchQueryField::getRawInput)));
+    addFavAttribute(favOptions, FIELDS_WITH_FILTER,
+        queryInput.getFields()
+            .stream()
+            .filter(f -> !f.getFilters().isEmpty())
+            .collect(Collectors.toMap(ISearchQueryField::getName, ISearchQueryField::getRawInput)));
   }
 
   @Override
   public void runSearchFromFavorite(final ISearchFavorite favorite) {
-    final var projectProvider = AbapProjectProviderAccessor.getProviderForDestination(favorite
-        .getDestinationId());
+    final var projectProvider = AbapProjectProviderAccessor
+        .getProviderForDestination(favorite.getDestinationId());
     if (projectProvider == null || !projectProvider.hasProject()) {
       MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          Messages.Dialog_ErrorTitle_xmsg, MessageFormat.format(
-              Messages.ObjectSearch_NoProjectFound_xmsg, favorite.getDestinationId()));
+          Messages.Dialog_ErrorTitle_xmsg, MessageFormat
+              .format(Messages.ObjectSearch_NoProjectFound_xmsg, favorite.getDestinationId()));
       openFavoriteInSearchDialog(favorite);
     } else {
       final var searchRequest = createRequestFromFavorite(favorite);
@@ -204,9 +206,9 @@ public class ObjectSearchFavoriteConnector implements ISearchFavoriteConnector,
             .getSearchConfig(projectProvider.getDestinationId());
       } catch (ContentHandlerException exc) {
         MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-            Messages.Dialog_ErrorTitle_xmsg, MessageFormat.format(
-                Messages.ObjectSearchPage_searchTypeConfigSerializationError_xmsg, projectProvider
-                    .getProjectName()));
+            Messages.Dialog_ErrorTitle_xmsg,
+            MessageFormat.format(Messages.ObjectSearchPage_searchTypeConfigSerializationError_xmsg,
+                projectProvider.getProjectName()));
         return;
       }
       var searchTypeConfig = searchConfig.getSearchTypes()

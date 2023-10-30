@@ -93,8 +93,8 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       if (filterBuffer.length() > 0) {
         filterBuffer.append(" ");
       }
-      filterBuffer.append(String.format(FILTER_VALUES_PATTERN, filterQualifier, filter
-          .toLowerCase()));
+      filterBuffer
+          .append(String.format(FILTER_VALUES_PATTERN, filterQualifier, filter.toLowerCase()));
     }
 
     private void addTypeFilterByCategory(final String filterQualifier, final String category) {
@@ -110,8 +110,9 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
         addFiltersToFilterString(ITadirTypeConstants.ACCESS_CONTROL, filterQualifier);
         break;
       case IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES:
-        addFiltersToFilterString(Arrays.asList(ITadirTypeConstants.DATA_DEFINITION,
-            ITadirTypeConstants.ACCESS_CONTROL), filterQualifier);
+        addFiltersToFilterString(
+            Arrays.asList(ITadirTypeConstants.DATA_DEFINITION, ITadirTypeConstants.ACCESS_CONTROL),
+            filterQualifier);
         break;
       }
     }
@@ -171,21 +172,23 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
         querySpecs.setObjectNames(String.join(" ", objectNames));
       }
       if (!packages.isEmpty() && objectNames.isEmpty()) {
-        filterString.append(String.format(FILTER_VALUES_PATTERN, FilterName.PACKAGE
-            .getContentAssistName(), String.join(FILTER_VALUE_DELIMITER, packages)));
+        filterString
+            .append(String.format(FILTER_VALUES_PATTERN, FilterName.PACKAGE.getContentAssistName(),
+                String.join(FILTER_VALUE_DELIMITER, packages)));
       }
       if (!objectTypes.isEmpty()) {
         if (filterString.length() > 0) {
           filterString.append(" ");
         }
-        filterString.append(String.format(FILTER_VALUES_PATTERN, FilterName.OBJECT_TYPE
-            .getContentAssistName(), String.join(FILTER_VALUE_DELIMITER, objectTypes)));
+        filterString.append(
+            String.format(FILTER_VALUES_PATTERN, FilterName.OBJECT_TYPE.getContentAssistName(),
+                String.join(FILTER_VALUE_DELIMITER, objectTypes)));
       }
       querySpecs.setObjectScopeFilters(null, filterString.toString());
 
       if (project != null) {
-        querySpecs.setProjectProvider(AbapProjectProviderAccessor.getProviderForDestination(
-            DestinationUtil.getDestinationId(project)));
+        querySpecs.setProjectProvider(AbapProjectProviderAccessor
+            .getProviderForDestination(DestinationUtil.getDestinationId(project)));
       }
       return new CodeSearchQuery(querySpecs);
     }
@@ -260,9 +263,9 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       List<String> dateFilters = node.getCreatedDateFilters();
       if (!dateFilters.isEmpty()) {
         for (String date : dateFilters) {
-          createdDatePatterns.add(String.format(FULL_DATE_PATTERN, Integer.parseInt(date.substring(
-              6, 8)), Integer.parseInt(date.substring(4, 6)), Integer.parseInt(date.substring(0,
-                  4))));
+          createdDatePatterns
+              .add(String.format(FULL_DATE_PATTERN, Integer.parseInt(date.substring(6, 8)),
+                  Integer.parseInt(date.substring(4, 6)), Integer.parseInt(date.substring(0, 4))));
         }
       } else {
         List<Integer> createdYearFilters = node.getCreatedYearFilters();
@@ -276,8 +279,9 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
             createdDatePatterns.add(String.format(YEAR_DATE_PATTERN, createdDate, createdDate));
           }
         } else {
-          createdYearFilters = createdYearFilters.isEmpty() ? Arrays.asList(LocalDate.now()
-              .getYear()) : createdYearFilters;
+          createdYearFilters = createdYearFilters.isEmpty()
+              ? Arrays.asList(LocalDate.now().getYear())
+              : createdYearFilters;
 
           for (int year : createdYearFilters) {
             for (int month : createdMonthFilters) {
@@ -298,13 +302,14 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       if (filterBuffer.length() > 0) {
         filterBuffer.append(" ");
       }
-      filterBuffer.append(String.format(FILTER_VALUES_PATTERN, filterQualifier, String.join(
-          FILTER_VALUE_DELIMITER, filters).toLowerCase()));
+      filterBuffer.append(String.format(FILTER_VALUES_PATTERN, filterQualifier,
+          String.join(FILTER_VALUE_DELIMITER, filters).toLowerCase()));
     }
 
     private void addTypeFilters() {
-      addFiltersToFilterString(CodeSearchRelevantWbTypesUtil.extractValidTypeFilters(node
-          .getTypeFilters()), FilterName.OBJECT_TYPE.getContentAssistName());
+      addFiltersToFilterString(
+          CodeSearchRelevantWbTypesUtil.extractValidTypeFilters(node.getTypeFilters()),
+          FilterName.OBJECT_TYPE.getContentAssistName());
     }
   }
 

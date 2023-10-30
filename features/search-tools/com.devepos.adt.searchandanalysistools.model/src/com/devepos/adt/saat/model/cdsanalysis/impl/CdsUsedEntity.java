@@ -118,12 +118,12 @@ public class CdsUsedEntity extends MinimalEObjectImpl.Container implements ICdsU
     if (newEntityRef != entityRef) {
       NotificationChain msgs = null;
       if (entityRef != null) {
-        msgs = ((InternalEObject) entityRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.CDS_USED_ENTITY__ENTITY_REF, null, msgs);
+        msgs = ((InternalEObject) entityRef).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.CDS_USED_ENTITY__ENTITY_REF, null, msgs);
       }
       if (newEntityRef != null) {
-        msgs = ((InternalEObject) newEntityRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.CDS_USED_ENTITY__ENTITY_REF, null, msgs);
+        msgs = ((InternalEObject) newEntityRef).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.CDS_USED_ENTITY__ENTITY_REF, null, msgs);
       }
       msgs = basicSetEntityRef(newEntityRef, msgs);
       if (msgs != null) {

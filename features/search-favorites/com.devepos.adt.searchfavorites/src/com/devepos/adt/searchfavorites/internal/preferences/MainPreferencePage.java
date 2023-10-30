@@ -15,8 +15,8 @@ import com.devepos.adt.base.ui.preferences.FieldEditorPrefPageBase;
 import com.devepos.adt.searchfavorites.internal.Activator;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 
-public class MainPreferencePage extends FieldEditorPrefPageBase implements IWorkbenchPreferencePage,
-    IPropertyChangeListener {
+public class MainPreferencePage extends FieldEditorPrefPageBase
+    implements IWorkbenchPreferencePage, IPropertyChangeListener {
 
   private Group dialogSettingsGroup;
   private BooleanFieldEditor makeNewFavsVisibleEditor;
@@ -67,7 +67,8 @@ public class MainPreferencePage extends FieldEditorPrefPageBase implements IWork
   }
 
   @Override
-  protected void fieldValueChanged(FieldEditor field, Object oldValue, Object newValue) {
+  protected void fieldValueChanged(final FieldEditor field, final Object oldValue,
+      final Object newValue) {
     if (field == makeNewFavsVisibleEditor) {
       insertNewFavsAtBeginningEditor.setEnabled((boolean) newValue, dialogSettingsGroup);
     }

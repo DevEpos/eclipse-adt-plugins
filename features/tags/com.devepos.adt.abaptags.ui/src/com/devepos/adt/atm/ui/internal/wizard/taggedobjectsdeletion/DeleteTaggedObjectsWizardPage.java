@@ -95,9 +95,11 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
           return compareStrings(concatStrings(obj1.getTagType().toString(), obj1.getTagName()),
               concatStrings(obj2.getTagType().toString(), obj2.getTagName()));
         case OBJECT:
-          return compareStrings(concatStrings(obj1.getComponentType(), obj1.getComponentName(), obj1
-              .getObjectType(), obj1.getObjectName()), concatStrings(obj2.getComponentType(), obj2
-                  .getComponentName(), obj2.getObjectType(), obj2.getObjectName()));
+          return compareStrings(
+              concatStrings(obj1.getComponentType(), obj1.getComponentName(), obj1.getObjectType(),
+                  obj1.getObjectName()),
+              concatStrings(obj2.getComponentType(), obj2.getComponentName(), obj2.getObjectType(),
+                  obj2.getObjectName()));
         case PARENT_TAG:
           var parentTag1 = obj1.getParentTagName();
           var parentTag2 = obj2.getParentTagName();
@@ -107,9 +109,9 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
               : null;
           return compareStrings(parentTag1, parentTag2);
         case PARENT_OBJECT:
-          return compareStrings(concatStrings(obj1.getParentObjectType(), obj1
-              .getParentObjectName()), concatStrings(obj2.getParentObjectType(), obj2
-                  .getParentObjectName()));
+          return compareStrings(
+              concatStrings(obj1.getParentObjectType(), obj1.getParentObjectName()),
+              concatStrings(obj2.getParentObjectType(), obj2.getParentObjectName()));
         case ISSUES:
           return compareStrings(obj1.getMessage(), obj2.getMessage());
         }
@@ -153,10 +155,11 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       setElementMatcher(l -> {
         var taggedObject = (DeletableTaggedObject) l;
         var wordMatcher = getWordMatcher();
-        return wordMatcher.matchesWord(taggedObject.getObjectName()) || wordMatcher.matchesWord(
-            taggedObject.getComponentName()) || wordMatcher.matchesWord(taggedObject.getTagName())
-            || wordMatcher.matchesWord(taggedObject.getParentObjectName()) || wordMatcher
-                .matchesWord(taggedObject.getParentTagName());
+        return wordMatcher.matchesWord(taggedObject.getObjectName())
+            || wordMatcher.matchesWord(taggedObject.getComponentName())
+            || wordMatcher.matchesWord(taggedObject.getTagName())
+            || wordMatcher.matchesWord(taggedObject.getParentObjectName())
+            || wordMatcher.matchesWord(taggedObject.getParentTagName());
       });
     }
 
@@ -222,8 +225,9 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       var objectListRequest = wizard.getTaggedObjectListRequest();
       if (taggedObjects != null && !taggedObjects.isEmpty()) {
         setTableInput();
-      } else if (!objectListRequest.getTagIds().isEmpty() || !objectListRequest.getTaggedObjectIds()
-          .isEmpty() || !objectListRequest.getTaggedObjectInfos().isEmpty()) {
+      } else if (!objectListRequest.getTagIds().isEmpty()
+          || !objectListRequest.getTaggedObjectIds().isEmpty()
+          || !objectListRequest.getTaggedObjectInfos().isEmpty()) {
         runDeletionCheck();
       }
     } else {
@@ -306,8 +310,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       column.setWidth(colSpec.defaultWidth);
       column.setMoveable(false);
       column.setData(colSpec);
-      tableColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
-          new TaggedObjectColumnLabelProvider(colSpec)));
+      tableColumn.setLabelProvider(
+          new DelegatingStyledCellLabelProvider(new TaggedObjectColumnLabelProvider(colSpec)));
       column.addSelectionListener(widgetSelectedAdapter(l -> {
         comparator.setColumn(colSpec);
         taggedObjectsViewer.getTable().setSortDirection(comparator.getDirection());
@@ -346,8 +350,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
   private void createViewer(final Composite parent) {
     taggedObjectsTable = new TaggedObjectsTable(parent);
-    var table = new Table(taggedObjectsTable, SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER
-        | SWT.FULL_SELECTION | SWT.CHECK);
+    var table = new Table(taggedObjectsTable,
+        SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION | SWT.CHECK);
     table.setHeaderVisible(true);
 
     taggedObjectsViewer = new CheckboxTableViewer(table);
@@ -405,9 +409,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
     var previousPage = wizard.getPreviousPage(this);
     var listRequest = wizard.getTaggedObjectListRequest();
-    if (previousPage == null && (!listRequest.getTaggedObjectIds().isEmpty() || !listRequest
-        .getTaggedObjectInfos()
-        .isEmpty())) {
+    if (previousPage == null && (!listRequest.getTaggedObjectIds().isEmpty()
+        || !listRequest.getTaggedObjectInfos().isEmpty())) {
       listRequest.setLoadChildObjects(loadTaggedChildObjectsIfAvailable);
     }
 
@@ -415,8 +418,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       getContainer().run(true, false, monitor -> {
         monitor.beginTask("", 2); //$NON-NLS-1$
         monitor.subTask(Messages.DeleteTaggedObjectsWizardPage_RetrieveObjectInfosJobTitle_xmsg);
-        final var taggedObjectInfos = searchService.findObjectInfos(destinationId, wizard
-            .getTaggedObjectListRequest());
+        final var taggedObjectInfos = searchService.findObjectInfos(destinationId,
+            wizard.getTaggedObjectListRequest());
         monitor.worked(1);
 
         if (taggedObjectInfos == null || taggedObjectInfos.isEmpty()) {
@@ -491,8 +494,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
     // delay necessary otherwise the toolbar state is not yet active
     Display.getDefault().timerExec(200, () -> {
-      toolBar.setEnabled(taggedObjects != null && !taggedObjects.isEmpty() && taggedObjects
-          .size() != undeletableTaggedObjects.size());
+      toolBar.setEnabled(taggedObjects != null && !taggedObjects.isEmpty()
+          && taggedObjects.size() != undeletableTaggedObjects.size());
     });
 
     // make column adjustments
@@ -534,11 +537,11 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(String.format(
-        Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg, checkedCount == 0
-            ? Messages.General_No_xlbl
-            : String.valueOf(checkedCount), checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
-        Messages.DeleteTagsWizardPage_Selected_xlbl));
+    selectionInfo.setText(
+        String.format(Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg,
+            checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
+            checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+            Messages.DeleteTagsWizardPage_Selected_xlbl));
   }
 
   private void updatePageStatus(final IStatus pageStatus) {

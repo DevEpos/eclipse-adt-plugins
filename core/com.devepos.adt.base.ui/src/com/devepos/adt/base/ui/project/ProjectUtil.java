@@ -34,13 +34,13 @@ public class ProjectUtil {
     final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
 
     if (AdtLogonServiceUIFactory.createLogonServiceUI()
-        .ensureLoggedOn(abapProject.getDestinationData(), PlatformUI.getWorkbench()
-            .getProgressService())
+        .ensureLoggedOn(abapProject.getDestinationData(),
+            PlatformUI.getWorkbench().getProgressService())
         .isOK()) {
       return Status.OK_STATUS;
     }
-    return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, NLS.bind(
-        Messages.Project_LogonToProjectFailed_xmsg, project.getName()));
+    return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+        NLS.bind(Messages.Project_LogonToProjectFailed_xmsg, project.getName()));
   }
 
   /**
@@ -87,8 +87,9 @@ public class ProjectUtil {
    */
   public static boolean isLoggedOnToProject(final IProject project) {
     final String destinationId = DestinationUtil.getDestinationId(project);
-    return destinationId != null ? AdtLogonServiceFactory.createLogonService()
-        .isLoggedOn(destinationId) : false;
+    return destinationId != null
+        ? AdtLogonServiceFactory.createLogonService().isLoggedOn(destinationId)
+        : false;
   }
 
 }

@@ -82,8 +82,8 @@ public enum CdsQueryNavTarget implements Enumerator {
    *
    * @generated
    */
-  public static final List<CdsQueryNavTarget> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<CdsQueryNavTarget> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Cds Query Nav Target</b></em>' literal with the specified literal value.

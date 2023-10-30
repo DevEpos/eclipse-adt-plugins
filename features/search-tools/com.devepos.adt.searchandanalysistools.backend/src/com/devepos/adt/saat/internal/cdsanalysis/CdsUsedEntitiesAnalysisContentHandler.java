@@ -13,8 +13,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  *
  * @author stockbal
  */
-public class CdsUsedEntitiesAnalysisContentHandler extends
-    AbstractEmfContentHandler<ICdsUsedEntitiesResult> {
+public class CdsUsedEntitiesAnalysisContentHandler
+    extends AbstractEmfContentHandler<ICdsUsedEntitiesResult> {
 
   public CdsUsedEntitiesAnalysisContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".cdsusedentitiesresult");

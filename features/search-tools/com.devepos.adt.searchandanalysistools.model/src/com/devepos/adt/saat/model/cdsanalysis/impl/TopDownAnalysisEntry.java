@@ -45,8 +45,8 @@ import com.devepos.adt.saat.model.cdsanalysis.TopDownAnalysisEntryType;
  *
  * @generated
  */
-public class TopDownAnalysisEntry extends MinimalEObjectImpl.Container implements
-    ITopDownAnalysisEntry {
+public class TopDownAnalysisEntry extends MinimalEObjectImpl.Container
+    implements ITopDownAnalysisEntry {
   /**
    * The default value of the '{@link #getEntryType() <em>Entry Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -331,12 +331,14 @@ public class TopDownAnalysisEntry extends MinimalEObjectImpl.Container implement
     if (newEntityRef != entityRef) {
       NotificationChain msgs = null;
       if (entityRef != null) {
-        msgs = ((InternalEObject) entityRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__ENTITY_REF, null, msgs);
+        msgs = ((InternalEObject) entityRef).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__ENTITY_REF, null,
+            msgs);
       }
       if (newEntityRef != null) {
-        msgs = ((InternalEObject) newEntityRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__ENTITY_REF, null, msgs);
+        msgs = ((InternalEObject) newEntityRef).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.TOP_DOWN_ANALYSIS_ENTRY__ENTITY_REF, null,
+            msgs);
       }
       msgs = basicSetEntityRef(newEntityRef, msgs);
       if (msgs != null) {

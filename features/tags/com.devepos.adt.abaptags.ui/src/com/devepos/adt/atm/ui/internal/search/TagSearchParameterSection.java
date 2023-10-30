@@ -147,9 +147,8 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
 
     ToolItem clearTags = new ToolItem(toolBar, SWT.PUSH);
     clearTags.setToolTipText(Messages.TagSearchParameterSection_clearTags_xbtn);
-    clearTags.setImage(PlatformUI.getWorkbench()
-        .getSharedImages()
-        .getImage(ISharedImages.IMG_ELCL_REMOVEALL));
+    clearTags.setImage(
+        PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_ELCL_REMOVEALL));
     clearTags.addSelectionListener(widgetSelectedAdapter(l -> {
       removeAllTags();
     }));
@@ -162,9 +161,9 @@ public class TagSearchParameterSection implements ISearchPageParameterSection {
 
   @Override
   public List<String> getParameterValues() {
-    return selectedTags != null ? selectedTags.stream()
-        .map(ITag::getId)
-        .collect(Collectors.toList()) : EMPTY_LIST;
+    return selectedTags != null
+        ? selectedTags.stream().map(ITag::getId).collect(Collectors.toList())
+        : EMPTY_LIST;
   }
 
   @Override

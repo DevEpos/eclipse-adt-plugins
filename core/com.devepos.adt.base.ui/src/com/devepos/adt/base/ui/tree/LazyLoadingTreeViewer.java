@@ -27,7 +27,8 @@ public class LazyLoadingTreeViewer extends TreeViewer {
   }
 
   @Override
-  public void expandToLevel(Object elementOrTreePath, int level, boolean disableRedraw) {
+  public void expandToLevel(final Object elementOrTreePath, final int level,
+      final boolean disableRedraw) {
     if (!isExpandCheckForLazyNodes) {
       super.expandToLevel(elementOrTreePath, level, disableRedraw);
       return;
@@ -40,7 +41,7 @@ public class LazyLoadingTreeViewer extends TreeViewer {
     }
   }
 
-  void expandNode(ITreeNode node, int level, boolean loadedChildrenOnly) {
+  void expandNode(final ITreeNode node, final int level, final boolean loadedChildrenOnly) {
     var tree = getTree();
     tree.setRedraw(false);
     internalExpandNode(node, 1, level, loadedChildrenOnly);
@@ -53,19 +54,19 @@ public class LazyLoadingTreeViewer extends TreeViewer {
    * <br>
    * Setting this flag to {@link true} will disable the expansion of {@link ILazyLoadingNode} whose
    * children are not yet loaded.
-   * 
+   *
    * @param expandPreCheck if {@code true} all nodes will be expanded regardless of state
    */
-  public void setExpandCheckForLazyNodes(boolean expandPreCheck) {
-    this.isExpandCheckForLazyNodes = expandPreCheck;
+  public void setExpandCheckForLazyNodes(final boolean expandPreCheck) {
+    isExpandCheckForLazyNodes = expandPreCheck;
   }
 
   @Override
-  protected void assertContentProviderType(IContentProvider provider) {
+  protected void assertContentProviderType(final IContentProvider provider) {
     Assert.isTrue(provider instanceof LazyLoadingTreeContentProvider);
   }
 
-  private void expandAllLoadedNodes(boolean disableRedraw) {
+  private void expandAllLoadedNodes(final boolean disableRedraw) {
     if (disableRedraw) {
       getTree().setRedraw(false);
     }
@@ -93,7 +94,7 @@ public class LazyLoadingTreeViewer extends TreeViewer {
     }
   }
 
-  private boolean isLazyUnloadedRoot(Object node) {
+  private boolean isLazyUnloadedRoot(final Object node) {
     return node instanceof ILazyLoadingNode && !((ILazyLoadingNode) node).isLoaded();
   }
 
@@ -101,8 +102,8 @@ public class LazyLoadingTreeViewer extends TreeViewer {
     internalExpandNode(node, ALL_LEVELS, ALL_LEVELS, true);
   }
 
-  private void internalExpandNode(final ITreeNode node, int level, int maxLevel,
-      boolean loadedChildrenOnly) {
+  private void internalExpandNode(final ITreeNode node, final int level, final int maxLevel,
+      final boolean loadedChildrenOnly) {
     if (!(node instanceof ICollectionTreeNode)) {
       return;
     }
@@ -120,7 +121,7 @@ public class LazyLoadingTreeViewer extends TreeViewer {
     }
 
     var nextLevel = level != ALL_LEVELS ? level + 1 : ALL_LEVELS;
-    var collectionNode = ((ICollectionTreeNode) node);
+    var collectionNode = (ICollectionTreeNode) node;
     if (!collectionNode.hasChildren()) {
       return;
     }

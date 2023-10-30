@@ -117,9 +117,8 @@ public class ObjectSearchResult implements ISearchResult {
       resultsLabel = Messages.ObjectSearch_OneResult_xmsg;
     } else if (resultCount > 1) {
       if (hasMoreResults) {
-        resultsLabel = NLS.bind(Messages.ObjectSearch_MoreThanMaxRowsResults_xmsg, searchQuery
-            .getSearchRequest()
-            .getMaxResults());
+        resultsLabel = NLS.bind(Messages.ObjectSearch_MoreThanMaxRowsResults_xmsg,
+            searchQuery.getSearchRequest().getMaxResults());
       } else {
         resultsLabel = NLS.bind(Messages.ObjectSearch_Results_xmsg, resultCount);
 
@@ -282,8 +281,8 @@ public class ObjectSearchResult implements ISearchResult {
         var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
-          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + parentUri + "' can not be resolved");
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
+              parentUri + "' can not be resolved");
         }
 
         if (parentNode instanceof PackageNode) {
@@ -304,8 +303,8 @@ public class ObjectSearchResult implements ISearchResult {
   }
 
   private IAdtObjectReferenceNode createAdtObjectRefNode(final IAdtObjRef adtObjRef) {
-    var objectNode = new LaunchableAdtObjectReferenceNode(adtObjRef.getName(), adtObjRef
-        .getDisplayName(), adtObjRef.getDescription(), createObjectRef(adtObjRef));
+    var objectNode = new LaunchableAdtObjectReferenceNode(adtObjRef.getName(),
+        adtObjRef.getDisplayName(), adtObjRef.getDescription(), createObjectRef(adtObjRef));
     final var extendedInfo = new ExtendedAdtObjectInfo();
     for (var prop : adtObjRef.getProperties()) {
       switch (prop.getKey()) {
@@ -333,8 +332,8 @@ public class ObjectSearchResult implements ISearchResult {
 
     for (String nodeUri : urisInCorrectTreeOrder) {
       var adtObjRefNode = urisToNodes.get(nodeUri);
-      if (adtObjRefNode instanceof PackageNode || !validListTypes.contains(adtObjRefNode
-          .getAdtObjectType())) {
+      if (adtObjRefNode instanceof PackageNode
+          || !validListTypes.contains(adtObjRefNode.getAdtObjectType())) {
         continue;
       }
 
@@ -344,8 +343,8 @@ public class ObjectSearchResult implements ISearchResult {
         var parentNode = urisToNodes.get(parentUri);
 
         if (parentNode == null) {
-          throw new IllegalStateException("Inconsistent data in text search result: parent uri '"
-              + parentUri + "' can not be resolved");
+          throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
+              parentUri + "' can not be resolved");
         }
 
         adtObjRefNode.setParent(parentNode);
@@ -358,8 +357,8 @@ public class ObjectSearchResult implements ISearchResult {
   }
 
   private IAdtObjectReference createObjectRef(final IAdtObjRef adtObjRef) {
-    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId, adtObjRef
-        .getName(), adtObjRef.getType(), adtObjRef.getUri());
+    var adtObjectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
+        adtObjRef.getName(), adtObjRef.getType(), adtObjRef.getUri());
     adtObjectRef.setParentUri(adtObjRef.getParentUri());
     return adtObjectRef;
   }

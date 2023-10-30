@@ -104,8 +104,8 @@ public enum TagType implements Enumerator {
    *
    * @generated
    */
-  public static final List<TagType> VALUES = Collections.unmodifiableList(Arrays.asList(
-      VALUES_ARRAY));
+  public static final List<TagType> VALUES = Collections
+      .unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
    * Returns the '<em><b>Tag Type</b></em>' literal with the specified literal value.

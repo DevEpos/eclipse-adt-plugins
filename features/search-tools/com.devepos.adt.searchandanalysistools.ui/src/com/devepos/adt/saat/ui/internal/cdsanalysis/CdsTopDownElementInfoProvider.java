@@ -35,8 +35,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
     this.settings = settings;
   }
 
-  private static final class SqlRelationInfo extends ExtendedAdtObjectInfo implements
-      ISqlRelationInfo {
+  private static final class SqlRelationInfo extends ExtendedAdtObjectInfo
+      implements ISqlRelationInfo {
 
     public String relation;
     public String type;
@@ -73,10 +73,10 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
 
   private IElementInfo convertAbapEntry(final ITopDownAnalysisEntry entry) {
     var entityRef = entry.getEntityRef();
-    var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(), entityRef
-        .getDisplayName(), entityRef.getDescription());
-    adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-        destinationId, entityRef));
+    var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(),
+        entityRef.getDisplayName(), entityRef.getDescription());
+    adtObjRefElemInfo.setAdtObjectReference(
+        AdtObjectReferenceModelFactory.createReference(destinationId, entityRef));
 
     adtObjRefElemInfo.setLazyLoadingSupport(false);
 
@@ -131,8 +131,8 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
       return null;
     }
 
-    var folder = new ElementInfoCollection(rawName, rawName, SearchAndAnalysisPlugin.getDefault()
-        .getImage(imageId), null);
+    var folder = new ElementInfoCollection(rawName, rawName,
+        SearchAndAnalysisPlugin.getDefault().getImage(imageId), null);
     var sqlRelation = new SqlRelationInfo();
     sqlRelation.type = entry.getEntryType().getName();
     folder.setAdditionalInfo(sqlRelation);
@@ -145,17 +145,17 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
 
   private IElementInfo convertEntityEntry(final ITopDownAnalysisEntry entry) {
     var entityRef = entry.getEntityRef();
-    var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(), entityRef
-        .getDisplayName(), entityRef.getDescription());
-    adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-        destinationId, entityRef));
+    var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(entityRef.getName(),
+        entityRef.getDisplayName(), entityRef.getDescription());
+    adtObjRefElemInfo.setAdtObjectReference(
+        AdtObjectReferenceModelFactory.createReference(destinationId, entityRef));
 
-    if (!IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType()) || !entry.getChildren()
-        .isEmpty()) {
+    if (!IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType())
+        || !entry.getChildren().isEmpty()) {
       adtObjRefElemInfo.setLazyLoadingSupport(false);
     } else {
-      adtObjRefElemInfo.setElementInfoProvider(new CdsTopDownElementInfoProvider(destinationId,
-          entityRef.getName(), settings));
+      adtObjRefElemInfo.setElementInfoProvider(
+          new CdsTopDownElementInfoProvider(destinationId, entityRef.getName(), settings));
     }
 
     var sqlRelationInfo = new SqlRelationInfo();

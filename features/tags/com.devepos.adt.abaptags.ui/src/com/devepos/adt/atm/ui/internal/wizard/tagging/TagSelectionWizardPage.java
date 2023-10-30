@@ -259,10 +259,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
       if (!getWizard().getCurrentTagPreviewInfo().getTags().isEmpty()) {
         fillTagsFromPreviewInfo();
-      } else if (getWizard().getCurrentTagPreviewInfo().getTags().isEmpty() && !getWizard()
-          .getSelectedObjects()
-          .getObjectReferences()
-          .isEmpty()) {
+      } else if (getWizard().getCurrentTagPreviewInfo().getTags().isEmpty()
+          && !getWizard().getSelectedObjects().getObjectReferences().isEmpty()) {
         loadTagPreviewInfo();
       }
     } else {
@@ -353,8 +351,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       final ITag tag = (ITag) event.getElement();
       if (!event.getChecked() && uncheckableTags.contains(tag)) {
         event.getCheckable().setChecked(tag, true);
-        setMessage(NLS.bind(Messages.TagSelectionWizardPage_TagSelectionNotReversable_xmsg, tag
-            .getName()), INFORMATION);
+        setMessage(
+            NLS.bind(Messages.TagSelectionWizardPage_TagSelectionNotReversable_xmsg, tag.getName()),
+            INFORMATION);
         return;
       }
       if (event.getChecked()) {
@@ -495,8 +494,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (previewInfo != null && checkBoxViewer.getInput() == null) {
       objectCount = previewInfo.getAdtObjectRefs().size();
       if (objectCount > 1) {
-        ((Wizard) getWizard()).setWindowTitle(NLS.bind(
-            Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, objectCount));
+        ((Wizard) getWizard()).setWindowTitle(
+            NLS.bind(Messages.TagObjectsWizard_MultipleObjectsWizardTitle_xtit, objectCount));
       } else if (objectCount == 1) {
         ((Wizard) getWizard()).setWindowTitle(Messages.TagObjectsWizard_SingleObjectWizardTitle_xtit
             + previewInfo.getAdtObjectRefs().get(0).getName());
@@ -539,8 +538,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
         // read current tags from project
         try {
-          final var previewInfo = taggingService.getInformationForTagging(destinationId, getWizard()
-              .getSelectedObjects());
+          final var previewInfo = taggingService.getInformationForTagging(destinationId,
+              getWizard().getSelectedObjects());
           Display.getDefault().asyncExec(() -> {
             if (previewInfo == null || previewInfo.getTags().size() == 0) {
               setMessage(Messages.TaggingObjectWizard_NoTagsAvailableMessage_xmsg, INFORMATION);

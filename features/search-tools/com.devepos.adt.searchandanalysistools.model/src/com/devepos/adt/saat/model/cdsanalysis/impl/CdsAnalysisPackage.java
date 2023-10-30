@@ -187,8 +187,8 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    */
   public static ICdsAnalysisPackage init() {
     if (isInited) {
-      return (ICdsAnalysisPackage) EPackage.Registry.INSTANCE.getEPackage(
-          ICdsAnalysisPackage.eNS_URI);
+      return (ICdsAnalysisPackage) EPackage.Registry.INSTANCE
+          .getEPackage(ICdsAnalysisPackage.eNS_URI);
     }
 
     // Obtain or create and register package
@@ -916,10 +916,10 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE.getEPackage(
-        IAdtBasePackage.eNS_URI);
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(
-        XMLTypePackage.eNS_URI);
+    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+        .getEPackage(IAdtBasePackage.eNS_URI);
+    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+        .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
 
@@ -1129,100 +1129,100 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    */
   protected void createExtendedMetaDataAnnotations() {
     String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-    addAnnotation(cdsUsedEntitiesResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "usedEntitiesResult" });
+    addAnnotation(cdsUsedEntitiesResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "usedEntitiesResult" });
     addAnnotation(getCdsUsedEntitiesResult_SourceEntity(), source, new String[] { "kind", "element",
         "namespace", "http://www.devepos.com/adt/base", "name", "adtObjRef" });
-    addAnnotation(getCdsUsedEntitiesResult_UsedEntities(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace", "name", "usedEntity" });
-    addAnnotation(cdsUsedEntityEClass, source, new String[] { "kind", "elementOnly", "name",
-        "usedEntity" });
+    addAnnotation(getCdsUsedEntitiesResult_UsedEntities(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace", "name", "usedEntity" });
+    addAnnotation(cdsUsedEntityEClass, source,
+        new String[] { "kind", "elementOnly", "name", "usedEntity" });
     addAnnotation(getCdsUsedEntity_EntityRef(), source, new String[] { "kind", "element",
         "namespace", "http://www.devepos.com/adt/base", "name", "adtObjRef" });
-    addAnnotation(getCdsUsedEntity_UsageInformation(), source, new String[] { "kind", "element",
-        "namespace", "##targetNamespace" });
-    addAnnotation(cdsUsedEntityInformationEClass, source, new String[] { "kind", "elementOnly",
-        "name", "usageInformation" });
-    addAnnotation(getCdsUsedEntityInformation_Occurrence(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getCdsUsedEntityInformation_EntityCount(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getCdsUsedEntityInformation_JoinCount(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getCdsUsedEntityInformation_UnionCount(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(topDownAnalysisResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "topDownResult" });
+    addAnnotation(getCdsUsedEntity_UsageInformation(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(cdsUsedEntityInformationEClass, source,
+        new String[] { "kind", "elementOnly", "name", "usageInformation" });
+    addAnnotation(getCdsUsedEntityInformation_Occurrence(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_EntityCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_JoinCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_UnionCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(topDownAnalysisResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "topDownResult" });
     addAnnotation(getTopDownAnalysisResult_SourceEntity(), source, new String[] { "kind", "element",
         "namespace", "http://www.devepos.com/adt/base", "name", "adtObjRef" });
     addAnnotation(getTopDownAnalysisResult_Entries(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "resultEntry" });
-    addAnnotation(topDownAnalysisEntryEClass, source, new String[] { "kind", "elementOnly", "name",
-        "resultEntry" });
-    addAnnotation(getTopDownAnalysisEntry_EntryType(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getTopDownAnalysisEntry_DdlSourceType(), source, new String[] { "kind",
-        "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getTopDownAnalysisEntry_SqlRelation(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getTopDownAnalysisEntry_Alias(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
+    addAnnotation(topDownAnalysisEntryEClass, source,
+        new String[] { "kind", "elementOnly", "name", "resultEntry" });
+    addAnnotation(getTopDownAnalysisEntry_EntryType(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getTopDownAnalysisEntry_DdlSourceType(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getTopDownAnalysisEntry_SqlRelation(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getTopDownAnalysisEntry_Alias(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getTopDownAnalysisEntry_EntityRef(), source, new String[] { "kind", "element",
         "namespace", "http://www.devepos.com/adt/base", "name", "adtObjRef" });
     addAnnotation(getTopDownAnalysisEntry_Children(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "resultEntry" });
-    addAnnotation(cdsQueryNavTargetsEClass, source, new String[] { "kind", "elementOnly", "name",
-        "navigationTargets" });
+    addAnnotation(cdsQueryNavTargetsEClass, source,
+        new String[] { "kind", "elementOnly", "name", "navigationTargets" });
     addAnnotation(getCdsQueryNavTargets_NavigationTargets(), source, new String[] { "kind",
         "element", "namespace", "##targetNamespace", "name", "navigationTarget" });
-    addAnnotation(entityFieldInfoEClass, source, new String[] { "kind", "elementOnly", "name",
-        "entityFieldInfo" });
-    addAnnotation(getEntityFieldInfo_FieldName(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_EntityName(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_AltEntityName(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_SourceType(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_Type(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_Uri(), source, new String[] { "kind", "attribute", "namespace",
-        "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_ApiState(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_Description(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getEntityFieldInfo_Key(), source, new String[] { "kind", "attribute", "namespace",
-        "##targetNamespace", "name", "isKey" });
+    addAnnotation(entityFieldInfoEClass, source,
+        new String[] { "kind", "elementOnly", "name", "entityFieldInfo" });
+    addAnnotation(getEntityFieldInfo_FieldName(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_EntityName(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_AltEntityName(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_SourceType(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_Type(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_Uri(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_ApiState(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_Description(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getEntityFieldInfo_Key(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace", "name", "isKey" });
     addAnnotation(getEntityFieldInfo_Calculated(), source, new String[] { "kind", "attribute",
         "namespace", "##targetNamespace", "name", "isCalculated" });
     addAnnotation(getEntityFieldInfo_Children(), source, new String[] { "kind", "element",
         "namespace", "##targetNamespace", "name", "entityFieldInfo" });
-    addAnnotation(entityFieldInfoResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "entityFieldInfos" });
-    addAnnotation(getEntityFieldInfoResult_SourceFieldInfo(), source, new String[] { "kind",
-        "element", "namespace", "##targetNamespace" });
+    addAnnotation(entityFieldInfoResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "entityFieldInfos" });
+    addAnnotation(getEntityFieldInfoResult_SourceFieldInfo(), source,
+        new String[] { "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getEntityFieldInfoResult_FieldInfos(), source, new String[] { "kind", "element",
         "name", "entityFieldInfo", "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_Uri(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_EntityName(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_Ddlname(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace", "name", "ddlName" });
-    addAnnotation(getWhereUsedInCdsEntry_SourceType(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_Type(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_ApiState(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
-    addAnnotation(getWhereUsedInCdsEntry_Description(), source, new String[] { "kind", "attribute",
-        "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Uri(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_EntityName(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Ddlname(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace", "name", "ddlName" });
+    addAnnotation(getWhereUsedInCdsEntry_SourceType(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Type(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_ApiState(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getWhereUsedInCdsEntry_Description(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getWhereUsedInCdsEntry_Children(), source, new String[] { "kind", "element",
         "name", "whereUsedInCdsEntry", "namespace", "##targetNamespace" });
-    addAnnotation(whereUsedInCdsResultEClass, source, new String[] { "kind", "elementOnly", "name",
-        "whereUsedInCdsResult" });
+    addAnnotation(whereUsedInCdsResultEClass, source,
+        new String[] { "kind", "elementOnly", "name", "whereUsedInCdsResult" });
     addAnnotation(getWhereUsedInCdsResult_Entries(), source, new String[] { "kind", "element",
         "name", "whereUsedInCdsEntry", "namespace", "##targetNamespace" });
   }

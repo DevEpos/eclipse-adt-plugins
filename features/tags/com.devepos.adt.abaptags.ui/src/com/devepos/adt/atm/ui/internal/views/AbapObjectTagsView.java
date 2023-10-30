@@ -209,8 +209,8 @@ public class AbapObjectTagsView extends ViewPart {
 
         if (tags.size() == 1) {
           if (tags.get(0).getParentObjectName() == null) {
-            tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil.getObjectTagImage(tag,
-                destinationOwner));
+            tagElementInfo = new SimpleElementInfo(tag.getName(),
+                ImageUtil.getObjectTagImage(tag, destinationOwner));
             tagElementInfo.setAdditionalInfo(tag);
           } else {
             ElementInfoCollection tagElementInfoColl = new ElementInfoCollection(tag.getName(),
@@ -256,8 +256,8 @@ public class AbapObjectTagsView extends ViewPart {
           tagsForKey.add(tag);
           hierarchicalTags.put(tagKey, tagsForKey);
         } else {
-          final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(), ImageUtil
-              .getObjectTagImage(tag, destinationOwner));
+          final IElementInfo tagElementInfo = new SimpleElementInfo(tag.getName(),
+              ImageUtil.getObjectTagImage(tag, destinationOwner));
           tagElementInfo.setAdditionalInfo(tag);
           adtObjRefElemInfo.getChildren().add(tagElementInfo);
         }
@@ -270,11 +270,11 @@ public class AbapObjectTagsView extends ViewPart {
 
     private void collectParentObject(final String destinationId, final IAdtObjectTag tag,
         final ElementInfoCollection tagElementInfoColl) {
-      IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(tag
-          .getParentObjectName(), tag.getParentObjectDisplayName(), null);
-      parentObjectRef.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-          destinationId, tag.getParentObjectName(), tag.getParentObjectType(), tag
-              .getParentObjectUri()));
+      IAdtObjectReferenceElementInfo parentObjectRef = new AdtObjectReferenceElementInfo(
+          tag.getParentObjectName(), tag.getParentObjectDisplayName(), null);
+      parentObjectRef
+          .setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(destinationId,
+              tag.getParentObjectName(), tag.getParentObjectType(), tag.getParentObjectUri()));
       tagElementInfoColl.getChildren().add(parentObjectRef);
       // clear the parent object information from the tag
       tag.setParentObjectName(null);
@@ -287,10 +287,10 @@ public class AbapObjectTagsView extends ViewPart {
         final List<ITaggedObject> taggedObjects) {
 
       var mainObj = taggedObjects.get(0);
-      final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(mainObj.getObjectRef()
-          .getName(), mainObj.getObjectRef().getDisplayName(), null);
-      adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-          destinationId, mainObj.getObjectRef()));
+      final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
+          mainObj.getObjectRef().getName(), mainObj.getObjectRef().getDisplayName(), null);
+      adtObjRefElemInfo.setAdtObjectReference(
+          AdtObjectReferenceModelFactory.createReference(destinationId, mainObj.getObjectRef()));
 
       var childObjectCollection = createChildObjectCollection(destinationId, mainObj,
           taggedObjects);
@@ -314,16 +314,16 @@ public class AbapObjectTagsView extends ViewPart {
       }
 
       var folder = new ElementInfoCollection(
-          Messages.AbapObjectTagsView_TaggedComponentsFolder_xlbl, AbapTagsUIPlugin.getDefault()
-              .getImage(IImages.LOCAL_OBJECTS_FOLDER));
+          Messages.AbapObjectTagsView_TaggedComponentsFolder_xlbl,
+          AbapTagsUIPlugin.getDefault().getImage(IImages.LOCAL_OBJECTS_FOLDER));
       for (var childObj : taggedObjects.subList(1, taggedObjects.size())) {
-        final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(childObj.getObjectRef()
-            .getName(), childObj.getObjectRef().getDisplayName(), null);
-        adtObjRefElemInfo.setAdtObjectReference(AdtObjectReferenceModelFactory.createReference(
-            destinationId, childObj.getObjectRef()));
+        final var adtObjRefElemInfo = new AdtObjectReferenceElementInfo(
+            childObj.getObjectRef().getName(), childObj.getObjectRef().getDisplayName(), null);
+        adtObjRefElemInfo.setAdtObjectReference(
+            AdtObjectReferenceModelFactory.createReference(destinationId, childObj.getObjectRef()));
         adtObjRefElemInfo.getProperties()
-            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME, childObj.getObjectRef()
-                .getParentName());
+            .put(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME,
+                childObj.getObjectRef().getParentName());
         folder.getChildren().add(adtObjRefElemInfo);
 
         collectObjectTags(destinationId, childObj, adtObjRefElemInfo);
@@ -398,15 +398,16 @@ public class AbapObjectTagsView extends ViewPart {
 
   private class UnassignTagsAction extends Action {
     public UnassignTagsAction() {
-      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit, PlatformUI.getWorkbench()
-          .getSharedImages()
-          .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
+      super(Messages.AbapObjectTagsView_DeleteTagAction_xmit,
+          PlatformUI.getWorkbench()
+              .getSharedImages()
+              .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE));
     }
 
     @Override
     public void run() {
-      var deleteTagsStatus = taggingService.testTaggedObjectDeletionFeatureAvailability(
-          getProject());
+      var deleteTagsStatus = taggingService
+          .testTaggedObjectDeletionFeatureAvailability(getProject());
       if (!deleteTagsStatus.isOK()) {
         MessageDialog.openError(getSite().getShell(),
             Messages.AbapTagManagerView_ErrorMessageTitle_xtit, deleteTagsStatus.getMessage());
@@ -434,8 +435,8 @@ public class AbapObjectTagsView extends ViewPart {
 
       var taggedObjInfo = IAbapTagsFactory.eINSTANCE.createTaggedObjectInfo();
 
-      var parentObjName = tagOwningObjRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      var parentObjName = tagOwningObjRefNode
+          .getPropertyValue(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
       if (parentObjName != null) {
         var componentType = tagOwningObjRefNode.getAdtObjectType();
         taggedObjInfo.setObjectName(parentObjName);
@@ -444,9 +445,9 @@ public class AbapObjectTagsView extends ViewPart {
          * with
          * the tadir type PROG.
          */
-        taggedObjInfo.setObjectType(componentType.startsWith(ITadirTypeConstants.CLASS)
-            ? ITadirTypeConstants.CLASS
-            : ITadirTypeConstants.PROGRAM);
+        taggedObjInfo.setObjectType(
+            componentType.startsWith(ITadirTypeConstants.CLASS) ? ITadirTypeConstants.CLASS
+                : ITadirTypeConstants.PROGRAM);
         taggedObjInfo.setComponentType(tagOwningObjRefNode.getAdtObjectType());
         taggedObjInfo.setComponentName(tagOwningObjRefNode.getName());
       } else {
@@ -509,8 +510,8 @@ public class AbapObjectTagsView extends ViewPart {
    *
    * @author stockbal
    */
-  private static class ViewLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
+  private static class ViewLabelProvider extends LabelProvider
+      implements ILabelProvider, IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {
@@ -705,18 +706,18 @@ public class AbapObjectTagsView extends ViewPart {
     }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(getProject(),
-          adtObjRefs));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN,
+          new OpenAdtObjectAction(getProject(), adtObjRefs));
     }
     if (!previewAdtObjRefs.isEmpty()) {
-      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN, new ExecuteAdtObjectAction(getProject(),
-          previewAdtObjRefs, true));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_OPEN,
+          new ExecuteAdtObjectAction(getProject(), previewAdtObjRefs, true));
     }
 
     if (!adtObjRefs.isEmpty() && adtObjRefs.size() == 1 && selection.size() == 1) {
 
-      menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS, CommandFactory
-          .createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
+      menu.appendToGroup(IContextMenuConstants.GROUP_ADDITIONS,
+          CommandFactory.createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
       var singleAdtObjRef = adtObjRefs.get(0);
 
       if (AdtObjectCapabilities.getInstance()
@@ -755,10 +756,11 @@ public class AbapObjectTagsView extends ViewPart {
     copyToClipBoardAction = new CopyToClipboardAction();
     copyToClipBoardAction.registerViewer(treeViewer);
     linkToEditorAction = new PreferenceToggleAction(
-        Messages.AbapObjectTagsView_LinkToEditorAction_xtol, PlatformUI.getWorkbench()
+        Messages.AbapObjectTagsView_LinkToEditorAction_xtol,
+        PlatformUI.getWorkbench()
             .getSharedImages()
-            .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED), LINK_TO_EDITOR_PREF, true,
-        AbapTagsUIPlugin.getDefault().getPreferenceStore());
+            .getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED),
+        LINK_TO_EDITOR_PREF, true, AbapTagsUIPlugin.getDefault().getPreferenceStore());
     linkToEditorAction.addPropertyChangeListener(e -> {
       if (e.getProperty().equals(IAction.CHECKED) && (Boolean) e.getNewValue()) {
         updateInputFromEditor();
@@ -776,8 +778,8 @@ public class AbapObjectTagsView extends ViewPart {
       }
 
       IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) selObject;
-      updateInput(AdtObjectFactory.create(adtObjRefNode.getObjectReference(), currentAdtObject
-          .getProject()), true);
+      updateInput(AdtObjectFactory.create(adtObjRefNode.getObjectReference(),
+          currentAdtObject.getProject()), true);
     });
     addTagsAction = ActionFactory.createAction(Messages.AbapObjectTagsView_AddTagsAction_xtol,
         AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.ASSIGN_TAG), () -> {
@@ -794,17 +796,16 @@ public class AbapObjectTagsView extends ViewPart {
           } else {
             wizard.setProject(ProjectUtil.getCurrentAbapProject());
           }
-          final WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
-              .getActiveWorkbenchWindow()
-              .getShell(), wizard);
+          final WizardDialog dialog = new WizardDialog(
+              PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), wizard);
           dialog.open();
           if (currentAdtObject != null && wizard.wasSuccessful()) {
             refreshCurrentNode();
           }
         });
-    refreshAction = ActionFactory.createAction(AdtBaseUIResources.getString(
-        IAdtBaseStrings.Refresh), AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH),
-        this::refreshCurrentNode);
+    refreshAction = ActionFactory.createAction(
+        AdtBaseUIResources.getString(IAdtBaseStrings.Refresh),
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH), this::refreshCurrentNode);
     otherObjectAction = new ChooseOtherAdtObjectAction(false, this::onOtherObjectAction);
   }
 
@@ -894,8 +895,8 @@ public class AbapObjectTagsView extends ViewPart {
     if (!linkToEditorAction.isChecked() && !forceUpdate) {
       return;
     }
-    if (Objects.equals(currentAdtObject, newAdtObject) && (newAdtObject == null || Objects.equals(
-        currentAdtObject.getProject(), newAdtObject.getProject()))) {
+    if (Objects.equals(currentAdtObject, newAdtObject) && (newAdtObject == null
+        || Objects.equals(currentAdtObject.getProject(), newAdtObject.getProject()))) {
       return;
     }
     currentAdtObject = newAdtObject;
@@ -906,8 +907,8 @@ public class AbapObjectTagsView extends ViewPart {
         clearInput();
         return;
       }
-      final IStatus abapTagsFeatureStatus = abapTagsService.testTagsFeatureAvailability(
-          currentAdtObject.getProject());
+      final IStatus abapTagsFeatureStatus = abapTagsService
+          .testTagsFeatureAvailability(currentAdtObject.getProject());
       if (!abapTagsFeatureStatus.isOK()) {
         clearInput();
         viewLabel.updateLabel(abapTagsFeatureStatus.getMessage());

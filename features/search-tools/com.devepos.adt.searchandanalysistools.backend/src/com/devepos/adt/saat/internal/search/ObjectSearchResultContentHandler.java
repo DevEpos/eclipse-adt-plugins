@@ -8,8 +8,8 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
 import com.devepos.adt.saat.model.objectsearch.util.ObjectSearchResourceFactory;
 import com.sap.adt.communication.content.AdtMediaType;
 
-public class ObjectSearchResultContentHandler extends
-    AbstractEmfContentHandler<IObjectSearchResult> {
+public class ObjectSearchResultContentHandler
+    extends AbstractEmfContentHandler<IObjectSearchResult> {
 
   public ObjectSearchResultContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".objectsearchresult");

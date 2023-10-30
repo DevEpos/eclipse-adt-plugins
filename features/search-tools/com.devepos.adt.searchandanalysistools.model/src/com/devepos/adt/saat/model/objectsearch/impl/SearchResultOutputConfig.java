@@ -40,8 +40,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchResultOutputConfig;
  *
  * @generated
  */
-public class SearchResultOutputConfig extends MinimalEObjectImpl.Container implements
-    ISearchResultOutputConfig {
+public class SearchResultOutputConfig extends MinimalEObjectImpl.Container
+    implements ISearchResultOutputConfig {
   /**
    * The default value of the '{@link #isListOutputSupported() <em>List Output Supported</em>}'
    * attribute.

@@ -81,8 +81,8 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
   @Override
   public String getLongDescription() {
     if (longDescription == null) {
-      longDescription = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg, new Object[] {
-          filterLabel, "smith" }); //$NON-NLS-1$
+      longDescription = NLS.bind(Messages.SearchFilter_DescriptionUserFilter_xmsg,
+          new Object[] { filterLabel, "smith" }); //$NON-NLS-1$
     }
     return longDescription;
   }
@@ -94,7 +94,8 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
     var proposalImage = getProposalImage();
 
     // add additional user 'me' which represents the currently logged on user
-    if (includeMeValue && StringUtil.getPatternForQuery(query, false).matcher(LOGGED_ON_USER).matches()) {
+    if (includeMeValue
+        && StringUtil.getPatternForQuery(query, false).matcher(LOGGED_ON_USER).matches()) {
       proposals.add(new SearchFilterValueProposal(LOGGED_ON_USER, this,
           Messages.UserSearchFilter_CurrentlyLoggedOnUser_xlbl, query, proposalImage));
     }

@@ -22,7 +22,7 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
 
   /**
    * Adds list of favorites at the given index of the existing favorites
-   * 
+   *
    * @param list  list of favorites
    * @param index index where favorites should be inserted
    */
@@ -37,7 +37,7 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
 
   /**
    * Adds list of favorites to the end of the existing favorites
-   * 
+   *
    * @param list list of favorites
    */
   void addFavorites(Collection<ISearchFavorite> list);
@@ -61,11 +61,11 @@ public interface ISearchFavorites extends IModificationProvider<ISearchFavorite>
 
   /**
    * Returns the available search favorite
-   * 
+   *
    * @param ignoreHidden if <code>true</code> only favorites are not marked as hidden will be
    *                     returned
    * @return list of search favorites
-   * 
+   *
    * @see {@link ISearchFavorite#setHidden(boolean)}
    */
   List<ISearchFavorite> getFavorites(boolean ignoreHidden);

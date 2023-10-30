@@ -108,8 +108,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private QueryListenerAdapter queryListener;
 
   public TaggedObjectSearchResultPage() {
-    executableObjectTypes = Stream.of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO",
-        "WDYA/YY", "WDCA/YA").collect(Collectors.toList());
+    executableObjectTypes = Stream
+        .of("CLAS/OC", "PROG/P", "TRAN/T", "FUGR/FF", "WAPA/WO", "WDYA/YY", "WDCA/YA")
+        .collect(Collectors.toList());
     colorPropertyChangeListener = event -> {
       if (IColorConstants.COMP_PARENT_COLOR.equals(event.getProperty()) && resultTreeViewer != null
           && !resultTreeViewer.getControl().isDisposed()) {
@@ -146,8 +147,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
    *
    * @author stockbal
    */
-  private class ViewLabelProvider extends LabelProvider implements ILabelProvider,
-      IStyledLabelProvider {
+  private class ViewLabelProvider extends LabelProvider
+      implements ILabelProvider, IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {
@@ -195,17 +196,15 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         AdtObjectUtil.appendAdtTypeDescription(adtObjRefNode, text);
       }
 
-      var parentName = adtObjRefNode.getPropertyValue(
-          ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
+      var parentName = adtObjRefNode
+          .getPropertyValue(ITaggedObjectPropertyNameConstants.ADT_OBJECT_PARENT_NAME);
       if (parentName != null) {
-        text.append(" [" + parentName + "]", StylerFactory.createCustomStyler(SWT.NORMAL,
-            IColorConstants.COMP_PARENT_COLOR, null));
+        text.append(" [" + parentName + "]",
+            StylerFactory.createCustomStyler(SWT.NORMAL, IColorConstants.COMP_PARENT_COLOR, null));
       }
-      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) && !adtObjRefNode
-          .getAdtObjectType()
-          .startsWith(ITadirTypeConstants.PACKAGE) && !StringUtil.isEmpty(adtObjRefNode
-              .getObjectReference()
-              .getPackageName())) {
+      if (prefStore.getBoolean(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
+          && !adtObjRefNode.getAdtObjectType().startsWith(ITadirTypeConstants.PACKAGE)
+          && !StringUtil.isEmpty(adtObjRefNode.getObjectReference().getPackageName())) {
         text.append(" - ");
         text.append(adtObjRefNode.getObjectReference().getPackageName(),
             StyledString.QUALIFIER_STYLER);
@@ -239,9 +238,9 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       if (resultTree == null || resultTree.isDisposed()) {
         return;
       }
-      if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS) || e.getProperty()
-          .equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES) || e.getProperty()
-              .equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
+      if (e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_DESCRIPTIONS)
+          || e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_PACKAGES)
+          || e.getProperty().equals(ITaggedObjectSearchPrefs.DISPLAY_OBJECT_TYPES)) {
 
         resultTreeViewer.refresh();
       }
@@ -258,8 +257,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     queryListener = new QueryListenerAdapter() {
       @Override
       public void queryStarting(final ISearchQuery query) {
-        if (result != null && query.getSearchResult() != null && result.equals(query
-            .getSearchResult())) {
+        if (result != null && query.getSearchResult() != null
+            && result.equals(query.getSearchResult())) {
           if (resultTree != null && resultTree.isFilterVisible()) {
             Display.getDefault().asyncExec(() -> resultTree.toggleFilterVisiblity());
           }
@@ -331,8 +330,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
 
   @Override
   public void searchResultChanged(final SearchResultEvent e) {
-    if (e instanceof TaggedObjectSearchResultEvent && ((TaggedObjectSearchResultEvent) e)
-        .isCleanup()) {
+    if (e instanceof TaggedObjectSearchResultEvent
+        && ((TaggedObjectSearchResultEvent) e).isCleanup()) {
       return;
     }
     state = null;
@@ -352,8 +351,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   @Override
   public void setActionBars(final IActionBars actionBars) {
     final IToolBarManager tbm = actionBars.getToolBarManager();
-    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory.createContribItemById(
-        IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
+    tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, CommandFactory
+        .createContribItemById(IGeneralCommandConstants.OPEN_QUERY_IN_SEARCH_DIALOG, false, null));
     tbm.appendToGroup(IContextMenuConstants.GROUP_EDIT, collapseAllNodesAction);
     tbm.appendToGroup(IContextMenuConstants.GROUP_NEW, searchFavoritesAction);
     copyToClipBoardAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
@@ -368,8 +367,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     menu.add(new Separator());
     menu.add(openPreferencesAction);
     menu.add(new Separator());
-    menu.add(CommandFactory.createContribItemById(
-        IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
+    menu.add(CommandFactory
+        .createContribItemById(IGeneralCommandConstants.TOGGLE_VIEWER_TEXT_FILTER, false, null));
   }
 
   @Override
@@ -427,8 +426,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
     resultTree.setViewer(resultTreeViewer);
     resultTreeViewer.setContentProvider(new TreeContentProvider());
-    resultTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new ViewLabelProvider()));
+    resultTreeViewer
+        .setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
     resultTreeViewer.addOpenListener(event -> {
       final ITreeSelection sel = (ITreeSelection) event.getSelection();
       final Iterator<?> selIter = sel.iterator();
@@ -473,13 +472,13 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN, new OpenAdtObjectAction(projectProvider
-          .getProject(), adtObjRefs));
+      menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
+          new OpenAdtObjectAction(projectProvider.getProject(), adtObjRefs));
     }
 
     if (!adtObjRefs.isEmpty()) {
-      menu.appendToGroup(IContextMenuConstants.GROUP_SEARCH, CommandFactory.createContribItemById(
-          IGeneralCommandConstants.WHERE_USED_IN, true, null));
+      menu.appendToGroup(IContextMenuConstants.GROUP_SEARCH,
+          CommandFactory.createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
 
     }
 
@@ -527,8 +526,8 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   }
 
   private void initializeActions() {
-    searchFavoritesAction = SearchFavoritesActionFactory.createSearchFavoritesAction(
-        TaggedObjectSearchQuery.SEARCH_FAVORITE_TYPE);
+    searchFavoritesAction = SearchFavoritesActionFactory
+        .createSearchFavoritesAction(TaggedObjectSearchQuery.SEARCH_FAVORITE_TYPE);
     collapseAllNodesAction = new CollapseAllTreeNodesAction(resultTreeViewer);
     collapseNodesAction = new CollapseTreeNodesAction(resultTreeViewer);
     copyToClipBoardAction = new CopyToClipboardAction();

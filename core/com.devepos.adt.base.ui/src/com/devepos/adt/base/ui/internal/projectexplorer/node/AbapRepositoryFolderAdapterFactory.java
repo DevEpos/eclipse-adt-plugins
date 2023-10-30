@@ -43,14 +43,15 @@ public class AbapRepositoryFolderAdapterFactory implements IAdapterFactory {
       AbapRepositoryCategoryFolderNode node = (AbapRepositoryCategoryFolderNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), node.getCategory(),
           null, null, getPackages(node)));
-    } else if (adaptableObject instanceof AbapRepositoryTypeFolderNode) {
+    }
+    if (adaptableObject instanceof AbapRepositoryTypeFolderNode) {
       AbapRepositoryTypeFolderNode node = (AbapRepositoryTypeFolderNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, node.getType(),
           null, getPackages(node)));
     } else if (adaptableObject instanceof AbapRepositoryTempPackageNode) {
       AbapRepositoryTempPackageNode node = (AbapRepositoryTempPackageNode) adaptableObject;
-      return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null, node
-          .getOwnerOfLocalObject(), getPackages(node)));
+      return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null,
+          node.getOwnerOfLocalObject(), getPackages(node)));
     }
     return null;
   }

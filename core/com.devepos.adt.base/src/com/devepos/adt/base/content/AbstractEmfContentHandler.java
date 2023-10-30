@@ -66,8 +66,8 @@ public abstract class AbstractEmfContentHandler<T extends EObject> implements IC
       if (cause instanceof SAXParseException) {
         try {
           final Resource resource = createResource();
-          final String escaped = FileUtils.escapeSpecialChars(FileUtils.toString(getInputStream(
-              body)));
+          final String escaped = FileUtils
+              .escapeSpecialChars(FileUtils.toString(getInputStream(body)));
           resource.load(new ByteArrayInputStream(escaped.getBytes(StandardCharsets.UTF_8.name())),
               null);
           return loadEmf(resource);

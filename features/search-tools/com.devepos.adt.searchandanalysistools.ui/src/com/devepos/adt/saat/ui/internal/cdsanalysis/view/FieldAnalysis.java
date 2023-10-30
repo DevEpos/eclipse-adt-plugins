@@ -32,22 +32,22 @@ public class FieldAnalysis extends CdsAnalysis {
 
   public FieldAnalysis(final IAdtObjectReferenceElementInfo adtObjectInfo) {
     super(adtObjectInfo);
-    node = new LazyLoadingAdtObjectReferenceNode(adtObjectInfo.getName(), adtObjectInfo
-        .getDisplayName(), adtObjectInfo.getDescription(), adtObjectInfo.getAdtObjectReference(),
-        null);
+    node = new LazyLoadingAdtObjectReferenceNode(adtObjectInfo.getName(),
+        adtObjectInfo.getDisplayName(), adtObjectInfo.getDescription(),
+        adtObjectInfo.getAdtObjectReference(), null);
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
     node.setElementInfoProvider(new IElementInfoProvider() {
       @Override
       public List<IElementInfo> getElements() {
-        return enrichColumnInfo(destProvider.getDestinationId(), DdicRepositoryAccessFactory
-            .getDdicAccess()
-            .getColumnInformation(destProvider.getDestinationId(), adtObjectInfo.getUri()));
+        return enrichColumnInfo(destProvider.getDestinationId(),
+            DdicRepositoryAccessFactory.getDdicAccess()
+                .getColumnInformation(destProvider.getDestinationId(), adtObjectInfo.getUri()));
       }
 
       @Override
       public String getProviderDescription() {
-        return NLS.bind(Messages.FieldAnalysisView_FieldLoadingProviderDesc_xmsg, adtObjectInfo
-            .getDisplayName());
+        return NLS.bind(Messages.FieldAnalysisView_FieldLoadingProviderDesc_xmsg,
+            adtObjectInfo.getDisplayName());
       }
     });
     settings = CdsAnalysisSettingsFactory.createFieldAnalysisSettings();
@@ -98,8 +98,8 @@ public class FieldAnalysis extends CdsAnalysis {
     List<IElementInfo> columnElemList = new ArrayList<>();
 
     for (var columnInfo : objRefList) {
-      var columnElemInfo = new SimpleElementInfo(columnInfo.getFieldName().toLowerCase(), columnInfo
-          .getFieldName(), null, columnInfo.getDescription());
+      var columnElemInfo = new SimpleElementInfo(columnInfo.getFieldName().toLowerCase(),
+          columnInfo.getFieldName(), null, columnInfo.getDescription());
       if (columnInfo.isKey()) {
         columnElemInfo.setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.KEY_COLUMN));
       } else {

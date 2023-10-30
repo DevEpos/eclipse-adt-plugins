@@ -49,8 +49,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
     setDescription(Messages.DeleteTagsWizardPage_PageDescription_xtit);
   }
 
-  private class ColumnLabelProvider extends CellLabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
+  private class ColumnLabelProvider extends CellLabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
 
     private final ColumnSpec colSpec;
 
@@ -187,8 +187,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
   }
 
   private void createViewer(final Composite parent) {
-    var table = new Table(parent, SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION
-        | SWT.CHECK);
+    var table = new Table(parent,
+        SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION | SWT.CHECK);
     table.setHeaderVisible(true);
 
     tagsTableViewer = new CheckboxTableViewer(table);
@@ -207,8 +207,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
       column.setToolTipText(colSpec.tooltip);
       column.setWidth(colSpec.defaultWidth);
       column.setMoveable(false);
-      tableColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new ColumnLabelProvider(
-          colSpec)));
+      tableColumn.setLabelProvider(
+          new DelegatingStyledCellLabelProvider(new ColumnLabelProvider(colSpec)));
     }
 
     tagsTableViewer.addCheckStateListener(event -> {
@@ -278,8 +278,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
         monitor.beginTask(Messages.DeleteTagsWizardPage_DeletionCheckJob_xmsg, 1);
         var tagsService = AbapTagsServiceFactory.createTagsService();
 
-        final var checkResult = tagsService.runTagDeletionCheck(destinationId, getWizard()
-            .getTagsForDeletion());
+        final var checkResult = tagsService.runTagDeletionCheck(destinationId,
+            getWizard().getTagsForDeletion());
 
         Display.getDefault().asyncExec(() -> {
           fillCheckResult(checkResult);
@@ -298,9 +298,8 @@ public class DeleteTagsWizardPage extends AbstractBaseWizardPage {
   private void updateSelectionInfoLabel() {
     var checkedCount = tagsTableViewer.getCheckedElements().length;
 
-    if (checkedCount == 0 && undeletableTags.size() < getWizard().getTagsForDeletion()
-        .getTags()
-        .size()) {
+    if (checkedCount == 0
+        && undeletableTags.size() < getWizard().getTagsForDeletion().getTags().size()) {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 

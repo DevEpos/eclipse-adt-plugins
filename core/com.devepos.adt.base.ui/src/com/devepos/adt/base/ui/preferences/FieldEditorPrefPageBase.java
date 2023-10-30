@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Group;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public abstract class FieldEditorPrefPageBase extends PreferencePage implements
-    IPropertyChangeListener {
+public abstract class FieldEditorPrefPageBase extends PreferencePage
+    implements IPropertyChangeListener {
 
   protected final List<FieldEditor> fields = new ArrayList<>();
   protected final Map<String, FieldEditor> fieldMap = new HashMap<>();

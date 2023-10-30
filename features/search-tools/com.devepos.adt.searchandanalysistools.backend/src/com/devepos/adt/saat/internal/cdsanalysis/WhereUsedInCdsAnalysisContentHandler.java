@@ -13,8 +13,8 @@ import com.sap.adt.communication.content.AdtMediaType;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class WhereUsedInCdsAnalysisContentHandler extends
-    AbstractEmfContentHandler<IWhereUsedInCdsResult> {
+public class WhereUsedInCdsAnalysisContentHandler
+    extends AbstractEmfContentHandler<IWhereUsedInCdsResult> {
 
   public WhereUsedInCdsAnalysisContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".whereusedincdsresult");

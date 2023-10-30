@@ -25,7 +25,9 @@ public class OpenPreferencesAction extends Action {
 
   @Override
   public void run() {
-    PreferencesUtil.createPreferenceDialogOn(null, preferencePageId, new String[] {
-        preferencePageId }, (Object) null).open();
+    PreferencesUtil
+        .createPreferenceDialogOn(null, preferencePageId, new String[] { preferencePageId },
+            (Object) null)
+        .open();
   }
 }

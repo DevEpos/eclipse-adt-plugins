@@ -14,8 +14,8 @@ public class AbapTagsUriDiscovery extends AbapTagsUriDiscoveryBase {
   private static final String TAG_ID = "tagId";
   private static final String DISCOVERY_SCHEME = "http://www.devepos.com/adt/atm"; //$NON-NLS-1$
   private static final String DISCOVERY_RELATION_ROOT = "http://www.devepos.com/adt/relations/atm"; //$NON-NLS-1$
-  private static final String DISCOVERY_RELATION_SHARED_TAG_INFO = DISCOVERY_RELATION_ROOT
-      + "/tags/share/info"; //$NON-NLS-1$
+  private static final String DISCOVERY_RELATION_SHARED_TAG_INFO = DISCOVERY_RELATION_ROOT +
+      "/tags/share/info"; //$NON-NLS-1$
 
   private static final String DISCOVERY_TERM_TAGS = "tags"; //$NON-NLS-1$
   private static final String DISCOVERY_TERM_SHARE_TAGS = "shareTags"; //$NON-NLS-1$

@@ -98,15 +98,15 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     if (tagSelected) {
       deleteUnusedMenuGroups(menu);
     } else if (Stream.of(selection).anyMatch(IAdtObjectReferenceNode.class::isInstance)) {
-      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new RemoveAssignedTagsAction(
-          getActionSite()));
+      menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT,
+          new RemoveAssignedTagsAction(getActionSite()));
       var typeUtil = AdtTypeUtil.getInstance();
       // Adds delete command if no local type is selected
       if (!Stream.of(selection)
           .filter(IAdtObjectReferenceNode.class::isInstance)
           .map(IAdtObjectReferenceNode.class::cast)
-          .anyMatch(obj -> typeUtil.isLocalClassType(obj.getAdtObjectType()) || typeUtil
-              .isLocalInterfaceType(obj.getAdtObjectType()))) {
+          .anyMatch(obj -> typeUtil.isLocalClassType(obj.getAdtObjectType())
+              || typeUtil.isLocalInterfaceType(obj.getAdtObjectType()))) {
         MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_EDIT,
             "com.sap.adt.deletion.ui.command.delete", PlatformUI.getWorkbench() //$NON-NLS-1$
                 .getSharedImages()
@@ -120,11 +120,11 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     if (relevantSelectedNodes != null && !relevantSelectedNodes.isEmpty()) {
       if (tagSelected) {
         menu.add(new Separator());
-        menu.add(new RefreshFolderAction(relevantSelectedNodes, getActionSite()
-            .getStructuredViewer()));
+        menu.add(
+            new RefreshFolderAction(relevantSelectedNodes, getActionSite().getStructuredViewer()));
       } else {
-        menu.appendToGroup(ICommonMenuConstants.GROUP_BUILD, new RefreshFolderAction(
-            relevantSelectedNodes, getActionSite().getStructuredViewer()));
+        menu.appendToGroup(ICommonMenuConstants.GROUP_BUILD,
+            new RefreshFolderAction(relevantSelectedNodes, getActionSite().getStructuredViewer()));
       }
     }
 
@@ -135,8 +135,8 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
 
     for (var selObj : treeViewer.getStructuredSelection()) {
       if (treeViewer.getExpandedState(selObj)) {
-        menu.appendToGroup(ICommonMenuConstants.GROUP_REORGANIZE, new CollapseTreeNodesAction(
-            treeViewer));
+        menu.appendToGroup(ICommonMenuConstants.GROUP_REORGANIZE,
+            new CollapseTreeNodesAction(treeViewer));
         break;
       }
     }

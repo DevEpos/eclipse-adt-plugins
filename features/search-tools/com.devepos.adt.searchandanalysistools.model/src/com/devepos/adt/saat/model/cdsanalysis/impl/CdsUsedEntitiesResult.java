@@ -35,8 +35,8 @@ import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntity;
  *
  * @generated
  */
-public class CdsUsedEntitiesResult extends MinimalEObjectImpl.Container implements
-    ICdsUsedEntitiesResult {
+public class CdsUsedEntitiesResult extends MinimalEObjectImpl.Container
+    implements ICdsUsedEntitiesResult {
   /**
    * The cached value of the '{@link #getSourceEntity() <em>Source Entity</em>}' containment
    * reference.
@@ -126,12 +126,14 @@ public class CdsUsedEntitiesResult extends MinimalEObjectImpl.Container implemen
     if (newSourceEntity != sourceEntity) {
       NotificationChain msgs = null;
       if (sourceEntity != null) {
-        msgs = ((InternalEObject) sourceEntity).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.CDS_USED_ENTITIES_RESULT__SOURCE_ENTITY, null, msgs);
+        msgs = ((InternalEObject) sourceEntity).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.CDS_USED_ENTITIES_RESULT__SOURCE_ENTITY,
+            null, msgs);
       }
       if (newSourceEntity != null) {
-        msgs = ((InternalEObject) newSourceEntity).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-            - ICdsAnalysisPackage.CDS_USED_ENTITIES_RESULT__SOURCE_ENTITY, null, msgs);
+        msgs = ((InternalEObject) newSourceEntity).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - ICdsAnalysisPackage.CDS_USED_ENTITIES_RESULT__SOURCE_ENTITY,
+            null, msgs);
       }
       msgs = basicSetSourceEntity(newSourceEntity, msgs);
       if (msgs != null) {

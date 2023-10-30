@@ -77,8 +77,8 @@ public class TagSelectionTree {
     tagsTree.setElementMatcher(element -> {
       if (element instanceof ITag) {
         final ITag tag = (ITag) element;
-        return tagsTree.getWordMatcher().matchesWord(tag.getName()) || tagsTree.getWordMatcher()
-            .matchesWord(tag.getDescription());
+        return tagsTree.getWordMatcher().matchesWord(tag.getName())
+            || tagsTree.getWordMatcher().matchesWord(tag.getDescription());
       }
       return false;
     });
@@ -87,11 +87,10 @@ public class TagSelectionTree {
     applyTreeLayoutData(tagsTreeViewer.getTree());
     tagsTree.setExpandAllOnFilterEmpty(false);
 
-    tagsTreeViewer.setContentProvider(contentProvider != null ? contentProvider
-        : new TagTreeContentProvider());
-    tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(labelProvider != null
-        ? labelProvider
-        : new TagLabelProvider(true, false)));
+    tagsTreeViewer.setContentProvider(
+        contentProvider != null ? contentProvider : new TagTreeContentProvider());
+    tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
+        labelProvider != null ? labelProvider : new TagLabelProvider(true, false)));
     tagsTreeViewer.setInput(tagList);
     tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
 
@@ -284,8 +283,8 @@ public class TagSelectionTree {
   }
 
   private boolean isTreeOnline() {
-    return tagsTreeViewer != null && tagsTreeViewer.getTree() != null && !tagsTreeViewer.getTree()
-        .isDisposed();
+    return tagsTreeViewer != null && tagsTreeViewer.getTree() != null
+        && !tagsTreeViewer.getTree().isDisposed();
   }
 
   private void setTagCheckedRecursive(final ITag tag, final boolean checked) {

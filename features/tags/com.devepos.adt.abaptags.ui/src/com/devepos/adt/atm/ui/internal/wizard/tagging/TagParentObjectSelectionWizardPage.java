@@ -70,8 +70,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
    *
    * @author stockbal
    */
-  static class ColumnLabelProvider extends CellLabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
+  static class ColumnLabelProvider extends CellLabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider, ILabelProvider {
 
     private final Column column;
 
@@ -348,8 +348,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createParentObjectSelectionTree(final Composite root) {
 
-    parentObjectSelectionTree = new Tree(root, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE
-        | SWT.FULL_SELECTION);
+    parentObjectSelectionTree = new Tree(root,
+        SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE | SWT.FULL_SELECTION);
     parentObjectSelectionTree.setHeaderVisible(true);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(parentObjectSelectionTree);
     treeViewer = new TreeViewer(parentObjectSelectionTree);
@@ -370,8 +370,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     GridDataFactory.fillDefaults().grab(true, false).applyTo(modeComposite);
 
     final Button groupSelectionButton = new Button(modeComposite, SWT.RADIO);
-    groupSelectionButton.setText(
-        Messages.TagParentObjectSelectionWizardPage_MultipleSelectionMode_xrbl);
+    groupSelectionButton
+        .setText(Messages.TagParentObjectSelectionWizardPage_MultipleSelectionMode_xrbl);
     groupSelectionButton.setSelection(true);
     groupSelectionButton.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -382,8 +382,8 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
     });
 
     final Button singleSelectionButton = new Button(modeComposite, SWT.RADIO);
-    singleSelectionButton.setText(
-        Messages.TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl);
+    singleSelectionButton
+        .setText(Messages.TagParentObjectSelectionWizardPage_SingleSelectionMode_xrbl);
   }
 
   private void fillContextMenu(final IMenuManager menu) {

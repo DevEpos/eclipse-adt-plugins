@@ -52,20 +52,20 @@ public class AbapTagsService implements IAbapTagsService {
     if (new AbapTagsUriDiscovery(destinationId).isResourceDiscoverySuccessful()) {
       return Status.OK_STATUS;
     }
-    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AbapTagsService_TagsNotSupported_xmsg, project.getName()));
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+        NLS.bind(Messages.AbapTagsService_TagsNotSupported_xmsg, project.getName()));
   }
 
   @Override
   public IStatus testTagDeletionCheckFeatureAvailability(final IProject project) {
     final var destinationId = DestinationUtil.getDestinationId(project);
     final var uriDiscovery = new AbapTagsUriDiscovery(destinationId);
-    if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .getTagDeletionCheckUri() != null) {
+    if (uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getTagDeletionCheckUri() != null) {
       return Status.OK_STATUS;
     }
-    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AbapTagsService_DeletionCheckNotPossible_xmsg, project.getName()));
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+        NLS.bind(Messages.AbapTagsService_DeletionCheckNotPossible_xmsg, project.getName()));
   }
 
   @Override
@@ -75,8 +75,8 @@ public class AbapTagsService implements IAbapTagsService {
     if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getShareTagsUri() != null) {
       return Status.OK_STATUS;
     }
-    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AbapTagsService_ShareTagsNotSupported_xmsg, project.getName()));
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+        NLS.bind(Messages.AbapTagsService_ShareTagsNotSupported_xmsg, project.getName()));
   }
 
   @Override
@@ -100,8 +100,8 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope
-          .toString()));
+      restResource.post(null, ITagList.class, tags,
+          new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -129,8 +129,8 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, tagList, new QueryParameter(QUERY_PARAM_ACTION,
-          CUSTOM_ACTION_MAKE_GLOBAL));
+      restResource.post(null, ITagList.class, tagList,
+          new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_MAKE_GLOBAL));
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -186,8 +186,8 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getShareTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, tagList, new QueryParameter(QUERY_PARAM_UNSHARE,
-          "X")); //$NON-NLS-1$
+      restResource.post(null, ITagList.class, tagList,
+          new QueryParameter(QUERY_PARAM_UNSHARE, "X")); //$NON-NLS-1$
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -243,8 +243,9 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      return restResource.get(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope
-          .toString()), new QueryParameter(QUERY_PARAM_QUERY, query));
+      return restResource.get(null, ITagList.class,
+          new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+          new QueryParameter(QUERY_PARAM_QUERY, query));
 
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -276,8 +277,8 @@ public class AbapTagsService implements IAbapTagsService {
         params.add(new QueryParameter(QUERY_PARAM_WITH_OBJECT_COUNT, "X")); //$NON-NLS-1$
       }
 
-      return restResource.get(null, ITagList.class, params.toArray(new QueryParameter[params
-          .size()]));
+      return restResource.get(null, ITagList.class,
+          params.toArray(new QueryParameter[params.size()]));
 
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -306,8 +307,9 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, tags, new QueryParameter(QUERY_PARAM_SCOPE, scope
-          .toString()), new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_BATCH_DELETE));
+      restResource.post(null, ITagList.class, tags,
+          new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+          new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_BATCH_DELETE));
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
@@ -334,8 +336,9 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope
-          .toString()), new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_LOCK));
+      restResource.post(null, ITagList.class,
+          new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+          new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_LOCK));
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage(), exc);
@@ -360,8 +363,9 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, new QueryParameter(QUERY_PARAM_SCOPE, scope
-          .toString()), new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_UNLOCK));
+      restResource.post(null, ITagList.class,
+          new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()),
+          new QueryParameter(QUERY_PARAM_ACTION, CUSTOM_ACTION_UNLOCK));
 
     } catch (final ResourceException exc) {
       exc.printStackTrace();

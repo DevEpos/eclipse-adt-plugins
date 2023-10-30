@@ -100,24 +100,24 @@ public class ToggleViewLayoutAction extends MenuManager implements IRadioActionT
 
     // horizontal and vertical are always enabled, otherwise the action is the wrong choice
     actionGroup.addAction(ViewLayoutOrientation.HORIZONTAL.name(),
-        Messages.ToggleViewLayoutAction_HorizontalOrientation_xmit, AdtBaseUIResources
-            .getImageDescriptor(IAdtBaseImages.HORIZONTAL_LAYOUT), false);
+        Messages.ToggleViewLayoutAction_HorizontalOrientation_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.HORIZONTAL_LAYOUT), false);
     actionGroup.addAction(ViewLayoutOrientation.VERTICAL.name(),
-        Messages.ToggleViewLayoutAction_VerticalOrientation_xmit, AdtBaseUIResources
-            .getImageDescriptor(IAdtBaseImages.VERTICAL_LAYOUT), false);
+        Messages.ToggleViewLayoutAction_VerticalOrientation_xmit,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.VERTICAL_LAYOUT), false);
 
     if (settings.isAutomaticEnabled()) {
       actionGroup.addAction(ViewLayoutOrientation.AUTOMATIC.name(),
-          Messages.ToggleViewLayoutAction_AutomaticOrientation_xmit, AdtBaseUIResources
-              .getImageDescriptor(IAdtBaseImages.AUTOMATIC_LAYOUT), false);
+          Messages.ToggleViewLayoutAction_AutomaticOrientation_xmit,
+          AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.AUTOMATIC_LAYOUT), false);
     }
 
     if (settings.isSingleEnabled()) {
       String actionLabel = settings.getSingleActionLabel();
-      actionGroup.addAction(ViewLayoutOrientation.SINGLE.name(), !StringUtil.isEmpty(actionLabel)
-          ? actionLabel
-          : Messages.ToggleViewLayoutAction_SingleOrientation_xmit, AdtBaseUIResources
-              .getImageDescriptor(IAdtBaseImages.SINGLE_LAYOUT), false);
+      actionGroup.addAction(ViewLayoutOrientation.SINGLE.name(),
+          !StringUtil.isEmpty(actionLabel) ? actionLabel
+              : Messages.ToggleViewLayoutAction_SingleOrientation_xmit,
+          AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.SINGLE_LAYOUT), false);
     }
     return actionGroup;
   }

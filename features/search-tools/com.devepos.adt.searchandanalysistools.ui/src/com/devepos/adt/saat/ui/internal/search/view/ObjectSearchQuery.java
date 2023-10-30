@@ -51,8 +51,9 @@ public class ObjectSearchQuery implements IAbapProjectSearchQuery {
   @Override
   public String getDestinationId() {
     var projectProvider = getProjectProvider();
-    return projectProvider != null && projectProvider.hasProject() ? projectProvider
-        .getDestinationId() : null;
+    return projectProvider != null && projectProvider.hasProject()
+        ? projectProvider.getDestinationId()
+        : null;
   }
 
   @Override
@@ -88,20 +89,20 @@ public class ObjectSearchQuery implements IAbapProjectSearchQuery {
       searchRequest.setProjectProvider(projectProvider);
     }
     if (projectProvider == null) {
-      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, NLS.bind(
-          "Destination Id ''{0}'' is not valid", destinationId));
+      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
+          NLS.bind("Destination Id ''{0}'' is not valid", destinationId));
     }
     if (!projectProvider.ensureLoggedOn()) {
-      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, NLS.bind(
-          Messages.ObjectSearch_ProjectLogonFailed_xmsg, projectProvider.getProjectName()));
+      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, NLS
+          .bind(Messages.ObjectSearch_ProjectLogonFailed_xmsg, projectProvider.getProjectName()));
     }
     monitor.beginTask(Messages.ObjectSearch_SearchJobProgressText_xmsg, IProgressMonitor.UNKNOWN);
 
     try {
       var searchService = ObjectSearchServiceFactory.getSearchService();
       var result = searchService.search(destinationId, searchRequest.getQueryInput(), monitor);
-      if (!searchRequest.shouldReadAllEntries() && result.getResultCount() > searchRequest
-          .getMaxResults()) {
+      if (!searchRequest.shouldReadAllEntries()
+          && result.getResultCount() > searchRequest.getMaxResults()) {
         searchResult.setHasMoreResults(true);
       }
       searchResult.addSearchResult(result);
@@ -110,9 +111,8 @@ public class ObjectSearchQuery implements IAbapProjectSearchQuery {
       return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       final String localizedMessage = exc.getLocalizedMessage();
-      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID, localizedMessage != null
-          ? localizedMessage
-          : Messages.ObjectSearch_GeneralError_xmsg);
+      return new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
+          localizedMessage != null ? localizedMessage : Messages.ObjectSearch_GeneralError_xmsg);
     }
   }
 

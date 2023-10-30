@@ -8,8 +8,8 @@ import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.base.content.AbstractEmfContentHandler;
 import com.sap.adt.communication.content.AdtMediaType;
 
-public class TaggedObjectInfoListContentHandler extends
-    AbstractEmfContentHandler<ITaggedObjectInfoList> {
+public class TaggedObjectInfoListContentHandler
+    extends AbstractEmfContentHandler<ITaggedObjectInfoList> {
 
   public TaggedObjectInfoListContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".taggedObjectInfoList");

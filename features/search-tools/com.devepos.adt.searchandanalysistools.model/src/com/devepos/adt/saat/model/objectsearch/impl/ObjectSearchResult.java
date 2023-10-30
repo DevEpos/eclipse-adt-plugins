@@ -35,8 +35,8 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
  *
  * @generated
  */
-public class ObjectSearchResult extends MinimalEObjectImpl.Container implements
-    IObjectSearchResult {
+public class ObjectSearchResult extends MinimalEObjectImpl.Container
+    implements IObjectSearchResult {
   /**
    * The default value of the '{@link #getResultCount() <em>Result Count</em>}' attribute.
    * <!-- begin-user-doc -->

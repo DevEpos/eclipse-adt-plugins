@@ -45,8 +45,8 @@ public final class AdtObject implements IAdtObject {
       return false;
     }
     if (!StringUtil.isEmpty(reference.getType()) && !StringUtil.isEmpty(reference.getName())) {
-      return StringUtil.equals(reference.getType(), other.reference.getType()) && StringUtil.equals(
-          reference.getName(), other.reference.getName());
+      return StringUtil.equals(reference.getType(), other.reference.getType())
+          && StringUtil.equals(reference.getName(), other.reference.getName());
     }
     return Objects.equals(reference.getUri(), other.reference.getUri());
   }

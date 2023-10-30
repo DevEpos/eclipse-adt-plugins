@@ -136,8 +136,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   protected void configureTreeViewer(final TreeViewer treeViewer) {
     treeViewer.setContentProvider(new LazyLoadingTreeContentProvider());
     treeViewer.setUseHashlookup(true);
-    treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
-        new TreeViewerLabelProvider()));
+    treeViewer
+        .setLabelProvider(new DelegatingStyledCellLabelProvider(new TreeViewerLabelProvider()));
     treeViewer.addDoubleClickListener(event -> {
       final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
       if (selection.isEmpty()) {
@@ -145,8 +145,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
       }
       final Object selectedObj = selection.getFirstElement();
       if (selectedObj instanceof SimpleInfoTreeNode) {
-        NavigationUtil.navigateToEntityColumn(currentEntity, ((SimpleInfoTreeNode) selectedObj)
-            .getDisplayName(), destProvider.getDestinationId());
+        NavigationUtil.navigateToEntityColumn(currentEntity,
+            ((SimpleInfoTreeNode) selectedObj).getDisplayName(), destProvider.getDestinationId());
       }
     });
     treeViewer.addSelectionChangedListener(event -> {
@@ -241,8 +241,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   protected void loadInput(final ViewUiState uiState) {
     final IAdtObjectReferenceElementInfo adtObjectInfo = analysisResult.getAdtObjectInfo();
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
-    final ObjectType type = ObjectType.getFromAdtType(adtObjectInfo.getAdtObjectReference()
-        .getType());
+    final ObjectType type = ObjectType
+        .getFromAdtType(adtObjectInfo.getAdtObjectReference().getType());
     currentEntity = adtObjectInfo.getDisplayName();
     this.destProvider = destProvider;
     hierarchyView.setEntityInformation(adtObjectInfo.getDisplayName(), destProvider, type);
@@ -268,7 +268,7 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   }
 
   @Override
-  protected void refreshAnalysis(boolean global) {
+  protected void refreshAnalysis(final boolean global) {
     final Object[] nodes = (Object[]) fieldsTree.getViewer().getInput();
     if (nodes == null) {
       return;
@@ -276,8 +276,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     boolean refreshFieldsTree = true;
     final IStructuredSelection selection = (IStructuredSelection) fieldsTree.getViewer()
         .getSelection();
-    if (!global && selection != null && !selection.isEmpty() && !(selection
-        .getFirstElement() instanceof IAdtObjectReferenceNode)) {
+    if (!global && selection != null && !selection.isEmpty()
+        && !(selection.getFirstElement() instanceof IAdtObjectReferenceNode)) {
       refreshFieldsTree = false;
     }
     if (refreshFieldsTree) {
@@ -311,14 +311,15 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
         });
       }
     };
-    tree.setViewer(new TreeViewer(tree, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL
-        | SWT.FULL_SELECTION));
+    tree.setViewer(
+        new TreeViewer(tree, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION));
     tree.setElementMatcher(element -> {
       IWordMatcher wordMatcher = tree.getWordMatcher();
       if (element instanceof ITreeNode) {
         final ITreeNode node = (ITreeNode) element;
-        return wordMatcher.matchesWord(node.getName()) || wordMatcher.matchesWord(node
-            .getDisplayName()) || wordMatcher.matchesWord(node.getDescription());
+        return wordMatcher.matchesWord(node.getName())
+            || wordMatcher.matchesWord(node.getDisplayName())
+            || wordMatcher.matchesWord(node.getDescription());
       }
       final DelegatingStyledCellLabelProvider labelProvider = (DelegatingStyledCellLabelProvider) getViewer()
           .getLabelProvider();
@@ -332,8 +333,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
 
   private void initActionState() {
     IPreferenceStore prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
-    boolean isSearchInDbViews = prefStore.getBoolean(
-        ICdsAnalysisPreferences.FIELD_ANALYSIS_SEARCH_IN_DB_VIEWS);
+    boolean isSearchInDbViews = prefStore
+        .getBoolean(ICdsAnalysisPreferences.FIELD_ANALYSIS_SEARCH_IN_DB_VIEWS);
     searchDbViewUsages.setChecked(isSearchInDbViews);
 
     if (analysisResult != null) {
@@ -341,8 +342,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
       settings.setSearchInDatabaseViews(isSearchInDbViews);
       settings.setTopDown(FieldAnalysisType.TOP_DOWN.getPrefKey()
           .equals(prefStore.getString(ICdsAnalysisPreferences.FIELD_ANALYSIS_ANALYSIS_DIRECTION)));
-      settings.setSearchInCalcFields(prefStore.getBoolean(
-          ICdsAnalysisPreferences.FIELD_ANALYSIS_SEARCH_IN_CALC_FIELDS));
+      settings.setSearchInCalcFields(
+          prefStore.getBoolean(ICdsAnalysisPreferences.FIELD_ANALYSIS_SEARCH_IN_CALC_FIELDS));
     }
   }
 

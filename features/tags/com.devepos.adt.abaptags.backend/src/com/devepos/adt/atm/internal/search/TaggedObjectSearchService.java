@@ -57,11 +57,13 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
   public IStatus testGetObjectInfosFeatureAvailability(final IProject project) {
     var destinationId = DestinationUtil.getDestinationId(project);
     var uriDiscovery = new TaggedObjectSearchUriDiscovery(destinationId);
-    return uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .getTaggedObjectInfosGetListUri() != null ? Status.OK_STATUS
-            : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, String.format(
-                Messages.TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg,
-                project.toString()));
+    return uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getTaggedObjectInfosGetListUri() != null
+            ? Status.OK_STATUS
+            : new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+                String.format(
+                    Messages.TaggedObjectSearchService_taggedObjectInfoReseourceNotAvailable_xmsg,
+                    project.toString()));
   }
 
 }

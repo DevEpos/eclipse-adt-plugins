@@ -88,8 +88,8 @@ public class SearchFavoritesFactory extends EFactoryImpl implements ISearchFavor
     case ISearchFavoritesPackage.SEARCH_FAVORITES:
       return createSearchFavorites();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 

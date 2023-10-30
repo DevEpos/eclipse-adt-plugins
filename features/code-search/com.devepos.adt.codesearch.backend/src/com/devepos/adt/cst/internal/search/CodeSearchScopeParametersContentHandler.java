@@ -8,8 +8,8 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
 import com.devepos.adt.cst.model.codesearch.util.CodeSearchResourceFactory;
 import com.sap.adt.communication.content.AdtMediaType;
 
-public class CodeSearchScopeParametersContentHandler extends
-    AbstractEmfContentHandler<ICodeSearchScopeParameters> {
+public class CodeSearchScopeParametersContentHandler
+    extends AbstractEmfContentHandler<ICodeSearchScopeParameters> {
 
   public CodeSearchScopeParametersContentHandler() {
     super(AdtMediaType.APPLICATION_XML, ".codesearchscopeparameters");

@@ -65,8 +65,8 @@ public class CodeSearchResult extends AbstractTextSearchResult {
     }
 
     if (resultTree == null) {
-      resultTree = new ResultTreeBuilder(fileMatchesCache, searchQuery.getProjectProvider()
-          .getDestinationId());
+      resultTree = new ResultTreeBuilder(fileMatchesCache,
+          searchQuery.getProjectProvider().getDestinationId());
     }
     if (searchResultRootNode == null) {
       searchResultRootNode = resultTree.getRootNode();
@@ -87,8 +87,8 @@ public class CodeSearchResult extends AbstractTextSearchResult {
   @Override
   public IEditorMatchAdapter getEditorMatchAdapter() {
     if (editorMatchAdapter == null) {
-      editorMatchAdapter = new CodeSearchEditorMatcher(this, searchQuery.getProjectProvider()
-          .getProject());
+      editorMatchAdapter = new CodeSearchEditorMatcher(this,
+          searchQuery.getProjectProvider().getProject());
     }
     return editorMatchAdapter;
   }

@@ -64,15 +64,15 @@ public class UserNameSelectionDialog extends SearchSelectionDialog<IUser, String
     splitResultViewer = new SplitResultSelectionViewer();
     final IStyledLabelProvider resultLabelProvider = new ResultLabelProvider();
     splitResultViewer.setResultViewerFilter(new SelectedUsersFilter());
-    splitResultViewer.setResultLabelProvider(new DelegatingStyledCellLabelProvider(
-        resultLabelProvider));
-    splitResultViewer.setDetailsLabelProvider(new DelegatingStyledCellLabelProvider(
-        resultLabelProvider));
+    splitResultViewer
+        .setResultLabelProvider(new DelegatingStyledCellLabelProvider(resultLabelProvider));
+    splitResultViewer
+        .setDetailsLabelProvider(new DelegatingStyledCellLabelProvider(resultLabelProvider));
     setResultViewPart(splitResultViewer);
   }
 
-  private class ResultLabelProvider extends LabelProvider implements
-      DelegatingStyledCellLabelProvider.IStyledLabelProvider {
+  private class ResultLabelProvider extends LabelProvider
+      implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
     @Override
     public Image getImage(final Object element) {

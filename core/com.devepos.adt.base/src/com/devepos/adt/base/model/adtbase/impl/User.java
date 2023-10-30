@@ -171,8 +171,8 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
     String oldName = name;
     name = newName;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__NAME, oldName,
-          name));
+      eNotify(
+          new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__NAME, oldName, name));
     }
   }
 
@@ -186,8 +186,8 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
     String oldText = text;
     text = newText;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__TEXT, oldText,
-          text));
+      eNotify(
+          new ENotificationImpl(this, Notification.SET, IAdtBasePackage.USER__TEXT, oldText, text));
     }
   }
 

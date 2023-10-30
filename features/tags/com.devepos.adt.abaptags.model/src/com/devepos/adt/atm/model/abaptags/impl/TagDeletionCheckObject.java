@@ -31,8 +31,8 @@ import com.devepos.adt.base.model.adtbase.MessageType;
  *
  * @generated
  */
-public class TagDeletionCheckObject extends MinimalEObjectImpl.Container implements
-    ITagDeletionCheckObject {
+public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
+    implements ITagDeletionCheckObject {
   /**
    * The default value of the '{@link #getTagId() <em>Tag Id</em>}' attribute.
    * <!-- begin-user-doc -->

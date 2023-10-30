@@ -122,8 +122,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
     case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST:
       return createTaggedObjectDeleteRequest();
     default:
-      throw new IllegalArgumentException("The class '" + eClass.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The class '" + eClass.getName() + "' is not a valid classifier");
     }
   }
 
@@ -150,8 +150,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
     case IAbapTagsPackage.IMAGE:
       return createImageFromString(eDataType, initialValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -178,8 +178,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
     case IAbapTagsPackage.IMAGE:
       return convertImageToString(eDataType, instanceValue);
     default:
-      throw new IllegalArgumentException("The datatype '" + eDataType.getName()
-          + "' is not a valid classifier");
+      throw new IllegalArgumentException(
+          "The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -413,8 +413,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       final String initialValue) {
     TagSearchScope result = TagSearchScope.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -438,8 +438,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       final String initialValue) {
     TagQueryType result = TagQueryType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -462,8 +462,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       final String initialValue) {
     TagInfoType result = TagInfoType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -486,8 +486,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       final String initialValue) {
     TagQueryFocus result = TagQueryFocus.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -512,8 +512,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       final String initialValue) {
     ResultGroupLevel result = ResultGroupLevel.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }
@@ -538,8 +538,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   public TagType createTagTypeFromString(final EDataType eDataType, final String initialValue) {
     TagType result = TagType.get(initialValue);
     if (result == null) {
-      throw new IllegalArgumentException("The value '" + initialValue
-          + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      throw new IllegalArgumentException("The value '" + initialValue +
+          "' is not a valid enumerator of '" + eDataType.getName() + "'");
     }
     return result;
   }

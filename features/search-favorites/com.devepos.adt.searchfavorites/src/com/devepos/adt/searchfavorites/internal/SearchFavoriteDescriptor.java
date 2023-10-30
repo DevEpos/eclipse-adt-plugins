@@ -32,8 +32,8 @@ public class SearchFavoriteDescriptor {
   public ISearchFavoriteConnector getConnector() {
     if (favoriteConnector == null) {
       try {
-        favoriteConnector = (ISearchFavoriteConnector) element.createExecutableExtension(
-            CLASS_ATTRIBUTE);
+        favoriteConnector = (ISearchFavoriteConnector) element
+            .createExecutableExtension(CLASS_ATTRIBUTE);
       } catch (CoreException e) {
         e.printStackTrace();
         ErrorDialog.openError(getActiveShell(),

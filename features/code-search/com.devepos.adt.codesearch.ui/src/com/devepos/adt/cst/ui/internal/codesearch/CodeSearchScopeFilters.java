@@ -39,13 +39,14 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
       parameters.add(new UserSearchFilter(projectProvider, FilterName.OWNER.getContentAssistName(),
           Messages.CodeSearchScopeFilters_ownerFilterShortDescription_xmsg, null));
       parameters.add(new PackageSearchFilter(projectProvider));
-      parameters.add(new ApplicationComponentSearchFilter(projectProvider, CodeSearchFactory
-          .getCodeSearchService()
-          .getNamedItemUriTemplateProvider(projectProvider), NamedItem.APPLICATION_COMPONENT));
+      parameters.add(new ApplicationComponentSearchFilter(projectProvider,
+          CodeSearchFactory.getCodeSearchService().getNamedItemUriTemplateProvider(projectProvider),
+          NamedItem.APPLICATION_COMPONENT));
       parameters.add(new DateSearchFilter(FilterName.CREATED_DATE.getContentAssistName(),
-          Messages.CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg, AdtBaseUIResources
-              .format(IAdtBaseStrings.SearchFilter_CreatedDateFilterDescription_xmsg,
-                  FilterName.CREATED_DATE.getContentAssistName()), null));
+          Messages.CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg,
+          AdtBaseUIResources.format(IAdtBaseStrings.SearchFilter_CreatedDateFilterDescription_xmsg,
+              FilterName.CREATED_DATE.getContentAssistName()),
+          null));
     }
 
     if (!projectProvider.ensureLoggedOn()) {

@@ -316,8 +316,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     }
 
     private void createViewer(final Composite parent) {
-      tableViewer = new TableViewer(parent, (multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER
-          | SWT.V_SCROLL | SWT.FULL_SELECTION);
+      tableViewer = new TableViewer(parent,
+          (multi ? SWT.MULTI : SWT.SINGLE) | SWT.BORDER | SWT.V_SCROLL | SWT.FULL_SELECTION);
       GridDataFactory.fillDefaults()
           .grab(true, true)
           .hint(SWT.DEFAULT, tableViewer.getTable().getItemHeight() * 15)
@@ -483,8 +483,9 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     resultViewPart.addPropertyChangeListener(l -> {
       if (l.getProperty().equals(DialogResultPart.SELECTED_ELEMENTS_PROPERTY)) {
         final int selectedElements = (int) l.getNewValue();
-        updateButtonsEnableState(selectedElements <= 0 ? new Status(IStatus.ERROR,
-            AdtBaseUIPlugin.PLUGIN_ID, "") : null); //$NON-NLS-1$
+        updateButtonsEnableState(
+            selectedElements <= 0 ? new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, "") //$NON-NLS-1$
+                : null);
       }
     });
 
@@ -763,8 +764,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       setSearchStatus(null);
     }
     if (searchJob == null) {
-      setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
-          .getString(IAdtBaseStrings.SearchUI_Searching_xmsg)));
+      setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID,
+          AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_Searching_xmsg)));
       searchJob = newSearchJob;
       searchJob.addJobChangeListener(new JobChangeAdapter() {
         @Override
@@ -861,8 +862,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
       if (resultException instanceof CoreException) {
         status = ((CoreException) resultException).getStatus();
       } else {
-        status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, resultException
-            .getLocalizedMessage());
+        status = new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+            resultException.getLocalizedMessage());
       }
       setSearchStatus(status);
     } else {
@@ -878,14 +879,14 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
           }
         }
         if (validResultsCount == 0) {
-          setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
-              .getString(IAdtBaseStrings.SearchUI_NoResults_xmsg)));
+          setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID,
+              AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_NoResults_xmsg)));
         } else if (!searchResult.isResultComplete()) {
           setSearchStatus(new Status(IStatus.WARNING, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
               .format(IAdtBaseStrings.SearchUI_ResultsExceedMaximum_xmsg, validResultsCount)));
         } else if (validResultsCount == 1) {
-          setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
-              .getString(IAdtBaseStrings.SearchUI_OneResult_xmsg)));
+          setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID,
+              AdtBaseUIResources.getString(IAdtBaseStrings.SearchUI_OneResult_xmsg)));
         } else {
           setSearchStatus(new Status(IStatus.INFO, AdtBaseUIPlugin.PLUGIN_ID, AdtBaseUIResources
               .format(IAdtBaseStrings.SearchUI_SpecificResults_xmsg, validResultsCount)));
@@ -919,8 +920,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     } else {
       detailViewer.setInput(selection);
       if (selection.size() > 1) {
-        detailViewer.setInput(MessageFormat.format(Messages.SearchSelectionDialog_ItemsSelected,
-            selection.size()));
+        detailViewer.setInput(
+            MessageFormat.format(Messages.SearchSelectionDialog_ItemsSelected, selection.size()));
       } else {
         detailViewer.setInput(selection.getFirstElement());
       }

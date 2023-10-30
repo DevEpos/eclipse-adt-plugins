@@ -11,8 +11,8 @@ public class DynamicOpenInMenu extends CompoundContributionItem {
   private IMenuManager dynamicOpenInMenu;
 
   public DynamicOpenInMenu() {
-    dynamicOpenInMenu = DynamicOpenInMenuUtility.buildAnalysisToolsSubMenu(AdtUIUtil
-        .getAdtObjectsFromSelection(true));
+    dynamicOpenInMenu = DynamicOpenInMenuUtility
+        .buildAnalysisToolsSubMenu(AdtUIUtil.getAdtObjectsFromSelection(true));
   }
 
   public DynamicOpenInMenu(final String id) {

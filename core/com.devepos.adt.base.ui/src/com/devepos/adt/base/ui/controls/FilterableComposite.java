@@ -38,8 +38,8 @@ import com.devepos.adt.base.util.StringUtil;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public abstract class FilterableComposite<V extends ColumnViewer, C extends Control> extends
-    Composite {
+public abstract class FilterableComposite<V extends ColumnViewer, C extends Control>
+    extends Composite {
 
   /**
    * Text Filter Control will not use the full width of the viewer, so a toolbar can be shown next
@@ -143,8 +143,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     boolean matchesWord(String word);
   }
 
-  private class PatternFilter extends org.eclipse.ui.dialogs.PatternFilter implements IWordMatcher,
-      IElementMatcher {
+  private class PatternFilter extends org.eclipse.ui.dialogs.PatternFilter
+      implements IWordMatcher, IElementMatcher {
 
     @Override
     public boolean matchesElement(final Object element) {
@@ -168,14 +168,15 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     }
 
     @Override
-    protected boolean isParentMatch(Viewer viewer, Object element) {
+    protected boolean isParentMatch(final Viewer viewer, final Object element) {
       if (viewer instanceof AbstractTreeViewer && ((AbstractTreeViewer) viewer)
           .getContentProvider() instanceof LazyLoadingTreeContentProvider) {
         // prevent lazy loading if element is lazy loading node and content is not yet loaded
         if (element instanceof ILazyLoadingNode && !((ILazyLoadingNode) element).isLoaded()) {
           return false;
           // loading nodes always match otherwise the expand will not be performed
-        } else if (element instanceof LoadingTreeItemsNode) {
+        }
+        if (element instanceof LoadingTreeItemsNode) {
           return true;
         }
       }
@@ -567,7 +568,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   private void createFilterText(final Composite parent) {
     filterComposite = new Composite(parent, SWT.NONE);
 
-    int hMargin = ((mode & TEXT_SMALL_H_MARGIN) == TEXT_SMALL_H_MARGIN) ? 5 : 0;
+    int hMargin = (mode & TEXT_SMALL_H_MARGIN) == TEXT_SMALL_H_MARGIN ? 5 : 0;
     boolean toolbarMode = (mode & TOOLBAR) == TOOLBAR;
 
     GridLayoutFactory.swtDefaults()
