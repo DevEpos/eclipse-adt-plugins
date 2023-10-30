@@ -5,7 +5,9 @@
       <topic href="html/favorites_overview.html" label="DevEpos - Search Favorites"/>
    </context>
    <context id="manage_favorites" title="Manage DevEpos Search Favorites">
-      <description>Dialog to manage and start search favorites for Eclipse Search</description>
+      <description>Dialog to manage and start search favorites for Eclipse Search.
+
+Hint: Hidden Favorites (unchecked items) will not be shown in the Favorites Drop-Menu in the main Eclipse toolbar and the Search result View</description>
       <topic href="html/manage_favorites.html" label="DevEpos - Search Favorites"/>
    </context>
 </contexts>

@@ -75,6 +75,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   private Button removeButton;
   private Button moveUpButton;
   private Button moveDownButton;
+  private Label filteredInfo;
   private ViewerFilter visiblityFilter;
 
   private boolean orderChanged;
@@ -217,8 +218,10 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     addSideButtons(parent);
     applyDialogFont(ancestor);
 
-    var label = new Label(parent, SWT.NONE);
-    label.setText(Messages.ManageSearchFavoritesDialog_HiddedFavoriteInfoMessage_xlbl);
+    filteredInfo = new Label(parent, SWT.NONE);
+    GridDataFactory.fillDefaults().span(2, 1).applyTo(filteredInfo);
+
+    updateFilterInfo();
     return ancestor;
   }
 
@@ -227,6 +230,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       @Override
       protected void filterJobCompleted() {
         updateCheckedElements();
+        updateFilterInfo();
       }
     };
     viewer = CheckboxTableViewer.newCheckList(favoritesTable, SWT.MULTI | SWT.H_SCROLL
@@ -260,6 +264,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       if (!showHiddenFavs) {
         viewer.refresh();
       }
+      updateFilterInfo();
     });
     viewer.addFilter(visiblityFilter);
     // set input & selections last, so all the widgets are created.
@@ -298,6 +303,16 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
         performDrop(targetIndex);
       }
     });
+  }
+
+  private void updateFilterInfo() {
+    if (input.isEmpty()) {
+      filteredInfo.setText(Messages.ManageSearchFavoritesDialog_NoFavoritesAvailable_xlbl);
+    } else {
+      filteredInfo.setText(String.format(
+          Messages.ManageSearchFavoritesDialog_FilteredFavoritesInfo_xlbl, viewer.getTable()
+              .getItemCount(), input.size()));
+    }
   }
 
   private void updateCheckedElements() {
@@ -420,6 +435,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     showUncheckedFavsButton.addSelectionListener(widgetSelectedAdapter(e -> {
       showHiddenFavs = showUncheckedFavsButton.getSelection();
       viewer.refresh(false);
+      updateFilterInfo();
     }));
     GridDataFactory.fillDefaults()
         .align(SWT.BEGINNING, SWT.BEGINNING)
@@ -435,6 +451,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     }
     viewer.refresh();
     viewer.setAllChecked(selectAll);
+
+    updateFilterInfo();
   }
 
   private void importFavorites() {
@@ -450,6 +468,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       }
       viewer.refresh();
       updateCheckedElements();
+      updateFilterInfo();
     }, favToBeImported -> input.stream()
         .anyMatch(f -> SearchFavoritesUtil.matchesFavAttributes(f, favToBeImported
             .getDestinationId(), favToBeImported.getSearchType(), favToBeImported
@@ -527,6 +546,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       input.remove(curr);
       viewer.remove(curr);
     }
+
+    updateFilterInfo();
 
     if (input.isEmpty()) {
       return;

@@ -34,10 +34,11 @@ public class Messages extends NLS {
   public static String MainPreferencePage_MakeNewFavsVisible_xchk;
   public static String MainPreferencePage_NewFavSettings_xgrp;
   public static String ManageSearchFavoritesDialog_dialogIntro_xmsg;
-  public static String ManageSearchFavoritesDialog_HiddedFavoriteInfoMessage_xlbl;
+  public static String ManageSearchFavoritesDialog_FilteredFavoritesInfo_xlbl;
   public static String ManageSearchFavoritesDialog_HideAll;
   public static String ManageSearchFavoritesDialog_MoveDown_xbtn;
   public static String ManageSearchFavoritesDialog_MovUp_xbtn;
+  public static String ManageSearchFavoritesDialog_NoFavoritesAvailable_xlbl;
   public static String ManageSearchFavoritesDialog_removeFavorite_xbut;
   public static String ManageSearchFavoritesDialog_ShowAll_xbtn;
   public static String ManageSearchFavoritesDialog_ShowHidden_xbtn;
