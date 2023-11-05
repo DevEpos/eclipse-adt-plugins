@@ -16,12 +16,13 @@ import com.devepos.adt.base.elementinfo.IElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.ui.tree.LazyLoadingAdtObjectReferenceNode;
 import com.devepos.adt.saat.cdsanalysis.CdsAnalysisServiceFactory;
-import com.devepos.adt.saat.cdsanalysis.ICdsEntityUsageInfo;
 import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntitiesResult;
+import com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation;
 import com.devepos.adt.saat.ui.internal.CdsSourceType;
 import com.devepos.adt.saat.ui.internal.ExtendedAdtObjectInfo;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsEntityUsageEntry;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
 
@@ -62,33 +63,19 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
     });
   }
 
-  private static final class CdsEntityUsageInfo extends ExtendedAdtObjectInfo
-      implements ICdsEntityUsageInfo {
-    public int occurrence;
-    public int usedEntitiesCount;
-    public int usedJoinCount;
-    public int usedUnionCount;
+  private static final class CdsEntityUsageEntry extends ExtendedAdtObjectInfo
+      implements ICdsEntityUsageEntry {
 
-    @Override
-    public int getOccurrence() {
-      return occurrence;
+    private ICdsUsedEntityInformation usageInfo;
+
+    public CdsEntityUsageEntry(ICdsUsedEntityInformation usageInfo) {
+      this.usageInfo = usageInfo;
     }
 
     @Override
-    public int getUsedEntitiesCount() {
-      return usedEntitiesCount;
+    public ICdsUsedEntityInformation getUsageInfo() {
+      return usageInfo;
     }
-
-    @Override
-    public int getUsedJoinCount() {
-      return usedJoinCount;
-    }
-
-    @Override
-    public int getUsedUnionCount() {
-      return usedUnionCount;
-    }
-
   }
 
   @Override
@@ -118,7 +105,6 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
 
   @Override
   public void refreshAnalysis() {
-    // TODO Auto-generated method stub
 
   }
 
@@ -131,22 +117,17 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
           entityRef.getDisplayName(), entityRef.getDescription());
       adtObjRefElemInfo.setAdtObjectReference(
           AdtObjectReferenceModelFactory.createReference(destinationId, entityRef));
-      var usageInfo = new CdsEntityUsageInfo();
-      var usageInfoModel = entry.getUsageInformation();
-      usageInfo.occurrence = usageInfoModel.getOccurrence();
-      usageInfo.usedEntitiesCount = usageInfoModel.getEntityCount();
-      usageInfo.usedJoinCount = usageInfoModel.getJoinCount();
-      usageInfo.usedUnionCount = usageInfoModel.getUnionCount();
+      var usageEntry = new CdsEntityUsageEntry(entry.getUsageInformation());
 
       var properties = entityRef.getProperties();
       var apiState = properties.get("API_STATE");
       if (apiState != null) {
-        usageInfo.setApiState(apiState);
+        usageEntry.setApiState(apiState);
       }
       if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(entityRef.getType())) {
-        usageInfo.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE")));
+        usageEntry.setSourceType(CdsSourceType.getFromId(properties.get("SOURCE_TYPE")));
       }
-      adtObjRefElemInfo.setAdditionalInfo(usageInfo);
+      adtObjRefElemInfo.setAdditionalInfo(usageEntry);
       elements.add(adtObjRefElemInfo);
     }
     return elements;

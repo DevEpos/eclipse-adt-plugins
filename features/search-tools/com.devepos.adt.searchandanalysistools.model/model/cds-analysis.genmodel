@@ -49,9 +49,16 @@
     </genClasses>
     <genClasses ecoreClass="cds-analysis.ecore#//CdsUsedEntityInformation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/occurrence"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/entityCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/cdsViewCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/tableFunctionCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/viewCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/tableCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/joinCount"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/unionCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/setOperationCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/groupByCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/functionCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/caseCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cds-analysis.ecore#//CdsUsedEntityInformation/castCount"/>
     </genClasses>
     <genClasses ecoreClass="cds-analysis.ecore#//TopDownAnalysisResult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cds-analysis.ecore#//TopDownAnalysisResult/sourceEntity"/>

@@ -192,14 +192,44 @@ public interface ICdsAnalysisPackage extends EPackage {
   int CDS_USED_ENTITY_INFORMATION__OCCURRENCE = 0;
 
   /**
-   * The feature id for the '<em><b>Entity Count</b></em>' attribute.
+   * The feature id for the '<em><b>Cds View Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int CDS_USED_ENTITY_INFORMATION__ENTITY_COUNT = 1;
+  int CDS_USED_ENTITY_INFORMATION__CDS_VIEW_COUNT = 1;
+
+  /**
+   * The feature id for the '<em><b>Table Function Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__TABLE_FUNCTION_COUNT = 2;
+
+  /**
+   * The feature id for the '<em><b>View Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__VIEW_COUNT = 3;
+
+  /**
+   * The feature id for the '<em><b>Table Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__TABLE_COUNT = 4;
 
   /**
    * The feature id for the '<em><b>Join Count</b></em>' attribute.
@@ -209,17 +239,57 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CDS_USED_ENTITY_INFORMATION__JOIN_COUNT = 2;
+  int CDS_USED_ENTITY_INFORMATION__JOIN_COUNT = 5;
 
   /**
-   * The feature id for the '<em><b>Union Count</b></em>' attribute.
+   * The feature id for the '<em><b>Set Operation Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    * @ordered
    */
-  int CDS_USED_ENTITY_INFORMATION__UNION_COUNT = 3;
+  int CDS_USED_ENTITY_INFORMATION__SET_OPERATION_COUNT = 6;
+
+  /**
+   * The feature id for the '<em><b>Group By Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__GROUP_BY_COUNT = 7;
+
+  /**
+   * The feature id for the '<em><b>Function Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__FUNCTION_COUNT = 8;
+
+  /**
+   * The feature id for the '<em><b>Case Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__CASE_COUNT = 9;
+
+  /**
+   * The feature id for the '<em><b>Cast Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int CDS_USED_ENTITY_INFORMATION__CAST_COUNT = 10;
 
   /**
    * The number of structural features of the '<em>Cds Used Entity Information</em>' class.
@@ -229,7 +299,7 @@ public interface ICdsAnalysisPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CDS_USED_ENTITY_INFORMATION_FEATURE_COUNT = 4;
+  int CDS_USED_ENTITY_INFORMATION_FEATURE_COUNT = 11;
 
   /**
    * The number of operations of the '<em>Cds Used Entity Information</em>' class.
@@ -928,17 +998,59 @@ public interface ICdsAnalysisPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getEntityCount
-   * <em>Entity Count</em>}'.
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCdsViewCount
+   * <em>Cds View Count</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for the attribute '<em>Entity Count</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getEntityCount()
+   * @return the meta object for the attribute '<em>Cds View Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCdsViewCount()
    * @see #getCdsUsedEntityInformation()
    * @generated
    */
-  EAttribute getCdsUsedEntityInformation_EntityCount();
+  EAttribute getCdsUsedEntityInformation_CdsViewCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getTableFunctionCount
+   * <em>Table Function Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Table Function Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getTableFunctionCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_TableFunctionCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getViewCount <em>View
+   * Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>View Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getViewCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_ViewCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getTableCount
+   * <em>Table Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Table Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getTableCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_TableCount();
 
   /**
    * Returns the meta object for the attribute
@@ -956,17 +1068,73 @@ public interface ICdsAnalysisPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute
-   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getUnionCount
-   * <em>Union Count</em>}'.
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getSetOperationCount
+   * <em>Set Operation Count</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
-   * @return the meta object for the attribute '<em>Union Count</em>'.
-   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getUnionCount()
+   * @return the meta object for the attribute '<em>Set Operation Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getSetOperationCount()
    * @see #getCdsUsedEntityInformation()
    * @generated
    */
-  EAttribute getCdsUsedEntityInformation_UnionCount();
+  EAttribute getCdsUsedEntityInformation_SetOperationCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getGroupByCount
+   * <em>Group By Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Group By Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getGroupByCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_GroupByCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getFunctionCount
+   * <em>Function Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Function Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getFunctionCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_FunctionCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCaseCount <em>Case
+   * Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Case Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCaseCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_CaseCount();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCastCount <em>Cast
+   * Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Cast Count</em>'.
+   * @see com.devepos.adt.saat.model.cdsanalysis.ICdsUsedEntityInformation#getCastCount()
+   * @see #getCdsUsedEntityInformation()
+   * @generated
+   */
+  EAttribute getCdsUsedEntityInformation_CastCount();
 
   /**
    * Returns the meta object for class
@@ -1638,14 +1806,44 @@ public interface ICdsAnalysisPackage extends EPackage {
         .getCdsUsedEntityInformation_Occurrence();
 
     /**
-     * The meta object literal for the '<em><b>Entity Count</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Cds View Count</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    EAttribute CDS_USED_ENTITY_INFORMATION__ENTITY_COUNT = eINSTANCE
-        .getCdsUsedEntityInformation_EntityCount();
+    EAttribute CDS_USED_ENTITY_INFORMATION__CDS_VIEW_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_CdsViewCount();
+
+    /**
+     * The meta object literal for the '<em><b>Table Function Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__TABLE_FUNCTION_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_TableFunctionCount();
+
+    /**
+     * The meta object literal for the '<em><b>View Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__VIEW_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_ViewCount();
+
+    /**
+     * The meta object literal for the '<em><b>Table Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__TABLE_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_TableCount();
 
     /**
      * The meta object literal for the '<em><b>Join Count</b></em>' attribute feature.
@@ -1658,14 +1856,54 @@ public interface ICdsAnalysisPackage extends EPackage {
         .getCdsUsedEntityInformation_JoinCount();
 
     /**
-     * The meta object literal for the '<em><b>Union Count</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Set Operation Count</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    EAttribute CDS_USED_ENTITY_INFORMATION__UNION_COUNT = eINSTANCE
-        .getCdsUsedEntityInformation_UnionCount();
+    EAttribute CDS_USED_ENTITY_INFORMATION__SET_OPERATION_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_SetOperationCount();
+
+    /**
+     * The meta object literal for the '<em><b>Group By Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__GROUP_BY_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_GroupByCount();
+
+    /**
+     * The meta object literal for the '<em><b>Function Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__FUNCTION_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_FunctionCount();
+
+    /**
+     * The meta object literal for the '<em><b>Case Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__CASE_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_CaseCount();
+
+    /**
+     * The meta object literal for the '<em><b>Cast Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute CDS_USED_ENTITY_INFORMATION__CAST_COUNT = eINSTANCE
+        .getCdsUsedEntityInformation_CastCount();
 
     /**
      * The meta object literal for the
