@@ -171,16 +171,26 @@ public class CdsAnalysisManager {
    * @param openInNew if {@code true} the analysis will be opened in a new CDS Analyzer view
    */
   public void showAnalysis(final CdsAnalysis analysis, final boolean openInNew) {
-    /*
-     * retrieve CDS analyzer view Note: At this time only one active view is
-     * possible.
-     */
-    final var cdsAnalyzerView = CdsAnalysisViewManager.getInstance()
-        .activateCdsAnalysisView(openInNew);
-    if (cdsAnalyzerView != null) {
-      cdsAnalyzerView.setFocus();
+    showAnalysis(null, analysis, openInNew);
+  }
+
+  /**
+   * Shows the given analysis in the CDS Analyzer view
+   *
+   * @param analysisView CDS analysis view
+   * @param analysis     the analysis to be shown
+   * @param openInNew    if {@code true} the analysis will be opened in a new CDS Analyzer view
+   */
+  public void showAnalysis(CdsAnalysisView analysisView, final CdsAnalysis analysis,
+      final boolean openInNew) {
+    if (openInNew || analysisView == null) {
+      analysisView = CdsAnalysisViewManager.getInstance().activateCdsAnalysisView(openInNew);
+    }
+
+    if (analysisView != null) {
+      analysisView.setFocus();
       activated(analysis);
-      cdsAnalyzerView.showCdsAnalysis(analysis);
+      analysisView.showCdsAnalysis(analysis);
     }
   }
 

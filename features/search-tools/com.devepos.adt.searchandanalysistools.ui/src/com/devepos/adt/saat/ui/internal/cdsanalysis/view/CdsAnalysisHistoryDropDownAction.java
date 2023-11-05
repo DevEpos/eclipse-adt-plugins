@@ -57,7 +57,7 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
 
     private void runIfChecked(final boolean openNewAnalysisView) {
       if (isChecked()) {
-        CdsAnalysisManager.getInstance().showAnalysis(analysis, openNewAnalysisView);
+        CdsAnalysisManager.getInstance().showAnalysis(analysisView, analysis, openNewAnalysisView);
       }
     }
   }
