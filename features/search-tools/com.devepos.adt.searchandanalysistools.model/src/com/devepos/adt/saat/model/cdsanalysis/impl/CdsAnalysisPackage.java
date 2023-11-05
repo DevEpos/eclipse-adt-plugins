@@ -312,7 +312,7 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   @Override
-  public EAttribute getCdsUsedEntityInformation_EntityCount() {
+  public EAttribute getCdsUsedEntityInformation_CdsViewCount() {
     return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(1);
   }
 
@@ -323,7 +323,7 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   @Override
-  public EAttribute getCdsUsedEntityInformation_JoinCount() {
+  public EAttribute getCdsUsedEntityInformation_TableFunctionCount() {
     return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(2);
   }
 
@@ -334,8 +334,85 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
    * @generated
    */
   @Override
-  public EAttribute getCdsUsedEntityInformation_UnionCount() {
+  public EAttribute getCdsUsedEntityInformation_ViewCount() {
     return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_TableCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_JoinCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_SetOperationCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_GroupByCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_FunctionCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_CaseCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getCdsUsedEntityInformation_CastCount() {
+    return (EAttribute) cdsUsedEntityInformationEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -833,9 +910,18 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
 
     cdsUsedEntityInformationEClass = createEClass(CDS_USED_ENTITY_INFORMATION);
     createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__OCCURRENCE);
-    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__ENTITY_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__CDS_VIEW_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass,
+        CDS_USED_ENTITY_INFORMATION__TABLE_FUNCTION_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__VIEW_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__TABLE_COUNT);
     createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__JOIN_COUNT);
-    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__UNION_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass,
+        CDS_USED_ENTITY_INFORMATION__SET_OPERATION_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__GROUP_BY_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__FUNCTION_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__CASE_COUNT);
+    createEAttribute(cdsUsedEntityInformationEClass, CDS_USED_ENTITY_INFORMATION__CAST_COUNT);
 
     topDownAnalysisResultEClass = createEClass(TOP_DOWN_ANALYSIS_RESULT);
     createEReference(topDownAnalysisResultEClass, TOP_DOWN_ANALYSIS_RESULT__SOURCE_ENTITY);
@@ -954,13 +1040,34 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
     initEAttribute(getCdsUsedEntityInformation_Occurrence(), ecorePackage.getEInt(), "occurrence",
         null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCdsUsedEntityInformation_EntityCount(), ecorePackage.getEInt(), "entityCount",
+    initEAttribute(getCdsUsedEntityInformation_CdsViewCount(), ecorePackage.getEInt(),
+        "cdsViewCount", null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_TableFunctionCount(), ecorePackage.getEInt(),
+        "tableFunctionCount", null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_ViewCount(), ecorePackage.getEInt(), "viewCount",
+        null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_TableCount(), ecorePackage.getEInt(), "tableCount",
         null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCdsUsedEntityInformation_JoinCount(), ecorePackage.getEInt(), "joinCount",
         null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCdsUsedEntityInformation_UnionCount(), ecorePackage.getEInt(), "unionCount",
+    initEAttribute(getCdsUsedEntityInformation_SetOperationCount(), ecorePackage.getEInt(),
+        "setOperationCount", null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_GroupByCount(), ecorePackage.getEInt(),
+        "groupByCount", null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_FunctionCount(), ecorePackage.getEInt(),
+        "functionCount", null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_CaseCount(), ecorePackage.getEInt(), "caseCount",
+        null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCdsUsedEntityInformation_CastCount(), ecorePackage.getEInt(), "castCount",
         null, 0, 1, ICdsUsedEntityInformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1145,11 +1252,25 @@ public class CdsAnalysisPackage extends EPackageImpl implements ICdsAnalysisPack
         new String[] { "kind", "elementOnly", "name", "usageInformation" });
     addAnnotation(getCdsUsedEntityInformation_Occurrence(), source,
         new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getCdsUsedEntityInformation_EntityCount(), source,
+    addAnnotation(getCdsUsedEntityInformation_CdsViewCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_TableFunctionCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_ViewCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_TableCount(), source,
         new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getCdsUsedEntityInformation_JoinCount(), source,
         new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
-    addAnnotation(getCdsUsedEntityInformation_UnionCount(), source,
+    addAnnotation(getCdsUsedEntityInformation_SetOperationCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_GroupByCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_FunctionCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_CaseCount(), source,
+        new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getCdsUsedEntityInformation_CastCount(), source,
         new String[] { "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(topDownAnalysisResultEClass, source,
         new String[] { "kind", "elementOnly", "name", "topDownResult" });

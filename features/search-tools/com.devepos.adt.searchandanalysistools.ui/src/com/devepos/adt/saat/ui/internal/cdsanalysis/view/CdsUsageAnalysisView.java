@@ -37,11 +37,11 @@ import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.util.StringUtil;
-import com.devepos.adt.saat.cdsanalysis.ICdsEntityUsageInfo;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.TreeViewUiState;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.ICdsEntityUsageEntry;
 import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.menu.SearchToolsMenuItemFactory;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
@@ -56,7 +56,7 @@ import com.devepos.adt.saat.ui.internal.util.CommandPossibleChecker;
 public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysis>
     implements IFilterableView {
 
-  private final List<Column> columns;
+  private final List<Column> columns = Arrays.asList(Column.values());
   private ContextHelper contextHelper;
 
   private SortListener sortListener;
@@ -64,7 +64,6 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
 
   public CdsUsageAnalysisView(final CdsAnalysisView parentView) {
     super(parentView);
-    columns = Arrays.asList(Column.values());
   }
 
   /**
@@ -97,29 +96,50 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
       if (column == Column.OBJECT_NAME) {
         text = getTreeNodeLabel(element);
       } else {
-        ICdsEntityUsageInfo usageInfo = null;
+        ICdsEntityUsageEntry usageEntry = null;
         if (element instanceof IAdaptable) {
-          usageInfo = ((IAdaptable) element).getAdapter(ICdsEntityUsageInfo.class);
+          usageEntry = ((IAdaptable) element).getAdapter(ICdsEntityUsageEntry.class);
         }
-        if (usageInfo != null) {
+        if (usageEntry != null) {
+          var usageInfo = usageEntry.getUsageInfo();
           switch (column) {
           case OCCURRENCES:
             text.append(String.valueOf(usageInfo.getOccurrence()));
             break;
-          case USED_ENTITY_COUNT:
-            text.append(String.valueOf(usageInfo.getUsedEntitiesCount()));
+          case USED_CDS_VIEW_COUNT:
+            text.append(String.valueOf(usageInfo.getCdsViewCount()));
+            break;
+          case USED_TABLE_FUNCTIONS_COUNT:
+            text.append(String.valueOf(usageInfo.getTableFunctionCount()));
+            break;
+          case USED_VIEW_COUNT:
+            text.append(String.valueOf(usageInfo.getViewCount()));
+            break;
+          case USED_TABLES_COUNT:
+            text.append(String.valueOf(usageInfo.getTableCount()));
             break;
           case USED_JOIN_COUNT:
-            text.append(String.valueOf(usageInfo.getUsedJoinCount()));
+            text.append(String.valueOf(usageInfo.getJoinCount()));
             break;
-          case USED_UNION_COUNT:
-            text.append(String.valueOf(usageInfo.getUsedUnionCount()));
+          case USED_SET_OPERATIONS_COUNT:
+            text.append(String.valueOf(usageInfo.getSetOperationCount()));
+            break;
+          case USED_GROUP_BY_COUNT:
+            text.append(String.valueOf(usageInfo.getGroupByCount()));
+            break;
+          case USED_FUNCTION_COUNT:
+            text.append(String.valueOf(usageInfo.getFunctionCount()));
+            break;
+          case USED_CASE_COUNT:
+            text.append(String.valueOf(usageInfo.getCaseCount()));
+            break;
+          case USED_CAST_COUNT:
+            text.append(String.valueOf(usageInfo.getCastCount()));
             break;
           default:
             break;
           }
         }
-
       }
       return text;
     }
@@ -132,12 +152,17 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
   private enum Column {
     OBJECT_NAME(400, Messages.CdsUsageAnalysisView_ObjectNameColumn_xfld),
     OCCURRENCES(80, Messages.CdsUsageAnalysisView_OccurrencesColumn_xfld),
-    USED_ENTITY_COUNT(60, Messages.CdsUsageAnalysisView_EntitiesColumn_xfld,
-        Messages.CdsUsageAnalysisView_EntitiesColumn_xtol),
+    USED_CDS_VIEW_COUNT(70, "CDS Views"),
+    USED_TABLE_FUNCTIONS_COUNT(95, "Table Functions"),
+    USED_VIEW_COUNT(60, "Views"),
+    USED_TABLES_COUNT(60, "Tables"),
     USED_JOIN_COUNT(60, Messages.CdsUsageAnalysisView_JoinsColumn_xfld,
         Messages.CdsUsageAnalysisView_JoinsColumn_xtol),
-    USED_UNION_COUNT(60, Messages.CdsUsageAnalysisView_UnionsColumn_xfld,
-        Messages.CdsUsageAnalysisView_UnionsColumn_xtol);
+    USED_SET_OPERATIONS_COUNT(95, "SET Operations", "Unions, Excepts and Intersects"),
+    USED_GROUP_BY_COUNT(110, "GROUP BY clauses"),
+    USED_FUNCTION_COUNT(85, "Function calls"),
+    USED_CASE_COUNT(105, "CASE Expressions"),
+    USED_CAST_COUNT(105, "CAST Expressions");
 
     private static final Map<Integer, Column> COLUMNS;
 
@@ -196,20 +221,39 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
       if (column == Column.OBJECT_NAME) {
         return compare(((ITreeNode) e1).getName(), ((ITreeNode) e2).getName(), direction);
       }
-      final ICdsEntityUsageInfo info1 = ((IAdaptable) e1).getAdapter(ICdsEntityUsageInfo.class);
-      final ICdsEntityUsageInfo info2 = ((IAdaptable) e2).getAdapter(ICdsEntityUsageInfo.class);
-      if (info1 == null || info2 == null) {
+      final ICdsEntityUsageEntry entry1 = ((IAdaptable) e1).getAdapter(ICdsEntityUsageEntry.class);
+      final ICdsEntityUsageEntry entry2 = ((IAdaptable) e2).getAdapter(ICdsEntityUsageEntry.class);
+      if (entry1 == null || entry2 == null || entry1.getUsageInfo() == null
+          || entry2.getUsageInfo() == null) {
         return 0;
       }
+      var info1 = entry1.getUsageInfo();
+      var info2 = entry2.getUsageInfo();
+
       switch (column) {
       case OCCURRENCES:
         return compare(info1.getOccurrence(), info2.getOccurrence(), direction);
-      case USED_ENTITY_COUNT:
-        return compare(info1.getUsedEntitiesCount(), info2.getUsedEntitiesCount(), direction);
+      case USED_CDS_VIEW_COUNT:
+        return compare(info1.getCdsViewCount(), info2.getCdsViewCount(), direction);
+      case USED_TABLE_FUNCTIONS_COUNT:
+        return compare(info1.getTableFunctionCount(), info2.getTableFunctionCount(), direction);
+      case USED_VIEW_COUNT:
+        return compare(info1.getViewCount(), info2.getViewCount(), direction);
+      case USED_TABLES_COUNT:
+        return compare(info1.getTableCount(), info2.getTableCount(), direction);
       case USED_JOIN_COUNT:
-        return compare(info1.getUsedJoinCount(), info2.getUsedJoinCount(), direction);
-      case USED_UNION_COUNT:
-        return compare(info1.getUsedUnionCount(), info2.getUsedUnionCount(), direction);
+        return compare(info1.getJoinCount(), info2.getJoinCount(), direction);
+      case USED_SET_OPERATIONS_COUNT:
+        return compare(info1.getSetOperationCount(), info2.getSetOperationCount(), direction);
+      case USED_GROUP_BY_COUNT:
+        return compare(info1.getGroupByCount(), info2.getGroupByCount(), direction);
+      case USED_FUNCTION_COUNT:
+        return compare(info1.getFunctionCount(), info2.getFunctionCount(), direction);
+      case USED_CASE_COUNT:
+        return compare(info1.getCaseCount(), info2.getCaseCount(), direction);
+      case USED_CAST_COUNT:
+        return compare(info1.getCastCount(), info2.getCastCount(), direction);
+
       default:
         break;
       }
@@ -314,14 +358,15 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     treeViewer.setUseHashlookup(true);
     createColumns(treeViewer);
 
-    tree.setSortColumn(tree.getColumn(Column.USED_ENTITY_COUNT.ordinal()));
+    tree.setSortColumn(tree.getColumn(Column.USED_CDS_VIEW_COUNT.ordinal()));
     tree.setSortDirection(SWT.DOWN);
   }
 
   @Override
   protected TreeViewer createTreeViewer(final Composite parent) {
     resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
-    var resultTreeViewer = new TreeViewer(resultTree, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+    var resultTreeViewer = new TreeViewer(resultTree,
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
     resultTree.setViewer(resultTreeViewer);
 
     resultTree.setElementMatcher(element -> {
@@ -393,6 +438,12 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     getViewer().refresh();
   }
 
+  private void createColumns(final TreeViewer treeViewer) {
+    for (final Column column : columns) {
+      createColumn(treeViewer, column);
+    }
+  }
+
   private void createColumn(final TreeViewer treeViewer, final Column column) {
     final TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
     viewerColumn.getColumn().setText(column.headerText);
@@ -402,12 +453,6 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
     viewerColumn.getColumn().setWidth(column.defaultWidth);
     viewerColumn.getColumn().setMoveable(true);
     viewerColumn.getColumn().addListener(SWT.Selection, sortListener);
-  }
-
-  private void createColumns(final TreeViewer treeViewer) {
-    for (final Column column : columns) {
-      createColumn(treeViewer, column);
-    }
   }
 
   private void resetFiltering() {
