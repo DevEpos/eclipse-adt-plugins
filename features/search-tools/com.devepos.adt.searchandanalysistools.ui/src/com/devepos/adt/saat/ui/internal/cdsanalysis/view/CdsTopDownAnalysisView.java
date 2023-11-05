@@ -424,7 +424,7 @@ public class CdsTopDownAnalysisView extends CdsAnalysisPage<CdsTopDownAnalysis>
   protected TreeViewer createTreeViewer(final Composite parent) {
     resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     var resultTreeViewer = new LazyLoadingTreeViewer(resultTree,
-        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
     resultTreeViewer.addFilter(treeFilter);
     resultTree.setViewer(resultTreeViewer);
     resultTree.setElementMatcher(element -> {
