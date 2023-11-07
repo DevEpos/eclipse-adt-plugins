@@ -152,17 +152,18 @@ public class CdsUsageAnalysisView extends CdsAnalysisPage<CdsUsedEntitiesAnalysi
   private enum Column {
     OBJECT_NAME(400, Messages.CdsUsageAnalysisView_ObjectNameColumn_xfld),
     OCCURRENCES(80, Messages.CdsUsageAnalysisView_OccurrencesColumn_xfld),
-    USED_CDS_VIEW_COUNT(70, "CDS Views"),
-    USED_TABLE_FUNCTIONS_COUNT(95, "Table Functions"),
-    USED_VIEW_COUNT(60, "Views"),
-    USED_TABLES_COUNT(60, "Tables"),
+    USED_CDS_VIEW_COUNT(70, Messages.CdsUsageAnalysisView_CdsViews_xlbl),
+    USED_TABLE_FUNCTIONS_COUNT(95, Messages.CdsUsageAnalysisView_TableFunctions_xlbl),
+    USED_VIEW_COUNT(60, Messages.CdsUsageAnalysisView_Views_xlbl),
+    USED_TABLES_COUNT(60, Messages.CdsUsageAnalysisView_Tables_xlbl),
     USED_JOIN_COUNT(60, Messages.CdsUsageAnalysisView_JoinsColumn_xfld,
         Messages.CdsUsageAnalysisView_JoinsColumn_xtol),
-    USED_SET_OPERATIONS_COUNT(95, "SET Operations", "Unions, Excepts and Intersects"),
-    USED_GROUP_BY_COUNT(110, "GROUP BY clauses"),
-    USED_FUNCTION_COUNT(85, "Function calls"),
-    USED_CASE_COUNT(105, "CASE Expressions"),
-    USED_CAST_COUNT(105, "CAST Expressions");
+    USED_SET_OPERATIONS_COUNT(95, Messages.CdsUsageAnalysisView_SetOperations_xlbl,
+        Messages.CdsUsageAnalysisView_SetOperations_xtol),
+    USED_GROUP_BY_COUNT(110, Messages.CdsUsageAnalysisView_GroupBy_xlbl),
+    USED_FUNCTION_COUNT(85, Messages.CdsUsageAnalysisView_FunctionCalls_xlbl),
+    USED_CASE_COUNT(105, Messages.CdsUsageAnalysisView_CaseExpressions_xlbl),
+    USED_CAST_COUNT(105, Messages.CdsUsageAnalysisView_CastExpressions_xlbl);
 
     private static final Map<Integer, Column> COLUMNS;
 
