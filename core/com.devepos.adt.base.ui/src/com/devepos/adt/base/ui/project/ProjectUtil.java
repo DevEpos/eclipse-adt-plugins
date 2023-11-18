@@ -13,6 +13,7 @@ import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.sap.adt.destinations.logon.AdtLogonServiceFactory;
 import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;
+import com.sap.adt.project.AdtCoreProjectServiceFactory;
 import com.sap.adt.project.IAdtCoreProject;
 import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
@@ -77,6 +78,17 @@ public class ProjectUtil {
     }
     return com.sap.adt.project.ui.util.ProjectUtil.getActiveAdtCoreProject(selection, null, null,
         IAdtCoreProject.ABAP_PROJECT_NATURE);
+  }
+
+  /**
+   * Retrieves project instance for the given destination id
+   * 
+   * @param destinationId destination Id of ABAP project
+   * @return the project for the given destination or {@code null}
+   */
+  public static IProject getProjectForDestination(String destinationId) {
+    final var projectService = AdtCoreProjectServiceFactory.createCoreProjectService();
+    return projectService.findProject(destinationId);
   }
 
   /**
