@@ -260,9 +260,9 @@ public class InternalNamedItemProposalProvider {
     if (query == null || query.isEmpty()) {
       return true;
     }
-    return StringUtil.getPatternForQuery(query, namedItemType.isCaseSensitive())
-        .matcher(namedItem.getName())
-        .matches();
+    var pattern = StringUtil.getPatternForQuery(query, namedItemType.isCaseSensitive());
+    return pattern.matcher(namedItem.getName()).matches() || (namedItem.getDescription() != null
+        && pattern.matcher(namedItem.getDescription()).matches());
   }
 
   /**

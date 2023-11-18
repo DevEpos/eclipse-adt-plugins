@@ -65,7 +65,8 @@ public class FixedNamedItemSearchFilter implements ISearchFilter, ITextQueryProp
   public List<IContentProposal> getProposalList(final String query) throws CoreException {
     var pattern = StringUtil.getPatternForQuery(query, false);
     var resultIterator = proposalItems.stream()
-        .filter(i -> pattern.matcher(i.getName()).matches())
+        .filter(i -> pattern.matcher(i.getName()).matches()
+            || (i.getDescription() != null && pattern.matcher(i.getDescription()).matches()))
         .iterator();
 
     if (resultIterator.hasNext()) {
