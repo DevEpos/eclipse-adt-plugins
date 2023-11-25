@@ -1,5 +1,6 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +10,19 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.search2.internal.ui.SearchView;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
@@ -54,7 +58,27 @@ public class SearchFavoritesMenuAction extends Action implements IMenuCreator {
       for (final var favorite : favorites.getFavorites(false)) {
         var descriptor = favoriteDescriptors.get(favorite.getSearchType());
         if (descriptor == null) {
-          // TODO: throw exception
+          var missingPluginAction = new Action(
+              MessageFormat.format(
+                  Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xtit,
+                  favorite.getSearchType()),
+              PlatformUI.getWorkbench()
+                  .getSharedImages()
+                  .getImageDescriptor(ISharedImages.IMG_OBJS_ERROR_TSK)) {
+
+            @Override
+            public void run() {
+              MessageDialog.openError(
+                  PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                  AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit),
+                  MessageFormat.format(
+                      Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xtit,
+                      favorite.getSearchType()) + "\n\n" + //$NON-NLS-1$
+                      Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xmsg);
+            }
+
+          };
+          favoriteItems.add(new ActionContributionItem(missingPluginAction));
           continue;
         }
         var favoriteAction = new RunSearchFavoriteAction(descriptor, favorite);

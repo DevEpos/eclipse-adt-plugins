@@ -7,6 +7,8 @@ public class Messages extends NLS {
   public static String SearchFavoriteDescriptor_extensionError_xmsg;
   public static String SearchFavoriteDescriptor_extensionError_xtit;
   public static String SearchFavoritesMenuAction_AllFavsAreHidden_xmit;
+  public static String SearchFavoritesMenuAction_MissingPluginForFavSearchType_xmsg;
+  public static String SearchFavoritesMenuAction_MissingPluginForFavSearchType_xtit;
 
   public static String Search_AddToFavorites_xmit;
   public static String Search_CreateFavoriteFromCurrentQuery_xmit;
