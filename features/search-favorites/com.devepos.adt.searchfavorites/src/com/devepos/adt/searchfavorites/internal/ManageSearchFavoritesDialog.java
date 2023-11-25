@@ -166,6 +166,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   public void create() {
     super.create();
 
+    getShell().setImage(Activator.getDefault().getImage(IImages.MANAGE_SEARCH_FAVORITES));
+
     final var initialSelection = getInitialElementSelections();
     if (initialSelection != null) {
       viewer.setSelection(new StructuredSelection(initialSelection));
