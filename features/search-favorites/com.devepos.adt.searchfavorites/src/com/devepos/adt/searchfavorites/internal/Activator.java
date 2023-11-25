@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.BundleContext;
 
 import com.devepos.adt.base.ui.plugin.AbstractAdtUIPlugin;
@@ -75,6 +76,11 @@ public class Activator extends AbstractAdtUIPlugin {
   public void stop(final BundleContext context) throws Exception {
     plugin = null;
     super.stop(context);
+  }
+
+  @Override
+  protected void initializeImageRegistry(final ImageRegistry reg) {
+    registerImage(reg, IImages.MANAGE_SEARCH_FAVORITES, "icons/search_fav.png");
   }
 
   private Map<String, SearchFavoriteDescriptor> createSearchFavoriteDescriptors(
