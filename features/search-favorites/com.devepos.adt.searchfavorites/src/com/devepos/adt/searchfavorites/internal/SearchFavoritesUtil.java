@@ -26,7 +26,8 @@ public final class SearchFavoritesUtil {
     if (favorite.isProjectIndependent()) {
       labelBuffer.append("?"); //$NON-NLS-1$
     } else {
-      labelBuffer.append(DestinationUtil.getSystemId(favorite.getDestinationId()));
+      var systemId = DestinationUtil.getSystemId(favorite.getDestinationId());
+      labelBuffer.append(systemId != null ? systemId : "-");
     }
     labelBuffer.append("] "); //$NON-NLS-1$
     labelBuffer.append(favorite.getDescription());

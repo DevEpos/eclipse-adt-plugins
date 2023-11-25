@@ -2,6 +2,7 @@ package com.devepos.adt.searchfavorites.internal;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -42,8 +44,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.table.FilterableTable;
@@ -127,6 +133,11 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     public Image getImage(final Object element) {
       var favorite = (ISearchFavorite) element;
       var descriptor = descriptors.get(favorite.getSearchType());
+      if (descriptor == null) {
+        return PlatformUI.getWorkbench()
+            .getSharedImages()
+            .getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
+      }
 
       var imageDescriptor = descriptor != null ? descriptor.getIcon() : null;
       if (imageDescriptor != null) {
@@ -140,9 +151,13 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     @Override
     public String getText(final Object element) {
       var favorite = (ISearchFavorite) element;
-      var displayName = SearchFavoritesUtil.getFavoriteDisplayName(favorite,
-          descriptors.get(favorite.getSearchType()));
-
+      var descriptor = descriptors.get(favorite.getSearchType());
+      if (descriptor == null) {
+        return MessageFormat.format(
+            Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xtit,
+            favorite.getSearchType());
+      }
+      var displayName = SearchFavoritesUtil.getFavoriteDisplayName(favorite, descriptor);
       return displayName;
     }
 
@@ -183,11 +198,20 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       return;
     }
     if (buttonId == IDialogConstants.OPEN_ID) {
-      // Build a list of selected children.
-      final ISelection selection = viewer.getSelection();
-      if (selection instanceof IStructuredSelection) {
-        setResult(viewer.getStructuredSelection().toList());
+      var favList = viewer.getStructuredSelection().toList();
+      var favorite = (ISearchFavorite) favList.get(0);
+      if (Activator.getDefault()
+          .getSearchFavoriteDescriptors()
+          .get(favorite.getSearchType()) == null) {
+        MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit),
+            MessageFormat.format(
+                Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xtit,
+                favorite.getSearchType()) + "\n\n" + //$NON-NLS-1$
+                Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xmsg);
+        return;
       }
+      setResult(favList);
       okPressed();
       return;
     }
