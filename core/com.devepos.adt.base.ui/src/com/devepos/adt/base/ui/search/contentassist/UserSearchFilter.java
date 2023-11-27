@@ -121,6 +121,11 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
 
   @Override
   public boolean isBuffered() {
+    return true;
+  }
+
+  @Override
+  public boolean isBufferedValidationActive() {
     return false;
   }
 

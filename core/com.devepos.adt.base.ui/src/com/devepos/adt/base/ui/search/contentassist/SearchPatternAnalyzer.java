@@ -124,16 +124,23 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
 
     private void validateBufferedValues(final ISearchFilter filter, final String[] filterValues)
         throws CoreException {
-      if (filter.isBuffered() && filter instanceof ITextQueryProposalProvider) {
-        for (String value : filterValues) {
-          value = removeNegation(filter, value);
-          final List<IContentProposal> proposalList = ((ITextQueryProposalProvider) filter)
-              .getProposalList(value);
-          if (!isValueInProposalList(proposalList, value)) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
-                NLS.bind(Messages.SearchPatternAnalyzer_ErrorUnsupportedFilterValue_xmsg,
-                    filter.getLabel(), value)));
-          }
+      if (!filter.isBuffered() || !(filter instanceof ITextQueryProposalProvider)) {
+        return;
+      }
+      if (!filter.isBufferedValidationActive()) {
+        return;
+      }
+      for (String value : filterValues) {
+        if (filter.supportsPatternValues() && value.contains(ISearchFilter.WILDCARD)) {
+          continue;
+        }
+        value = removeNegation(filter, value);
+        final List<IContentProposal> proposalList = ((ITextQueryProposalProvider) filter)
+            .getProposalList(value);
+        if (!isValueInProposalList(proposalList, value)) {
+          throw new CoreException(new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
+              NLS.bind(Messages.SearchPatternAnalyzer_ErrorUnsupportedFilterValue_xmsg,
+                  filter.getLabel(), value)));
         }
       }
     }
@@ -387,10 +394,7 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
           NLS.bind(Messages.SearchPatternAnalyzer_ErrorIncompleteSearchFilter_xmsg, part)));
     }
 
-    final String[] filterValues = filterValuesString.split(VALUE_LIST_SEP);
-
-    FilterValueValidator validator = new FilterValueValidator(filter, filterValues);
-    validator.runChecks();
+    new FilterValueValidator(filter, filterValuesString.split(VALUE_LIST_SEP)).runChecks();
 
     return true;
   }
