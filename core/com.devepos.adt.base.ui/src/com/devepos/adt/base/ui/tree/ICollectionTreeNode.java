@@ -41,6 +41,27 @@ public interface ICollectionTreeNode extends ITreeNode {
   }
 
   /**
+   * Determines child count recursively
+   * 
+   * @return recursive child count
+   */
+  default int countRecursively() {
+    var children = getChildren();
+    if (children == null) {
+      return 0;
+    } else {
+      var count = children.size();
+      for (var child : children) {
+        if (child instanceof ICollectionTreeNode) {
+          count += ((ICollectionTreeNode) child).countRecursively();
+        }
+      }
+      return count;
+    }
+
+  }
+
+  /**
    * Returns the number of <code>nodes</code> in this collection in a readable
    * format
    *
