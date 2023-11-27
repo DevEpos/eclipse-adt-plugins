@@ -65,8 +65,12 @@ public class LabelViewer extends ContentViewer {
   public void refresh() {
     final Object input = getInput();
     if (input != null) {
-      final ILabelProvider labelProvider = (ILabelProvider) getLabelProvider();
-      doRefresh(labelProvider.getText(input), labelProvider.getImage(input));
+      if (input instanceof String) {
+        doRefresh((String) input, null);
+      } else {
+        final ILabelProvider labelProvider = (ILabelProvider) getLabelProvider();
+        doRefresh(labelProvider.getText(input), labelProvider.getImage(input));
+      }
     } else {
       doRefresh(null, null);
     }
