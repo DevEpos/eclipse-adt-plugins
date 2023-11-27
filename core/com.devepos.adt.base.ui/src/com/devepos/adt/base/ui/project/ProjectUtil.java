@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.statushandlers.StatusManager;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
@@ -51,6 +52,26 @@ public class ProjectUtil {
    */
   public static IProject[] getAbapProjects() {
     return AdtProjectServiceFactory.createProjectService().getAvailableAbapProjects();
+  }
+
+  /**
+   * Shows status in popup if project is not accessible and returns {@code true} is project is
+   * accessible.
+   * 
+   * @param project project to check for accessability
+   * @return {@code true} if project is accessible
+   */
+  public static boolean checkProjectAccessible(IProject project) {
+    var projectStatus = AdtProjectServiceFactory.createProjectService()
+        .isProjectAccessible(project);
+    if (!projectStatus.isOK()) {
+      StatusManager.getManager()
+          .handle(
+              new Status(IStatus.WARNING, projectStatus.getPlugin(), projectStatus.getMessage()),
+              StatusManager.SHOW);
+      return false;
+    }
+    return true;
   }
 
   /**
