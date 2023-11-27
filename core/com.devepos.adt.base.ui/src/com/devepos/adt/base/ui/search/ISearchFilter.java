@@ -50,6 +50,13 @@ public interface ISearchFilter extends IImageProvider {
   boolean isBuffered();
 
   /**
+   * Returns {@code true} if buffered filters should be validated by using the buffered proposals.
+   */
+  default boolean isBufferedValidationActive() {
+    return true;
+  }
+
+  /**
    * Checks if the filter supports values that are case sensitive
    *
    * @return {@code true} if this filter supports case sensitive values
