@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -15,6 +16,7 @@ import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
+import com.sap.adt.project.IProjectProvider;
 
 /**
  * Simple folder node that supports lazy loading
@@ -45,6 +47,14 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   @Override
   public void addLazyLoadingListener(final ILazyLoadingListener l) {
     lazyLoadingListeners.add(l);
+  }
+
+  @Override
+  public <T> T getAdapter(Class<T> adapter) {
+    if (IProjectProvider.class == adapter && provider != null) {
+      return Adapters.adapt(provider, adapter);
+    }
+    return super.getAdapter(adapter);
   }
 
   @Override
