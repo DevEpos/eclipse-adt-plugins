@@ -3,6 +3,7 @@ package com.devepos.adt.base.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.StyledString.Styler;
 import org.eclipse.swt.SWT;
 
@@ -28,6 +29,12 @@ public class StylerFactory {
    * @return
    */
   public static Styler ITALIC_STYLER = createCustomStyler(SWT.ITALIC, null, null);
+
+  /**
+   * {@link Styler} typical used for descriptions (e.g. Project Explorer)
+   */
+  public static Styler DESCRIPTION_STYLER = createCustomStyler(SWT.ITALIC,
+      JFacePreferences.DECORATIONS_COLOR, null);
 
   /**
    * Cleans the styler registry
