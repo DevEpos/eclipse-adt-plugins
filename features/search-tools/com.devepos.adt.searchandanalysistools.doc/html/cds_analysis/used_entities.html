@@ -9,12 +9,15 @@
 
 <body id="doc-body">
     <h2 class="heading">Used Entities Analysis</h2>
+    <div class="alert warning">
+        <div class="alert-info__text"></div>
+        This feature is only available starting from <strong>NW
+            7.50</strong>
+    </div>
     <p>
-        The <em>Used Entities</em> Analysis is an aggregated view on top of
-        the Data provided by the <a class="link"
-            href="PLUGINS_ROOT/com.sap.adt.cds.ddl.doc.user/html/bedc1723e35244e188c5a44a5f4f8340.html">Dependency
-            Analyzer</a> of ADT.<br>
-        It quickly shows you all entities used in a given CDS View, their occurrences, used entities, joins and unions.
+        The <em>Used Entities</em> Analysis provides an aggregated view of all used database entities of a given CDS
+        View. Additionally it shows metrics for each used entity like <em>Joins</em>, <em>Number of Tables</em> or
+        <em>Number of function calls</em>.
     </p>
     <figure id="figure5">
         <img src="../../images/CdsAnalyzer-UsedEntitiesAnalysis.png">
@@ -23,9 +26,26 @@
         </figcaption>
     </figure>
 
-    <h4 class="heading">Text Filter</h4>
+    <h3 class="heading">Available metrics</h3>
+    <p>Currently the following metrics are visible as columns:</p>
+    <ul class="list">
+        <li>Occurrences</li>
+        <li>CDS View count</li>
+        <li>Table function count</li>
+        <li>View count</li>
+        <li>Table count</li>
+        <li>Join count</li>
+        <li>SET operation count (e.g. union, except and intersect)</li>
+        <li>GROUP BY count</li>
+        <li>Function call count</li>
+        <li>CASE expresssion count</li>
+        <li>CAST expression count</li>
+    </ul>
+
+    <h3 class="heading">Text Filter</h3>
     <p>
-        The view also provides the option to filter the results with a Text Filter, which can be activated via the View
+        The view also provides the option to filter the results with a Text Filter, which can be activated via the
+        View
         Menu
         or the Shorcut <code class="code">Strg</code>+<code class="code">F</code>
     </p>
@@ -34,15 +54,20 @@
         <figcaption>Text Filter</figcaption>
     </figure>
 
-    <h3 class="heading">Other Analyses</h3>
+    <h3 class="heading">Related information</h3>
     <div>
-        <a class="link" href="./top_down.html">Top Down Analysis</a>
-    </div>
-    <div>
-        <a class="link" href="./where_used_in_cds.html">Where-Used Analysis</a>
-    </div>
-    <div>
-        <a class="link" href="./field_analysis.html">Field Analysis</a>
+        <div>
+            <a class="link" href="../cds_analyzer.html">CDS Analyzer</a>
+        </div>
+        <div>
+            <a class="link" href="./top_down.html">Top Down Analysis</a>
+        </div>
+        <div>
+            <a class="link" href="./where_used_in_cds.html">Where-Used Analysis</a>
+        </div>
+        <div>
+            <a class="link" href="./field_analysis.html">Field Analysis</a>
+        </div>
     </div>
 </body>
 

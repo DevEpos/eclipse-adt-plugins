@@ -11,24 +11,22 @@
    <context id="object_search_result">
       <topic href="html/object_search/search_result.html" label="ABAP Object Search (DevEpos) - Result"/>
    </context>
+   <context id="analysis_type_config">
+      <topic href="html/cds_analysis/analysis_types_config.html" label="Configuring Analysis Types"/>
+   </context>
    <context id="cds_analyzer" title="CDS Analyzer">
-      <description>The CDS Analyzer (DevEpos) can be used to analyze CDS views in certain ways</description>
       <topic href="html/cds_analyzer.html" label="CDS Analyzer"/>
    </context>
    <context id="cds_analyzer_where_used_analysis" title="Where-Used in CDS Analysis">
-      <description>Shows all CDS Views that are using a given Database Table/View or CDS View, either as part of the SELECT statement or as an Association.</description>
       <topic href="html/cds_analysis/where_used_in_cds.html" label="Where-Used in CDS Analysis"/>
    </context>
    <context id="cds_analyzer_used_entities_analysis" title="CDS Used Entities Analysis">
-      <description>CDS Analysis to show all used entities of a given CDS view</description>
       <topic href="html/cds_analysis/used_entities.html" label="CDS Used Entities Analysis"/>
    </context>
    <context id="cds_analyzer_field_analysis" title="CDS Field Analysis">
-      <description>Analysis View to show the origin of a CDS field or the usages of a field of a Database Table/View or CDS View</description>
       <topic href="html/cds_analysis/field_analysis.html" label="CDS Field Analysis"/>
    </context>
    <context id="cds_analyzer_top_down_analysis" title="CDS Top-Down Analysis">
-      <description>Analysis for traversing all entitites that are involved in the SELECT part of a CDS View</description>
       <topic href="html/cds_analysis/top_down.html" label="CDS Top-Down Analysis"/>
    </context>
 </contexts>
