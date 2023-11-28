@@ -1,5 +1,6 @@
 package com.devepos.adt.base.ui.tree;
 
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -17,7 +18,8 @@ import com.devepos.adt.base.ui.controls.FilterableComposite;
  */
 public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
 
-  private boolean expandAllOnEmptyFilter = true;
+  private int expandLevelOnEmptyFilter = AbstractTreeViewer.ALL_LEVELS;
+  private boolean expandOnEmptyFilter = true;
 
   /**
    * Creates new Filtered Tree control.
@@ -40,13 +42,21 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   }
 
   /**
-   * Sets field {@code expandAllOnEmptyFilter}. <br>
+   * Sets field {@code expandLevelOnEmptyFilter}. <br>
    * If {@code true} all nodes of the tree are expanded if the filter
-   *
-   * @param expandAllOnEmptyFilter
    */
-  public void setExpandAllOnFilterEmpty(final boolean expandAllOnEmptyFilter) {
-    this.expandAllOnEmptyFilter = expandAllOnEmptyFilter;
+  public void setExpandLevelOnFilterEmpty(final int expandLevelOnEmptyFilter) {
+    this.expandLevelOnEmptyFilter = expandLevelOnEmptyFilter;
+  }
+
+  /**
+   * Sets field {@code expandOnEmptyFilter}.<br>
+   * If {@code true} the tree will expanded to the specified level
+   * 
+   * @see #setExpandLevelOnFilterEmpty(int)
+   */
+  public void setExpandOnEmptyFilter(boolean expandOnEmptyFilter) {
+    this.expandOnEmptyFilter = expandOnEmptyFilter;
   }
 
   @Override
@@ -56,10 +66,10 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
 
   @Override
   protected void filterJobCompleted() {
-    if (expandAllOnEmptyFilter) {
+    if (expandOnEmptyFilter) {
       String filterString = getFilterString();
       if (filterString == null || filterString.trim().length() == 0) {
-        viewer.expandAll();
+        viewer.expandToLevel(expandLevelOnEmptyFilter, true);
         selectFirstItem();
       }
     }
