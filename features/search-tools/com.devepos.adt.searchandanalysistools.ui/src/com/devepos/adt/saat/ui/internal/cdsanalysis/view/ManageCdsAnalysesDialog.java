@@ -1,7 +1,6 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -112,10 +111,10 @@ public class ManageCdsAnalysesDialog extends StatusDialog {
   @Override
   protected void buttonPressed(final int buttonId) {
     if (buttonId == REMOVE_ID) {
-      final IStructuredSelection selection = viewer.getStructuredSelection();
-      final Iterator<?> analysis = selection.iterator();
+      final var selection = viewer.getStructuredSelection();
+      final var analysis = selection.iterator();
       while (analysis.hasNext()) {
-        final CdsAnalysis current = (CdsAnalysis) analysis.next();
+        final var current = (CdsAnalysis) analysis.next();
         removedEntries.add(current);
         input.remove(current);
         viewer.remove(current);
