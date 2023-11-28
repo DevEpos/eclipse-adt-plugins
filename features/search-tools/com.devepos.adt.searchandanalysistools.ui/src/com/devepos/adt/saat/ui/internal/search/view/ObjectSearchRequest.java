@@ -36,7 +36,7 @@ public class ObjectSearchRequest {
       return super.equals(object);
     }
     final ObjectSearchRequest otherEntry = (ObjectSearchRequest) object;
-    return query.equalsIgnoreCase(otherEntry.getQuery())
+    return query.equalsIgnoreCase(otherEntry.getQuery(false))
         && destinationId.equalsIgnoreCase(otherEntry.getDestinationId())
         && queryInput.isCombineFiltersWithAnd() == otherEntry.isAndSearchActive();
   }
@@ -66,15 +66,20 @@ public class ObjectSearchRequest {
     return projectProvider;
   }
 
-  public String getQuery() {
+  public String getQuery(final boolean restrict) {
     StringBuilder queryTextBuffer = new StringBuilder();
     for (var field : queryInput.getFields()) {
       if (queryTextBuffer.length() != 0) {
-        queryTextBuffer.append("; ");
+        queryTextBuffer.append(restrict ? "; " : "\n");
       }
       queryTextBuffer.append(
           String.format("%s: %s", field.getLabel().replaceAll("&", ""), field.getRawInput()));
     }
+
+    if (restrict && (queryTextBuffer.length() > 200)) {
+      return queryTextBuffer.substring(0, 200) + "...";
+    }
+
     return queryTextBuffer.toString();
   }
 
@@ -134,10 +139,10 @@ public class ObjectSearchRequest {
   public String toString() {
     final String destinationInfo = getDestinationInfo();
     if (destinationInfo.isEmpty()) {
-      return String.format("%s Search: '%s'", queryInput.getTypeLabel(), getQuery());
+      return String.format("%s Search: '%s'", queryInput.getTypeLabel(), getQuery(true));
     }
     return String.format("[%s] %s Search: '%s'", destinationInfo, queryInput.getTypeLabel(),
-        getQuery());
+        getQuery(true));
   }
 
   private String getDestinationInfo() {

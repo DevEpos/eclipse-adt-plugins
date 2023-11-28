@@ -194,7 +194,8 @@ public class ObjectSearchResult implements ISearchResult {
 
   @Override
   public String getTooltip() {
-    return getLabel();
+    var request = searchQuery.getSearchRequest();
+    return request != null ? request.getQuery(false) : "";
   }
 
   public String getUsedSearchType() {
