@@ -40,9 +40,10 @@ public class ExtendedAdtObjectInfo implements IExtendedAdtObjectInfo {
     if (apiState == null) {
       return;
     }
-    if (API_STATE_DEPRECATED.equals(apiState)) {
+    if (apiState.contains(API_STATE_DEPRECATED)) {
       isDeprecated = true;
-    } else if (API_STATE_RELEASED.equals(apiState)) {
+    }
+    if (apiState.contains(API_STATE_RELEASED)) {
       isReleased = true;
     }
   }
