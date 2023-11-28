@@ -131,5 +131,7 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IImages.USED_AS_ASSOCICATION_PARAM,
         "icons/AssociationDeclaration.png");
     registerImage(imageRegistry, IImages.RUN_NEW_ANALYSIS, "icons/RunCdsAnalysis.png");
+    registerImage(imageRegistry, IImages.CDS_ANALYSIS_MODE_SWITCH, "icons/OtherAnalysis.png");
+    registerImage(imageRegistry, IImages.NEW_CDS_ANALYSIS_VIEW, "icons/NewCdsAnalyzerView.png");
   }
 }

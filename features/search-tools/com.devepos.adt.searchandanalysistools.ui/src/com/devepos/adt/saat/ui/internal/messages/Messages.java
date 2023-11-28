@@ -159,6 +159,14 @@ public class Messages extends NLS {
   public static String CdsAnalysisType_topDownAnalysis_xlbl;
   public static String CdsAnalysisType_usedEntitiesAnalysis_xlbl;
   public static String CdsAnalysisType_whereUsedInCdsAnalysis_xlbl;
+  public static String CdsAnalysisTypeConfigurationAction_ActionTitle_xtit;
+  public static String CdsAnalysisTypeConfigurationAction_AnalysisTypeListHeader_xlbl;
+  public static String CdsAnalysisTypeConfigurationAction_ConfigureDialog_xtit;
+  public static String CdsAnalysisTypeConfigurationAction_DropdownActionTitle_xmit;
+  public static String CdsAnalysisTypeConfigurationAction_NoAnalysisInput_xmsg;
+  public static String CdsAnalysisTypeConfigurationAction_NoApplicableTypesAvailable_xmsg;
+  public static String CdsAnalysisView_NewCdsAnalyzerAction_xlbl;
+  public static String CdsAnalysisViewManager_ViewName_xtit;
   public static String CdsAnalysisWelcome_HelpSuffix_xlnk;
   public static String CdsAnalysisWelcome_Option1_xmsg;
   public static String CdsAnalysisWelcome_Option2_xmsg;
@@ -245,6 +253,9 @@ public class Messages extends NLS {
   public static String MainPreferencePage_UseCurrentTextSelectionForObjName_xfld;
   public static String ManageCdsAnalysesDialog_openInNewAction_xbtn;
   public static String NavigationUtil_navigationJob_xtit;
+  public static String RenameCdsAnalysisViewHandler_DialogTitle_xtit;
+  public static String RenameCdsAnalysisViewHandler_EmptyViewNameError_xmsg;
+  public static String RenameCdsAnalysisViewHandler_NewViewNameInput_xlbl;
   public static String RunNewCdsAnalysisDialog_analysisType_xlbl;
   public static String RunNewCdsAnalysisDialog_dialog_xtit;
   public static String RunNewCdsAnalysisDialog_noObjectSelectedStatus_xmsg;

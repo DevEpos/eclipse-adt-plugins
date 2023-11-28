@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
+import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.IImages;
@@ -81,27 +82,25 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
     disposeMenu();
     menu = new Menu(parent);
 
-    final CdsAnalysis currentAnalysis = analysisView.getCurrentAnalysis();
+    final var currentAnalysis = analysisView.getCurrentAnalysis();
+    final var availableTypes = analysisView.getConfiguredAnalysisTypes();
 
-    for (final CdsAnalysis analysis : CdsAnalysisManager.getInstance().getAnalyses()) {
-      final IAction showAnalysisPageAction = new ShowAnalysisAction(analysis);
+    for (final var analysis : CdsAnalysisManager.getInstance().getAnalyses()) {
+      if (!availableTypes.contains(analysis.getType())) {
+        continue;
+      }
+      final var showAnalysisPageAction = new ShowAnalysisAction(analysis);
       showAnalysisPageAction.setChecked(analysis == currentAnalysis);
       addActionToMenu(menu, showAnalysisPageAction);
     }
-    final Separator separator = new Separator();
-    separator.fill(menu, -1);
-    addActionToMenu(menu, new Action(Messages.CdsAnalysis_ManageHistory_xmit) {
-      @Override
-      public void run() {
-        openManagePageDialog();
-      }
-    });
-    addActionToMenu(menu, new Action(Messages.CdsAnalysis_ClearHistoryAction_xmit) {
-      @Override
-      public void run() {
-        CdsAnalysisManager.getInstance().removeAll();
-      }
-    });
+    if (menu.getItemCount() > 0) {
+      final var separator = new Separator();
+      separator.fill(menu, -1);
+    }
+    addActionToMenu(menu, ActionFactory.createAction(Messages.CdsAnalysis_ManageHistory_xmit, null,
+        this::openManagePageDialog));
+    addActionToMenu(menu, ActionFactory.createAction(Messages.CdsAnalysis_ClearHistoryAction_xmit,
+        null, () -> CdsAnalysisManager.getInstance().removeAll()));
     return menu;
   }
 
@@ -136,22 +135,22 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
   }
 
   private void openManagePageDialog() {
-    final CdsAnalysisManager analysisManager = CdsAnalysisManager.getInstance();
+    final var analysisManager = CdsAnalysisManager.getInstance();
     final List<CdsAnalysis> analyses = new ArrayList<>();
-    for (final CdsAnalysis analysis : analysisManager.getAnalyses()) {
+    for (final var analysis : analysisManager.getAnalyses()) {
       analyses.add(analysis);
     }
 
-    final ManageCdsAnalysesDialog dialog = new ManageCdsAnalysesDialog(analyses,
+    final var dialog = new ManageCdsAnalysesDialog(analyses,
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
     if (dialog.open() == Window.OK) {
-      final CdsAnalysis selectedAnalysis = dialog.getSelectedAnalysis();
+      final var selectedAnalysis = dialog.getSelectedAnalysis();
       if (selectedAnalysis != null) {
         analysisManager.showAnalysis(selectedAnalysis, dialog.isOpenInNew());
       }
-      final List<CdsAnalysis> removedAnalyses = dialog.getDeletedAnalyses();
+      final var removedAnalyses = dialog.getDeletedAnalyses();
       if (removedAnalyses != null && !removedAnalyses.isEmpty()) {
-        for (final CdsAnalysis analysisToRemove : removedAnalyses) {
+        for (final var analysisToRemove : removedAnalyses) {
           analysisManager.removeAnalysis(analysisToRemove);
         }
       }

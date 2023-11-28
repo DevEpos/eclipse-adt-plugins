@@ -158,4 +158,12 @@ public interface IImages {
    * Image id for running a new CDS analysis
    */
   String RUN_NEW_ANALYSIS = "IMG_RUN_NEW_ANALYSIS";
+  /**
+   * Id for CDS Analysis Mode switch
+   */
+  String CDS_ANALYSIS_MODE_SWITCH = "IMG_CDS_ANALYSIS_MODE_SWITCH";
+  /**
+   * Id to create new instance of CDS Analyzer view
+   */
+  String NEW_CDS_ANALYSIS_VIEW = "IMG_NEW_CDS_ANALYSIS_VIEW";
 }

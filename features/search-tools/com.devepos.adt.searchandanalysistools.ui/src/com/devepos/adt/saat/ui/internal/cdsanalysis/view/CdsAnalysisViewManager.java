@@ -1,14 +1,16 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.util.Logging;
 import com.devepos.adt.saat.ui.internal.ViewPartLookup;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
+import com.devepos.adt.saat.ui.internal.messages.Messages;
 
 /**
  * This class manages all open Views of the CDS Analyzer.<br>
@@ -18,7 +20,6 @@ import com.devepos.adt.saat.ui.internal.ViewPartLookup;
 public class CdsAnalysisViewManager {
 
   private static CdsAnalysisViewManager instance;
-  private static int viewCount = 0;
   private final LinkedList<CdsAnalysisView> openViews;
 
   private CdsAnalysisViewManager() {
@@ -35,13 +36,12 @@ public class CdsAnalysisViewManager {
   /**
    * Retrieves the CDS Analysis view from the workspace
    *
-   * @return
+   * @param type analysis type
    */
-  public CdsAnalysisView activateCdsAnalysisView(final boolean openNew) {
-    CdsAnalysisView view = null;
-    final IWorkbenchPage activePage = PlatformUI.getWorkbench()
-        .getActiveWorkbenchWindow()
-        .getActivePage();
+  public CdsAnalysisView activateCdsAnalysisView(final boolean openNew,
+      final CdsAnalysisType type) {
+    CdsAnalysisView existingView = null;
+    final var activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
     if (activePage == null) {
       return null;
@@ -49,22 +49,49 @@ public class CdsAnalysisViewManager {
 
     try {
       if (!openNew) {
-        view = findLruAnalysisView(activePage, true);
+        existingView = findLruAnalysisView(activePage, true, type);
       }
       String secondaryId = null;
-      if (view == null) {
+      if (existingView == null) {
         if (activePage.findViewReference(CdsAnalysisView.VIEW_ID) != null) {
-          secondaryId = String.valueOf(++viewCount);
+          secondaryId = String.valueOf(openViews.size() + 1);
         }
       } else {
-        secondaryId = view.getViewSite().getSecondaryId();
+        secondaryId = existingView.getViewSite().getSecondaryId();
       }
-      return (CdsAnalysisView) activePage.showView(CdsAnalysisView.VIEW_ID, secondaryId,
+      var newView = (CdsAnalysisView) activePage.showView(CdsAnalysisView.VIEW_ID, secondaryId,
           IWorkbenchPage.VIEW_ACTIVATE);
+      if (existingView == null) {
+        newView.setViewName(String.format("%s (%d)", Messages.CdsAnalysisViewManager_ViewName_xtit, //$NON-NLS-1$
+            openViews.size()));
+        newView.setConfiguredAnalysisTypes(Arrays.asList(CdsAnalysisType.values()));
+      }
+      return newView;
     } catch (final PartInitException e) {
       Logging.getLogger(ViewPartLookup.class).error(e);
     }
-    return view;
+    return null;
+  }
+
+  public void showNewCdsAnalysisView() {
+    final var activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+
+    if (activePage == null) {
+      return;
+    }
+    String secondaryId = null;
+    if (activePage.findViewReference(CdsAnalysisView.VIEW_ID) != null) {
+      secondaryId = String.valueOf(openViews.size() + 1);
+    }
+    try {
+      var newView = (CdsAnalysisView) activePage.showView(CdsAnalysisView.VIEW_ID, secondaryId,
+          IWorkbenchPage.VIEW_ACTIVATE);
+      newView.setViewName(String.format("%s (%d)", Messages.CdsAnalysisViewManager_ViewName_xtit, //$NON-NLS-1$
+          openViews.size()));
+      newView.setConfiguredAnalysisTypes(Arrays.asList(CdsAnalysisType.values()));
+    } catch (PartInitException e) {
+      Logging.getLogger(ViewPartLookup.class).error(e);
+    }
   }
 
   public void cdsAnalysisViewActivated(final CdsAnalysisView view) {
@@ -85,8 +112,8 @@ public class CdsAnalysisViewManager {
    */
   public boolean isAnalysisShown(final CdsAnalysis analysis) {
     synchronized (openViews) {
-      for (final CdsAnalysisView view : openViews) {
-        final CdsAnalysis shownAnalysis = view.getCurrentAnalysis();
+      for (final var view : openViews) {
+        final var shownAnalysis = view.getCurrentAnalysis();
         if (shownAnalysis == analysis) {
           return true;
         }
@@ -96,24 +123,28 @@ public class CdsAnalysisViewManager {
   }
 
   private CdsAnalysisView findLruAnalysisView(final IWorkbenchPage page,
-      final boolean avoidPinnedViews) {
+      final boolean avoidPinnedViews, final CdsAnalysisType targetType) {
     boolean viewFoundInPage = false;
-    for (CdsAnalysisView view : openViews) {
+    for (var view : openViews) {
       if (page.equals(view.getSite().getPage())) {
-        if (!avoidPinnedViews || !view.isPinned()) {
+        viewFoundInPage = true;
+        if (avoidPinnedViews && view.isPinned()) {
+          continue;
+        }
+        if (view.getConfiguredAnalysisTypes().contains(targetType)) {
           return view;
         }
-        viewFoundInPage = true;
       }
     }
 
     if (!viewFoundInPage) {
       // find unresolved views
-      IViewReference[] viewReferences = page.getViewReferences();
-      for (IViewReference curr : viewReferences) {
+      var viewReferences = page.getViewReferences();
+      for (var curr : viewReferences) {
         if (CdsAnalysisView.VIEW_ID.equals(curr.getId()) && page.equals(curr.getPage())) {
-          CdsAnalysisView view = (CdsAnalysisView) curr.getView(true);
-          if (view != null && (!avoidPinnedViews || !view.isPinned())) {
+          var view = (CdsAnalysisView) curr.getView(true);
+          if (view != null && (!avoidPinnedViews || !view.isPinned())
+              && view.getConfiguredAnalysisTypes().contains(targetType)) {
             return view;
           }
 
