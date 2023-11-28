@@ -135,6 +135,7 @@ public class Messages extends NLS {
   public static String CdsAnalysis_NodeNameUnionSelect;
   public static String CdsAnalysis_NodeNameUnionSelectAll;
   public static String CdsAnalysis_NoOpenCdsAnalysis_xmsg;
+  public static String CdsAnalysis_ProjectNotAvailable_xmsg;
   public static String CdsAnalysis_RefreshAction_xtol;
   public static String CdsAnalysis_RefreshAnalysisForNode_xlbl;
   public static String CdsAnalysis_SqlRelationCrossJoin;

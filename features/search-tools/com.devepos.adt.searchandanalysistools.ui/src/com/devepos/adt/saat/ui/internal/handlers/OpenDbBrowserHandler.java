@@ -41,8 +41,7 @@ public class OpenDbBrowserHandler extends DbBrowserCommandHandler {
         return null;
       }
     }
-
-    if (!ProjectUtil.ensureLoggedOnToProject(currentProject).isOK()) {
+    if (!ProjectUtil.checkProjectAccessible(currentProject) || !ProjectUtil.ensureLoggedOnToProject(currentProject).isOK()) {
       // without successful logon the feature availability cannot be tested
       return null;
     }
