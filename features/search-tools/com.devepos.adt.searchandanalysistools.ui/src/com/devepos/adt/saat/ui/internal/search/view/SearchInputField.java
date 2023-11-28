@@ -7,13 +7,20 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.Clipboard;
+import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.search.ISearchFilter;
 import com.devepos.adt.base.ui.search.ISearchFilterProvider;
 import com.devepos.adt.base.ui.search.SearchFilterHandler;
@@ -23,6 +30,7 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchFactory;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryField;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeInputFieldConfig;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
+import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
 class SearchInputField implements ISearchFilterProvider {
@@ -53,7 +61,47 @@ class SearchInputField implements ISearchFilterProvider {
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(input);
 
     TextControlUtil.addWordSupport(input);
-    AdtSWTUtilFactory.getOrCreateSWTUtil().addTextEditMenu(input);
+    var menu = AdtSWTUtilFactory.getOrCreateSWTUtil().addTextEditMenu(input);
+    menu.addMenuListener(l -> {
+      l.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS,
+          new Action(Messages.SearchInputField_PasteLinesAction_xmit,
+              PlatformUI.getWorkbench()
+                  .getSharedImages()
+                  .getImageDescriptor(ISharedImages.IMG_TOOL_PASTE)) {
+
+            @Override
+            public boolean isEnabled() {
+              return getClipboardContent() != null;
+            }
+
+            @Override
+            public void run() {
+              var clipboardContent = getClipboardContent();
+              if (clipboardContent == null) {
+                return;
+              }
+              var currentInput = input.getText();
+              var selection = input.getSelection();
+              var filterValues = currentInput.substring(0, selection.x)
+                  + clipboardContent.replaceAll("\n", configuredFilters.isEmpty() ? " " : ",")
+                      .replaceAll("\r", "")
+                      .toLowerCase();
+              input.setText(filterValues + currentInput.substring(selection.y));
+              input.setSelection(selection.y + filterValues.length());
+            }
+
+            private String getClipboardContent() {
+              var clipboard = new Clipboard(Display.getCurrent());
+              var textTransfer = TextTransfer.getInstance();
+              var content = clipboard.getContents(textTransfer);
+              clipboard.dispose();
+              return content instanceof String && ((String) content).contains("\n")
+                  ? (String) content
+                  : null;
+            }
+
+          });
+    });
   }
 
   public void dispose() {
