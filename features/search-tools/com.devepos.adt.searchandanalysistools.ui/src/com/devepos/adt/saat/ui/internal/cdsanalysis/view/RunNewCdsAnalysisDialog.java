@@ -35,6 +35,7 @@ import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.util.FeatureTester;
+import com.devepos.adt.saat.ui.internal.util.IImages;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 import com.sap.adt.util.ui.swt.IAdtSWTUtil;
@@ -79,7 +80,9 @@ public class RunNewCdsAnalysisDialog extends StatusDialog {
   @Override
   public void create() {
     super.create();
-    IProject project = ProjectUtil.getCurrentAbapProject();
+    getShell().setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.RUN_NEW_ANALYSIS));
+
+    var project = ProjectUtil.getCurrentAbapProject();
     if (project != null) {
       projectInput.setProjectName(project.getName());
     }
