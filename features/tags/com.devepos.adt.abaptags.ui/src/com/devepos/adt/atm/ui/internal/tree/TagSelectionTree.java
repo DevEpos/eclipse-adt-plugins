@@ -85,7 +85,7 @@ public class TagSelectionTree {
     tagsTreeViewer = new CheckboxTreeViewer(tagsTree, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
     tagsTree.setViewer(tagsTreeViewer);
     applyTreeLayoutData(tagsTreeViewer.getTree());
-    tagsTree.setExpandAllOnFilterEmpty(false);
+    tagsTree.setExpandOnEmptyFilter(false);
 
     tagsTreeViewer.setContentProvider(
         contentProvider != null ? contentProvider : new TagTreeContentProvider());
