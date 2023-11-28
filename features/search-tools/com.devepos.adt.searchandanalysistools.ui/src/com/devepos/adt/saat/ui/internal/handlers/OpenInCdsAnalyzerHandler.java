@@ -1,7 +1,5 @@
 package com.devepos.adt.saat.ui.internal.handlers;
 
-import java.util.List;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -20,6 +18,7 @@ import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
+import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.saat.elementinfo.ElementInfoRetrievalServiceFactory;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.AdtObjRefToElemInfoConverter;
@@ -46,15 +45,15 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
 
   @Override
   public Object execute(final ExecutionEvent event) throws ExecutionException {
-    final List<IAdtObject> selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(true);
+    final var selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(true);
     if (selectedObjects == null || selectedObjects.isEmpty() || selectedObjects.size() > 1) {
       return null;
     }
     var trigger = event.getTrigger();
     boolean openInNewWindow = trigger instanceof Event && ((Event) trigger).stateMask == SWT.CTRL;
-    final IAdtObject selectedObject = selectedObjects.get(0);
-    final IProject project = selectedObject.getProject();
-    if (!canExecute(selectedObject)) {
+    final var selectedObject = selectedObjects.get(0);
+    final var project = selectedObject.getProject();
+    if (!canExecute(selectedObject) || !ProjectUtil.checkProjectAccessible(project)) {
       return null;
     }
     if (!isFeatureAvailable(project)) {
@@ -63,7 +62,8 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
           NLS.bind(getFeatureUnavailableMessage(), DestinationUtil.getDestinationId(project)));
       return null;
     }
-    final IAbapProject abapProject = selectedObject.getProject().getAdapter(IAbapProject.class);
+
+    final var abapProject = project.getAdapter(IAbapProject.class);
     // register the abapProject
     AbapProjectProviderAccessor
         .registerProjectProvider(new AbapProjectProxy(selectedObject.getProject()));
@@ -103,18 +103,18 @@ public abstract class OpenInCdsAnalyzerHandler extends AbstractHandler {
 
   private void analyzeObject(final IAdtObjectReference objectRef, final String destinationId,
       final boolean openInNewWindow) {
-    final CdsAnalysisManager analysisManager = CdsAnalysisManager.getInstance();
-    final CdsAnalysisKey analysisKey = new CdsAnalysisKey(mode, objectRef.getUri(), destinationId);
-    final CdsAnalysis existing = analysisManager.getExistingAnalysis(analysisKey);
+    final var analysisManager = CdsAnalysisManager.getInstance();
+    final var analysisKey = new CdsAnalysisKey(mode, objectRef.getUri(), destinationId);
+    final var existing = analysisManager.getExistingAnalysis(analysisKey);
     if (existing == null) {
       // determine ADT information about CDS view
-      final Job adtObjectRetrievalJob = Job.create(Messages.CdsAnalysis_LoadAdtObjectJobName_xmsg,
+      final var adtObjectRetrievalJob = Job.create(Messages.CdsAnalysis_LoadAdtObjectJobName_xmsg,
           (ICoreRunnable) monitor -> {
             // check if search is possible in selected project
             var adtObjRef = ElementInfoRetrievalServiceFactory.createService()
                 .retrieveBasicElementInformation(destinationId, objectRef.getUri());
             if (adtObjRef != null) {
-              final CdsAnalysis newAnalysis = createTypedAnalysis(
+              final var newAnalysis = createTypedAnalysis(
                   AdtObjRefToElemInfoConverter.convert(destinationId, adtObjRef));
               PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
                 analysisManager.addAnalysis(newAnalysis);

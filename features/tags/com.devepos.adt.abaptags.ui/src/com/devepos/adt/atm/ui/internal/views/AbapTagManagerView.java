@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -106,6 +109,7 @@ import com.devepos.adt.base.ui.tree.IFilterableView;
 import com.devepos.adt.base.ui.userinfo.IUserServiceUI;
 import com.devepos.adt.base.ui.userinfo.UserServiceUIFactory;
 import com.devepos.adt.base.util.StringUtil;
+import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 
 /**
  * View to manage, explore ABAP Tags
@@ -142,6 +146,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private Job tagLoadingJob;
   private final IAbapTagsService tagsService;
   private final IAdtObjTaggingService objTaggingService;
+  private IResourceChangeListener projectListener;
 
   private FilterableComposite<TreeViewer, Tree> tree;
 
@@ -461,6 +466,22 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     contextHelper = ContextHelper.createForServiceLocator(getSite());
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+
+    projectListener = event -> {
+      if (event == null) {
+        return;
+      }
+
+      if (event.getResource() instanceof IProject
+          && (event.getType() == IResourceChangeEvent.PRE_CLOSE
+              || event.getType() == IResourceChangeEvent.PRE_DELETE)
+          && event.getResource() == lastProject) {
+        Display.getDefault().asyncExec(() -> Display.getDefault().timerExec(200, () -> {
+          loadViewInput();
+        }));
+      }
+    };
+    ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
   }
 
   @Override
@@ -468,6 +489,9 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     getSite().getPage().removePostSelectionListener(selectionListener);
     if (contextHelper != null) {
       contextHelper.deactivateAllContexts();
+    }
+    if (projectListener != null) {
+      ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
     }
     super.dispose();
   }
@@ -534,6 +558,16 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       setControlsEnabled(false);
       return false;
     }
+    // check if project is open/closed
+    var status = AdtProjectServiceFactory.createProjectService().isProjectAccessible(lastProject);
+    if (!status.isOK()) {
+      lastProject = null;
+      viewLabel.updateLabel(status.getMessage());
+      clearInput();
+      setControlsEnabled(false);
+      return false;
+    }
+
     // check if the user is logged on to the project
     if (ensureLogon) {
       if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {

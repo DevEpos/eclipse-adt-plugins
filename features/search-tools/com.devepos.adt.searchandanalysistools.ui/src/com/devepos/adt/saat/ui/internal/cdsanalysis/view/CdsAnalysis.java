@@ -1,11 +1,18 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.statushandlers.StatusManager;
 
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
+import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
+import com.devepos.adt.saat.ui.internal.messages.Messages;
 
 /**
  * Result of CDS Analysis
@@ -15,6 +22,7 @@ import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 public abstract class CdsAnalysis {
 
   protected final IAdtObjectReferenceElementInfo adtObjectInfo;
+  protected final IProject project;
   private boolean isResultLoaded;
 
   /**
@@ -26,6 +34,27 @@ public abstract class CdsAnalysis {
    */
   public CdsAnalysis(final IAdtObjectReferenceElementInfo adtObjectInfo) {
     this.adtObjectInfo = adtObjectInfo;
+    var destinationProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
+    project = destinationProvider != null
+        ? ProjectUtil.getProjectForDestination(destinationProvider.getDestinationId())
+        : null;
+  }
+
+  public IProject getProject() {
+    return project;
+  }
+
+  public boolean checkProjectAvailability() {
+    if (project == null) {
+      StatusManager.getManager()
+          .handle(new Status(IStatus.WARNING, SearchAndAnalysisPlugin.PLUGIN_ID,
+              Messages.CdsAnalysis_ProjectNotAvailable_xmsg), StatusManager.SHOW);
+      return false;
+    }
+    if (!ProjectUtil.checkProjectAccessible(project)) {
+      return false;
+    }
+    return true;
   }
 
   public void addCdsAnalysisResultListener(final ICdsAnalysisResultListener l) {

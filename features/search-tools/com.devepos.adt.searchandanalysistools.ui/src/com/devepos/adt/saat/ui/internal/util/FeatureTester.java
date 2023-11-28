@@ -98,6 +98,9 @@ public final class FeatureTester {
    */
   public static boolean isSapGuiDbBrowserAvailable(final IProject project) {
     final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+    if (abapProject == null) {
+      return false;
+    }
 
     final IUriDiscovery uriDiscovery = new DbBrowserIntegrationUriDiscovery(
         abapProject.getDestinationId());

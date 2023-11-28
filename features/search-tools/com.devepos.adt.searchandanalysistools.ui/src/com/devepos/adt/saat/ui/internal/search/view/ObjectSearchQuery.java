@@ -1,5 +1,6 @@
 package com.devepos.adt.saat.ui.internal.search.view;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -9,7 +10,7 @@ import org.eclipse.search.ui.ISearchResult;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
-import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
+import com.devepos.adt.base.ui.search.AbstractAbapProjectSearchQuery;
 import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
@@ -21,7 +22,7 @@ import com.sap.adt.communication.resources.ResourceException;
  *
  * @author stockbal
  */
-public class ObjectSearchQuery implements IAbapProjectSearchQuery {
+public class ObjectSearchQuery extends AbstractAbapProjectSearchQuery {
   public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.objectsearch";
   private ObjectSearchRequest searchRequest;
   private final ObjectSearchResult searchResult;
@@ -36,11 +37,6 @@ public class ObjectSearchQuery implements IAbapProjectSearchQuery {
     this.searchRequest = searchRequest;
     searchResult = new ObjectSearchResult(this);
     searchResult.setOutputConfig(searchRequest.getOutputConfig());
-  }
-
-  @Override
-  public boolean canRerun() {
-    return true;
   }
 
   @Override
@@ -63,6 +59,13 @@ public class ObjectSearchQuery implements IAbapProjectSearchQuery {
 
   public IAbapProjectProvider getProjectProvider() {
     return searchRequest != null ? searchRequest.getProjectProvider() : null;
+  }
+
+  @Override
+  public IProject getProject() {
+    var projectProvider = getProjectProvider();
+    return projectProvider != null && projectProvider.hasProject() ? projectProvider.getProject()
+        : null;
   }
 
   /**

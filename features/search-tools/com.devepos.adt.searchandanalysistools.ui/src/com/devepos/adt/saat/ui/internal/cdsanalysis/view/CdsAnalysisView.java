@@ -3,6 +3,10 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
@@ -79,6 +83,7 @@ public class CdsAnalysisView extends PageBookView
   private final Map<CdsAnalysis, ViewUiState> viewStates;
   private CdsAnalysis currentAnalysis;
   private boolean isPinned;
+  private IResourceChangeListener projectListener;
 
   private CLabel description;
   private RefreshCurrentAnalysisAction refreshAnalysisAction;
@@ -249,6 +254,12 @@ public class CdsAnalysisView extends PageBookView
   public void dispose() {
     CdsAnalysisManager.getInstance().removeCdsAnalysisListener(this);
     CdsAnalysisViewManager.getInstance().cdsAnalysisViewClosed(this);
+    if (projectListener != null) {
+      ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
+    }
+    if (contextHelper != null) {
+      contextHelper.deactivateAllContexts();
+    }
     super.dispose();
   }
 
@@ -291,6 +302,24 @@ public class CdsAnalysisView extends PageBookView
 
     final IMenuManager menuManager = site.getActionBars().getMenuManager();
     createViewMenuGroups(menuManager);
+
+    projectListener = event -> {
+      if (event == null || getCurrentAnalysis() == null) {
+        return;
+      }
+
+      if (event.getResource() instanceof IProject
+          && (event.getType() == IResourceChangeEvent.PRE_CLOSE
+              || event.getType() == IResourceChangeEvent.PRE_DELETE)
+          && event.getResource() == getCurrentAnalysis().getProject()) {
+        getViewSite().getShell().getDisplay().asyncExec(() -> {
+          showCdsAnalysis(null);
+          partActivated(defaultPart);
+          updateHelp(null);
+        });
+      }
+    };
+    ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
   }
 
   @Override

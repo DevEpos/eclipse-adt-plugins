@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -37,6 +40,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
@@ -113,6 +117,7 @@ import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.ui.util.EditorUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
+import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 
 /**
  * View to manage the tags of a given ADT object
@@ -141,6 +146,7 @@ public class AbapObjectTagsView extends ViewPart {
   private TreeInput treeResult;
   private TreeViewer treeViewer;
   private String destinationOwner;
+  private IResourceChangeListener projectListener;
 
   public AbapObjectTagsView() {
     abapTagsService = AbapTagsServiceFactory.createTagsService();
@@ -614,6 +620,35 @@ public class AbapObjectTagsView extends ViewPart {
     });
     getSite().getPage().addPartListener(partListener);
     getSite().setSelectionProvider(treeViewer);
+
+    projectListener = event -> {
+      if (event == null || currentAdtObject == null) {
+        return;
+      }
+
+      if (event.getResource() instanceof IProject
+          && (event.getType() == IResourceChangeEvent.PRE_CLOSE
+              || event.getType() == IResourceChangeEvent.PRE_DELETE)
+          && event.getResource() == currentAdtObject.getProject()) {
+        Display.getDefault().asyncExec(() -> Display.getDefault().timerExec(200, () -> {
+          var projectStatus = AdtProjectServiceFactory.createProjectService()
+              .isProjectAccessible(currentAdtObject.getProject());
+          if (!projectStatus.isOK()) {
+            viewLabel.updateLabel(projectStatus.getMessage());
+            clearInput();
+          }
+        }));
+      }
+    };
+    ResourcesPlugin.getWorkspace().addResourceChangeListener(projectListener);
+  }
+
+  @Override
+  public void dispose() {
+    if (projectListener != null) {
+      ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectListener);
+    }
+    super.dispose();
   }
 
   @Override

@@ -2,6 +2,7 @@ package com.devepos.adt.cst.ui.internal.codesearch;
 
 import java.util.Map;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -13,7 +14,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
-import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
+import com.devepos.adt.base.ui.search.AbstractAbapProjectSearchQuery;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
@@ -29,7 +30,7 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchQuery implements IAbapProjectSearchQuery {
+public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
 
   public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.codesearch"; // $NON-NLS-N$
 
@@ -49,11 +50,6 @@ public class CodeSearchQuery implements IAbapProjectSearchQuery {
   }
 
   @Override
-  public boolean canRerun() {
-    return true;
-  }
-
-  @Override
   public boolean canRunInBackground() {
     return true;
   }
@@ -61,6 +57,12 @@ public class CodeSearchQuery implements IAbapProjectSearchQuery {
   @Override
   public String getDestinationId() {
     return getProjectProvider().getDestinationId();
+  }
+
+  @Override
+  public IProject getProject() {
+    var pp = getProjectProvider();
+    return pp != null && pp.hasProject() ? pp.getProject() : null;
   }
 
   @Override

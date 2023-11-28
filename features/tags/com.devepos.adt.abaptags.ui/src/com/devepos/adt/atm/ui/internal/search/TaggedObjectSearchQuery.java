@@ -1,5 +1,6 @@
 package com.devepos.adt.atm.ui.internal.search;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -13,7 +14,7 @@ import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.preferences.ITaggedObjectSearchPrefs;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectUtil;
-import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
+import com.devepos.adt.base.ui.search.AbstractAbapProjectSearchQuery;
 import com.sap.adt.destinations.model.IDestinationData;
 
 /**
@@ -21,7 +22,7 @@ import com.sap.adt.destinations.model.IDestinationData;
  *
  * @author stockbal
  */
-public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
+public class TaggedObjectSearchQuery extends AbstractAbapProjectSearchQuery {
   public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.taggedobjectsearch";
 
   private final TaggedObjectSearchResult searchResult;
@@ -34,11 +35,6 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
   }
 
   @Override
-  public boolean canRerun() {
-    return true;
-  }
-
-  @Override
   public boolean canRunInBackground() {
     return true;
   }
@@ -46,6 +42,12 @@ public class TaggedObjectSearchQuery implements IAbapProjectSearchQuery {
   @Override
   public String getDestinationId() {
     return projectProvider != null ? projectProvider.getDestinationId() : ""; //$NON-NLS-1$
+  }
+
+  @Override
+  public IProject getProject() {
+    return projectProvider != null && projectProvider.hasProject() ? projectProvider.getProject()
+        : null;
   }
 
   @Override
