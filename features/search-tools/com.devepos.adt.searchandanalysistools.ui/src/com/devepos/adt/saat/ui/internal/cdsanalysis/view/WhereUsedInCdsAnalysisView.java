@@ -1,5 +1,6 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -86,6 +87,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
   private Action releasedEntitiesFilterAction;
   private Action searchRecursivelyAction;
   private Action refreshNodesAction;
+  private Action expandNodeAction;
   private ITreeNode lastFilteredNode;
   private boolean releasedEntitiesFilterActive;
   private boolean selectionFilterActive;
@@ -318,12 +320,22 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
   @Override
   protected void configureTreeViewer(final TreeViewer treeViewer) {
-    contentProvider = new LazyLoadingTreeContentProvider();
-    contentProvider.setExpansionChecker(null);
+    contentProvider = new LazyLoadingTreeContentProvider(LazyLoadingRefreshMode.ROOT_ONLY, 1);
     treeViewer.setContentProvider(contentProvider);
     treeViewer.setUseHashlookup(true);
     treeViewer
         .setLabelProvider(new DelegatingStyledCellLabelProvider(new TreeViewerLabelProvider()));
+  }
+
+  @Override
+  protected TreeViewer createTreeViewer(final Composite parent) {
+    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
+    var resultTreeViewer = new LazyLoadingTreeViewer(resultTree,
+        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.VIRTUAL);
+    resultTreeViewer.addFilter(treeFilter);
+    resultTree.setExpandLevelOnFilterEmpty(2);
+    resultTree.setViewer(resultTreeViewer);
+    return resultTreeViewer;
   }
 
   @Override
@@ -407,16 +419,10 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
           refreshAnalysis(false);
         });
     refreshNodesAction.setActionDefinitionId(IWorkbenchCommandConstants.FILE_REFRESH);
-  }
-
-  @Override
-  protected TreeViewer createTreeViewer(final Composite parent) {
-    resultTree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
-    var resultTreeViewer = new LazyLoadingTreeViewer(resultTree,
-        SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-    resultTreeViewer.addFilter(treeFilter);
-    resultTree.setViewer(resultTreeViewer);
-    return resultTreeViewer;
+    expandNodeAction = ActionFactory.createAction(
+        AdtBaseUIResources.getString(IAdtBaseStrings.ExpandTree_xlbl),
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.EXPAND_ALL),
+        this::expandSelectedNodes);
   }
 
   @Override
@@ -448,8 +454,17 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       }
     }
 
-    if (Stream.of(selection.toArray()).anyMatch(ILazyLoadingNode.class::isInstance)) {
+    var selectedNodes = selection.toArray();
+
+    if (Stream.of(selectedNodes).anyMatch(ILazyLoadingNode.class::isInstance)) {
       mgr.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, refreshNodesAction);
+    }
+
+    var viewer = (TreeViewer) getViewer();
+    if (Stream.of(selectedNodes)
+        .anyMatch(
+            node -> ((ICollectionTreeNode) node).hasChildren() && !viewer.getExpandedState(node))) {
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, expandNodeAction);
     }
   }
 
@@ -478,8 +493,13 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
 
       if (element instanceof ICollectionTreeNode) {
         final String size = ((ICollectionTreeNode) element).getSizeAsString();
-        if (size != null && (!analysisResult.getSettings().isSearchRecursively()
-            || analysisResult.getSettings().isSearchAssociations()) && !"0".equals(size)) { //$NON-NLS-1$
+        if (analysisResult.getSettings().isSearchRecursively()) {
+          var recursiveSize = ((ICollectionTreeNode) element).countRecursively();
+          if (recursiveSize > 0) {
+            text.append(" (" + new DecimalFormat("###,###").format(recursiveSize) + ")",
+                StyledString.COUNTER_STYLER);
+          }
+        } else if (size != null && !"0".equals(size)) { //$NON-NLS-1$
           text.append(" (" + size + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
         }
       }
@@ -531,7 +551,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       analysisResult.createResult(lazyLoadingListener);
       viewer.setInput(analysisResult.getResult());
       analysisResult.setResultLoaded(true);
-      viewer.expandAll(true);
+      viewer.expandToLevel(2, true);
     }
   }
 
@@ -555,7 +575,7 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
       resetFiltering(false);
       analysisResult.refreshAnalysis();
       viewer.refresh();
-      viewer.expandAll(true);
+      viewer.expandToLevel(2, true);
     }
   }
 
@@ -659,12 +679,15 @@ public class WhereUsedInCdsAnalysisView extends CdsAnalysisPage<WhereUsedInCdsAn
     boolean expandPreCheckForLazyNodes = true;
     if (analysisResult.getSettings().isSearchRecursively() && showFromUses.isChecked()
         && !showAssocUses.isChecked()) {
-      contentProvider.setNodeRefreshOptions(AbstractTreeViewer.ALL_LEVELS,
-          LazyLoadingRefreshMode.ROOT_AND_ALL_CHILDREN);
       expandPreCheckForLazyNodes = false;
-    } else {
-      contentProvider.setNodeRefreshOptions(1, LazyLoadingRefreshMode.ROOT_AND_NON_LAZY_CHILDREN);
     }
     ((LazyLoadingTreeViewer) getViewer()).setExpandCheckForLazyNodes(expandPreCheckForLazyNodes);
+  }
+
+  private void expandSelectedNodes() {
+    var viewer = (TreeViewer) getViewer();
+    for (var selectedNode : viewer.getStructuredSelection()) {
+      viewer.expandToLevel(selectedNode, AbstractTreeViewer.ALL_LEVELS);
+    }
   }
 }
