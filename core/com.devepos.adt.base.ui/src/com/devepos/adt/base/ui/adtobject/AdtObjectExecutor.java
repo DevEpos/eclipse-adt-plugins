@@ -4,6 +4,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
+import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 import com.sap.adt.tools.core.ui.AdtObjectExecutionUtilFactory;
 
@@ -23,6 +24,9 @@ public class AdtObjectExecutor {
    * @param objectType the type of the object
    */
   public static void executeObject(final IProject project, final IAdtObjectReference objectRef) {
+    if (project == null || !ProjectUtil.checkProjectAccessible(project)) {
+      return;
+    }
     AdtObjectExecutionUtilFactory.getInstance()
         .executeObject(project, AdtObjectReferenceModelFactory.createReference(null,
             objectRef.getName(), objectRef.getType(), objectRef.getUri()), null,
