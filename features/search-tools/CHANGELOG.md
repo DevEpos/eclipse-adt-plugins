@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.11.0] - 2023-xx-xx - Newest Release
+## [2.0.0] - 2023-xx-xx
 
 ### ABAP Object Search
 
@@ -10,9 +10,10 @@
 - New architecture to allow for mostly backend-driven approach for the Object Search
 - New Search Type "Method"
 - New Search Type "Message"
-- New filters *changedby*, *changed*, *comp*, *appl* for CDS Search Type
-- New filters *changedby*, *changed*, *comp*, *appl*, *enhcat*, *maintflag*, *storetype*, *buffering*, *buffertype*, *dataclass*, *sizecat* for Database Table Search Type
+- New filters *changedby*, *changed*, *comp*, *appl*, *basefield* for CDS Search Type
+- New filters *changedby*, *changed*, *comp*, *appl*, *enhcat*, *maintflag*, *storetype*, *buffering*, *buffertype*, *dataclass*, *sizecat*, *include* for Database Table Search Type
 - New filters *changedby*, *changed*, *comp*, *appl* for Class/Interface Search Type
+- New option to paste clipboard content as name or filter values
 
 #### Changed
 
@@ -24,8 +25,16 @@
 #### Added
 
 - New setting to allow recursive loading of results in *Where-Used in CDS-Analysis*
-- New text filter option in *Where-Used in CDS-Analysis*
+- New text filter option in *Where-Used in CDS-Analysis*, *Top-Down Analysis* and *Used Entities Analysis*
 - New option in *Where-Used in CDS-Analysis* to restrict results to sub trees where released entities exist
+- New option in *Top-Down Analysis* and *Where-Used in CDS-Analysis* to restrict local result to a certain subtree
+- New metrics in *Used Entities Analysis*
+- New option to rename a CDS Analysis view
+- Possibility to manually create multiple instances of CDS Analysis view
+- Option to restrict the available analysis types in a CDS Analysis view
+
+#### Changed
+
 - New design for Intro of CDS Analysis View
 
 ## [1.10.0] - 2023-05-27
