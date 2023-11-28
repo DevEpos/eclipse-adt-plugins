@@ -340,8 +340,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     treeLabelProvider = new TreeViewerLabelProvider();
     treeContentProvider = new TagTreeContentProvider();
     checkBoxViewer.setContentProvider(treeContentProvider);
+    tagsTree.setHeaderVisible(true);
 
-    final var nameColumn = new TreeViewerColumn(checkBoxViewer, SWT.FULL_SELECTION, SWT.NONE);
+    final var nameColumn = new TreeViewerColumn(checkBoxViewer, SWT.FULL_SELECTION, 0);
+    nameColumn.getColumn().setText(Messages.TagSelectionWizardPage_TagNameColumn_xtit);
     nameColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(treeLabelProvider));
     nameColumn.setEditingSupport(new TextEditingSupport(checkBoxViewer));
     nameColumn.getColumn().setWidth(400);
@@ -608,7 +610,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     selectionInfo.setText(String.format(Messages.TagSelectionWizardPage_TagSelectionFormat_xmsg,
         checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
-        checkedCount == 1 ? "" : "s", Messages.DeleteTagsWizardPage_Selected_xlbl));
+        checkedCount == 1 ? "" : "s", Messages.DeleteTagsWizardPage_Selected_xlbl)); //$NON-NLS-1$ //$NON-NLS-2$
   }
 
   private void updateRemoveTagEnabled() {
