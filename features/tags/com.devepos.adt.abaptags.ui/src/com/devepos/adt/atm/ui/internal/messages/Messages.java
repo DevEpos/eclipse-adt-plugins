@@ -4,6 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
   private static final String BUNDLE_NAME = "com.devepos.adt.atm.ui.internal.messages.messages"; //$NON-NLS-1$
+  public static String TagSelectionWizardPage_TagNameColumn_xtit;
   public static String TaggableObjectSelectionWizardPage_Description_xmsg;
   public static String TaggableObjectSelectionWizardPage_NoObjectSelectedWarning_xmsg;
   public static String TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol;
