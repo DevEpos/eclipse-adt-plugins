@@ -1,6 +1,7 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -22,6 +23,8 @@ import org.eclipse.ui.IActionBars;
 import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.IToggleViewLayoutActionSettings;
@@ -65,6 +68,7 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
   private String currentEntity;
   private IDestinationProvider destProvider;
   private Action searchDbViewUsages;
+  private Action refreshFieldAction;
   private ToggleViewLayoutAction viewLayoutToggleAction;
 
   public FieldAnalysisView(final CdsAnalysisView viewPart) {
@@ -183,6 +187,11 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     viewLayoutToggleAction = ViewLayoutActionFactory.getInstance()
         .createToggleViewLayoutAction(fieldsHierarchySplitter, getControl(),
             viewLayoutActionSettings);
+
+    refreshFieldAction = ActionFactory.createAction(
+        Messages.CdsAnalysis_RefreshAnalysisForNode_xlbl,
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.REFRESH),
+        () -> refreshAnalysis(false));
   }
 
   @Override
@@ -227,6 +236,12 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     if (commandPossibleChecker.canCommandBeEnabled(ICommandConstants.USED_ENTITIES_ANALYSIS)) {
       SearchToolsMenuItemFactory.addCdsAnalyzerCommandItem(mgr,
           IContextMenuConstants.GROUP_CDS_ANALYSIS, ICommandConstants.USED_ENTITIES_ANALYSIS);
+    }
+
+    var selection = getViewer().getStructuredSelection();
+
+    if (Stream.of(selection.toArray()).anyMatch(SimpleInfoTreeNode.class::isInstance)) {
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, refreshFieldAction);
     }
   }
 
