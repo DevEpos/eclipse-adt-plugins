@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.devepos.adt.base.ui;singleton:=true
-Bundle-Version: 1.10.0.qualifier
+Bundle-Version: 1.11.0.qualifier
 Bundle-Activator: com.devepos.adt.base.ui.internal.AdtBaseUIPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: com.devepos.adt.base,
@@ -57,7 +57,11 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.callhierarchy.ui",
  com.devepos.adt.base.ui.celleditor;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.contentassist;x-friends:="com.devepos.adt.codesearch.ui",
- com.devepos.adt.base.ui.controls;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.codesearch.ui",
+ com.devepos.adt.base.ui.controls;
+  x-friends:="com.devepos.adt.abaptags.ui,
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.codesearch.ui,
+   com.devepos.adt.searchfavorites",
  com.devepos.adt.base.ui.dialogs;x-friends:="com.devepos.adt.abaptags.ui",
  com.devepos.adt.base.ui.elementinfo;x-friends:="com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.event;
@@ -72,7 +76,11 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.searchfavorites",
- com.devepos.adt.base.ui.preferences;x-friends:="com.devepos.adt.codesearch.ui,com.devepos.adt.searchandanalysistools.ui,com.devepos.adt.callhierarchy.ui",
+ com.devepos.adt.base.ui.preferences;
+  x-friends:="com.devepos.adt.codesearch.ui,
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.callhierarchy.ui,
+   com.devepos.adt.searchfavorites",
  com.devepos.adt.base.ui.project;
   x-friends:="com.devepos.adt.abaptags.backend,
    com.devepos.adt.abaptags.ui,
@@ -94,7 +102,8 @@ Export-Package: com.devepos.adt.base.ui;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.callhierarchy.ui,
    com.devepos.adt.codesearch.ui,
-   com.devepos.adt.searchandanalysistools.ui",
+   com.devepos.adt.searchandanalysistools.ui,
+   com.devepos.adt.searchfavorites",
  com.devepos.adt.base.ui.tree;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
