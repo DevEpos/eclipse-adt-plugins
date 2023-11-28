@@ -62,8 +62,11 @@ public class CdsAnalysisViewManager {
       var newView = (CdsAnalysisView) activePage.showView(CdsAnalysisView.VIEW_ID, secondaryId,
           IWorkbenchPage.VIEW_ACTIVATE);
       if (existingView == null) {
-        newView.setViewName(String.format("%s (%d)", Messages.CdsAnalysisViewManager_ViewName_xtit, //$NON-NLS-1$
-            openViews.size()));
+        var instanceNumber = openViews.size();
+        newView.setViewName(instanceNumber > 1
+            ? String.format("%s (%d)", Messages.CdsAnalysisViewManager_ViewName_xtit, //$NON-NLS-1$
+                openViews.size())
+            : Messages.CdsAnalysisViewManager_ViewName_xtit);
         newView.setConfiguredAnalysisTypes(Arrays.asList(CdsAnalysisType.values()));
       }
       return newView;
