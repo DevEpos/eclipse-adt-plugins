@@ -6,20 +6,7 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated search-favorites -->
-      <package
-            uri="https://www.devepos.com/adt/objectsearch/favorites"
-            class="com.devepos.adt.saat.model.objectsearchfavorites.IObjectSearchFavoritesPackage"
-            genModel="model/search-favorites.genmodel"/>
-   </extension>
 
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated search-favorites -->
-      <parser
-            type="objectsearchfavorites"
-            class="com.devepos.adt.saat.model.objectsearchfavorites.util.ObjectSearchFavoritesResourceFactoryImpl"/>
-   </extension>
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated objectsearch -->
       <package
