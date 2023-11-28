@@ -33,8 +33,7 @@ public class CommandPossibleChecker {
   public boolean canCommandBeEnabled(final String commandId) {
     switch (commandId) {
     case ICommandConstants.CDS_TOP_DOWN_ANALYSIS:
-      return isSingleCdsSelection()
-          && FeatureTester.isCdsTopDownAnalysisAvailable(selectedAdtObjects.get(0).getProject());
+      return isSingleCdsSelection();
     case ICommandConstants.USED_ENTITIES_ANALYSIS:
       return isSingleCdsSelection() && FeatureTester
           .isCdsUsedEntitiesAnalysisAvailable(selectedAdtObjects.get(0).getProject());
