@@ -52,6 +52,7 @@ import com.devepos.adt.base.ui.tree.LazyLoadingFolderNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.tree.launchable.ILaunchableNode;
 import com.devepos.adt.base.util.StringUtil;
+import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeContentProvider
@@ -95,13 +96,15 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     JFaceResources.getColorRegistry().addListener(colorPropertyChangeListener);
   }
 
-  private class RootNode extends LazyLoadingFolderNode {
+  private class RootNode extends LazyLoadingFolderNode implements IProjectProvider {
 
     private final TaggedObjectTreeLoader treeLoader;
+    private final IProject project;
 
-    public RootNode(final TaggedObjectTreeLoader tagLoader) {
+    public RootNode(final IProject project, final TaggedObjectTreeLoader tagLoader) {
       super(Messages.TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit, tagLoader,
           null, AbapTagsUIPlugin.getDefault().getImage(IImages.GLOBAL_TAGS_FOLDER));
+      this.project = project;
       treeLoader = tagLoader;
     }
 
@@ -113,14 +116,20 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       return treeLoader != null ? new DecimalFormat("###,###").format(treeLoader.getFolderSize()) //$NON-NLS-1$
           : "0"; //$NON-NLS-1$
     }
+
+    @Override
+    public IProject getProject() {
+      return project;
+    }
   }
 
-  private class TaggedObjectTreeLoader implements IElementInfoProvider {
+  private class TaggedObjectTreeLoader implements IElementInfoProvider, IProjectProvider {
 
     private final String tagId;
     private final IAdtObjectReference objectRef;
     private final String destinationId;
     private int folderSize;
+    private final IProject project;
 
     public TaggedObjectTreeLoader(final String destinationId) {
       this(destinationId, null, null);
@@ -128,6 +137,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
 
     public TaggedObjectTreeLoader(final String destinationId, final String tagId,
         final IAdtObjectReference objectRef) {
+      project = ProjectUtil.getProjectForDestination(destinationId);
       this.destinationId = destinationId;
       this.tagId = tagId;
       this.objectRef = objectRef;
@@ -255,6 +265,11 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           processChildNodes(childFolderNode, childTag.getChildTags());
         }
       }
+    }
+
+    @Override
+    public IProject getProject() {
+      return project;
     }
 
   }
@@ -391,7 +406,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       if (sessionProp instanceof Object[]) {
         return (Object[]) sessionProp;
       }
-      var lazyNode = new RootNode(
+      var lazyNode = new RootNode(project,
           new TaggedObjectTreeLoader(DestinationUtil.getDestinationId(project)));
       sessionProp = new Object[] { lazyNode };
       project.setSessionProperty(SESSION_PROP_TAGGED_OBJECT_TREE, sessionProp);
