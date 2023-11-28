@@ -93,10 +93,18 @@ public class FieldHierarchyViewer extends TreeViewer {
         // check if image should have overlay
         if (fieldInfo != null) {
           final String[] overlayImageIds = new String[4];
-          if (IExtendedAdtObjectInfo.API_STATE_RELEASED.equals(fieldInfo.getApiState())) {
-            overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
-          } else if (IExtendedAdtObjectInfo.API_STATE_DEPRECATED.equals(fieldInfo.getApiState())) {
-            overlayImageIds[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
+          var apiState = fieldInfo.getApiState();
+          if (apiState != null) {
+            var isReleased = apiState.contains(IExtendedAdtObjectInfo.API_STATE_RELEASED);
+            var isDeprecated = apiState.contains(IExtendedAdtObjectInfo.API_STATE_DEPRECATED);
+            if (isReleased && isDeprecated) {
+              overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+              overlayImageIds[IDecoration.TOP_LEFT] = IImages.DEPRECATED_API_OVR;
+            } else if (isDeprecated) {
+              overlayImageIds[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
+            } else if (isReleased) {
+              overlayImageIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+            }
           }
           var sourceType = fieldInfo.getSourceType() != null
               ? CdsSourceType.getFromId(fieldInfo.getSourceType())

@@ -390,10 +390,13 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
             .getAdapter(IExtendedAdtObjectInfo.class);
         if (extendedSearchResultInfo != null) {
           final String[] overlayIds = new String[4];
-          if (extendedSearchResultInfo.isReleased()) {
+          if (extendedSearchResultInfo.isReleased() && extendedSearchResultInfo.isDeprecated()) {
             overlayIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
+            overlayIds[IDecoration.TOP_LEFT] = IImages.DEPRECATED_API_OVR;
           } else if (extendedSearchResultInfo.isDeprecated()) {
             overlayIds[IDecoration.TOP_RIGHT] = IImages.DEPRECATED_API_OVR;
+          } else if (extendedSearchResultInfo.isReleased()) {
+            overlayIds[IDecoration.TOP_RIGHT] = IImages.RELEASED_API_OVR;
           }
           final IDataSourceType sourceType = extendedSearchResultInfo.getSourceType();
           if (sourceType != null && sourceType.getImageId() != null) {
