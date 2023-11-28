@@ -1,6 +1,9 @@
 package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -27,6 +30,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchPart;
@@ -41,6 +45,7 @@ import org.eclipse.ui.part.PageSwitcher;
 import org.eclipse.ui.part.ShowInContext;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.DummyPart;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
@@ -48,10 +53,12 @@ import com.devepos.adt.base.ui.IPinnableView;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.OpenPreferencesAction;
 import com.devepos.adt.base.ui.action.PinViewAction;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.ViewUiState;
+import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
@@ -75,6 +82,9 @@ public class CdsAnalysisView extends PageBookView
     implements ICdsAnalysisListener, ICdsAnalysisResultListener, IPinnableView {
 
   public static final String VIEW_ID = "com.devepos.adt.saat.views.cdsanalyzer"; //$NON-NLS-1$
+  private static final String VIEW_CONTEXT = "com.devepos.adt.saat.ui.cdsAnalysisView"; //$NON-NLS-1$
+  private static final String MEMENTO_VIEW_NAME = "viewName"; //$NON-NLS-1$
+  private static final String MEMENTO_CONFIGURED_ANALYSIS_TYPES = "configuredAnalysisTypes"; //$NON-NLS-1$
 
   private Composite pageContent;
   private Composite descriptionComposite;
@@ -84,16 +94,20 @@ public class CdsAnalysisView extends PageBookView
   private CdsAnalysis currentAnalysis;
   private boolean isPinned;
   private IResourceChangeListener projectListener;
+  private ContextHelper contextHelper;
 
   private CLabel description;
   private RefreshCurrentAnalysisAction refreshAnalysisAction;
   private CdsAnalysisHistoryDropDownAction analysesHistoryAction;
   private PinViewAction pinViewAction;
   private Action openPreferencesAction;
+  private CdsAnalysisTypeConfigurationAction selectAnalysisModesAction;
+  private Action newCdsAnalysisViewAction;
 
   private DummyPart defaultPart;
 
   private final CdsAnalysisConfigRegistry configRegistry;
+  private List<CdsAnalysisType> configuredAnalysisTypes;
 
   public CdsAnalysisView() {
     super();
@@ -105,6 +119,7 @@ public class CdsAnalysisView extends PageBookView
         .getPreferenceStore()
         .setDefault(IPreferences.MAX_CDS_ANALYZER_HISTORY, 10);
     isPinned = false;
+    configuredAnalysisTypes = Arrays.asList(CdsAnalysisType.values());
   }
 
   /**
@@ -178,12 +193,12 @@ public class CdsAnalysisView extends PageBookView
   public static void createContextMenuGroups(final IMenuManager mgr) {
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_NEW));
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_OPEN));
+    mgr.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_FILTERING));
+    mgr.add(new Separator(IGeneralMenuConstants.GROUP_NODE_ACTIONS));
     mgr.add(new Separator(IContextMenuConstants.GROUP_DB_BROWSER));
     mgr.add(new Separator(IContextMenuConstants.GROUP_CDS_ANALYSIS));
-    mgr.add(new Separator(IGeneralMenuConstants.GROUP_NODE_ACTIONS));
     mgr.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
-    mgr.add(new Separator(IGeneralMenuConstants.GROUP_EDIT));
   }
 
   /**
@@ -228,6 +243,10 @@ public class CdsAnalysisView extends PageBookView
   public void createPartControl(final Composite parent) {
     createActions();
 
+    contextHelper = ContextHelper.createForServiceLocator(getSite());
+    contextHelper.activateAbapContext();
+    contextHelper.activateContext(VIEW_CONTEXT);
+
     pageContent = new Composite(parent, SWT.NONE);
     final GridLayout layout = new GridLayout();
     layout.marginHeight = 0;
@@ -261,6 +280,14 @@ public class CdsAnalysisView extends PageBookView
       contextHelper.deactivateAllContexts();
     }
     super.dispose();
+  }
+
+  public void setConfiguredAnalysisTypes(final List<CdsAnalysisType> selectedTypes) {
+    configuredAnalysisTypes = selectedTypes;
+  }
+
+  public List<CdsAnalysisType> getConfiguredAnalysisTypes() {
+    return configuredAnalysisTypes;
   }
 
   /**
@@ -361,12 +388,51 @@ public class CdsAnalysisView extends PageBookView
         SearchAndAnalysisPlugin.getDefault()
             .getLog()
             .log(new Status(IStatus.ERROR, SearchAndAnalysisPlugin.PLUGIN_ID,
-                "CDS Analysis page for analysis type " + analysis.getType() +
-                    " could not be created"));
+                "CDS Analysis page for analysis type " + analysis.getType() + //$NON-NLS-1$
+                    " could not be created")); //$NON-NLS-1$
         return;
       }
     }
     internalShowCdsAnalysisPage(analysisPage, analysis);
+  }
+
+  @Override
+  public void init(final IViewSite site, final IMemento memento) throws PartInitException {
+    super.init(site, memento);
+    if (memento != null) {
+      var viewName = memento.getString(MEMENTO_VIEW_NAME);
+      if (!StringUtil.isEmpty(viewName)) {
+        setPartName(viewName);
+      }
+
+      var configuredTypes = memento.getChild(MEMENTO_CONFIGURED_ANALYSIS_TYPES);
+      if (configuredTypes != null) {
+        List<CdsAnalysisType> analysisTypesFromMemento = new ArrayList<>();
+        for (var type : configuredTypes.getAttributeKeys()) {
+          var analysisType = CdsAnalysisType.valueOf(type);
+          if (analysisType != null) {
+            analysisTypesFromMemento.add(analysisType);
+          }
+        }
+
+        if (!analysisTypesFromMemento.isEmpty()) {
+          configuredAnalysisTypes = analysisTypesFromMemento;
+        }
+      }
+    }
+  }
+
+  @Override
+  public void saveState(final IMemento memento) {
+    memento.putString(MEMENTO_VIEW_NAME, getPartName());
+    var configuredTypesMemento = memento.createChild(MEMENTO_CONFIGURED_ANALYSIS_TYPES);
+    for (var type : configuredAnalysisTypes) {
+      configuredTypesMemento.putBoolean(type.name(), true);
+    }
+  }
+
+  public void setViewName(final String viewName) {
+    setPartName(viewName);
   }
 
   /**
@@ -481,6 +547,11 @@ public class CdsAnalysisView extends PageBookView
     analysesHistoryAction.updateEnablement();
     pinViewAction = new PinViewAction(this);
     openPreferencesAction = new OpenPreferencesAction(IPreferences.CDS_ANALYSIS_PREF_PAGE_ID);
+    selectAnalysisModesAction = new CdsAnalysisTypeConfigurationAction(this);
+    newCdsAnalysisViewAction = com.devepos.adt.base.ui.action.ActionFactory.createAction(
+        Messages.CdsAnalysisView_NewCdsAnalyzerAction_xlbl,
+        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.NEW_CDS_ANALYSIS_VIEW),
+        () -> CdsAnalysisViewManager.getInstance().showNewCdsAnalysisView());
   }
 
   private void initializePageSwitcher() {
@@ -523,12 +594,17 @@ public class CdsAnalysisView extends PageBookView
         CommandFactory.createContribItem(ICommandConstants.RUN_CDS_ANALYSIS,
             SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.RUN_NEW_ANALYSIS), null,
             null));
+    tbm.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, selectAnalysisModesAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, refreshAnalysisAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_GOTO, analysesHistoryAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_ADDITIONS, pinViewAction);
 
     IMenuManager viewMenuMgr = actionBars.getMenuManager();
     createViewMenuGroups(viewMenuMgr);
+    viewMenuMgr.add(new Separator());
+    viewMenuMgr.add(newCdsAnalysisViewAction);
+    viewMenuMgr.add(
+        CommandFactory.createContribItem(ICommandConstants.RENAME_CDS_ANALYSIS, null, null, null));
     viewMenuMgr.add(new Separator());
     viewMenuMgr.add(openPreferencesAction);
   }
@@ -543,6 +619,7 @@ public class CdsAnalysisView extends PageBookView
     }
 
     currentAnalysis = analysisInput;
+    selectAnalysisModesAction.setCurrentAnalysis(analysisInput);
 
     if (page != null) {
       if (page != currentPage) {
@@ -581,5 +658,4 @@ public class CdsAnalysisView extends PageBookView
     HelpUtil.setHelp(pageContent,
         page == null ? HelpContextId.CDS_ANALYZER : page.getHelpContextId());
   }
-
 }

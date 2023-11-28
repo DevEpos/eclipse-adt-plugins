@@ -1,9 +1,9 @@
 package com.devepos.adt.saat.ui.internal;
 
 /**
- * Constants for the commands in the DB Browser tools Plugin
+ * Command Id's
  *
- * @author stockbal
+ * @author Ludwig Stockbauer-Muhr
  */
 public interface ICommandConstants {
   /**
@@ -34,4 +34,8 @@ public interface ICommandConstants {
    * Command id to run a new CDS analysis via dialog selection
    */
   String RUN_CDS_ANALYSIS = "com.devepos.adt.saat.cdsanalysis.command.runCdsAnalysis";
+  /**
+   * Command to rename the CDS Analysis view
+   */
+  String RENAME_CDS_ANALYSIS = "com.devepos.adt.saat.cdsanalysis.command.renameAnalysisView";
 }

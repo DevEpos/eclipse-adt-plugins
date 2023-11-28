@@ -66,6 +66,11 @@
             id="com.devepos.adt.saat.cdsanalysis.command.runCdsAnalysis"
             name="%command.runCdsAnalysis.name">
       </command>
+      <command
+            categoryId="com.devepos.adt.saat.cdsanalysis.commands.category"
+            id="com.devepos.adt.saat.cdsanalysis.command.renameAnalysisView"
+            name="Rename View">
+      </command>
    </extension>
    <extension
          id="com.devepos.adt.saat.search.command.runWhereUsedForObject"
@@ -105,6 +110,10 @@
       <handler
             class="com.devepos.adt.saat.ui.internal.handlers.RunCdsAnalysisHandler"
             commandId="com.devepos.adt.saat.cdsanalysis.command.runCdsAnalysis">
+      </handler>
+      <handler
+            class="com.devepos.adt.saat.ui.internal.handlers.RenameCdsAnalysisViewHandler"
+            commandId="com.devepos.adt.saat.cdsanalysis.command.renameAnalysisView">
       </handler>
    </extension>
    <extension
@@ -328,5 +337,22 @@
               searchTypeLabel="%favorite.label"
               id="com.devepos.adt.saat.searchFavoriteConnector">
         </searchFavoriteConnector>
+     </extension>
+     <extension
+           point="org.eclipse.ui.bindings">
+        <key
+              commandId="com.devepos.adt.saat.cdsanalysis.command.renameAnalysisView"
+              contextId="com.devepos.adt.saat.ui.cdsAnalysisView"
+              schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+              sequence="M1+R">
+        </key>
+     </extension>
+     <extension
+           point="org.eclipse.ui.contexts">
+        <context
+              id="com.devepos.adt.saat.ui.cdsAnalysisView"
+              name="CDS Analysis View"
+              parentId="com.sap.adt.tools.core.ui.abap">
+        </context>
      </extension>
 </plugin>

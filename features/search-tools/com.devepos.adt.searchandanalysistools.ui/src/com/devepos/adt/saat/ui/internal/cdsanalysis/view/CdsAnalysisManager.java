@@ -183,8 +183,10 @@ public class CdsAnalysisManager {
    */
   public void showAnalysis(CdsAnalysisView analysisView, final CdsAnalysis analysis,
       final boolean openInNew) {
-    if (openInNew || analysisView == null) {
-      analysisView = CdsAnalysisViewManager.getInstance().activateCdsAnalysisView(openInNew);
+    if (openInNew || analysisView == null
+        || !analysisView.getConfiguredAnalysisTypes().contains(analysis.getType())) {
+      analysisView = CdsAnalysisViewManager.getInstance()
+          .activateCdsAnalysisView(openInNew, analysis.getType());
     }
 
     if (analysisView != null) {
