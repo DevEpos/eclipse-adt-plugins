@@ -66,9 +66,9 @@ public class CdsUsedEntitiesAnalysis extends CdsAnalysis {
   private static final class CdsEntityUsageEntry extends ExtendedAdtObjectInfo
       implements ICdsEntityUsageEntry {
 
-    private ICdsUsedEntityInformation usageInfo;
+    private final ICdsUsedEntityInformation usageInfo;
 
-    public CdsEntityUsageEntry(ICdsUsedEntityInformation usageInfo) {
+    public CdsEntityUsageEntry(final ICdsUsedEntityInformation usageInfo) {
       this.usageInfo = usageInfo;
     }
 
