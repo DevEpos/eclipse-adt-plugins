@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.sap.adt.methodeditor.ui.internal.editors.ClassMethodEditor"
+            default="false"
+            extensions="zapclmeth,zasclmeth"
+            icon="icons/Method.png"
+            id="com.devepos.adt.methodeditor.ui.abapClassMethodEditor"
+            matchingStrategy="com.sap.adt.methodeditor.ui.internal.editors.ClassMethodEditorMatchingStrategy"
+            name="ABAP Class-Method Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.core.filebuffers.documentSetup">
+      <participant
+            class="com.sap.adt.tools.abapsource.ui.sources.editors.AdtSourceDocumentSetupParticipant"
+            extensions="zasclmeth">
+      </participant>
+   </extension>
+
+</plugin>
