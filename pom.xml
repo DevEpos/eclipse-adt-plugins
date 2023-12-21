@@ -9,6 +9,22 @@
     <packaging>pom</packaging>
     <profiles>
         <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>core</module>
+                <module>branding</module>
+                <module>features/search-favorites</module>
+                <module>features/search-tools</module>
+                <module>features/tags</module>
+                <module>features/code-search</module>
+                <module>features/call-hierarchy</module>
+                <module>features/pdt-tools</module>
+            </modules>
+        </profile>
+        <profile>
             <id>core</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -38,7 +54,7 @@
         <profile>
             <id>features</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
                 <module>features/search-tools</module>
