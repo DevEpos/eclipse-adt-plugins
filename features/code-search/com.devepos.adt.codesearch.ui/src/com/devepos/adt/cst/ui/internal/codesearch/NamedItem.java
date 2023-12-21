@@ -16,6 +16,7 @@ import com.devepos.adt.base.ui.IImageProvider;
 public enum NamedItem implements INamedItemType, IImageProvider {
   APPLICATION_COMPONENT("applcomp",
       AdtBaseUIResources.getImage(IAdtBaseImages.APPLICATION_COMPONENT)),
+  TRANSPORT_REQUEST("transportRequest", AdtBaseUIResources.getImage(IAdtBaseImages.TRANSPORT)),
   SERVER_GROUP("servergroup", null, true, true);
 
   private final String discoveryTerm;
