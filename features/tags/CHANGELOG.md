@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.11.0] - 2023-xx-xx - Newest Release
+## [1.11.0] - 2023-11-28
 
 ### ABAP Tagged Object Search
 

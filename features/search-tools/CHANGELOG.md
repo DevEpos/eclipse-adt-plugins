@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.0.0] - 2023-xx-xx
+## [2.0.0] - 2023-11-28
 
 ### ABAP Object Search
 

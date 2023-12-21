@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.9.0] - 2023-xx-xx -- Newest Release
+## [1.9.0] - 2023-11-28
 
 ### ABAP Code Search
 
