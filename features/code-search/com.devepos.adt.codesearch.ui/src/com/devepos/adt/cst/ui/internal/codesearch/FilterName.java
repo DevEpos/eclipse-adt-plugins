@@ -20,6 +20,7 @@ public enum FilterName {
   OBJECT_NAME(null, "objectName"),
   OBJECT_TYPE("type", "objectType"),
   PACKAGE(PackageSearchFilter.FILTER_NAME, "packageName"),
+  TRANSPORT_REQUEST("corr", "transportRequest"),
   SEARCH_PATTERN(null, "searchPattern");
 
   private final String contentAssistName;
