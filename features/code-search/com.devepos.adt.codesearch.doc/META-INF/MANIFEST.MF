@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.devepos.adt.codesearch.doc;singleton:=true
 Bundle-Version: 1.9.0.qualifier
-Require-Bundle: com.devepos.adt.releasenotes
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Eclipse-BundleShape: dir

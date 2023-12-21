@@ -33,7 +33,6 @@
             </activation>
             <modules>
                 <module>branding</module>
-                <module>releasenotes</module>
             </modules>
         </profile>
         <profile>
