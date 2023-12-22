@@ -6,19 +6,26 @@ import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.search.contentassist.NamedItemFilter;
+import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
+import com.devepos.adt.cst.ui.internal.messages.Messages;
 
+/**
+ * Search filter for transport request/task
+ * 
+ * @author Ludwig Stockbauer-Muhr
+ */
 public class TransportRequestSearchFilter extends NamedItemFilter {
-  private static final String FILTER_NAME = "corr";
 
   public TransportRequestSearchFilter(final IAbapProjectProvider projectProvider,
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType) {
-    super(projectProvider, uriTemplateProvider, namedItemType, FILTER_NAME, (String) null);
-    this.setProposalImageProvider(() -> this.getImage());
-    this.setDescription("Transport task/request");
-    this.setLongDescription(MessageFormat.format(
-        "Use ''{0}'' to restrict the search query to objects contained in a specific transport request or task.\n\nExample:\n   {0} : a4hk903065",
-        "corr"));
-    this.setSupportsMultipleValues(true);
-    this.setSupportsPatternValues(true);
+    super(projectProvider, uriTemplateProvider, namedItemType,
+        FilterName.TRANSPORT_REQUEST.getContentAssistName(), (String) null);
+    setProposalImageProvider(this::getImage);
+    setDescription(Messages.SearchFilters_transportRequestFilterShortDescription_xmsg);
+    setLongDescription(
+        MessageFormat.format(Messages.SearchFilters_transportRequestFilterDescription_xmsg,
+            FilterName.TRANSPORT_REQUEST.getContentAssistName(), "a4hk903065")); //$NON-NLS-1$
+    setSupportsMultipleValues(true);
+    setSupportsPatternValues(true);
   }
 }
