@@ -141,6 +141,8 @@ public class Messages extends NLS {
   public static String ResultExporter_SubObjectNameHeader_xtit;
   public static String ResultExporter_SubObjectTypeHeader_xtit;
   public static String SearchFilters_objectTypeFilterDescription_xmsg;
+  public static String SearchFilters_transportRequestFilterDescription_xmsg;
+  public static String SearchFilters_transportRequestFilterShortDescription_xmsg;
   public static String SearchMatchNode_MatchTooltipIntro_xtol;
 
   private Messages() {
