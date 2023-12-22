@@ -150,6 +150,75 @@
                </with>
             </visibleWhen>
          </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.sap.adt.tm.ui.tmview?before=additions">
+         <separator
+               name="com.devepos.adt.codesearch.ui.separator2"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.devepos.adt.codesearch.ui.callCodeSearch"
+               icon="icons/codesearch.png"
+               label="%menus.searchCode.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                <or>
+                     <with
+                           variable="selection">
+                        <and>
+                           <count
+                                 value="1">
+                           </count>
+                           <iterate>
+                              <and>
+                                 <test
+                                       property="com.sap.adt.tools.core.objectTypes.hasGlobalWorkbenchType"
+                                       value="RQRQ">
+                                 </test>
+                                 <adapt
+                                       type="com.devepos.adt.base.ui.adtobject.IAdtObject">
+                                    <test
+                                          forcePluginActivation="true"
+                                          property="com.devepos.adt.codesearch.ui.isCodeSearchAvailable">
+                                    </test>
+                                    <test
+                                          forcePluginActivation="true"
+                                          property="com.devepos.adt.codesearch.ui.isTransportSearchAvailable">
+                                    </test>
+                                 </adapt>
+                              </and>
+                           </iterate>
+                        </and>
+                     </with>
+                     <and>
+                        <with
+                              variable="activePart">
+                           <test
+                                 forcePluginActivation="true"
+                                 property="com.devepos.adt.codesearch.ui.project.isCodeSearchAvailable">
+                           </test>
+                        </with>
+                        <with
+                              variable="selection">
+                           <iterate>
+                              <and>
+                                 <test
+                                       property="com.sap.adt.tools.core.objectTypes.hasGlobalWorkbenchType"
+                                       value="RQRQ">
+                                 </test>
+                                 <adapt
+                                       type="com.sap.adt.tools.core.model.adtcore.IAdtObjectReference">
+                                 </adapt>
+                              </and>
+                           </iterate>
+                        </with>
+                     </and>                
+                </or>
+            </visibleWhen>
+         </command>
       </menuContribution>      
    </extension>
    <extension
@@ -231,7 +300,7 @@
             class="com.devepos.adt.cst.ui.internal.CodeSearchPropertyTester"
             id="com.devepos.adt.codesearch.ui.CodeSearchPropertyTester"
             namespace="com.devepos.adt.codesearch.ui"
-            properties="isCodeSearchAvailable, isObjectSearchable"
+            properties="isCodeSearchAvailable, isObjectSearchable, isTransportSearchAvailable"
             type="com.devepos.adt.base.ui.adtobject.IAdtObject">
       </propertyTester>
       <propertyTester
@@ -247,6 +316,13 @@
             namespace="com.devepos.adt.codesearch.ui.node"
             properties="isCodeSearchAvailable"
             type="com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode">
+      </propertyTester>
+      <propertyTester
+            class="com.devepos.adt.cst.ui.internal.CodeSearchTmViewPropertyTester"
+            id="com.devepos.adt.codesearch.ui.CodeSearchTmViewProjectPropertyTester"
+            namespace="com.devepos.adt.codesearch.ui.project"
+            properties="isCodeSearchAvailable"
+            type="java.lang.Object">
       </propertyTester>
    </extension>
    <extension
