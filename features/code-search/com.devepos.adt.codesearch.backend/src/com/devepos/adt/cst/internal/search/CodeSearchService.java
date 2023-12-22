@@ -170,6 +170,20 @@ public class CodeSearchService implements ICodeSearchService {
   }
 
   @Override
+  public IStatus testCodeSearchNamedItemAvailability(final IProject project,
+      final String namedItemTerm) {
+    final String destinationId = DestinationUtil.getDestinationId(project);
+    var uriDiscovery = new CodeSearchUriDiscovery(destinationId);
+    if (uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getNamedItemTemplate(namedItemTerm) != null) {
+      return Status.OK_STATUS;
+    }
+    return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+        NLS.bind(Messages.CodeSearchSearchService_namedItemNotAvailableInProject_xmsg,
+            project.getName(), namedItemTerm));
+  }
+
+  @Override
   public IStatus updateSettings(final String destinationId, final ICodeSearchSettings settings) {
     if (settings == null) {
       throw new IllegalArgumentException("Parameter 'settings' must not be null");

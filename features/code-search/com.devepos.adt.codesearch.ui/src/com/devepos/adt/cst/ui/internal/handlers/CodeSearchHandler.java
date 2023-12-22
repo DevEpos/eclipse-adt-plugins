@@ -19,12 +19,14 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.NewSearchUI;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.adtobject.AdtObjectFactory;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode;
@@ -34,6 +36,7 @@ import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.cst.ui.internal.TmViewAdapterHelper;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
@@ -150,6 +153,7 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     private final List<IAdtObject> adtObjects;
     private List<String> packages;
     private List<String> objectNames;
+    private Set<String> transportRequests;
     private Set<String> objectTypes;
 
     public AdtObjectSelectionToQueryConverter(final List<IAdtObject> adtObjects) {
@@ -161,6 +165,7 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       objectNames = new ArrayList<>();
       packages = new ArrayList<>();
       objectTypes = new HashSet<>();
+      transportRequests = new HashSet<>();
       IProject project = adtObjects.get(0).getProject();
 
       collectObjectInformation(project);
@@ -184,6 +189,14 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
             String.format(FILTER_VALUES_PATTERN, FilterName.OBJECT_TYPE.getContentAssistName(),
                 String.join(FILTER_VALUE_DELIMITER, objectTypes)));
       }
+      if (!transportRequests.isEmpty()) {
+        if (filterString.length() > 0) {
+          filterString.append(" ");
+        }
+        filterString.append(String.format(FILTER_VALUES_PATTERN,
+            FilterName.TRANSPORT_REQUEST.getContentAssistName(),
+            String.join(FILTER_VALUE_DELIMITER, transportRequests)));
+      }
       querySpecs.setObjectScopeFilters(null, filterString.toString());
 
       if (project != null) {
@@ -202,6 +215,8 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
           if (objectNames.isEmpty()) {
             packages.add(adtObjRef.getName().toLowerCase());
           }
+        } else if ("RQRQ".equals(adtObjRef.getType())) {
+          transportRequests.add(adtObjRef.getName().toLowerCase());
         } else if (relevantWbTypes.stream().anyMatch(t -> t.equals(adtObjRef.getType()))) {
           collectObjectName(adtObjRef, project);
         }
@@ -324,11 +339,14 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     if (selection instanceof IStructuredSelection) {
       IStructuredSelection structSelection = (IStructuredSelection) selection;
       if (structSelection.size() > 1) {
-        // collect objects from selection
-        final List<IAdtObject> selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(false,
-            selection);
-        if (selectedObjects == null || selectedObjects.isEmpty()) {
-          return null;
+        List<IAdtObject> selectedObjects = null;
+        var activePart = HandlerUtil.getActivePart(event);
+        // special handling for ADT transport view, as the project is not
+        if (TmViewAdapterHelper.isPartTmView(activePart)) {
+          selectedObjects = getSelectedTransportObjects((IStructuredSelection) selection,
+              activePart);
+        } else {
+          selectedObjects = AdtUIUtil.getAdtObjectsFromSelection(false, selection);
         }
         createQueryFromAdtObjects(selectedObjects, selection);
       } else {
@@ -369,6 +387,23 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     if (searchPage instanceof IChangeableSearchPage) {
       ((IChangeableSearchPage) searchPage).setInputFromSearchQuery(searchQuery);
     }
+  }
+
+  private List<IAdtObject> getSelectedTransportObjects(IStructuredSelection selection,
+      IWorkbenchPart activePart) {
+    var project = TmViewAdapterHelper.getProjectFromTmView(activePart);
+    if (project != null) {
+      List<IAdtObject> selectedTranportObjects = new ArrayList<>();
+      for (var selObj : selection) {
+        var trObject = Adapters.adapt(selObj, IAdtObjectReference.class);
+        if (trObject != null) {
+          selectedTranportObjects.add(AdtObjectFactory.create(trObject, (IProject) project));
+        }
+      }
+      return selectedTranportObjects;
+    }
+    // fallback: maybe the method was renamed or removed or did not return a project for some reason
+    return AdtUIUtil.getAdtObjectsFromSelection(false, selection);
   }
 
   private void createQueryFromAdtObjects(final List<IAdtObject> selectedObjects,

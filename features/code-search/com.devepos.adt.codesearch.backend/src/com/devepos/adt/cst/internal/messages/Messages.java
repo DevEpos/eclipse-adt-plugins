@@ -5,6 +5,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 
   public static String CodeSearchSearchService_searchNotAvailableInProjectError_xmsg;
+  public static String CodeSearchSearchService_namedItemNotAvailableInProject_xmsg;
 
   private Messages() {
   }

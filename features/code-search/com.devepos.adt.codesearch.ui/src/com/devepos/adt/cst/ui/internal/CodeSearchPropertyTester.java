@@ -16,6 +16,7 @@ import com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode;
 import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode;
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
+import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisObjectTypeRegistry;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisParameterProposal;
 import com.sap.adt.ris.search.ui.internal.contentassist.IAdtRisObjectTypeRegistry;
@@ -30,6 +31,7 @@ import com.sap.adt.ris.search.ui.internal.contentassist.IAdtRisObjectTypeRegistr
 public class CodeSearchPropertyTester extends PropertyTester {
   private static final String IS_CODE_SEARCH_AVAILABLE_PROP = "isCodeSearchAvailable";
   private static final String IS_OBJECT_SEARCHABLE_PROP = "isObjectSearchable";
+  private static final String IS_TRANSPORT_SEARCHABLE_PROP = "isTransportSearchAvailable";
 
   private static final List<String> VALID_VIRT_FOLDER_TYPES = Arrays.asList(
       IVirtualFolderNode.FOLDER_TYPE_APPL_COMP, IVirtualFolderNode.FOLDER_TYPE_CREATED,
@@ -63,6 +65,9 @@ public class CodeSearchPropertyTester extends PropertyTester {
     if (IS_CODE_SEARCH_AVAILABLE_PROP.equals(property)) {
       return isCodeSearchAvailable(receiver);
     }
+    if (IS_TRANSPORT_SEARCHABLE_PROP.equals(property)) {
+      return isTransportSearchAvailable(receiver);
+    }
     if (IS_OBJECT_SEARCHABLE_PROP.equals(property)) {
       if (!(receiver instanceof IAdtObject)) {
         return false;
@@ -70,6 +75,20 @@ public class CodeSearchPropertyTester extends PropertyTester {
       return isObjectSearchable((IAdtObject) receiver);
     }
     return false;
+  }
+
+  private boolean isTransportSearchAvailable(Object receiver) {
+    if (!(receiver instanceof IAdtObject)) {
+      return false;
+    }
+    var project = ((IAdtObject) receiver).getProject();
+    if (project == null) {
+      return false;
+    }
+    return CodeSearchFactory.getCodeSearchService()
+        .testCodeSearchNamedItemAvailability(project,
+            NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+        .isOK();
   }
 
   private boolean isCodeSearchAvailable(final Object receiver) {

@@ -94,6 +94,15 @@ public interface ICodeSearchService {
   IStatus testCodeSearchFeatureAvailability(final IProject project);
 
   /**
+   * Tests the availability of transport request/task scope filter in the given project
+   * 
+   * @param project       ABAP project
+   * @param namedItemTerm identifies named item resource
+   * @return the validation status of the test
+   */
+  IStatus testCodeSearchNamedItemAvailability(final IProject project, final String namedItemTerm);
+
+  /**
    * Updates the given code search settings in the ABAP backend specified by the
    * {@code destinationId}
    *
