@@ -189,7 +189,7 @@ public class InternalNamedItemProposalProvider {
 
     try {
       if (getNamedItemService()) {
-        var namedItemResult = namedItemService.getNamedItems(namedItemType, MAX_ITEMS,
+        var namedItemResult = namedItemService.getNamedItems(namedItemType, MAX_ITEMS + 1,
             getQueryString(query), null, dataFilter, initialQuery);
 
         if (namedItemResult != null) {
