@@ -48,11 +48,11 @@ import com.devepos.adt.base.ui.DialogResultPart;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IDialogFilterPart;
 import com.devepos.adt.base.ui.MessageLine;
+import com.devepos.adt.base.ui.StringFilterPart;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.util.SWTUtil;
 import com.devepos.adt.base.ui.viewers.LabelViewer;
-import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Selection Dialog
@@ -77,6 +77,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   private String filterLabel;
   private IDialogFilterPart<F> filterPart;
   private F initialFilter;
+  private boolean startupSearchWithNullFilterDisabled;
+
   private long initialSearchJobDelay = DEFAULT_JOB_DELAY;
 
   private List<R> inititalSelections;
@@ -181,82 +183,6 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     public int hashCode() {
       return result == null ? 0 : result.hashCode();
     }
-  }
-
-  private class FilterView implements IDialogFilterPart<String> {
-
-    private Label headerLabel;
-    private Text pattern;
-
-    @Override
-    public void createUI(final Composite parent) {
-      createFilterHeader(parent);
-      createFilter(parent);
-
-      SWTUtil.setLabelForControl(headerLabel, pattern);
-    }
-
-    @Override
-    public String getFilter() {
-      if (pattern != null && !pattern.isDisposed()) {
-        return pattern.getText();
-      }
-      return null;
-    }
-
-    @Override
-    public Control[] getFilterControls() {
-      return new Control[] { pattern };
-    }
-
-    @Override
-    public boolean isFilterEmpty() {
-      if (pattern != null && !pattern.isDisposed()) {
-        return StringUtil.isEmpty(pattern.getText());
-      }
-      return true;
-    }
-
-    @Override
-    public void setFilter(final String filter) {
-      if (pattern == null || pattern.isDisposed()) {
-        return;
-      }
-      pattern.setText(filter);
-    }
-
-    @Override
-    public void setFocus(final boolean selectText) {
-      pattern.setFocus();
-      if (selectText) {
-        pattern.setSelection(0, pattern.getText().length());
-      } else {
-        pattern.setSelection(pattern.getText().length());
-      }
-    }
-
-    private void createFilter(final Composite parent) {
-      pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
-      GridDataFactory.fillDefaults().grab(true, false).applyTo(pattern);
-    }
-
-    private void createFilterHeader(final Composite parent) {
-      final Composite header = new Composite(parent, SWT.NONE);
-      GridLayoutFactory.fillDefaults().numColumns(2).applyTo(header);
-      GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(header);
-
-      headerLabel = new Label(header, SWT.NONE);
-      headerLabel.setText(SearchSelectionDialog.this.filterLabel != null
-          && SearchSelectionDialog.this.filterLabel.trim().length() > 0
-              ? SearchSelectionDialog.this.filterLabel
-              : Messages.SearchSelectionDialog_FilterLabel);
-      GridDataFactory.swtDefaults()
-          .align(SWT.FILL, SWT.CENTER)
-          .grab(true, false)
-          .applyTo(headerLabel);
-      // createViewMenu(header);
-    }
-
   }
 
   private class ResultView extends DialogResultPart {
@@ -402,6 +328,18 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   /**
+   * Sets flag to control whether a search should be triggered upon opening the dialog even when no
+   * filter value was provided
+   * 
+   * @param startupSearchWithNullFilterDisabled if {@code true}, no search will be executed upon
+   *                                            opening
+   *                                            the dialog if no initial filter was set
+   */
+  public void setStartupSearchWithNullFilterDisabled(boolean startupSearchWithNullFilterDisabled) {
+    this.startupSearchWithNullFilterDisabled = startupSearchWithNullFilterDisabled;
+  }
+
+  /**
    * Returns the ok button.
    *
    * @return the ok button or <code>null</code> if the button is not created yet.
@@ -457,7 +395,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
     }
     if (initialFilter != null) {
       filterPart.setFilter(initialFilter);
-    } else {
+    } else if (!startupSearchWithNullFilterDisabled) {
       applyFilter();
     }
 
@@ -626,7 +564,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   /**
-   * Sets the filter label
+   * Allows overwriting the label of the default filter part {@link StringFilterPart}.
    *
    * @param filterLabel the filter label
    */
@@ -796,7 +734,7 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   @SuppressWarnings("unchecked")
   private IDialogFilterPart<F> getFilterViewPart() {
     if (filterPart == null) {
-      filterPart = (IDialogFilterPart<F>) new FilterView();
+      filterPart = (IDialogFilterPart<F>) new StringFilterPart(filterLabel);
     }
     return filterPart;
   }

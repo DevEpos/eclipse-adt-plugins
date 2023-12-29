@@ -1,10 +1,10 @@
 package com.devepos.adt.base.ui.internal.search;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalListener;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.contentassist.AsyncContentAssist;
+import com.devepos.adt.base.ui.search.contentassist.BooleanSearchFilter;
+import com.devepos.adt.base.ui.search.contentassist.DateSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.ISearchPatternAnalyzer;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterProposal;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterValueProposal;
@@ -78,12 +80,17 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
             return;
           }
           var searchFilter = patternAnalyzer.getFilterFromQuery(content);
+          if (searchFilter instanceof BooleanSearchFilter
+              || searchFilter instanceof DateSearchFilter) {
+            return;
+          }
           var queryForProposals = patternAnalyzer
               .getCurrentFilterProposalQuery(searchFilter.getLabel(), content);
-          MessageDialog.openInformation(control.getShell(), "Value Help",
-              String.format("Call value help for filter '%s' and query part '%s'",
-                  searchFilter.getLabel(), queryForProposals));
-
+          var dialog = new QuickSearchSelectionDialog(control.getShell(), true, queryForProposals,
+              searchFilter, (ITextQueryProposalProvider) searchFilter);
+          if (dialog.open() == Window.OK) {
+            var selectedElements = dialog.getResult();
+          }
         }
       }
     });
