@@ -190,6 +190,43 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     return value;
   }
 
+  @Override
+  public boolean isFilterProposal(final String query) {
+    updateSearchFilters();
+    final String lastPart = getStringToAnalyse(query);
+    for (final ISearchFilter filter : filters) {
+      if (lastPart.toLowerCase().startsWith(filter.getLabel() + FILTER_KEY_END)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public String getCurrentFilterProposalQuery(String filterLabel, String query) {
+    final String lastPart = getStringToAnalyse(query);
+    final String filterStart = filterLabel + FILTER_KEY_END;
+    final String queryToParse = lastPart.substring(filterStart.length());
+    final String[] queryParts = queryToParse.split(VALUE_LIST_SEP);
+    String currentQuery = queryParts[queryParts.length - 1];
+    return currentQuery.substring(0, currentQuery.length() - 1);
+  }
+
+  @Override
+  public ISearchFilter getFilterFromQuery(String query) {
+    final String lastPart = getStringToAnalyse(query);
+    for (final ISearchFilter searchFilter : filters) {
+      if (!(searchFilter instanceof ITextQueryProposalProvider)) {
+        continue;
+      }
+      final String filterStart = searchFilter.getLabel() + FILTER_KEY_END;
+      if (lastPart.toLowerCase().startsWith(filterStart)) {
+        return searchFilter;
+      }
+    }
+    return null;
+  }
+
   /**
    * Check the filters together with their values in the supplied
    * <code>searchPattern</code>
@@ -421,16 +458,6 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
             && checkFilterValuesProvided(part, filter)) {
           return true;
         }
-      }
-    }
-    return false;
-  }
-
-  private boolean isFilterProposal(final String query) {
-    final String lastPart = getStringToAnalyse(query);
-    for (final ISearchFilter filter : filters) {
-      if (lastPart.toLowerCase().startsWith(filter.getLabel() + FILTER_KEY_END)) {
-        return true;
       }
     }
     return false;

@@ -1,9 +1,13 @@
 package com.devepos.adt.base.ui.internal.search;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalListener;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
 
@@ -29,7 +33,7 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
       final ISearchPatternAnalyzer patternAnalyzer) {
     super(control, createQueryProposalProvider(patternAnalyzer));
 
-    IContentProposalListener proposalListener = new IContentProposalListener() {
+    var proposalListener = new IContentProposalListener() {
 
       @Override
       public void proposalAccepted(final IContentProposal proposal) {
@@ -64,6 +68,25 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
       }
     };
 
+    control.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.keyCode == SWT.F4) {
+          var cursorPosition = control.getCaretPosition();
+          var content = control.getText().substring(0, cursorPosition);
+          if (!patternAnalyzer.isFilterProposal(content)) {
+            return;
+          }
+          var searchFilter = patternAnalyzer.getFilterFromQuery(content);
+          var queryForProposals = patternAnalyzer
+              .getCurrentFilterProposalQuery(searchFilter.getLabel(), content);
+          MessageDialog.openInformation(control.getShell(), "Value Help",
+              String.format("Call value help for filter '%s' and query part '%s'",
+                  searchFilter.getLabel(), queryForProposals));
+
+        }
+      }
+    });
     setContentProposalListener(proposalListener);
     setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_INSERT);
     setAutoActivationCharacters(new char[] { ':', ',' });

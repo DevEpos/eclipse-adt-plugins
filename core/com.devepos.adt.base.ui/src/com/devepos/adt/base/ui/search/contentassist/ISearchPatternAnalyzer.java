@@ -5,6 +5,8 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.fieldassist.IContentProposal;
 
+import com.devepos.adt.base.ui.search.ISearchFilter;
+
 /**
  * Analyzer for search patterns
  *
@@ -52,6 +54,13 @@ public interface ISearchPatternAnalyzer {
   List<IContentProposal> getFilterValueProposals(final String query) throws CoreException;
 
   /**
+   * Returns {@code true} if the given query should trigger proposals for filter values
+   * 
+   * @param query query String
+   */
+  boolean isFilterProposal(final String query);
+
+  /**
    * Retrieve proposals for the given query
    *
    * @param query the query String to be analyzed
@@ -75,4 +84,7 @@ public interface ISearchPatternAnalyzer {
    */
   void setIsSearchTermAllowed(final boolean allowSearchTermInPattern);
 
+  ISearchFilter getFilterFromQuery(String query);
+
+  String getCurrentFilterProposalQuery(String filterLabel, String query);
 }
