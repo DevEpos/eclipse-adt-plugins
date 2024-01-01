@@ -146,6 +146,19 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
     return namedItemProposalProvider.getProposals(query);
   }
 
+  /**
+   * Retrieve proposals by name query and data filter
+   * 
+   * @param query      name query
+   * @param dataFilter generic data filter for named items
+   * @return the found proposals or {@code null}
+   * @throws CoreException
+   */
+  public List<IContentProposal> getProposalList(final String query, String dataFilter)
+      throws CoreException {
+    return namedItemProposalProvider.getProposals(query, dataFilter);
+  }
+
   @Override
   public final boolean isBuffered() {
     return namedItemType.isBuffered();
