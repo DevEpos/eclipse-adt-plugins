@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -103,11 +103,9 @@ public class ContentAssist extends AbstractContentProposalProvider {
   private void disableActivationKeyStrokeAsTextInput() {
     // disable keys of the activation key stroke to be sent to the text control
     text.addVerifyListener(e -> {
-      final boolean popupActive = isProposalPopupOpen();
-      if (popupActive) {
-        final KeyStroke keyStroke = getActivationKeyStroke();
-
-        if (e.keyCode == keyStroke.getNaturalKey() && e.stateMask == keyStroke.getModifierKeys()) {
+      if (isProposalPopupOpen()) {
+        if (SWTKeySupport.convertKeyStrokeToAccelerator(getActivationKeyStroke()) == SWTKeySupport
+            .convertEventToUnmodifiedAccelerator(e)) {
           e.doit = false;
         }
       }
