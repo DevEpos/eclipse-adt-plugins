@@ -141,9 +141,17 @@ public interface IAdtBaseImages {
    */
   String APPLICATION_COMPONENT = "IMG_APPL_COMP";
   /**
-   * Identifies the image for a workbench object type
+   * Identifies the image for a workbench object type (Folder with a 'T')
    */
   String WB_OBJECT_TYPE = "IMG_WB_OBECT_TYPE";
+  /**
+   * Image for a type group
+   */
+  String TYPE_GROUP = "IMG_TYPE_GROUP";
+  /**
+   * Image of an open folder
+   */
+  String OPEN_FOLDER = "IMG_FOLDER";
   /**
    * Identifies the image of a calendar sheet
    */

@@ -106,6 +106,9 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "icons/obj/facet_application_component.png", "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.WB_OBJECT_TYPE, "icons/obj/facet_object_type.png",
         "com.sap.adt.ris.search.ui");
+    registerImage(imageRegistry, IAdtBaseImages.TYPE_GROUP, "icons/obj/typegroup.png",
+        "com.sap.adt.tools.core.ui");
+    registerImage(imageRegistry, IAdtBaseImages.OPEN_FOLDER, "icons/Folder.gif");
     registerImage(imageRegistry, IAdtBaseImages.CALENDAR, "icons/obj/facet_creation_date.png",
         "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.NEUTRAL_METHOD, "icons/obj/compare_method.png",
