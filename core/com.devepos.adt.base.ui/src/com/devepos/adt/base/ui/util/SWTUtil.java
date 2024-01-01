@@ -2,10 +2,15 @@ package com.devepos.adt.base.ui.util;
 
 import java.util.Objects;
 
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.bindings.keys.KeySequence;
+import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.keys.IBindingService;
 
 /**
  * Some utility methods for SWT
@@ -46,5 +51,33 @@ public class SWTUtil {
         control.setFocus();
       }
     });
+  }
+
+  /**
+   * Retrieves key stroke for the given command id. If none could be found the fallback key stroke
+   * will be returned instead
+   * 
+   * @param commandId id of registered workbench command
+   * @param fallback  key stroke instance to be used as fallback
+   * @return the found key stroke or the fallback key stroke
+   */
+  public static KeyStroke getKeyStrokeForCommandId(String commandId, KeyStroke fallback) {
+    try {
+      if (Platform.isRunning()) {
+        final var service = PlatformUI.getWorkbench().getService(IBindingService.class);
+        if (service != null) {
+          final var binding = service.getBestActiveBindingFor(commandId);
+          if (binding instanceof KeySequence) {
+            final var keyStrokes = ((KeySequence) binding).getKeyStrokes();
+            if (keyStrokes.length == 1) {
+              return keyStrokes[0];
+            }
+          }
+        }
+      }
+    } catch (final Exception e) {
+    }
+
+    return fallback;
   }
 }

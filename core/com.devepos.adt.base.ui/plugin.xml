@@ -68,6 +68,11 @@
             id="com.devepos.adt.base.ui.command.toggleTextFilter"
             name="%command.toggleTextFilter.name">
       </command>
+      <command
+            categoryId="com.devepos.adt.base.ui.commands.category"
+            id="com.devepos.adt.base.ui.filter.openValueHelp"
+            name="%command.showValueHelp.name">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -82,6 +87,12 @@
             contextId="com.devepos.adt.base.ui.filterableView"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+F">
+      </key>
+      <key
+            commandId="com.devepos.adt.base.ui.filter.openValueHelp"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F4">
       </key>
    </extension>
    <extension

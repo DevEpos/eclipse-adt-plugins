@@ -429,6 +429,8 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     handleFilterControls();
 
+    createContentsBeforeStatusLine(content);
+
     /*
      * if status line was net not created it will be positioned under the result
      * part
@@ -444,6 +446,15 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
 
     return dialogArea;
   }
+
+  /**
+   * Will be called before the creation of the status line control.<br>
+   * Default Implementation does nothing, sub classes may override.
+   * 
+   * @param parent the parent container
+   */
+  protected void createContentsBeforeStatusLine(Composite parent) {
+  };
 
   protected final void createStatusLine(final Composite parent) {
     statusLine = new MessageLine(parent);
@@ -694,6 +705,9 @@ public abstract class SearchSelectionDialog<R, F> extends TrayDialog {
   }
 
   private void applyFilter() {
+    // clear old results
+    resultViewPart.updateResults(null);
+
     final F currentFilter = filterPart.getFilter();
     final SearchJob newSearchJob = new SearchJob(currentFilter);
     if (searchJob != null && !newSearchJob.equals(searchJob) && !searchJob.isResultValid()) {
