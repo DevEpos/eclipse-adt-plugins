@@ -1,5 +1,7 @@
 package com.devepos.adt.base.ui.internal.search;
 
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
@@ -18,7 +20,9 @@ import com.devepos.adt.base.ui.search.contentassist.DateSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.ISearchPatternAnalyzer;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterProposal;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterValueProposal;
+import com.devepos.adt.base.ui.util.SWTUtil;
 import com.devepos.adt.base.util.Reflection;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Adds asynchronous content assist support to a {@link Text} control for
@@ -30,6 +34,8 @@ import com.devepos.adt.base.util.Reflection;
 public class SearchPatternContentAssist extends AsyncContentAssist {
 
   private static final int FILTER_PROPOSAL_POPUP_MIN_HEIGHT = 200;
+  private static final KeyStroke DEFAULT_VH_DIALOG_KEYSTROKE = KeyStroke.getInstance(SWT.F4);
+  private KeyStroke vhDialogTriggerKeyStroke;
 
   public SearchPatternContentAssist(final Text control,
       final ISearchPatternAnalyzer patternAnalyzer) {
@@ -70,34 +76,64 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
       }
     };
 
-    control.addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        if (e.keyCode == SWT.F4) {
-          var cursorPosition = control.getCaretPosition();
-          var content = control.getText().substring(0, cursorPosition);
-          if (!patternAnalyzer.isFilterProposal(content)) {
-            return;
-          }
-          var searchFilter = patternAnalyzer.getFilterFromQuery(content);
-          if (searchFilter instanceof BooleanSearchFilter
-              || searchFilter instanceof DateSearchFilter) {
-            return;
-          }
-          var queryForProposals = patternAnalyzer
-              .getCurrentFilterProposalQuery(searchFilter.getLabel(), content);
-          var dialog = new QuickSearchSelectionDialog(control.getShell(), true, queryForProposals,
-              searchFilter, (ITextQueryProposalProvider) searchFilter);
-          if (dialog.open() == Window.OK) {
-            var selectedElements = dialog.getResult();
-          }
-        }
-      }
-    });
     setContentProposalListener(proposalListener);
     setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_INSERT);
     setAutoActivationCharacters(new char[] { ':', ',' });
     setAutoActivationDelay(500);
+
+    addValueHelpTriggerListener(control, patternAnalyzer);
+    vhDialogTriggerKeyStroke = SWTUtil.getKeyStrokeForCommandId(
+        "com.devepos.adt.base.ui.filter.openValueHelp", //$NON-NLS-1$
+        DEFAULT_VH_DIALOG_KEYSTROKE);
+  }
+
+  private void addValueHelpTriggerListener(final Text control,
+      final ISearchPatternAnalyzer patternAnalyzer) {
+    control.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(final KeyEvent e) {
+        if (SWTKeySupport.convertKeyStrokeToAccelerator(vhDialogTriggerKeyStroke) != SWTKeySupport
+            .convertEventToUnmodifiedAccelerator(e)) {
+          return;
+        }
+        var cursorPosition = control.getCaretPosition();
+        var content = control.getText().substring(0, cursorPosition);
+
+        if (!patternAnalyzer.isFilterProposal(content)) {
+          return;
+        }
+        var searchFilter = patternAnalyzer.getFilterFromQuery(content);
+        if (searchFilter instanceof BooleanSearchFilter
+            || searchFilter instanceof DateSearchFilter) {
+          return;
+        }
+        var queryForProposals = patternAnalyzer
+            .getCurrentFilterProposalQuery(searchFilter.getLabel(), content);
+        var dialog = new SearchFilterValueSelectionDialog(control.getShell(), true,
+            queryForProposals, searchFilter, (ITextQueryProposalProvider) searchFilter);
+        if (dialog.open() == Window.OK) {
+          var buffer = new StringBuilder(
+              content.substring(0, content.length() - queryForProposals.length()));
+
+          var index = 0;
+          for (var selectedElement : dialog.getResult()) {
+            if (index++ > 0) {
+              buffer.append(",");
+            }
+            if (dialog.isNegated()) {
+              buffer.append(StringUtil.NEGATION1);
+            }
+            buffer.append(selectedElement.getContent());
+          }
+          var newCursorPosition = buffer.length();
+          // append the rest of the input
+          buffer.append(control.getText().substring(cursorPosition));
+
+          control.setText(buffer.toString());
+          control.setSelection(newCursorPosition);
+        }
+      }
+    });
   }
 
   /*

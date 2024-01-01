@@ -3,6 +3,7 @@ package com.devepos.adt.base.ui.search.contentassist;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.swt.graphics.Image;
 
@@ -11,6 +12,7 @@ import com.devepos.adt.base.nameditem.INamedItemService;
 import com.devepos.adt.base.nameditem.INamedItemType;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
+import com.devepos.adt.base.ui.contentassist.IComplexQueryProposalProvider;
 import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
 import com.devepos.adt.base.ui.internal.contentassist.ProposalContentStyle;
 import com.devepos.adt.base.ui.internal.nameditem.InternalNamedItemProposalProvider;
@@ -22,7 +24,7 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvider {
+public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvider, IAdaptable {
   protected IImageProvider proposalImageProvider;
   private final INamedItemType namedItemType;
   private InternalNamedItemProposalProvider namedItemProposalProvider;
@@ -64,12 +66,16 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   private Image image;
 
   /**
+   * Proposal provider to handle complex search queries of this filter
+   */
+  private IComplexQueryProposalProvider complexQueryProposalProvider;
+
+  /**
    * Creates a search filter instance that uses the {@link INamedItemService} to
    * retrieve proposals. <br>
    * The default implementation of this filter supports <em>multiple values</em>,
-   * <em>negated values</em> and <em>pattern values</em>. <br>
-   * To customize this behavior sub classes should override the appropriate
-   * methods from {@link ISearchFilter}
+   * <em>pattern values</em> but no <em>negated values</em>. <br>
+   * To customize this behavior, call the appropriate setter methods.
    *
    * @param projectProvider     provides project/destination for named item
    *                            queries
@@ -229,6 +235,24 @@ public class NamedItemFilter implements ISearchFilter, ITextQueryProposalProvide
   @Override
   public final boolean supportsPatternValues() {
     return supportsPatternValues;
+  }
+
+  /**
+   * Sets the proposal provider that shall handle complex text queries
+   * 
+   * @param complexQueryProposalProvider proposal provider to use for complex queries
+   */
+  public void setComplexQueryProposalProvider(
+      IComplexQueryProposalProvider complexQueryProposalProvider) {
+    this.complexQueryProposalProvider = complexQueryProposalProvider;
+  }
+
+  @Override
+  public <T> T getAdapter(Class<T> adapter) {
+    if (adapter == IComplexQueryProposalProvider.class) {
+      return adapter.cast(complexQueryProposalProvider);
+    }
+    return null;
   }
 
   private void initProposalProvider(final IAbapProjectProvider projectProvider,
