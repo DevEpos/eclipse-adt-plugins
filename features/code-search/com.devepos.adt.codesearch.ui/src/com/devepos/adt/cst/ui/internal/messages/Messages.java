@@ -45,12 +45,18 @@ public class Messages extends NLS {
   public static String CodeSearchPreferencesPage_concatLinesWithLfRegexSinglePatternPref_xlbl;
   public static String CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_generalSettingsGroup_xlbl;
+  public static String CodeSearchPreferencesPage_LoggedOnUserRestriction_xchk;
   public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xlbl;
   public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xtol;
+  public static String CodeSearchPreferencesPage_ModifiableStatus_xchk;
+  public static String CodeSearchPreferencesPage_ReleasedStatus_xchk;
+  public static String CodeSearchPreferencesPage_RequestStatus_xgrp;
   public static String CodeSearchPreferencesPage_reuseSearchQueryPref_xchk;
   public static String CodeSearchPreferencesPage_reuseSearchQueryPref_xtol;
   public static String CodeSearchPreferencesPage_searchDialogSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_singlePatternModeSettingsGroup_xlbl;
+  public static String CodeSearchPreferencesPage_StatusMandatoryError_xmsg;
+  public static String CodeSearchPreferencesPage_TransportRequestSettings_xgrp;
   public static String CodeSearchPreferencesPage_useFromPreviousSearch_xchk;
   public static String CodeSearchPropertyPage_disablePcreExtendedModePref_xchk;
   public static String CodeSearchPropertyPage_disablePcreExtendedModePref_xtol;
@@ -130,6 +136,10 @@ public class Messages extends NLS {
   public static String IncludeFlagsDialog_dialogPurpose_xmsg;
   public static String IncludeFlagsDialog_selectAll_xchk;
   public static String ObjectTypeSearchFilter_filterShortDescription_xmsg;
+  public static String ReleasedRequestDate_All_xlbl;
+  public static String ReleasedRequestDate_FromLastFourWeeks_xlbl;
+  public static String ReleasedRequestDate_FromLastTwoWeeks_xlbl;
+  public static String ReleasedRequestDate_SinceYesterday_xlbl;
   public static String ResultExporter_LineNumberHeader_xtit;
   public static String ResultExporter_LinkToMatchHeader_xtit;
   public static String ResultExporter_NameHeader_xtit;
@@ -144,6 +154,15 @@ public class Messages extends NLS {
   public static String SearchFilters_transportRequestFilterDescription_xmsg;
   public static String SearchFilters_transportRequestFilterShortDescription_xmsg;
   public static String SearchMatchNode_MatchTooltipIntro_xtol;
+
+  public static String TransportRequestSearchFilter_ChangedDateFilterDescription_xmsg;
+  public static String TransportRequestSearchFilter_ChangedDateFilterName_xlbl;
+  public static String TransportRequestSearchFilter_ModifiableStatus;
+  public static String TransportRequestSearchFilter_ReleasedStatus;
+  public static String TransportRequestSearchFilter_RequestStatusFilterDescription_xmsg;
+  public static String TransportRequestSearchFilter_RequestStatusFilterName_xlbl;
+  public static String TransportRequestSearchFilter_TypeFilterName_xlbl;
+  public static String TransportRequestSearchFilter_TypeFilterName_xmsg;
 
   private Messages() {
   }

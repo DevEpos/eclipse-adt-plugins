@@ -7,7 +7,6 @@ package com.devepos.adt.cst.ui.internal.preferences;
  *
  */
 public interface ICodeSearchPrefs {
-
   /**
    * Removes the limit on the maximum number of objects that are searched
    */
@@ -38,4 +37,20 @@ public interface ICodeSearchPrefs {
    * Delimiter for csv data export
    */
   String CSV_EXPORT_DELIMITER = "codeSearch.exportDialog.delimiter";
+  /**
+   * Flag to indicate that only requests of logged on user should be considered
+   */
+  String TR_FILTER_ONLY_MY_OBJECTS = "codeSearch.trFilter.restrictToMyObjects";
+  /**
+   * Flag to indicate that modifiable requests/tasks should be included in result
+   */
+  String TR_FILTER_INCLUDE_MODIFIABLE = "codeSearch.trFilter.includeModifiable";
+  /**
+   * Flag to indicate that released requests/tasks should be included in result
+   */
+  String TR_FILTER_INCLUDE_RELEASED = "codeSearch.trFilter.includeReleased";
+  /**
+   * Setting to restrict result to released requests/tasks by fixed dates
+   */
+  String TR_FILTER_RELEASED_DATE = "codeSearch.trFilter.releasedDate";
 }
