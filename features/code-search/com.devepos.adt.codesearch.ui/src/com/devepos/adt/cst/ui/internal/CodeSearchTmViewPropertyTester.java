@@ -8,7 +8,7 @@ import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 
 /**
  * Property Tester to check enablement of code search actions inside the ADT transport view
- * 
+ *
  * @author Ludwig Stockbauer-Muhr
  */
 public class CodeSearchTmViewPropertyTester extends PropertyTester {
@@ -17,7 +17,8 @@ public class CodeSearchTmViewPropertyTester extends PropertyTester {
   }
 
   @Override
-  public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
+  public boolean test(final Object receiver, final String property, final Object[] args,
+      final Object expectedValue) {
     if (!(receiver instanceof IWorkbenchPart)) {
       return false;
     }

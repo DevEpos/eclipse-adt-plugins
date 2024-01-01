@@ -17,6 +17,8 @@ public enum NamedItem implements INamedItemType, IImageProvider {
   APPLICATION_COMPONENT("applcomp",
       AdtBaseUIResources.getImage(IAdtBaseImages.APPLICATION_COMPONENT)),
   TRANSPORT_REQUEST("transportRequest", AdtBaseUIResources.getImage(IAdtBaseImages.TRANSPORT)),
+  TRANSPORT_REQ_TYPE("transportRequestType",
+      AdtBaseUIResources.getImage(IAdtBaseImages.WB_OBJECT_TYPE), false, true),
   SERVER_GROUP("servergroup", null, true, true);
 
   private final String discoveryTerm;

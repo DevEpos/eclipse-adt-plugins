@@ -1,12 +1,18 @@
 package com.devepos.adt.cst.ui.internal.preferences;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.ComboFieldEditor;
+import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -16,6 +22,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import com.devepos.adt.base.ui.preferences.FieldEditorPrefPageBase;
 import com.devepos.adt.base.ui.preferences.LinkToAdtPageBlocksFactory;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
+import com.devepos.adt.cst.ui.internal.codesearch.ReleasedRequestDate;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -31,12 +38,14 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
 
   public static final String PAGE_ID = "com.devepos.adt.codesearch.ui.preferences.CodeSearchPreferencesPage"; //$NON-NLS-1$
   private Control linkToPropPageCtrl;
+  private BooleanFieldEditor modifiableRequestsEditor;
+  private BooleanFieldEditor releasedRequestsEditor;
 
   @SuppressWarnings("rawtypes")
   @Override
   public void applyData(final Object data) {
     if (data instanceof Map) {
-      Map<?, ?> options = (Map) data;
+      var options = (Map) data;
       boolean omit = Boolean.TRUE
           .equals(options.get(LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY));
       if (omit && linkToPropPageCtrl != null && !linkToPropPageCtrl.isDisposed()) {
@@ -69,8 +78,30 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
     createSearchDialogSettings(parent);
   }
 
+  @Override
+  protected void fieldValueChanged(final FieldEditor field, final Object oldValue,
+      final Object newValue) {
+    if (!ICodeSearchPrefs.TR_FILTER_INCLUDE_MODIFIABLE.equals(field.getPreferenceName())
+        && !ICodeSearchPrefs.TR_FILTER_INCLUDE_RELEASED.equals(field.getPreferenceName())) {
+
+      return;
+    }
+    if (!(Boolean) newValue) {
+      if (!modifiableRequestsEditor.getBooleanValue()
+          && !releasedRequestsEditor.getBooleanValue()) {
+        setErrorMessage(
+            MessageFormat.format(Messages.CodeSearchPreferencesPage_StatusMandatoryError_xmsg,
+                modifiableRequestsEditor.getLabelText(), releasedRequestsEditor.getLabelText()));
+        setValid(false);
+      }
+    } else {
+      setValid(true);
+      setErrorMessage(null);
+    }
+  }
+
   private Group createGroup(final String label, final Composite parent) {
-    final Group group = new Group(parent, SWT.NONE);
+    final var group = new Group(parent, SWT.NONE);
     GridLayoutFactory.swtDefaults().applyTo(group);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(group);
     group.setText(label);
@@ -78,20 +109,63 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
   }
 
   private void createSearchDialogSettings(final Composite parent) {
-    final Group group = createGroup(
-        Messages.CodeSearchPreferencesPage_searchDialogSettingsGroup_xlbl, parent);
+    final var group = createGroup(Messages.CodeSearchPreferencesPage_searchDialogSettingsGroup_xlbl,
+        parent);
 
-    final Group includeSettingsGroup = createGroup(
+    final var includeSettingsGroup = createGroup(
         Messages.CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl, group);
     addBooleanEditor(ICodeSearchPrefs.REMEMBER_INCLUDE_SETTINGS,
         Messages.CodeSearchPreferencesPage_useFromPreviousSearch_xchk,
         createEditorParent(includeSettingsGroup));
 
-    final Group singlePatternModeGroup = createGroup(
+    final var singlePatternModeGroup = createGroup(
         Messages.CodeSearchPreferencesPage_singlePatternModeSettingsGroup_xlbl, group);
 
     addEditor(addBooleanEditor(ICodeSearchPrefs.SINGLE_PATTERN_REGEX_CONCAT_WITH_LF,
         Messages.CodeSearchPreferencesPage_concatLinesWithLfRegexSinglePatternPref_xlbl,
         createEditorParent(singlePatternModeGroup)));
+
+    final var requestFilterSettings = createGroup(
+        Messages.CodeSearchPreferencesPage_TransportRequestSettings_xgrp, group);
+
+    createTransportRequestFilterSettings(requestFilterSettings);
+
+    adjustMargins(group);
+  }
+
+  private void createTransportRequestFilterSettings(final Composite parent) {
+    addBooleanEditor(ICodeSearchPrefs.TR_FILTER_ONLY_MY_OBJECTS,
+        Messages.CodeSearchPreferencesPage_LoggedOnUserRestriction_xchk,
+        createEditorParent(parent));
+
+    var statusGroup = createGroup(Messages.CodeSearchPreferencesPage_RequestStatus_xgrp, parent);
+
+    modifiableRequestsEditor = addBooleanEditor(ICodeSearchPrefs.TR_FILTER_INCLUDE_MODIFIABLE,
+        Messages.CodeSearchPreferencesPage_ModifiableStatus_xchk, createEditorParent(statusGroup));
+
+    var releasedRequestsEditorParent = createEditorParent(statusGroup);
+
+    releasedRequestsEditor = addBooleanEditor(ICodeSearchPrefs.TR_FILTER_INCLUDE_RELEASED,
+        Messages.CodeSearchPreferencesPage_ReleasedStatus_xchk, releasedRequestsEditorParent);
+    addReleasedRequestEditor(releasedRequestsEditorParent);
+  }
+
+  private void addReleasedRequestEditor(final Composite releasedRequestsEditorParent) {
+    var releaseDateFilters = Stream.of(ReleasedRequestDate.values())
+        .map(mode -> new String[] { mode.toString(), mode.name() })
+        .toArray(size -> new String[size][1]);
+
+    var dateEditor = new ComboFieldEditor(ICodeSearchPrefs.TR_FILTER_RELEASED_DATE, "", //$NON-NLS-1$
+        releaseDateFilters, releasedRequestsEditorParent);
+    addEditor(dateEditor);
+
+    // exclude empty label from layout
+    var label = dateEditor.getLabelControl(releasedRequestsEditorParent);
+    var gridData = (GridData) label.getLayoutData();
+    gridData.exclude = true;
+
+    // adjust grid of editor parent
+    var gridLayout = (GridLayout) releasedRequestsEditorParent.getLayout();
+    gridLayout.numColumns = 2;
   }
 }

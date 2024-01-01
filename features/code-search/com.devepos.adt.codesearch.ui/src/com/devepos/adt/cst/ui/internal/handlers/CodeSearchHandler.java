@@ -389,15 +389,15 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     }
   }
 
-  private List<IAdtObject> getSelectedTransportObjects(IStructuredSelection selection,
-      IWorkbenchPart activePart) {
+  private List<IAdtObject> getSelectedTransportObjects(final IStructuredSelection selection,
+      final IWorkbenchPart activePart) {
     var project = TmViewAdapterHelper.getProjectFromTmView(activePart);
     if (project != null) {
       List<IAdtObject> selectedTranportObjects = new ArrayList<>();
       for (var selObj : selection) {
         var trObject = Adapters.adapt(selObj, IAdtObjectReference.class);
         if (trObject != null) {
-          selectedTranportObjects.add(AdtObjectFactory.create(trObject, (IProject) project));
+          selectedTranportObjects.add(AdtObjectFactory.create(trObject, project));
         }
       }
       return selectedTranportObjects;

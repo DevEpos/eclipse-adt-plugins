@@ -77,7 +77,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
     return false;
   }
 
-  private boolean isTransportSearchAvailable(Object receiver) {
+  private boolean isTransportSearchAvailable(final Object receiver) {
     if (!(receiver instanceof IAdtObject)) {
       return false;
     }
