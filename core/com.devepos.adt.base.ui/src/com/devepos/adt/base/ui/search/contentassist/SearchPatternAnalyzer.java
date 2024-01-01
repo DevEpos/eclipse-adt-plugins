@@ -64,16 +64,11 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
     }
 
     public void runChecks() throws CoreException {
-      // 1) check if multiple values are supported
-      // 2) check if filter has custom validation implemented for values
-      // 3) check if value is one of the buffered values
-      // 4) check if wildcard values are allowed
-      // 5) check if negation is allowed
       checkMultipleValuesAllowed(filter, values);
       doFilterSpecificValidation(filter, values);
-      validateBufferedValues(filter, values);
-      checkPatternValues(filter, values);
       checkNegatedValues(filter, values);
+      checkPatternValues(filter, values);
+      validateBufferedValues(filter, values);
     }
 
     private void checkMultipleValuesAllowed(final ISearchFilter filter, final String[] filterValues)
