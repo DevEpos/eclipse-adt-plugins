@@ -32,7 +32,7 @@ import com.sap.adt.tools.core.system.IUser;
 @SuppressWarnings("restriction")
 public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
 
-  private static final String LOGGED_ON_USER = "ME";
+  public static final String LOGGED_ON_USER = "ME";
 
   private final IAbapProjectProvider projectProvider;
   private Image image;

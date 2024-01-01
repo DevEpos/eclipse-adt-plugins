@@ -10,6 +10,8 @@ import com.devepos.adt.base.internal.nameditem.NamedItem;
  *
  */
 public interface INamedItem {
+  String DATA_SPLIT_MARKER = "@@##@@";
+
   /**
    * Creates new named item with the given parameters
    *
