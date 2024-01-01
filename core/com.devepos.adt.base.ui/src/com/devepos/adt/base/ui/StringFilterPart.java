@@ -1,5 +1,8 @@
 package com.devepos.adt.base.ui;
 
+import java.util.function.Consumer;
+
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
@@ -25,6 +28,7 @@ public class StringFilterPart implements IDialogFilterPart<String> {
   private Label headerLabel;
   private String headerLabelText;
   private Text pattern;
+  private Consumer<IMenuManager> viewMenuFiller;
 
   public StringFilterPart(String headerLabelText) {
     this.headerLabelText = headerLabelText;
@@ -77,6 +81,10 @@ public class StringFilterPart implements IDialogFilterPart<String> {
     }
   }
 
+  public void setViewMenuFiller(Consumer<IMenuManager> viewMenuFiller) {
+    this.viewMenuFiller = viewMenuFiller;
+  }
+
   private void createFilter(final Composite parent) {
     pattern = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.SEARCH | SWT.ICON_CANCEL);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(pattern);
@@ -95,6 +103,10 @@ public class StringFilterPart implements IDialogFilterPart<String> {
         .align(SWT.FILL, SWT.CENTER)
         .grab(true, false)
         .applyTo(headerLabel);
+
+    if (viewMenuFiller != null) {
+      ViewMenuCreator.createViewMenu(header, viewMenuFiller);
+    }
   }
 
 }
