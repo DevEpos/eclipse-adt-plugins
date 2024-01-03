@@ -1,5 +1,7 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import java.util.stream.Collectors;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -21,7 +23,10 @@ import org.eclipse.swt.widgets.Text;
 
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.contentassist.ContentAssistSupport;
+import com.devepos.adt.base.ui.contentassist.TextContentProposal;
 import com.devepos.adt.base.ui.search.IAbapProjectSearchQuery;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.internal.preferences.IPreferences;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
@@ -200,6 +205,17 @@ public class NewSearchFavoriteDialog extends StatusDialog {
     favoriteDescription.addModifyListener(e -> {
       NewSearchFavoriteDialog.this.favoriteDescription = favoriteDescription.getText();
       validateDialogState();
+    });
+    ContentAssistSupport.createContentAssist(favoriteDescription, query -> {
+      return Activator.getDefault()
+          .getSearchFavoriteManager()
+          .getFavorites()
+          .stream()
+          .filter(f -> searchType.equals(f.getSearchType()))
+          .map(f -> f.getDescription())
+          .filter(StringUtil.getPatternForQuery(query).asMatchPredicate())
+          .map(d -> new TextContentProposal(d, query, true))
+          .collect(Collectors.toList());
     });
     GridDataFactory.fillDefaults().grab(true, false).applyTo(favoriteDescription);
 
