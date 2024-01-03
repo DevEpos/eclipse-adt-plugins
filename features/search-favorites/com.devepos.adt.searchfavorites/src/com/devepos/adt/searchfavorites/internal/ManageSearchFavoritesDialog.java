@@ -8,10 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -26,6 +28,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
@@ -53,6 +56,7 @@ import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.table.FilterableTable;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.internal.preferences.IPreferences;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
@@ -81,11 +85,13 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   private Button removeButton;
   private Button moveUpButton;
   private Button moveDownButton;
+  private Button renameButton;
   private Label filteredInfo;
   private ViewerFilter visiblityFilter;
 
   private boolean orderChanged;
   private boolean visibilityChanged;
+  private boolean favsRenamed;
   private boolean showHiddenFavs;
   private boolean makeNewFavsVisible;
   private boolean insertNewFavsAtBeginning;
@@ -376,7 +382,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       Activator.getDefault().getSearchFavoriteManager().removeFavorite(favoriteEntry);
       favUpdateRequired = true;
     }
-    if (!input.isEmpty() && (orderChanged || !newEntries.isEmpty() || visibilityChanged)) {
+    if (!input.isEmpty()
+        && (orderChanged || !newEntries.isEmpty() || visibilityChanged || favsRenamed)) {
       final var favorites = Activator.getDefault().getSearchFavoriteManager().getFavorites();
       favorites.clear();
       input.forEach(f -> {
@@ -396,6 +403,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     final int elementsSelected = sel.toList().size();
 
     removeButton.setEnabled(elementsSelected > 0);
+    renameButton.setEnabled(elementsSelected == 1);
     moveUpButton.setEnabled(elementsSelected > 0 && input.indexOf(sel.getFirstElement()) > 0);
     moveDownButton.setEnabled(elementsSelected > 0
         && Stream.of(sel.toArray()).allMatch(o -> input.indexOf(o) < input.size() - 1));
@@ -420,6 +428,13 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
     var sep = new Label(buttonContainer, SWT.SEPARATOR | SWT.HORIZONTAL);
     GridDataFactory.fillDefaults().hint(15, SWT.DEFAULT).applyTo(sep);
+
+    renameButton = new Button(buttonContainer, SWT.PUSH);
+    renameButton.setText(Messages.ManageSearchFavoritesDialog_RenameButton_xbtn);
+    GridDataFactory.fillDefaults()
+        .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
+        .applyTo(renameButton);
+    renameButton.addSelectionListener(widgetSelectedAdapter(e -> renameFavorite()));
 
     moveUpButton = new Button(buttonContainer, SWT.PUSH);
     moveUpButton.setText(Messages.ManageSearchFavoritesDialog_MovUp_xbtn);
@@ -467,6 +482,38 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
         .align(SWT.BEGINNING, SWT.BEGINNING)
         .hint(convertWidthInCharsToPixels(BUTTON_CHAR_WIDTH), SWT.DEFAULT)
         .applyTo(showUncheckedFavsButton);
+  }
+
+  private void renameFavorite() {
+    var selectedFavs = viewer.getStructuredSelection().toList();
+    if (selectedFavs.isEmpty() || selectedFavs.size() != 1) {
+      return;
+    }
+
+    var fav = (ISearchFavorite) selectedFavs.get(0);
+
+    var invalidDescriptions = input.stream()
+        .filter(f -> f != fav && fav.getSearchType().equals(fav.getSearchType()))
+        .map(f -> f.getDescription().toLowerCase())
+        .collect(Collectors.toList());
+
+    var inputDialog = new InputDialog(getShell(),
+        Messages.ManageSearchFavoritesDialog_RenameFavoriteDialog_xtit,
+        Messages.ManageSearchFavoritesDialog_RenameFavoriteDialog_xlbl, fav.getDescription(),
+        value -> {
+          if (StringUtil.isEmpty(value)) {
+            return Messages.ManageSearchFavoritesDialog_NoDescriptionEntered_xmsg;
+          }
+          if (invalidDescriptions.contains(value.toLowerCase())) {
+            return Messages.ManageSearchFavoritesDialog_DuplicateFavoriteDescription_xmsg;
+          }
+          return null;
+        });
+
+    if (inputDialog.open() == Window.OK) {
+      fav.setDescription(inputDialog.getValue());
+      viewer.refresh(fav);
+    }
   }
 
   private void selectAll(final boolean selectAll) {
