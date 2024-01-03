@@ -40,7 +40,9 @@ public final class ContentAssistSupport {
    */
   public static IContentAssist createAsyncContentAssist(final Text textControl,
       final ITextQueryProposalProvider proposalProvider) {
-    return new AsyncContentAssist(textControl, proposalProvider);
+    var contentAssist = new AsyncContentAssist(textControl, proposalProvider);
+    contentAssist.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+    return contentAssist;
   }
 
   /**
@@ -57,7 +59,9 @@ public final class ContentAssistSupport {
    */
   public static IContentAssist createContentAssist(final Text textControl,
       final ITextQueryProposalProvider proposalProvider) {
-    return new ContentAssist(textControl, proposalProvider);
+    var contentAssist = new ContentAssist(textControl, proposalProvider);
+    contentAssist.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+    return contentAssist;
   }
 
   /**
