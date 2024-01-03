@@ -1,5 +1,6 @@
 package com.devepos.adt.base.ui.contentassist;
 
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.viewers.ILabelProvider;
 
@@ -28,4 +29,21 @@ public interface IContentAssist {
    *                      the content proposals
    */
   void setLabelProvider(final ILabelProvider labelProvider);
+
+  /**
+   * Set the integer style that indicates how an accepted proposal affects the
+   * control's content.<br>
+   * The default value is <code>PROPOSAL_REPLACE</code>.
+   *
+   * @param acceptance a constant indicating how an accepted proposal should
+   *                   affect the control's content. Should be one of
+   *                   <code>PROPOSAL_INSERT</code>,
+   *                   <code>PROPOSAL_REPLACE</code> or
+   *                   <code>PROPOSAL_IGNORE</code>
+   *
+   * @see {@link ContentProposalAdapter#PROPOSAL_IGNORE}
+   * @see {@link ContentProposalAdapter#PROPOSAL_REPLACE}
+   * @see {@link ContentProposalAdapter#PROPOSAL_INSERT}
+   */
+  void setProposalAcceptanceStyle(final int acceptance);
 }

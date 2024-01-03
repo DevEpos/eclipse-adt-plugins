@@ -81,21 +81,7 @@ abstract class AbstractContentProposalProvider implements IContentProposalProvid
     contentProposalAdapter.setLabelProvider(labelProvider);
   }
 
-  /**
-   * Set the integer style that indicates how an accepted proposal affects the
-   * control's content.<br>
-   * The default value is <code>PROPOSAL_REPLACE</code>.
-   *
-   * @param acceptance a constant indicating how an accepted proposal should
-   *                   affect the control's content. Should be one of
-   *                   <code>PROPOSAL_INSERT</code>,
-   *                   <code>PROPOSAL_REPLACE</code>, or
-   *                   <code>PROPOSAL_IGNORE</code>
-   *
-   * @see {@link ContentProposalAdapter#PROPOSAL_IGNORE}
-   * @see {@link ContentProposalAdapter#PROPOSAL_REPLACE}
-   * @see {@link ContentProposalAdapter#PROPOSAL_INSERT}
-   */
+  @Override
   public void setProposalAcceptanceStyle(final int acceptance) {
     contentProposalAdapter.setProposalAcceptanceStyle(acceptance);
   }
