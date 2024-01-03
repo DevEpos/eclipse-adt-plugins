@@ -20,7 +20,7 @@ public enum FilterName {
   OBJECT_NAME(null, "objectName"),
   OBJECT_TYPE("type", "objectType"),
   PACKAGE(PackageSearchFilter.FILTER_NAME, "packageName"),
-  TRANSPORT_REQUEST("corr", "transportRequest"),
+  TRANSPORT_REQUEST("trreq", "transportRequest"),
   TR_OWNER("owner", "owner"),
   TR_CHANGED_DATE("changed", "changed"),
   TR_TYPE("type", "type"),
