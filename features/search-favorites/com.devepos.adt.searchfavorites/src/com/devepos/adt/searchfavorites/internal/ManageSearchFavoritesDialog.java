@@ -342,7 +342,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   }
 
   private void updateCheckedElements() {
-    viewer.setCheckedElements(input.stream().filter(f -> !f.isHidden()).toArray());
+    viewer.setCheckedElements(input.stream().filter(f -> !hiddenFavorites.contains(f)).toArray());
   }
 
   @Override
