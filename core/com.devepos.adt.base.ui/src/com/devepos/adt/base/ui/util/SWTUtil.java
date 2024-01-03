@@ -56,12 +56,13 @@ public class SWTUtil {
   /**
    * Retrieves key stroke for the given command id. If none could be found the fallback key stroke
    * will be returned instead
-   * 
+   *
    * @param commandId id of registered workbench command
    * @param fallback  key stroke instance to be used as fallback
    * @return the found key stroke or the fallback key stroke
    */
-  public static KeyStroke getKeyStrokeForCommandId(String commandId, KeyStroke fallback) {
+  public static KeyStroke getKeyStrokeForCommandId(final String commandId,
+      final KeyStroke fallback) {
     try {
       if (Platform.isRunning()) {
         final var service = PlatformUI.getWorkbench().getService(IBindingService.class);
@@ -69,6 +70,8 @@ public class SWTUtil {
           final var binding = service.getBestActiveBindingFor(commandId);
           if (binding instanceof KeySequence) {
             final var keyStrokes = ((KeySequence) binding).getKeyStrokes();
+
+            // we only consider bindings with a single key stroke
             if (keyStrokes.length == 1) {
               return keyStrokes[0];
             }
