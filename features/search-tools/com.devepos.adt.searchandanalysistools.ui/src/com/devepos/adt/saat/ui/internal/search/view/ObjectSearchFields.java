@@ -142,8 +142,9 @@ public class ObjectSearchFields {
   }
 
   public void updateControls(final ISearchTypeConfig selectedSearchType) {
+    var oldSearchType = currentSearchType;
     currentSearchType = selectedSearchType;
-    if (currentSearchType == null) {
+    if (currentSearchType == null || currentSearchType == oldSearchType) {
       return;
     }
 
