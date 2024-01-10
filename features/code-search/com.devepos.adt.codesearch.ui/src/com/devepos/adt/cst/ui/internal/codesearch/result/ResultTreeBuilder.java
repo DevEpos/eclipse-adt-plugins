@@ -1,6 +1,7 @@
 package com.devepos.adt.cst.ui.internal.codesearch.result;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,8 @@ class ResultTreeBuilder {
   public ResultTreeBuilder(final FileMatchesCache fileMatchesCache, final String destinationId) {
     this.fileMatchesCache = fileMatchesCache;
     rootNode = new FolderTreeNode(null, null, null, null);
+    // use synchronized list as concurrent modifification can happen
+    rootNode.setChildren(Collections.synchronizedList(new ArrayList<>()));
     this.destinationId = destinationId;
   }
 
@@ -116,6 +119,8 @@ class ResultTreeBuilder {
     if (packageNode == null) {
       packageNode = new LaunchablePackageNode(mainObject.getName(), null,
           createObjectRef(destinationId, mainObject, searchObject));
+      // use synchronized list as concurrent modifification can happen
+      packageNode.setChildren(Collections.synchronizedList(new ArrayList<>()));
       packageNodeCache.put(uri, packageNode);
       newPackagesToAddToTree.add(packageNode);
       urisToNodes.put(uri, packageNode);
@@ -201,6 +206,8 @@ class ResultTreeBuilder {
     var objectNode = new LaunchableAdtObjectReferenceNode(mainObject.getName(),
         mainObject.getDisplayName(), mainObject.getDescription(),
         createObjectRef(destinationId, mainObject, searchObject));
+    // use synchronized list as concurrent modifification can happen
+    objectNode.setChildren(Collections.synchronizedList(new ArrayList<>()));
     if (mainObject.getOwner() != null) {
       objectNode.getProperties()
           .put(IResultPropertyNameConstants.OBJECT_RESPONSIBLE, mainObject.getOwner());
