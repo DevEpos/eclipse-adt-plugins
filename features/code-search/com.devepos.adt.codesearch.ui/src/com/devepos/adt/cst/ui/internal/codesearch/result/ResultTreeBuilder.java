@@ -166,13 +166,31 @@ class ResultTreeBuilder {
       var adtObjRefNode = urisToNodes.get(nodeUri);
 
       var parentUri = adtObjRefNode.getParentUri();
-      if (parentUri != null) {
-        var parentNode = urisToNodes.get(parentUri);
+      if (parentUri == null) {
+        continue;
+      }
+      var parentNode = urisToNodes.get(parentUri);
 
-        if (parentNode == null) {
-          throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
-              parentUri + "' can not be resolved");
+      if (parentNode == null) {
+        throw new IllegalStateException("Inconsistent data in text search result: parent uri '" +
+            parentUri + "' can not be resolved");
+      }
+
+      if (parentNode instanceof PackageNode) {
+        /*
+         * check if node has already been added to package (could happen during searches of requests
+         * with big methods)
+         */
+        var existingChild = parentNode.getChildren()
+            .parallelStream()
+            .filter(n -> nodeUri.equals(((IAdtObjectReferenceNode) n).getUri()))
+            .findFirst();
+        if (existingChild.isPresent()) {
+          urisToNodes.put(nodeUri, (IAdtObjectReferenceNode) existingChild.get());
+        } else {
+          parentNode.addChild(adtObjRefNode);
         }
+      } else {
         parentNode.addChild(adtObjRefNode);
       }
     }
