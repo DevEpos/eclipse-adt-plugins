@@ -30,8 +30,7 @@ public class CodeSearchTreeContentProvider extends TreeContentProvider {
       if (resultPage.isPackageGroupingEnabled()) {
         return rootNode.getChildren().toArray();
       }
-      // Clone list to fix potential ConcurrentModification problem
-      return getNonPackageResults(new ArrayList<>(rootNode.getChildren()));
+      return getNonPackageResults(rootNode.getChildren());
     }
     return EMPTY_ARRAY;
   }
