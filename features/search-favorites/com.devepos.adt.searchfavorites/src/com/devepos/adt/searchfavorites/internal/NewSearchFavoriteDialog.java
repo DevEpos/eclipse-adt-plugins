@@ -206,17 +206,16 @@ public class NewSearchFavoriteDialog extends StatusDialog {
       NewSearchFavoriteDialog.this.favoriteDescription = favoriteDescription.getText();
       validateDialogState();
     });
-    ContentAssistSupport.createContentAssist(favoriteDescription, query -> {
-      return Activator.getDefault()
-          .getSearchFavoriteManager()
-          .getFavorites()
-          .stream()
-          .filter(f -> searchType.equals(f.getSearchType()))
-          .map(f -> f.getDescription())
-          .filter(StringUtil.getPatternForQuery(query).asMatchPredicate())
-          .map(d -> new TextContentProposal(d, query, true))
-          .collect(Collectors.toList());
-    });
+    ContentAssistSupport.createContentAssist(favoriteDescription,
+        query -> Activator.getDefault()
+            .getSearchFavoriteManager()
+            .getFavorites()
+            .stream()
+            .filter(f -> searchType.equals(f.getSearchType()))
+            .map(f -> f.getDescription())
+            .filter(StringUtil.getPatternForQuery(query).asMatchPredicate())
+            .map(d -> new TextContentProposal(d, query, true))
+            .collect(Collectors.toList()));
     GridDataFactory.fillDefaults().grab(true, false).applyTo(favoriteDescription);
 
     // flag "is project independent"
