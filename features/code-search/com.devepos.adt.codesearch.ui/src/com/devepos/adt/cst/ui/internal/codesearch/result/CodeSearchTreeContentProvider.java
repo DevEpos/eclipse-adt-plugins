@@ -43,11 +43,13 @@ public class CodeSearchTreeContentProvider extends TreeContentProvider {
 
   private void collectNonPackageResults(final List<ITreeNode> nodes,
       final List<ITreeNode> nonPackageNodes) {
-    for (var node : nodes) {
-      if (node instanceof PackageNode) {
-        collectNonPackageResults(((ICollectionTreeNode) node).getChildren(), nonPackageNodes);
-      } else {
-        nonPackageNodes.add(node);
+    synchronized (nodes) {
+      for (var node : nodes) {
+        if (node instanceof PackageNode) {
+          collectNonPackageResults(((ICollectionTreeNode) node).getChildren(), nonPackageNodes);
+        } else {
+          nonPackageNodes.add(node);
+        }
       }
     }
   }
