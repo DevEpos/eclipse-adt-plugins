@@ -110,9 +110,9 @@
         </profile>
     </profiles>
     <properties>
-        <tycho-version>3.0.1</tycho-version>
-        <eclipse-version>2023-03</eclipse-version>
-        <executionEnvironment>JavaSE-11</executionEnvironment>
+        <tycho-version>4.0.4</tycho-version>
+        <eclipse-version>2023-09</eclipse-version>
+        <executionEnvironment>JavaSE-17</executionEnvironment>
     </properties>
     <build>
         <pluginManagement>
