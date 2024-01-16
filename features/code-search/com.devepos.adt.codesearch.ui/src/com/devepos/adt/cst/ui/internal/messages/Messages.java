@@ -46,8 +46,8 @@ public class Messages extends NLS {
   public static String CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_generalSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_LoggedOnUserRestriction_xchk;
-  public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xlbl;
-  public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xtol;
+  public static String CodeSearchPreferencesPage_MaxObjectsToProcess_xlbl;
+  public static String CodeSearchPreferencesPage_MaxObjectsToProcess_xtol;
   public static String CodeSearchPreferencesPage_ModifiableStatus_xchk;
   public static String CodeSearchPreferencesPage_ReleasedStatus_xchk;
   public static String CodeSearchPreferencesPage_RequestStatus_xgrp;
@@ -55,6 +55,7 @@ public class Messages extends NLS {
   public static String CodeSearchPreferencesPage_reuseSearchQueryPref_xtol;
   public static String CodeSearchPreferencesPage_searchDialogSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_singlePatternModeSettingsGroup_xlbl;
+  public static String CodeSearchPreferencesPage_SearchSettings_xgrp;
   public static String CodeSearchPreferencesPage_StatusMandatoryError_xmsg;
   public static String CodeSearchPreferencesPage_TransportRequestSettings_xgrp;
   public static String CodeSearchPreferencesPage_useFromPreviousSearch_xchk;
