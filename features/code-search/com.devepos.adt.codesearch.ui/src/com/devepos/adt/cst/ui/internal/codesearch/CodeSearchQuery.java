@@ -23,6 +23,7 @@ import com.devepos.adt.cst.search.ICodeSearchService;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
+import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
  * Query for running Code Search
@@ -34,7 +35,6 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
 
   public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.codesearch"; // $NON-NLS-N$
 
-  private static final int FALLBACK_PACKAGE_SIZE = 100;
   private static final float WORK_UNITS_PACKAGE = 10.0f;
 
   private final CodeSearchResult searchResult;
@@ -153,7 +153,8 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
 
     Map<String, Object> uriParams = querySpecs.buildSearchUriParameters();
     uriParams.put(SearchParameter.SCOPE_ID.getUriName(), scope.getId());
-    uriParams.put(SearchParameter.MAX_OBJECTS.getUriName(), FALLBACK_PACKAGE_SIZE);
+    uriParams.put(SearchParameter.MAX_OBJECTS.getUriName(),
+        CodeSearchUIPlugin.getDefault().getPreferenceStore().getInt(ICodeSearchPrefs.MAX_OBJECTS));
 
     if (!isContinueForCurrentExecution) {
       currentOffset = 0;
