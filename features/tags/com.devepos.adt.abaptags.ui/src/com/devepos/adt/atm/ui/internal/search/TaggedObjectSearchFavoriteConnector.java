@@ -11,6 +11,9 @@ import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.base.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
@@ -64,12 +67,19 @@ public class TaggedObjectSearchFavoriteConnector
 
   @Override
   public void runSearchFromFavorite(final ISearchFavorite favorite) {
-    final var projectProvider = AbapProjectProviderAccessor
-        .getProviderForDestination(favorite.getDestinationId());
+    IAbapProjectProvider projectProvider = null;
+    var destination = favorite.getDestinationId();
+    if (destination == null) {
+      projectProvider = AbapProjectProviderAccessor.getProviderFromSelection();
+    } else {
+      projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destination);
+    }
     if (projectProvider == null || !projectProvider.hasProject()) {
-      MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          "Error", MessageFormat.format("No Project found for destination ''{0}''",
-              favorite.getDestinationId()));
+      if (destination == null) {
+        MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit),
+            MessageFormat.format("No Project found for destination ''{0}''", destination));
+      }
       openFavoriteInSearchDialog(favorite);
     } else {
       if (!projectProvider.ensureLoggedOn()) {
