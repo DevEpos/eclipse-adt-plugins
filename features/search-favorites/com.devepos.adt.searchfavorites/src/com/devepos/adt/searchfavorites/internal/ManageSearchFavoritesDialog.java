@@ -69,6 +69,7 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   private static final int IMPORT_ID = IDialogConstants.CLIENT_ID + 1;
+  private static final int RUN_ID = IMPORT_ID + 1;
 
   private static final int WIDTH_IN_CHARACTERS = 55;
   private static final int BUTTON_CHAR_WIDTH = 15;
@@ -89,6 +90,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   private Label filteredInfo;
   private ViewerFilter visiblityFilter;
 
+  private int favoriteExecMode;
   private boolean orderChanged;
   private boolean visibilityChanged;
   private boolean favsRenamed;
@@ -183,6 +185,10 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   }
 
+  public int getFavoriteExecMode() {
+    return favoriteExecMode;
+  }
+
   public boolean isFavsRenamed() {
     return favsRenamed;
   }
@@ -207,7 +213,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
       importFavorites();
       return;
     }
-    if (buttonId == IDialogConstants.OPEN_ID) {
+    if (buttonId == IDialogConstants.OPEN_ID || buttonId == RUN_ID) {
       var favList = viewer.getStructuredSelection().toList();
       var favorite = (ISearchFavorite) favList.get(0);
       if (Activator.getDefault()
@@ -221,6 +227,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
                 Messages.SearchFavoritesMenuAction_MissingPluginForFavSearchType_xmsg);
         return;
       }
+
+      favoriteExecMode = buttonId;
       setResult(favList);
       okPressed();
       return;
@@ -230,7 +238,8 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   @Override
   protected void createButtonsForButtonBar(final Composite parent) {
-    createButton(parent, IDialogConstants.OPEN_ID, IDialogConstants.OPEN_LABEL, true);
+    createButton(parent, RUN_ID, Messages.ManageSearchFavoritesDialog_RunAction_xbtn, true);
+    createButton(parent, IDialogConstants.OPEN_ID, IDialogConstants.OPEN_LABEL, false);
     createButton(parent, IMPORT_ID, Messages.FavoritesImporter_ImportFavoritesAction_xmit, false);
     createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
     createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
@@ -281,7 +290,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
     table.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseDoubleClick(final MouseEvent e) {
-        buttonPressed(IDialogConstants.OPEN_ID);
+        buttonPressed(RUN_ID);
       }
     });
     GridDataFactory.fillDefaults()

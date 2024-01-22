@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
@@ -43,7 +44,7 @@ public class ManageSearchFavoritesHandler extends AbstractHandler {
         if (connector == null) {
           return null;
         }
-        if (favorite.isProjectIndependent()) {
+        if (favoriteDialog.getFavoriteExecMode() == IDialogConstants.OPEN_ID) {
           connector.openFavoriteInSearchDialog(favorite);
         } else {
           connector.runSearchFromFavorite(favorite);

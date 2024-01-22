@@ -1,5 +1,6 @@
 package com.devepos.adt.searchfavorites.internal;
 
+import com.devepos.adt.searchfavorites.internal.preferences.IPreferences;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
 /**
@@ -18,6 +19,24 @@ public class SearchFavoriteRunner {
           + favorite.getSearchType());
     }
     runSearchFavorite(favorite, descriptor);
+  }
+
+  public static void handleSelectedSearchFavorite(final ISearchFavorite favorite,
+      final SearchFavoriteDescriptor descriptor, final boolean ctrlDown) {
+    if (descriptor == null) {
+      throw new IllegalArgumentException("Search favorite descriptor must not be null!"); //$NON-NLS-1$
+    }
+
+    var execMode = Activator.getDefault()
+        .getPreferenceStore()
+        .getString(ctrlDown ? IPreferences.FAV_EXEC_MODE_WITH_CTRL
+            : IPreferences.FAV_EXEC_MODE_NO_MODIFIERS);
+
+    if (execMode == IExecutionModes.OPEN_IN_DIALOG) {
+      descriptor.getConnector().openFavoriteInSearchDialog(favorite);
+    } else {
+      descriptor.getConnector().runSearchFromFavorite(favorite);
+    }
   }
 
   public static void runSearchFavorite(final ISearchFavorite favorite,
