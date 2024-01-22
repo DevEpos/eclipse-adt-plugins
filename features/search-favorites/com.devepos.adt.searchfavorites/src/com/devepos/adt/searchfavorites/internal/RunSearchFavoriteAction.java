@@ -1,6 +1,8 @@
 package com.devepos.adt.searchfavorites.internal;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
@@ -24,7 +26,8 @@ public class RunSearchFavoriteAction extends Action {
   }
 
   @Override
-  public void run() {
-    SearchFavoriteRunner.runSearchFavorite(favorite, descriptor);
+  public void runWithEvent(final Event event) {
+    SearchFavoriteRunner.handleSelectedSearchFavorite(favorite, descriptor,
+        event.stateMask == SWT.CTRL);
   }
 }
