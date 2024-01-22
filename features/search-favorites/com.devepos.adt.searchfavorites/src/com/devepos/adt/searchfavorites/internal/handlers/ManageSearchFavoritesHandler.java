@@ -14,6 +14,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.searchfavorites.internal.Activator;
 import com.devepos.adt.searchfavorites.internal.ManageSearchFavoritesDialog;
+import com.devepos.adt.searchfavorites.internal.SearchFavoriteStorage;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
@@ -47,6 +48,13 @@ public class ManageSearchFavoritesHandler extends AbstractHandler {
         } else {
           connector.runSearchFromFavorite(favorite);
         }
+      }
+    } else {
+      // reset from file if certain actions occurred
+      if (favoriteDialog.isFavsRenamed()) {
+        var favManager = Activator.getDefault().getSearchFavoriteManager();
+        favManager.getFavorites().clear();
+        SearchFavoriteStorage.deserialize(Activator.getDefault().getSearchFavoriteManager());
       }
     }
     return null;

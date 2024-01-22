@@ -183,6 +183,10 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
   }
 
+  public boolean isFavsRenamed() {
+    return favsRenamed;
+  }
+
   @Override
   public void create() {
     super.create();
@@ -512,6 +516,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
 
     if (inputDialog.open() == Window.OK) {
       fav.setDescription(inputDialog.getValue());
+      favsRenamed = true;
       viewer.refresh(fav);
     }
   }
