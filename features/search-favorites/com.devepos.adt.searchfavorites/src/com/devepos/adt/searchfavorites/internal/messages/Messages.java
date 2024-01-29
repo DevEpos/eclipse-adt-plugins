@@ -32,9 +32,14 @@ public class Messages extends NLS {
 
   public static String KeyValueNamedItemFilter_valuePartNotAllowedDuringNegation_xmsg;
 
+  public static String MainPreferencePage_ExecuteSearchMode_xrbl;
   public static String MainPreferencePage_InsertNewFavsAtStart_xchk;
   public static String MainPreferencePage_MakeNewFavsVisible_xchk;
   public static String MainPreferencePage_NewFavSettings_xgrp;
+  public static String MainPreferencePage_OpenDialogMode_xrbl;
+  public static String MainPreferencePage_SelectionFromDropdownAction_xgrp;
+  public static String MainPreferencePage_WithCtrlMode_xgrp;
+  public static String MainPreferencePage_WithoutModifiersMode_xgrp;
   public static String ManageSearchFavoritesDialog_dialogIntro_xmsg;
   public static String ManageSearchFavoritesDialog_DuplicateFavoriteDescription_xmsg;
   public static String ManageSearchFavoritesDialog_FilteredFavoritesInfo_xlbl;
@@ -47,6 +52,7 @@ public class Messages extends NLS {
   public static String ManageSearchFavoritesDialog_RenameButton_xbtn;
   public static String ManageSearchFavoritesDialog_RenameFavoriteDialog_xlbl;
   public static String ManageSearchFavoritesDialog_RenameFavoriteDialog_xtit;
+  public static String ManageSearchFavoritesDialog_RunAction_xbtn;
   public static String ManageSearchFavoritesDialog_ShowAll_xbtn;
   public static String ManageSearchFavoritesDialog_ShowHidden_xbtn;
   public static String ManageSearchFavoritesDialog_Title_xtit;

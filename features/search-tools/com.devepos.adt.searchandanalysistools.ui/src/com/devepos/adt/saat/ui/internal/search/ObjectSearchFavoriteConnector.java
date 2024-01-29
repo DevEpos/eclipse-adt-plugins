@@ -184,12 +184,19 @@ public class ObjectSearchFavoriteConnector
 
   @Override
   public void runSearchFromFavorite(final ISearchFavorite favorite) {
-    final var projectProvider = AbapProjectProviderAccessor
-        .getProviderForDestination(favorite.getDestinationId());
+    IAbapProjectProvider projectProvider = null;
+    var destination = favorite.getDestinationId();
+    if (destination == null) {
+      projectProvider = AbapProjectProviderAccessor.getProviderFromSelection();
+    } else {
+      projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destination);
+    }
     if (projectProvider == null || !projectProvider.hasProject()) {
-      MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-          Messages.Dialog_ErrorTitle_xmsg, MessageFormat
-              .format(Messages.ObjectSearch_NoProjectFound_xmsg, favorite.getDestinationId()));
+      if (destination == null) {
+        MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+            Messages.Dialog_ErrorTitle_xmsg,
+            MessageFormat.format(Messages.ObjectSearch_NoProjectFound_xmsg, destination));
+      }
       openFavoriteInSearchDialog(favorite);
     } else {
       final var searchRequest = createRequestFromFavorite(favorite);

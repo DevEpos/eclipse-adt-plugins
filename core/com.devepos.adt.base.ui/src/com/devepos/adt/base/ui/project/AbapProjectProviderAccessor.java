@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.sap.adt.project.AdtCoreProjectServiceFactory;
 import com.sap.adt.project.IAdtCoreProjectService;
@@ -16,6 +17,20 @@ import com.sap.adt.project.IAdtCoreProjectService;
  */
 public class AbapProjectProviderAccessor {
   private static Map<String, IAbapProjectProvider> projectProviderMap;
+
+  /**
+   * Returns a project provider for the ABAP project that is currently selected
+   * 
+   * @return the found project provider or {@code null}
+   */
+  public static IAbapProjectProvider getProviderFromSelection() {
+    var activeProject = ProjectUtil.getCurrentAbapProject();
+    if (activeProject == null) {
+      return null;
+    }
+
+    return getProviderForDestination(DestinationUtil.getDestinationId(activeProject));
+  }
 
   /**
    * Retrieves an abap project provider for the given destination id

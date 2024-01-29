@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
@@ -14,6 +15,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.searchfavorites.internal.Activator;
 import com.devepos.adt.searchfavorites.internal.ManageSearchFavoritesDialog;
+import com.devepos.adt.searchfavorites.internal.SearchFavoriteStorage;
 import com.devepos.adt.searchfavorites.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavorite;
 
@@ -42,11 +44,18 @@ public class ManageSearchFavoritesHandler extends AbstractHandler {
         if (connector == null) {
           return null;
         }
-        if (favorite.isProjectIndependent()) {
+        if (favoriteDialog.getFavoriteExecMode() == IDialogConstants.OPEN_ID) {
           connector.openFavoriteInSearchDialog(favorite);
         } else {
           connector.runSearchFromFavorite(favorite);
         }
+      }
+    } else {
+      // reset from file if certain actions occurred
+      if (favoriteDialog.isFavsRenamed()) {
+        var favManager = Activator.getDefault().getSearchFavoriteManager();
+        favManager.getFavorites().clear();
+        SearchFavoriteStorage.deserialize(Activator.getDefault().getSearchFavoriteManager());
       }
     }
     return null;

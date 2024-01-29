@@ -10,6 +10,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -76,6 +77,7 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
         GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).create());
 
     createSearchDialogSettings(parent);
+    createSearchSettings(parent);
   }
 
   @Override
@@ -91,7 +93,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
           && !releasedRequestsEditor.getBooleanValue()) {
         setErrorMessage(
             MessageFormat.format(Messages.CodeSearchPreferencesPage_StatusMandatoryError_xmsg,
-                modifiableRequestsEditor.getLabelText(), releasedRequestsEditor.getLabelText()));
+                modifiableRequestsEditor.getLabelText().replaceAll("&", ""),
+                releasedRequestsEditor.getLabelText().replaceAll("&", "")));
         setValid(false);
       }
     } else {
@@ -130,6 +133,23 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
 
     createTransportRequestFilterSettings(requestFilterSettings);
 
+    adjustMargins(group);
+  }
+
+  private void createSearchSettings(final Composite parent) {
+    var group = createGroup(Messages.CodeSearchPreferencesPage_SearchSettings_xgrp, parent);
+
+    var maxObjEditor = new IntegerFieldEditor(ICodeSearchPrefs.MAX_OBJECTS,
+        Messages.CodeSearchPreferencesPage_MaxObjectsToProcess_xlbl, group, 5);
+    GridDataFactory.fillDefaults()
+        .hint(80, SWT.DEFAULT)
+        .applyTo(maxObjEditor.getTextControl(group));
+
+    maxObjEditor.setValidRange(100, 5000);
+    maxObjEditor.getLabelControl(group)
+        .setToolTipText(Messages.CodeSearchPreferencesPage_MaxObjectsToProcess_xtol);
+
+    addEditor(maxObjEditor);
     adjustMargins(group);
   }
 
