@@ -130,6 +130,22 @@
                         </p>
                     </td>
                 </tr>
+                <tr>
+                    <td>trreq</td>
+                    <td>Transport Task/Request</td>
+                    <td>
+                        <ul class="list">
+                            <li>Fixed values</li>
+                            <li>Task assigned to a transport request are considered automatically</li>
+                            <div class="alert info">
+                                <div class="alert-info__text"></div>
+                                The complete source code of the objects (e.g method, function module, program) included
+                                in the transport task/request will be used for the search,
+                                not only the changes that were saved in the chosen transport task/request.
+                            </div>
+                        </ul>
+                    </td>
+                </tr>
             </table>
             <p>All filters also provide further content assistance to see
                 which options are available (see the following image)</p>
@@ -147,6 +163,16 @@
         <code class="code">type: !clas</code>
     </div>
 
+    <h4 class="heading">Detailed Value Help Dialog</h4>
+    <p>All filters also provide an additional value help by pressing <code class="code">F4</code>.
+        The new dialog allows a more exact search for filter values by restricting
+        the possible value list by own filters (see the following image)</p>
+
+    <figure>
+        <img src="../../images/ValueHelpFilterTransportRrequest.png">
+        <figcaption>Value Help dialog for filter transport task/request</figcaption>
+    </figure>
+
     <h4 class="heading">Object Selection via Tags</h4>
     It is also possible to restrict the object scope by specifying one or
     several Tags.
@@ -160,7 +186,7 @@
         ABAP project.
     </div>
 
-    <h5 class="heading">Examples for Object Selection</h5>
+    <h4 class="heading">Examples for Object Selection</h4>
     <ul class="list">
         <li class="p-b-m">Object Name: <code class="code">!/ z</code><br>All
             objects <em>not</em> starting with "/" and all objects starting with

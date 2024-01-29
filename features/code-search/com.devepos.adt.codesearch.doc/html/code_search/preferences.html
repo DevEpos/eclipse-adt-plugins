@@ -13,9 +13,18 @@
     <h3 class="heading">General Settings</h3>
     <p>In the preferences menu you have the possibility to configure
         the following settings
+    <h4 class="heading">Search Dialog Settings</h4>
     <ul class="list">
-        <li id="include-options">Single Pattern Mode
-            <ul>
+        <li>Settings for Includes
+            <ul class="list">
+                <li><em>Use from previous search</em> <br>This option
+                    controls whether the control settings for Class Includes, Function
+                    Group Includes and Program Includes are taken over from the
+                    previously executed search</li>
+            </ul>
+        </li>
+        <li>Single Pattern Mode
+            <ul class="list">
                 <li><em>Concatenate lines of the search pattern with '\n'
                         for regular expressions</em> <br> This option is relevant if the
                     entered pattern has multiple lines and you have activated the
@@ -30,16 +39,23 @@
                 </li>
             </ul>
         </li>
-        <li>Settings for Includes
-            <ul>
-                <li><em>Use from previous search</em> <br>This option
-                    controls whether the control settings for Class Includes, Function
-                    Group Includes and Program Includes are taken over from the
-                    previously executed search</li>
+        <li>Settings for Transport Request Filter<br>
+            The task/transport requests displayed in the autocomplition (or in the F4 value help)
+            can be restricted by default with the following filters:
+            <ul class="list">
+                <li><em>owner set to the logon user</em></li>
+                <li><em>status of the task/transport request</em></li>
+                <li><em>date of the release</em></li>
             </ul>
         </li>
     </ul>
-
+    <h4 class="heading">Search Settings</h4>
+    <ul class="list">
+        <li><em>Objects to search in a single API call</em> <br>
+            For the serial processing of the search, this setting controls how many objects
+            will be searched during a single back end call in an ongoing search query.</li>
+        </li>
+    </ul>
     <h3 class="heading">Related Information</h3>
     <div>
         <a class="link" href="properties.html">Properties</a>
