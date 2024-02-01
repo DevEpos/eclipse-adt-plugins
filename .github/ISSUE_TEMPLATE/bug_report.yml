@@ -1,0 +1,57 @@
+name: 🐞 Bug
+description: File a bug/issue
+title: "[BUG] "
+labels:
+  - bug
+assignees: stockbal
+body:
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: |-
+        Make SURE that you follow these
+      options:
+        - label: I have searched the existing issues
+          required: true
+        - label: I read the help documentation in Eclipse and checked my configuration
+          required: true
+        - label: I installed the latest version of the concerning Eclipse Plug-in
+          required: true
+        - label: I installed the latest version of the corresponding ABAP Backend
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: Plug-in
+      description: Which plug-in are you reporting
+      options:
+        - ABAP Search and Analysis Tools
+        - ABAP Tags
+        - ABAP Code Search
+        - Search Favorites
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Describe the bug
+
+        > If applicable, add screenshots to help explain your problem
+
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+
+        Add any other context about the problem here. Especially the issue occurs in certain OS, browser or configuration.
+    validations:
+      required: false
