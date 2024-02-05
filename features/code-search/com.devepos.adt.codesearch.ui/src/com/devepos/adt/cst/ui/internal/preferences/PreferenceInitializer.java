@@ -21,7 +21,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
   @Override
   public void initializeDefaultPreferences() {
     IPreferenceStore store = CodeSearchUIPlugin.getDefault().getPreferenceStore();
-    store.setDefault(ICodeSearchPrefs.MAX_OBJECTS, 100);
     store.setDefault(ICodeSearchPrefs.SINGLE_PATTERN_REGEX_CONCAT_WITH_LF, false);
     store.setDefault(ICodeSearchPrefs.REMEMBER_INCLUDE_SETTINGS, true);
     store.setDefault(ICodeSearchPrefs.CSV_EXPORT_USE_MATCH_MARKER, false);
