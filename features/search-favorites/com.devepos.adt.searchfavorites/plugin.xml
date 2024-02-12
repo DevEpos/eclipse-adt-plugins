@@ -40,7 +40,7 @@
             name="%category.searchfavorites.name">
       </category>         
       <command
-            categoryId="com.devepos.adt.base.ui.commands.category"
+            categoryId="com.devepos.adt.searchfavorites.commands.category"
             defaultHandler="com.devepos.adt.searchfavorites.internal.handlers.ManageSearchFavoritesHandler"
             id="com.devepos.adt.searchfavorites.command.manageFavorites"
             name="%command.tools.search.showFavorites.name">
