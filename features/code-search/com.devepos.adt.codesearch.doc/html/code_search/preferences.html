@@ -10,10 +10,9 @@
 <body id="doc-body">
     <h2 class="heading">Workspace Preferences</h2>
 
-    <h3 class="heading">General Settings</h3>
     <p>In the preferences menu you have the possibility to configure
-        the following settings
-    <h4 class="heading">Search Dialog Settings</h4>
+        the following settings</p>
+    <h3 class="heading">Search Dialog Settings</h3>
     <ul class="list">
         <li>Settings for Includes
             <ul class="list">
@@ -39,21 +38,24 @@
                 </li>
             </ul>
         </li>
-        <li>Settings for Transport Request Filter<br>
-            The task/transport requests displayed in the autocomplition (or in the F4 value help)
-            can be restricted by default with the following filters:
+        <li>Settings for Transport Request Filter
+            <p>For convencience, the transport requests/tasks that are retrieved via content assist, can be restricted
+                by following settings:</p>
             <ul class="list">
-                <li><em>owner set to the logon user</em></li>
-                <li><em>status of the task/transport request</em></li>
-                <li><em>date of the release</em></li>
+                <li><em>Restrict owner to logged user</em><br>Only the tasks and requests belonging to the logged on
+                    user are shown</li>
+                <li><em>Modifiable</em><br>Tasks/requests that are not yet released are included</li>
+                <li><em>Released</em><br>Released tasks/requests are shown. Use the drop-down menu to control how far
+                    back in time the selection should be made.</li>
             </ul>
-        </li>
-    </ul>
-    <h4 class="heading">Search Settings</h4>
-    <ul class="list">
-        <li><em>Objects to search in a single API call</em> <br>
-            For the serial processing of the search, this setting controls how many objects
-            will be searched during a single back end call in an ongoing search query.</li>
+            <p>Additionally, the default pattern for tasks/requests - as used by <code class="code">SE09</code> - is
+                used to restrict the result (e.g in case of the system id being <code class="code">A4H</code> the
+                pattern will be <code class="code">A4H*</code>)</p>
+            <div class="alert info">
+                <div class="alert-tip__text"></div>
+                By using the integrated value help via <code class="code">F4</code>, these settings can all be
+                overridden
+            </div>
         </li>
     </ul>
     <h3 class="heading">Related Information</h3>
