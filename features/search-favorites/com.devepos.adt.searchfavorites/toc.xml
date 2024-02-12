@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toc label="Table of Contents" topic="html/favorites_overview.html">
-   <topic href="html/favorites_overview.html" label="About Search Favorites">
+   <topic href="html/favorites_overview.html" label="About ABAP Search Favorites">
    </topic>
    <topic href="html/favorites_overview.html" label="Concepts">
       <topic href="html/manage_favorites.html" label="Manage Favorites">
@@ -8,6 +8,10 @@
       <topic href="html/new_favorite.html" label="Create New Favorite">
       </topic>
       <topic href="html/preferences.html" label="Preferences">
+      </topic>
+   </topic>
+   <topic href="html/changelog/overview.html" label="What&apos;s New">
+      <topic href="html/changelog/latest-release.html" label="Version 1.1.0">
       </topic>
    </topic>
 </toc>

@@ -2,13 +2,22 @@
 html,
 #doc-body,
 body {
+    background-color: #FFF;
+    color: #333;
     font-family: Verdana, sans-serif;
 }
 
-#doc-body,
-body {
-    background-color: #FFF;
-    color: #333;
+.new-feature::after {
+    content: 'new';
+    text-transform: uppercase;
+    font-size: 10px;
+    position: relative;
+    top: -8px;
+    border-radius: 12px;
+    background: #51c751;
+    padding: 4px;
+    color: white;
+    user-select: none;
 }
 
 #doc-body,
@@ -62,6 +71,10 @@ figure img {
     color: #333;
 }
 
+.alert>table {
+    background: white;
+}
+
 .alert.default {
     border-left: 5px solid rgba(0, 0, 0, .2);
     background: rgba(0, 0, 0, .05);
@@ -84,6 +97,11 @@ figure img {
 
 .alert-warning__text::after {
     content: 'WARNING';
+    font-weight: bold;
+}
+
+.alert-limitation__text::after {
+    content: 'LIMITATION';
     font-weight: bold;
 }
 
@@ -116,9 +134,9 @@ figure figcaption::before {
 }
 
 table {
-    width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
+    margin: 1em 0;
 }
 
 table td,
@@ -129,6 +147,7 @@ table th {
 
 table th {
     background-color: #f5f5f5;
+    text-align: left;
 }
 
 .code {
@@ -222,4 +241,19 @@ a.link.external::after {
     font-family: arial, sans-serif;
     background: #fefeee;
     border: 0;
+}
+
+.custom-footer {
+    border-top: 1px solid lightgray;
+    position: relative;
+    display: flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    /*Center horizontaly ie */
+    -ms-flex-pack: center;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-top: 0.5rem;
+    margin-top: 1rem;
 }
