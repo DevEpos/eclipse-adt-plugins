@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
@@ -38,7 +39,7 @@ public class FieldAnalysis extends CdsAnalysis {
     final IDestinationProvider destProvider = adtObjectInfo.getAdapter(IDestinationProvider.class);
     node.setElementInfoProvider(new IElementInfoProvider() {
       @Override
-      public List<IElementInfo> getElements() {
+      public List<IElementInfo> getElements(final IProgressMonitor monitor) {
         return enrichColumnInfo(destProvider.getDestinationId(),
             DdicRepositoryAccessFactory.getDdicAccess()
                 .getColumnInformation(destProvider.getDestinationId(), adtObjectInfo.getUri()));

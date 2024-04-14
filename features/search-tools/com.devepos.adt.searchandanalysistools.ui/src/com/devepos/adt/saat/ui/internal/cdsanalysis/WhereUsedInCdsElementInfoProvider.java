@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
@@ -76,7 +77,7 @@ public class WhereUsedInCdsElementInfoProvider implements IElementInfoProvider {
   }
 
   @Override
-  public List<IElementInfo> getElements() {
+  public List<IElementInfo> getElements(final IProgressMonitor monitor) {
     if (settings.isSearchAssociations() && settings.isSearchFromPart() && isSelectFrom == null) {
       return Arrays.asList(createLazyWhereUsedProviderElement(true),
           createLazyWhereUsedProviderElement(false));

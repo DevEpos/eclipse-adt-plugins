@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
@@ -60,7 +61,7 @@ public class CdsTopDownElementInfoProvider implements IElementInfoProvider {
   }
 
   @Override
-  public List<IElementInfo> getElements() {
+  public List<IElementInfo> getElements(final IProgressMonitor monitor) {
     var topDownResult = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .loadTopDownAnalysis(cdsViewName, settings, destinationId);
     return topDownResult != null ? convertTopDownResult(topDownResult) : null;

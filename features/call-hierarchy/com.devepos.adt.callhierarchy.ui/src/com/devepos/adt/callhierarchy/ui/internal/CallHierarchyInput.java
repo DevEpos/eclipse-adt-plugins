@@ -93,9 +93,11 @@ public class CallHierarchyInput {
     }
 
     @Override
-    public List<IElementInfo> getElements() {
+    public List<IElementInfo> getElements(final IProgressMonitor monitor) {
       try {
-        getCallHierarchy();
+        getCallHierarchy(monitor);
+      } catch (OperationCanceledException cancelledExc) {
+        return null;
       } catch (Exception e) {
         e.printStackTrace();
         hasError = true;
@@ -146,7 +148,7 @@ public class CallHierarchyInput {
       return "Loading Call Hierarchy...";
     }
 
-    private void getCallHierarchy() {
+    private void getCallHierarchy(final IProgressMonitor monitor) {
       Map<String, Object> queryParams = new HashMap<>();
       if (hierarchyObjectIdentifier != null) {
         queryParams.put(HierarchyQueryParams.PATH_TYPE.getLiteral(), PathType.FULL_NAME
@@ -161,7 +163,7 @@ public class CallHierarchyInput {
           .equals(InterfaceMethodResolution.FIND_FIRST_IMPLEMENTER.name())) {
         queryParams.put(HierarchyQueryParams.AUTO_RESOLVE_INTF_METHOD.getLiteral(), "true");
       }
-      hierarchyResult = hierarchyService.getCallHierarchy(destinationId, queryParams);
+      hierarchyResult = hierarchyService.getCallHierarchy(destinationId, monitor, queryParams);
 
       if (hierarchyResult != null && hierarchyObjectIdentifier == null) {
         hierarchyObjectIdentifier = hierarchyResult.getOriginObjectIdentifier();

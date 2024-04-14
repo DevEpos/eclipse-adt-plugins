@@ -4,8 +4,8 @@ import java.net.URI;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 
@@ -27,7 +27,7 @@ public class CallHierarchyService implements ICallHierarchyService {
 
   @Override
   public IHierarchyResult getCallHierarchy(final String destinationId,
-      final Map<String, Object> queryParams) {
+      final IProgressMonitor monitor, final Map<String, Object> queryParams) {
     CallHierarchyUriDiscovery uriDiscovery = new CallHierarchyUriDiscovery(destinationId);
 
     if (queryParams == null) {
@@ -43,7 +43,7 @@ public class CallHierarchyService implements ICallHierarchyService {
       final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
           .createRestResource(hierarchyUri, session);
       restResource.addContentHandler(new CallHierarchyResultContentHandler());
-      return restResource.get(new NullProgressMonitor(), IHierarchyResult.class);
+      return restResource.get(monitor, IHierarchyResult.class);
     }
     return null;
   }

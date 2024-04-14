@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.JFacePreferences;
@@ -144,7 +145,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
     }
 
     @Override
-    public List<IElementInfo> getElements() {
+    public List<IElementInfo> getElements(final IProgressMonitor monitor) {
       var treeRequest = IAbapTagsFactory.eINSTANCE.createTaggedObjectTreeRequest();
       if (tagId != null) {
         treeRequest.setTagId(tagId);

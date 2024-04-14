@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -45,7 +46,7 @@ public class FieldWhereUsedInCdsElementInfoProvider implements IElementInfoProvi
   }
 
   @Override
-  public List<IElementInfo> getElements() {
+  public List<IElementInfo> getElements(final IProgressMonitor monitor) {
     var whereUsedResult = CdsAnalysisServiceFactory.getCdsAnalysisService()
         .loadWhereUsedFieldAnalysis(objectName, field, settings, destinationId);
     if (whereUsedResult != null && !whereUsedResult.getFieldInfos().isEmpty()) {

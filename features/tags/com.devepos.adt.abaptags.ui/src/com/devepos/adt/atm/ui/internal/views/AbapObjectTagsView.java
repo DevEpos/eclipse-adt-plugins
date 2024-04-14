@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -181,7 +182,7 @@ public class AbapObjectTagsView extends ViewPart {
     }
 
     @Override
-    public List<IElementInfo> getElements() throws CoreException {
+    public List<IElementInfo> getElements(final IProgressMonitor monitor) throws CoreException {
       final IAdtObjTaggingService taggingService = AdtObjTaggingServiceFactory
           .createTaggingService();
 
