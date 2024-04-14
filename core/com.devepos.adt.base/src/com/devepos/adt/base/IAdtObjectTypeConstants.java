@@ -18,6 +18,7 @@ public interface IAdtObjectTypeConstants {
   String DATA_DEFINITION = "DDLS/DF";
 
   String TABLE_DEFINITION_TYPE = "TABL/DT";
+  String STRUCTURE = "TABL/DS";
   String TABLE_SIMPLE_TYPE = "TABL";
   String TABLE_FIELD_TYPE = "TABL/DTF";
   String TABLE_SETTINGS_TYPE = "TABL/DTT";

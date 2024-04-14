@@ -23,4 +23,6 @@ public interface ITadirTypeConstants {
   String TABLE = "TABL";
   String TYPE_GROUP = "TYPE";
   String VIEW = "VIEW";
+  String DATABASE_TABLE = "DTAB";
+  String STRUCTURE = "STRU";
 }
