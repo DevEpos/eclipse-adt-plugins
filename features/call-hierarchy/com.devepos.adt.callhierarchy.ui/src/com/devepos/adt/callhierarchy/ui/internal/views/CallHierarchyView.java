@@ -10,6 +10,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -25,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.PageBook;
@@ -50,9 +53,11 @@ import com.devepos.adt.base.ui.action.ViewLayoutActionFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ICollectionTreeNode;
+import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
 import com.devepos.adt.base.ui.viewsupport.ViewerSelectionProviderAdapter;
+import com.devepos.adt.callhierarchy.backend.HierarchyMode;
 import com.devepos.adt.callhierarchy.model.callhierarchy.ICallPosition;
 import com.devepos.adt.callhierarchy.model.callhierarchy.IHierarchyResultEntry;
 import com.devepos.adt.callhierarchy.ui.internal.Activator;
@@ -97,12 +102,15 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   private Label noHierarchyShownLabel;
   private PageBook pageBook;
   private Composite viewerContainer;
+  private Composite hierarchyContent;
+  private Label hierarchyDescription;
 
   private boolean isPinned;
 
   private HistoryDropDownAction historyDropDownAction;
   private PinViewAction pinViewAction;
   private Action refreshAction;
+  private Action cancelAction;
   private ToggleViewLayoutAction viewLayoutAction;
   private Action showDescriptionsAction;
   private OpenPreferencesAction openPreferencesAction;
@@ -115,6 +123,8 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   private MenuManager menuMgr;
   private final IPreferenceStore prefStore;
   private final CallHierarchyViewSettings viewSettings;
+
+  private LazyLoadingTreeContentProvider hierarchyContentProvider;
 
   public CallHierarchyView() {
     viewStates = new HashMap<>();
@@ -156,7 +166,8 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     public void run() {
       if (currentHierarchy != null) {
         currentHierarchy.refresh();
-        setContentDescription(currentHierarchy.getLabel());
+        hierarchyDescription.setText(currentHierarchy.getLabel());
+        hierarchyContent.layout();
         getViewer().refresh();
       }
     }
@@ -198,7 +209,9 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     getSite().setSelectionProvider(viewerAdapter);
     registerMenu();
 
-    createHierarchySplitter(pageBook);
+    createMainContainer(pageBook);
+
+    createHierarchySplitter(hierarchyContent);
     createViewerContainer(hierarchySplitter);
     setupHierarchyViewer();
     createLocationViewer(hierarchySplitter);
@@ -215,6 +228,21 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
     } else {
       showPage(PAGE_EMPTY);
     }
+  }
+
+  private void createMainContainer(Composite parent) {
+    hierarchyContent = new Composite(parent, SWT.NONE);
+    GridLayoutFactory.swtDefaults().margins(0, 0).spacing(SWT.DEFAULT, 0).applyTo(hierarchyContent);
+
+    hierarchyDescription = new Label(hierarchyContent, SWT.NONE | SWT.WRAP);
+    GridDataFactory.fillDefaults()
+        .align(SWT.BEGINNING, SWT.CENTER)
+        .grab(true, false)
+        .applyTo(hierarchyDescription);
+
+    hierarchyDescription.setText("");
+    var separator = new Label(hierarchyContent, SWT.SEPARATOR | SWT.HORIZONTAL);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(separator);
   }
 
   @Override
@@ -279,7 +307,8 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   }
 
   private void configureHierarchyViewer(final Composite parent) {
-    hierarchyViewer.setContentProvider(new ContentProvider());
+    hierarchyContentProvider = new ContentProvider();
+    hierarchyViewer.setContentProvider(hierarchyContentProvider);
 
     hierarchyViewer.addOpenListener(event -> {
       final ITreeSelection sel = (ITreeSelection) event.getSelection();
@@ -335,8 +364,8 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
             viewLayoutActionSettings);
 
     hierarchyViewerLayoutAction = new RadioActionGroup();
-    hierarchyViewerLayoutAction.addAction(HierarchyViewerType.TREE.name(), HierarchyViewerType.TREE
-        .getActionLabel(), null, true);
+    hierarchyViewerLayoutAction.addAction(HierarchyViewerType.TREE.name(),
+        HierarchyViewerType.TREE.getActionLabel(), null, true);
     hierarchyViewerLayoutAction.addAction(HierarchyViewerType.TREE_TABLE.name(),
         HierarchyViewerType.TREE_TABLE.getActionLabel(), null, false);
     hierarchyViewerLayoutAction.setActionChecked(viewSettings.getHierarchyViewerType().name());
@@ -359,24 +388,30 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
           viewSettings.setShowObjectDescriptions(showDescriptionsAction.isChecked());
           getViewer().refresh();
         });
-    showDescriptionsAction.setChecked(prefStore.getBoolean(
-        IPreferences.CALL_HIERARCHY_SHOW_OBJECT_DESCRIPTIONS));
+    showDescriptionsAction
+        .setChecked(prefStore.getBoolean(IPreferences.CALL_HIERARCHY_SHOW_OBJECT_DESCRIPTIONS));
 
     openPreferencesAction = new OpenPreferencesAction(CallHierarchyPreferencesPage.PAGE_ID);
 
     viewModeActionGroup = new RadioActionGroup();
-    viewModeActionGroup.addAction(CALLEE_HIERARCHY_VIEW_MODE, "Show Callee Hierarchy", Activator
-        .getDefault()
-        .getImageDescriptor(IImages.CALLEE_HIERARCHY_MODE), true);
-    viewModeActionGroup.addAction(CALLER_HIERARCHY_VIEW_MODE, "Show Caller Hierarchy", Activator
-        .getDefault()
-        .getImageDescriptor(IImages.CALLER_HIERARCHY_MODE), false);
+    viewModeActionGroup.addAction(CALLER_HIERARCHY_VIEW_MODE, "Show Caller Hierarchy",
+        Activator.getDefault().getImageDescriptor(IImages.CALLER_HIERARCHY_MODE), true);
+    viewModeActionGroup.addAction(CALLEE_HIERARCHY_VIEW_MODE, "Show Callee Hierarchy",
+        Activator.getDefault().getImageDescriptor(IImages.CALLEE_HIERARCHY_MODE), false);
 
     viewModeActionGroup.addActionToggledListener(this::viewModeChanged);
+
+    cancelAction = ActionFactory.createAction("Cancel",
+        PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_STOP),
+        () -> {
+          hierarchyContentProvider
+              .cancelChildLoading((ILazyLoadingNode) currentHierarchy.getResult());
+        });
   }
 
   private void createHierarchySplitter(final Composite parent) {
     hierarchySplitter = new SashForm(parent, SWT.NONE);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(hierarchySplitter);
   }
 
   private void createHierarchyViewer(final Composite parent) {
@@ -428,8 +463,8 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
       final IAdtObjectReferenceNode selectedAdtObject = (IAdtObjectReferenceNode) treeNode;
 
       if (selectedAdtObject != null) {
-        final IDestinationProvider destProvider = selectedAdtObject.getAdapter(
-            IDestinationProvider.class);
+        final IDestinationProvider destProvider = selectedAdtObject
+            .getAdapter(IDestinationProvider.class);
         if (destProvider != null) {
           final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
               .getProviderForDestination(destProvider.getDestinationId());
@@ -455,6 +490,7 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
 
     createToolBarGroups(tbm);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, refreshAction);
+    // tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, cancelAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, historyDropDownAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_SEARCH, pinViewAction);
     tbm.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, collapseAllNodesAction);
@@ -512,11 +548,16 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
 
   private void setInput() {
     hierarchyViewer.setInput(currentHierarchy.getResult());
+    viewModeActionGroup.setActionChecked(
+        currentHierarchy.getMode() == HierarchyMode.CALLERS ? CALLER_HIERARCHY_VIEW_MODE
+            : CALLEE_HIERARCHY_VIEW_MODE);
     if (!currentHierarchy.isResultLoaded()) {
       currentHierarchy.addResultLoadedListener(l -> {
         PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-          setContentDescription(currentHierarchy.getLabel());
-          // hierarchyViewer.expandAll();
+          hierarchyDescription.setText(currentHierarchy.getLabel());
+
+          hierarchyContent.layout();
+          hierarchyViewer.expandAll();
         });
       });
       hierarchyViewer.expandAll();
@@ -538,12 +579,11 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
 
   private void showPage(final int page) {
     boolean isEmpty = page == PAGE_EMPTY;
-    Control control = isEmpty ? (Control) noHierarchyShownLabel : hierarchySplitter;
-    if (isEmpty) {
-      setContentDescription(""); //$NON-NLS-1$
-      setTitleToolTip(getPartName());
-    } else if (currentHierarchy != null) {
-      setContentDescription(currentHierarchy.getLabel());
+    Control control = isEmpty ? (Control) noHierarchyShownLabel : hierarchyContent;
+
+    if (currentHierarchy != null) {
+      hierarchyDescription.setText(currentHierarchy.getLabel());
+      hierarchyContent.layout();
     }
     pageBook.showPage(control);
     if (refreshAction != null) {
@@ -558,10 +598,9 @@ public class CallHierarchyView extends ViewPart implements IPinnableView, ICallH
   }
 
   private void viewModeChanged(String actionId) {
-    if (actionId == CALLER_HIERARCHY_VIEW_MODE) {
-      // TODO: switch to caller hierarchy
-    } else {
-      // TODO: switch to callee hierarchy
-    }
+    hierarchyContentProvider.cancelChildLoading((ILazyLoadingNode) currentHierarchy.getResult());
+    currentHierarchy.setMode(
+        actionId == CALLER_HIERARCHY_VIEW_MODE ? HierarchyMode.CALLERS : HierarchyMode.CALLEES);
+    refreshAction.run();
   }
 }

@@ -1,13 +1,13 @@
 package com.devepos.adt.callhierarchy.backend.internal;
 
 import java.net.URI;
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.osgi.util.NLS;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.callhierarchy.backend.ICallHierarchyService;
@@ -33,8 +33,8 @@ public class CallHierarchyService implements ICallHierarchyService {
     if (queryParams == null) {
       throw new IllegalArgumentException("No query parameters not supplied");
     }
-    URI hierarchyUri = uriDiscovery.createUriFromTemplate(uriDiscovery
-        .getCallHierarchyUriTemplate(), queryParams);
+    URI hierarchyUri = uriDiscovery
+        .createUriFromTemplate(uriDiscovery.getCallHierarchyUriTemplate(), queryParams);
 
     if (hierarchyUri != null) {
       final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
@@ -50,14 +50,13 @@ public class CallHierarchyService implements ICallHierarchyService {
 
   @Override
   public IStatus testCallHierarchyFeatureAvailability(final IProject project) {
-    CallHierarchyUriDiscovery uriDiscovery = new CallHierarchyUriDiscovery(DestinationUtil
-        .getDestinationId(project));
+    CallHierarchyUriDiscovery uriDiscovery = new CallHierarchyUriDiscovery(
+        DestinationUtil.getDestinationId(project));
 
-    return uriDiscovery != null && uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery
-        .getCallHierarchyUri() != null ? Status.OK_STATUS
-            : new Status(IStatus.ERROR, Activator.PLUGIN_ID, NLS.bind(
-                "ABAP Call Hierarchy is not available in the project ''{0}''", new Object[] {
-                    project.getName() }));
+    return uriDiscovery != null && uriDiscovery.isResourceDiscoverySuccessful()
+        && uriDiscovery.getCallHierarchyUri() != null ? Status.OK_STATUS
+            : new Status(IStatus.ERROR, Activator.PLUGIN_ID, MessageFormat.format(
+                "ABAP Call Hierarchy is not available in the project ''{0}''", project.getName()));
   }
 
 }

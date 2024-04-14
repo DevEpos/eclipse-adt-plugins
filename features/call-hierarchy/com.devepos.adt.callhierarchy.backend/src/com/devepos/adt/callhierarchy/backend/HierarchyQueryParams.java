@@ -9,7 +9,8 @@ package com.devepos.adt.callhierarchy.backend;
 public enum HierarchyQueryParams {
   PATH("path"),
   PATH_TYPE("pathType"),
-  AUTO_RESOLVE_INTF_METHOD("autoResolveIntfMethod");
+  AUTO_RESOLVE_INTF_METHOD("autoResolveIntfMethod"),
+  MODE("mode");
 
   private String literal;
 
