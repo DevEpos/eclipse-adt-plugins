@@ -372,7 +372,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     boolean searchMatchSelected = false;
 
     List<String> relevantAdtTypesForCodeSearch = CodeSearchRelevantWbTypesUtil
-        .getCodeSearchableAdtTypes();
+        .getCodeSearchableAdtTypes(getSearchQuery().getProject());
 
     for (Object selObj : selection) {
       if (collapsedPackageSelected && expandedNodeSelected) {

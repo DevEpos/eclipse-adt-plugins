@@ -207,7 +207,7 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     }
 
     private void collectObjectInformation(final IProject project) {
-      List<String> relevantWbTypes = CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler();
+      var relevantWbTypes = CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(project);
 
       for (IAdtObject adtObj : adtObjects) {
         IAdtObjectReference adtObjRef = adtObj.getReference();
@@ -224,8 +224,14 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     }
 
     private void collectObjectName(final IAdtObjectReference adtObjRef, final IProject project) {
-      String mainAdtType = adtObjRef.getType().substring(0, 4);
-      objectTypes.add(mainAdtType.toLowerCase());
+      if (IAdtObjectTypeConstants.STRUCTURE.equals(adtObjRef.getType())) {
+        objectTypes.add(ITadirTypeConstants.STRUCTURE.toLowerCase());
+      } else if (IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE.equals(adtObjRef.getType())) {
+        objectTypes.add(ITadirTypeConstants.DATABASE_TABLE.toLowerCase());
+      } else {
+        String mainAdtType = adtObjRef.getType().substring(0, 4);
+        objectTypes.add(mainAdtType.toLowerCase());
+      }
 
       if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(adtObjRef.getType())
           || IAdtObjectTypeConstants.FUNCTION_MODULE.equals(adtObjRef.getType())) {
@@ -322,9 +328,8 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     }
 
     private void addTypeFilters() {
-      addFiltersToFilterString(
-          CodeSearchRelevantWbTypesUtil.extractValidTypeFilters(node.getTypeFilters()),
-          FilterName.OBJECT_TYPE.getContentAssistName());
+      addFiltersToFilterString(CodeSearchRelevantWbTypesUtil.extractValidTypeFilters(
+          node.getProject(), node.getTypeFilters()), FilterName.OBJECT_TYPE.getContentAssistName());
     }
   }
 

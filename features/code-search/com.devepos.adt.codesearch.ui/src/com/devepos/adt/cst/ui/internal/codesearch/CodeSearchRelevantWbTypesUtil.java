@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
 
@@ -20,12 +22,14 @@ public class CodeSearchRelevantWbTypesUtil {
    * @param types list of types
    * @return a valid List of type filters
    */
-  public static List<String> extractValidTypeFilters(final List<String> types) {
+  public static List<String> extractValidTypeFilters(final IProject project,
+      final List<String> types) {
     if (types == null || types.isEmpty()) {
       return null;
     }
     List<String> validTypes = new ArrayList<>();
-    List<String> possibleTypes = CodeSearchRelevantWbTypesUtil.getPossibleValuesForTypeFilter();
+    List<String> possibleTypes = CodeSearchRelevantWbTypesUtil
+        .getPossibleValuesForTypeFilter(project);
 
     for (String filter : types) {
       if (possibleTypes.stream().anyMatch(f -> f.equalsIgnoreCase(filter))) {
@@ -45,7 +49,7 @@ public class CodeSearchRelevantWbTypesUtil {
    *
    * @return list of ADT types
    */
-  public static List<String> getCodeSearchableAdtTypes() {
+  public static List<String> getCodeSearchableAdtTypes(final IProject project) {
     if (SEARCHABLE_ADT_TYPES == null) {
       SEARCHABLE_ADT_TYPES = Arrays.asList(IAdtObjectTypeConstants.INTERFACE,
           IAdtObjectTypeConstants.CLASS, IAdtObjectTypeConstants.PROGRAM,
@@ -55,7 +59,10 @@ public class CodeSearchRelevantWbTypesUtil {
           IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION, IAdtObjectTypeConstants.FUNCTION_GROUP);
     }
 
-    return SEARCHABLE_ADT_TYPES;
+    var types = new ArrayList<>(SEARCHABLE_ADT_TYPES);
+    types.addAll(ProjectDependentTypeAvailability.getAdtTypesForProject(project));
+
+    return types;
   }
 
   /**
@@ -63,7 +70,7 @@ public class CodeSearchRelevantWbTypesUtil {
    *
    * @return list of possible filter values
    */
-  public static List<String> getPossibleValuesForTypeFilter() {
+  public static List<String> getPossibleValuesForTypeFilter(final IProject project) {
     if (POSSIBLE_TYPE_FILTERS == null) {
       POSSIBLE_TYPE_FILTERS = Arrays.asList(ITadirTypeConstants.CLASS,
           ITadirTypeConstants.INTERFACE, ITadirTypeConstants.PROGRAM,
@@ -73,7 +80,11 @@ public class CodeSearchRelevantWbTypesUtil {
           ITadirTypeConstants.BEHAVIOR_DEFINITION, ITadirTypeConstants.SIMPLE_TRANSFORMATION,
           ITadirTypeConstants.FUNCTION_GROUP);
     }
-    return POSSIBLE_TYPE_FILTERS;
+
+    var types = new ArrayList<>(POSSIBLE_TYPE_FILTERS);
+    types.addAll(ProjectDependentTypeAvailability.getTypesForProject(project));
+
+    return types;
   }
 
   /**
@@ -81,7 +92,7 @@ public class CodeSearchRelevantWbTypesUtil {
    *
    * @return list of ADT workbench types
    */
-  public static List<String> getRelevantTypesForHandler() {
+  public static List<String> getRelevantTypesForHandler(final IProject project) {
     if (RELEVANT_TYPES == null) {
       RELEVANT_TYPES = Arrays.asList(IAdtObjectTypeConstants.CLASS,
           IAdtObjectTypeConstants.CLASS_INCLUDE, IAdtObjectTypeConstants.INTERFACE,
@@ -92,7 +103,11 @@ public class CodeSearchRelevantWbTypesUtil {
           IAdtObjectTypeConstants.ACCESS_CONTROL, IAdtObjectTypeConstants.DATA_DEFINITION,
           IAdtObjectTypeConstants.METADATA_EXTENSION);
     }
-    return RELEVANT_TYPES;
+
+    var types = new ArrayList<>(RELEVANT_TYPES);
+    types.addAll(ProjectDependentTypeAvailability.getAdtTypesForProject(project));
+
+    return types;
   }
 
   /**

@@ -49,7 +49,7 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
     }
     if (parameters == null) {
       parameters = new ArrayList<>();
-      parameters.add(new ObjectTypeSearchFilter());
+      parameters.add(new ObjectTypeSearchFilter(projectProvider));
       parameters.add(new UserSearchFilter(projectProvider, FilterName.OWNER.getContentAssistName(),
           Messages.CodeSearchScopeFilters_ownerFilterShortDescription_xmsg, null));
       parameters.add(new PackageSearchFilter(projectProvider));

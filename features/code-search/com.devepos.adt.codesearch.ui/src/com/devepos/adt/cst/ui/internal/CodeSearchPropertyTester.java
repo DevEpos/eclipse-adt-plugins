@@ -47,13 +47,9 @@ public class CodeSearchPropertyTester extends PropertyTester {
 
   static {
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_CORE_DATA_SERVICES);
+    VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_DICTIONARY);
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_TRANSFORMATIONS);
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_SOURCE_LIBRARY);
-    VALID_VIRT_FOLDER_TYPE_KEYS
-        .addAll(CodeSearchRelevantWbTypesUtil.getPossibleValuesForTypeFilter()
-            .stream()
-            .map(String::toLowerCase)
-            .collect(Collectors.toList()));
   }
 
   public CodeSearchPropertyTester() {
@@ -107,7 +103,8 @@ public class CodeSearchPropertyTester extends PropertyTester {
         if (VALID_VIRT_FOLDER_TYPES.contains(virtualFolder.getFolderType())) {
           if (virtualFolder.getFolderType().equals(IVirtualFolderNode.FOLDER_TYPE_TYPE)
               || virtualFolder.getFolderType().equals(IVirtualFolderNode.FOLDER_TYPE_GROUP)) {
-            return VALID_VIRT_FOLDER_TYPE_KEYS.contains(virtualFolder.getFolderKey());
+            return getVirtualFolderTypeKeys(virtualFolder.getProject())
+                .contains(virtualFolder.getFolderKey());
           }
           return true;
         }
@@ -116,7 +113,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
     } else if (receiver instanceof IAbapRepositoryFolderNode) {
       // should only be relevant for 7.40-7.50 as Repository Trees and therefore Virtual Folders
       // are available starting with 7.51
-      IAbapRepositoryFolderNode folder = (IAbapRepositoryFolderNode) receiver;
+      final IAbapRepositoryFolderNode folder = (IAbapRepositoryFolderNode) receiver;
       project = folder.getProject();
       String destinationId = DestinationUtil.getDestinationId(project);
       additionalCheck = () -> {
@@ -147,7 +144,8 @@ public class CodeSearchPropertyTester extends PropertyTester {
         }
         String type = folder.getType();
         return type != null
-            && CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler().contains(type);
+            && CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(folder.getProject())
+                .contains(type);
       };
     }
 
@@ -158,12 +156,21 @@ public class CodeSearchPropertyTester extends PropertyTester {
     return additionalCheck != null ? additionalCheck.get() && isProjectValid : isProjectValid;
   }
 
+  private List<String> getVirtualFolderTypeKeys(final IProject project) {
+    List<String> typeKeys = new ArrayList<>(VALID_VIRT_FOLDER_TYPE_KEYS);
+    typeKeys.addAll(CodeSearchRelevantWbTypesUtil.getPossibleValuesForTypeFilter(project)
+        .stream()
+        .map(String::toLowerCase)
+        .collect(Collectors.toList()));
+    return typeKeys;
+  }
+
   private boolean isObjectSearchable(final IAdtObject adtObj) {
     String adtType = adtObj.getReference().getType();
     if (adtType == null) {
       return false;
     }
-    return CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler()
+    return CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(adtObj.getProject())
         .stream()
         .anyMatch(type -> type.equalsIgnoreCase(adtType));
   }

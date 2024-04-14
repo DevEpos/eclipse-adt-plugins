@@ -13,6 +13,7 @@ import org.eclipse.ui.dialogs.SearchPattern;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
+import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.contentassist.ITextQueryProposalProvider;
@@ -21,6 +22,7 @@ import com.devepos.adt.base.ui.search.contentassist.SearchFilterValueProposal;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.util.IAdtObjectTypeProxy;
 import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
+import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 
 /**
@@ -35,8 +37,10 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
   private final Map<String, IAdtObjectTypeProxy> adtTypeMap = new TreeMap<>();
   private String description;
   private Image image;
+  private final IAbapProjectProvider projectProvider;
 
-  public ObjectTypeSearchFilter() {
+  public ObjectTypeSearchFilter(final IAbapProjectProvider projectProvider) {
+    this.projectProvider = projectProvider;
   }
 
   @Override
@@ -72,8 +76,15 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
       initAdtTypes();
     }
     List<IContentProposal> proposals = new ArrayList<>();
+
+    var typesForProject = ProjectDependentTypeAvailability
+        .getTypesForProject(projectProvider.getProject());
+
     if (query == null || query.isEmpty()) {
       adtTypeMap.forEach((key, value) -> {
+        if (!ProjectDependentTypeAvailability.isTypeAvailable(key, typesForProject)) {
+          return;
+        }
         proposals.add(new SearchFilterValueProposal(key, this, value.getDescription(), "", value //$NON-NLS-1$
             .getImage()));
       });
@@ -81,6 +92,9 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
       SearchPattern searchPattern = createPattern(query.toLowerCase());
       for (String typeName : adtTypeMap.keySet()) {
         if (searchPattern.matches(typeName)) {
+          if (!ProjectDependentTypeAvailability.isTypeAvailable(typeName, typesForProject)) {
+            continue;
+          }
           IAdtObjectTypeProxy adtType = adtTypeMap.get(typeName);
           proposals.add(new SearchFilterValueProposal(typeName, this, adtType.getDescription(),
               query, adtType.getImage()));
@@ -145,5 +159,9 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
         typeUtil.getType(IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION));
     adtTypeMap.put(ITadirTypeConstants.FUNCTION_GROUP,
         typeUtil.getType(IAdtObjectTypeConstants.FUNCTION_GROUP));
+    adtTypeMap.put(ITadirTypeConstants.DATABASE_TABLE,
+        typeUtil.getType(IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE));
+    adtTypeMap.put(ITadirTypeConstants.STRUCTURE,
+        typeUtil.getType(IAdtObjectTypeConstants.STRUCTURE));
   }
 }
