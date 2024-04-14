@@ -1,18 +1,9 @@
 package com.devepos.adt.base.internal.plugin.features;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
-
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
-import com.devepos.adt.base.plugin.features.IAdtPluginFeaturesService;
-import com.sap.adt.communication.resources.AdtRestResourceFactory;
-import com.sap.adt.communication.resources.IRestResource;
-import com.sap.adt.communication.resources.ResourceException;
-import com.sap.adt.communication.session.AdtSystemSessionFactory;
-import com.sap.adt.communication.session.ISystemSession;
 
 /**
  * Implementation for plugin feature service. <br>
@@ -24,7 +15,7 @@ import com.sap.adt.communication.session.ISystemSession;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService {
+public class CachedAdtPluginFeaturesService extends AdtPluginFeaturesService {
 
   private final Map<String, Map<String, IAdtPluginFeatureList>> cache = new HashMap<>();
 
@@ -44,23 +35,12 @@ public class CachedAdtPluginFeaturesService implements IAdtPluginFeaturesService
       cache.put(destinationId, new HashMap<>());
     }
 
-    Map<String, IAdtPluginFeatureList> destinationCache = cache.get(destinationId);
+    var destinationCache = cache.get(destinationId);
 
     if (destinationCache.containsKey(uri)) {
       return destinationCache.get(uri);
     }
-    IAdtPluginFeatureList featureList = null;
-    final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
-        .createStatelessSession(destinationId);
-
-    final IRestResource restResource = AdtRestResourceFactory.createRestResourceFactory()
-        .createRestResource(URI.create(uri), session);
-    restResource.addContentHandler(new AdtPluginFeaturesContentHandler());
-    try {
-      featureList = restResource.get(new NullProgressMonitor(), IAdtPluginFeatureList.class);
-    } catch (final ResourceException exc) {
-      exc.printStackTrace();
-    }
+    var featureList = getFeatureList(destinationId, uri);
     destinationCache.put(uri, featureList);
     return featureList;
   }

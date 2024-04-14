@@ -1,5 +1,6 @@
 package com.devepos.adt.base.plugin.features;
 
+import com.devepos.adt.base.internal.plugin.features.AdtPluginFeaturesService;
 import com.devepos.adt.base.internal.plugin.features.CachedAdtPluginFeaturesService;
 
 /**
@@ -19,7 +20,13 @@ public class AdtPluginFeaturesServiceFactory {
    */
   public static IAdtPluginFeaturesService createService() {
     if (INSTANCE == null) {
-      INSTANCE = new CachedAdtPluginFeaturesService();
+      var pluginFeatureCacheDisabledProp = System
+          .getProperty("com.devepos.adt.base.pluginFeatureCacheDisabled", Boolean.FALSE.toString());
+      if (Boolean.parseBoolean(pluginFeatureCacheDisabledProp)) {
+        INSTANCE = new AdtPluginFeaturesService();
+      } else {
+        INSTANCE = new CachedAdtPluginFeaturesService();
+      }
     }
     return INSTANCE;
   }
