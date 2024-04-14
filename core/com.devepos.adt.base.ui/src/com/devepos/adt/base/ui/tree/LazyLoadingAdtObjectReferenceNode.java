@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
@@ -69,7 +70,7 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode
 
   @Override
   public boolean hasChildren() {
-    return (!isLoaded || ((children != null) && !children.isEmpty()));
+    return !isLoaded || children != null && !children.isEmpty();
   }
 
   @Override
@@ -83,11 +84,11 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode
   }
 
   @Override
-  public void loadChildren() throws CoreException {
+  public void loadChildren(final IProgressMonitor monitor) throws CoreException {
     isLoading = true;
     CoreException loadingError = null;
     try {
-      loadChildrenInternal();
+      loadChildrenInternal(monitor);
     } catch (CoreException exc) {
       loadingError = exc;
     }
@@ -111,6 +112,7 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode
   @Override
   public void resetLoadedState() {
     isLoaded = false;
+    isLoading = false;
     if (children != null) {
       children.clear();
     }
@@ -130,12 +132,12 @@ public class LazyLoadingAdtObjectReferenceNode extends AdtObjectReferenceNode
   /**
    * Internal logic for loading the child nodes of this tree node
    */
-  protected void loadChildrenInternal() throws CoreException {
+  protected void loadChildrenInternal(final IProgressMonitor monitor) throws CoreException {
     if (provider == null) {
       return;
     }
     try {
-      final List<IElementInfo> elements = provider.getElements();
+      final List<IElementInfo> elements = provider.getElements(monitor);
       if (elements == null || elements.isEmpty()) {
         return;
       }

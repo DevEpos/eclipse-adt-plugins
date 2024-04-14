@@ -1,11 +1,13 @@
 package com.devepos.adt.base.ui.tree;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -21,7 +23,6 @@ import org.eclipse.ui.progress.WorkbenchJob;
 import com.devepos.adt.base.elementinfo.ILazyLoadableContent;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
 import com.devepos.adt.base.ui.internal.messages.Messages;
-import com.devepos.adt.base.util.ObjectContainer;
 
 /**
  * Tree content provider which implements a lazy loading mechanism to fetch
@@ -36,6 +37,8 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
   private int refreshModeExpansionLevel;
   private LazyLoadingRefreshMode refreshMode;
   private INodeExpansionCheck expansionCheck;
+
+  private final Map<ILazyLoadingNode, Job> loadingJobs = new HashMap<>();
 
   /**
    * Creates new instance of a tree content provider that support lazy loading of
@@ -161,6 +164,18 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
     this.refreshMode = refreshMode;
   }
 
+  /**
+   * Cancels the current lazy node child loading job
+   */
+  public void cancelChildLoading(final ILazyLoadingNode node) {
+    var jobForNode = loadingJobs.get(node);
+    if (jobForNode != null) {
+      node.resetLoadedState();
+      jobForNode.cancel();
+      loadingJobs.remove(node);
+    }
+  }
+
   protected void refreshViewer() {
     if (viewer == null) {
       return;
@@ -178,55 +193,80 @@ public class LazyLoadingTreeContentProvider extends TreeContentProvider {
       jobName = NLS.bind(Messages.LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg,
           ((ITreeNode) lazyNode).getDisplayName());
     }
-    Job.create(jobName, new ChildElementLoader(viewer.getControl().getDisplay(), lazyNode))
-        .schedule();
+    var loadingJob = new ChildElementLoadingJob(jobName, viewer.getControl().getDisplay(),
+        lazyNode);
+    loadingJobs.put(lazyNode, loadingJob);
+
+    loadingJob.schedule();
   }
 
   /**
    * Job for loading the child nodes of an element
-   *
-   * @author Ludwig Stockbauer-Muhr
    */
-  protected class ChildElementLoader implements ICoreRunnable {
+  protected class ChildElementLoadingJob extends Job {
     private final Display display;
     private final ILazyLoadingNode lazyLoadingNode;
 
-    public ChildElementLoader(final Display display, final ILazyLoadingNode lazyLoadingNode) {
+    public ChildElementLoadingJob(final String jobName, final Display display,
+        final ILazyLoadingNode lazyLoadingNode) {
+      super(jobName);
       this.display = display;
       this.lazyLoadingNode = lazyLoadingNode;
-
     }
 
     @Override
-    public void run(final IProgressMonitor monitor) throws CoreException {
-      var wrappedLoadingError = new ObjectContainer<CoreException>(null);
+    public IStatus run(final IProgressMonitor monitor) {
+      var wrappedLoadingError = new AtomicReference<CoreException>(null);
       try {
-        lazyLoadingNode.loadChildren();
+        lazyLoadingNode.loadChildren(monitor);
       } catch (final CoreException exc) {
-        wrappedLoadingError.setObject(exc);
+        wrappedLoadingError.set(exc);
       }
-      monitor.done();
-      final WorkbenchJob treeUpdateJob = new WorkbenchJob(display,
-          Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg) {
+      if (monitor.isCanceled()) {
+        loadingJobs.remove(lazyLoadingNode);
+        return Status.CANCEL_STATUS;
+      }
+      var treeUpdateJob = new TreeUpdateJob(display,
+          Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, lazyLoadingNode,
+          wrappedLoadingError.get());
 
-        @Override
-        public IStatus runInUIThread(final IProgressMonitor monitor) {
-          final Control control = viewer.getControl();
-          if (control.isDisposed()) {
-            return Status.CANCEL_STATUS;
-          }
-          monitor.beginTask(Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, -1);
-          refreshLazyNode();
-          monitor.done();
-          var loadingError = wrappedLoadingError.getObject();
-          if (loadingError != null) {
-            return loadingError.getStatus();
-          }
-          return Status.OK_STATUS;
-        }
-      };
       treeUpdateJob.setSystem(true);
       treeUpdateJob.schedule();
+
+      loadingJobs.remove(lazyLoadingNode);
+
+      return Status.OK_STATUS;
+    }
+
+  }
+
+  /**
+   * Job to update the lazy loading node and its loaded child nodes
+   */
+  protected class TreeUpdateJob extends WorkbenchJob {
+    private final CoreException loadingError;
+    private final ILazyLoadingNode lazyLoadingNode;
+
+    public TreeUpdateJob(final Display jobDisplay, final String name,
+        final ILazyLoadingNode lazyLoadingNode, final CoreException loadingError) {
+      super(jobDisplay, name);
+      this.lazyLoadingNode = lazyLoadingNode;
+      this.loadingError = loadingError;
+    }
+
+    @Override
+    public IStatus runInUIThread(final IProgressMonitor monitor) {
+      final Control control = viewer.getControl();
+      if (control.isDisposed()) {
+        return Status.CANCEL_STATUS;
+      }
+      monitor.beginTask(Messages.LazyLoadingTreeContentProvider_UpdatingTreeContent_xmsg, -1);
+      refreshLazyNode();
+      monitor.done();
+      if (loadingError != null) {
+        return loadingError.getStatus();
+      }
+      return Status.OK_STATUS;
     }
 
     private void refreshLazyNode() {

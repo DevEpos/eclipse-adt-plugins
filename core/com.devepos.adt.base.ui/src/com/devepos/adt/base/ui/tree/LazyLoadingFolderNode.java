@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.graphics.Image;
@@ -97,11 +98,11 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   }
 
   @Override
-  public void loadChildren() throws CoreException {
+  public void loadChildren(final IProgressMonitor monitor) throws CoreException {
     isLoading = true;
     CoreException loadingError = null;
     try {
-      final List<IElementInfo> elementInfos = provider.getElements();
+      final List<IElementInfo> elementInfos = provider.getElements(monitor);
 
       if (elementInfos != null) {
         // create the sub nodes
@@ -132,6 +133,7 @@ public class LazyLoadingFolderNode extends FolderTreeNode implements ILazyLoadin
   @Override
   public void resetLoadedState() {
     isLoaded = false;
+    isLoading = false;
     if (children != null) {
       children.clear();
     }

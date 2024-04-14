@@ -1,6 +1,7 @@
 package com.devepos.adt.base.ui.tree;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.devepos.adt.base.elementinfo.IElementInfoProvider;
 import com.devepos.adt.base.elementinfo.ILazyLoadableContent;
@@ -43,7 +44,7 @@ public interface ILazyLoadingNode extends ICollectionTreeNode, ILazyLoadableCont
    *
    * @throws CoreException
    */
-  void loadChildren() throws CoreException;
+  void loadChildren(IProgressMonitor monitor) throws CoreException;
 
   /**
    * Removes a listener for updates of the lazy loading status. Has no effect if
