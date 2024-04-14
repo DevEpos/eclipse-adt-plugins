@@ -38,6 +38,7 @@ public class CodeSearchQuerySpecification {
   private boolean sequentialMatching;
   private boolean multilineSearchOption;
   private boolean expandProgIncludes;
+  private boolean expandTableIncludes;
 
   private boolean readPackageHierarchy;
 
@@ -95,6 +96,10 @@ public class CodeSearchQuerySpecification {
 
     if (expandProgIncludes) {
       uriParameters.put(SearchParameter.EXPAND_PROG_INCLUDES.getUriName(), true);
+    }
+
+    if (expandTableIncludes) {
+      uriParameters.put(SearchParameter.EXPAND_TABLE_INCLUDES.getUriName(), true);
     }
     return uriParameters;
   }
@@ -227,6 +232,10 @@ public class CodeSearchQuerySpecification {
     return expandProgIncludes;
   }
 
+  public boolean isExpandTableIncludes() {
+    return expandTableIncludes;
+  }
+
   public boolean isSequentialMatching() {
     return sequentialMatching;
   }
@@ -294,6 +303,10 @@ public class CodeSearchQuerySpecification {
 
   public void setExpandProgramIncludes(final boolean expandProgIncludes) {
     this.expandProgIncludes = expandProgIncludes;
+  }
+
+  public void setExpandTableIncludes(final boolean expandTableIncludes) {
+    this.expandTableIncludes = expandTableIncludes;
   }
 
   public void setSequentialMatching(final boolean sequentialMatching) {

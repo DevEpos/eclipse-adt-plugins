@@ -4,6 +4,7 @@ public enum SearchParameter {
   FUGR_INCLUDES("fugrIncludes"),
   CLASS_INCLUDES("classIncludes"),
   EXPAND_PROG_INCLUDES("expandProgIncl"),
+  EXPAND_TABLE_INCLUDES("expandTableIncl"),
   MAX_OBJECTS("maxObjects"),
   IGNORE_CASE("ignoreCase"),
   IGNORE_COMMENT_LINES("ignoreCommentLines"),

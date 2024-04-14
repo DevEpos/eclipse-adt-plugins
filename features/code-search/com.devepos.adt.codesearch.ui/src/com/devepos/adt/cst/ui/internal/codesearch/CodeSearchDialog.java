@@ -67,6 +67,7 @@ public class CodeSearchDialog extends DialogPage
   private static final String CLASS_INCLUDES_BITS = "class.includeBits";
   private static final String CLASS_INCLUDES_ALL_ENABLED = "class.includes.allEnabled";
   private static final String PROGRAM_INCLUDES_EXPAND_ENABLED = "program.includes.expandEnabled";
+  private static final String TABLE_INCLUDES_EXPAND_ENABLED = "table.includes.expandEnabled";
 
   private final Map<ValidationSource, IStatus> allValidationStatuses;
   private ISearchPageContainer container;
@@ -86,6 +87,7 @@ public class CodeSearchDialog extends DialogPage
   private Button ignoreCommentLinesCheck;
   private Button sequentialMatchingCheck;
   private Button expandProgIncludesButton;
+  private Button expandTablIncludesButton;
   private IncludeFlagsRadioButtonGroup classIncludeConfigGroup;
   private IncludeFlagsRadioButtonGroup fugrIncludeConfigGroup;
 
@@ -140,8 +142,8 @@ public class CodeSearchDialog extends DialogPage
 
     Composite customTypeOptions = new Composite(mainComposite, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(customTypeOptions);
-    GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(3).applyTo(customTypeOptions);
-    createIncludeConfigOptions(customTypeOptions);
+    GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(4).applyTo(customTypeOptions);
+    createTypeSpecificSettingGroups(customTypeOptions);
 
     createProjectInput(mainComposite);
     createStatusArea(mainComposite);
@@ -217,6 +219,7 @@ public class CodeSearchDialog extends DialogPage
     fugrIncludesParamCurrent.setIncludeFlags(fugrIncludesParamOld.getIncludeFlags());
 
     expandProgIncludesButton.setSelection(querySpecs.isExpandProgramIncludes());
+    expandTablIncludesButton.setSelection(querySpecs.isExpandTableIncludes());
 
     classIncludeConfigGroup.updateControlsFromModel();
     fugrIncludeConfigGroup.updateControlsFromModel();
@@ -253,6 +256,7 @@ public class CodeSearchDialog extends DialogPage
     querySpecs.setMatchAllPatterns(matchAllPatterns.getSelection());
     querySpecs.setUseRegExp(useRegExpCheck.getSelection());
     querySpecs.setExpandProgramIncludes(expandProgIncludesButton.getSelection());
+    querySpecs.setExpandTableIncludes(expandTablIncludesButton.getSelection());
 
     collectExtensionSectionParameters();
   }
@@ -308,7 +312,7 @@ public class CodeSearchDialog extends DialogPage
     }
   }
 
-  private void createIncludeConfigOptions(final Composite parent) {
+  private void createTypeSpecificSettingGroups(final Composite parent) {
     classIncludeConfigGroup = new IncludeFlagsRadioButtonGroup(
         Messages.CodeSearchDialog_classIncludesRadioGroup_xlbl,
         querySpecs.getClassIncludesParam()) {
@@ -364,7 +368,7 @@ public class CodeSearchDialog extends DialogPage
     fugrIncludeConfigGroup.createControl(parent);
 
     // create Group to control search of program includes
-    final Group programSettingsGroup = new Group(parent, SWT.NONE);
+    final var programSettingsGroup = new Group(parent, SWT.NONE);
     programSettingsGroup.setText(Messages.CodeSearchDialog_programSettingsGroup_xtit);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(programSettingsGroup);
     RowLayoutFactory.swtDefaults().applyTo(programSettingsGroup);
@@ -372,6 +376,15 @@ public class CodeSearchDialog extends DialogPage
     expandProgIncludesButton = new Button(programSettingsGroup, SWT.CHECK);
     expandProgIncludesButton.setText(Messages.CodeSearchDialog_expandIncludes_xchk);
     expandProgIncludesButton.setSelection(querySpecs.isExpandProgramIncludes());
+
+    var tableSettingsGroup = new Group(parent, SWT.NONE);
+    tableSettingsGroup.setText("Table Settings");
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(tableSettingsGroup);
+    RowLayoutFactory.swtDefaults().applyTo(tableSettingsGroup);
+
+    expandTablIncludesButton = new Button(tableSettingsGroup, SWT.CHECK);
+    expandTablIncludesButton.setText("Expand Includes");
+    expandTablIncludesButton.setSelection(querySpecs.isExpandTableIncludes());
   }
 
   private void createObjectScopeGroup(final Composite parent) {
@@ -533,7 +546,8 @@ public class CodeSearchDialog extends DialogPage
     }
     fugrIncludesParam.setAllIncludes(dialogSettings.getBoolean(FUGR_INCLUDES_ALL_ENABLED)
         || fugrIncludesParam.getIncludeFlags() == 0);
-    querySpecs.setExpandProgramIncludes(dialogSettings.getBoolean(PROGRAM_INCLUDES_EXPAND_ENABLED));
+    querySpecs.setExpandProgramIncludes(dialogSettings.getBoolean(TABLE_INCLUDES_EXPAND_ENABLED));
+    querySpecs.setExpandTableIncludes(dialogSettings.getBoolean(TABLE_INCLUDES_EXPAND_ENABLED));
   }
 
   private void registerContentAssist() {
@@ -701,13 +715,18 @@ public class CodeSearchDialog extends DialogPage
     if (!isProjectValid) {
       expandProgIncludesButton.setEnabled(false);
     } else {
-      expandProgIncludesButton.setEnabled(CodeSearchFactory.getCodeSearchService()
-          .isCodeSearchParameterSupported(projectProvider.getProject(),
-              SearchParameter.EXPAND_PROG_INCLUDES.getUriName()));
+      var service = CodeSearchFactory.getCodeSearchService();
+      expandProgIncludesButton.setEnabled(service.isCodeSearchParameterSupported(
+          projectProvider.getProject(), SearchParameter.EXPAND_PROG_INCLUDES.getUriName()));
+      expandTablIncludesButton.setEnabled(service.isCodeSearchParameterSupported(
+          projectProvider.getProject(), SearchParameter.EXPAND_TABLE_INCLUDES.getUriName()));
     }
 
     if (!expandProgIncludesButton.isEnabled()) {
       expandProgIncludesButton.setSelection(false);
+    }
+    if (!expandTablIncludesButton.isEnabled()) {
+      expandTablIncludesButton.setSelection(false);
     }
   }
 
@@ -783,5 +802,6 @@ public class CodeSearchDialog extends DialogPage
     dialogSettings.put(FUGR_INCLUDES_BITS, querySpecs.getFugrIncludesParam().getIncludeFlags());
     dialogSettings.put(LAST_PROJECT_PREF, projectProvider.getProjectName());
     dialogSettings.put(PROGRAM_INCLUDES_EXPAND_ENABLED, querySpecs.isExpandProgramIncludes());
+    dialogSettings.put(TABLE_INCLUDES_EXPAND_ENABLED, querySpecs.isExpandTableIncludes());
   }
 }

@@ -47,6 +47,7 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
   private static final String SEQUENTIAL_MATCHING = "sequentialMatching";
   private static final String MULTI_LINE_SEARCH = "multilineSearch";
   private static final String EXPAND_PROG_INCLUDES = "expandProgIncludes";
+  private static final String EXPAND_TABLE_INCLUDES = "expandTableIncludes";
   private static final String SINGLE_PATTERN = "singlePattern";
   private static final String USE_REGEX = "useRegex";
 
@@ -173,6 +174,7 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
     addFavAttribute(attributes, SEQUENTIAL_MATCHING, querySpecs.isSequentialMatching());
     addFavAttribute(attributes, MULTI_LINE_SEARCH, querySpecs.isMultilineSearchOption());
     addFavAttribute(attributes, EXPAND_PROG_INCLUDES, querySpecs.isExpandProgramIncludes());
+    addFavAttribute(attributes, EXPAND_TABLE_INCLUDES, querySpecs.isExpandTableIncludes());
     addFavAttribute(attributes, SINGLE_PATTERN, querySpecs.isSinglePattern());
     addFavAttribute(attributes, USE_REGEX, querySpecs.isUseRegExp());
   }

@@ -237,7 +237,8 @@ class ResultTreeBuilder {
         addSearchMatchNodes(searchObject, objectNode);
         String nodeUuid = null;
         if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(mainObject.getType())
-            || IAdtObjectTypeConstants.PROGRAM_INCLUDE.equals(mainObject.getType())) {
+            || IAdtObjectTypeConstants.PROGRAM_INCLUDE.equals(mainObject.getType())
+            || mainObject.getProperties().containsKey("isExpandedObject")) {
           // double fail-safe if program include has matches in expanded include and resides under
           // package
           if (packageNodeCache.containsKey(searchObject.getParentUri())) {
