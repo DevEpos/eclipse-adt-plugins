@@ -23,6 +23,7 @@ public interface IVirtualFolderNode {
   String FOLDER_KEY_SOURCE_LIBRARY = "source_library";
   String FOLDER_KEY_CORE_DATA_SERVICES = "core_data_services";
   String FOLDER_KEY_TRANSFORMATIONS = "transformations";
+  String FOLDER_KEY_DICTIONARY = "dictionary";
 
   /**
    * Retrieves the filter values of the <code>appl</code> filter facet of this virtual folder
