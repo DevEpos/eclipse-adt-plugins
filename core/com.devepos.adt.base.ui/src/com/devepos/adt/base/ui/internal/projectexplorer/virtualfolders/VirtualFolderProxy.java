@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 
+import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode;
 import com.sap.adt.projectexplorer.ui.internal.virtualfolders.FacetFilter;
 import com.sap.adt.projectexplorer.ui.internal.virtualfolders.VirtualFolderNode;
@@ -112,7 +114,13 @@ class VirtualFolderProxy implements IVirtualFolderNode {
         Set<String> possibleObjectTypes = originalFolderNode.getPossibleContainedObjectTypes();
         if (possibleObjectTypes != null) {
           for (String adtType : possibleObjectTypes) {
-            uniqueTadirTypes.add(adtType.substring(0, 4));
+            if (IAdtObjectTypeConstants.STRUCTURE.equals(adtType)) {
+              uniqueTadirTypes.add(ITadirTypeConstants.STRUCTURE);
+            } else if (IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE.equals(adtType)) {
+              uniqueTadirTypes.add(ITadirTypeConstants.DATABASE_TABLE);
+            } else {
+              uniqueTadirTypes.add(adtType.substring(0, 4));
+            }
           }
           tadirTypes.addAll(uniqueTadirTypes);
         }
