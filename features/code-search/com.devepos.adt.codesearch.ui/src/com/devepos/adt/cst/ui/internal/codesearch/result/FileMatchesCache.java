@@ -43,7 +43,7 @@ class FileMatchesCache {
    * @return set of match nodes the given URI of a file
    */
   public Set<SearchMatchNode> getNodes(final String fileUri) {
-    return cache.get(fileUri);
+    return cache.get(fileUri.toLowerCase());
   }
 
   /**
