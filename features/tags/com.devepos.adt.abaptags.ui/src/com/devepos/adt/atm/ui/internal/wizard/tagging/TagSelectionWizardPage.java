@@ -14,6 +14,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.CellEditor;
@@ -39,6 +42,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PatternFilter;
 
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
@@ -67,6 +72,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.event.KeyEventUtil;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.StringUtil;
@@ -88,6 +94,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private Tree tagsTree;
   private CheckboxTreeViewer checkBoxViewer;
+  private Action createSubTagAction;
   private Text filterText;
   private ToolItem removeTagButton;
   private Combo tagTypeCombo;
@@ -226,8 +233,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_TAG_SELECTION);
     GridLayoutFactory.swtDefaults().applyTo(root);
 
+    initializeActions();
     createTreeHeaderArea(root);
     createTagsCheckBoxTree(root);
+    createViewerContextMenu();
     createSelectionInfo(root);
     setControl(root);
     setPageComplete(false);
@@ -267,6 +276,13 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       validatePage();
     }
     super.setVisible(visible);
+  }
+
+  private void initializeActions() {
+    createSubTagAction = ActionFactory.createAction(
+        Messages.AbapTagManagerView_AddSubTagAction_xmit,
+        PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD),
+        this::handleCreateTagOnSelectedNode);
   }
 
   private void addTag(final boolean userTag) {
@@ -388,6 +404,31 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     checkBoxViewer.addSelectionChangedListener(e -> {
       updateRemoveTagEnabled();
     });
+  }
+
+  private void createViewerContextMenu() {
+    final var menuMgr = new MenuManager();
+    menuMgr.setRemoveAllWhenShown(true);
+
+    menuMgr.addMenuListener(menu -> {
+      fillContextMenu(menu);
+    });
+    var menu = menuMgr.createContextMenu(tagsTree);
+    tagsTree.setMenu(menu);
+  }
+
+  private void fillContextMenu(final IMenuManager menu) {
+    var selection = checkBoxViewer.getStructuredSelection();
+    if (selection.isEmpty() || selection.size() > 1) {
+      return;
+    }
+
+    var selectedTag = (ITag) selection.getFirstElement();
+
+    if (StringUtil.isEmpty(selectedTag.getId())) {
+      return;
+    }
+    menu.add(createSubTagAction);
   }
 
   private void createTagScopeCombo(final Composite parent) {
@@ -518,6 +559,25 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     });
   }
 
+  private void handleCreateTagOnSelectedNode() {
+    resetAllFilters();
+    var selectedTag = (ITag) checkBoxViewer.getStructuredSelection().getFirstElement();
+    final var newTag = IAbapTagsFactory.eINSTANCE.createTag();
+    newTag.setName(Messages.TagSelectionWizardPage_NewTagDefaultName_xmsg);
+    if (!StringUtil.isEmpty(selectedTag.getOwner())) {
+      newTag.setOwner(getDestinationOwner());
+    }
+    newTag.setParentTagId(selectedTag.getId());
+    selectedTag.getChildTags().add(newTag);
+    newTags.add(newTag);
+    checkBoxViewer.refresh(selectedTag);
+    checkBoxViewer.setChecked(newTag, true);
+    checkedTags.add(newTag);
+    checkBoxViewer.setSelection(new StructuredSelection(newTag));
+    checkBoxViewer.editElement(newTag, 0);
+    setMessage(null);
+  }
+
   private String getDestinationOwner() {
     if (owner == null) {
       final String destinationId = DestinationUtil.getDestinationId(getWizard().getProject());
@@ -569,7 +629,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private void removeTag() {
     final var sel = (IStructuredSelection) checkBoxViewer.getSelection();
     final ITag selectedTag = (ITag) sel.getFirstElement();
-    getWizard().getCurrentTagPreviewInfo().getTags().remove(selectedTag);
+    if (StringUtil.isEmpty(selectedTag.getParentTagId())) {
+      getWizard().getCurrentTagPreviewInfo().getTags().remove(selectedTag);
+    } else {
+      ((ITag) selectedTag.eContainer()).getChildTags().remove(selectedTag);
+    }
     newTags.remove(selectedTag);
     checkedTags.remove(selectedTag);
     checkBoxViewer.refresh();
@@ -628,7 +692,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private void validatePage() {
     IStatus pageStatus = null;
     if (!newTags.isEmpty()) {
-      pageStatus = new TagListValidator((List<ITag>) checkBoxViewer.getInput()).validate(true,
+      pageStatus = new TagListValidator((List<ITag>) checkBoxViewer.getInput()).validate(false,
           false);
     }
     isParentObjectSelectionPossible = false;
