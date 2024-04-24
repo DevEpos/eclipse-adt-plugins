@@ -236,11 +236,13 @@ class ResultTreeBuilder {
             mainObject);
         addSearchMatchNodes(searchObject, objectNode);
         String nodeUuid = null;
+        // NOTE: "isExpandedObject" should be enough as check, but the other 2 checks will be kept
+        // for a few more releases for compatibility to older backends
         if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(mainObject.getType())
             || IAdtObjectTypeConstants.PROGRAM_INCLUDE.equals(mainObject.getType())
             || mainObject.getProperties().containsKey("isExpandedObject")) {
-          // double fail-safe if program include has matches in expanded include and resides under
-          // package
+          // double fail-safe if program,structure or db table has matches in expanded
+          // include and resides under package
           if (packageNodeCache.containsKey(searchObject.getParentUri())) {
             nodeUuid = searchObject.getUri();
           } else {
