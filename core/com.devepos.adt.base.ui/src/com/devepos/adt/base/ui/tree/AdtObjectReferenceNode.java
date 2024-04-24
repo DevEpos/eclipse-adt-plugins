@@ -3,7 +3,6 @@ package com.devepos.adt.base.ui.tree;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -167,28 +166,4 @@ public class AdtObjectReferenceNode extends TreeNodeBase implements IAdtObjectRe
     final ObjectType objectType = getObjectType();
     return objectType != null ? objectType.supportsDataPreview() : false;
   }
-
-  @Override
-  public int hashCode() {
-    int result = 1;
-    var uri = getUri();
-    result = 31 * result + (uri == null ? "" : uri).hashCode();
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || !(obj instanceof AdtObjectReferenceNode)) {
-      return false;
-    }
-    var o2 = (AdtObjectReferenceNode) obj;
-    if (o2.objectReference == objectReference) {
-      return true;
-    }
-    return Objects.equals(getUri(), o2.getUri());
-  }
-
 }
