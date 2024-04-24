@@ -25,13 +25,14 @@ public class AdtObjectCapabilities {
         IAdtObjectTypeConstants.PROGRAM, IAdtObjectTypeConstants.PROGRAM_LOCAL_CLASS,
         IAdtObjectTypeConstants.PROGRAM_LOCAL_INTERFACE,
         IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE, IAdtObjectTypeConstants.FUNCTION_GROUP,
-        IAdtObjectTypeConstants.FUNCTION_INCLUDE, IAdtObjectTypeConstants.FUNCTION_MODULE,
-        IAdtObjectTypeConstants.FUNCTION_GROUP_LOCAL_CLASS,
+        IAdtObjectTypeConstants.STRUCTURE, IAdtObjectTypeConstants.FUNCTION_INCLUDE,
+        IAdtObjectTypeConstants.FUNCTION_MODULE, IAdtObjectTypeConstants.FUNCTION_GROUP_LOCAL_CLASS,
         IAdtObjectTypeConstants.FUNCTION_GROUP_LOCAL_INTERFACE);
     validTypesForObjectTagsView = Arrays.asList(IAdtObjectTypeConstants.CLASS,
         IAdtObjectTypeConstants.PROGRAM, IAdtObjectTypeConstants.PROGRAM_INCLUDE,
-        IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE, IAdtObjectTypeConstants.FUNCTION_GROUP,
-        IAdtObjectTypeConstants.FUNCTION_INCLUDE, IAdtObjectTypeConstants.FUNCTION_MODULE);
+        IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE, IAdtObjectTypeConstants.STRUCTURE,
+        IAdtObjectTypeConstants.FUNCTION_GROUP, IAdtObjectTypeConstants.FUNCTION_INCLUDE,
+        IAdtObjectTypeConstants.FUNCTION_MODULE);
   }
 
   public static AdtObjectCapabilities getInstance() {
@@ -93,9 +94,9 @@ public class AdtObjectCapabilities {
    * This method checks if a type needs restriction or not
    */
   private boolean isRestrictedType(final String adtType) {
-    return ITadirTypeConstants.CLASS.startsWith(adtType)
-        || ITadirTypeConstants.FUNCTION_GROUP.startsWith(adtType)
-        || ITadirTypeConstants.PROGRAM.startsWith(adtType)
-        || ITadirTypeConstants.TABLE.startsWith(adtType);
+    return adtType.startsWith(ITadirTypeConstants.CLASS)
+        || adtType.startsWith(ITadirTypeConstants.FUNCTION_GROUP)
+        || adtType.startsWith(ITadirTypeConstants.PROGRAM)
+        || adtType.startsWith(ITadirTypeConstants.TABLE);
   }
 }
