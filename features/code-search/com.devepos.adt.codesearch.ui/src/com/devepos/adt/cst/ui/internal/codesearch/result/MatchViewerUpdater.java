@@ -96,8 +96,7 @@ class MatchViewerUpdater {
         parent = parent.getParent();
 
         if (parent != null) {
-          // remove the child
-          result.removeChildeNode(parent, child);
+          result.removeChildNode(parent, child);
         }
       }
     }
