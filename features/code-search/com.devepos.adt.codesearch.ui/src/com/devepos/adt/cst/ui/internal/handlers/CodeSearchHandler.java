@@ -42,6 +42,7 @@ import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
+import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
 /**
@@ -104,6 +105,10 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       switch (category) {
       case IAbapRepositoryFolderNode.CATEGORY_DICTIONARY:
         addFiltersToFilterString(ITadirTypeConstants.DATA_DEFINITION, filterQualifier);
+        for (var type : ProjectDependentTypeAvailability.getTypesForProject(node.getProject())) {
+          addFiltersToFilterString(type, filterQualifier);
+        }
+
         break;
       case IAbapRepositoryFolderNode.CATEGORY_SOURCE_LIB:
         addFiltersToFilterString(CodeSearchRelevantWbTypesUtil.getSourceCodeLibraryTypeFilters(),
@@ -131,6 +136,12 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       case IAdtObjectTypeConstants.PROGRAM_INCLUDE:
       case IAdtObjectTypeConstants.SIMPLE_TRANSFORMATION:
         addFiltersToFilterString(type.substring(0, 4), filterQualifier);
+        break;
+      case IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE:
+        addFiltersToFilterString(ITadirTypeConstants.DATABASE_TABLE, filterQualifier);
+        break;
+      case IAdtObjectTypeConstants.STRUCTURE:
+        addFiltersToFilterString(ITadirTypeConstants.STRUCTURE, filterQualifier);
         break;
       }
     }
@@ -407,7 +418,8 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
       }
       return selectedTranportObjects;
     }
-    // fallback: maybe the method was renamed or removed or did not return a project for some reason
+    // fallback: maybe the method was renamed or removed or did not return a project
+    // for some reason
     return AdtUIUtil.getAdtObjectsFromSelection(false, selection);
   }
 

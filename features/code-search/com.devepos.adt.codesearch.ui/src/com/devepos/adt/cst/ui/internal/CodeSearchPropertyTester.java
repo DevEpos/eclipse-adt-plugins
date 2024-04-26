@@ -17,6 +17,7 @@ import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
+import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisObjectTypeRegistry;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisParameterProposal;
 import com.sap.adt.ris.search.ui.internal.contentassist.IAdtRisObjectTypeRegistry;
@@ -115,6 +116,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
       // are available starting with 7.51
       final IAbapRepositoryFolderNode folder = (IAbapRepositoryFolderNode) receiver;
       project = folder.getProject();
+      var projectDependentTypes = ProjectDependentTypeAvailability.getTypesForProject(project);
       String destinationId = DestinationUtil.getDestinationId(project);
       additionalCheck = () -> {
         String category = folder.getCategory();
@@ -124,9 +126,10 @@ public class CodeSearchPropertyTester extends PropertyTester {
           }
           // Verify that the category contains the type
           // - DICTIONARY (7.40) -> DDLS
-          // - DICTIONARY (7.50) -> invalid
+          // - DICTIONARY (7.50) -> STRU
           // do not block the property test too much
-          if (!IAbapRepositoryFolderNode.CATEGORY_DICTIONARY.equals(category)) {
+          if (!IAbapRepositoryFolderNode.CATEGORY_DICTIONARY.equals(category)
+              || !projectDependentTypes.isEmpty()) {
             return true;
           }
           if (!AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
