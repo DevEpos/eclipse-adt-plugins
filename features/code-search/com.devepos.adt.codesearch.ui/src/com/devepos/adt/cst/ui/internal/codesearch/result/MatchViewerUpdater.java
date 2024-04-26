@@ -107,7 +107,7 @@ class MatchViewerUpdater {
       return;
     }
     if (collectionNode.getNodeValue() == null
-        && !collectionNode.getChildren().stream().anyMatch(SearchMatchNode.class::isInstance)) {
+        && !collectionNode.getChildren().stream().anyMatch(ICollectionTreeNode.class::isInstance)) {
       collectionNode.setNodeValue(collectionNode.getChildren().size());
       updateAndPropagateMatchCount(collectionNode.getParent());
     } else {
