@@ -106,14 +106,17 @@ class MatchViewerUpdater {
     if (collectionNode == null) {
       return;
     }
-    if (collectionNode.getNodeValue() == null) {
+    if (collectionNode.getNodeValue() == null
+        && !collectionNode.getChildren().stream().anyMatch(SearchMatchNode.class::isInstance)) {
       collectionNode.setNodeValue(collectionNode.getChildren().size());
       updateAndPropagateMatchCount(collectionNode.getParent());
     } else {
       int matchCount = 0;
       for (ITreeNode childNode : collectionNode.getChildren()) {
-        if (childNode != null && childNode.getNodeValue() != null) {
+        if (childNode.getNodeValue() != null) {
           matchCount += (Integer) childNode.getNodeValue();
+        } else if (childNode instanceof SearchMatchNode) {
+          matchCount++;
         }
       }
       collectionNode.setNodeValue(matchCount);
