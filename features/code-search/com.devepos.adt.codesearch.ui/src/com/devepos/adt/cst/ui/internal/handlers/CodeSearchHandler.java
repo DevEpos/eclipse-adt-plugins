@@ -34,6 +34,7 @@ import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.base.ui.util.AdtUIUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.ui.internal.TmViewAdapterHelper;
@@ -104,7 +105,10 @@ public class CodeSearchHandler extends AbstractHandler implements ISearchPageLis
     private void addTypeFilterByCategory(final String filterQualifier, final String category) {
       switch (category) {
       case IAbapRepositoryFolderNode.CATEGORY_DICTIONARY:
-        addFiltersToFilterString(ITadirTypeConstants.DATA_DEFINITION, filterQualifier);
+        // Are DDL available in dictionary category?
+        if (!AdtTypeUtil.getInstance().isCdsCategoryAvailable(node.getProject())) {
+          addFiltersToFilterString(ITadirTypeConstants.DATA_DEFINITION, filterQualifier);
+        }
         for (var type : ProjectDependentTypeAvailability.getTypesForProject(node.getProject())) {
           addFiltersToFilterString(type, filterQualifier);
         }

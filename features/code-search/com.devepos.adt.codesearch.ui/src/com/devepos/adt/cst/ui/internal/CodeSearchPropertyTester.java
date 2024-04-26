@@ -8,19 +8,17 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.NullProgressMonitor;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode;
 import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode;
+import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisObjectTypeRegistry;
-import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisParameterProposal;
-import com.sap.adt.ris.search.ui.internal.contentassist.IAdtRisObjectTypeRegistry;
 
 /**
  * Property tester concerning the ABAP Code Search feature
@@ -135,15 +133,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
           if (!AdtRisObjectTypeRegistry.isLoaded(destinationId)) {
             return false;
           }
-          try {
-            IAdtRisObjectTypeRegistry typeRegistry = AdtRisObjectTypeRegistry
-                .getInstance(destinationId, new NullProgressMonitor());
-            List<AdtRisParameterProposal> foundObjectTypes = typeRegistry
-                .getObjectTypeProposalList(IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES);
-            return foundObjectTypes == null || foundObjectTypes.isEmpty();
-          } catch (Exception e) {
-            // exception handling not necessary
-          }
+          return !AdtTypeUtil.getInstance().isCdsCategoryAvailable(destinationId);
         }
         String type = folder.getType();
         return type != null
