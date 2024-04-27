@@ -710,6 +710,7 @@ public class CodeSearchDialog extends DialogPage
 
     if (!isProjectValid) {
       expandProgIncludesButton.setEnabled(false);
+      expandTablIncludesButton.setEnabled(false);
     } else {
       var service = CodeSearchFactory.getCodeSearchService();
       expandProgIncludesButton.setEnabled(service.isCodeSearchParameterSupported(
