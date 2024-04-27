@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -35,13 +34,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
-import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.AbapProjectProxy;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.search.IChangeableSearchPage;
-import com.devepos.adt.base.ui.search.ISearchFilterProvider;
 import com.devepos.adt.base.ui.search.SearchFilterHandler;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.search.ext.ISearchPageParameterSection;
@@ -133,14 +130,14 @@ public class CodeSearchDialog extends DialogPage
     createPatternsGroup(mainComposite);
 
     // create middle composite
-    Composite middle = new Composite(mainComposite, SWT.NONE);
+    var middle = new Composite(mainComposite, SWT.NONE);
     GridDataFactory.fillDefaults().applyTo(middle);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(middle);
 
     createObjectScopeGroup(middle);
     createAdditionalSettingsGroup(middle);
 
-    Composite customTypeOptions = new Composite(mainComposite, SWT.NONE);
+    var customTypeOptions = new Composite(mainComposite, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(customTypeOptions);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(4).applyTo(customTypeOptions);
     createTypeSpecificSettingGroups(customTypeOptions);
@@ -161,7 +158,6 @@ public class CodeSearchDialog extends DialogPage
 
   @Override
   public void dispose() {
-    // writeDialogSettings();
     super.dispose();
   }
 
@@ -169,7 +165,7 @@ public class CodeSearchDialog extends DialogPage
   public boolean performAction() {
     collectQuerySpecs();
 
-    IStatus patternValidationStatus = runPatternValidationRequest();
+    var patternValidationStatus = runPatternValidationRequest();
     if (!patternValidationStatus.isOK()) {
       validateAndSetStatus(patternValidationStatus, ValidationSource.SEARCH_PATTERN_BACKEND);
       return false;
@@ -187,11 +183,11 @@ public class CodeSearchDialog extends DialogPage
 
   @Override
   public void setInputFromSearchQuery(final CodeSearchQuery query) {
-    CodeSearchQuerySpecification querySpecs = query.getQuerySpecs();
+    var querySpecs = query.getQuerySpecs();
     final String searchTerm = querySpecs.getPatterns();
     patternsText.setText(searchTerm);
 
-    final IAbapProjectProvider projectProvider = querySpecs.getProjectProvider();
+    final var projectProvider = querySpecs.getProjectProvider();
     if (projectProvider != null && projectProvider.hasProject()) {
       projectInput.setProjectName(projectProvider.getProjectName());
     }
@@ -208,13 +204,13 @@ public class CodeSearchDialog extends DialogPage
 
     updateOptionEnabledment();
 
-    IncludeFlagsParameter classIncludesParamCurrent = this.querySpecs.getClassIncludesParam();
-    IncludeFlagsParameter classIncludesParamOld = querySpecs.getClassIncludesParam();
+    var classIncludesParamCurrent = this.querySpecs.getClassIncludesParam();
+    var classIncludesParamOld = querySpecs.getClassIncludesParam();
     classIncludesParamCurrent.setAllIncludes(classIncludesParamOld.isAllIncludes());
     classIncludesParamCurrent.setIncludeFlags(classIncludesParamOld.getIncludeFlags());
 
-    IncludeFlagsParameter fugrIncludesParamCurrent = this.querySpecs.getFugrIncludesParam();
-    IncludeFlagsParameter fugrIncludesParamOld = querySpecs.getFugrIncludesParam();
+    var fugrIncludesParamCurrent = this.querySpecs.getFugrIncludesParam();
+    var fugrIncludesParamOld = querySpecs.getFugrIncludesParam();
     fugrIncludesParamCurrent.setAllIncludes(fugrIncludesParamOld.isAllIncludes());
     fugrIncludesParamCurrent.setIncludeFlags(fugrIncludesParamOld.getIncludeFlags());
 
@@ -262,7 +258,7 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void createAdditionalSettingsGroup(final Composite parent) {
-    final Group group = new Group(parent, SWT.NONE);
+    final var group = new Group(parent, SWT.NONE);
     GridDataFactory.fillDefaults().applyTo(group);
     GridLayoutFactory.swtDefaults().numColumns(1).applyTo(group);
     group.setText(Messages.CodeSearchDialog_additionalSettingsGroup_xlbl);
@@ -349,7 +345,7 @@ public class CodeSearchDialog extends DialogPage
           }
 
           private Group createGroup(final Composite parent, final String text) {
-            Group group = new Group(parent, SWT.NONE);
+            var group = new Group(parent, SWT.NONE);
             GridLayoutFactory.swtDefaults().applyTo(group);
             GridDataFactory.fillDefaults().grab(true, false).applyTo(group);
             group.setText(text);
@@ -378,22 +374,22 @@ public class CodeSearchDialog extends DialogPage
     expandProgIncludesButton.setSelection(querySpecs.isExpandProgramIncludes());
 
     var tableSettingsGroup = new Group(parent, SWT.NONE);
-    tableSettingsGroup.setText("Table Settings");
+    tableSettingsGroup.setText(Messages.CodeSearchDialog_tableSettingsGroup_xtit);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(tableSettingsGroup);
-    RowLayoutFactory.swtDefaults().applyTo(tableSettingsGroup);
+    GridLayoutFactory.swtDefaults().applyTo(tableSettingsGroup);
 
     expandTablIncludesButton = new Button(tableSettingsGroup, SWT.CHECK);
-    expandTablIncludesButton.setText("Expand Includes");
+    expandTablIncludesButton.setText(Messages.CodeSearchDialog_expandIncludes_xchk);
     expandTablIncludesButton.setSelection(querySpecs.isExpandTableIncludes());
   }
 
   private void createObjectScopeGroup(final Composite parent) {
-    Group objectScopeGroup = new Group(parent, SWT.NONE);
+    var objectScopeGroup = new Group(parent, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(objectScopeGroup);
     GridLayoutFactory.swtDefaults().applyTo(objectScopeGroup);
     objectScopeGroup.setText(Messages.CodeSearchDialog_objectScopeGroup_xlbl);
 
-    Label name = new Label(objectScopeGroup, SWT.NONE);
+    var name = new Label(objectScopeGroup, SWT.NONE);
     name.setText(Messages.CodeSearchDialog_objectNameFilter_xlbl);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(name);
 
@@ -404,7 +400,7 @@ public class CodeSearchDialog extends DialogPage
         .grab(true, false)
         .hint(200, SWT.DEFAULT)
         .applyTo(objectNameInput);
-    Label filter = new Label(objectScopeGroup, SWT.NONE);
+    var filter = new Label(objectScopeGroup, SWT.NONE);
     filter.setText(Messages.CodeSearchDialog_objectScopeFilters_xlbl);
     GridDataFactory.fillDefaults()
         .indent(SWT.DEFAULT, 5)
@@ -429,7 +425,7 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void createPatternsGroup(final Composite parent) {
-    final Group patternsGroup = new Group(parent, SWT.NONE);
+    final var patternsGroup = new Group(parent, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(patternsGroup);
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(patternsGroup);
     patternsGroup.setText(Messages.CodeSearchDialog_searchPatternFilter_xlbl);
@@ -451,7 +447,7 @@ public class CodeSearchDialog extends DialogPage
     });
 
     // create composite for pattern options
-    Composite patternOptions = new Composite(patternsGroup, SWT.NONE);
+    var patternOptions = new Composite(patternsGroup, SWT.NONE);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.TOP).applyTo(patternOptions);
     GridLayoutFactory.swtDefaults().margins(5, 0).applyTo(patternOptions);
 
@@ -527,9 +523,9 @@ public class CodeSearchDialog extends DialogPage
         .getBoolean(ICodeSearchPrefs.REMEMBER_INCLUDE_SETTINGS)) {
       return;
     }
-    IDialogSettings dialogSettings = getDialogSettings();
+    var dialogSettings = getDialogSettings();
 
-    IncludeFlagsParameter classIncludesParam = querySpecs.getClassIncludesParam();
+    var classIncludesParam = querySpecs.getClassIncludesParam();
     try {
       classIncludesParam.setIncludeFlags(dialogSettings.getInt(CLASS_INCLUDES_BITS));
     } catch (NumberFormatException exc) {
@@ -538,7 +534,7 @@ public class CodeSearchDialog extends DialogPage
     classIncludesParam.setAllIncludes(dialogSettings.getBoolean(CLASS_INCLUDES_ALL_ENABLED)
         || classIncludesParam.getIncludeFlags() == 0);
 
-    IncludeFlagsParameter fugrIncludesParam = querySpecs.getFugrIncludesParam();
+    var fugrIncludesParam = querySpecs.getFugrIncludesParam();
     try {
       fugrIncludesParam.setIncludeFlags(dialogSettings.getInt(FUGR_INCLUDES_BITS));
     } catch (NumberFormatException exc) {
@@ -552,7 +548,7 @@ public class CodeSearchDialog extends DialogPage
 
   private void registerContentAssist() {
     // set up content assist for the filters text
-    ISearchFilterProvider filterProvider = new CodeSearchScopeFilters(projectProvider);
+    var filterProvider = new CodeSearchScopeFilters(projectProvider);
     filterHandler = new SearchFilterHandler(filterProvider);
     filterHandler.addContentAssist(filterInput);
   }
@@ -571,7 +567,7 @@ public class CodeSearchDialog extends DialogPage
     if (querySpecs.isSequentialMatching()) {
       uriParams.put(SearchParameter.SEQUENTIAL_MATCHING.getUriName(), String.valueOf(true));
     }
-    AtomicReference<IStatus> validationStatusAtom = new AtomicReference<>(Status.OK_STATUS);
+    var validationStatusAtom = new AtomicReference<>(Status.OK_STATUS);
 
     try {
       PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
@@ -611,8 +607,8 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void setProjectInExtensionSections() {
-    IProject project = projectProvider.getProject();
-    IAdtPluginFeatures searchScopeFeatures = project != null
+    var project = projectProvider.getProject();
+    var searchScopeFeatures = project != null
         ? CodeSearchFactory.getCodeSearchService()
             .getSearchScopeFeatures(projectProvider.getDestinationId())
         : null;
@@ -731,15 +727,15 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private IStatus updateStatus(final IStatus status, final ValidationSource type) {
-    final IStatus validatedStatus = status == null ? Status.OK_STATUS : status;
+    final var validatedStatus = status == null ? Status.OK_STATUS : status;
     allValidationStatuses.put(type, validatedStatus);
     return validatedStatus;
   }
 
   private boolean validateAndSetStatus(final IStatus status, final ValidationSource type) {
-    final IStatus validatedStatus = updateStatus(status, type);
+    final var validatedStatus = updateStatus(status, type);
     if (validatedStatus.getSeverity() == IStatus.OK) {
-      Optional<IStatus> lastErrorStatus = allValidationStatuses.entrySet()
+      var lastErrorStatus = allValidationStatuses.entrySet()
           .stream()
           .filter(
               entry -> entry.getKey() != type && entry.getValue().getSeverity() == IStatus.ERROR)
@@ -793,7 +789,7 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void writeDialogSettings() {
-    IDialogSettings dialogSettings = getDialogSettings();
+    var dialogSettings = getDialogSettings();
     dialogSettings.put(CLASS_INCLUDES_ALL_ENABLED,
         querySpecs.getClassIncludesParam().isAllIncludes());
     dialogSettings.put(CLASS_INCLUDES_BITS, querySpecs.getClassIncludesParam().getIncludeFlags());

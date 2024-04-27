@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Link;
 
+import com.devepos.adt.cst.ui.internal.messages.Messages;
+
 /**
  * Radio button group composite for setting the source includes option of an ABAP workbench type
  *
@@ -43,14 +45,14 @@ public class IncludeFlagsRadioButtonGroup {
     RowLayoutFactory.swtDefaults().applyTo(group);
 
     allIncludesRadio = new Button(group, SWT.RADIO);
-    allIncludesRadio.setText("All");
+    allIncludesRadio.setText(Messages.IncludeFlagsRadioButtonGroup_allIncludes_xrbl);
     allIncludesRadio.setSelection(includeFlagsParam.isAllIncludes());
     allIncludesRadio.addSelectionListener(widgetSelectedAdapter(l -> {
       includeFlagsParam.setAllIncludes(true);
     }));
 
     selectedIncludesRadio = new Button(group, SWT.RADIO);
-    selectedIncludesRadio.setText("Selected");
+    selectedIncludesRadio.setText(Messages.IncludeFlagsRadioButtonGroup_selectedIncludes_xrbl);
     selectedIncludesRadio.setSelection(!includeFlagsParam.isAllIncludes());
     selectedIncludesRadio.addSelectionListener(widgetSelectedAdapter(l -> {
       includeFlagsParam.setAllIncludes(false);
@@ -89,7 +91,7 @@ public class IncludeFlagsRadioButtonGroup {
       return;
     }
 
-    link.setText(NLS.bind("(<a>{0} of {1} selected</a>)",
+    link.setText(NLS.bind(Messages.IncludeFlagsRadioButtonGroup_selectedOptions_xlnk,
         new Object[] { includeFlagsParam.getSelectedIncludeCount(),
             includeFlagsParam.getPossibleIncludes().length }));
   }

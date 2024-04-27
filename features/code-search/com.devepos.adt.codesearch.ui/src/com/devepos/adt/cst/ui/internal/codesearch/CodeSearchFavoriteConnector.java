@@ -21,6 +21,7 @@ import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
 import com.devepos.adt.searchfavorites.model.searchfavorites.IBaseAttribute;
 import com.devepos.adt.searchfavorites.model.searchfavorites.IBooleanAttribute;
@@ -191,8 +192,8 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
     if (projectProvider == null || !projectProvider.hasProject()) {
       if (destination == null) {
         MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit),
-            MessageFormat.format("No Project found for destination ''{0}''", destination));
+            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit), MessageFormat
+                .format(Messages.CodeSearchFavoriteConnector_noProjectFound_xmsg, destination));
       }
       openFavoriteInSearchDialog(favorite);
     } else {

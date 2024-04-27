@@ -42,6 +42,8 @@ public class Messages extends NLS {
   public static String CodeSearchDialog_sequentialMatchingOption_xchk;
   public static String CodeSearchDialog_singlePatternModeOption_xchk;
   public static String CodeSearchDialog_singlePatternModeOption_xtol;
+  public static String CodeSearchDialog_tableSettingsGroup_xtit;
+  public static String CodeSearchFavoriteConnector_noProjectFound_xmsg;
   public static String CodeSearchPreferencesPage_concatLinesWithLfRegexSinglePatternPref_xlbl;
   public static String CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_generalSettingsGroup_xlbl;
@@ -135,6 +137,9 @@ public class Messages extends NLS {
   public static String IncludeFlagsDialog_deselectAll_xchk;
   public static String IncludeFlagsDialog_dialogPurpose_xmsg;
   public static String IncludeFlagsDialog_selectAll_xchk;
+  public static String IncludeFlagsRadioButtonGroup_allIncludes_xrbl;
+  public static String IncludeFlagsRadioButtonGroup_selectedIncludes_xrbl;
+  public static String IncludeFlagsRadioButtonGroup_selectedOptions_xlnk;
   public static String ObjectTypeSearchFilter_filterShortDescription_xmsg;
   public static String ReleasedRequestDate_All_xlbl;
   public static String ReleasedRequestDate_FromLastFourWeeks_xlbl;
