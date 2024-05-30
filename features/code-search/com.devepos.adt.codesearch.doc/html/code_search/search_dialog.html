@@ -236,7 +236,7 @@
     </p>
     <figure>
         <img src="../../images/CodeSearchView-ExpandIncludes-Setting.png">
-        <figcaption>Expand Include Setting</figcaption>
+        <figcaption>Expand includes in programs</figcaption>
     </figure>
     <p>If this setting is active the program itself and all includes of
         the program are searched. The results of the includes are conveniently
@@ -249,6 +249,29 @@
     <div class="alert warning">
         <div class="alert-info__text"></div>
         For this feature you have to install at least Version <strong>v1.2.0</strong>
+        of the ADT Backend <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank"
+            class="link external">abap-code-search-tools</a>
+    </div>
+
+    <h4 id="table-expand-includes" class="heading">Settings for
+        Tables</h4>
+    <p>
+        Structures or database tables can contain includes as well. This setting will consider referenced includes and
+        also search those.
+    </p>
+    <figure>
+        <img src="../../images/CodeSearchView-ExpandIncludes-Tables-Setting.png">
+        <figcaption>Expand includes in tables</figcaption>
+    </figure>
+    <p>If this setting is active the table/structure itself and all includes are searched.</p>
+    <figure>
+        <img src="../../images/CodeSearch-Result-ExpandedTable.png">
+        <figcaption>Result in include of database table</figcaption>
+    </figure>
+
+    <div class="alert warning">
+        <div class="alert-info__text"></div>
+        For this feature you have to install at least Version <strong>v1.6.0</strong>
         of the ADT Backend <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank"
             class="link external">abap-code-search-tools</a>
     </div>
