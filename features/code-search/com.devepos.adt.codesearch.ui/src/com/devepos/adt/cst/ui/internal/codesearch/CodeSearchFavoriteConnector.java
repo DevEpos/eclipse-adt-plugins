@@ -77,6 +77,9 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
       case EXPAND_PROG_INCLUDES:
         specs.setExpandProgramIncludes(((IBooleanAttribute) favAttribute).isValue());
         break;
+      case EXPAND_TABLE_INCLUDES:
+        specs.setExpandTableIncludes(((IBooleanAttribute) favAttribute).isValue());
+        break;
       case SINGLE_PATTERN:
         specs.setSinglePattern(((IBooleanAttribute) favAttribute).isValue());
         break;
