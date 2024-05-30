@@ -91,7 +91,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
           && !releasedRequestsEditor.getBooleanValue()) {
         setErrorMessage(
             MessageFormat.format(Messages.CodeSearchPreferencesPage_StatusMandatoryError_xmsg,
-                modifiableRequestsEditor.getLabelText(), releasedRequestsEditor.getLabelText()));
+                modifiableRequestsEditor.getLabelText().replace("&", ""),
+                releasedRequestsEditor.getLabelText().replace("&", "")));
         setValid(false);
       }
     } else {
