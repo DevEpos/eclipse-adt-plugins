@@ -2,7 +2,6 @@ package com.devepos.adt.base.ui.internal.projectexplorer.node;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IAdapterFactory;
@@ -10,6 +9,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode;
 import com.sap.adt.projectexplorer.ui.internal.node.AbapFavoritePackagesNode;
 import com.sap.adt.projectexplorer.ui.internal.node.AbapRepositoryCategoryFolderNode;
+import com.sap.adt.projectexplorer.ui.internal.node.AbapRepositoryPackageNode;
 import com.sap.adt.projectexplorer.ui.internal.node.AbapRepositoryTempPackageNode;
 import com.sap.adt.projectexplorer.ui.internal.node.AbapRepositoryTypeFolderNode;
 import com.sap.adt.projectexplorer.ui.internal.node.AbapSystemLibraryNode;
@@ -33,23 +33,29 @@ public class AbapRepositoryFolderAdapterFactory implements IAdapterFactory {
           ((AbapSystemLibraryNode) adaptableObject).getProject(), null, null, null, null));
     }
     if (adaptableObject instanceof AbapFavoritePackagesNode) {
-      AbapFavoritePackagesNode node = (AbapFavoritePackagesNode) adaptableObject;
-      Set<String> packages = node.getFavoritePackageNames();
+      var node = (AbapFavoritePackagesNode) adaptableObject;
+      var packages = node.getFavoritePackageNames();
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null, null,
           packages != null && !packages.isEmpty() ? packages.stream().collect(Collectors.toList())
               : null));
     }
+    if (adaptableObject instanceof AbapRepositoryPackageNode) {
+      var node = (AbapRepositoryPackageNode) adaptableObject;
+      return adapterType.cast(
+          new AbapRepositoryFolderProxy(node.getProject(), null, null, null, getPackages(node)));
+    }
     if (adaptableObject instanceof AbapRepositoryCategoryFolderNode) {
-      AbapRepositoryCategoryFolderNode node = (AbapRepositoryCategoryFolderNode) adaptableObject;
+      var node = (AbapRepositoryCategoryFolderNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), node.getCategory(),
           null, null, getPackages(node)));
     }
     if (adaptableObject instanceof AbapRepositoryTypeFolderNode) {
-      AbapRepositoryTypeFolderNode node = (AbapRepositoryTypeFolderNode) adaptableObject;
+      var node = (AbapRepositoryTypeFolderNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, node.getType(),
           null, getPackages(node)));
-    } else if (adaptableObject instanceof AbapRepositoryTempPackageNode) {
-      AbapRepositoryTempPackageNode node = (AbapRepositoryTempPackageNode) adaptableObject;
+    }
+    if (adaptableObject instanceof AbapRepositoryTempPackageNode) {
+      var node = (AbapRepositoryTempPackageNode) adaptableObject;
       return adapterType.cast(new AbapRepositoryFolderProxy(node.getProject(), null, null,
           node.getOwnerOfLocalObject(), getPackages(node)));
     }
