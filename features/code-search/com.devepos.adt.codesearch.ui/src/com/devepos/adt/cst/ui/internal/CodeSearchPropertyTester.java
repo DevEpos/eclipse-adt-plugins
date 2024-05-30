@@ -88,14 +88,14 @@ public class CodeSearchPropertyTester extends PropertyTester {
 
   private boolean isCodeSearchAvailable(final Object receiver) {
     IProject project = null;
-    Supplier<Boolean> additionalCheck = null;
+    Supplier<Boolean> folderValidation = null;
 
     if (receiver instanceof IAdtObject) {
       project = ((IAdtObject) receiver).getProject();
     } else if (receiver instanceof IVirtualFolderNode) {
       IVirtualFolderNode virtualFolder = (IVirtualFolderNode) receiver;
       project = virtualFolder.getProject();
-      additionalCheck = () -> {
+      folderValidation = () -> {
         if (virtualFolder.isTree()) {
           return true;
         }
@@ -116,7 +116,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
       project = folder.getProject();
       var projectDependentTypes = ProjectDependentTypeAvailability.getTypesForProject(project);
       String destinationId = DestinationUtil.getDestinationId(project);
-      additionalCheck = () -> {
+      folderValidation = () -> {
         String category = folder.getCategory();
         if (category != null) {
           if (!VALID_ABAP_REPO_FOLDER_TYPE_KEYS.contains(category)) {
@@ -136,9 +136,12 @@ public class CodeSearchPropertyTester extends PropertyTester {
           return !AdtTypeUtil.getInstance().isCdsCategoryAvailable(destinationId);
         }
         String type = folder.getType();
-        return type != null
-            && CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(folder.getProject())
-                .contains(type);
+        if (type != null) {
+          return CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(folder.getProject())
+              .contains(type);
+        }
+        // no type and category means probably a package node
+        return true;
       };
     }
 
@@ -146,7 +149,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
         ? CodeSearchFactory.getCodeSearchService().testCodeSearchFeatureAvailability(project).isOK()
         : false;
 
-    return additionalCheck != null ? additionalCheck.get() && isProjectValid : isProjectValid;
+    return folderValidation != null ? folderValidation.get() && isProjectValid : isProjectValid;
   }
 
   private List<String> getVirtualFolderTypeKeys(final IProject project) {
