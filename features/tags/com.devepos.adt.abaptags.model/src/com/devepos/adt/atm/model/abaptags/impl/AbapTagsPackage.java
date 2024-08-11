@@ -1117,6 +1117,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
+  public EAttribute getTaggedObjectListRequest_DeletedObjectsOnly() {
+    return (EAttribute) taggedObjectListRequestEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getTaggedObjectInfo() {
     return taggedObjectInfoEClass;
   }
@@ -1646,6 +1657,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     createEReference(taggedObjectListRequestEClass,
         TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS);
     createEAttribute(taggedObjectListRequestEClass, TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS);
+    createEAttribute(taggedObjectListRequestEClass,
+        TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY);
 
     taggedObjectInfoEClass = createEClass(TAGGED_OBJECT_INFO);
     createEAttribute(taggedObjectInfoEClass, TAGGED_OBJECT_INFO__ID);
@@ -1972,6 +1985,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEAttribute(getTaggedObjectListRequest_LoadChildObjects(), theXMLTypePackage.getBoolean(),
         "loadChildObjects", null, 0, 1, ITaggedObjectListRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTaggedObjectListRequest_DeletedObjectsOnly(), theXMLTypePackage.getBoolean(),
+        "deletedObjectsOnly", null, 0, 1, ITaggedObjectListRequest.class, !IS_TRANSIENT,
+        !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(taggedObjectInfoEClass, ITaggedObjectInfo.class, "TaggedObjectInfo", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2262,6 +2278,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "element", "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
     addAnnotation(getTaggedObjectListRequest_LoadChildObjects(), source, new String[] { "kind",
         "attribute", "namespace", "##targetNamespace", "name", "loadChildObjects" });
+    addAnnotation(getTaggedObjectListRequest_DeletedObjectsOnly(), source, new String[] { "kind",
+        "attribute", "namespace", "##targetNamespace", "name", "deletedObjectsOnly" });
     addAnnotation(taggedObjectInfoEClass, source,
         new String[] { "kind", "elementOnly", "name", "taggedObjectInfo" });
     addAnnotation(getTaggedObjectInfo_Id(), source,

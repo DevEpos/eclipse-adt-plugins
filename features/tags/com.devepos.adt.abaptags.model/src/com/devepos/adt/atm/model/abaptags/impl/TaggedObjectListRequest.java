@@ -35,6 +35,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
  * <em>Tagged Object Infos</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest#isLoadChildObjects
  * <em>Load Child Objects</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.impl.TaggedObjectListRequest#isDeletedObjectsOnly
+ * <em>Deleted Objects Only</em>}</li>
  * </ul>
  *
  * @generated
@@ -97,6 +99,30 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
    * @ordered
    */
   protected boolean loadChildObjects = LOAD_CHILD_OBJECTS_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isDeletedObjectsOnly() <em>Deleted Objects Only</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isDeletedObjectsOnly()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DELETED_OBJECTS_ONLY_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDeletedObjectsOnly() <em>Deleted Objects Only</em>}'
+   * attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isDeletedObjectsOnly()
+   * @generated
+   * @ordered
+   */
+  protected boolean deletedObjectsOnly = DELETED_OBJECTS_ONLY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -199,6 +225,34 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
    * @generated
    */
   @Override
+  public boolean isDeletedObjectsOnly() {
+    return deletedObjectsOnly;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setDeletedObjectsOnly(final boolean newDeletedObjectsOnly) {
+    boolean oldDeletedObjectsOnly = deletedObjectsOnly;
+    deletedObjectsOnly = newDeletedObjectsOnly;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY, oldDeletedObjectsOnly,
+          deletedObjectsOnly));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
       final NotificationChain msgs) {
     switch (featureID) {
@@ -225,6 +279,8 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
       return getTaggedObjectInfos();
     case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS:
       return isLoadChildObjects();
+    case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY:
+      return isDeletedObjectsOnly();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -254,6 +310,9 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
     case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS:
       setLoadChildObjects((Boolean) newValue);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY:
+      setDeletedObjectsOnly((Boolean) newValue);
+      return;
     }
     super.eSet(featureID, newValue);
   }
@@ -279,6 +338,9 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
     case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS:
       setLoadChildObjects(LOAD_CHILD_OBJECTS_EDEFAULT);
       return;
+    case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY:
+      setDeletedObjectsOnly(DELETED_OBJECTS_ONLY_EDEFAULT);
+      return;
     }
     super.eUnset(featureID);
   }
@@ -300,6 +362,8 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
       return taggedObjectInfos != null && !taggedObjectInfos.isEmpty();
     case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS:
       return loadChildObjects != LOAD_CHILD_OBJECTS_EDEFAULT;
+    case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY:
+      return deletedObjectsOnly != DELETED_OBJECTS_ONLY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -323,6 +387,8 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
     result.append(taggedObjectIds);
     result.append(", loadChildObjects: ");
     result.append(loadChildObjects);
+    result.append(", deletedObjectsOnly: ");
+    result.append(deletedObjectsOnly);
     result.append(')');
     return result.toString();
   }

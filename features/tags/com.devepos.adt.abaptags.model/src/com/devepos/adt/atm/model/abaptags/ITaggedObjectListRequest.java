@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Tagged Object Infos</em>}</li>
  * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isLoadChildObjects
  * <em>Load Child Objects</em>}</li>
+ * <li>{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isDeletedObjectsOnly
+ * <em>Deleted Objects Only</em>}</li>
  * </ul>
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectListRequest()
@@ -98,5 +100,33 @@ public interface ITaggedObjectListRequest extends EObject {
    * @generated
    */
   void setLoadChildObjects(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Deleted Objects Only</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Deleted Objects Only</em>' attribute.
+   * @see #setDeletedObjectsOnly(boolean)
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTaggedObjectListRequest_DeletedObjectsOnly()
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+   *        extendedMetaData="kind='attribute' namespace='##targetNamespace'
+   *        name='deletedObjectsOnly'"
+   * @generated
+   */
+  boolean isDeletedObjectsOnly();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isDeletedObjectsOnly
+   * <em>Deleted Objects Only</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Deleted Objects Only</em>' attribute.
+   * @see #isDeletedObjectsOnly()
+   * @generated
+   */
+  void setDeletedObjectsOnly(boolean value);
 
 } // ITaggedObjectListRequest

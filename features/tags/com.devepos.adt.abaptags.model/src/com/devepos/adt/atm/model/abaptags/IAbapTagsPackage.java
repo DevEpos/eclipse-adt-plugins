@@ -1113,6 +1113,16 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS = 3;
 
   /**
+   * The feature id for the '<em><b>Deleted Objects Only</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY = 4;
+
+  /**
    * The number of structural features of the '<em>Tagged Object List Request</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1120,7 +1130,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int TAGGED_OBJECT_LIST_REQUEST_FEATURE_COUNT = 4;
+  int TAGGED_OBJECT_LIST_REQUEST_FEATURE_COUNT = 5;
 
   /**
    * The number of operations of the '<em>Tagged Object List Request</em>' class.
@@ -2622,6 +2632,20 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getTaggedObjectListRequest_LoadChildObjects();
 
   /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isDeletedObjectsOnly
+   * <em>Deleted Objects Only</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Deleted Objects Only</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest#isDeletedObjectsOnly()
+   * @see #getTaggedObjectListRequest()
+   * @generated
+   */
+  EAttribute getTaggedObjectListRequest_DeletedObjectsOnly();
+
+  /**
    * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo
    * <em>Tagged Object Info</em>}'.
    * <!-- begin-user-doc -->
@@ -3858,6 +3882,16 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_LIST_REQUEST__LOAD_CHILD_OBJECTS = eINSTANCE
         .getTaggedObjectListRequest_LoadChildObjects();
+
+    /**
+     * The meta object literal for the '<em><b>Deleted Objects Only</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAGGED_OBJECT_LIST_REQUEST__DELETED_OBJECTS_ONLY = eINSTANCE
+        .getTaggedObjectListRequest_DeletedObjectsOnly();
 
     /**
      * The meta object literal for the

@@ -16,6 +16,8 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.search.ITaggedObjectSearchService;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.plugin.features.AdtPluginFeaturesServiceFactory;
+import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 
@@ -66,4 +68,22 @@ public class TaggedObjectSearchService implements ITaggedObjectSearchService {
                     project.toString()));
   }
 
+  @Override
+  public IAdtPluginFeatures getTgobjInfoListFeatures(final String destinationId) {
+    var uriDiscovery = new TaggedObjectSearchUriDiscovery(destinationId);
+    var pluginFeaturesUri = uriDiscovery.getPluginFeaturesUri();
+    if (pluginFeaturesUri == null) {
+      return null;
+    }
+    var tgObjInfosGetListUri = uriDiscovery.getTaggedObjectInfosGetListUri();
+    if (tgObjInfosGetListUri == null) {
+      return null;
+    }
+
+    var featureList = AdtPluginFeaturesServiceFactory.createService()
+        .getFeatures(destinationId, pluginFeaturesUri.toString());
+
+    return featureList != null ? featureList.getFeaturesByEndpoint(tgObjInfosGetListUri.toString())
+        : null;
+  }
 }

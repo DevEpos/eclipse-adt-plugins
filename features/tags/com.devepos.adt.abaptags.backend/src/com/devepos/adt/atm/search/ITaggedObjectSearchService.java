@@ -10,6 +10,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectListRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
+import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
  * Service for searching for Objects with certain tags
@@ -44,4 +45,12 @@ public interface ITaggedObjectSearchService {
    * @return {@link Status#OK_STATUS} if the feature is available
    */
   IStatus testGetObjectInfosFeatureAvailability(IProject project);
+
+  /**
+   * Returns features for endpoint to reading tagged object information
+   * 
+   * @param destinationId destination Id for ABAP project
+   * @return list of features
+   */
+  IAdtPluginFeatures getTgobjInfoListFeatures(final String destinationId);
 }

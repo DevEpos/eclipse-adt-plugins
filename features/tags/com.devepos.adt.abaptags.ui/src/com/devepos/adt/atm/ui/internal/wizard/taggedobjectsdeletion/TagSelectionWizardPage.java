@@ -2,8 +2,10 @@ package com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
@@ -13,6 +15,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -24,6 +27,7 @@ import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
+import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
@@ -63,6 +67,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
+
+  private Button considerOnlyDeletedObjects;
 
   protected TagSelectionWizardPage() {
     super(PAGE_NAME);
@@ -107,6 +113,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     taggedObjectListRequest.getTaggedObjectIds().clear();
     taggedObjectListRequest.getTaggedObjectInfos().clear();
     taggedObjectListRequest.getTagIds().clear();
+    taggedObjectListRequest.setDeletedObjectsOnly(considerOnlyDeletedObjects.getSelection());
 
     selectedTags.forEach(t -> taggedObjectListRequest.getTagIds().add(t.getId()));
 
@@ -122,6 +129,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     createProjectInput(root);
     createTagsCheckBoxTree(root);
     createViewerContextMenu();
+    createSelectOptionsGroup(root);
 
     var treeActionsComposite = new Composite(tagSelectionTree.getTreeFilterComposite(), SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(treeActionsComposite);
@@ -175,6 +183,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       if (status.isOK()) {
         var wizard = getWizard();
         final var newProject = projectInput.getProjectProvider().getProject();
+        updateControlsByProjectFeatureState(newProject);
         final var oldProject = wizard.getProject();
         wizard.setProject(newProject);
         if (newProject != oldProject
@@ -182,6 +191,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           tagSelectionTree.setCheckedTags(null);
           refreshTags();
         }
+      } else {
+        updateControlsByProjectFeatureState(null);
       }
       validatePage(status, ValidationSource.PROJECT);
     });
@@ -209,9 +220,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
             .align(SWT.FILL, SWT.FILL)
             .grab(true, true)
             .minSize(250, 200)
-            .hint(SWT.DEFAULT, tree.getItemHeight() * 10)
+            .hint(SWT.DEFAULT, tree.getItemHeight() * 12)
             .applyTo(tree);
-        super.applyTreeLayoutData(tree);
       }
     };
 
@@ -260,7 +270,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createTreeToolbar(final Composite parent) {
     toolBar = new ToolBar(parent, SWT.FLAT | SWT.HORIZONTAL);
-    toolBar.setEnabled(false);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.END).applyTo(toolBar);
 
     new ToolItem(toolBar, SWT.SEPARATOR);
@@ -281,6 +290,15 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     new ToolItem(toolBar, SWT.SEPARATOR);
 
+    final var checkAll = new ToolItem(toolBar, SWT.PUSH);
+    checkAll.setToolTipText(AdtBaseUIResources.getString(IAdtBaseStrings.SelectAll_xlbl));
+
+    checkAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.CHECK_ALL));
+    checkAll.addSelectionListener(widgetSelectedAdapter(l -> {
+      tagSelectionTree.checkAll();
+      validatePage(null, ValidationSource.TAGS);
+    }));
+
     final var uncheckAll = new ToolItem(toolBar, SWT.PUSH);
     uncheckAll.setToolTipText(AdtBaseUIResources.getString(IAdtBaseStrings.DeselectAll_xlbl));
 
@@ -289,6 +307,20 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       tagSelectionTree.setCheckedTags(null);
       validatePage(null, ValidationSource.TAGS);
     }));
+
+    setToolbarEnabled(false);
+  }
+
+  private void createSelectOptionsGroup(final Composite root) {
+    var group = new Group(root, SWT.NONE);
+    group.setText(Messages.TagSelectionWizardPage_SelectionOptions_xgrp);
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(group);
+    GridLayoutFactory.swtDefaults().applyTo(group);
+
+    considerOnlyDeletedObjects = new Button(group, SWT.CHECK);
+    considerOnlyDeletedObjects
+        .setText(Messages.TagSelectionWizardPage_OnlyIncludeDeletedObjects_xchk);
+    considerOnlyDeletedObjects.addSelectionListener(widgetSelectedAdapter(e -> setDirty(true)));
   }
 
   private void createViewerContextMenu() {
@@ -329,9 +361,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         tagSelectionTree.selectFirstItem();
         tagSelectionTree.setFocus();
 
-        if (toolBar != null) {
-          toolBar.setEnabled(tagSelectionTree.hasViewerInput());
-        }
+        setToolbarEnabled(tagSelectionTree.hasViewerInput());
       });
       monitor.done();
     });
@@ -361,13 +391,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         if (tagSelectionTree != null && tagSelectionTree.hasViewerInput()) {
           tagSelectionTree.setTags(null, false);
         }
-        if (toolBar != null) {
-          toolBar.setEnabled(false);
-        }
+        setToolbarEnabled(false);
       } else {
-        if (toolBar != null) {
-          toolBar.setEnabled(true);
-        }
+        setToolbarEnabled(true);
         // if project validation is successful continue with Tags validation
         validateTags = true;
       }
@@ -392,4 +418,26 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     updatePageCompletedStatus(pageStatus);
   }
 
+  private void setToolbarEnabled(final boolean enabled) {
+    if (toolBar == null) {
+      return;
+    }
+    Stream.of(toolBar.getItems()).forEach(i -> i.setEnabled(enabled));
+  }
+
+  private void updateControlsByProjectFeatureState(final IProject newProject) {
+    var enabled = new AtomicBoolean();
+    if (newProject != null) {
+      var features = TaggedObjectSearchFactory.createTaggedObjectSearchService()
+          .getTgobjInfoListFeatures(DestinationUtil.getDestinationId(newProject));
+      enabled.set(features != null && features.isFeatureEnabled("considerOnlyDeletedObjects")); //$NON-NLS-1$
+    }
+    Display.getDefault().asyncExec(() -> {
+      considerOnlyDeletedObjects.setEnabled(enabled.get());
+      if (!enabled.get()) {
+        considerOnlyDeletedObjects.setSelection(false);
+      }
+    });
+
+  }
 }

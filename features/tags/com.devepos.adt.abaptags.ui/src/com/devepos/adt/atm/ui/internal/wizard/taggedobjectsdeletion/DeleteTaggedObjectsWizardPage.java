@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -328,7 +329,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
   private void createTreeToolbar(final Composite parent) {
     toolBar = new ToolBar(parent, SWT.FLAT | SWT.HORIZONTAL);
-    toolBar.setEnabled(false);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(toolBar);
 
     final var checkAll = new ToolItem(toolBar, SWT.PUSH);
@@ -346,6 +346,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
       uncheckAllObjects(false);
     }));
+
+    Stream.of(toolBar.getItems()).forEach(i -> i.setEnabled(false));
   }
 
   private void createViewer(final Composite parent) {
@@ -489,14 +491,14 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     createColumns();
 
     taggedObjectsViewer.setInput(taggedObjects);
+
     checkAllObjects();
     validatePage();
 
-    // delay necessary otherwise the toolbar state is not yet active
-    Display.getDefault().timerExec(200, () -> {
-      toolBar.setEnabled(taggedObjects != null && !taggedObjects.isEmpty()
-          && taggedObjects.size() != undeletableTaggedObjects.size());
-    });
+    var enabled = taggedObjects != null && !taggedObjects.isEmpty()
+        && taggedObjects.size() != undeletableTaggedObjects.size();
+
+    Stream.of(toolBar.getItems()).forEach(i -> i.setEnabled(enabled));
 
     // make column adjustments
     for (var column : taggedObjectsViewer.getTable().getColumns()) {

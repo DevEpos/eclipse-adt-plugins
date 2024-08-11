@@ -169,7 +169,9 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_ExpandAll_xbut;
   public static String TagSelectionWizardPage_NewTagDefaultName_xmsg;
   public static String TagSelectionWizardPage_NoTagsSelectedInfo_xmsg;
+  public static String TagSelectionWizardPage_OnlyIncludeDeletedObjects_xchk;
   public static String TagSelectionWizardPage_RemoveTag_xbut;
+  public static String TagSelectionWizardPage_SelectionOptions_xgrp;
   public static String TagSelectionWizardPage_SelectionPage_xtit;
   public static String TagSelectionWizardPage_SelectSubTreeAction_xmit;
   public static String TagSelectionWizardPage_ShowUserTags_xchk;

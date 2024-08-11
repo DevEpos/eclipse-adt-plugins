@@ -39,7 +39,7 @@ public class TagSelectionTree {
   private final List<ITag> tagList = new ArrayList<>();
 
   private final Set<ITag> checkedTags;
-  private List<String> checkedTagIds;
+  private List<String> checkedTagIds = new ArrayList<>();
   private final Set<ICheckStateListener> checkedStateListener = new HashSet<>();
 
   public TagSelectionTree() {
@@ -149,7 +149,6 @@ public class TagSelectionTree {
     if (tagsTree != null && !tagsTree.isDisposed()) {
       tagsTreeViewer.refresh();
     }
-
   }
 
   public void removeCheckedStateListener(final ICheckStateListener l) {
@@ -175,8 +174,20 @@ public class TagSelectionTree {
     }
   }
 
+  public void checkAll() {
+    checkedTags.clear();
+    for (var tag : tagList) {
+      checkedTags.add(tag);
+      setTagCheckedRecursive(tag, true);
+    }
+    setCheckedElementsInTree();
+  }
+
   public void setCheckedTagIds(final List<String> tagIds) {
-    checkedTagIds = tagIds;
+    checkedTagIds.clear();
+    if (tagIds != null) {
+      checkedTagIds.addAll(tagIds);
+    }
   }
 
   public void setCheckedTags(final List<ITag> tags) {
@@ -305,7 +316,7 @@ public class TagSelectionTree {
   }
 
   private void updateCheckedTagsFromTagIdList() {
-    if (checkedTagIds == null || checkedTagIds.isEmpty()) {
+    if (checkedTagIds.isEmpty()) {
       return;
     }
     if (tagList != null && !tagList.isEmpty()) {
@@ -316,6 +327,6 @@ public class TagSelectionTree {
         fireCheckedStateChanged();
       }
     }
-    checkedTagIds = null;
+    checkedTagIds.clear();
   }
 }
