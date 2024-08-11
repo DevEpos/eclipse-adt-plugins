@@ -44,11 +44,14 @@ public class Messages extends NLS {
   public static String AbapObjectTagsView_DeleteTagAction_xmit;
   public static String AbapObjectTagsView_DeleteTagsJob_xmsg;
   public static String AbapObjectTagsView_focusOnObjectAction_xmit;
+  public static String AbapObjectTagsView_NavigationFailed_xmsg;
+  public static String AbapObjectTagsView_NavigationFailed_xtit;
   public static String AbapObjectTagsView_NoInputAvailable_xmsg;
   public static String AbapObjectTagsView_NoTagsAssigned_xmsg;
   public static String AbapObjectTagsView_LinkToEditorAction_xtol;
   public static String AbapObjectTagsView_LoadingTaggedObjectInfoJob_xmsg;
   public static String AbapObjectTagsView_TaggedComponentsFolder_xlbl;
+  public static String AbapObjectTagsView_TaggedObjectNotFound_xlbl;
   public static String AbapTagManagerView_FindTaggedObjectsAction_xmit;
   public static String AbapTagManagerView_FindTaggedObjectsActionMatchAllTags_xmit;
   public static String AbapTagManagerView_ViewerFilterText_xmsg;

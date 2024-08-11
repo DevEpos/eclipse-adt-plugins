@@ -553,7 +553,14 @@ public class AbapObjectTagsView extends ViewPart {
 
         if (element instanceof IAdtObjectReferenceNode) {
           isAdtObjectRefNode = true;
+
           AdtObjectUtil.appendAdtTypeDescription((IAdtObjectReferenceNode) element, text);
+
+          if (StringUtil.isEmpty(((IAdtObjectReferenceNode) element).getUri())) {
+            text.append(" "); //$NON-NLS-1$
+            text.append(Messages.AbapObjectTagsView_TaggedObjectNotFound_xlbl,
+                StylerFactory.createCustomStyler(SWT.NONE, JFacePreferences.ERROR_COLOR, null));
+          }
         }
 
         if (element instanceof ICollectionTreeNode && !isAdtObjectRefNode) {
@@ -691,7 +698,14 @@ public class AbapObjectTagsView extends ViewPart {
           final IAdtObjectReferenceNode adtObjRefNode = (IAdtObjectReferenceNode) node;
 
           if (adtObjRefNode != null) {
-            AdtUIUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(), getProject());
+            if (StringUtil.isEmpty(adtObjRefNode.getUri())) {
+              MessageDialog.openError(getViewSite().getShell(),
+                  Messages.AbapObjectTagsView_NavigationFailed_xtit, String.format(
+                      Messages.AbapObjectTagsView_NavigationFailed_xmsg, adtObjRefNode.getName()));
+            } else {
+              AdtUIUtil.navigateWithObjectReference(adtObjRefNode.getObjectReference(),
+                  getProject());
+            }
           }
         }
       }
