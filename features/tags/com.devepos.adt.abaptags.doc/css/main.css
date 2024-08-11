@@ -38,6 +38,29 @@ p,
     padding-right: 5px;
 }
 
+.tag {
+    display: inline;
+}
+
+.tag-label {
+    font-size: 11px;
+    padding: 2px 3px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: rgb(74, 74, 74);
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.tag-version {
+    font-size: 11px;
+    padding: 2px 3px;
+    background-color: #ffd400;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #333;
+}
+
 .list {
     font-size: 13px;
     margin: 0;
