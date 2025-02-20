@@ -318,6 +318,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     GridLayoutFactory.swtDefaults().applyTo(group);
 
     considerOnlyDeletedObjects = new Button(group, SWT.CHECK);
+    considerOnlyDeletedObjects.setEnabled(false);
     considerOnlyDeletedObjects
         .setText(Messages.TagSelectionWizardPage_OnlyIncludeDeletedObjects_xchk);
     considerOnlyDeletedObjects.addSelectionListener(widgetSelectedAdapter(e -> setDirty(true)));
