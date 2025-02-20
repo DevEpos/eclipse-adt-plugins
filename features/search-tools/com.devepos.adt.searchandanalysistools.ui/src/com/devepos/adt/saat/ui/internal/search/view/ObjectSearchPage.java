@@ -4,6 +4,7 @@ import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -44,9 +45,11 @@ import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.ui.util.SelectionUtil;
 import com.devepos.adt.base.ui.util.StatusUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.saat.model.objectsearch.IImageInfo;
 import com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig;
 import com.devepos.adt.saat.search.IObjectSearchService;
 import com.devepos.adt.saat.search.ObjectSearchServiceFactory;
+import com.devepos.adt.saat.search.ObjectSearchSystemConfig;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.help.HelpContextId;
 import com.devepos.adt.saat.ui.internal.help.HelpUtil;
@@ -571,6 +574,9 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
         var searchConfig = searchService.getSearchConfig(projectProvider.getDestinationId());
         var typesOfProject = searchConfig.getSearchTypes();
 
+        // register all required images
+        registerImagesForSearch(searchConfig.getImageInfos());
+
         if (selectedTypeName == null) {
           var typeViewerInput = searchTypeViewer.getInput();
           if (typeViewerInput != null && !(typeViewerInput instanceof String[])) {
@@ -618,6 +624,30 @@ public class ObjectSearchPage extends DialogPage implements ISearchPage, ISearch
       setTypeViewerNoProjectInput();
     }
 
+  }
+
+  private void registerImagesForSearch(final List<IImageInfo> imageInfos) {
+    if (imageInfos.size() == 0) {
+      return;
+    }
+    imageInfos.forEach(imageInfo -> {
+      if (imageInfo.getImageId() == null && imageInfo.getImageEncoded() == null) {
+        return;
+      }
+      var plugin = SearchAndAnalysisPlugin.getDefault();
+
+      var image = plugin.getImage(imageInfo.getImageId());
+      if (image != null && ObjectSearchSystemConfig.IS_OBJ_SEARCH_CONFIG_CACHING_DISABLED) {
+        plugin.getImageRegistry().remove(imageInfo.getImageId());
+        image = null;
+      }
+
+      if (image == null) {
+        plugin.registerEncodedImage(imageInfo.getImageId(), imageInfo.getImageEncoded());
+      }
+    });
+    // clear the images, as all should now be contained in the image registry
+    imageInfos.clear();
   }
 
   private IStatus updateStatus(final IStatus status, final String source) {

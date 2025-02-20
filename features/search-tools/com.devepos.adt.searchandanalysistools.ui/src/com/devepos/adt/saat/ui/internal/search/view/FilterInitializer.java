@@ -172,7 +172,7 @@ public class FilterInitializer {
   }
 
   private Image registerImage(final IImageInfo imageInfo) {
-    if (imageInfo.getImageId() == null && imageInfo.getImageEncoded() == null) {
+    if (imageInfo.getImageId() == null) {
       return null;
     }
     var plugin = SearchAndAnalysisPlugin.getDefault();
@@ -184,8 +184,9 @@ public class FilterInitializer {
       }
     }
 
-    Image image = plugin.getImage(imageInfo.getImageId());
-    if (image == null) {
+    var image = plugin.getImage(imageInfo.getImageId());
+
+    if (image == null && imageInfo.getImageEncoded() != null) {
       image = plugin.registerEncodedImage(imageInfo.getImageId(), imageInfo.getImageEncoded());
       // clear encoded image from buffer to reduce memory
       imageInfo.setImageEncoded(null);
