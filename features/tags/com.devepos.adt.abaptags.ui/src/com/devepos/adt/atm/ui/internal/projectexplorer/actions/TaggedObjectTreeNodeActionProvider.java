@@ -101,17 +101,24 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT,
           new RemoveAssignedTagsAction(getActionSite()));
       var typeUtil = AdtTypeUtil.getInstance();
-      // Adds delete command if no local type is selected
+      // Add some base ADT commands if no local type has been selected
       if (!Stream.of(selection)
           .filter(IAdtObjectReferenceNode.class::isInstance)
           .map(IAdtObjectReferenceNode.class::cast)
           .anyMatch(obj -> typeUtil.isLocalClassType(obj.getAdtObjectType())
               || typeUtil.isLocalInterfaceType(obj.getAdtObjectType()))) {
+        // adds delete action to "Edit" menu group
         MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_EDIT,
             "com.sap.adt.deletion.ui.command.delete", PlatformUI.getWorkbench() //$NON-NLS-1$
                 .getSharedImages()
                 .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
             Messages.TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl, null);
+        // adds duplicate action to "New" menu group
+        MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_NEW,
+            "com.sap.adt.tools.core.ui.duplicate", PlatformUI.getWorkbench() //$NON-NLS-1$
+                .getSharedImages()
+                .getImageDescriptor(ISharedImages.IMG_TOOL_COPY),
+            Messages.TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl, null);
       }
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }

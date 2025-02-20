@@ -26,6 +26,7 @@ public class Messages extends NLS {
   public static String TaggedObjectTreeContentAndLabelProvider_LoadingTaggedObjectTreeJob_xtit;
   public static String TaggedObjectTreeContentAndLabelProvider_TaggedObjectsNodeName_xtit;
   public static String TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl;
+  public static String TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl;
   public static String TaggedObjectTreeNodeActionProvider_RefreshAction_xmit;
   public static String TaggedObjectTreePreferencePage_TreeSettingsGroup_xlbl;
   public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
