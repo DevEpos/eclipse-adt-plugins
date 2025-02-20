@@ -18,6 +18,7 @@ import com.devepos.adt.saat.model.objectsearch.IObjectSearchResult;
 import com.devepos.adt.saat.model.objectsearch.ISearchConfig;
 import com.devepos.adt.saat.model.objectsearch.ISearchQueryInput;
 import com.devepos.adt.saat.search.IObjectSearchService;
+import com.devepos.adt.saat.search.ObjectSearchSystemConfig;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 
@@ -29,12 +30,8 @@ import com.sap.adt.communication.session.AdtSystemSessionFactory;
 public class ObjectSearchService implements IObjectSearchService {
 
   private final Map<String, ISearchConfig> searchConfigMap = new HashMap<>();
-  private final boolean configCacheEnabled;
 
   public ObjectSearchService() {
-    var configCacheDisabledProp = System
-        .getProperty("com.devepos.adt.objectsearch.configCacheDisabled", Boolean.FALSE.toString());
-    configCacheEnabled = !Boolean.parseBoolean(configCacheDisabledProp);
   }
 
   @Override
@@ -49,7 +46,8 @@ public class ObjectSearchService implements IObjectSearchService {
 
   @Override
   public ISearchConfig getSearchConfig(final String destinationId) {
-    if (configCacheEnabled && searchConfigMap.containsKey(destinationId)) {
+    if (!ObjectSearchSystemConfig.IS_OBJ_SEARCH_CONFIG_CACHING_DISABLED
+        && searchConfigMap.containsKey(destinationId)) {
       return searchConfigMap.get(destinationId);
     }
     var discovery = new ObjectSearchUriDiscovery(destinationId);
@@ -62,7 +60,7 @@ public class ObjectSearchService implements IObjectSearchService {
           .createRestResource(resourceUri, session);
       restResource.addContentHandler(new ObjectSearchConfigContentHandler());
       var searchConfig = restResource.get(null, ISearchConfig.class);
-      if (configCacheEnabled) {
+      if (!ObjectSearchSystemConfig.IS_OBJ_SEARCH_CONFIG_CACHING_DISABLED) {
         searchConfigMap.put(destinationId, searchConfig);
       }
       return searchConfig;
