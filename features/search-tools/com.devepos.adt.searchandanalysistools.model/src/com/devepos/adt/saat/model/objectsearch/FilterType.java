@@ -50,7 +50,17 @@ public enum FilterType implements Enumerator {
    * @generated
    * @ordered
    */
-  BOOLEAN(2, "BOOLEAN", "BOOLEAN");
+  BOOLEAN(2, "BOOLEAN", "BOOLEAN"),
+  /**
+   * The '<em><b>NUMBER</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #NUMBER_VALUE
+   * @generated
+   * @ordered
+   */
+  NUMBER(3, "NUMBER", "NUMBER");
 
   /**
    * The '<em><b>DEFAULT</b></em>' literal value.
@@ -89,13 +99,26 @@ public enum FilterType implements Enumerator {
   public static final int BOOLEAN_VALUE = 2;
 
   /**
+   * The '<em><b>NUMBER</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #NUMBER
+   * @model
+   * @generated
+   * @ordered
+   */
+  public static final int NUMBER_VALUE = 3;
+
+  /**
    * An array of all the '<em><b>Filter Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @generated
    */
-  private static final FilterType[] VALUES_ARRAY = new FilterType[] { DEFAULT, DATE, BOOLEAN, };
+  private static final FilterType[] VALUES_ARRAY = new FilterType[] { DEFAULT, DATE, BOOLEAN,
+      NUMBER, };
 
   /**
    * A public read-only list of all the '<em><b>Filter Type</b></em>' enumerators.
@@ -160,6 +183,8 @@ public enum FilterType implements Enumerator {
       return DATE;
     case BOOLEAN_VALUE:
       return BOOLEAN;
+    case NUMBER_VALUE:
+      return NUMBER;
     }
     return null;
   }

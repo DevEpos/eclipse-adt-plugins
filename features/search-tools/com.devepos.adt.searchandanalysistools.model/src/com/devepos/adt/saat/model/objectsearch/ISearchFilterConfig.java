@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.EObject;
  * <em>Internal</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isWildcardsAllowed
  * <em>Wildcards Allowed</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isRangeAllowed <em>Range
+ * Allowed</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getContentAssist
  * <em>Content Assist</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#getImageInfo <em>Image
@@ -307,6 +309,32 @@ public interface ISearchFilterConfig extends EObject {
    * @generated
    */
   void setWildcardsAllowed(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Range Allowed</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the value of the '<em>Range Allowed</em>' attribute.
+   * @see #setRangeAllowed(boolean)
+   * @see com.devepos.adt.saat.model.objectsearch.IObjectSearchPackage#getSearchFilterConfig_RangeAllowed()
+   * @model extendedMetaData="name='range' kind='attribute' namespace='##targetNamespace'"
+   * @generated
+   */
+  boolean isRangeAllowed();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isRangeAllowed <em>Range
+   * Allowed</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Range Allowed</em>' attribute.
+   * @see #isRangeAllowed()
+   * @generated
+   */
+  void setRangeAllowed(boolean value);
 
   /**
    * Returns the value of the '<em><b>Content Assist</b></em>' containment reference.

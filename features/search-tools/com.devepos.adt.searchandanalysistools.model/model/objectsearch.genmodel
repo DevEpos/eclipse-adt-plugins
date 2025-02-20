@@ -19,6 +19,7 @@
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/DEFAULT"/>
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/DATE"/>
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//FilterType/NUMBER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="objectsearch.ecore#//ImageRegistryId">
       <genEnumLiterals ecoreEnumLiteral="objectsearch.ecore#//ImageRegistryId/CALLING_PLUGIN"/>
@@ -31,6 +32,7 @@
     </genEnums>
     <genClasses ecoreClass="objectsearch.ecore#//SearchConfig">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchConfig/searchTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchConfig/imageInfos"/>
     </genClasses>
     <genClasses ecoreClass="objectsearch.ecore#//SearchTypeConfig">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchTypeConfig/name"/>
@@ -57,6 +59,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/longDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/internal"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/wildcardsAllowed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute objectsearch.ecore#//SearchFilterConfig/rangeAllowed"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchFilterConfig/contentAssist"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference objectsearch.ecore#//SearchFilterConfig/imageInfo"/>
     </genClasses>

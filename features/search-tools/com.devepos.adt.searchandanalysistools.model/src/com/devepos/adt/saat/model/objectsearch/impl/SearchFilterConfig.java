@@ -43,6 +43,8 @@ import com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig;
  * <em>Internal</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isWildcardsAllowed
  * <em>Wildcards Allowed</em>}</li>
+ * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#isRangeAllowed
+ * <em>Range Allowed</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getContentAssist
  * <em>Content Assist</em>}</li>
  * <li>{@link com.devepos.adt.saat.model.objectsearch.impl.SearchFilterConfig#getImageInfo <em>Image
@@ -272,6 +274,28 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
    * @ordered
    */
   protected boolean wildcardsAllowed = WILDCARDS_ALLOWED_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isRangeAllowed() <em>Range Allowed</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isRangeAllowed()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean RANGE_ALLOWED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isRangeAllowed() <em>Range Allowed</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #isRangeAllowed()
+   * @generated
+   * @ordered
+   */
+  protected boolean rangeAllowed = RANGE_ALLOWED_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getContentAssist() <em>Content Assist</em>}' containment
@@ -597,6 +621,33 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
    * @generated
    */
   @Override
+  public boolean isRangeAllowed() {
+    return rangeAllowed;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setRangeAllowed(final boolean newRangeAllowed) {
+    boolean oldRangeAllowed = rangeAllowed;
+    rangeAllowed = newRangeAllowed;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          IObjectSearchPackage.SEARCH_FILTER_CONFIG__RANGE_ALLOWED, oldRangeAllowed, rangeAllowed));
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public IContentAssist getContentAssist() {
     return contentAssist;
   }
@@ -745,6 +796,8 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
       return isInternal();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       return isWildcardsAllowed();
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__RANGE_ALLOWED:
+      return isRangeAllowed();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       return getContentAssist();
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
@@ -795,6 +848,9 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       setWildcardsAllowed((Boolean) newValue);
       return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__RANGE_ALLOWED:
+      setRangeAllowed((Boolean) newValue);
+      return;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       setContentAssist((IContentAssist) newValue);
       return;
@@ -844,6 +900,9 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       setWildcardsAllowed(WILDCARDS_ALLOWED_EDEFAULT);
       return;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__RANGE_ALLOWED:
+      setRangeAllowed(RANGE_ALLOWED_EDEFAULT);
+      return;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       setContentAssist((IContentAssist) null);
       return;
@@ -885,6 +944,8 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
       return internal != INTERNAL_EDEFAULT;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED:
       return wildcardsAllowed != WILDCARDS_ALLOWED_EDEFAULT;
+    case IObjectSearchPackage.SEARCH_FILTER_CONFIG__RANGE_ALLOWED:
+      return rangeAllowed != RANGE_ALLOWED_EDEFAULT;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__CONTENT_ASSIST:
       return contentAssist != null;
     case IObjectSearchPackage.SEARCH_FILTER_CONFIG__IMAGE_INFO:
@@ -926,6 +987,8 @@ public class SearchFilterConfig extends MinimalEObjectImpl.Container
     result.append(internal);
     result.append(", wildcardsAllowed: ");
     result.append(wildcardsAllowed);
+    result.append(", rangeAllowed: ");
+    result.append(rangeAllowed);
     result.append(')');
     return result.toString();
   }

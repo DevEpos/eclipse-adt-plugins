@@ -15,6 +15,14 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imageInfos" upperBound="-1"
+        eType="#//ImageInfo" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="imageInfo"/>
+        <details key="kind" value="element"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SearchTypeConfig">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -173,6 +181,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="wildcardsAllowed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="patterns"/>
+        <details key="kind" value="attribute"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rangeAllowed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="range"/>
         <details key="kind" value="attribute"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
@@ -337,6 +352,7 @@
     <eLiterals name="DEFAULT" literal="DEFAULT"/>
     <eLiterals name="DATE" value="1" literal="DATE"/>
     <eLiterals name="BOOLEAN" value="2" literal="BOOLEAN"/>
+    <eLiterals name="NUMBER" value="3" literal="NUMBER"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SearchQueryInput">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

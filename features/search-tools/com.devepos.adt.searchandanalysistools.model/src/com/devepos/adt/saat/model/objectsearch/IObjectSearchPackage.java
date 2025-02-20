@@ -86,6 +86,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_CONFIG__SEARCH_TYPES = 0;
 
   /**
+   * The feature id for the '<em><b>Image Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_CONFIG__IMAGE_INFOS = 1;
+
+  /**
    * The number of structural features of the '<em>Search Config</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,7 +103,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_CONFIG_FEATURE_COUNT = 1;
+  int SEARCH_CONFIG_FEATURE_COUNT = 2;
 
   /**
    * The number of operations of the '<em>Search Config</em>' class.
@@ -385,6 +395,16 @@ public interface IObjectSearchPackage extends EPackage {
   int SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = 9;
 
   /**
+   * The feature id for the '<em><b>Range Allowed</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int SEARCH_FILTER_CONFIG__RANGE_ALLOWED = 10;
+
+  /**
    * The feature id for the '<em><b>Content Assist</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -392,7 +412,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__CONTENT_ASSIST = 10;
+  int SEARCH_FILTER_CONFIG__CONTENT_ASSIST = 11;
 
   /**
    * The feature id for the '<em><b>Image Info</b></em>' reference.
@@ -402,7 +422,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG__IMAGE_INFO = 11;
+  int SEARCH_FILTER_CONFIG__IMAGE_INFO = 12;
 
   /**
    * The number of structural features of the '<em>Search Filter Config</em>' class.
@@ -412,7 +432,7 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int SEARCH_FILTER_CONFIG_FEATURE_COUNT = 12;
+  int SEARCH_FILTER_CONFIG_FEATURE_COUNT = 13;
 
   /**
    * The number of operations of the '<em>Search Filter Config</em>' class.
@@ -1611,6 +1631,20 @@ public interface IObjectSearchPackage extends EPackage {
   EReference getSearchConfig_SearchTypes();
 
   /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchConfig#getImageInfos <em>Image
+   * Infos</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Image Infos</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchConfig#getImageInfos()
+   * @see #getSearchConfig()
+   * @generated
+   */
+  EReference getSearchConfig_ImageInfos();
+
+  /**
    * Returns the meta object for class
    * '{@link com.devepos.adt.saat.model.objectsearch.ISearchTypeConfig <em>Search Type
    * Config</em>}'.
@@ -1924,6 +1958,20 @@ public interface IObjectSearchPackage extends EPackage {
    * @generated
    */
   EAttribute getSearchFilterConfig_WildcardsAllowed();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isRangeAllowed <em>Range
+   * Allowed</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Range Allowed</em>'.
+   * @see com.devepos.adt.saat.model.objectsearch.ISearchFilterConfig#isRangeAllowed()
+   * @see #getSearchFilterConfig()
+   * @generated
+   */
+  EAttribute getSearchFilterConfig_RangeAllowed();
 
   /**
    * Returns the meta object for the containment reference
@@ -2872,6 +2920,16 @@ public interface IObjectSearchPackage extends EPackage {
     EReference SEARCH_CONFIG__SEARCH_TYPES = eINSTANCE.getSearchConfig_SearchTypes();
 
     /**
+     * The meta object literal for the '<em><b>Image Infos</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference SEARCH_CONFIG__IMAGE_INFOS = eINSTANCE.getSearchConfig_ImageInfos();
+
+    /**
      * The meta object literal for the
      * '{@link com.devepos.adt.saat.model.objectsearch.impl.SearchTypeConfig <em>Search Type
      * Config</em>}' class.
@@ -3098,6 +3156,15 @@ public interface IObjectSearchPackage extends EPackage {
      */
     EAttribute SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED = eINSTANCE
         .getSearchFilterConfig_WildcardsAllowed();
+
+    /**
+     * The meta object literal for the '<em><b>Range Allowed</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute SEARCH_FILTER_CONFIG__RANGE_ALLOWED = eINSTANCE.getSearchFilterConfig_RangeAllowed();
 
     /**
      * The meta object literal for the '<em><b>Content Assist</b></em>' containment reference

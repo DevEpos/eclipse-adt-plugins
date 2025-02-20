@@ -337,6 +337,17 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EReference getSearchConfig_ImageInfos() {
+    return (EReference) searchConfigEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EClass getSearchTypeConfig() {
     return searchTypeConfigEClass;
   }
@@ -590,8 +601,19 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    * @generated
    */
   @Override
+  public EAttribute getSearchFilterConfig_RangeAllowed() {
+    return (EAttribute) searchFilterConfigEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EReference getSearchFilterConfig_ContentAssist() {
-    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(10);
+    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -602,7 +624,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
    */
   @Override
   public EReference getSearchFilterConfig_ImageInfo() {
-    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(11);
+    return (EReference) searchFilterConfigEClass.getEStructuralFeatures().get(12);
   }
 
   /**
@@ -1356,6 +1378,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     // Create classes and their features
     searchConfigEClass = createEClass(SEARCH_CONFIG);
     createEReference(searchConfigEClass, SEARCH_CONFIG__SEARCH_TYPES);
+    createEReference(searchConfigEClass, SEARCH_CONFIG__IMAGE_INFOS);
 
     searchTypeConfigEClass = createEClass(SEARCH_TYPE_CONFIG);
     createEAttribute(searchTypeConfigEClass, SEARCH_TYPE_CONFIG__NAME);
@@ -1382,6 +1405,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__LONG_DESCRIPTION);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__INTERNAL);
     createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__WILDCARDS_ALLOWED);
+    createEAttribute(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__RANGE_ALLOWED);
     createEReference(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__CONTENT_ASSIST);
     createEReference(searchFilterConfigEClass, SEARCH_FILTER_CONFIG__IMAGE_INFO);
 
@@ -1520,6 +1544,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEReference(getSearchConfig_SearchTypes(), getSearchTypeConfig(), null, "searchTypes", null,
         0, -1, ISearchConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearchConfig_ImageInfos(), getImageInfo(), null, "imageInfos", null, 0, -1,
+        ISearchConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(searchTypeConfigEClass, ISearchTypeConfig.class, "SearchTypeConfig", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1591,6 +1618,9 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     initEAttribute(getSearchFilterConfig_WildcardsAllowed(), ecorePackage.getEBoolean(),
         "wildcardsAllowed", null, 0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearchFilterConfig_RangeAllowed(), ecorePackage.getEBoolean(), "rangeAllowed",
+        null, 0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+        !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSearchFilterConfig_ContentAssist(), getContentAssist(), null, "contentAssist",
         null, 0, 1, ISearchFilterConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1797,6 +1827,7 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
     addEEnumLiteral(filterTypeEEnum, FilterType.DEFAULT);
     addEEnumLiteral(filterTypeEEnum, FilterType.DATE);
     addEEnumLiteral(filterTypeEEnum, FilterType.BOOLEAN);
+    addEEnumLiteral(filterTypeEEnum, FilterType.NUMBER);
 
     initEEnum(imageRegistryIdEEnum, ImageRegistryId.class, "ImageRegistryId");
     addEEnumLiteral(imageRegistryIdEEnum, ImageRegistryId.CALLING_PLUGIN);
@@ -1828,6 +1859,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         new String[] { "kind", "elementOnly", "name", "searchConfig" });
     addAnnotation(getSearchConfig_SearchTypes(), source,
         new String[] { "name", "searchType", "kind", "element", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchConfig_ImageInfos(), source,
+        new String[] { "name", "imageInfo", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(searchTypeConfigEClass, source,
         new String[] { "kind", "elementOnly", "name", "searchType" });
     addAnnotation(getSearchTypeConfig_Name(), source,
@@ -1874,6 +1907,8 @@ public class ObjectSearchPackage extends EPackageImpl implements IObjectSearchPa
         new String[] { "name", "internal", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_WildcardsAllowed(), source,
         new String[] { "name", "patterns", "kind", "attribute", "namespace", "##targetNamespace" });
+    addAnnotation(getSearchFilterConfig_RangeAllowed(), source,
+        new String[] { "name", "range", "kind", "attribute", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_ContentAssist(), source, new String[] { "name",
         "contentAssist", "kind", "element", "namespace", "##targetNamespace" });
     addAnnotation(getSearchFilterConfig_ImageInfo(), source,
