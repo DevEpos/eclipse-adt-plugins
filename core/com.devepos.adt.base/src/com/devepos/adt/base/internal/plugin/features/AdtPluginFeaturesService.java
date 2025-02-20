@@ -6,6 +6,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeaturesService;
+import com.sap.adt.communication.exceptions.CommunicationException;
+import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
@@ -39,7 +41,7 @@ public class AdtPluginFeaturesService implements IAdtPluginFeaturesService {
     restResource.addContentHandler(new AdtPluginFeaturesContentHandler());
     try {
       return restResource.get(new NullProgressMonitor(), IAdtPluginFeatureList.class);
-    } catch (final ResourceException exc) {
+    } catch (final ResourceException | CommunicationException exc) {
       exc.printStackTrace();
     }
     return null;
