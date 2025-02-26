@@ -456,4 +456,38 @@
             searchTypeLabel="%tag.searchpage.label">
       </searchFavoriteConnector>
    </extension>
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <category
+            id="com.devepos.adt.exportWizards"
+            name="%wizards.category.name">
+      </category>
+      <wizard
+            category="com.devepos.adt.exportWizards"
+            class="com.devepos.adt.atm.ui.internal.wizard.export.ExportAbapTagsWizard"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.atm.ui.exportAbapTags"
+            name="%exportWizard.abapTags.name">
+         <description>
+            Export all ABAP Tags content, from a given ABAP project.
+         </description>
+      </wizard>
+   </extension>
+   <!--extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="com.devepos.adt.importWizards"
+            name="%wizards.category.name">
+      </category>
+      <wizard
+            category="com.devepos.adt.importWizards"
+            class="com.devepos.adt.atm.ui.internal.wizard.importtags.ImportAbapTagsWizard"
+            icon="icons/Tag.png"
+            id="com.devepos.adt.atm.ui.importAbapTags"
+            name="%importWizard.abapTags.name">
+         <description>
+            Imports ABAP Tags, Tagged Objects from either an ABAP project or a file.
+         </description>
+      </wizard>
+   </extension-->
 </plugin>

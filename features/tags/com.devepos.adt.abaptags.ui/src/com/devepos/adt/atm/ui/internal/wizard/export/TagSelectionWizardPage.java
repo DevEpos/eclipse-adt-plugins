@@ -1,11 +1,13 @@
-package com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion;
+package com.devepos.adt.atm.ui.internal.wizard.export;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
@@ -19,36 +21,38 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
-import com.devepos.adt.atm.search.TaggedObjectSearchFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
-import com.devepos.adt.atm.ui.internal.help.HelpContexts;
-import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
+import com.devepos.adt.atm.ui.internal.wizard.tagging.TaggableObjectSelectionWizardPage;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
+import com.devepos.adt.base.util.StringUtil;
+import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TagSelectionWizardPage.class.getCanonicalName();
+  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
 
   private Job tagLoadingJob;
 
@@ -58,6 +62,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private boolean projectInvalid;
 
   private TagSelectionTree tagSelectionTree;
+  private Text fileInput;
   private Combo tagTypeCombo;
   private ToolBar toolBar;
   private Label selectionInfo;
@@ -67,11 +72,12 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
 
-  private Button considerOnlyDeletedObjects;
+  private Button includeSharedUserInfo;
+  private Button overwriteFileWithoutWarning;
 
-  protected TagSelectionWizardPage() {
+  public TagSelectionWizardPage() {
     super(PAGE_NAME);
-    setTitle(Messages.TagSelectionWizardPage_SelectionPage_xtit);
+    setTitle("Export ABAP Tags");
     tagsService = AbapTagsServiceFactory.createTagsService();
     taggingService = AdtObjTaggingServiceFactory.createTaggingService();
   }
@@ -98,37 +104,23 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private enum ValidationSource {
     PROJECT,
+    EXPORT_FILE,
     TAGS
-  }
-
-  @Override
-  public void completePage() {
-    if (!isDirty()) {
-      return;
-    }
-    var selectedTags = tagSelectionTree.getCheckedTags();
-    var wizard = getWizard();
-    var taggedObjectListRequest = wizard.getTaggedObjectListRequest();
-    taggedObjectListRequest.getTaggedObjectIds().clear();
-    taggedObjectListRequest.getTaggedObjectInfos().clear();
-    taggedObjectListRequest.getTagIds().clear();
-    taggedObjectListRequest.setDeletedObjectsOnly(considerOnlyDeletedObjects.getSelection());
-
-    selectedTags.forEach(t -> taggedObjectListRequest.getTagIds().add(t.getId()));
-
-    setDirty(false);
   }
 
   @Override
   public void createControl(final Composite parent) {
     final var root = new Composite(parent, SWT.NONE);
-    HelpUtil.setHelp(root, HelpContexts.UNASSIGN_TAGS_WIZARD_TAG_SELECTION);
+
+    // TODO: Help Context
+    // HelpUtil.setHelp(root, HelpContexts.UNASSIGN_TAGS_WIZARD_TAG_SELECTION);
     GridLayoutFactory.swtDefaults().applyTo(root);
 
     createProjectInput(root);
     createTagsCheckBoxTree(root);
     createViewerContextMenu();
     createSelectOptionsGroup(root);
+    createFileChooserSection(root);
 
     var treeActionsComposite = new Composite(tagSelectionTree.getTreeFilterComposite(), SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(treeActionsComposite);
@@ -143,8 +135,28 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   @Override
-  public DeleteTaggedObjectsWizard getWizard() {
-    return (DeleteTaggedObjectsWizard) super.getWizard();
+  public void completePage() {
+    if (!isDirty()) {
+      return;
+    }
+    var wizard = getWizard();
+    var exportRequest = wizard.getTagExportRequest();
+    exportRequest.getTagIds().clear();
+    exportRequest.getTagIds()
+        .addAll(tagSelectionTree.getCheckedTags()
+            .stream()
+            .map(t -> t.getId())
+            .collect(Collectors.toList()));
+    exportRequest.setIncludeSharedTagsInfo(includeSharedUserInfo.getSelection());
+    wizard.setOverwriteFileNoWarning(overwriteFileWithoutWarning.getSelection());
+    wizard.setExportFileName(fileInput.getText());
+
+    setDirty(false);
+  }
+
+  @Override
+  public ExportAbapTagsWizard getWizard() {
+    return (ExportAbapTagsWizard) super.getWizard();
   }
 
   @Override
@@ -182,7 +194,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       if (status.isOK()) {
         var wizard = getWizard();
         final var newProject = projectInput.getProjectProvider().getProject();
-        updateControlsByProjectFeatureState(newProject);
         final var oldProject = wizard.getProject();
         wizard.setProject(newProject);
         if (newProject != oldProject
@@ -190,8 +201,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           tagSelectionTree.setCheckedTags(null);
           refreshTags();
         }
-      } else {
-        updateControlsByProjectFeatureState(null);
       }
       validatePage(status, ValidationSource.PROJECT);
     });
@@ -199,6 +208,47 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (currentProject != null) {
       projectInput.setProjectName(currentProject.getName());
     }
+  }
+
+  private void createFileChooserSection(final Composite parent) {
+    var group = new Group(parent, SWT.NONE);
+    group.setText("Target");
+    GridLayoutFactory.swtDefaults().numColumns(3).applyTo(group);
+    GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(group);
+
+    var label = new Label(group, SWT.NONE);
+    label.setText("To file:");
+    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(label);
+
+    fileInput = new Text(group, SWT.BORDER | SWT.READ_ONLY);
+    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(fileInput);
+
+    var browseButton = new Button(group, SWT.PUSH);
+    browseButton.setText("Bro&wse...");
+    browseButton.addSelectionListener(widgetSelectedAdapter(l -> {
+      var fileDialog = new FileDialog(getShell(), SWT.SAVE);
+      if (!StringUtil.isEmpty(fileInput.getText())) {
+        var file = new File(fileInput.getText());
+        fileDialog.setFileName(file.getName());
+      } else {
+        fileDialog.setFileName("ABAP-Tags-Export"); //$NON-NLS-1$
+      }
+      fileDialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$ //$NON-NLS-2$
+                                                                // //$NON-NLS-3$
+      var fileName = fileDialog.open();
+      if (fileName != null) {
+        fileInput.setText(fileName);
+      } else {
+        fileInput.setText(""); //$NON-NLS-1$
+      }
+      validatePage(null, ValidationSource.EXPORT_FILE);
+    }));
+    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(browseButton);
+    AdtSWTUtilFactory.getOrCreateSWTUtil().setButtonWidthHint(browseButton);
+
+    overwriteFileWithoutWarning = new Button(group, SWT.CHECK);
+    overwriteFileWithoutWarning.setText("&Overwrite existing file without warning");
+    GridDataFactory.fillDefaults().span(3, 1).applyTo(overwriteFileWithoutWarning);
   }
 
   private void createSelectionInfo(final Composite parent) {
@@ -229,7 +279,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     tagSelectionTree.setContentProvider(treeContentProvider);
     tagSelectionTree.setLabelProvider(treeLabelProvider);
     tagSelectionTree.addCheckStateListener(l -> {
+      if (l != null) {
+        var tag = (ITag) l.getElement();
+        if (l.getChecked()) {
+          tagSelectionTree.setParentTagsChecked(tag, true);
+        } else {
+          tagSelectionTree.setTagChildrenCheckedRecursive(tag, false);
+        }
+        tagSelectionTree.setCheckedElementsInTree();
+        tagSelectionTree.refresh();
+      }
       validatePage(null, ValidationSource.TAGS);
+
+      // getWizard().setCanFinish(isPageComplete());
     });
     tagSelectionTree.createControl(group);
     tagSelectionTree.addKeyListenerForFilterFocus();
@@ -244,20 +306,21 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     final var tagScopeLabel = new Label(tagScopeContainer, SWT.NONE);
     tagScopeLabel.setText(Messages.TagSelectionWizardPage_TagScope_xlbl);
     tagTypeCombo = new Combo(tagScopeContainer, SWT.READ_ONLY);
-    tagTypeCombo.setItems(Stream.of(TagSearchScope.values()).map(scope -> {
-      switch (scope) {
-      case ALL:
-        return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
-      case GLOBAL:
-        return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
-      case USER:
-        return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
-      case SHARED:
-        return Messages.TagSelectionWizardPage_TagScopeShared_xlbl;
-      default:
-        return ""; //$NON-NLS-1$
-      }
-    }).toArray(String[]::new));
+    tagTypeCombo.setItems(Stream.of(TagSearchScope.values())
+        .filter(s -> !s.equals(TagSearchScope.SHARED))
+        .map(scope -> {
+          switch (scope) {
+          case ALL:
+            return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
+          case GLOBAL:
+            return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
+          case USER:
+            return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
+          default:
+            return ""; //$NON-NLS-1$
+          }
+        })
+        .toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
       var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
@@ -316,11 +379,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     GridDataFactory.fillDefaults().grab(true, false).applyTo(group);
     GridLayoutFactory.swtDefaults().applyTo(group);
 
-    considerOnlyDeletedObjects = new Button(group, SWT.CHECK);
-    considerOnlyDeletedObjects.setEnabled(false);
-    considerOnlyDeletedObjects
-        .setText(Messages.TagSelectionWizardPage_OnlyIncludeDeletedObjects_xchk);
-    considerOnlyDeletedObjects.addSelectionListener(widgetSelectedAdapter(e -> setDirty(true)));
+    includeSharedUserInfo = new Button(group, SWT.CHECK);
+    GridDataFactory.fillDefaults().applyTo(includeSharedUserInfo);
+    includeSharedUserInfo.setText("Include information about shared tags");
+
   }
 
   private void createViewerContextMenu() {
@@ -351,10 +413,21 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       tagLoadingJob.cancel();
     }
     tagLoadingJob = Job.create(Messages.AbapTagManagerView_TagsLoadingJobTitle_xmsg, monitor -> {
+      // TODO: exclude shared tags, either in frontend, or adjust backend to exclude them from the
+      // result
       final var tagList = tagsService.readTags(DestinationUtil.getDestinationId(project),
           TagSearchScope.ALL, true);
 
       Display.getDefault().asyncExec(() -> {
+        var tags = tagList.getTags();
+        List<ITag> sharedTags = new ArrayList<>();
+        for (var t : tags) {
+          if (!t.getCreatedBy()
+              .equals(DestinationUtil.getDestinationOwner(getWizard().getProject()))) {
+            sharedTags.add(t);
+          }
+        }
+        tags.removeAll(sharedTags);
         tagSelectionTree.setTags(tagList.getTags(), true);
         tagSelectionTree.expandAll();
         tagSelectionTree.refresh();
@@ -378,13 +451,17 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
         checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
+
+    getWizard().setCanFinish(checkedCount > 0 && !StringUtil.isEmpty(fileInput.getText()));
   }
 
   private void validatePage(final IStatus status, final ValidationSource source) {
     setDirty(true);
     getWizard().setCanFinish(false);
+
     IStatus pageStatus = status;
     boolean validateTags = false;
+    boolean validateFile = false;
 
     if (source == ValidationSource.PROJECT) {
       if (!pageStatus.isOK()) {
@@ -402,6 +479,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         return;
       }
       validateTags = true;
+    } else if (source == ValidationSource.EXPORT_FILE) {
+      if (projectInvalid) {
+        return;
+      }
+      validateFile = true;
     }
 
     if (validateTags) {
@@ -409,6 +491,15 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       if (selectedTags == null || selectedTags.isEmpty()) {
         pageStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, IStatus.INFO,
             Messages.TagSelectionWizardPage_NoTagsSelectedInfo_xmsg, null);
+      } else {
+        pageStatus = Status.OK_STATUS;
+        validateFile = true;
+      }
+    }
+    if (validateFile) {
+      if (StringUtil.isEmpty(fileInput.getText())) {
+        pageStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, IStatus.INFO,
+            "Choose a file to export the data to", null);
       } else {
         pageStatus = Status.OK_STATUS;
       }
@@ -423,21 +514,5 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       return;
     }
     Stream.of(toolBar.getItems()).forEach(i -> i.setEnabled(enabled));
-  }
-
-  private void updateControlsByProjectFeatureState(final IProject newProject) {
-    var enabled = new AtomicBoolean();
-    if (newProject != null) {
-      var features = TaggedObjectSearchFactory.createTaggedObjectSearchService()
-          .getTgobjInfoListFeatures(DestinationUtil.getDestinationId(newProject));
-      enabled.set(features != null && features.isFeatureEnabled("considerOnlyDeletedObjects")); //$NON-NLS-1$
-    }
-    Display.getDefault().asyncExec(() -> {
-      considerOnlyDeletedObjects.setEnabled(enabled.get());
-      if (!enabled.get()) {
-        considerOnlyDeletedObjects.setSelection(false);
-      }
-    });
-
   }
 }

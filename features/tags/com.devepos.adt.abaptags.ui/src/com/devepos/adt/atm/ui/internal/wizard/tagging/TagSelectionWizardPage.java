@@ -72,7 +72,7 @@ import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.StringUtil;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
+  public static final String PAGE_NAME = TagSelectionWizardPage.class.getCanonicalName();
 
   private final Set<ITag> checkedTags = new HashSet<>();
   private final Set<ITag> preCheckedTags = new HashSet<>();

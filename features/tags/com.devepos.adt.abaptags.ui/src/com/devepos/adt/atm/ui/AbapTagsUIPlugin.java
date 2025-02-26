@@ -65,6 +65,10 @@ public class AbapTagsUIPlugin extends AbstractAdtUIPlugin {
     registerImage(reg, IImages.DELETE_TAGS_WIZBAN, "icons/wizard/DeleteTagsWizard_Banner.png");
     registerImage(reg, IImages.DELETE_TAGS_FROM_OBJ_WIZBAN,
         "icons/wizard/UnassignTagsWizard_Banner_default.png");
+    registerImage(reg, IImages.EXPORT_TAGS_WIZBAN,
+        "icons/wizard/ExportTagsWizard_Banner_default.png");
+    registerImage(reg, IImages.IMPORT_TAGS_WIZBAN,
+        "icons/wizard/ImportTagsWizard_Banner_default.png");
     registerImage(reg, IImages.LOCAL_OBJECTS_FOLDER, "icons/LocalObjectsFolder.png");
     registerImage(reg, IImages.LOCAL_N_GLOBAL_TAG_COLL, "icons/LocalAndGlobalTagColl.png");
     registerImage(reg, IImages.REMOVE_ASSIGNED_TAGS, "icons/UnassignTag.png");

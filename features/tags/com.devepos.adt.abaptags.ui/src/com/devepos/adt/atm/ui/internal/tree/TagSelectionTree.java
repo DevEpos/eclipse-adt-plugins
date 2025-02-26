@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
@@ -39,7 +40,7 @@ public class TagSelectionTree {
   private final List<ITag> tagList = new ArrayList<>();
 
   private final Set<ITag> checkedTags;
-  private List<String> checkedTagIds = new ArrayList<>();
+  private final List<String> checkedTagIds = new ArrayList<>();
   private final Set<ICheckStateListener> checkedStateListener = new HashSet<>();
 
   public TagSelectionTree() {
@@ -100,7 +101,7 @@ public class TagSelectionTree {
       } else {
         checkedTags.remove(e.getElement());
       }
-      fireCheckedStateChanged();
+      fireCheckedStateChanged(e);
     });
   }
 
@@ -178,7 +179,7 @@ public class TagSelectionTree {
     checkedTags.clear();
     for (var tag : tagList) {
       checkedTags.add(tag);
-      setTagCheckedRecursive(tag, true);
+      setTagChildrenCheckedRecursive(tag, true);
     }
     setCheckedElementsInTree();
   }
@@ -237,14 +238,48 @@ public class TagSelectionTree {
       checkedTags.add(tag);
     } else {
       checkedTags.remove(tag);
+      tagsTreeViewer.setChecked(tag, false);
     }
     if (includeChildren) {
-      setTagCheckedRecursive(tag, checked);
+      setTagChildrenCheckedRecursive(tag, checked);
     }
 
     // update Tree
     setCheckedElementsInTree();
     refresh();
+  }
+
+  public void setParentTagsChecked(final ITag tag, final boolean checked) {
+    var parentTag = tag;
+
+    do {
+      var container = parentTag.eContainer();
+      if (container instanceof ITag) {
+        parentTag = (ITag) container;
+
+        if (checked) {
+          checkedTags.add(parentTag);
+        } else {
+          checkedTags.remove(parentTag);
+          tagsTreeViewer.setChecked(parentTag, false);
+        }
+      } else {
+        parentTag = null;
+      }
+
+    } while (parentTag != null);
+  }
+
+  public void setTagChildrenCheckedRecursive(final ITag tag, final boolean checked) {
+    for (var childTag : tag.getChildTags()) {
+      if (checked) {
+        checkedTags.add(childTag);
+      } else {
+        checkedTags.remove(childTag);
+        tagsTreeViewer.setChecked(childTag, false);
+      }
+      setTagChildrenCheckedRecursive(childTag, checked);
+    }
   }
 
   /**
@@ -278,6 +313,12 @@ public class TagSelectionTree {
     GridDataFactory.fillDefaults().grab(true, true).hint(300, 350).applyTo(tree);
   }
 
+  private void uncheckAllTags() {
+    for (var currentlyChecked : tagsTreeViewer.getCheckedElements()) {
+      tagsTreeViewer.setChecked(currentlyChecked, false);
+    }
+  }
+
   private void findAndSetTagAsChecked(final ITag tag) {
     if (checkedTagIds.contains(tag.getId())) {
       checkedTags.add(tag);
@@ -287,32 +328,15 @@ public class TagSelectionTree {
     }
   }
 
-  private void fireCheckedStateChanged() {
+  private void fireCheckedStateChanged(CheckStateChangedEvent e) {
     for (var l : checkedStateListener) {
-      l.checkStateChanged(null);
+      l.checkStateChanged(e);
     }
   }
 
   private boolean isTreeOnline() {
     return tagsTreeViewer != null && tagsTreeViewer.getTree() != null
         && !tagsTreeViewer.getTree().isDisposed();
-  }
-
-  private void setTagCheckedRecursive(final ITag tag, final boolean checked) {
-    for (var childTag : tag.getChildTags()) {
-      if (checked) {
-        checkedTags.add(childTag);
-      } else {
-        checkedTags.remove(childTag);
-      }
-      setTagCheckedRecursive(childTag, checked);
-    }
-  }
-
-  private void uncheckAllTags() {
-    for (var currentlyChecked : tagsTreeViewer.getCheckedElements()) {
-      tagsTreeViewer.setChecked(currentlyChecked, false);
-    }
   }
 
   private void updateCheckedTagsFromTagIdList() {
@@ -324,7 +348,7 @@ public class TagSelectionTree {
       if (!checkedTags.isEmpty()) {
         setCheckedElementsInTree();
         tagsTreeViewer.refresh();
-        fireCheckedStateChanged();
+        fireCheckedStateChanged(null);
       }
     }
     checkedTagIds.clear();
