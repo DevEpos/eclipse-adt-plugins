@@ -7,6 +7,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -21,6 +23,16 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
  * @author stockbal
  */
 public interface IAdtObjTaggingService {
+
+  /**
+   * Sends ABAP Tags export request and returns the export result
+   *
+   * @param destinationId destination Id of ABAP project
+   * @param request       request for exporting tag content
+   * @return the export result
+   */
+  ITagExportResponse exportTags(String destinationId, ITagExportRequest request);
+
   /**
    * Deletes a list of tagged objects
    *

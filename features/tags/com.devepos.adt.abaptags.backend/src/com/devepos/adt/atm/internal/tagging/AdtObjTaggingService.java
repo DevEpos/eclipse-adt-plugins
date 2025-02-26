@@ -11,6 +11,8 @@ import org.eclipse.osgi.util.NLS;
 import com.devepos.adt.atm.AbapTagsPlugin;
 import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -32,6 +34,21 @@ import com.sap.adt.communication.session.ISystemSession;
  * @author stockbal
  */
 public class AdtObjTaggingService implements IAdtObjTaggingService {
+
+  @Override
+  public ITagExportResponse exportTags(final String destinationId,
+      final ITagExportRequest exportRequest) {
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(uriDiscovery.getTagExportUri(), session);
+    restResource.addContentHandler(new TagExportRequestContentHandler());
+    restResource.addContentHandler(new TagExportResponseContentHandler());
+
+    return restResource.post(null, ITagExportResponse.class, exportRequest);
+  }
 
   @Override
   public IStatus deleteTaggedObjects(final String destinationId,
