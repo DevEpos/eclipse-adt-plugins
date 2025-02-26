@@ -166,5 +166,15 @@
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeleteRequest">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeleteRequest/objectId"/>
     </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagExportRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagExportRequest/tagIds"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagExportRequest/includeSharedTagsInfo"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//AbapTagContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagContent/tags"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagContent/taggedObjectInfos"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagContent/sharedTags"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagExportResponse"/>
   </genPackages>
 </genmodel:GenModel>

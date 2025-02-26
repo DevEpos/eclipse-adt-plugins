@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
@@ -20,6 +21,8 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -201,6 +204,30 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   private EClass taggedObjectDeleteRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagExportRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass abapTagContentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagExportResponseEClass = null;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1463,6 +1490,94 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagExportRequest() {
+    return tagExportRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagExportRequest_TagIds() {
+    return (EAttribute) tagExportRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagExportRequest_IncludeSharedTagsInfo() {
+    return (EAttribute) tagExportRequestEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getAbapTagContent() {
+    return abapTagContentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagContent_Tags() {
+    return (EReference) abapTagContentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagContent_TaggedObjectInfos() {
+    return (EReference) abapTagContentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagContent_SharedTags() {
+    return (EReference) abapTagContentEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagExportResponse() {
+    return tagExportResponseEClass;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
@@ -1704,6 +1819,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     taggedObjectDeleteRequestEClass = createEClass(TAGGED_OBJECT_DELETE_REQUEST);
     createEAttribute(taggedObjectDeleteRequestEClass, TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID);
 
+    tagExportRequestEClass = createEClass(TAG_EXPORT_REQUEST);
+    createEAttribute(tagExportRequestEClass, TAG_EXPORT_REQUEST__TAG_IDS);
+    createEAttribute(tagExportRequestEClass, TAG_EXPORT_REQUEST__INCLUDE_SHARED_TAGS_INFO);
+
+    abapTagContentEClass = createEClass(ABAP_TAG_CONTENT);
+    createEReference(abapTagContentEClass, ABAP_TAG_CONTENT__TAGS);
+    createEReference(abapTagContentEClass, ABAP_TAG_CONTENT__TAGGED_OBJECT_INFOS);
+    createEReference(abapTagContentEClass, ABAP_TAG_CONTENT__SHARED_TAGS);
+
+    tagExportResponseEClass = createEClass(TAG_EXPORT_RESPONSE);
+
     // Create enums
     tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
     tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
@@ -1754,6 +1880,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     // Add supertypes to classes
     tagEClass.getESuperTypes().add(getTagBase());
     adtObjectTagEClass.getESuperTypes().add(getTagBase());
+    tagExportResponseEClass.getESuperTypes().add(getAbapTagContent());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(tagBaseEClass, ITagBase.class, "TagBase", IS_ABSTRACT, !IS_INTERFACE,
@@ -2090,6 +2217,31 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "objectId", null, 0, -1, ITaggedObjectDeleteRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(tagExportRequestEClass, ITagExportRequest.class, "TagExportRequest", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTagExportRequest_TagIds(), theXMLTypePackage.getString(), "tagIds", null, 0,
+        -1, ITagExportRequest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTagExportRequest_IncludeSharedTagsInfo(), theXMLTypePackage.getBoolean(),
+        "includeSharedTagsInfo", null, 0, 1, ITagExportRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(abapTagContentEClass, IAbapTagContent.class, "AbapTagContent", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAbapTagContent_Tags(), getTag(), null, "tags", null, 0, -1,
+        IAbapTagContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAbapTagContent_TaggedObjectInfos(), getTaggedObjectInfo(), null,
+        "taggedObjectInfos", null, 0, -1, IAbapTagContent.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEReference(getAbapTagContent_SharedTags(), getTag(), null, "sharedTags", null, 0, -1,
+        IAbapTagContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tagExportResponseEClass, ITagExportResponse.class, "TagExportResponse", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     // Initialize enums and add enum literals
     initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
     addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
@@ -2338,6 +2490,22 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         new String[] { "kind", "elementOnly", "name", "taggedObjectDelRequest" });
     addAnnotation(getTaggedObjectDeleteRequest_ObjectId(), source, new String[] { "name",
         "taggedObjectId", "namespace", "##targetNamespace", "kind", "element" });
+    addAnnotation(tagExportRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagExportRequest" });
+    addAnnotation(getTagExportRequest_TagIds(), source,
+        new String[] { "kind", "element", "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTagExportRequest_IncludeSharedTagsInfo(), source, new String[] { "kind",
+        "attribute", "namespace", "##targetNamespace", "name", "includeSharedTagsInfo" });
+    addAnnotation(abapTagContentEClass, source,
+        new String[] { "kind", "elementOnly", "name", "abapTagContent" });
+    addAnnotation(getAbapTagContent_Tags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
+    addAnnotation(getAbapTagContent_TaggedObjectInfos(), source, new String[] { "kind", "element",
+        "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
+    addAnnotation(getAbapTagContent_SharedTags(), source,
+        new String[] { "kind", "element", "name", "sharedTag", "namespace", "##targetNamespace" });
+    addAnnotation(tagExportResponseEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagExportResponse" });
   }
 
 } // AbapTagsPackage

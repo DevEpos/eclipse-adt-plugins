@@ -209,6 +209,36 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectDeleteRequest createTaggedObjectDeleteRequest();
 
   /**
+   * Returns a new object of class '<em>Tag Export Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Export Request</em>'.
+   * @generated
+   */
+  ITagExportRequest createTagExportRequest();
+
+  /**
+   * Returns a new object of class '<em>Abap Tag Content</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Abap Tag Content</em>'.
+   * @generated
+   */
+  IAbapTagContent createAbapTagContent();
+
+  /**
+   * Returns a new object of class '<em>Tag Export Response</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Export Response</em>'.
+   * @generated
+   */
+  ITagExportResponse createTagExportResponse();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc --> <!--
    * end-user-doc -->

@@ -1589,6 +1589,182 @@ public interface IAbapTagsPackage extends EPackage {
   int TAGGED_OBJECT_DELETE_REQUEST_OPERATION_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagExportRequest
+   * <em>Tag Export Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TagExportRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagExportRequest()
+   * @generated
+   */
+  int TAG_EXPORT_REQUEST = 20;
+
+  /**
+   * The feature id for the '<em><b>Tag Ids</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_REQUEST__TAG_IDS = 0;
+
+  /**
+   * The feature id for the '<em><b>Include Shared Tags Info</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_REQUEST__INCLUDE_SHARED_TAGS_INFO = 1;
+
+  /**
+   * The number of structural features of the '<em>Tag Export Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_REQUEST_FEATURE_COUNT = 2;
+
+  /**
+   * The number of operations of the '<em>Tag Export Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_REQUEST_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.AbapTagContent
+   * <em>Abap Tag Content</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagContent
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getAbapTagContent()
+   * @generated
+   */
+  int ABAP_TAG_CONTENT = 21;
+
+  /**
+   * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ABAP_TAG_CONTENT__TAGS = 0;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ABAP_TAG_CONTENT__TAGGED_OBJECT_INFOS = 1;
+
+  /**
+   * The feature id for the '<em><b>Shared Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ABAP_TAG_CONTENT__SHARED_TAGS = 2;
+
+  /**
+   * The number of structural features of the '<em>Abap Tag Content</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ABAP_TAG_CONTENT_FEATURE_COUNT = 3;
+
+  /**
+   * The number of operations of the '<em>Abap Tag Content</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int ABAP_TAG_CONTENT_OPERATION_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagExportResponse
+   * <em>Tag Export Response</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TagExportResponse
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagExportResponse()
+   * @generated
+   */
+  int TAG_EXPORT_RESPONSE = 22;
+
+  /**
+   * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_RESPONSE__TAGS = ABAP_TAG_CONTENT__TAGS;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_RESPONSE__TAGGED_OBJECT_INFOS = ABAP_TAG_CONTENT__TAGGED_OBJECT_INFOS;
+
+  /**
+   * The feature id for the '<em><b>Shared Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_RESPONSE__SHARED_TAGS = ABAP_TAG_CONTENT__SHARED_TAGS;
+
+  /**
+   * The number of structural features of the '<em>Tag Export Response</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_RESPONSE_FEATURE_COUNT = ABAP_TAG_CONTENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of operations of the '<em>Tag Export Response</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_EXPORT_RESPONSE_OPERATION_COUNT = ABAP_TAG_CONTENT_OPERATION_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag
    * Search Scope</em>}' enum.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1597,7 +1773,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 20;
+  int TAG_SEARCH_SCOPE = 23;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -1608,7 +1784,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 21;
+  int TAG_QUERY_TYPE = 24;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -1619,7 +1795,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 22;
+  int TAG_INFO_TYPE = 25;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -1630,7 +1806,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 23;
+  int TAG_QUERY_FOCUS = 26;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -1642,7 +1818,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 24;
+  int RESULT_GROUP_LEVEL = 27;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagType <em>Tag
@@ -1654,7 +1830,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagType()
    * @generated
    */
-  int TAG_TYPE = 25;
+  int TAG_TYPE = 28;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -1665,7 +1841,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 26;
+  int IMAGE = 29;
 
   /**
    * Returns the meta object for class
@@ -3067,6 +3243,110 @@ public interface IAbapTagsPackage extends EPackage {
   EAttribute getTaggedObjectDeleteRequest_ObjectId();
 
   /**
+   * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITagExportRequest
+   * <em>Tag Export Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tag Export Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportRequest
+   * @generated
+   */
+  EClass getTagExportRequest();
+
+  /**
+   * Returns the meta object for the attribute list
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagExportRequest#getTagIds <em>Tag Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute list '<em>Tag Ids</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportRequest#getTagIds()
+   * @see #getTagExportRequest()
+   * @generated
+   */
+  EAttribute getTagExportRequest_TagIds();
+
+  /**
+   * Returns the meta object for the attribute
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagExportRequest#isIncludeSharedTagsInfo
+   * <em>Include Shared Tags Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the attribute '<em>Include Shared Tags Info</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportRequest#isIncludeSharedTagsInfo()
+   * @see #getTagExportRequest()
+   * @generated
+   */
+  EAttribute getTagExportRequest_IncludeSharedTagsInfo();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.IAbapTagContent
+   * <em>Abap Tag Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Abap Tag Content</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagContent
+   * @generated
+   */
+  EClass getAbapTagContent();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.IAbapTagContent#getTags <em>Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Tags</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagContent#getTags()
+   * @see #getAbapTagContent()
+   * @generated
+   */
+  EReference getAbapTagContent_Tags();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.IAbapTagContent#getTaggedObjectInfos <em>Tagged
+   * Object Infos</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Tagged Object Infos</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagContent#getTaggedObjectInfos()
+   * @see #getAbapTagContent()
+   * @generated
+   */
+  EReference getAbapTagContent_TaggedObjectInfos();
+
+  /**
+   * Returns the meta object for the containment reference list
+   * '{@link com.devepos.adt.atm.model.abaptags.IAbapTagContent#getSharedTags <em>Shared
+   * Tags</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for the containment reference list '<em>Shared Tags</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagContent#getSharedTags()
+   * @see #getAbapTagContent()
+   * @generated
+   */
+  EReference getAbapTagContent_SharedTags();
+
+  /**
+   * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITagExportResponse
+   * <em>Tag Export Response</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tag Export Response</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportResponse
+   * @generated
+   */
+  EClass getTagExportResponse();
+
+  /**
    * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope
    * <em>Tag Search Scope</em>}'.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4212,6 +4492,94 @@ public interface IAbapTagsPackage extends EPackage {
      */
     EAttribute TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID = eINSTANCE
         .getTaggedObjectDeleteRequest_ObjectId();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TagExportRequest <em>Tag Export
+     * Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TagExportRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagExportRequest()
+     * @generated
+     */
+    EClass TAG_EXPORT_REQUEST = eINSTANCE.getTagExportRequest();
+
+    /**
+     * The meta object literal for the '<em><b>Tag Ids</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_EXPORT_REQUEST__TAG_IDS = eINSTANCE.getTagExportRequest_TagIds();
+
+    /**
+     * The meta object literal for the '<em><b>Include Shared Tags Info</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EAttribute TAG_EXPORT_REQUEST__INCLUDE_SHARED_TAGS_INFO = eINSTANCE
+        .getTagExportRequest_IncludeSharedTagsInfo();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.AbapTagContent <em>Abap Tag Content</em>}'
+     * class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagContent
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getAbapTagContent()
+     * @generated
+     */
+    EClass ABAP_TAG_CONTENT = eINSTANCE.getAbapTagContent();
+
+    /**
+     * The meta object literal for the '<em><b>Tags</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ABAP_TAG_CONTENT__TAGS = eINSTANCE.getAbapTagContent_Tags();
+
+    /**
+     * The meta object literal for the '<em><b>Tagged Object Infos</b></em>' containment reference
+     * list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ABAP_TAG_CONTENT__TAGGED_OBJECT_INFOS = eINSTANCE
+        .getAbapTagContent_TaggedObjectInfos();
+
+    /**
+     * The meta object literal for the '<em><b>Shared Tags</b></em>' containment reference list
+     * feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    EReference ABAP_TAG_CONTENT__SHARED_TAGS = eINSTANCE.getAbapTagContent_SharedTags();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TagExportResponse <em>Tag Export
+     * Response</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TagExportResponse
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagExportResponse()
+     * @generated
+     */
+    EClass TAG_EXPORT_RESPONSE = eINSTANCE.getTagExportResponse();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope

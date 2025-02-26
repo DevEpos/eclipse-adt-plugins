@@ -7,12 +7,15 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -187,6 +190,21 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTaggedObjectDeleteRequest(final ITaggedObjectDeleteRequest object) {
       return createTaggedObjectDeleteRequestAdapter();
+    }
+
+    @Override
+    public Adapter caseTagExportRequest(final ITagExportRequest object) {
+      return createTagExportRequestAdapter();
+    }
+
+    @Override
+    public Adapter caseAbapTagContent(final IAbapTagContent object) {
+      return createAbapTagContentAdapter();
+    }
+
+    @Override
+    public Adapter caseTagExportResponse(final ITagExportResponse object) {
+      return createTagExportResponseAdapter();
     }
 
     @Override
@@ -531,6 +549,54 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTaggedObjectDeleteRequestAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagExportRequest <em>Tag Export Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportRequest
+   * @generated
+   */
+  public Adapter createTagExportRequestAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.IAbapTagContent <em>Abap Tag Content</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.IAbapTagContent
+   * @generated
+   */
+  public Adapter createAbapTagContentAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagExportResponse <em>Tag Export Response</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITagExportResponse
+   * @generated
+   */
+  public Adapter createTagExportResponseAdapter() {
     return null;
   }
 
