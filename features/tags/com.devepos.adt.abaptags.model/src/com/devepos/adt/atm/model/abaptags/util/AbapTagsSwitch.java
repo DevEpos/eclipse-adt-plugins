@@ -6,12 +6,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -247,6 +250,33 @@ public class AbapTagsSwitch<T> extends Switch<T> {
     case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST: {
       ITaggedObjectDeleteRequest taggedObjectDeleteRequest = (ITaggedObjectDeleteRequest) theEObject;
       T result = caseTaggedObjectDeleteRequest(taggedObjectDeleteRequest);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAG_EXPORT_REQUEST: {
+      ITagExportRequest tagExportRequest = (ITagExportRequest) theEObject;
+      T result = caseTagExportRequest(tagExportRequest);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.ABAP_TAG_CONTENT: {
+      IAbapTagContent abapTagContent = (IAbapTagContent) theEObject;
+      T result = caseAbapTagContent(abapTagContent);
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAG_EXPORT_RESPONSE: {
+      ITagExportResponse tagExportResponse = (ITagExportResponse) theEObject;
+      T result = caseTagExportResponse(tagExportResponse);
+      if (result == null) {
+        result = caseAbapTagContent(tagExportResponse);
+      }
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -583,6 +613,54 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTaggedObjectDeleteRequest(final ITaggedObjectDeleteRequest object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Export Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Export Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagExportRequest(final ITagExportRequest object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Abap Tag Content</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Abap Tag Content</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAbapTagContent(final IAbapTagContent object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Export Response</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Export Response</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagExportResponse(final ITagExportResponse object) {
     return null;
   }
 

@@ -10,12 +10,15 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -121,6 +124,12 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTaggedObjectDeletionCheckObject();
     case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST:
       return createTaggedObjectDeleteRequest();
+    case IAbapTagsPackage.TAG_EXPORT_REQUEST:
+      return createTagExportRequest();
+    case IAbapTagsPackage.ABAP_TAG_CONTENT:
+      return createAbapTagContent();
+    case IAbapTagsPackage.TAG_EXPORT_RESPONSE:
+      return createTagExportResponse();
     default:
       throw new IllegalArgumentException(
           "The class '" + eClass.getName() + "' is not a valid classifier");
@@ -402,6 +411,42 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   public ITaggedObjectDeleteRequest createTaggedObjectDeleteRequest() {
     TaggedObjectDeleteRequest taggedObjectDeleteRequest = new TaggedObjectDeleteRequest();
     return taggedObjectDeleteRequest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITagExportRequest createTagExportRequest() {
+    TagExportRequest tagExportRequest = new TagExportRequest();
+    return tagExportRequest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAbapTagContent createAbapTagContent() {
+    AbapTagContent abapTagContent = new AbapTagContent();
+    return abapTagContent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITagExportResponse createTagExportResponse() {
+    TagExportResponse tagExportResponse = new TagExportResponse();
+    return tagExportResponse;
   }
 
   /**
