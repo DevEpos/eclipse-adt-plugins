@@ -200,8 +200,7 @@ public interface ITag extends ITagBase {
    * @return the value of the '<em>Tagged Object Count</em>' attribute.
    * @see #setTaggedObjectCount(int)
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#getTag_TaggedObjectCount()
-   * @model transient="true"
-   *        extendedMetaData="kind='attribute' name='taggedObjectCount'
+   * @model extendedMetaData="kind='attribute' name='taggedObjectCount'
    *        namespace='##targetNamespace'"
    * @generated
    */

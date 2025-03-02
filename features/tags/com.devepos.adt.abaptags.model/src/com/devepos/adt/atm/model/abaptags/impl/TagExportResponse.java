@@ -14,7 +14,7 @@ import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
  *
  * @generated
  */
-public class TagExportResponse extends AbapTagContent implements ITagExportResponse {
+public class TagExportResponse extends AbapTagsContent implements ITagExportResponse {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
