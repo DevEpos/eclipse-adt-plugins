@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
-import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
+import com.devepos.adt.atm.model.abaptags.IAbapTagsContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
@@ -32,12 +32,15 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 
 /**
- * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance
- * hierarchy. It supports the call {@link #doSwitch(EObject) doSwitch(object)}
+ * <!-- begin-user-doc -->
+ * The <b>Switch</b> for the model's inheritance hierarchy.
+ * It supports the call {@link #doSwitch(EObject) doSwitch(object)}
  * to invoke the <code>caseXXX</code> method for each class of the model,
- * starting with the actual class of the object and proceeding up the
- * inheritance hierarchy until a non-null result is returned, which is the
- * result of the switch. <!-- end-user-doc -->
+ * starting with the actual class of the object
+ * and proceeding up the inheritance hierarchy
+ * until a non-null result is returned,
+ * which is the result of the switch.
+ * <!-- end-user-doc -->
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage
  * @generated
@@ -45,15 +48,17 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectTreeResult;
 public class AbapTagsSwitch<T> extends Switch<T> {
   /**
    * The cached model package
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   protected static IAbapTagsPackage modelPackage;
 
   /**
-   * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * Creates an instance of the switch.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -65,8 +70,8 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Checks whether this is a switch for the given package.
-   * <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
@@ -80,8 +85,8 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   /**
    * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it
    * yields that result.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return the first non-null result returned by a <code>caseXXX</code> call.
    * @generated
@@ -263,9 +268,9 @@ public class AbapTagsSwitch<T> extends Switch<T> {
       }
       return result;
     }
-    case IAbapTagsPackage.ABAP_TAG_CONTENT: {
-      IAbapTagContent abapTagContent = (IAbapTagContent) theEObject;
-      T result = caseAbapTagContent(abapTagContent);
+    case IAbapTagsPackage.ABAP_TAGS_CONTENT: {
+      IAbapTagsContent abapTagsContent = (IAbapTagsContent) theEObject;
+      T result = caseAbapTagsContent(abapTagsContent);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -275,7 +280,7 @@ public class AbapTagsSwitch<T> extends Switch<T> {
       ITagExportResponse tagExportResponse = (ITagExportResponse) theEObject;
       T result = caseTagExportResponse(tagExportResponse);
       if (result == null) {
-        result = caseAbapTagContent(tagExportResponse);
+        result = caseAbapTagsContent(tagExportResponse);
       }
       if (result == null) {
         result = defaultCase(theEObject);
@@ -289,8 +294,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Returns the result of interpreting the object as an instance of '<em>Tag Base</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tag Base</em>'.
@@ -303,8 +310,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Returns the result of interpreting the object as an instance of '<em>Tag</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tag</em>'.
@@ -316,23 +325,11 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-   *
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAdtObjectTag(final IAdtObjectTag object) {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Tag List</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tag List</em>'.
@@ -344,9 +341,27 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Adt Object Tag</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAdtObjectTag(final IAdtObjectTag object) {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Tag Preview Info</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tag Preview Info</em>'.
@@ -359,8 +374,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Returns the result of interpreting the object as an instance of '<em>Tagged Object</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tagged Object</em>'.
@@ -373,8 +390,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Returns the result of interpreting the object as an instance of '<em>Tagged Object List</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tagged Object List</em>'.
@@ -406,9 +425,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   /**
    * Returns the result of interpreting the object as an instance of '<em>Tagged Object Search
    * Params</em>'.
-   * <!-- begin-user-doc --> This implementation
-   * returns null; returning a non-null result will terminate the switch. <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>Tagged Object Search
@@ -633,18 +653,18 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Abap Tag Content</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Content</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Abap Tag Content</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Content</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAbapTagContent(final IAbapTagContent object) {
+  public T caseAbapTagsContent(final IAbapTagsContent object) {
     return null;
   }
 
@@ -666,9 +686,10 @@ public class AbapTagsSwitch<T> extends Switch<T> {
 
   /**
    * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
-   * <!-- begin-user-doc --> This implementation returns null;
-   * returning a non-null result will terminate the switch, but this is the last
-   * case anyway. <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch, but this is the last case anyway.
+   * <!-- end-user-doc -->
    *
    * @param object the target of the switch.
    * @return the result of interpreting the object as an instance of '<em>EObject</em>'.

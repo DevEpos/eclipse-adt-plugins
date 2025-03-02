@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.swt.graphics.Image;
 
-import com.devepos.adt.atm.model.abaptags.IAbapTagContent;
+import com.devepos.adt.atm.model.abaptags.IAbapTagsContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
@@ -42,16 +42,17 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.model.abaptags.TagType;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  *
  * @generated
  */
 public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   /**
    * Creates the default factory implementation.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -69,8 +70,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * Creates an instance of the factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -79,7 +81,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -126,8 +129,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTaggedObjectDeleteRequest();
     case IAbapTagsPackage.TAG_EXPORT_REQUEST:
       return createTagExportRequest();
-    case IAbapTagsPackage.ABAP_TAG_CONTENT:
-      return createAbapTagContent();
+    case IAbapTagsPackage.ABAP_TAGS_CONTENT:
+      return createAbapTagsContent();
     case IAbapTagsPackage.TAG_EXPORT_RESPONSE:
       return createTagExportResponse();
     default:
@@ -137,7 +140,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -165,7 +169,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -193,7 +198,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -204,18 +210,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtObjectTag createAdtObjectTag() {
-    AdtObjectTag adtObjectTag = new AdtObjectTag();
-    return adtObjectTag;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -226,7 +222,20 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtObjectTag createAdtObjectTag() {
+    AdtObjectTag adtObjectTag = new AdtObjectTag();
+    return adtObjectTag;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -237,7 +246,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -248,7 +258,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -271,7 +282,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -432,9 +444,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    * @generated
    */
   @Override
-  public IAbapTagContent createAbapTagContent() {
-    AbapTagContent abapTagContent = new AbapTagContent();
-    return abapTagContent;
+  public IAbapTagsContent createAbapTagsContent() {
+    AbapTagsContent abapTagsContent = new AbapTagsContent();
+    return abapTagsContent;
   }
 
   /**
@@ -450,7 +462,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -465,7 +478,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -475,7 +489,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -490,7 +505,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -499,7 +515,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -514,7 +531,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -523,7 +541,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -538,7 +557,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -600,7 +620,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -609,7 +630,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -618,7 +640,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -628,7 +651,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @deprecated
    * @generated

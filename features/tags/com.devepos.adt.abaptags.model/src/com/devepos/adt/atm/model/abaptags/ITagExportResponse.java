@@ -12,6 +12,5 @@ package com.devepos.adt.atm.model.abaptags;
  * @model extendedMetaData="kind='elementOnly' name='tagExportResponse'"
  * @generated
  */
-public interface ITagExportResponse extends IAbapTagContent {
-
+public interface ITagExportResponse extends IAbapTagsContent {
 } // ITagExportResponse
