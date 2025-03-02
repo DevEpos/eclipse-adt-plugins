@@ -60,6 +60,17 @@ public interface IAbapTagsService {
    * Reads ABAP Tags for the given destination ID
    *
    * @param destinationId   destination of ABAP Project
+   * @param scopes          the search scope for the tags
+   * @param withObjectCount if {@code true} the tagged object count for each tag
+   *                        should be determined
+   */
+  ITagList readTags(final String destinationId, List<TagSearchScope> scopes,
+      boolean withObjectCount);
+
+  /**
+   * Reads ABAP Tags for the given destination ID
+   *
+   * @param destinationId   destination of ABAP Project
    * @param scope           the search scope for the tags
    * @param withObjectCount if {@code true} the tagged object count for each tag
    *                        should be determined
@@ -75,16 +86,6 @@ public interface IAbapTagsService {
    * @return the status of the delete operation
    */
   IStatus deleteTags(ITagList tags, final String destinationId, TagSearchScope scope);
-
-  /**
-   * Searches for tags with the given query string
-   *
-   * @param destinationId destination id of ABAP project
-   * @param scope         search scope
-   * @param query         query String
-   * @return list of found tags that match the given parameters
-   */
-  ITagList findTags(String destinationId, TagSearchScope scope, String query);
 
   /**
    * Locks the tags
