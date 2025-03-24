@@ -26,6 +26,14 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
   }
 
   @Override
+  public void selectFirstItem() {
+    if (viewerControl.getItemCount() > 0) {
+      viewerControl.setSelection(viewerControl.getItem(0));
+      viewer.setSelection(viewer.getSelection(), true);
+    }
+  }
+
+  @Override
   protected Table getViewerControl() {
     return viewer != null ? viewer.getTable() : null;
   }
@@ -33,14 +41,6 @@ public class FilterableTable extends FilterableComposite<TableViewer, Table> {
   @Override
   protected int getViewerItemsCount() {
     return viewerControl != null ? viewerControl.getItemCount() : 0;
-  }
-
-  @Override
-  protected void selectFirstItem() {
-    if (viewerControl.getItemCount() > 0) {
-      viewerControl.setSelection(viewerControl.getItem(0));
-      viewer.setSelection(viewer.getSelection(), true);
-    }
   }
 
   @Override
