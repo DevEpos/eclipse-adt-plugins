@@ -1,10 +1,9 @@
-package com.devepos.adt.atm.ui.internal.wizard;
+package com.devepos.adt.base.ui.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-
-import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
+import org.eclipse.jface.wizard.WizardDialog;
 
 /**
  * Base class for wizards
@@ -52,5 +51,10 @@ public abstract class AbstractWizardBase extends Wizard {
 
   public void setProject(final IProject project) {
     this.project = project;
+  }
+
+  public void updateShellSize() {
+    var wizardDialog = (WizardDialog) getContainer();
+    wizardDialog.updateSize();
   }
 }
