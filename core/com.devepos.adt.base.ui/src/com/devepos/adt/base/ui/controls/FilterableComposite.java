@@ -365,12 +365,12 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
     }
     isFilterVisible = visible;
     if (filterComposite.getChildren().length > 1) {
-      GridData layoutData = (GridData) filterText.getLayoutData();
+      var layoutData = (GridData) filterText.getLayoutData();
       layoutData.exclude = !visible;
       filterText.setVisible(visible);
       filterText.getParent().pack();
     } else {
-      GridData layoutData = (GridData) filterComposite.getLayoutData();
+      var layoutData = (GridData) filterComposite.getLayoutData();
       layoutData.exclude = !visible;
       filterComposite.setVisible(visible);
       filterComposite.getParent().pack();
@@ -447,12 +447,17 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   public void toggleFilterVisiblity() {
     setFilterVisible(!isFilterVisible);
     if (!isFilterVisible) {
-      String filterString = getFilterString();
+      var filterString = getFilterString();
       if (filterString != null && filterString.trim().length() > 0) {
         resetFilter();
       }
     }
   }
+
+  /**
+   * Selects the first item in the viewer
+   */
+  public abstract void selectFirstItem();
 
   /**
    * Is called before the actual filter job is triggered.<br>
@@ -468,7 +473,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   protected void beforeUpdatingSelection() {
   }
 
-  protected void filterJobCompleted() {
+  protected void filterJobCompleted(final boolean hasFilter) {
   }
 
   /**
@@ -506,16 +511,18 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   }
 
   /**
-   * Selects the first item in the viewer
-   */
-  protected abstract void selectFirstItem();
-
-  /**
    * Updates the viewer selection
    *
    * @param setFocus if {@code true} the tree will get the focus
    */
   protected abstract void updateSelection(boolean setFocus);
+
+  /**
+   * Hook for subclasses to run logic after the pattern filter has been updated and
+   * refresh has not yet been called on the viewer
+   */
+  protected void doBeforeViewerRefresh(final boolean hasFilter) {
+  }
 
   /**
    * Create the filtered tree's controls.
@@ -542,10 +549,14 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
           monitor.done();
           return Status.OK_STATUS;
         }
-        String filterString = getFilterString();
-        patternFilter.setPattern(filterString);
+        var filterString = getFilterString();
+        var hasFilter = !StringUtil.isBlank(filterString);
+        patternFilter.setPattern(hasFilter ? filterString : "");
+
+        doBeforeViewerRefresh(hasFilter);
+
         viewer.refresh(false);
-        if (getViewerItemsCount() > 0 && filterString != null && filterString.trim().length() > 0) {
+        if (getViewerItemsCount() > 0 && !StringUtil.isEmpty(filterString)) {
           beforeUpdatingSelection();
           if (isQuickSelection) {
             updateSelection(false);
@@ -553,7 +564,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
             selectFirstItem();
           }
         }
-        filterJobCompleted();
+        filterJobCompleted(hasFilter);
         monitor.done();
         return Status.OK_STATUS;
       }
@@ -568,8 +579,8 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
   private void createFilterText(final Composite parent) {
     filterComposite = new Composite(parent, SWT.NONE);
 
-    int hMargin = (mode & TEXT_SMALL_H_MARGIN) == TEXT_SMALL_H_MARGIN ? 5 : 0;
-    boolean toolbarMode = (mode & TOOLBAR) == TOOLBAR;
+    var hMargin = (mode & TEXT_SMALL_H_MARGIN) == TEXT_SMALL_H_MARGIN ? 5 : 0;
+    var toolbarMode = (mode & TOOLBAR) == TOOLBAR;
 
     GridLayoutFactory.swtDefaults()
         .margins(hMargin, 0)
@@ -589,7 +600,7 @@ public abstract class FilterableComposite<V extends ColumnViewer, C extends Cont
       @Override
       public void keyPressed(final KeyEvent e) {
         // on a CR we want to transfer focus to the list
-        final boolean hasItems = getViewerItemsCount() > 0;
+        final var hasItems = getViewerItemsCount() > 0;
         if (hasItems && e.keyCode == SWT.ARROW_DOWN) {
           viewerControl.setFocus();
         } else if (e.character == SWT.CR) {

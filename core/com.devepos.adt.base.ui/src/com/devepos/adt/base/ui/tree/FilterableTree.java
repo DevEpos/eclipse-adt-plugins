@@ -41,6 +41,21 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
     super(parent, placeholderText, hideFilterControls, mode);
   }
 
+  @Override
+  public void selectFirstItem() {
+    if (viewerControl.getItemCount() > 0) {
+      viewerControl.setSelection(viewerControl.getItem(0));
+      viewer.setSelection(viewer.getSelection(), true);
+    }
+  }
+
+  @Override
+  protected void doBeforeViewerRefresh(boolean hasFilter) {
+    if (!hasFilter) {
+      viewer.collapseAll();
+    }
+  }
+
   /**
    * Sets field {@code expandLevelOnEmptyFilter}. <br>
    * If {@code true} all nodes of the tree are expanded if the filter
@@ -65,13 +80,10 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   }
 
   @Override
-  protected void filterJobCompleted() {
-    if (expandOnEmptyFilter) {
-      String filterString = getFilterString();
-      if (filterString == null || filterString.trim().length() == 0) {
-        viewer.expandToLevel(expandLevelOnEmptyFilter, true);
-        selectFirstItem();
-      }
+  protected void filterJobCompleted(boolean hasFilter) {
+    if (expandOnEmptyFilter && !hasFilter) {
+      viewer.expandToLevel(expandLevelOnEmptyFilter, true);
+      selectFirstItem();
     }
   }
 
@@ -83,14 +95,6 @@ public class FilterableTree extends FilterableComposite<TreeViewer, Tree> {
   @Override
   protected int getViewerItemsCount() {
     return viewerControl != null ? viewerControl.getItemCount() : 0;
-  }
-
-  @Override
-  protected void selectFirstItem() {
-    if (viewerControl.getItemCount() > 0) {
-      viewerControl.setSelection(viewerControl.getItem(0));
-      viewer.setSelection(viewer.getSelection(), true);
-    }
   }
 
   @Override
