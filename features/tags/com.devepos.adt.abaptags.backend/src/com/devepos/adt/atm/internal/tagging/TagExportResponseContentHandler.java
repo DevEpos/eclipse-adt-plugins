@@ -3,7 +3,6 @@ package com.devepos.adt.atm.internal.tagging;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
-import com.devepos.adt.atm.model.abaptags.ITagData;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
 import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.base.content.AbstractEmfContentHandler;
