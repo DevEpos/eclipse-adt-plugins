@@ -58,7 +58,7 @@ public class FolderTreeNode extends TreeNodeBase implements ICollectionTreeNode 
 
   @Override
   public String getSizeAsString() {
-    return new DecimalFormat("###,###").format(getChildren().size());
+    return formatSize(getChildren().size());
   }
 
   @Override
@@ -90,4 +90,7 @@ public class FolderTreeNode extends TreeNodeBase implements ICollectionTreeNode 
     return getChildren().size();
   }
 
+  protected String formatSize(final int size) {
+    return new DecimalFormat("###,###").format(size);
+  }
 }
