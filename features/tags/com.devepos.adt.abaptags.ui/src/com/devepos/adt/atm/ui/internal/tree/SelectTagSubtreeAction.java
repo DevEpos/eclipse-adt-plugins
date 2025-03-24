@@ -35,7 +35,7 @@ public class SelectTagSubtreeAction extends Action {
    * Returns {@code true} if the viewer selection contains only tag objects that have child tags
    */
   public boolean hasTreeValidSelectionForAction() {
-    var selection = tagTree.getViewerSelection();
+    var selection = tagTree.getSelection();
 
     return Stream.of(selection.toArray()).allMatch(selObj -> {
       if (selObj instanceof ITag) {
@@ -47,7 +47,7 @@ public class SelectTagSubtreeAction extends Action {
 
   @Override
   public void run() {
-    var selectedTags = tagTree.getViewerSelection();
+    var selectedTags = tagTree.getSelection();
     for (var selObj : selectedTags.toArray()) {
       var selTag = (ITag) selObj;
       if (!selTag.getChildTags().isEmpty()) {

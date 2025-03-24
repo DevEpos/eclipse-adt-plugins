@@ -231,7 +231,7 @@ public class TaggedObjectSearchPage extends DialogPage
   }
 
   private void createTreeToolbar() {
-    var filterComposite = tagsTree.getTreeFilterComposite();
+    var filterComposite = tagsTree.getFilterComposite();
     treeToolBar = new ToolBar(filterComposite, SWT.FLAT | SWT.HORIZONTAL);
     GridDataFactory.fillDefaults().grab(false, false).align(SWT.END, SWT.END).applyTo(treeToolBar);
 

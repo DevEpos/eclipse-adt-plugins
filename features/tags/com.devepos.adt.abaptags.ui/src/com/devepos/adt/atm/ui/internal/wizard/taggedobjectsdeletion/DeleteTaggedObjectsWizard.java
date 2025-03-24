@@ -16,8 +16,8 @@ import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
-import com.devepos.adt.atm.ui.internal.wizard.AbstractWizardBase;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
 import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
 
 /**

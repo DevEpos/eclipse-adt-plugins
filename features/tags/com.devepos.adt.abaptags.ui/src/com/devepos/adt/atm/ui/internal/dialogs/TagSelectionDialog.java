@@ -77,7 +77,7 @@ public class TagSelectionDialog extends TrayDialog {
     tagsTree.addKeyListenerForFilterFocus();
     tagsTree.setTags(tags, false);
 
-    createTagsToolbar(tagsTree.getTreeFilterComposite());
+    createTagsToolbar(tagsTree.getFilterComposite());
     createViewerContextMenu();
     createActions();
 
