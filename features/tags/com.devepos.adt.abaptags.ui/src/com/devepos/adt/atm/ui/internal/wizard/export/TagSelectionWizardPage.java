@@ -3,7 +3,6 @@ package com.devepos.adt.atm.ui.internal.wizard.export;
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,7 +40,6 @@ import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
-import com.devepos.adt.atm.ui.internal.wizard.tagging.TaggableObjectSelectionWizardPage;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
@@ -52,7 +50,7 @@ import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
+  public static final String PAGE_NAME = TagSelectionWizardPage.class.getCanonicalName();
 
   private Job tagLoadingJob;
 
@@ -120,9 +118,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     createTagsCheckBoxTree(root);
     createViewerContextMenu();
     createSelectOptionsGroup(root);
-    createFileChooserSection(root);
+    createTargetFileSection(root);
 
-    var treeActionsComposite = new Composite(tagSelectionTree.getTreeFilterComposite(), SWT.NONE);
+    var treeActionsComposite = new Composite(tagSelectionTree.getFilterComposite(), SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(treeActionsComposite);
     GridDataFactory.fillDefaults().applyTo(treeActionsComposite);
 
@@ -185,8 +183,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     projectInput.addProjectValidator(project -> {
       var tagFeatureStatus = tagsService.testTagsFeatureAvailability(project);
-      return tagFeatureStatus.isOK()
-          ? taggingService.testTaggedObjectDeletionFeatureAvailability(project)
+      return tagFeatureStatus.isOK() ? taggingService.testTagsExportFeatureAvailability(project)
           : tagFeatureStatus;
     });
     projectInput.addStatusChangeListener(status -> {
@@ -207,10 +204,13 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     var currentProject = getWizard().getProject();
     if (currentProject != null) {
       projectInput.setProjectName(currentProject.getName());
+    } else {
+      projectInput.setProjectName(null);
+      projectInput.setFocus();
     }
   }
 
-  private void createFileChooserSection(final Composite parent) {
+  private void createTargetFileSection(final Composite parent) {
     var group = new Group(parent, SWT.NONE);
     group.setText("Target");
     GridLayoutFactory.swtDefaults().numColumns(3).applyTo(group);
@@ -290,8 +290,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         tagSelectionTree.refresh();
       }
       validatePage(null, ValidationSource.TAGS);
-
-      // getWizard().setCanFinish(isPageComplete());
     });
     tagSelectionTree.createControl(group);
     tagSelectionTree.addKeyListenerForFilterFocus();
@@ -381,7 +379,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     includeSharedUserInfo = new Button(group, SWT.CHECK);
     GridDataFactory.fillDefaults().applyTo(includeSharedUserInfo);
-    includeSharedUserInfo.setText("Include information about shared tags");
+    includeSharedUserInfo.setText("&Include information about shared tags");
 
   }
 
@@ -412,22 +410,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (tagLoadingJob != null && tagLoadingJob.getResult() == null) {
       tagLoadingJob.cancel();
     }
-    tagLoadingJob = Job.create(Messages.AbapTagManagerView_TagsLoadingJobTitle_xmsg, monitor -> {
-      // TODO: exclude shared tags, either in frontend, or adjust backend to exclude them from the
-      // result
+    tagLoadingJob = Job.create("Retrieving ABAP Tags content...", monitor -> {
       final var tagList = tagsService.readTags(DestinationUtil.getDestinationId(project),
-          TagSearchScope.ALL, true);
+          List.of(TagSearchScope.USER, TagSearchScope.GLOBAL), true);
 
       Display.getDefault().asyncExec(() -> {
-        var tags = tagList.getTags();
-        List<ITag> sharedTags = new ArrayList<>();
-        for (var t : tags) {
-          if (!t.getCreatedBy()
-              .equals(DestinationUtil.getDestinationOwner(getWizard().getProject()))) {
-            sharedTags.add(t);
-          }
-        }
-        tags.removeAll(sharedTags);
         tagSelectionTree.setTags(tagList.getTags(), true);
         tagSelectionTree.expandAll();
         tagSelectionTree.refresh();
