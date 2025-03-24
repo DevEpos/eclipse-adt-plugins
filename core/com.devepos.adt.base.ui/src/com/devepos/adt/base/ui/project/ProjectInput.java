@@ -2,6 +2,7 @@ package com.devepos.adt.base.ui.project;
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,14 +38,20 @@ import com.sap.adt.util.ui.swt.IAdtSWTUtil;
  */
 @SuppressWarnings("restriction")
 public class ProjectInput {
+  protected String projectLabelText = Messages.ProjectInput_Project_xfld;
+  protected String projectLabelMnemonic = "p";
+  protected String projectBrowseButtonMnemonic = "b";
 
   private final IAbapProjectProvider projectProvider;
-  private Text projectField;
   private IProject project;
   private final Set<IValidator<IProject>> projectValidators = new HashSet<>();
   private final Set<IStatusChangeListener> statusChangeListeners = new HashSet<>();
   private final boolean ensureLoggedOn;
   private boolean useDedicatedComposite;
+  private boolean disableLabelCreation;
+
+  private Text projectField;
+  private Button projectBrowseButton;
 
   /**
    * Creates new project input
@@ -115,11 +122,15 @@ public class ProjectInput {
    * @param margins the margins for the container that will hold the controls of the project input
    */
   public void createControl(final Composite parent, final Point margins) {
-    IAdtSWTUtil swtUtil = AdtSWTUtilFactory.getOrCreateSWTUtil();
+    var swtUtil = AdtSWTUtilFactory.getOrCreateSWTUtil();
     Composite projectInputRoot = null;
+    var colCount = disableLabelCreation ? 2 : 3;
     if (useDedicatedComposite) {
       projectInputRoot = new Composite(parent, SWT.NONE);
-      GridLayoutFactory.swtDefaults().margins(margins).numColumns(3).applyTo(projectInputRoot);
+      GridLayoutFactory.swtDefaults()
+          .margins(margins)
+          .numColumns(colCount)
+          .applyTo(projectInputRoot);
       var parentLayout = parent.getLayout();
       var spanH = 1;
       if (parentLayout instanceof GridLayout) {
@@ -134,10 +145,9 @@ public class ProjectInput {
       projectInputRoot = parent;
     }
 
-    final Label projectInputLabel = new Label(projectInputRoot, SWT.NONE);
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(projectInputLabel);
-    projectInputLabel.setText(Messages.ProjectInput_Project_xfld);
-    swtUtil.setMandatory(projectInputLabel, true);
+    if (!disableLabelCreation) {
+      createLabelControl(swtUtil, projectInputRoot);
+    }
 
     projectField = new Text(projectInputRoot, SWT.BORDER);
     GridDataFactory.fillDefaults()
@@ -154,8 +164,9 @@ public class ProjectInput {
       fireStatusChange(projectStatus);
     });
 
-    final Button projectBrowseButton = new Button(projectInputRoot, SWT.PUSH);
-    projectBrowseButton.setText(Messages.ProjectInput_BrowseProjects_xbut);
+    projectBrowseButton = new Button(projectInputRoot, SWT.PUSH);
+    projectBrowseButton.setText(StringUtil.setMnemonic(Messages.ProjectInput_BrowseProjects_xbut,
+        projectBrowseButtonMnemonic));
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(projectBrowseButton);
     swtUtil.setButtonWidthHint(projectBrowseButton);
     projectBrowseButton.addSelectionListener(widgetSelectedAdapter(e -> {
@@ -165,6 +176,37 @@ public class ProjectInput {
         projectField.setText(resultProject.getName());
       }
     }));
+  }
+
+  public void setProjectLabelText(final String projectLabelText) {
+    if (StringUtil.isBlank(projectLabelText)) {
+      throw new IllegalArgumentException("'projectLabelText' must not be empty or null");
+    }
+    this.projectLabelText = projectLabelText;
+  }
+
+  /**
+   * Enable/Disable project controls
+   */
+  public void setEnabled(final boolean enable) {
+    if (isOnline()) {
+      projectField.setEnabled(enable);
+      projectBrowseButton.setEnabled(enable);
+    }
+  }
+
+  public void setFocus() {
+    if (isOnline()) {
+      projectField.setFocus();
+    }
+  }
+
+  public void setLabelMnemonic(final String mnemonic) {
+    projectLabelMnemonic = mnemonic;
+  }
+
+  public void setBrowseButtonMnemonic(final String mnemonic) {
+    projectBrowseButtonMnemonic = mnemonic;
   }
 
   /**
@@ -208,10 +250,17 @@ public class ProjectInput {
    * @param projectName the project name to be set in the project input field
    */
   public void setProjectName(final String projectName) {
-    final String newProjectNameValue = projectName != null ? projectName : "";
+    final var newProjectNameValue = projectName != null ? projectName : "";
     if (projectField != null && !projectField.isDisposed()) {
       projectField.setText(newProjectNameValue);
     }
+  }
+
+  /**
+   * Validates the current project
+   */
+  public IStatus validate() {
+    return validateProject(projectField.getText());
   }
 
   /**
@@ -225,11 +274,22 @@ public class ProjectInput {
     this.useDedicatedComposite = useDedicatedComposite;
   }
 
+  public void setDisableLabelCreation(final boolean disableLabelCreation) {
+    this.disableLabelCreation = disableLabelCreation;
+  }
+
+  protected void createLabelControl(final IAdtSWTUtil swtUtil, final Composite projectInputRoot) {
+    final var projectInputLabel = new Label(projectInputRoot, SWT.NONE);
+    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(projectInputLabel);
+    projectInputLabel.setText(StringUtil.setMnemonic(projectLabelText, projectLabelMnemonic));
+    swtUtil.setMandatory(projectInputLabel, true);
+  }
+
   private IProject convertToProject(final String projectName) {
     // check if there is an ABAP project which matches the entered name
-    final IProject[] abapProjects = ProjectUtil.getAbapProjects();
+    final var abapProjects = ProjectUtil.getAbapProjects();
     String availableProjectName = null;
-    for (final IProject project : abapProjects) {
+    for (final var project : abapProjects) {
       if (project.getName().equalsIgnoreCase(projectName)) {
         availableProjectName = project.getName();
         break;
@@ -253,8 +313,8 @@ public class ProjectInput {
   private IStatus validateProject(final String projectName) {
     project = null;
     if (StringUtil.isBlank(projectName)) {
-      return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID,
-          Messages.ProjectInput_NoProjectEntered_xmsg, null);
+      return new Status(IStatus.ERROR, AdtBaseUIPlugin.PLUGIN_ID, MessageFormat.format(
+          Messages.ProjectInput_NoProjectEntered_xmsg, projectLabelText.replaceAll("&", "")), null);
     }
     project = convertToProject(projectName);
     if (project == null) {
@@ -263,14 +323,14 @@ public class ProjectInput {
           Messages.ProjectInput_ProjectDoesNotExist_xmsg, null);
     }
     if (ensureLoggedOn) {
-      IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
+      var loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
       if (!loggedOnStatus.isOK()) {
         project = null;
         return loggedOnStatus;
       }
     }
-    for (final IValidator<IProject> validator : projectValidators) {
-      final IStatus validationStatus = validator.validate(project);
+    for (var validator : projectValidators) {
+      final var validationStatus = validator.validate(project);
       if (!validationStatus.isOK()) {
         project = null;
         return validationStatus;
@@ -278,5 +338,9 @@ public class ProjectInput {
     }
 
     return Status.OK_STATUS;
+  }
+
+  private boolean isOnline() {
+    return projectField != null && !projectField.isDisposed();
   }
 }
