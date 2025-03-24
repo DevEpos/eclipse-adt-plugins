@@ -34,6 +34,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
@@ -60,6 +61,7 @@ import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
+import com.devepos.adt.atm.ui.internal.util.TreeKeybindingsUtil;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -226,9 +228,15 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_TAG_SELECTION);
     GridLayoutFactory.swtDefaults().applyTo(root);
 
-    createTreeHeaderArea(root);
-    createTagsCheckBoxTree(root);
-    createSelectionInfo(root);
+    var treeGroup = new Group(root, SWT.NONE);
+    treeGroup.setText(Messages.TagSelectionWizardPage_TagsTreeGroup_xtit);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(treeGroup);
+    GridLayoutFactory.swtDefaults().applyTo(treeGroup);
+
+    createTreeHeaderArea(treeGroup);
+    createTagsCheckBoxTree(treeGroup);
+    createSelectionInfo(treeGroup);
+
     setControl(root);
     setPageComplete(false);
   }
@@ -367,6 +375,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       setDirty(true);
       validatePage();
     });
+    TreeKeybindingsUtil.registerDefaultKeybindings(checkBoxViewer);
     tagsTree.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(final KeyEvent e) {
@@ -381,6 +390,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           }
         } else if (KeyEventUtil.isDefaultFindKeyStroke(e)) {
           filterText.setFocus();
+        } else if (e.keyCode == '+' && (e.stateMask == SWT.CTRL || e.stateMask == SWT.COMMAND)) {
+          addTag(false);
+        } else if (e.keyCode == '+' && (e.stateMask == (SWT.CTRL + SWT.SHIFT)
+            || e.stateMask == (SWT.COMMAND + SWT.SHIFT))) {
+          addTag(true);
+        } else if (e.keyCode == SWT.DEL) {
+          removeTag();
+          // } else if (e.keyCode == SWT.ARROW_RIGHT && e.stateMask == SWT.CTRL) {
+          // checkBoxViewer.expandAll();
+          // } else if (e.keyCode == SWT.ARROW_LEFT && e.stateMask == SWT.CTRL) {
+          // checkBoxViewer.collapseAll();
+        } else if (e.keyCode == SWT.F2 && e.stateMask == SWT.NONE) {
+          checkBoxViewer.editElement(checkBoxViewer.getStructuredSelection().getFirstElement(), 0);
         }
       }
     });

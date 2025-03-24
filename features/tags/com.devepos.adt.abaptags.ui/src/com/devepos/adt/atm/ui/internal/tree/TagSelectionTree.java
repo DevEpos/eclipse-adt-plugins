@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -21,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
+import com.devepos.adt.atm.ui.internal.util.TreeKeybindingsUtil;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 
@@ -31,11 +33,11 @@ import com.devepos.adt.base.ui.tree.FilterableTree;
  *
  */
 public class TagSelectionTree {
-  private CheckboxTreeViewer tagsTreeViewer;
   private IContentProvider contentProvider;
   private IStyledLabelProvider labelProvider;
 
-  private FilterableTree tagsTree;
+  private CheckboxTreeViewer viewer;
+  private FilterableTree tree;
 
   private final List<ITag> tagList = new ArrayList<>();
 
@@ -55,47 +57,47 @@ public class TagSelectionTree {
    * @see {@link FilterableComposite#addKeyListenerForFilterFocus()
    */
   public void addKeyListenerForFilterFocus() {
-    tagsTree.addKeyListenerForFilterFocus();
+    tree.addKeyListenerForFilterFocus();
   }
 
   public void collapseAll() {
     if (isTreeOnline()) {
-      tagsTreeViewer.collapseAll();
+      viewer.collapseAll();
     }
   }
 
   public void createControl(final Composite parent) {
-    tagsTree = new FilterableTree(parent, null, false, FilterableComposite.TOOLBAR) {
+    tree = new FilterableTree(parent, null, false, FilterableComposite.TOOLBAR) {
       @Override
-      protected void filterJobCompleted() {
-        super.filterJobCompleted();
+      protected void filterJobCompleted(final boolean hasFilter) {
+        super.filterJobCompleted(hasFilter);
         setCheckedElementsInTree();
-        if (tagsTree.getFilterString() == null || tagsTree.getFilterString().trim().isEmpty()) {
-          tagsTreeViewer.collapseAll();
+        if (!hasFilter) {
+          viewer.collapseAll();
         }
       }
     };
-    tagsTree.setElementMatcher(element -> {
+    tree.setElementMatcher(element -> {
       if (element instanceof ITag) {
-        final ITag tag = (ITag) element;
-        return tagsTree.getWordMatcher().matchesWord(tag.getName())
-            || tagsTree.getWordMatcher().matchesWord(tag.getDescription());
+        final var tag = (ITag) element;
+        return tree.getWordMatcher().matchesWord(tag.getName())
+            || tree.getWordMatcher().matchesWord(tag.getDescription());
       }
       return false;
     });
-    tagsTreeViewer = new CheckboxTreeViewer(tagsTree, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
-    tagsTree.setViewer(tagsTreeViewer);
-    applyTreeLayoutData(tagsTreeViewer.getTree());
-    tagsTree.setExpandOnEmptyFilter(false);
+    viewer = new CheckboxTreeViewer(tree, SWT.V_SCROLL | SWT.SINGLE | SWT.BORDER);
+    tree.setViewer(viewer);
+    applyTreeLayoutData(viewer.getTree());
+    tree.setExpandOnEmptyFilter(false);
 
-    tagsTreeViewer.setContentProvider(
+    viewer.setContentProvider(
         contentProvider != null ? contentProvider : new TagTreeContentProvider());
-    tagsTreeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
+    viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(
         labelProvider != null ? labelProvider : new TagLabelProvider(true, false)));
-    tagsTreeViewer.setInput(tagList);
-    tagsTree.setBackgroundMode(SWT.INHERIT_DEFAULT);
+    viewer.setInput(tagList);
+    tree.setBackgroundMode(SWT.INHERIT_DEFAULT);
 
-    tagsTreeViewer.addCheckStateListener(e -> {
+    viewer.addCheckStateListener(e -> {
       if (e.getChecked()) {
         checkedTags.add((ITag) e.getElement());
       } else {
@@ -103,11 +105,12 @@ public class TagSelectionTree {
       }
       fireCheckedStateChanged(e);
     });
+    TreeKeybindingsUtil.registerDefaultKeybindings(viewer);
   }
 
   public void expandAll() {
     if (isTreeOnline()) {
-      tagsTreeViewer.expandAll();
+      viewer.expandAll();
     }
   }
 
@@ -115,16 +118,16 @@ public class TagSelectionTree {
     return checkedTags;
   }
 
-  public Composite getTreeFilterComposite() {
+  public Composite getFilterComposite() {
     if (!isTreeOnline()) {
       throw new IllegalStateException("Tree is not online yet!");
     }
-    return tagsTree.getFilterComposite();
+    return tree.getFilterComposite();
   }
 
-  public IStructuredSelection getViewerSelection() {
+  public IStructuredSelection getSelection() {
     if (isTreeOnline()) {
-      return tagsTreeViewer.getStructuredSelection();
+      return viewer.getStructuredSelection();
     }
     return StructuredSelection.EMPTY;
   }
@@ -134,21 +137,21 @@ public class TagSelectionTree {
   }
 
   public boolean hasViewerInput() {
-    return isTreeOnline() && !tagList.isEmpty() && tagsTreeViewer.getInput() != null;
+    return isTreeOnline() && !tagList.isEmpty() && viewer.getInput() != null;
   }
 
   public void hookContextMenu(final MenuManager menuMgr) {
     if (!isTreeOnline()) {
       return;
     }
-    var tree = tagsTreeViewer.getTree();
+    var tree = viewer.getTree();
     var menu = menuMgr.createContextMenu(tree);
     tree.setMenu(menu);
   }
 
   public void refresh() {
-    if (tagsTree != null && !tagsTree.isDisposed()) {
-      tagsTreeViewer.refresh();
+    if (tree != null && !tree.isDisposed()) {
+      viewer.refresh();
     }
   }
 
@@ -156,22 +159,36 @@ public class TagSelectionTree {
     checkedStateListener.remove(l);
   }
 
+  public void addSelectionChangedListener(final ISelectionChangedListener l) {
+    viewer.addSelectionChangedListener(l);
+  }
+
+  public void removeSelectionChangedListener(final ISelectionChangedListener l) {
+    viewer.removeSelectionChangedListener(l);
+  }
+
   public void reset() {
     tagList.clear();
-    tagsTreeViewer.refresh();
+    viewer.refresh();
+  }
+
+  public void resetFilter() {
+    tree.resetFilter();
   }
 
   public void selectFirstItem() {
-    if (!isTreeOnline() || tagsTreeViewer.getInput() == null) {
+    if (!isTreeOnline() || viewer.getInput() == null) {
       return;
     }
-    var tree = tagsTreeViewer.getTree();
-    tree.select(tree.getItem(0));
+    var tree = viewer.getTree();
+    if (tree.getItemCount() > 0) {
+      tree.select(tree.getItem(0));
+    }
   }
 
   public void setCheckedElementsInTree() {
     for (var checkedItem : checkedTags) {
-      tagsTreeViewer.setChecked(checkedItem, true);
+      viewer.setChecked(checkedItem, true);
     }
   }
 
@@ -212,12 +229,10 @@ public class TagSelectionTree {
   }
 
   public void setFocus() {
-    if (tagsTree != null && !tagsTree.isDisposed()) {
-      var innerTreeControl = tagsTree.getViewer().getControl();
-      if (innerTreeControl != null && !innerTreeControl.isDisposed()) {
-        innerTreeControl.setFocus();
-      }
+    if (!isTreeOnline()) {
+      return;
     }
+    viewer.getControl().setFocus();
   }
 
   /**
@@ -238,7 +253,7 @@ public class TagSelectionTree {
       checkedTags.add(tag);
     } else {
       checkedTags.remove(tag);
-      tagsTreeViewer.setChecked(tag, false);
+      viewer.setChecked(tag, false);
     }
     if (includeChildren) {
       setTagChildrenCheckedRecursive(tag, checked);
@@ -261,7 +276,7 @@ public class TagSelectionTree {
           checkedTags.add(parentTag);
         } else {
           checkedTags.remove(parentTag);
-          tagsTreeViewer.setChecked(parentTag, false);
+          viewer.setChecked(parentTag, false);
         }
       } else {
         parentTag = null;
@@ -276,7 +291,7 @@ public class TagSelectionTree {
         checkedTags.add(childTag);
       } else {
         checkedTags.remove(childTag);
-        tagsTreeViewer.setChecked(childTag, false);
+        viewer.setChecked(childTag, false);
       }
       setTagChildrenCheckedRecursive(childTag, checked);
     }
@@ -299,11 +314,11 @@ public class TagSelectionTree {
       }
       if (asyncUpdate) {
         Display.getDefault().asyncExec(() -> {
-          tagsTreeViewer.refresh();
+          viewer.refresh();
           updateCheckedTagsFromTagIdList();
         });
       } else {
-        tagsTreeViewer.refresh();
+        viewer.refresh();
         updateCheckedTagsFromTagIdList();
       }
     }
@@ -314,8 +329,8 @@ public class TagSelectionTree {
   }
 
   private void uncheckAllTags() {
-    for (var currentlyChecked : tagsTreeViewer.getCheckedElements()) {
-      tagsTreeViewer.setChecked(currentlyChecked, false);
+    for (var currentlyChecked : viewer.getCheckedElements()) {
+      viewer.setChecked(currentlyChecked, false);
     }
   }
 
@@ -328,15 +343,14 @@ public class TagSelectionTree {
     }
   }
 
-  private void fireCheckedStateChanged(CheckStateChangedEvent e) {
+  private void fireCheckedStateChanged(final CheckStateChangedEvent e) {
     for (var l : checkedStateListener) {
       l.checkStateChanged(e);
     }
   }
 
   private boolean isTreeOnline() {
-    return tagsTreeViewer != null && tagsTreeViewer.getTree() != null
-        && !tagsTreeViewer.getTree().isDisposed();
+    return viewer != null && viewer.getTree() != null && !viewer.getTree().isDisposed();
   }
 
   private void updateCheckedTagsFromTagIdList() {
@@ -347,7 +361,7 @@ public class TagSelectionTree {
       tagList.stream().forEach(this::findAndSetTagAsChecked);
       if (!checkedTags.isEmpty()) {
         setCheckedElementsInTree();
-        tagsTreeViewer.refresh();
+        viewer.refresh();
         fireCheckedStateChanged(null);
       }
     }

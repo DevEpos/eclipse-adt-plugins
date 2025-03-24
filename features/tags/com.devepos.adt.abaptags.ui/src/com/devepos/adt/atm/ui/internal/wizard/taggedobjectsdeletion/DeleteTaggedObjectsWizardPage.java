@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -165,8 +164,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
 
     @Override
-    protected void filterJobCompleted() {
-      super.filterJobCompleted();
+    protected void filterJobCompleted(boolean hasFilter) {
+      super.filterJobCompleted(hasFilter);
       setCheckedElementsInTable();
     }
 
@@ -224,6 +223,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       taggedObjectsViewer.getTable().setFocus();
 
       var objectListRequest = wizard.getTaggedObjectListRequest();
+      // REVISIT: is this if clause needed here?
       if (taggedObjects != null && !taggedObjects.isEmpty()) {
         setTableInput();
       } else if (!objectListRequest.getTagIds().isEmpty()
@@ -510,7 +510,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       column.setWidth(column.getWidth() + 7);
     }
 
-    updateShellSize();
+    getWizard().updateShellSize();
 
     if (!taggedObjects.isEmpty()) {
       taggedObjectsViewer.getTable().setSelection(0);
@@ -562,11 +562,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
     getWizard().setCanFinish(pageComplete);
     setPageComplete(pageComplete);
-  }
-
-  private void updateShellSize() {
-    var wizardDialog = (WizardDialog) getWizard().getContainer();
-    wizardDialog.updateSize();
   }
 
   private void validatePage() {

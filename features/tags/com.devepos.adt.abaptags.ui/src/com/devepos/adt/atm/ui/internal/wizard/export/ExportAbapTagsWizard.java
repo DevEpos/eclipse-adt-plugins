@@ -26,9 +26,9 @@ import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
-import com.devepos.adt.atm.ui.internal.wizard.AbstractWizardBase;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.project.ProjectUtil;
+import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
 import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
 
 /**
@@ -110,9 +110,6 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
       });
       return wizardResult.get();
     } catch (final InvocationTargetException e) {
-      if (e.getTargetException() instanceof RuntimeException) {
-        throw (RuntimeException) e.getTargetException();
-      }
       Display.getDefault().asyncExec(() -> {
         final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
         MessageDialog.openError(getShell(), "Error occurred", message);
@@ -127,7 +124,7 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
   private void saveExportToFile(final ITagExportResponse response) {
     final var resourceFactory = new AbapTagsResourceFactory();
     try {
-      var abapTagsContent = IAbapTagsFactory.eINSTANCE.createAbapTagContent();
+      var abapTagsContent = IAbapTagsFactory.eINSTANCE.createAbapTagsContent();
       abapTagsContent.getTags().addAll(response.getTags());
       abapTagsContent.getSharedTags().addAll(response.getSharedTags());
       abapTagsContent.getTaggedObjectInfos().addAll(response.getTaggedObjectInfos());

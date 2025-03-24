@@ -130,7 +130,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     createViewerContextMenu();
     createSelectOptionsGroup(root);
 
-    var treeActionsComposite = new Composite(tagSelectionTree.getTreeFilterComposite(), SWT.NONE);
+    var treeActionsComposite = new Composite(tagSelectionTree.getFilterComposite(), SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(treeActionsComposite);
     GridDataFactory.fillDefaults().applyTo(treeActionsComposite);
 
@@ -153,7 +153,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       getWizard().completePreviousPage(this);
       refreshTags();
       validatePage(null, ValidationSource.TAGS);
-      tagSelectionTree.setFocus();
+      if (tagSelectionTree.hasViewerInput()) {
+        tagSelectionTree.setFocus();
+      }
     }
     super.setVisible(visible);
   }
@@ -165,6 +167,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createProjectInput(final Composite parent) {
     projectInput = new ProjectInput(true);
+    projectInput.setBrowseButtonMnemonic("w");
 
     var projectComposite = new Composite(parent, SWT.NONE);
     GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(projectComposite);
@@ -198,6 +201,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     var currentProject = getWizard().getProject();
     if (currentProject != null) {
       projectInput.setProjectName(currentProject.getName());
+    } else {
+      projectInput.setProjectName(null);
+      projectInput.setFocus();
     }
   }
 
