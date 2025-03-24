@@ -21,6 +21,10 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
@@ -184,6 +188,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
   protected void createProjectInput(final Composite root) {
     projectInput = new ProjectInput(true);
+    projectInput.setBrowseButtonMnemonic("w");
     projectInput.createControl(root, new Point(5, 5));
     projectInput.addProjectValidator(
         project -> AbapTagsServiceFactory.createTagsService().testTagsFeatureAvailability(project));
@@ -202,21 +207,35 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
     IProject currentProject = getWizard().getProject();
     if (currentProject != null) {
       projectInput.setProjectName(currentProject.getName());
+    } else {
+      projectInput.setProjectName(null);
+      projectInput.setFocus();
     }
   }
 
   private void createObjectsList(final Composite parent) {
-    final Composite container = new Composite(parent, SWT.NONE);
+    final var container = new Composite(parent, SWT.NONE);
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(container);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(container);
 
-    final Label objectsViewerLabel = new Label(container, SWT.NONE);
+    final var objectsViewerLabel = new Label(container, SWT.NONE);
     objectsViewerLabel
         .setText(Messages.TaggableObjectSelectionWizardPage_SelectedObjectsTableTitle_xtit);
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.CENTER)
         .grab(true, false)
         .applyTo(objectsViewerLabel);
+
+    objectsViewerLabel.addTraverseListener(new TraverseListener() {
+      @Override
+      public void keyTraversed(TraverseEvent e) {
+        // mnemonic matched
+        if (e.doit) {
+          e.doit = false;
+          objectsViewer.getControl().setFocus();
+        }
+      }
+    });
 
     createViewerToolbar(container);
 
@@ -237,6 +256,17 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
       final ISelection sel = e.getSelection();
       removeObjectsTbButton.setEnabled(sel != null && !sel.isEmpty());
     });
+    objectsViewer.getControl().addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(final KeyEvent e) {
+        if (e.keyCode == 'o' && e.stateMask == SWT.CTRL) {
+          selectObjectsViaAdtQuickSearch();
+        } else if (e.keyCode == SWT.DEL && e.stateMask == SWT.NONE) {
+          removeSelectedObjects();
+        }
+      }
+
+    });
   }
 
   private void createViewerToolbar(final Composite parent) {
@@ -246,31 +276,34 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
     selectObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
     selectObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.OPEN_ABAP_REPO_TYPE));
-    selectObjectsTbButton.setToolTipText("Select Objects"); //$NON-NLS-1$
+    selectObjectsTbButton.setToolTipText("Select Objects (Ctrl+o)"); //$NON-NLS-1$
     selectObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
-      final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(
-          parent.getShell(),
-          Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
-          this.getClass().getCanonicalName() + ".dialog", true, null, getWizard().getProject()); //$NON-NLS-1$
-      if (result == null) {
-        return;
-      }
-      for (final IAdtObjectReference ref : result.getAllSelectedResults()) {
-        objects.add(new ObjectToBeTagged(ref));
-      }
-      objectsViewer.refresh();
-      validatePage(null, ValidationSource.OBJECTS);
+      selectObjectsViaAdtQuickSearch();
     }));
 
     removeObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
     removeObjectsTbButton.setEnabled(false);
     removeObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
-    removeObjectsTbButton
-        .setToolTipText(Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol);
+    removeObjectsTbButton.setToolTipText(String.format("%s (DEL)",
+        Messages.TaggableObjectSelectionWizardPage_RemoveObjectAction_xtol));
     removeObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
       removeSelectedObjects();
       validatePage(null, ValidationSource.OBJECTS);
     }));
+  }
+
+  private void selectObjectsViaAdtQuickSearch() {
+    final IAdtRisSearchResultProxy result = AdtRisSearchUtil.searchAdtObjectViaDialog(getShell(),
+        Messages.TaggableObjectSelectionWizardPage_SelectObjectsDialogTitle_xtit,
+        this.getClass().getCanonicalName() + ".dialog", true, null, getWizard().getProject()); //$NON-NLS-1$
+    if (result == null) {
+      return;
+    }
+    for (final IAdtObjectReference ref : result.getAllSelectedResults()) {
+      objects.add(new ObjectToBeTagged(ref));
+    }
+    objectsViewer.refresh();
+    validatePage(null, ValidationSource.OBJECTS);
   }
 
   private void removeSelectedObjects() {
