@@ -21,6 +21,7 @@ public class AdtObjTaggingUriDiscovery extends AbapTagsUriDiscoveryBase {
   private static final String DISCOVERY_TERM_TAGGED_OBJ_DEL_CHECK = "taggedObjectDeletionCheck";
   private static final String DISCOVERY_TERM_TAGGED_OBJ_DELETION = "taggedObjectDeletion";
   private static final String DISCOVERY_TERM_TAG_EXPORT = "tagExport";
+  private static final String DISCOVERY_TERM_TAG_IMPORT = "tagImport";
 
   public AdtObjTaggingUriDiscovery(final String destination) {
     super(destination, DISCOVERY_SCHEME);
@@ -54,6 +55,13 @@ public class AdtObjTaggingUriDiscovery extends AbapTagsUriDiscoveryBase {
    */
   public URI getTagExportUri() {
     return getUriFromCollectionMember(DISCOVERY_TERM_TAG_EXPORT);
+  }
+
+  /**
+   * Retrieves resource URI for importing tags
+   */
+  public URI getTagImportUri() {
+    return getUriFromCollectionMember(DISCOVERY_TERM_TAG_IMPORT);
   }
 
   /**

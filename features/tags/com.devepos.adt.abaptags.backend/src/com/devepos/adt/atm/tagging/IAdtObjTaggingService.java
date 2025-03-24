@@ -91,4 +91,20 @@ public interface IAdtObjTaggingService {
    * @return Status with severity {@link IStatus#OK} if the feature is available
    */
   IStatus testTaggedObjectDeletionFeatureAvailability(IProject project);
+
+  /**
+   * Returns {@link Status#OK_STATUS} if it is possible to export tags
+   *
+   * @param project ABAP project
+   * @return Status with severity {@link IStatus#OK} if the feature is available
+   */
+  IStatus testTagsExportFeatureAvailability(IProject project);
+
+  /**
+   * Returns {@link Status#OK_STATUS} if it is possible to import tags
+   *
+   * @param project ABAP project
+   * @return Status with severity {@link IStatus#OK} if the feature is available
+   */
+  IStatus testTagsImportFeatureAvailability(IProject project);
 }

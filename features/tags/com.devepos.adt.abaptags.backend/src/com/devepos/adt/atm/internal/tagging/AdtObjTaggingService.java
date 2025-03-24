@@ -1,6 +1,8 @@
 package com.devepos.adt.atm.internal.tagging;
 
+import java.net.URI;
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -164,14 +166,33 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
   @Override
   public IStatus testTaggedObjectDeletionFeatureAvailability(final IProject project) {
-    final var destinationId = DestinationUtil.getDestinationId(project);
-    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-    if (uriDiscovery.isResourceDiscoverySuccessful()
-        && uriDiscovery.getTaggedObjectDeletionUri() != null) {
-      return Status.OK_STATUS;
-    }
-    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg, project.getName()));
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTaggedObjectDeletionUri());
   }
 
+  @Override
+  public IStatus testTagsExportFeatureAvailability(IProject project) {
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_tagExportNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTagExportUri());
+  }
+
+  @Override
+  public IStatus testTagsImportFeatureAvailability(IProject project) {
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_tagImportNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTagImportUri());
+  }
+
+  private IStatus testFeatureAvailability(IProject project, String errorMessage,
+      Function<AdtObjTaggingUriDiscovery, URI> uriRetriever) {
+    final var destinationId = DestinationUtil.getDestinationId(project);
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    if (uriDiscovery.isResourceDiscoverySuccessful() && uriRetriever.apply(uriDiscovery) != null) {
+      return Status.OK_STATUS;
+    }
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+        NLS.bind(errorMessage, project.getName()));
+  }
 }
