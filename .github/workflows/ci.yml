@@ -29,4 +29,17 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B install --file pom.xml
+
+    - name: clone update site
+      uses: actions/checkout@v4
+      with:
+        repository: DevEpos/eclipse.devepos.com
+        path: site
+
+    - name: build update site
+      run: |
+        cd ./site/dev
+        mvn -B package --file pom.xml
+        ls ./target/updatesite*
+        
