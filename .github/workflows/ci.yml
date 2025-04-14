@@ -28,16 +28,21 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
-      run: mvn -B install -DskipTests
-
-    - name: clone update site
+    - name: Checkout Update Site
       uses: actions/checkout@v4
       with:
         repository: DevEpos/eclipse.devepos.com
         path: site
 
-    - name: build update site
+    - name: Set production versions
+      shell: pwsh
+      run: |
+        .\site\scripts\Set-Versions.ps1 -RepoBasePath . -RepoListPath .\site\scripts\repos.txt
+
+    - name: Build plugins/features
+      run: mvn -B install -DskipTests
+
+    - name: Build update site
       run: |
         cd ./site/dev
         mvn -B package --file pom.xml
