@@ -1,4 +1,4 @@
-package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
+package com.devepos.adt.base.ui.adtelementinfo;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -9,9 +9,9 @@ import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.sap.adt.blues.core.ui.elementinfo.AdtElementInfoViewAdapter;
 import com.sap.adt.project.IProjectProvider;
 
-public class ElementInfoChangedListener implements ISelectionChangedListener {
-  private final IEventBroker eventBroker = (IEventBroker) PlatformUI.getWorkbench()
-      .getService(IEventBroker.class);
+@SuppressWarnings("restriction")
+public class AdtElementInfoSelChangedListener implements ISelectionChangedListener {
+  private final IEventBroker eventBroker = PlatformUI.getWorkbench().getService(IEventBroker.class);
   private IAdtObjectReferenceNode currentNode;
 
   public void selectionChanged(SelectionChangedEvent event) {

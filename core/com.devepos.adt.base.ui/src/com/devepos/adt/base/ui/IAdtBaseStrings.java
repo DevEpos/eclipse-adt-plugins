@@ -40,4 +40,6 @@ public interface IAdtBaseStrings {
   String Dialog_Information_xtit = "Dialog_Information_xtit";
   String Dialog_Warning_xtit = "Dialog_Warning_xtit";
   String Dialog_Error_xtit = "Dialog_Error_xtit";
+  
+  String Action_ShowElementInformation_xmsg = "Action_ShowElementInformation_xmsg";
 }

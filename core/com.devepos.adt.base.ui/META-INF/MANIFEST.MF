@@ -32,7 +32,9 @@ Require-Bundle: com.devepos.adt.base,
  org.eclipse.ui.ide,
  org.eclipse.text,
  org.eclipse.debug.ui,
- com.sap.adt.ris.search
+ com.sap.adt.ris.search,
+ com.sap.adt.blues.core.ui,
+ org.eclipse.e4.core.services
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: com.devepos.adt.tools.base.ui
 Bundle-ActivationPolicy: lazy
@@ -50,6 +52,7 @@ Export-Package: com.devepos.adt.base.ui;
    com.devepos.adt.searchandanalysistools.ui,
    com.devepos.adt.codesearch.ui,
    com.devepos.adt.callhierarchy.ui",
+ com.devepos.adt.base.ui.adtelementinfo;x-friends:="com.devepos.adt.abaptags.ui,com.devepos.adt.codesearch.ui,com.devepos.adt.searchandanalysistools.ui",
  com.devepos.adt.base.ui.adtobject;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.searchandanalysistools.ui,
