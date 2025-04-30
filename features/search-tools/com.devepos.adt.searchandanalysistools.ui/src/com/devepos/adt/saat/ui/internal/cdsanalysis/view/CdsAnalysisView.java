@@ -103,6 +103,7 @@ public class CdsAnalysisView extends PageBookView
   private Action openPreferencesAction;
   private CdsAnalysisTypeConfigurationAction selectAnalysisModesAction;
   private Action newCdsAnalysisViewAction;
+  private ElementInfoChangedListener elementInfoChangedListener;
 
   private DummyPart defaultPart;
 
@@ -120,6 +121,7 @@ public class CdsAnalysisView extends PageBookView
         .setDefault(IPreferences.MAX_CDS_ANALYZER_HISTORY, 10);
     isPinned = false;
     configuredAnalysisTypes = Arrays.asList(CdsAnalysisType.values());
+    elementInfoChangedListener = new ElementInfoChangedListener();
   }
 
   /**
@@ -615,6 +617,7 @@ public class CdsAnalysisView extends PageBookView
     final CdsAnalysisPage<?> currentPage = getActivePage();
     if (currentAnalysis != null && currentPage != null) {
       viewStates.put(currentAnalysis, currentPage.getUiState());
+      currentPage.removeElementInfoChangeListener(elementInfoChangedListener);
       currentPage.setInput(null, null);
     }
 
@@ -641,6 +644,8 @@ public class CdsAnalysisView extends PageBookView
     }
     updateViewActions();
     updateLabel();
+    
+    page.addElementInfoChangeListener(elementInfoChangedListener);
   }
 
   private void showLatestAnalysis() {

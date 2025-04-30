@@ -3,6 +3,7 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.Iterator;
 import java.util.List;
 
+import com.sap.adt.blues.core.ui.elementinfo.AdtShowElementInfoAction;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -137,6 +138,18 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     public String getText(final Object element) {
       final ITreeNode node = (ITreeNode) element;
       return node.getName();
+    }
+  }
+  
+  public void addElementInfoChangeListener(ElementInfoChangedListener l) {
+    if (viewer != null) {
+      viewer.addSelectionChangedListener(l);
+    }
+  }
+  
+  public void removeElementInfoChangeListener(ElementInfoChangedListener l) {
+    if (viewer != null) {
+      viewer.removeSelectionChangedListener(l);
     }
   }
 
@@ -343,6 +356,17 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     }
 
     mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
+    mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+        com.devepos.adt.base.ui.action.ActionFactory.createAction("Show Element Info", null, () -> {
+          var viewer = (TreeViewer) getViewer();
+          var selectedElements = viewer.getStructuredSelection().toList();
+          if (selectedElements.size() == 1) {
+            var adtObjRefNode = (IAdtObjectReferenceNode) selectedElements.get(0);
+            var adtObjRef = adtObjRefNode.getObjectReference();
+            new AdtShowElementInfoAction(getAnalysisResult().getProject(), () -> adtObjRef,
+                viewer.getTree()).run();
+          }
+        }));
   }
 
   /**
