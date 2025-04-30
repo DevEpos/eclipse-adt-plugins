@@ -3,7 +3,6 @@ package com.devepos.adt.saat.ui.internal.cdsanalysis.view;
 import java.util.Iterator;
 import java.util.List;
 
-import com.sap.adt.blues.core.ui.elementinfo.AdtShowElementInfoAction;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -39,12 +38,16 @@ import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.project.IAbapProjectProvider;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -140,14 +143,14 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
       return node.getName();
     }
   }
-  
-  public void addElementInfoChangeListener(ElementInfoChangedListener l) {
+
+  public void addElementInfoChangeListener(AdtElementInfoSelChangedListener l) {
     if (viewer != null) {
       viewer.addSelectionChangedListener(l);
     }
   }
-  
-  public void removeElementInfoChangeListener(ElementInfoChangedListener l) {
+
+  public void removeElementInfoChangeListener(AdtElementInfoSelChangedListener l) {
     if (viewer != null) {
       viewer.removeSelectionChangedListener(l);
     }
@@ -357,16 +360,18 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
 
     mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
     mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
-        com.devepos.adt.base.ui.action.ActionFactory.createAction("Show Element Info", null, () -> {
-          var viewer = (TreeViewer) getViewer();
-          var selectedElements = viewer.getStructuredSelection().toList();
-          if (selectedElements.size() == 1) {
-            var adtObjRefNode = (IAdtObjectReferenceNode) selectedElements.get(0);
-            var adtObjRef = adtObjRefNode.getObjectReference();
-            new AdtShowElementInfoAction(getAnalysisResult().getProject(), () -> adtObjRef,
-                viewer.getTree()).run();
-          }
-        }));
+        com.devepos.adt.base.ui.action.ActionFactory.createAction(
+            AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null,
+            () -> {
+              var viewer = (TreeViewer) getViewer();
+              var selectedElements = viewer.getStructuredSelection().toList();
+              if (selectedElements.size() == 1) {
+                var adtObjRefNode = (IAdtObjectReferenceNode) selectedElements.get(0);
+                var adtObjRef = adtObjRefNode.getObjectReference();
+                AdtElementInformationUtil.showElementInformation(getAnalysisResult().getProject(),
+                    adtObjRef, viewer.getTree());
+              }
+            }));
   }
 
   /**

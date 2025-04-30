@@ -53,6 +53,7 @@ import com.devepos.adt.base.ui.IPinnableView;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.OpenPreferencesAction;
 import com.devepos.adt.base.ui.action.PinViewAction;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.saat.ui.internal.ICommandConstants;
 import com.devepos.adt.saat.ui.internal.IContextMenuConstants;
@@ -103,7 +104,7 @@ public class CdsAnalysisView extends PageBookView
   private Action openPreferencesAction;
   private CdsAnalysisTypeConfigurationAction selectAnalysisModesAction;
   private Action newCdsAnalysisViewAction;
-  private ElementInfoChangedListener elementInfoChangedListener;
+  private AdtElementInfoSelChangedListener elementInfoChangedListener;
 
   private DummyPart defaultPart;
 
@@ -121,7 +122,7 @@ public class CdsAnalysisView extends PageBookView
         .setDefault(IPreferences.MAX_CDS_ANALYZER_HISTORY, 10);
     isPinned = false;
     configuredAnalysisTypes = Arrays.asList(CdsAnalysisType.values());
-    elementInfoChangedListener = new ElementInfoChangedListener();
+    elementInfoChangedListener = new AdtElementInfoSelChangedListener();
   }
 
   /**
