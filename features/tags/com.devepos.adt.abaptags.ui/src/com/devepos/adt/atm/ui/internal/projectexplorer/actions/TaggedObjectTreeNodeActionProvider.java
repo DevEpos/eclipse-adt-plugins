@@ -11,6 +11,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchCommandConstants;
@@ -23,12 +24,17 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
+import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
 import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
+import com.sap.adt.project.IProjectProvider;
 
 /**
  *
@@ -119,6 +125,22 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
                 .getSharedImages()
                 .getImageDescriptor(ISharedImages.IMG_TOOL_COPY),
             Messages.TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl, null);
+
+        var potentialTree = getActionSite().getStructuredViewer().getControl();
+        if (potentialTree instanceof Tree) {
+          menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+              ActionFactory.createAction(
+                  AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg),
+                  null, () -> {
+                    if (selection.length == 1) {
+                      var adtObjRefNode = (IAdtObjectReferenceNode) selection[0];
+                      var adtObjRef = adtObjRefNode.getObjectReference();
+                      AdtElementInformationUtil.showElementInformation(
+                          adtObjRefNode.getAdapter(IProjectProvider.class).getProject(), adtObjRef,
+                          (Tree) potentialTree);
+                    }
+                  }));
+        }
       }
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }
