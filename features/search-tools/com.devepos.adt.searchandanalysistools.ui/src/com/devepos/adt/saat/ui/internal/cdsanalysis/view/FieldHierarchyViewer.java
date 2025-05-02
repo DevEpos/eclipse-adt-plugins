@@ -21,6 +21,7 @@ import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.elementinfo.LazyLoadingRefreshMode;
 import com.devepos.adt.base.ui.StylerFactory;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.LazyLoadingTreeContentProvider;
@@ -189,6 +190,7 @@ public class FieldHierarchyViewer extends TreeViewer {
     menuMgr.addMenuListener(menuListener);
     final Menu menu = menuMgr.createContextMenu(getTree());
     getTree().setMenu(menu);
+    menu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD, getTree());
     if (viewSite != null) {
       viewSite.registerContextMenu(popupId, menuMgr, this);
     }

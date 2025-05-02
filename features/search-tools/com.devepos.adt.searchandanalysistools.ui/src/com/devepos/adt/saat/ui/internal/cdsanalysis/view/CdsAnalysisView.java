@@ -48,6 +48,7 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.DummyPart;
 import com.devepos.adt.base.ui.IAdtBaseImages;
+import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.IPinnableView;
 import com.devepos.adt.base.ui.action.CommandFactory;
@@ -249,6 +250,7 @@ public class CdsAnalysisView extends PageBookView
     contextHelper = ContextHelper.createForServiceLocator(getSite());
     contextHelper.activateAbapContext();
     contextHelper.activateContext(VIEW_CONTEXT);
+    contextHelper.activateContext(IGeneralContextConstants.ELEMENT_INFO);
 
     pageContent = new Composite(parent, SWT.NONE);
     final GridLayout layout = new GridLayout();
@@ -645,7 +647,7 @@ public class CdsAnalysisView extends PageBookView
     }
     updateViewActions();
     updateLabel();
-    
+
     page.addElementInfoChangeListener(elementInfoChangedListener);
   }
 

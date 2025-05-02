@@ -7,6 +7,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.base.IAdtObjectTypeConstants;
+import com.devepos.adt.base.adtobject.AdtObjectReferenceModelFactory;
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.elementinfo.IElementInfo;
@@ -98,8 +100,12 @@ public class FieldAnalysis extends CdsAnalysis {
     List<IElementInfo> columnElemList = new ArrayList<>();
 
     for (var columnInfo : objRefList) {
+      var objectRef = AdtObjectReferenceModelFactory.createReference(destinationId,
+          columnInfo.getEntityName() + "." + columnInfo.getFieldName(),
+          IAdtObjectTypeConstants.CDS_VIEW_FIELD_TYPE, null);
       var columnElemInfo = new SimpleElementInfo(columnInfo.getFieldName().toLowerCase(),
           columnInfo.getFieldName(), null, columnInfo.getDescription());
+      columnElemInfo.setAdditionalInfo(objectRef);
       if (columnInfo.isKey()) {
         columnElemInfo.setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.KEY_COLUMN));
       } else {

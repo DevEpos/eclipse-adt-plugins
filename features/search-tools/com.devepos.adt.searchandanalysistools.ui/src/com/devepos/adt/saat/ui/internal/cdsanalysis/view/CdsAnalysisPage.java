@@ -40,6 +40,7 @@ import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
+import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
@@ -47,7 +48,8 @@ import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
-import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
+import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -180,6 +182,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
 
       final Menu menu = menuMgr.createContextMenu(viewer.getControl());
       viewer.getControl().setMenu(menu);
+      menu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD,
+          ((TreeViewer) viewer).getTree());
     }
 
     final IToolBarManager tbm = getSite().getActionBars().getToolBarManager();
@@ -359,19 +363,12 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     }
 
     mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
-    mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
-        com.devepos.adt.base.ui.action.ActionFactory.createAction(
-            AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null,
-            () -> {
-              var viewer = (TreeViewer) getViewer();
-              var selectedElements = viewer.getStructuredSelection().toList();
-              if (selectedElements.size() == 1) {
-                var adtObjRefNode = (IAdtObjectReferenceNode) selectedElements.get(0);
-                var adtObjRef = adtObjRefNode.getObjectReference();
-                AdtElementInformationUtil.showElementInformation(getAnalysisResult().getProject(),
-                    adtObjRef, viewer.getTree());
-              }
-            }));
+
+    if (commandChecker.hasSingleSelection()) {
+      MenuItemFactory.addCommandItem(mgr, IGeneralMenuConstants.GROUP_EDIT,
+          IGeneralCommandConstants.SHOW_ADT_ELEMENT_INFORMATION, null,
+          AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null);
+    }
   }
 
   /**
