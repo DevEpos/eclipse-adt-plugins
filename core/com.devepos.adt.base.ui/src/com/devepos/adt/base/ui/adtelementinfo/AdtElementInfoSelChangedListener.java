@@ -14,14 +14,16 @@ public class AdtElementInfoSelChangedListener implements ISelectionChangedListen
   private final IEventBroker eventBroker = PlatformUI.getWorkbench().getService(IEventBroker.class);
   private IAdtObjectReferenceNode currentNode;
 
-  public void selectionChanged(SelectionChangedEvent event) {
+  @Override
+  public void selectionChanged(final SelectionChangedEvent event) {
     var selected = event.getStructuredSelection().getFirstElement();
-    if (selected instanceof IAdtObjectReferenceNode treeNode) {
+    if (selected instanceof IAdtObjectReferenceNode) {
+      var treeNode = (IAdtObjectReferenceNode) selected;
       var objectReference = treeNode.getObjectReference();
-      if (objectReference != null && !treeNode.equals(this.currentNode)) {
+      if (objectReference != null && !treeNode.equals(currentNode)) {
         var projectProvider = treeNode.getAdapter(IProjectProvider.class);
         var project = projectProvider != null ? projectProvider.getProject() : null;
-        this.eventBroker.send("IAbapDocView2Adapter_CHANGE_EVENT",
+        eventBroker.send("IAbapDocView2Adapter_CHANGE_EVENT",
             new AdtElementInfoViewAdapter(objectReference, project));
       }
     }
