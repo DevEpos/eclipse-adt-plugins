@@ -20,4 +20,8 @@ public interface IGeneralCommandConstants {
    * Command id for toggling the viewer text filter
    */
   String TOGGLE_VIEWER_TEXT_FILTER = "com.devepos.adt.base.ui.command.toggleTextFilter";
+  /**
+   * Command id for showing element information for a selected ADT object reference
+   */
+  String SHOW_ADT_ELEMENT_INFORMATION = "com.devepos.adt.base.ui.commands.showElementInfo";
 }
