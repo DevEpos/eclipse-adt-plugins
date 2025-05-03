@@ -25,17 +25,15 @@ import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
-import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.IToggleViewLayoutActionSettings;
 import com.devepos.adt.base.ui.action.ToggleViewLayoutAction;
 import com.devepos.adt.base.ui.action.ViewLayoutActionFactory;
 import com.devepos.adt.base.ui.action.ViewLayoutOrientation;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.controls.FilterableComposite.IWordMatcher;
-import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
@@ -246,9 +244,8 @@ public class FieldAnalysisView extends CdsAnalysisPage<FieldAnalysis> {
     if (Stream.of(selection.toArray()).anyMatch(SimpleInfoTreeNode.class::isInstance)) {
       mgr.appendToGroup(IGeneralMenuConstants.GROUP_NODE_ACTIONS, refreshFieldAction);
       if (!commandPossibleChecker.hasSingleSelection()) {
-        MenuItemFactory.addCommandItem(mgr, IGeneralMenuConstants.GROUP_EDIT,
-            IGeneralCommandConstants.SHOW_ADT_ELEMENT_INFORMATION, null,
-            AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null);
+        mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+            AdtElementInformationUtil.createElementInfoCommand(true));
       }
     }
   }

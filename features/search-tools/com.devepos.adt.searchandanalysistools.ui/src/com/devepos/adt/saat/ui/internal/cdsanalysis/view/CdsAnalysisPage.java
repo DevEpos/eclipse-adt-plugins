@@ -38,9 +38,6 @@ import com.devepos.adt.base.ObjectType;
 import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.elementinfo.IAdtObjectReferenceElementInfo;
 import com.devepos.adt.base.project.IAbapProjectProvider;
-import com.devepos.adt.base.ui.AdtBaseUIResources;
-import com.devepos.adt.base.ui.IAdtBaseStrings;
-import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.StylerFactory;
 import com.devepos.adt.base.ui.action.CollapseAllTreeNodesAction;
@@ -48,8 +45,8 @@ import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
 import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
-import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.tree.ActionTreeNode;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
@@ -147,15 +144,11 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
   }
 
   public void addElementInfoChangeListener(AdtElementInfoSelChangedListener l) {
-    if (viewer != null) {
-      viewer.addSelectionChangedListener(l);
-    }
+    selectionProvider.addSelectionChangedListener(l);
   }
 
   public void removeElementInfoChangeListener(AdtElementInfoSelChangedListener l) {
-    if (viewer != null) {
-      viewer.removeSelectionChangedListener(l);
-    }
+    selectionProvider.removeSelectionChangedListener(l);
   }
 
   @Override
@@ -365,9 +358,8 @@ public abstract class CdsAnalysisPage<T extends CdsAnalysis> extends Page {
     mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, copyToClipBoardAction);
 
     if (commandChecker.hasSingleSelection()) {
-      MenuItemFactory.addCommandItem(mgr, IGeneralMenuConstants.GROUP_EDIT,
-          IGeneralCommandConstants.SHOW_ADT_ELEMENT_INFORMATION, null,
-          AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null);
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+          AdtElementInformationUtil.createElementInfoCommand(true));
     }
   }
 

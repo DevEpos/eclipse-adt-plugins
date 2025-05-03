@@ -8,7 +8,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.devepos.adt.base.util.Logging;
-import com.devepos.adt.saat.ui.internal.ViewPartLookup;
 import com.devepos.adt.saat.ui.internal.cdsanalysis.CdsAnalysisType;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 
@@ -71,7 +70,7 @@ public class CdsAnalysisViewManager {
       }
       return newView;
     } catch (final PartInitException e) {
-      Logging.getLogger(ViewPartLookup.class).error(e);
+      Logging.getLogger(CdsAnalysisViewManager.class).error(e);
     }
     return null;
   }
@@ -93,7 +92,7 @@ public class CdsAnalysisViewManager {
           openViews.size()));
       newView.setConfiguredAnalysisTypes(Arrays.asList(CdsAnalysisType.values()));
     } catch (PartInitException e) {
-      Logging.getLogger(ViewPartLookup.class).error(e);
+      Logging.getLogger(CdsAnalysisViewManager.class).error(e);
     }
   }
 

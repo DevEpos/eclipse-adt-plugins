@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -62,7 +61,6 @@ import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.ContextHelper;
 import com.devepos.adt.base.ui.IAdtBaseImages;
-import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
@@ -75,7 +73,9 @@ import com.devepos.adt.base.ui.action.ExecuteAdtObjectAction;
 import com.devepos.adt.base.ui.action.ExpandAllAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.RadioActionGroup;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
 import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
@@ -142,6 +142,7 @@ public class ObjectSearchResultPage extends Page
   private RadioActionGroup layoutActionGroup;
   private IAction favoritesAction;
   private ViewerSelectionProviderAdapter viewerAdapter;
+  private AdtElementInfoSelChangedListener elementInfoListener;
   private MenuManager menuMgr;
 
   private IAbapProjectProvider projectProvider;
@@ -157,6 +158,7 @@ public class ObjectSearchResultPage extends Page
   public ObjectSearchResultPage() {
     prefStore = SearchAndAnalysisPlugin.getDefault().getPreferenceStore();
     prefStore.setDefault(GROUPED_BY_PACKAGE_PREF, false);
+    elementInfoListener = new AdtElementInfoSelChangedListener();
   }
 
   /**
@@ -422,6 +424,7 @@ public class ObjectSearchResultPage extends Page
     initializeActions();
 
     viewerAdapter = new ViewerSelectionProviderAdapter();
+    viewerAdapter.addSelectionChangedListener(elementInfoListener);
     getSite().setSelectionProvider(viewerAdapter);
     createMenu();
     createDefaultViewer();
@@ -430,6 +433,7 @@ public class ObjectSearchResultPage extends Page
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
     contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+    contextHelper.activateContext(IGeneralContextConstants.ELEMENT_INFO);
 
     queryListener = new QueryListenerAdapter() {
       @Override
@@ -674,6 +678,7 @@ public class ObjectSearchResultPage extends Page
     final Control viewerControl = resultViewer.getControl();
     final var menu = menuMgr.createContextMenu(viewerControl);
     viewerControl.setMenu(menu);
+    menu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD, viewerControl);
   }
 
   private void createDefaultViewer() {
@@ -853,17 +858,7 @@ public class ObjectSearchResultPage extends Page
     }
 
     if (!adtObjRefs.isEmpty() && selectionSize == 1) {
-      additionalItems.add(new ActionContributionItem(com.devepos.adt.base.ui.action.ActionFactory
-          .createAction(AdtBaseUIResources
-              .getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg), null, () -> {
-            if (resultViewer instanceof TreeViewer) {
-              AdtElementInformationUtil.showElementInformation(projectProvider.getProject(),
-                  adtObjRefs.get(0), ((TreeViewer) resultViewer).getTree());
-            } else {
-              AdtElementInformationUtil.showElementInformation(projectProvider.getProject(),
-                  adtObjRefs.get(0), ((TableViewer) resultViewer).getTable());
-            }
-          })));
+      additionalItems.add(AdtElementInformationUtil.createElementInfoCommand(true));
       additionalItems.add(
           CommandFactory.createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
     }

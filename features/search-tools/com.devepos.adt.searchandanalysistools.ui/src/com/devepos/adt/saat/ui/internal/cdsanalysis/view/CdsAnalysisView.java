@@ -644,11 +644,10 @@ public class CdsAnalysisView extends PageBookView
       // connect to the new pages
       final ViewUiState uiState = analysisInput != null ? viewStates.get(analysisInput) : null;
       page.setInput(analysisInput, uiState);
+      page.addElementInfoChangeListener(elementInfoChangedListener);
     }
     updateViewActions();
     updateLabel();
-
-    page.addElementInfoChangeListener(elementInfoChangedListener);
   }
 
   private void showLatestAnalysis() {
