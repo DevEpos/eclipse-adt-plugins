@@ -46,11 +46,14 @@ import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralCommandConstants;
 import com.devepos.adt.base.ui.IGeneralContextConstants;
+import com.devepos.adt.base.ui.IGeneralMenuConstants;
 import com.devepos.adt.base.ui.ViewerState;
 import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.PreferenceToggleAction;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.table.FilterableTable;
@@ -139,6 +142,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
     contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+    contextHelper.activateContext(IGeneralContextConstants.ELEMENT_INFO);
 
     NewSearchUI.addQueryListener(this);
   }
@@ -355,6 +359,11 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
 
   @Override
   protected void fillContextMenu(final IMenuManager mgr) {
+    var viewerControl = getViewer().getControl();
+    var menu = viewerControl.getMenu();
+    if (menu.getData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD) == null) {
+      menu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD, viewerControl);
+    }
     super.fillContextMenu(mgr);
 
     StructuredViewer currentViewer = getViewer();
@@ -370,6 +379,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     boolean expandedNodeSelected = false;
     boolean codeSearchableObjSelected = false;
     boolean searchMatchSelected = false;
+    boolean elementInfoObjSelected = false;
 
     List<String> relevantAdtTypesForCodeSearch = CodeSearchRelevantWbTypesUtil
         .getCodeSearchableAdtTypes(getSearchQuery().getProject());
@@ -378,6 +388,11 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
       if (collapsedPackageSelected && expandedNodeSelected) {
         break;
       }
+
+      if (selObj instanceof IAdtObjectReferenceNode && selection.size() == 1) {
+        elementInfoObjSelected = true;
+      }
+
       // check if code searchable object is selected (clas,intf, ... or package)
       if (!codeSearchableObjSelected && selObj instanceof IAdtObjectReferenceNode
           && (relevantAdtTypesForCodeSearch
@@ -416,6 +431,10 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     }
     if (!codeSearchableObjSelected || searchMatchSelected) {
       additionalGroupsToDelete.add(IWorkbenchActionConstants.MB_ADDITIONS);
+    }
+    if (elementInfoObjSelected) {
+      mgr.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+          AdtElementInformationUtil.createElementInfoCommand(true));
     }
     removeUnusedContextGroups(mgr, additionalGroupsToDelete);
   }
