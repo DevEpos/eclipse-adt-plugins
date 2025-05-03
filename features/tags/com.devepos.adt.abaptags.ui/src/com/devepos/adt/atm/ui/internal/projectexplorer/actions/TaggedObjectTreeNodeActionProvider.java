@@ -24,17 +24,15 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
-import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.IGeneralMenuConstants;
-import com.devepos.adt.base.ui.action.ActionFactory;
 import com.devepos.adt.base.ui.action.CollapseTreeNodesAction;
 import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
 import com.devepos.adt.base.ui.menu.MenuItemFactory;
 import com.devepos.adt.base.ui.tree.IAdtObjectReferenceNode;
 import com.devepos.adt.base.ui.tree.ILazyLoadingNode;
 import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
-import com.sap.adt.project.IProjectProvider;
 
 /**
  *
@@ -113,34 +111,9 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
           .map(IAdtObjectReferenceNode.class::cast)
           .anyMatch(obj -> typeUtil.isLocalClassType(obj.getAdtObjectType())
               || typeUtil.isLocalInterfaceType(obj.getAdtObjectType()))) {
-        // adds delete action to "Edit" menu group
-        MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_EDIT,
-            "com.sap.adt.deletion.ui.command.delete", PlatformUI.getWorkbench() //$NON-NLS-1$
-                .getSharedImages()
-                .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
-            Messages.TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl, null);
-        // adds duplicate action to "New" menu group
-        MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_NEW,
-            "com.sap.adt.tools.core.ui.duplicate", PlatformUI.getWorkbench() //$NON-NLS-1$
-                .getSharedImages()
-                .getImageDescriptor(ISharedImages.IMG_TOOL_COPY),
-            Messages.TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl, null);
-
-        var potentialTree = getActionSite().getStructuredViewer().getControl();
-        if (potentialTree instanceof Tree) {
-          menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
-              ActionFactory.createAction(
-                  AdtBaseUIResources.getString(IAdtBaseStrings.Action_ShowElementInformation_xmsg),
-                  null, () -> {
-                    if (selection.length == 1) {
-                      var adtObjRefNode = (IAdtObjectReferenceNode) selection[0];
-                      var adtObjRef = adtObjRefNode.getObjectReference();
-                      AdtElementInformationUtil.showElementInformation(
-                          adtObjRefNode.getAdapter(IProjectProvider.class).getProject(), adtObjRef,
-                          (Tree) potentialTree);
-                    }
-                  }));
-        }
+        addDeleteAction(menu);
+        addDuplicateAction(menu);
+        addElementInfoAction(menu);
       }
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT, new Separator());
     }
@@ -157,6 +130,34 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
       }
     }
 
+  }
+
+  private void addElementInfoAction(final IMenuManager menu) {
+    var potentialTree = getActionSite().getStructuredViewer().getControl();
+    if (potentialTree instanceof Tree) {
+      var treeMenu = potentialTree.getMenu();
+      if (treeMenu.getData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD) == null) {
+        treeMenu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD, potentialTree);
+      }
+      menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT,
+          AdtElementInformationUtil.createElementInfoCommand(true));
+    }
+  }
+
+  private void addDeleteAction(final IMenuManager menu) {
+    MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_EDIT,
+        "com.sap.adt.deletion.ui.command.delete", PlatformUI.getWorkbench() //$NON-NLS-1$
+            .getSharedImages()
+            .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
+        Messages.TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl, null);
+  }
+
+  private void addDuplicateAction(final IMenuManager menu) {
+    MenuItemFactory.addCommandItem(menu, ICommonMenuConstants.GROUP_NEW,
+        "com.sap.adt.tools.core.ui.duplicate", PlatformUI.getWorkbench() //$NON-NLS-1$
+            .getSharedImages()
+            .getImageDescriptor(ISharedImages.IMG_TOOL_COPY),
+        Messages.TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl, null);
   }
 
   private void addCollapseAction(final IMenuManager menu) {

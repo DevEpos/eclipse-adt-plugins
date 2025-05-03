@@ -65,6 +65,9 @@ import com.devepos.adt.base.ui.action.CommandFactory;
 import com.devepos.adt.base.ui.action.CopyToClipboardAction;
 import com.devepos.adt.base.ui.action.OpenAdtObjectAction;
 import com.devepos.adt.base.ui.action.OpenColorPreferencePageAction;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInfoSelChangedListener;
+import com.devepos.adt.base.ui.adtelementinfo.AdtElementInformationUtil;
+import com.devepos.adt.base.ui.adtelementinfo.IAdtElementInfoConstants;
 import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.search.ISearchResultPageExtension;
 import com.devepos.adt.base.ui.search.QueryListenerAdapter;
@@ -106,6 +109,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
   private ContextHelper contextHelper;
   private final IPropertyChangeListener colorPropertyChangeListener;
   private QueryListenerAdapter queryListener;
+  private AdtElementInfoSelChangedListener elementInfoListener;
 
   public TaggedObjectSearchResultPage() {
     executableObjectTypes = Stream
@@ -118,6 +122,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
       }
     };
     JFaceResources.getColorRegistry().addListener(colorPropertyChangeListener);
+    elementInfoListener = new AdtElementInfoSelChangedListener();
   }
 
   private class TreeContentProvider extends LazyLoadingTreeContentProvider {
@@ -253,6 +258,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     contextHelper.activateAbapContext();
     contextHelper.activateContext(IGeneralContextConstants.SEARCH_PAGE_VIEWS);
     contextHelper.activateContext(IGeneralContextConstants.FILTERABLE_VIEWS);
+    contextHelper.activateContext(IGeneralContextConstants.ELEMENT_INFO);
 
     queryListener = new QueryListenerAdapter() {
       @Override
@@ -435,6 +441,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
         handleOpenOnTreeNode(selIter.next());
       }
     });
+    resultTreeViewer.addSelectionChangedListener(elementInfoListener);
   }
 
   private void fillContextMenu(final IMenuManager menu) {
@@ -474,12 +481,12 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     if (!adtObjRefs.isEmpty()) {
       menu.appendToGroup(IContextMenuConstants.GROUP_OPEN,
           new OpenAdtObjectAction(projectProvider.getProject(), adtObjRefs));
-    }
-
-    if (!adtObjRefs.isEmpty()) {
       menu.appendToGroup(IContextMenuConstants.GROUP_SEARCH,
           CommandFactory.createContribItemById(IGeneralCommandConstants.WHERE_USED_IN, true, null));
-
+      if (adtObjRefs.size() == 1) {
+        menu.appendToGroup(IContextMenuConstants.GROUP_EDIT,
+            AdtElementInformationUtil.createElementInfoCommand(true));
+      }
     }
 
     if (selectionHasExpandedNodes) {
@@ -522,6 +529,7 @@ public class TaggedObjectSearchResultPage extends Page implements ISearchResultP
     final Control viewerControl = resultTreeViewer.getControl();
     final Menu menu = menuMgr.createContextMenu(viewerControl);
     viewerControl.setMenu(menu);
+    menu.setData(IAdtElementInfoConstants.MENU_CONTROL_ID_FOR_CMD, viewerControl);
     getSite().registerContextMenu(searchViewPart.getViewSite().getId(), menuMgr, resultTreeViewer);
   }
 
