@@ -23,6 +23,6 @@ Require-Bundle: com.sap.adt.communication,
  org.eclipse.jface.text,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.text
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.playground.ui
 Bundle-ActivationPolicy: lazy

@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
  com.devepos.adt.base.ui,
  org.eclipse.search,
  org.eclipse.help
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: com.devepos.adt.searchfavorites;
   x-friends:="com.devepos.adt.abaptags.ui,
    com.devepos.adt.codesearch.ui,

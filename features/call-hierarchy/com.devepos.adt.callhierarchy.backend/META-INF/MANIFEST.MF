@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  com.sap.adt.compatibility,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.callhierarchy.backend
 Bundle-ActivationPolicy: lazy
 Export-Package: com.devepos.adt.callhierarchy.backend;

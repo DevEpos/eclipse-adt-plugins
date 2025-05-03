@@ -38,7 +38,7 @@ Require-Bundle:
  com.sap.adt.destinations.ui,
  com.sap.adt.compatibility,
  org.eclipse.help
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.codesearch.ui
 Bundle-Localization: OSGI-INF/l10n/bundle
 Bundle-ActivationPolicy: lazy

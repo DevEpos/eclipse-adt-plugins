@@ -35,7 +35,7 @@ Require-Bundle: com.devepos.adt.base,
  com.sap.adt.ris.search,
  com.sap.adt.blues.core.ui,
  org.eclipse.e4.core.services
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.tools.base.ui
 Bundle-ActivationPolicy: lazy
 Export-Package: com.devepos.adt.base.ui;

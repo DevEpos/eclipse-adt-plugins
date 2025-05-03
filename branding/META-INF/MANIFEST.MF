@@ -5,4 +5,4 @@ Bundle-SymbolicName: com.devepos.adt.branding
 Bundle-Version: 1.0.2.qualifier
 Bundle-Vendor: DevEpos
 Automatic-Module-Name: com.devepos.adt.branding
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17

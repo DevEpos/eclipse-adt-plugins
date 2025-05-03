@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  com.devepos.adt.base;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: com.devepos.adt.cst.model.codesearch;
   x-friends:="com.devepos.adt.codesearch.backend,
    com.devepos.adt.codesearch.ui",

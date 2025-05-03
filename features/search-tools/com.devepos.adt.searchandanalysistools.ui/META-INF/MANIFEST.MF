@@ -47,6 +47,6 @@ Require-Bundle: org.eclipse.ui,
  com.sap.adt.util.ui,
  com.sap.adt.ris.search.ui,
  com.sap.adt.activation.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.searchandanalysistools
 Bundle-ActivationPolicy: lazy
