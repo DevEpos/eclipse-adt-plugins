@@ -1,21 +1,23 @@
 package com.devepos.adt.base.ui.project;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.statushandlers.StatusManager;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.sap.adt.destinations.logon.AdtLogonServiceFactory;
 import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;
 import com.sap.adt.project.AdtCoreProjectServiceFactory;
 import com.sap.adt.project.IAdtCoreProject;
+import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
 import com.sap.adt.tools.core.project.IAbapProject;
 
@@ -27,13 +29,36 @@ import com.sap.adt.tools.core.project.IAbapProject;
 public class ProjectUtil {
 
   /**
+   * Adapts the given object to an instance of {@link IProject} or {@code null} if not possible.
+   *
+   * @param object object to be adapted
+   * @return {@link IProject} or {@code null}
+   */
+  public static IProject adaptAsProject(final Object object) {
+    var adaptedProjectProvider = Adapters.adapt(object, IProjectProvider.class);
+    if (adaptedProjectProvider != null) {
+      return adaptedProjectProvider.getProject();
+    }
+
+    if (object instanceof IDestinationProvider) {
+      return getProjectForDestination(((IDestinationProvider) object).getDestinationId());
+    }
+
+    final var adaptedProject = Adapters.adapt(object, IProject.class);
+    if (adaptedProject != null) {
+      return adaptedProject;
+    }
+    return null;
+  }
+
+  /**
    * Ensures that the users is logged on to given project
    *
    * @param project the ABAP Project to ensure the logged on status
    * @return Logged On Status for the given project
    */
   public static IStatus ensureLoggedOnToProject(final IProject project) {
-    final IAbapProject abapProject = project.getAdapter(IAbapProject.class);
+    final var abapProject = project.getAdapter(IAbapProject.class);
 
     if (AdtLogonServiceUIFactory.createLogonServiceUI()
         .ensureLoggedOn(abapProject.getDestinationData(),
@@ -57,11 +82,11 @@ public class ProjectUtil {
   /**
    * Shows status in popup if project is not accessible and returns {@code true} is project is
    * accessible.
-   * 
+   *
    * @param project project to check for accessability
    * @return {@code true} if project is accessible
    */
-  public static boolean checkProjectAccessible(IProject project) {
+  public static boolean checkProjectAccessible(final IProject project) {
     var projectStatus = AdtProjectServiceFactory.createProjectService()
         .isProjectAccessible(project);
     if (!projectStatus.isOK()) {
@@ -91,7 +116,7 @@ public class ProjectUtil {
    */
   public static IProject getCurrentAbapProject(ISelection selection) {
     if (selection == null) {
-      final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+      final var window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
       if (window == null) {
         return null;
       }
@@ -103,11 +128,11 @@ public class ProjectUtil {
 
   /**
    * Retrieves project instance for the given destination id
-   * 
+   *
    * @param destinationId destination Id of ABAP project
    * @return the project for the given destination or {@code null}
    */
-  public static IProject getProjectForDestination(String destinationId) {
+  public static IProject getProjectForDestination(final String destinationId) {
     final var projectService = AdtCoreProjectServiceFactory.createCoreProjectService();
     return projectService.findProject(destinationId);
   }
@@ -119,7 +144,7 @@ public class ProjectUtil {
    * @return {@code true} if the current user is logged on to the given project
    */
   public static boolean isLoggedOnToProject(final IProject project) {
-    final String destinationId = DestinationUtil.getDestinationId(project);
+    final var destinationId = DestinationUtil.getDestinationId(project);
     return destinationId != null
         ? AdtLogonServiceFactory.createLogonService().isLoggedOn(destinationId)
         : false;

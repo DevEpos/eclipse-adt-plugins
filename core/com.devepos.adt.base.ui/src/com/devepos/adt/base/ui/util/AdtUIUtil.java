@@ -17,7 +17,6 @@ import org.eclipse.ui.part.WorkbenchPart;
 
 import com.devepos.adt.base.ui.adtobject.IAdtObject;
 import com.devepos.adt.base.util.Reflection;
-import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.sapgui.ui.editors.AdtSapGuiEditorUtilityFactory;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 import com.sap.adt.tools.core.project.IAbapProject;
@@ -31,18 +30,6 @@ import com.sap.adt.tools.core.wbtyperegistry.WorkbenchAction;
  */
 @SuppressWarnings("restriction")
 public class AdtUIUtil {
-  public static IProject adaptAsProject(final Object object) {
-    final IProjectProvider adaptedProjectProvider = Adapters.adapt(object, IProjectProvider.class);
-    if (adaptedProjectProvider != null) {
-      return adaptedProjectProvider.getProject();
-    }
-    final IProject adaptedProject = Adapters.adapt(object, IProject.class);
-    if (adaptedProject != null) {
-      return adaptedProject;
-    }
-    return null;
-  }
-
   /**
    * Returns a simple DB Browser Tools compatible ADT object from the current
    * selection

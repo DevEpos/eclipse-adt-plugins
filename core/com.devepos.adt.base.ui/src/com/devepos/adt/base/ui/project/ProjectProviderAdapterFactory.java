@@ -3,7 +3,6 @@ package com.devepos.adt.base.ui.project;
 import org.eclipse.core.resources.IProject;
 
 import com.devepos.adt.base.destinations.IDestinationProvider;
-import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.sap.adt.project.IProjectProvider;
 import com.sap.adt.tools.core.model.adtcore.IAdtObjectReference;
 
@@ -41,10 +40,10 @@ public class ProjectProviderAdapterFactory {
     if (adtObjectRef == null || !(adtObjectRef instanceof IDestinationProvider)) {
       return null;
     }
-    final IAbapProjectProvider projectProvider = AbapProjectProviderAccessor
-        .getProviderForDestination(((IDestinationProvider) adtObjectRef).getDestinationId());
-    if (projectProvider != null && projectProvider.hasProject()) {
-      return new ProjectProvider(projectProvider.getProject());
+    var project = ProjectUtil
+        .getProjectForDestination(((IDestinationProvider) adtObjectRef).getDestinationId());
+    if (project != null) {
+      return new ProjectProvider(project);
     }
     return null;
   }
