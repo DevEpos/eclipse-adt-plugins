@@ -1,11 +1,13 @@
 name: Trigger publishing of BETA update site
 on:
-  push: 
+  push:
+    branches-ignore:
+      - main
   workflow_dispatch: 
 
 jobs:
   trigger-deployment:
-    uses: DevEpos/eclipse.devepos.com/.github/workflows/auto-deploy-to-beta.yml@main
+    uses: DevEpos/eclipse.devepos.com/.github/workflows/deploy-to-beta.yml@main
     with:
       source-branch: ${{ github.ref_name }}
     secrets: inherit
