@@ -92,7 +92,7 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
     var wizardResult = new AtomicBoolean(true);
     try {
       getContainer().run(true, false, monitor -> {
-        monitor.beginTask("Exporting ABAP Tag data", -1);
+        monitor.beginTask("Exporting ABAP Tag data...", -1);
         var taggingSrv = AdtObjTaggingServiceFactory.createTaggingService();
         var response = taggingSrv.exportTags(DestinationUtil.getDestinationId(getProject()),
             tagExportRequest);
