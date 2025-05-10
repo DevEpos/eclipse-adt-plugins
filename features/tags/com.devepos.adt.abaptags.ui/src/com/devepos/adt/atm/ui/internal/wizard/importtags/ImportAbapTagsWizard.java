@@ -3,9 +3,10 @@ package com.devepos.adt.atm.ui.internal.wizard.importtags;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -14,23 +15,26 @@ import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import com.devepos.adt.atm.model.abaptags.IAbapTagsContent;
 import com.devepos.adt.atm.model.abaptags.ITag;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
+import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
+import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
 
 /**
  * Wizard for importing ABAP Tags content into a given ABAP project.
- * 
+ *
  * @author stockbal
  */
 public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportWizard {
 
   private IProject sourceProject;
   private String sourceFile;
-  private IAbapTagsContent tagsContentForImport;
+  private ITagImportRequest tagsContentForImport;
   private Map<String, ITag> selectedTagsMap;
 
   public ImportAbapTagsWizard() {
@@ -56,12 +60,8 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
     return sourceFile;
   }
 
-  public IAbapTagsContent getTagsContentForImport() {
-    return tagsContentForImport;
-  }
-
-  public void setTagsContentForImport(IAbapTagsContent tagsContentForImport) {
-    this.tagsContentForImport = tagsContentForImport;
+  public void setTagsContentForImport(final ITagImportRequest importRequest) {
+    tagsContentForImport = importRequest;
   }
 
   public Map<String, ITag> getSelectedTags() {
@@ -94,30 +94,36 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
 
   @Override
   public boolean performFinish() {
-    var wizardResult = new AtomicBoolean();
-    wizardResult.set(true);
+    final var currentPage = getContainer().getCurrentPage();
+    if (currentPage instanceof IBaseWizardPage) {
+      ((IBaseWizardPage) currentPage).completePage();
+    }
+    var importStatus = new AtomicReference<IStatus>();
     try {
       getContainer().run(true, false, monitor -> {
         monitor.beginTask("Importing ABAP Tag data", -1);
         // TODO: run import task and collect the result of the import
-        // wizardResult.set(false);
+        importStatus.set(AdtObjTaggingServiceFactory.createTaggingService()
+            .importTags(DestinationUtil.getDestinationId(getProject()), tagsContentForImport));
         monitor.done();
       });
-      if (wizardResult.get()) {
-        /**
-         * TODO: prepare custom dialog to show the import result i.e. list of objects that have been
-         * imported or not
-         */
-        Display.getDefault().asyncExec(() -> {
-          MessageDialog.openInformation(
-              PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Information",
-              "Import completed with the following result...\nTagged Object xxxx\nTagged Object xxxy");
-        });
+
+      var status = importStatus.get();
+      if ((status == null) || status.isOK()) {
+        return true;
       }
-      return wizardResult.get();
+      /**
+       * TODO: prepare custom dialog to show the import result i.e. list of objects that have been
+       * imported or not
+       */
+      Display.getDefault().asyncExec(() -> {
+        MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+            "Import Error", status.getMessage());
+      });
+      return false;
     } catch (final InvocationTargetException e) {
       Display.getDefault().asyncExec(() -> {
-        final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
+        final var message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
         MessageDialog.openError(getShell(), "Error occurred", message);
       });
       return false;

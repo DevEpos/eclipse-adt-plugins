@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,8 +24,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -44,9 +44,6 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
-import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
-import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
-import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
@@ -61,6 +58,7 @@ import com.devepos.adt.base.ui.controls.FilterableComposite;
 import com.devepos.adt.base.ui.table.FilterableTable;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.EmfUtils;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Selection page for tags from source file or source project
@@ -72,10 +70,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public static final String PAGE_NAME = TagContentSelectionWizardPage.class.getCanonicalName();
   private static final int SMALL_TABLE_WIDTH = 410;
 
-  private final IAbapTagsService tagsService;
-  private final IAdtObjTaggingService taggingService;
   private IAbapTagsContent contentForImport;
-  private List<CheckableTaggedObjectInfo> taggedObjects = new ArrayList<>();
+  private final List<CheckableTaggedObjectInfo> taggedObjects = new ArrayList<>();
   private String selectedTagId;
   private ITag selectedTag;
 
@@ -98,8 +94,6 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public TagContentSelectionWizardPage() {
     super(PAGE_NAME);
     setTitle("Select Content for Import");
-    tagsService = AbapTagsServiceFactory.createTagsService();
-    taggingService = AdtObjTaggingServiceFactory.createTaggingService();
   }
 
   private class TreeViewerLabelProvider extends TagLabelProvider {
@@ -160,7 +154,27 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
             .stream()
             .collect(Collectors.toMap(ITag::getId, Function.identity())));
 
-    getWizard().setTagsContentForImport(contentForImport);
+    var importRequest = IAbapTagsFactory.eINSTANCE.createTagImportRequest();
+    var checkedTags = tagTree.getCheckedTags();
+    var checkedUserTagIds = new HashSet<String>();
+
+    contentForImport.getTags().stream().filter(t -> checkedTags.contains(t)).forEach(t -> {
+      if (!StringUtil.isEmpty(t.getOwner())) {
+        checkedUserTagIds.add(t.getId());
+      }
+      importRequest.getTags().add(cloneTagWithChkChildren(t, checkedTags));
+    });
+    taggedObjects.stream().filter(t -> t.checked).forEach(tgobj -> {
+      importRequest.getTaggedObjectInfos().add(tgobj.tgObj);
+    });
+    if (includeSharedUserInfo.getSelection()) {
+      importRequest.getSharedTags()
+          .addAll(contentForImport.getSharedTags()
+              .stream()
+              .filter(t -> checkedUserTagIds.contains(t.getId()))
+              .collect(Collectors.toList()));
+    }
+    getWizard().setTagsContentForImport(importRequest);
 
     setDirty(false);
   }
@@ -191,13 +205,31 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
     super.setVisible(visible);
 
-    if (visible) {
-      if (!taggedObjects.isEmpty()) {
-        setShellSizeForTable(!smallTableMode);
-        getWizard().updateShellSize();
-      }
+    if (visible && !taggedObjects.isEmpty()) {
+      setShellSizeForTable(!smallTableMode);
+      getWizard().updateShellSize();
     }
 
+  }
+
+  private ITag cloneTagWithChkChildren(final ITag t, final Set<ITag> checkedTags) {
+    var tag = IAbapTagsFactory.eINSTANCE.createTag();
+    tag.setId(t.getId());
+    tag.setName(t.getName());
+    tag.setParentTagId(t.getParentTagId());
+    tag.setCreatedBy(t.getCreatedBy());
+    tag.setCreatedDateTime(t.getCreatedDateTime());
+    tag.setChangedBy(t.getChangedBy());
+    tag.setChangedDateTime(t.getChangedDateTime());
+    tag.setOwner(t.getOwner());
+    tag.setDescription(t.getDescription());
+    tag.setSharedForMe(t.isSharedForMe());
+    t.getChildTags().forEach(child -> {
+      if (checkedTags.contains(child)) {
+        tag.getChildTags().add(cloneTagWithChkChildren(child, checkedTags));
+      }
+    });
+    return tag;
   }
 
   private void loadTagsContentFromSource() {
@@ -214,8 +246,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       checkableTgobj.tgObj = tgobj;
       return checkableTgobj;
     }).sorted((el1, el2) -> {
-      var obj1 = ((CheckableTaggedObjectInfo) el1).tgObj;
-      var obj2 = ((CheckableTaggedObjectInfo) el2).tgObj;
+      var obj1 = el1.tgObj;
+      var obj2 = el2.tgObj;
 
       var result = obj1.getObjectType().compareTo(obj2.getObjectType());
       if (result != 0) {
@@ -298,7 +330,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         .collect(Collectors.toList());
     var bigTableRequired = input.stream().anyMatch(obj -> obj.tgObj.getParentObjectName() != null);
 
-    if (!bigTableRequired != smallTableMode) {
+    if (bigTableRequired == smallTableMode) {
       disposeColumns();
     }
     smallTableMode = !bigTableRequired;
@@ -314,7 +346,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   @SuppressWarnings("unchecked")
-  private void setTgobjAllChecked(boolean checked) {
+  private void setTgobjAllChecked(final boolean checked) {
     if (selectedTagId == null) {
       return;
     }
@@ -323,7 +355,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         .forEach(el -> el.checked = checked);
   }
 
-  private void onTgobjCheckStateChanged(CheckableTaggedObjectInfo checkableTgobj, boolean state) {
+  private void onTgobjCheckStateChanged(final CheckableTaggedObjectInfo checkableTgobj,
+      final boolean state) {
     checkableTgobj.checked = state;
 
     // check if current tag is checked in the tree
@@ -337,7 +370,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
   }
 
-  private void propagateTagCheckedStateToParents(ITag tag, boolean state) {
+  private void propagateTagCheckedStateToParents(final ITag tag, final boolean state) {
     if (state) {
       tagTree.setParentTagsChecked(tag, true);
     } else {
@@ -348,7 +381,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tagTree.refresh();
   }
 
-  private void onTagCheckStateChanged(ITag tag, boolean state) {
+  private void onTagCheckStateChanged(final ITag tag, final boolean state) {
     propagateTagCheckedStateToParents(tag, state);
 
     syncTagCheckedStateToTgObj();
@@ -452,27 +485,24 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     tagTree
         .addCheckStateListener(e -> onTagCheckStateChanged((ITag) e.getElement(), e.getChecked()));
-    tagTree.addSelectionChangedListener(new ISelectionChangedListener() {
-      @Override
-      public void selectionChanged(SelectionChangedEvent event) {
-        var selObj = tagTree.getSelection().getFirstElement();
-        if (selObj != null) {
-          var tag = (ITag) selObj;
-          selectedTag = tag;
-          selectedTagId = tag.getId();
-        } else {
-          selectedTag = null;
-          selectedTagId = null;
-        }
-        onTagSelectionChanged();
+    tagTree.addSelectionChangedListener(event -> {
+      var selObj = tagTree.getSelection().getFirstElement();
+      if (selObj != null) {
+        var tag = (ITag) selObj;
+        selectedTag = tag;
+        selectedTagId = tag.getId();
+      } else {
+        selectedTag = null;
+        selectedTagId = null;
       }
+      onTagSelectionChanged();
     });
     tagTree.addKeyListenerForFilterFocus();
 
     createTreeSelectionInfo(group);
   }
 
-  private void createTgobjTable(Composite parent) {
+  private void createTgobjTable(final Composite parent) {
     var group = new Group(parent, SWT.NONE);
     group.setText("Tagged &Objects");
     GridDataFactory.fillDefaults().grab(true, true).minSize(200, SWT.DEFAULT).applyTo(group);
@@ -480,7 +510,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     tgobjTable = new FilterableTable(group, null, false, FilterableComposite.TOOLBAR) {
       @Override
-      protected void filterJobCompleted(boolean hasFilter) {
+      protected void filterJobCompleted(final boolean hasFilter) {
         super.filterJobCompleted(hasFilter);
         syncCurrentTgobjCheckedStateToViewer();
       }
@@ -525,7 +555,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
   }
 
-  private void createColumns(boolean fullTable) {
+  private void createColumns(final boolean fullTable) {
     if (tgobjTableViewer.getTable().getColumnCount() > 0) {
       return;
     }
@@ -676,7 +706,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
   }
 
-  private void setShellSizeForTable(boolean bigSizeRequired) {
+  private void setShellSizeForTable(final boolean bigSizeRequired) {
     // check if we need to make the screen bigger
     var tableLayoutData = (GridData) tgobjTableViewer.getTable().getLayoutData();
     if (bigSizeRequired) {
