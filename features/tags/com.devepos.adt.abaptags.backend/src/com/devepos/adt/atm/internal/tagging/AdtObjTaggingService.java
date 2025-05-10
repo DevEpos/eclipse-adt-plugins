@@ -15,6 +15,7 @@ import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -50,6 +51,24 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
     restResource.addContentHandler(new TagExportResponseContentHandler());
 
     return restResource.post(null, ITagExportResponse.class, exportRequest);
+  }
+
+  @Override
+  public IStatus importTags(String destinationId, ITagImportRequest request) {
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(uriDiscovery.getTagImportUri(), session);
+    restResource.addContentHandler(new TagImportRequestContentHandler());
+
+    try {
+      restResource.post(null, null, request);
+    } catch (ResourceException exc) {
+      return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
+    }
+    return Status.OK_STATUS;
   }
 
   @Override

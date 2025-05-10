@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Status;
 
 import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -32,6 +33,15 @@ public interface IAdtObjTaggingService {
    * @return the export result
    */
   ITagExportResponse exportTags(String destinationId, ITagExportRequest request);
+
+  /**
+   * Send ABAP Tags import request and returns status of the import
+   * 
+   * @param destinationId destination Id of ABAP project
+   * @param request       request for importing tag content
+   * @return status of the import
+   */
+  IStatus importTags(String destinationId, ITagImportRequest request);
 
   /**
    * Deletes a list of tagged objects
