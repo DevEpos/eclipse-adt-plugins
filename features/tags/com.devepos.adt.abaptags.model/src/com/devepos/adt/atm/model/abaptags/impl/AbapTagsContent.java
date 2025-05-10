@@ -115,8 +115,8 @@ public class AbapTagsContent extends MinimalEObjectImpl.Container implements IAb
   @Override
   public EList<ITaggedObjectInfo> getTaggedObjectInfos() {
     if (taggedObjectInfos == null) {
-      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class, this,
-          IAbapTagsPackage.ABAP_TAGS_CONTENT__TAGGED_OBJECT_INFOS);
+      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class,
+          this, IAbapTagsPackage.ABAP_TAGS_CONTENT__TAGGED_OBJECT_INFOS);
     }
     return taggedObjectInfos;
   }

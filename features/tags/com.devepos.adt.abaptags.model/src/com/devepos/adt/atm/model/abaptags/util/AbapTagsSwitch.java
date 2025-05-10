@@ -15,6 +15,7 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -95,16 +96,16 @@ public class AbapTagsSwitch<T> extends Switch<T> {
   protected T doSwitch(final int classifierID, final EObject theEObject) {
     switch (classifierID) {
     case IAbapTagsPackage.TAG_BASE: {
-      ITagBase tagBase = (ITagBase) theEObject;
-      T result = caseTagBase(tagBase);
+      var tagBase = (ITagBase) theEObject;
+      var result = caseTagBase(tagBase);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAG: {
-      ITag tag = (ITag) theEObject;
-      T result = caseTag(tag);
+      var tag = (ITag) theEObject;
+      var result = caseTag(tag);
       if (result == null) {
         result = caseTagBase(tag);
       }
@@ -114,16 +115,16 @@ public class AbapTagsSwitch<T> extends Switch<T> {
       return result;
     }
     case IAbapTagsPackage.TAG_LIST: {
-      ITagList tagList = (ITagList) theEObject;
-      T result = caseTagList(tagList);
+      var tagList = (ITagList) theEObject;
+      var result = caseTagList(tagList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.ADT_OBJECT_TAG: {
-      IAdtObjectTag adtObjectTag = (IAdtObjectTag) theEObject;
-      T result = caseAdtObjectTag(adtObjectTag);
+      var adtObjectTag = (IAdtObjectTag) theEObject;
+      var result = caseAdtObjectTag(adtObjectTag);
       if (result == null) {
         result = caseTagBase(adtObjectTag);
       }
@@ -133,154 +134,165 @@ public class AbapTagsSwitch<T> extends Switch<T> {
       return result;
     }
     case IAbapTagsPackage.TAG_PREVIEW_INFO: {
-      ITagPreviewInfo tagPreviewInfo = (ITagPreviewInfo) theEObject;
-      T result = caseTagPreviewInfo(tagPreviewInfo);
+      var tagPreviewInfo = (ITagPreviewInfo) theEObject;
+      var result = caseTagPreviewInfo(tagPreviewInfo);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT: {
-      ITaggedObject taggedObject = (ITaggedObject) theEObject;
-      T result = caseTaggedObject(taggedObject);
+      var taggedObject = (ITaggedObject) theEObject;
+      var result = caseTaggedObject(taggedObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_LIST: {
-      ITaggedObjectList taggedObjectList = (ITaggedObjectList) theEObject;
-      T result = caseTaggedObjectList(taggedObjectList);
+      var taggedObjectList = (ITaggedObjectList) theEObject;
+      var result = caseTaggedObjectList(taggedObjectList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_REQUEST: {
-      ITaggedObjectTreeRequest taggedObjectTreeRequest = (ITaggedObjectTreeRequest) theEObject;
-      T result = caseTaggedObjectTreeRequest(taggedObjectTreeRequest);
+      var taggedObjectTreeRequest = (ITaggedObjectTreeRequest) theEObject;
+      var result = caseTaggedObjectTreeRequest(taggedObjectTreeRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_SEARCH_PARAMS: {
-      ITaggedObjectSearchParams taggedObjectSearchParams = (ITaggedObjectSearchParams) theEObject;
-      T result = caseTaggedObjectSearchParams(taggedObjectSearchParams);
+      var taggedObjectSearchParams = (ITaggedObjectSearchParams) theEObject;
+      var result = caseTaggedObjectSearchParams(taggedObjectSearchParams);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAG_DELETION_CHECK_RESULT: {
-      ITagDeletionCheckResult tagDeletionCheckResult = (ITagDeletionCheckResult) theEObject;
-      T result = caseTagDeletionCheckResult(tagDeletionCheckResult);
+      var tagDeletionCheckResult = (ITagDeletionCheckResult) theEObject;
+      var result = caseTagDeletionCheckResult(tagDeletionCheckResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAG_DELETION_CHECK_OBJECT: {
-      ITagDeletionCheckObject tagDeletionCheckObject = (ITagDeletionCheckObject) theEObject;
-      T result = caseTagDeletionCheckObject(tagDeletionCheckObject);
+      var tagDeletionCheckObject = (ITagDeletionCheckObject) theEObject;
+      var result = caseTagDeletionCheckObject(tagDeletionCheckObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT: {
-      ITaggedObjectTreeObject taggedObjectTreeObject = (ITaggedObjectTreeObject) theEObject;
-      T result = caseTaggedObjectTreeObject(taggedObjectTreeObject);
+      var taggedObjectTreeObject = (ITaggedObjectTreeObject) theEObject;
+      var result = caseTaggedObjectTreeObject(taggedObjectTreeObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT: {
-      ITaggedObjectTreeResult taggedObjectTreeResult = (ITaggedObjectTreeResult) theEObject;
-      T result = caseTaggedObjectTreeResult(taggedObjectTreeResult);
+      var taggedObjectTreeResult = (ITaggedObjectTreeResult) theEObject;
+      var result = caseTaggedObjectTreeResult(taggedObjectTreeResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST: {
-      ITaggedObjectListRequest taggedObjectListRequest = (ITaggedObjectListRequest) theEObject;
-      T result = caseTaggedObjectListRequest(taggedObjectListRequest);
+      var taggedObjectListRequest = (ITaggedObjectListRequest) theEObject;
+      var result = caseTaggedObjectListRequest(taggedObjectListRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_INFO: {
-      ITaggedObjectInfo taggedObjectInfo = (ITaggedObjectInfo) theEObject;
-      T result = caseTaggedObjectInfo(taggedObjectInfo);
+      var taggedObjectInfo = (ITaggedObjectInfo) theEObject;
+      var result = caseTaggedObjectInfo(taggedObjectInfo);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_INFO_LIST: {
-      ITaggedObjectInfoList taggedObjectInfoList = (ITaggedObjectInfoList) theEObject;
-      T result = caseTaggedObjectInfoList(taggedObjectInfoList);
+      var taggedObjectInfoList = (ITaggedObjectInfoList) theEObject;
+      var result = caseTaggedObjectInfoList(taggedObjectInfoList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_REQUEST: {
-      ITaggedObjectDeletionCheckRequest taggedObjectDeletionCheckRequest = (ITaggedObjectDeletionCheckRequest) theEObject;
-      T result = caseTaggedObjectDeletionCheckRequest(taggedObjectDeletionCheckRequest);
+      var taggedObjectDeletionCheckRequest = (ITaggedObjectDeletionCheckRequest) theEObject;
+      var result = caseTaggedObjectDeletionCheckRequest(taggedObjectDeletionCheckRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_RESULT: {
-      ITaggedObjectDeletionCheckResult taggedObjectDeletionCheckResult = (ITaggedObjectDeletionCheckResult) theEObject;
-      T result = caseTaggedObjectDeletionCheckResult(taggedObjectDeletionCheckResult);
+      var taggedObjectDeletionCheckResult = (ITaggedObjectDeletionCheckResult) theEObject;
+      var result = caseTaggedObjectDeletionCheckResult(taggedObjectDeletionCheckResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_DELETION_CHECK_OBJECT: {
-      ITaggedObjectDeletionCheckObject taggedObjectDeletionCheckObject = (ITaggedObjectDeletionCheckObject) theEObject;
-      T result = caseTaggedObjectDeletionCheckObject(taggedObjectDeletionCheckObject);
+      var taggedObjectDeletionCheckObject = (ITaggedObjectDeletionCheckObject) theEObject;
+      var result = caseTaggedObjectDeletionCheckObject(taggedObjectDeletionCheckObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST: {
-      ITaggedObjectDeleteRequest taggedObjectDeleteRequest = (ITaggedObjectDeleteRequest) theEObject;
-      T result = caseTaggedObjectDeleteRequest(taggedObjectDeleteRequest);
+      var taggedObjectDeleteRequest = (ITaggedObjectDeleteRequest) theEObject;
+      var result = caseTaggedObjectDeleteRequest(taggedObjectDeleteRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAG_EXPORT_REQUEST: {
-      ITagExportRequest tagExportRequest = (ITagExportRequest) theEObject;
-      T result = caseTagExportRequest(tagExportRequest);
+      var tagExportRequest = (ITagExportRequest) theEObject;
+      var result = caseTagExportRequest(tagExportRequest);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.ABAP_TAGS_CONTENT: {
-      IAbapTagsContent abapTagsContent = (IAbapTagsContent) theEObject;
-      T result = caseAbapTagsContent(abapTagsContent);
+      var abapTagsContent = (IAbapTagsContent) theEObject;
+      var result = caseAbapTagsContent(abapTagsContent);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAbapTagsPackage.TAG_EXPORT_RESPONSE: {
-      ITagExportResponse tagExportResponse = (ITagExportResponse) theEObject;
-      T result = caseTagExportResponse(tagExportResponse);
+      var tagExportResponse = (ITagExportResponse) theEObject;
+      var result = caseTagExportResponse(tagExportResponse);
       if (result == null) {
         result = caseAbapTagsContent(tagExportResponse);
+      }
+      if (result == null) {
+        result = defaultCase(theEObject);
+      }
+      return result;
+    }
+    case IAbapTagsPackage.TAG_IMPORT_REQUEST: {
+      var tagImportRequest = (ITagImportRequest) theEObject;
+      var result = caseTagImportRequest(tagImportRequest);
+      if (result == null) {
+        result = caseAbapTagsContent(tagImportRequest);
       }
       if (result == null) {
         result = defaultCase(theEObject);
@@ -681,6 +693,22 @@ public class AbapTagsSwitch<T> extends Switch<T> {
    * @generated
    */
   public T caseTagExportResponse(final ITagExportResponse object) {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Tag Import Request</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   *
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tag Import Request</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTagImportRequest(final ITagImportRequest object) {
     return null;
   }
 

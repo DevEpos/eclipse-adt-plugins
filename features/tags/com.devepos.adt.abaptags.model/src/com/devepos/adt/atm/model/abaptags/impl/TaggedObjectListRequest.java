@@ -184,8 +184,8 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
   @Override
   public EList<ITaggedObjectInfo> getTaggedObjectInfos() {
     if (taggedObjectInfos == null) {
-      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class, this,
-          IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS);
+      taggedObjectInfos = new EObjectContainmentEList<>(ITaggedObjectInfo.class,
+          this, IAbapTagsPackage.TAGGED_OBJECT_LIST_REQUEST__TAGGED_OBJECT_INFOS);
     }
     return taggedObjectInfos;
   }
@@ -209,7 +209,7 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
    */
   @Override
   public void setLoadChildObjects(final boolean newLoadChildObjects) {
-    boolean oldLoadChildObjects = loadChildObjects;
+    var oldLoadChildObjects = loadChildObjects;
     loadChildObjects = newLoadChildObjects;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -237,7 +237,7 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
    */
   @Override
   public void setDeletedObjectsOnly(final boolean newDeletedObjectsOnly) {
-    boolean oldDeletedObjectsOnly = deletedObjectsOnly;
+    var oldDeletedObjectsOnly = deletedObjectsOnly;
     deletedObjectsOnly = newDeletedObjectsOnly;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -380,7 +380,7 @@ public class TaggedObjectListRequest extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (tagIds: ");
     result.append(tagIds);
     result.append(", taggedObjectIds: ");

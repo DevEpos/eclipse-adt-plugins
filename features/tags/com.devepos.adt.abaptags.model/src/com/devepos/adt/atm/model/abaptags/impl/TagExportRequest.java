@@ -121,7 +121,7 @@ public class TagExportRequest extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setIncludeSharedTagsInfo(final boolean newIncludeSharedTagsInfo) {
-    boolean oldIncludeSharedTagsInfo = includeSharedTagsInfo;
+    var oldIncludeSharedTagsInfo = includeSharedTagsInfo;
     includeSharedTagsInfo = newIncludeSharedTagsInfo;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -216,7 +216,7 @@ public class TagExportRequest extends MinimalEObjectImpl.Container implements IT
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (tagIds: ");
     result.append(tagIds);
     result.append(", includeSharedTagsInfo: ");

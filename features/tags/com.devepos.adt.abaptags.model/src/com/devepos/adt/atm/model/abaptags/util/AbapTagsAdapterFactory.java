@@ -16,6 +16,7 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -209,6 +210,11 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseTagExportResponse(final ITagExportResponse object) {
       return createTagExportResponseAdapter();
+    }
+
+    @Override
+    public Adapter caseTagImportRequest(final ITagImportRequest object) {
+      return createTagImportRequestAdapter();
     }
 
     @Override
@@ -608,6 +614,22 @@ public class AbapTagsAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
   public Adapter createTagExportResponseAdapter() {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class
+   * '{@link com.devepos.adt.atm.model.abaptags.ITagImportRequest <em>Tag Import Request</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   *
+   * @return the new adapter.
+   * @see com.devepos.adt.atm.model.abaptags.ITagImportRequest
+   * @generated
+   */
+  public Adapter createTagImportRequestAdapter() {
     return null;
   }
 

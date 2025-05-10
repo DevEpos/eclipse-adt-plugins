@@ -70,7 +70,8 @@ public class TagDeletionCheckResult extends MinimalEObjectImpl.Container
   @Override
   public EList<ITagDeletionCheckObject> getCheckedTags() {
     if (checkedTags == null) {
-      checkedTags = new EObjectResolvingEList<>(ITagDeletionCheckObject.class, this,
+      checkedTags = new EObjectResolvingEList<>(
+          ITagDeletionCheckObject.class, this,
           IAbapTagsPackage.TAG_DELETION_CHECK_RESULT__CHECKED_TAGS);
     }
     return checkedTags;

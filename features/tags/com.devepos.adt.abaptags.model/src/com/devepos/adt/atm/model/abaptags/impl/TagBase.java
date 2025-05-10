@@ -121,7 +121,7 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setId(final String newId) {
-    String oldId = id;
+    var oldId = id;
     id = newId;
     if (eNotificationRequired()) {
       eNotify(
@@ -146,7 +146,7 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setName(final String newName) {
-    String oldName = name;
+    var oldName = name;
     name = newName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG_BASE__NAME,
@@ -171,7 +171,7 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setOwner(final String newOwner) {
-    String oldOwner = owner;
+    var oldOwner = owner;
     owner = newOwner;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG_BASE__OWNER,
@@ -268,7 +268,7 @@ public abstract class TagBase extends MinimalEObjectImpl.Container implements IT
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (id: ");
     result.append(id);
     result.append(", name: ");

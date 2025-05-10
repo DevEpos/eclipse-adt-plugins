@@ -324,7 +324,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setDescription(final String newDescription) {
-    String oldDescription = description;
+    var oldDescription = description;
     description = newDescription;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__DESCRIPTION,
@@ -340,7 +340,8 @@ public class Tag extends TagBase implements ITag {
   @Override
   public EList<ITag> getChildTags() {
     if (childTags == null) {
-      childTags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAGS);
+      childTags = new EObjectContainmentEList<>(ITag.class, this,
+          IAbapTagsPackage.TAG__CHILD_TAGS);
     }
     return childTags;
   }
@@ -362,7 +363,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setCreatedBy(final String newCreatedBy) {
-    String oldCreatedBy = createdBy;
+    var oldCreatedBy = createdBy;
     createdBy = newCreatedBy;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CREATED_BY,
@@ -387,7 +388,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setCreatedDateTime(final String newCreatedDateTime) {
-    String oldCreatedDateTime = createdDateTime;
+    var oldCreatedDateTime = createdDateTime;
     createdDateTime = newCreatedDateTime;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CREATED_DATE_TIME,
@@ -412,7 +413,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setChangedBy(final String newChangedBy) {
-    String oldChangedBy = changedBy;
+    var oldChangedBy = changedBy;
     changedBy = newChangedBy;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CHANGED_BY,
@@ -437,7 +438,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setChangedDateTime(final String newChangedDateTime) {
-    String oldChangedDateTime = changedDateTime;
+    var oldChangedDateTime = changedDateTime;
     changedDateTime = newChangedDateTime;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CHANGED_DATE_TIME,
@@ -462,7 +463,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setTaggedObjectCount(final int newTaggedObjectCount) {
-    int oldTaggedObjectCount = taggedObjectCount;
+    var oldTaggedObjectCount = taggedObjectCount;
     taggedObjectCount = newTaggedObjectCount;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -487,7 +488,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setShared(final boolean newShared) {
-    boolean oldShared = shared;
+    var oldShared = shared;
     shared = newShared;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__SHARED, oldShared,
@@ -512,7 +513,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setSharedForMe(final boolean newSharedForMe) {
-    boolean oldSharedForMe = sharedForMe;
+    var oldSharedForMe = sharedForMe;
     sharedForMe = newSharedForMe;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__SHARED_FOR_ME,
@@ -537,7 +538,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setChanged(final boolean newChanged) {
-    boolean oldChanged = changed;
+    var oldChanged = changed;
     changed = newChanged;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__CHANGED,
@@ -562,7 +563,7 @@ public class Tag extends TagBase implements ITag {
    */
   @Override
   public void setParentTagId(final String newParentTagId) {
-    String oldParentTagId = parentTagId;
+    var oldParentTagId = parentTagId;
     parentTagId = newParentTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAG__PARENT_TAG_ID,
@@ -789,7 +790,7 @@ public class Tag extends TagBase implements ITag {
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (description: ");
     result.append(description);
     result.append(", createdBy: ");

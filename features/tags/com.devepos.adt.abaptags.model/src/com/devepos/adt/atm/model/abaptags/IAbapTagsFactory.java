@@ -244,6 +244,16 @@ public interface IAbapTagsFactory extends EFactory {
   ITagExportResponse createTagExportResponse();
 
   /**
+   * Returns a new object of class '<em>Tag Import Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Import Request</em>'.
+   * @generated
+   */
+  ITagImportRequest createTagImportRequest();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

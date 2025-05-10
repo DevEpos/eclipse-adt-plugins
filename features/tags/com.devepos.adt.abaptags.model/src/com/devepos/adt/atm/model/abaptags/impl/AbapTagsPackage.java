@@ -23,6 +23,7 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -244,6 +245,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    *
    * @generated
    */
+  private EClass tagImportRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
   private EEnum tagSearchScopeEEnum = null;
 
   /**
@@ -346,8 +355,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     }
 
     // Obtain or create and register package
-    Object registeredAbapTagsPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-    AbapTagsPackage theAbapTagsPackage = registeredAbapTagsPackage instanceof AbapTagsPackage
+    var registeredAbapTagsPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    var theAbapTagsPackage = registeredAbapTagsPackage instanceof AbapTagsPackage
         ? (AbapTagsPackage) registeredAbapTagsPackage
         : new AbapTagsPackage();
 
@@ -1643,6 +1652,17 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   @Override
+  public EClass getTagImportRequest() {
+    return tagImportRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
   public EEnum getTagSearchScope() {
     return tagSearchScopeEEnum;
   }
@@ -1896,6 +1916,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
 
     tagExportResponseEClass = createEClass(TAG_EXPORT_RESPONSE);
 
+    tagImportRequestEClass = createEClass(TAG_IMPORT_REQUEST);
+
     // Create enums
     tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
     tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
@@ -1936,9 +1958,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+    var theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
         .getEPackage(IAdtBasePackage.eNS_URI);
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+    var theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
         .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
@@ -1949,6 +1971,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     tagEClass.getESuperTypes().add(getTagBase());
     adtObjectTagEClass.getESuperTypes().add(getTagBase());
     tagExportResponseEClass.getESuperTypes().add(getAbapTagsContent());
+    tagImportRequestEClass.getESuperTypes().add(getAbapTagsContent());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(tagBaseEClass, ITagBase.class, "TagBase", IS_ABSTRACT, !IS_INTERFACE,
@@ -2310,6 +2333,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     initEClass(tagExportResponseEClass, ITagExportResponse.class, "TagExportResponse", !IS_ABSTRACT,
         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(tagImportRequestEClass, ITagImportRequest.class, "TagImportRequest", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     // Initialize enums and add enum literals
     initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
     addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
@@ -2360,7 +2386,7 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * @generated
    */
   protected void createExtendedMetaDataAnnotations() {
-    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(tagBaseEClass, source, new String[] { "kind", "elementOnly", "name", "tagBase" });
     addAnnotation(getTagBase_Id(), source,
         new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
@@ -2574,6 +2600,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         new String[] { "kind", "element", "name", "sharedTag", "namespace", "##targetNamespace" });
     addAnnotation(tagExportResponseEClass, source,
         new String[] { "kind", "elementOnly", "name", "tagExportResponse" });
+    addAnnotation(tagImportRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagImportRequest" });
   }
 
 } // AbapTagsPackage

@@ -342,7 +342,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setSearchScope(final TagSearchScope newSearchScope) {
-    TagSearchScope oldSearchScope = searchScope;
+    var oldSearchScope = searchScope;
     searchScope = newSearchScope == null ? SEARCH_SCOPE_EDEFAULT : newSearchScope;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -367,7 +367,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setQuery(final String newQuery) {
-    String oldQuery = query;
+    var oldQuery = query;
     query = newQuery;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -392,7 +392,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setQueryType(final TagQueryType newQueryType) {
-    TagQueryType oldQueryType = queryType;
+    var oldQueryType = queryType;
     queryType = newQueryType == null ? QUERY_TYPE_EDEFAULT : newQueryType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -419,7 +419,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setResultGroupLevel(final ResultGroupLevel newResultGroupLevel) {
-    ResultGroupLevel oldResultGroupLevel = resultGroupLevel;
+    var oldResultGroupLevel = resultGroupLevel;
     resultGroupLevel = newResultGroupLevel == null ? RESULT_GROUP_LEVEL_EDEFAULT
         : newResultGroupLevel;
     if (eNotificationRequired()) {
@@ -446,7 +446,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setQueryFocus(final TagQueryFocus newQueryFocus) {
-    TagQueryFocus oldQueryFocus = queryFocus;
+    var oldQueryFocus = queryFocus;
     queryFocus = newQueryFocus == null ? QUERY_FOCUS_EDEFAULT : newQueryFocus;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -471,7 +471,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setMaxResults(final int newMaxResults) {
-    int oldMaxResults = maxResults;
+    var oldMaxResults = maxResults;
     maxResults = newMaxResults;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -496,7 +496,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setMatchesAllTags(final boolean newMatchesAllTags) {
-    boolean oldMatchesAllTags = matchesAllTags;
+    var oldMatchesAllTags = matchesAllTags;
     matchesAllTags = newMatchesAllTags;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -522,7 +522,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setWithTagInfo(final boolean newWithTagInfo) {
-    boolean oldWithTagInfo = withTagInfo;
+    var oldWithTagInfo = withTagInfo;
     withTagInfo = newWithTagInfo;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -548,7 +548,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setTagInfoType(final TagInfoType newTagInfoType) {
-    TagInfoType oldTagInfoType = tagInfoType;
+    var oldTagInfoType = tagInfoType;
     tagInfoType = newTagInfoType == null ? TAG_INFO_TYPE_EDEFAULT : newTagInfoType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -576,7 +576,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
    */
   @Override
   public void setExcludeComponents(final boolean newExcludeComponents) {
-    boolean oldExcludeComponents = excludeComponents;
+    var oldExcludeComponents = excludeComponents;
     excludeComponents = newExcludeComponents;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -756,7 +756,7 @@ public class TaggedObjectSearchParams extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (tagIds: ");
     result.append(tagIds);
     result.append(", searchScope: ");

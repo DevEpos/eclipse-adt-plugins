@@ -154,10 +154,10 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
    */
   public NotificationChain basicSetObjectRef(final IAdtObjRef newObjectRef,
       NotificationChain msgs) {
-    IAdtObjRef oldObjectRef = objectRef;
+    var oldObjectRef = objectRef;
     objectRef = newObjectRef;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+      var notification = new ENotificationImpl(this, Notification.SET,
           IAbapTagsPackage.TAGGED_OBJECT_TREE_OBJECT__OBJECT_REF, oldObjectRef, newObjectRef);
       if (msgs == null) {
         msgs = notification;
@@ -217,7 +217,7 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setTaggedObjectCount(final int newTaggedObjectCount) {
-    int oldTaggedObjectCount = taggedObjectCount;
+    var oldTaggedObjectCount = taggedObjectCount;
     taggedObjectCount = newTaggedObjectCount;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -245,7 +245,7 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParentTagId(final String newParentTagId) {
-    String oldParentTagId = parentTagId;
+    var oldParentTagId = parentTagId;
     parentTagId = newParentTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -272,7 +272,7 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setExpandable(final boolean newExpandable) {
-    boolean oldExpandable = expandable;
+    var oldExpandable = expandable;
     expandable = newExpandable;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -401,7 +401,7 @@ public class TaggedObjectTreeObject extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (taggedObjectCount: ");
     result.append(taggedObjectCount);
     result.append(", parentTagId: ");

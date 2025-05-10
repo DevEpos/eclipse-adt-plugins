@@ -406,7 +406,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setId(final String newId) {
-    String oldId = id;
+    var oldId = id;
     id = newId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.TAGGED_OBJECT_INFO__ID,
@@ -433,7 +433,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setTagId(final String newTagId) {
-    String oldTagId = tagId;
+    var oldTagId = tagId;
     tagId = newTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -460,7 +460,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setTagName(final String newTagName) {
-    String oldTagName = tagName;
+    var oldTagName = tagName;
     tagName = newTagName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -487,7 +487,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setTagType(final TagType newTagType) {
-    TagType oldTagType = tagType;
+    var oldTagType = tagType;
     tagType = newTagType == null ? TAG_TYPE_EDEFAULT : newTagType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -514,7 +514,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setObjectName(final String newObjectName) {
-    String oldObjectName = objectName;
+    var oldObjectName = objectName;
     objectName = newObjectName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -541,7 +541,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setObjectAltName(final String newObjectAltName) {
-    String oldObjectAltName = objectAltName;
+    var oldObjectAltName = objectAltName;
     objectAltName = newObjectAltName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -568,7 +568,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setObjectType(final String newObjectType) {
-    String oldObjectType = objectType;
+    var oldObjectType = objectType;
     objectType = newObjectType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -595,7 +595,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setComponentName(final String newComponentName) {
-    String oldComponentName = componentName;
+    var oldComponentName = componentName;
     componentName = newComponentName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -622,7 +622,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setComponentType(final String newComponentType) {
-    String oldComponentType = componentType;
+    var oldComponentType = componentType;
     componentType = newComponentType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -649,7 +649,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setParentTagId(final String newParentTagId) {
-    String oldParentTagId = parentTagId;
+    var oldParentTagId = parentTagId;
     parentTagId = newParentTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -676,7 +676,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setParentTagName(final String newParentTagName) {
-    String oldParentTagName = parentTagName;
+    var oldParentTagName = parentTagName;
     parentTagName = newParentTagName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -703,7 +703,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setParentObjectName(final String newParentObjectName) {
-    String oldParentObjectName = parentObjectName;
+    var oldParentObjectName = parentObjectName;
     parentObjectName = newParentObjectName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -731,7 +731,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setParentObjectAltName(final String newParentObjectAltName) {
-    String oldParentObjectAltName = parentObjectAltName;
+    var oldParentObjectAltName = parentObjectAltName;
     parentObjectAltName = newParentObjectAltName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -759,7 +759,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
    */
   @Override
   public void setParentObjectType(final String newParentObjectType) {
-    String oldParentObjectType = parentObjectType;
+    var oldParentObjectType = parentObjectType;
     parentObjectType = newParentObjectType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -1020,7 +1020,7 @@ public class TaggedObjectInfo extends MinimalEObjectImpl.Container implements IT
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (id: ");
     result.append(id);
     result.append(", tagId: ");

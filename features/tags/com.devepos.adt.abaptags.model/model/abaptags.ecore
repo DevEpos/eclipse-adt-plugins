@@ -828,4 +828,10 @@
       <details key="name" value="tagExportResponse"/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TagImportRequest" eSuperTypes="#//AbapTagsContent">
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="kind" value="elementOnly"/>
+      <details key="name" value="tagImportRequest"/>
+    </eAnnotations>
+  </eClassifiers>
 </ecore:EPackage>

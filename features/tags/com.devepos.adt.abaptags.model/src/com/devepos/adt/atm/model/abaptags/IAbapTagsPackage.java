@@ -1822,6 +1822,68 @@ public interface IAbapTagsPackage extends EPackage {
   int TAG_EXPORT_RESPONSE_OPERATION_COUNT = ABAP_TAGS_CONTENT_OPERATION_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.impl.TagImportRequest
+   * <em>Tag Import Request</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see com.devepos.adt.atm.model.abaptags.impl.TagImportRequest
+   * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagImportRequest()
+   * @generated
+   */
+  int TAG_IMPORT_REQUEST = 23;
+
+  /**
+   * The feature id for the '<em><b>Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_IMPORT_REQUEST__TAGS = ABAP_TAGS_CONTENT__TAGS;
+
+  /**
+   * The feature id for the '<em><b>Tagged Object Infos</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_IMPORT_REQUEST__TAGGED_OBJECT_INFOS = ABAP_TAGS_CONTENT__TAGGED_OBJECT_INFOS;
+
+  /**
+   * The feature id for the '<em><b>Shared Tags</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_IMPORT_REQUEST__SHARED_TAGS = ABAP_TAGS_CONTENT__SHARED_TAGS;
+
+  /**
+   * The number of structural features of the '<em>Tag Import Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_IMPORT_REQUEST_FEATURE_COUNT = ABAP_TAGS_CONTENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of operations of the '<em>Tag Import Request</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   * @ordered
+   */
+  int TAG_IMPORT_REQUEST_OPERATION_COUNT = ABAP_TAGS_CONTENT_OPERATION_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope <em>Tag
    * Search Scope</em>}' enum.
    * <!-- begin-user-doc -->
@@ -1831,7 +1893,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagSearchScope()
    * @generated
    */
-  int TAG_SEARCH_SCOPE = 23;
+  int TAG_SEARCH_SCOPE = 24;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryType <em>Tag
@@ -1843,7 +1905,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryType()
    * @generated
    */
-  int TAG_QUERY_TYPE = 24;
+  int TAG_QUERY_TYPE = 25;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagInfoType <em>Tag Info
@@ -1855,7 +1917,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagInfoType()
    * @generated
    */
-  int TAG_INFO_TYPE = 25;
+  int TAG_INFO_TYPE = 26;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagQueryFocus <em>Tag
@@ -1867,7 +1929,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagQueryFocus()
    * @generated
    */
-  int TAG_QUERY_FOCUS = 26;
+  int TAG_QUERY_FOCUS = 27;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.ResultGroupLevel
@@ -1879,7 +1941,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getResultGroupLevel()
    * @generated
    */
-  int RESULT_GROUP_LEVEL = 27;
+  int RESULT_GROUP_LEVEL = 28;
 
   /**
    * The meta object id for the '{@link com.devepos.adt.atm.model.abaptags.TagType <em>Tag
@@ -1891,7 +1953,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagType()
    * @generated
    */
-  int TAG_TYPE = 28;
+  int TAG_TYPE = 29;
 
   /**
    * The meta object id for the '<em>Image</em>' data type.
@@ -1902,7 +1964,7 @@ public interface IAbapTagsPackage extends EPackage {
    * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getImage()
    * @generated
    */
-  int IMAGE = 29;
+  int IMAGE = 30;
 
   /**
    * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITagBase <em>Tag
@@ -3451,6 +3513,18 @@ public interface IAbapTagsPackage extends EPackage {
   EClass getTagExportResponse();
 
   /**
+   * Returns the meta object for class '{@link com.devepos.adt.atm.model.abaptags.ITagImportRequest
+   * <em>Tag Import Request</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return the meta object for class '<em>Tag Import Request</em>'.
+   * @see com.devepos.adt.atm.model.abaptags.ITagImportRequest
+   * @generated
+   */
+  EClass getTagImportRequest();
+
+  /**
    * Returns the meta object for enum '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope
    * <em>Tag Search Scope</em>}'.
    * <!-- begin-user-doc -->
@@ -4733,6 +4807,19 @@ public interface IAbapTagsPackage extends EPackage {
      * @generated
      */
     EClass TAG_EXPORT_RESPONSE = eINSTANCE.getTagExportResponse();
+
+    /**
+     * The meta object literal for the
+     * '{@link com.devepos.adt.atm.model.abaptags.impl.TagImportRequest <em>Tag Import
+     * Request</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see com.devepos.adt.atm.model.abaptags.impl.TagImportRequest
+     * @see com.devepos.adt.atm.model.abaptags.impl.AbapTagsPackage#getTagImportRequest()
+     * @generated
+     */
+    EClass TAG_IMPORT_REQUEST = eINSTANCE.getTagImportRequest();
 
     /**
      * The meta object literal for the '{@link com.devepos.adt.atm.model.abaptags.TagSearchScope

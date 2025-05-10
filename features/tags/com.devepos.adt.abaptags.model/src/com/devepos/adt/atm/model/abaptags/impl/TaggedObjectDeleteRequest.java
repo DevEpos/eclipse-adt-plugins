@@ -151,7 +151,7 @@ public class TaggedObjectDeleteRequest extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (objectId: ");
     result.append(objectId);
     result.append(')');
