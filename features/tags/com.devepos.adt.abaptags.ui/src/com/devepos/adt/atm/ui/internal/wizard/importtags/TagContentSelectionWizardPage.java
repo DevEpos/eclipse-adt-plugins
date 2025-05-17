@@ -7,8 +7,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
@@ -69,31 +72,35 @@ import com.devepos.adt.base.util.StringUtil;
  */
 public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public static final String PAGE_NAME = TagContentSelectionWizardPage.class.getCanonicalName();
-  private static final int SMALL_TABLE_WIDTH = 410;
 
   private static DecimalFormat SELECTION_FORMAT = new DecimalFormat("###,###");
+  private static int OBJ_TABLE_MODE = 1;
+  private static int PARENT_OBJ_TABLE_MODE = 2;
 
   private IAbapTagsContent contentForImport;
   private final List<CheckableTaggedObjectInfo> taggedObjects = new ArrayList<>();
   private String selectedTagId;
   private ITag selectedTag;
+  private int tableMode = OBJ_TABLE_MODE;
+  private final Map<ColumnViewerSpec, Integer> colWidths = new HashMap<>();
+  private int objTableModeDefaultWidth;
 
-  private int bigTableDialogWidth;
-  private boolean smallTableMode = true;
   private TagSelectionTree tagTree;
   private FilterableTable tgobjTable;
   private CheckboxTableViewer tgobjTableViewer;
   private Combo tagTypeCombo;
   private ToolBar treeToolBar;
   private ToolBar tableToolBar;
+
   private Label treeSelectionInfo;
   private Label tgobjOfCurrentTagCheckInfo;
+  private Label overallTgobjCheckInfo;
+
   private SelectTagSubtreeAction selectSubTreeAction;
   private Button includeSharedUserInfo;
 
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
-  private Label overallTgobjCheckInfo;
 
   public TagContentSelectionWizardPage() {
     super(PAGE_NAME);
@@ -210,7 +217,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     super.setVisible(visible);
 
     if (visible && !taggedObjects.isEmpty()) {
-      setShellSizeForTable(!smallTableMode);
+      setShellSizeForTable(OBJ_TABLE_MODE);
       getWizard().updateShellSize();
     }
 
@@ -332,14 +339,20 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     var input = taggedObjects.stream()
         .filter(o -> o.tgObj.getTagId().equals(selectedTagId))
         .collect(Collectors.toList());
-    var bigTableRequired = input.stream().anyMatch(obj -> obj.tgObj.getParentObjectName() != null);
 
-    if (bigTableRequired == smallTableMode) {
+    var newTableMode = OBJ_TABLE_MODE;
+    if (input.stream().anyMatch(obj -> obj.tgObj.getParentObjectName() != null)) {
+      newTableMode = PARENT_OBJ_TABLE_MODE;
+    }
+
+    cacheTableColumnWidths();
+    if (newTableMode != tableMode) {
       disposeColumns();
     }
-    smallTableMode = !bigTableRequired;
-    createColumns(bigTableRequired);
-    setShellSizeForTable(bigTableRequired);
+
+    tableMode = newTableMode;
+    createColumns(tableMode);
+    setShellSizeForTable(tableMode);
 
     tgobjTableViewer.setInput(input);
 
@@ -551,12 +564,14 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     tgobjTable.setViewer(tgobjTableViewer);
 
+    objTableModeDefaultWidth = getTgobjTableWidth(OBJ_TABLE_MODE);
+
     GridDataFactory.fillDefaults()
         .align(SWT.FILL, SWT.FILL)
         .grab(true, true)
         .minSize(200, 200)
         // start with a fixed hint
-        .hint(SMALL_TABLE_WIDTH, tgobjTableViewer.getTable().getItemHeight() * 15)
+        .hint(objTableModeDefaultWidth, tgobjTableViewer.getTable().getItemHeight() * 15)
         .applyTo(tgobjTableViewer.getTable());
 
     tgobjTableViewer.getTable().setHeaderVisible(true);
@@ -569,25 +584,40 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     createTgobjCheckedInfoSection(group);
   }
 
-  private void disposeColumns() {
-    for (var col : tgobjTableViewer.getTable().getColumns()) {
-      col.dispose();
-    }
+  private int getTgobjTableWidth(final int mode) {
+    return Stream.of(ColumnViewerSpec.values())
+        .filter(c -> mode == OBJ_TABLE_MODE ? !c.parentTagMode : true)
+        .map(c -> {
+          var colWidth = colWidths.getOrDefault(c, c.defaultWidth);
+          return colWidth < c.defaultWidth ? c.defaultWidth : colWidth;
+        })
+        .reduce(0, Integer::sum);
   }
 
-  private void createColumns(final boolean fullTable) {
+  private void disposeColumns() {
+    Stream.of(tgobjTableViewer.getTable().getColumns()).forEach(TableColumn::dispose);
+  }
+
+  private void cacheTableColumnWidths() {
+    Stream.of(tgobjTableViewer.getTable().getColumns())
+        .forEach(c -> colWidths.put((ColumnViewerSpec) c.getData(), c.getWidth()));
+  }
+
+  private void createColumns(final int tableMode) {
     if (tgobjTableViewer.getTable().getColumnCount() > 0) {
       return;
     }
 
     for (var colSpec : ColumnViewerSpec.values()) {
-      if (!fullTable && colSpec.parentTagMode) {
+      if (tableMode == OBJ_TABLE_MODE && colSpec.parentTagMode) {
         continue;
       }
       var tableColumn = new TableViewerColumn(tgobjTableViewer, SWT.NONE);
       var column = tableColumn.getColumn();
       column.setText(colSpec.headerText);
-      column.setWidth(colSpec.defaultWidth);
+
+      var width = colWidths.getOrDefault(colSpec, colSpec.defaultWidth);
+      column.setWidth(width < colSpec.defaultWidth ? colSpec.defaultWidth : width);
       column.setMoveable(false);
       column.setData(colSpec);
       tableColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
@@ -726,19 +756,14 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
   }
 
-  private void setShellSizeForTable(final boolean bigSizeRequired) {
-    // check if we need to make the screen bigger
+  private void setShellSizeForTable(final int tableMode) {
     var tableLayoutData = (GridData) tgobjTableViewer.getTable().getLayoutData();
-    if (bigSizeRequired) {
-      if (bigTableDialogWidth > 0) {
-        getShell().setSize(bigTableDialogWidth, getShell().getSize().y);
-      } else {
-        tableLayoutData.widthHint = SWT.DEFAULT;
-        getWizard().updateShellSize();
-        bigTableDialogWidth = getShell().getSize().x;
-      }
+    if (tableMode == PARENT_OBJ_TABLE_MODE) {
+      tableLayoutData.widthHint = SWT.DEFAULT;
+      getWizard().updateShellSize();
     } else {
-      var smallTableDialogWidth = getPreferredShellSize().width;
+      var userTableAdjustmentWidth = getTgobjTableWidth(OBJ_TABLE_MODE) - objTableModeDefaultWidth;
+      var smallTableDialogWidth = getPreferredShellSize().width + userTableAdjustmentWidth;
       if (smallTableDialogWidth > 0) {
         getShell().setSize(smallTableDialogWidth, getShell().getSize().y);
       }
