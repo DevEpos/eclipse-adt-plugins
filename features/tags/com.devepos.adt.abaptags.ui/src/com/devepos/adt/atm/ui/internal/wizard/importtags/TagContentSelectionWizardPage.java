@@ -315,6 +315,13 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
           setErrorMessage("Content in the imported file is not valid ABAP Tags content");
         } else {
           contentForImport = (IAbapTagsContent) root;
+          var destinationOwner = DestinationUtil.getDestinationOwner(getWizard().getProject());
+          contentForImport.getTags()
+              .removeAll(contentForImport.getTags()
+                  .stream()
+                  .filter(t -> !StringUtil.isEmpty(t.getOwner())
+                      && !destinationOwner.equals(t.getOwner()))
+                  .collect(Collectors.toList()));
           setTreeInput();
           validatePage(null);
         }
