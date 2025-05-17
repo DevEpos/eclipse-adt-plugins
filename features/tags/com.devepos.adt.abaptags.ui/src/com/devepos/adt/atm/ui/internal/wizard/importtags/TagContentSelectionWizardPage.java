@@ -4,6 +4,7 @@ import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,6 +71,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public static final String PAGE_NAME = TagContentSelectionWizardPage.class.getCanonicalName();
   private static final int SMALL_TABLE_WIDTH = 410;
 
+  private static DecimalFormat SELECTION_FORMAT = new DecimalFormat("###,###");
+
   private IAbapTagsContent contentForImport;
   private final List<CheckableTaggedObjectInfo> taggedObjects = new ArrayList<>();
   private String selectedTagId;
@@ -84,12 +87,13 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private ToolBar treeToolBar;
   private ToolBar tableToolBar;
   private Label treeSelectionInfo;
-  private Label tableSelectionInfo;
+  private Label tgobjOfCurrentTagCheckInfo;
   private SelectTagSubtreeAction selectSubTreeAction;
   private Button includeSharedUserInfo;
 
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
+  private Label overallTgobjCheckInfo;
 
   public TagContentSelectionWizardPage() {
     super(PAGE_NAME);
@@ -353,6 +357,11 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tgobjTableViewer.setAllChecked(checked);
     ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput())
         .forEach(el -> el.checked = checked);
+
+    if (checked && !tagTree.getCheckedTags().contains(selectedTag)) {
+      tagTree.setTagChecked(selectedTag, true, false);
+      propagateTagCheckedStateToParents(selectedTag, true);
+    }
   }
 
   private void onTgobjCheckStateChanged(final CheckableTaggedObjectInfo checkableTgobj,
@@ -444,14 +453,25 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     selectSubTreeAction.setPostRunHandler(() -> validatePage(null));
   }
 
-  private void createTreeSelectionInfo(final Composite parent) {
+  private void createTagsCheckedInfoSection(final Composite parent) {
     treeSelectionInfo = new Label(parent, SWT.NONE);
     GridDataFactory.fillDefaults().applyTo(treeSelectionInfo);
   }
 
-  private void createTableSelectionInfo(final Composite parent) {
-    tableSelectionInfo = new Label(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().applyTo(tableSelectionInfo);
+  private void createTgobjCheckedInfoSection(final Composite parent) {
+    var labelComp = new Composite(parent, SWT.NONE);
+    GridDataFactory.fillDefaults().applyTo(labelComp);
+    GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).equalWidth(true).applyTo(labelComp);
+    tgobjOfCurrentTagCheckInfo = new Label(labelComp, SWT.NONE);
+    GridDataFactory.fillDefaults()
+        .align(SWT.BEGINNING, SWT.CENTER)
+        .applyTo(tgobjOfCurrentTagCheckInfo);
+
+    overallTgobjCheckInfo = new Label(labelComp, SWT.NONE);
+    GridDataFactory.fillDefaults()
+        .align(SWT.END, SWT.CENTER)
+        .grab(true, false)
+        .applyTo(overallTgobjCheckInfo);
   }
 
   private void createTagsTree(final Composite parent) {
@@ -499,7 +519,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     });
     tagTree.addKeyListenerForFilterFocus();
 
-    createTreeSelectionInfo(group);
+    createTagsCheckedInfoSection(group);
   }
 
   private void createTgobjTable(final Composite parent) {
@@ -546,7 +566,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tgobjTableViewer.addCheckStateListener(
         e -> onTgobjCheckStateChanged((CheckableTaggedObjectInfo) e.getElement(), e.getChecked()));
 
-    createTableSelectionInfo(group);
+    createTgobjCheckedInfoSection(group);
   }
 
   private void disposeColumns() {
@@ -738,14 +758,24 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void updateTgobjTableCheckedLabel() {
-    if (tableSelectionInfo == null) {
+    if (tgobjOfCurrentTagCheckInfo == null) {
       return;
     }
     var checkedCount = tgobjTableViewer.getCheckedElements().length;
-    tableSelectionInfo.setText(String.format("%s Object%s %s",
-        checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
+
+    tgobjOfCurrentTagCheckInfo.setText(String.format("%s Object%s %s",
+        checkedCount == 0 ? Messages.General_No_xlbl : SELECTION_FORMAT.format(checkedCount),
         checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
+
+    var overallCheckedCount = taggedObjects.stream().filter(o -> o.checked).count();
+    overallTgobjCheckInfo.setText(String.format("(%s Object%s %s overall)",
+        overallCheckedCount == 0 ? Messages.General_No_xlbl
+            : SELECTION_FORMAT.format(overallCheckedCount),
+        overallCheckedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+        Messages.DeleteTagsWizardPage_Selected_xlbl));
+
+    tgobjOfCurrentTagCheckInfo.getParent().layout();
   }
 
   private void setToolbarEnabled(final boolean enabled) {
