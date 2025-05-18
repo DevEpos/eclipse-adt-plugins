@@ -168,17 +168,23 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     var importRequest = IAbapTagsFactory.eINSTANCE.createTagImportRequest();
     var checkedTags = tagTree.getCheckedTags();
     var checkedUserTagIds = new HashSet<String>();
+    var includeShared = includeSharedUserInfo.getSelection();
 
     contentForImport.getTags().stream().filter(t -> checkedTags.contains(t)).forEach(t -> {
       if (!StringUtil.isEmpty(t.getOwner())) {
         checkedUserTagIds.add(t.getId());
       }
-      importRequest.getTags().add(cloneTagWithChkChildren(t, checkedTags));
+      importRequest.getTags().add(cloneTagWithChkChildren(t, checkedTags, includeShared));
     });
     taggedObjects.stream().filter(t -> t.checked).forEach(tgobj -> {
       importRequest.getTaggedObjectInfos().add(tgobj.tgObj);
     });
-    if (includeSharedUserInfo.getSelection()) {
+
+    // REVISIT: filter out users not contained in the target project
+    // final var systemInfo = AbapCore.getInstance()
+    // .getAbapSystemInfo(DestinationUtil.getDestinationId(getWizard().getProject()));
+    // var users = systemInfo.getUsers(new NullProgressMonitor(), "*", 50); //$NON-NLS-1$
+    if (includeShared) {
       importRequest.getSharedTags()
           .addAll(contentForImport.getSharedTags()
               .stream()
@@ -223,7 +229,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   }
 
-  private ITag cloneTagWithChkChildren(final ITag t, final Set<ITag> checkedTags) {
+  private ITag cloneTagWithChkChildren(final ITag t, final Set<ITag> checkedTags,
+      final boolean includeShared) {
     var tag = IAbapTagsFactory.eINSTANCE.createTag();
     tag.setId(t.getId());
     tag.setName(t.getName());
@@ -234,12 +241,13 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tag.setChangedDateTime(t.getChangedDateTime());
     tag.setOwner(t.getOwner());
     tag.setDescription(t.getDescription());
-    tag.setSharedForMe(t.isSharedForMe());
-    t.getChildTags().forEach(child -> {
-      if (checkedTags.contains(child)) {
-        tag.getChildTags().add(cloneTagWithChkChildren(child, checkedTags));
-      }
-    });
+    if (t.isShared() && includeShared) {
+      tag.setShared(true);
+    }
+    t.getChildTags()
+        .stream()
+        .filter(c -> checkedTags.contains(c))
+        .forEach(c -> tag.getChildTags().add(cloneTagWithChkChildren(c, checkedTags, false)));
     return tag;
   }
 
