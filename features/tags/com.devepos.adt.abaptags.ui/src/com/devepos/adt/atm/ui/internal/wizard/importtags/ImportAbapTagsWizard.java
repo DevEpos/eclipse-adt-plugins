@@ -1,6 +1,7 @@
 package com.devepos.adt.atm.ui.internal.wizard.importtags;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -8,9 +9,15 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -109,18 +116,21 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
       });
 
       var status = importStatus.get();
-      if ((status == null) || status.isOK()) {
-        return true;
-      }
+
       /**
        * TODO: prepare custom dialog to show the import result i.e. list of objects that have been
        * imported or not
        */
       Display.getDefault().asyncExec(() -> {
-        MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-            "Import Error", status.getMessage());
+        if (status.isOK()) {
+          showImportResultDialog(status.getMessage());
+        } else {
+          MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+              "ABAP Tags Import Error", status.getMessage());
+        }
       });
-      return false;
+
+      return status.isOK();
     } catch (final InvocationTargetException e) {
       Display.getDefault().asyncExec(() -> {
         final var message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
@@ -130,6 +140,59 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
     } catch (final InterruptedException e) {
       return false;
     }
+  }
+
+  private void showImportResultDialog(final String importStatusMessage) {
+    var dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+        "ABAP Tags Import", null, "ABAP Tags Import has been completed", MessageDialog.INFORMATION,
+        0, new String[] { "Ok" }) {
+
+      private Font boldFont;
+
+      public void dispose() {
+        boldFont.dispose();
+      }
+
+      @Override
+      protected Control createCustomArea(final Composite parent) {
+        var statsComposite = new Composite(parent, SWT.NONE);
+        GridDataFactory.fillDefaults().grab(true, true).applyTo(statsComposite);
+        GridLayoutFactory.swtDefaults()
+            .numColumns(2)
+            .margins(0, 0)
+            .spacing(20, SWT.DEFAULT)
+            .applyTo(statsComposite);
+
+        var titleLabel = new Label(statsComposite, SWT.NONE);
+        GridDataFactory.fillDefaults().span(2, 1).hint(SWT.DEFAULT, 30).applyTo(titleLabel);
+        titleLabel.setText("Import Statistics");
+
+        var fontData = titleLabel.getFont().getFontData();
+        for (var fd : fontData) {
+          fd.setStyle(SWT.BOLD);
+        }
+
+        boldFont = new Font(getShell().getDisplay(), fontData);
+        titleLabel.setFont(boldFont);
+
+        // create labels for statistics
+        for (var stat : importStatusMessage.split(";")) {
+          var textAndValue = stat.split("@@");
+          var statNameLabel = new Label(statsComposite, SWT.NONE);
+          GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(statNameLabel);
+          statNameLabel.setText(textAndValue[0]);
+
+          var statValueLabel = new Label(statsComposite, SWT.NONE);
+          GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).applyTo(statValueLabel);
+          statValueLabel
+              .setText(new DecimalFormat("###,###").format(Integer.parseInt(textAndValue[1])));
+        }
+        return statsComposite;
+      }
+
+    };
+    dialog.open();
+    dialog.dispose();
   }
 
 }

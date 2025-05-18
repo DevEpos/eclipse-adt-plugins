@@ -23,6 +23,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
+import com.devepos.adt.base.content.PlainTextContentHandler;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
@@ -62,13 +63,14 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
     final var restResource = AdtRestResourceFactory.createRestResourceFactory()
         .createRestResource(uriDiscovery.getTagImportUri(), session);
     restResource.addContentHandler(new TagImportRequestContentHandler());
+    restResource.addContentHandler(new PlainTextContentHandler());
 
     try {
-      restResource.post(null, null, request);
+      var resultInfo = restResource.post(null, String.class, request);
+      return new Status(IStatus.OK, AbapTagsPlugin.PLUGIN_ID, resultInfo);
     } catch (ResourceException exc) {
       return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
     }
-    return Status.OK_STATUS;
   }
 
   @Override
