@@ -266,8 +266,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     }).toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
-      var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
-      treeContentProvider.setVisbleTagScope(TagSearchScope.getByName(selectedScope.toUpperCase()));
+      var selectedScopeId = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
+      var selectedScope = TagSearchScope.getByName(selectedScopeId.toUpperCase());
+      treeContentProvider.setVisbleTagScope(selectedScope);
+      tagSelectionTree.setTagSearchScope(selectedScope);
       tagSelectionTree.refresh();
       tagSelectionTree.setCheckedElementsInTree();
     });

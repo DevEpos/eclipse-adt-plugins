@@ -382,9 +382,19 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     if (selectedTagId == null) {
       return;
     }
-    tgobjTableViewer.setAllChecked(checked);
-    ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput())
-        .forEach(el -> el.checked = checked);
+
+    if (StringUtil.isEmpty(tgobjTable.getFilterString())) {
+      tgobjTableViewer.setAllChecked(checked);
+      ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput())
+          .forEach(el -> el.checked = checked);
+    } else {
+      // select only filtered objects
+      for (var visibleRow : tgobjTableViewer.getTable().getItems()) {
+        var rowObject = (CheckableTaggedObjectInfo) visibleRow.getData();
+        rowObject.checked = checked;
+        tgobjTableViewer.setChecked(rowObject, checked);
+      }
+    }
 
     if (checked && !tagTree.getCheckedTags().contains(selectedTag)) {
       tagTree.setTagChecked(selectedTag, true, false);
@@ -525,6 +535,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     };
 
     treeLabelProvider = new TreeViewerLabelProvider();
+    treeLabelProvider.setMarkOwnSharedTags(true);
     treeContentProvider = new TagTreeContentProvider();
     tagTree.setContentProvider(treeContentProvider);
     tagTree.setLabelProvider(treeLabelProvider);
@@ -664,8 +675,10 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         .toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
-      var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
-      treeContentProvider.setVisbleTagScope(TagSearchScope.getByName(selectedScope.toUpperCase()));
+      var selectedScopeId = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
+      var selectedScope = TagSearchScope.getByName(selectedScopeId.toUpperCase());
+      treeContentProvider.setVisbleTagScope(selectedScope);
+      tagTree.setTagSearchScope(selectedScope);
       tagTree.refresh();
       tagTree.setCheckedElementsInTree();
     });

@@ -3,6 +3,7 @@ package com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion;
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,6 +68,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
   private final Map<String, DeletableTaggedObject> taggedObjectsById = new HashMap<>();
   private final Set<DeletableTaggedObject> checkedTaggedObjects = new HashSet<>();
   private final Set<DeletableTaggedObject> undeletableTaggedObjects = new HashSet<>();
+  private final DecimalFormat objectCountFormat = new DecimalFormat("###,###");
 
   protected DeleteTaggedObjectsWizardPage() {
     super(PAGE_NAME);
@@ -521,9 +523,17 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
   }
 
   private void uncheckAllObjects(final boolean skipValidation) {
-    checkedTaggedObjects.clear();
-    for (var object : taggedObjects) {
-      object.uncheckChildren();
+    if (StringUtil.isEmpty(taggedObjectsTable.getFilterString())) {
+      checkedTaggedObjects.clear();
+      for (var object : taggedObjects) {
+        object.uncheckChildren();
+      }
+    } else {
+      for (var visibleRow : taggedObjectsViewer.getTable().getItems()) {
+        var rowObject = (DeletableTaggedObject) visibleRow.getData();
+        checkedTaggedObjects.remove(rowObject);
+        rowObject.uncheckChildren();
+      }
     }
     taggedObjectsViewer.setAllChecked(false);
     taggedObjectsViewer.refresh();
@@ -539,11 +549,13 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(
-        String.format(Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg,
-            checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
-            checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
-            Messages.DeleteTagsWizardPage_Selected_xlbl));
+    selectionInfo
+        .setText(
+            String.format(Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg,
+                checkedCount == 0 ? Messages.General_No_xlbl
+                    : objectCountFormat.format(checkedCount),
+                checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.DeleteTagsWizardPage_Selected_xlbl));
   }
 
   private void updatePageStatus(final IStatus pageStatus) {
