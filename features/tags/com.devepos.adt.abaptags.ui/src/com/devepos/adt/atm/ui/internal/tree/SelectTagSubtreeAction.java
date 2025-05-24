@@ -37,12 +37,8 @@ public class SelectTagSubtreeAction extends Action {
   public boolean hasTreeValidSelectionForAction() {
     var selection = tagTree.getSelection();
 
-    return Stream.of(selection.toArray()).allMatch(selObj -> {
-      if (selObj instanceof ITag) {
-        return !((ITag) selObj).getChildTags().isEmpty();
-      }
-      return false;
-    });
+    return Stream.of(selection.toArray())
+        .allMatch(selObj -> selObj instanceof ITag && !((ITag) selObj).getChildTags().isEmpty());
   }
 
   @Override
@@ -50,9 +46,7 @@ public class SelectTagSubtreeAction extends Action {
     var selectedTags = tagTree.getSelection();
     for (var selObj : selectedTags.toArray()) {
       var selTag = (ITag) selObj;
-      if (!selTag.getChildTags().isEmpty()) {
-        tagTree.setTagChecked(selTag, true, true);
-      }
+      tagTree.setTagChecked(selTag, true, true);
     }
 
     if (postRun != null) {
