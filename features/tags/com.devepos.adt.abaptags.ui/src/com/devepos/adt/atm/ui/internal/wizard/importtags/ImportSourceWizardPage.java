@@ -125,10 +125,6 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
       getWizard().completePreviousPage(this);
     }
     super.setVisible(visible);
-
-    if (visible) {
-      setPreferredShellSize();
-    }
   }
 
   private void createTargetProjectSection(final Composite parent) {
