@@ -257,7 +257,7 @@ public class TaggedObjectSearchPage extends DialogPage
 
     uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
-      tagsTree.setCheckedTags(null);
+      tagsTree.uncheckAll();
       updateOKStatus();
     }));
   }

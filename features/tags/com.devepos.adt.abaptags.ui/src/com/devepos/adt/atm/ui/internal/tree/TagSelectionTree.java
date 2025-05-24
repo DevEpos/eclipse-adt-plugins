@@ -20,6 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
@@ -179,6 +180,10 @@ public class TagSelectionTree {
     tree.resetFilter();
   }
 
+  public void selectItem(final ITag tag) {
+    viewer.setSelection(new StructuredSelection(tag), true);
+  }
+
   public void selectFirstItem() {
     if (!isTreeOnline() || viewer.getInput() == null) {
       return;
@@ -197,12 +202,7 @@ public class TagSelectionTree {
 
   public void checkAll() {
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
-      // select only filtered objects
-      for (var visibleNode : viewer.getTree().getItems()) {
-        var nodeObject = visibleNode.getData();
-        checkedTags.add((ITag) nodeObject);
-        setTagChildrenCheckedRecursive((ITag) nodeObject, true);
-      }
+      setItemsCheckedState(viewer.getTree().getItems(), true);
     } else {
       checkedTags.clear();
       for (var tag : tagList) {
@@ -220,21 +220,16 @@ public class TagSelectionTree {
     }
   }
 
-  public void setCheckedTags(final List<ITag> tags) {
+  public void uncheckAll() {
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
-      for (var visibleNode : viewer.getTree().getItems()) {
-        checkedTags.remove(visibleNode.getData());
-      }
+      setItemsCheckedState(viewer.getTree().getItems(), false);
     } else {
       checkedTags.clear();
+      for (var currentlyChecked : viewer.getCheckedElements()) {
+        viewer.setChecked(currentlyChecked, false);
+      }
     }
-    if (tags != null) {
-      checkedTags.addAll(tags);
-    }
-    if (isTreeOnline()) {
-      uncheckAllTags();
-      setCheckedElementsInTree();
-    }
+    setCheckedElementsInTree();
   }
 
   /**
@@ -350,16 +345,15 @@ public class TagSelectionTree {
     GridDataFactory.fillDefaults().grab(true, true).hint(300, 350).applyTo(tree);
   }
 
-  private void uncheckAllTags() {
-    if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
-      // select only filtered objects
-      for (var visibleNode : viewer.getTree().getItems()) {
-        viewer.setChecked(visibleNode.getData(), false);
+  private void setItemsCheckedState(final TreeItem[] items, final boolean state) {
+    for (var item : items) {
+      if (state) {
+        checkedTags.add((ITag) item.getData());
+      } else {
+        checkedTags.remove(item.getData());
+        viewer.setChecked(item.getData(), false);
       }
-    } else {
-      for (var currentlyChecked : viewer.getCheckedElements()) {
-        viewer.setChecked(currentlyChecked, false);
-      }
+      setItemsCheckedState(item.getItems(), state);
     }
   }
 

@@ -190,7 +190,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         wizard.setProject(newProject);
         if (newProject != oldProject
             || tagSelectionTree != null && !tagSelectionTree.hasViewerInput()) {
-          tagSelectionTree.setCheckedTags(null);
+          tagSelectionTree.uncheckAll();
           refreshTags();
         }
       } else {
@@ -311,7 +311,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
-      tagSelectionTree.setCheckedTags(null);
+      tagSelectionTree.uncheckAll();
       validatePage(null, ValidationSource.TAGS);
     }));
 

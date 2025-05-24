@@ -429,6 +429,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void onTagCheckStateChanged(final ITag tag, final boolean state) {
+    tagTree.selectItem(tag);
     propagateTagCheckedStateToParents(tag, state);
 
     syncTagCheckedStateToTgObj();
@@ -722,7 +723,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
-      tagTree.setCheckedTags(null);
+      tagTree.uncheckAll();
       syncTagCheckedStateToTgObj();
       tgobjTableViewer.setAllChecked(false);
       validatePage(null);
