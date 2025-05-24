@@ -2,6 +2,8 @@
  */
 package com.devepos.adt.atm.model.abaptags;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 
@@ -43,6 +45,13 @@ public interface ITag extends ITagBase {
    * @return {@code true} if the tag is editable
    */
   boolean isEditable();
+
+  /**
+   * Retrieves children in a recursive manner
+   * 
+   * @return all children of this tag including
+   */
+  List<ITag> getDeepChildTags();
 
   /**
    * Validates this tag

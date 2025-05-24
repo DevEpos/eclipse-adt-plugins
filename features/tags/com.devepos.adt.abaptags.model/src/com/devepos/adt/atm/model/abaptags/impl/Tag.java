@@ -2,7 +2,9 @@
  */
 package com.devepos.adt.atm.model.abaptags.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -307,6 +309,24 @@ public class Tag extends TagBase implements ITag {
     return !isSharedForMe();
   }
 
+  @Override
+  public List<ITag> getDeepChildTags() {
+    List<ITag> children = new ArrayList<>();
+    var current = new ArrayList<ITag>(getChildTags());
+    var temp = new ArrayList<ITag>();
+
+    while (current != null && !current.isEmpty()) {
+      for (var child : current) {
+        children.add(child);
+        temp.addAll(child.getChildTags());
+      }
+      current.clear();
+      current.addAll(temp);
+      temp.clear();
+    }
+    return children;
+  }
+
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -340,8 +360,7 @@ public class Tag extends TagBase implements ITag {
   @Override
   public EList<ITag> getChildTags() {
     if (childTags == null) {
-      childTags = new EObjectContainmentEList<>(ITag.class, this,
-          IAbapTagsPackage.TAG__CHILD_TAGS);
+      childTags = new EObjectContainmentEList<>(ITag.class, this, IAbapTagsPackage.TAG__CHILD_TAGS);
     }
     return childTags;
   }
