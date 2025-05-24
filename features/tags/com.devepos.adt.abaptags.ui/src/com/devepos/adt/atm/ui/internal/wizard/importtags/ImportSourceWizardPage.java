@@ -23,6 +23,7 @@ import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.RadioProjectInput;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
@@ -196,11 +197,12 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
     });
     // add additional check to verify that source project does not equal the target project
     sourceProjectInput.addProjectValidator(p -> {
-      // TODO: re-include check before commit
-      // if (targetProjectInput.getProjectProvider().getProject() == p) {
-      // return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
-      // "Target Project must not be equal to the source project");
-      // }
+      if (DestinationUtil.getSystemId(DestinationUtil.getDestinationId(p))
+          .equals(DestinationUtil.getSystemId(DestinationUtil
+              .getDestinationId(targetProjectInput.getProjectProvider().getProject())))) {
+        return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
+            "Target project must not be equal to the source project");
+      }
       return Status.OK_STATUS;
     });
 
