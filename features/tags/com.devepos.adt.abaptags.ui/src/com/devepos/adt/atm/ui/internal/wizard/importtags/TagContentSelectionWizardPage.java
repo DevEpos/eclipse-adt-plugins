@@ -227,7 +227,6 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     if (visible && !taggedObjects.isEmpty()) {
       setShellSizeForTable(OBJ_TABLE_MODE);
-      getWizard().updateShellSize();
     }
 
   }

@@ -216,7 +216,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
   @Override
   public void setVisible(final boolean visible) {
     var wizard = getWizard();
-    var setPreferredSize = true;
     final boolean previousPageIsDirty = wizard.isPreviousPageDirty(this);
     if (visible && (!isPageComplete() || previousPageIsDirty || taggedObjects == null
         || taggedObjects.isEmpty())) {
@@ -235,10 +234,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       } else if (!objectListRequest.getTagIds().isEmpty()
           || !objectListRequest.getTaggedObjectIds().isEmpty()
           || !objectListRequest.getTaggedObjectInfos().isEmpty()) {
-        if (wizard.getPreviousPage(this) != null) {
-          storePreferredShellSize();
-          setPreferredSize = false;
-        }
         runDeletionCheck();
       }
     } else {
@@ -249,8 +244,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
     super.setVisible(visible);
 
-    if (setPreferredSize) {
-      setPreferredShellSize();
+    if (visible) {
+      getWizard().updateShellSize();
     }
   }
 
@@ -521,8 +516,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       column.pack();
       column.setWidth(column.getWidth() + 7);
     }
-
-    getWizard().updateShellSize();
 
     if (!taggedObjects.isEmpty()) {
       taggedObjectsViewer.getTable().setSelection(0);
