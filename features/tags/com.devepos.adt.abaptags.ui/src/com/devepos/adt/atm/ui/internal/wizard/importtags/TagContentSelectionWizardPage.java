@@ -211,6 +211,9 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         tgobjTable.resetFilter();
         tagTree.setTags(null, false);
         taggedObjects.clear();
+        if (tagTypeCombo != null) {
+          tagTypeCombo.select(0);
+        }
       }
       getWizard().completePreviousPage(this);
       if (taggedObjects.isEmpty()) {
@@ -489,7 +492,11 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createActions() {
     selectSubTreeAction = new SelectTagSubtreeAction(tagTree);
-    selectSubTreeAction.setPostRunHandler(() -> validatePage(null));
+    selectSubTreeAction.setPostRunHandler(() -> {
+      tgobjTableViewer.setAllChecked(true);
+      syncTagCheckedStateToTgObj();
+      validatePage(null);
+    });
   }
 
   private void createTagsCheckedInfoSection(final Composite parent) {
