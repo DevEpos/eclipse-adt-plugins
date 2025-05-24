@@ -76,9 +76,10 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private static DecimalFormat SELECTION_FORMAT = new DecimalFormat("###,###");
   private static int OBJ_TABLE_MODE = 1;
   private static int PARENT_OBJ_TABLE_MODE = 2;
+  private static final List<CheckableTaggedObjectInfo> EMPTY_TGOBJ_LIST = new ArrayList<>();
 
   private IAbapTagsContent contentForImport;
-  private final List<CheckableTaggedObjectInfo> taggedObjects = new ArrayList<>();
+  private final Map<String, List<CheckableTaggedObjectInfo>> taggedObjects = new HashMap<>();
   private String selectedTagId;
   private ITag selectedTag;
   private int tableMode = OBJ_TABLE_MODE;
@@ -176,9 +177,13 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       }
       importRequest.getTags().add(cloneTagWithChkChildren(t, checkedTags, includeShared));
     });
-    taggedObjects.stream().filter(t -> t.checked).forEach(tgobj -> {
-      importRequest.getTaggedObjectInfos().add(tgobj.tgObj);
-    });
+    taggedObjects.values()
+        .stream()
+        .flatMap(List::stream)
+        .filter(CheckableTaggedObjectInfo::isChecked)
+        .forEach(tgobj -> {
+          importRequest.getTaggedObjectInfos().add(tgobj.getTgobj());
+        });
 
     // REVISIT: filter out users not contained in the target project
     // final var systemInfo = AbapCore.getInstance()
@@ -261,21 +266,45 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       loadTagsFromProject(wizard.getSourceProject());
     }
 
+    var tgobjWithoutParents = new HashMap<String, CheckableTaggedObjectInfo>();
     taggedObjects.clear();
-    taggedObjects.addAll(contentForImport.getTaggedObjectInfos().stream().map(tgobj -> {
-      var checkableTgobj = new CheckableTaggedObjectInfo();
-      checkableTgobj.tgObj = tgobj;
+    var checkableTgobjs = contentForImport.getTaggedObjectInfos().stream().map(tgobj -> {
+      var checkableTgobj = new CheckableTaggedObjectInfo(tgobj);
+      if (StringUtil.isEmpty(tgobj.getParentObjectName())
+          && StringUtil.isEmpty(tgobj.getComponentName())) {
+        tgobjWithoutParents.put(checkableTgobj.getKey(), checkableTgobj);
+      }
       return checkableTgobj;
     }).sorted((el1, el2) -> {
-      var obj1 = el1.tgObj;
-      var obj2 = el2.tgObj;
+      var obj1 = el1.getTgobj();
+      var obj2 = el2.getTgobj();
 
       var result = obj1.getObjectType().compareTo(obj2.getObjectType());
       if (result != 0) {
         return result;
       }
       return obj1.getObjectName().compareTo(obj2.getObjectName());
-    }).collect(Collectors.toList()));
+    }).collect(Collectors.toList());
+
+    var invalidObjects = new HashSet<CheckableTaggedObjectInfo>();
+    checkableTgobjs.forEach(o -> {
+      if (o.hasParentObject()) {
+        var parent = tgobjWithoutParents.get(o.getParentKey());
+        if (parent != null) {
+          o.setParent(parent);
+          parent.addChild(o);
+        } else {
+          invalidObjects.add(o);
+        }
+      }
+    });
+
+    if (!invalidObjects.isEmpty()) {
+      checkableTgobjs.removeAll(invalidObjects);
+    }
+
+    taggedObjects.putAll(checkableTgobjs.stream()
+        .collect(Collectors.groupingBy(CheckableTaggedObjectInfo::getTagId)));
   }
 
   /**
@@ -352,13 +381,13 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void setTgobjInput() {
-    // REVISIT: cache the already filtered objects
-    var input = taggedObjects.stream()
-        .filter(o -> o.tgObj.getTagId().equals(selectedTagId))
-        .collect(Collectors.toList());
+    var input = taggedObjects.get(selectedTagId);
+    if (input == null) {
+      input = EMPTY_TGOBJ_LIST;
+    }
 
     var newTableMode = OBJ_TABLE_MODE;
-    if (input.stream().anyMatch(obj -> obj.tgObj.getParentObjectName() != null)) {
+    if (input.stream().anyMatch(CheckableTaggedObjectInfo::hasParentObject)) {
       newTableMode = PARENT_OBJ_TABLE_MODE;
     }
 
@@ -374,8 +403,10 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tgobjTableViewer.setInput(input);
 
     // update checked state
-    tgobjTableViewer.setCheckedElements(
-        input.stream().filter(el -> el.checked).collect(Collectors.toList()).toArray());
+    tgobjTableViewer.setCheckedElements(input.stream()
+        .filter(CheckableTaggedObjectInfo::isChecked)
+        .collect(Collectors.toList())
+        .toArray());
 
   }
 
@@ -388,12 +419,12 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     if (StringUtil.isEmpty(tgobjTable.getFilterString())) {
       tgobjTableViewer.setAllChecked(checked);
       ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput())
-          .forEach(el -> el.checked = checked);
+          .forEach(el -> el.setChecked(checked));
     } else {
       // select only filtered objects
       for (var visibleRow : tgobjTableViewer.getTable().getItems()) {
         var rowObject = (CheckableTaggedObjectInfo) visibleRow.getData();
-        rowObject.checked = checked;
+        rowObject.setChecked(checked);
         tgobjTableViewer.setChecked(rowObject, checked);
       }
     }
@@ -406,7 +437,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void onTgobjCheckStateChanged(final CheckableTaggedObjectInfo checkableTgobj,
       final boolean state) {
-    checkableTgobj.checked = state;
+    checkableTgobj.setChecked(state);
 
     // check if current tag is checked in the tree
     if (!tagTree.getCheckedTags().contains(selectedTag)) {
@@ -447,16 +478,23 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       return;
     }
 
-    tgobjTableViewer.setCheckedElements(
-        currentInput.stream().filter(el -> el.checked).collect(Collectors.toList()).toArray());
+    tgobjTableViewer.setCheckedElements(currentInput.stream()
+        .filter(CheckableTaggedObjectInfo::isChecked)
+        .collect(Collectors.toList())
+        .toArray());
   }
 
   private void syncTagCheckedStateToTgObj() {
+    // FIXME: We can't just sync the checked state of all checked tags back to the tagged objects,
+    // otherwise the unchecked objects will just be checked again. We have to determine the current
     var checkedTags = tagTree.getCheckedTags()
         .stream()
         .map(ITag::getId)
         .collect(Collectors.toSet());
-    taggedObjects.forEach(el -> el.checked = checkedTags.contains(el.tgObj.getTagId()));
+    taggedObjects.values()
+        .stream()
+        .flatMap(List::parallelStream)
+        .forEach(o -> o.setChecked(checkedTags.contains(o.getTagId()), false));
   }
 
   private void validatePage(final IStatus status) {
@@ -540,6 +578,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
             .applyTo(tree);
       }
     };
+    tagTree.setUncheckHiddenSubtrees(true);
 
     treeLabelProvider = new TreeViewerLabelProvider();
     treeLabelProvider.setMarkOwnSharedTags(true);
@@ -584,7 +623,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     };
     tgobjTable.setElementMatcher(el -> {
       var wordMatcher = tgobjTable.getWordMatcher();
-      var tgobjInfo = ((CheckableTaggedObjectInfo) el).tgObj;
+      var tgobjInfo = ((CheckableTaggedObjectInfo) el).getTgobj();
       return wordMatcher.matchesWord(tgobjInfo.getObjectName())
           || wordMatcher.matchesWord(tgobjInfo.getComponentName())
           || wordMatcher.matchesWord(tgobjInfo.getTagName())
@@ -828,7 +867,11 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
 
-    var overallCheckedCount = taggedObjects.stream().filter(o -> o.checked).count();
+    var overallCheckedCount = taggedObjects.values()
+        .stream()
+        .flatMap(List::stream)
+        .filter(CheckableTaggedObjectInfo::isChecked)
+        .count();
     overallTgobjCheckInfo.setText(String.format("(%s Object%s %s overall)",
         overallCheckedCount == 0 ? Messages.General_No_xlbl
             : SELECTION_FORMAT.format(overallCheckedCount),

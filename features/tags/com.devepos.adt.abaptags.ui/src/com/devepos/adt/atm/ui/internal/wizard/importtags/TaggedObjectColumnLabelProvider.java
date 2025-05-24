@@ -30,13 +30,13 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider
 
   @Override
   public Image getImage(final Object element) {
-    return fillNodeImage(((CheckableTaggedObjectInfo) element).tgObj);
+    return fillNodeImage(((CheckableTaggedObjectInfo) element).getTgobj());
   }
 
   @Override
   public StyledString getStyledText(final Object element) {
     var nodeText = new StyledString();
-    fillNodeText(((CheckableTaggedObjectInfo) element).tgObj, nodeText);
+    fillNodeText(((CheckableTaggedObjectInfo) element).getTgobj(), nodeText);
     return nodeText;
   }
 

@@ -38,6 +38,11 @@ import com.devepos.adt.base.util.StringUtil;
 public class TagSelectionTree {
   private IContentProvider contentProvider;
   private IStyledLabelProvider labelProvider;
+  /**
+   * If set, sub trees are unchecked as well if the parent node is unchecked, even they are
+   * currently not visible
+   */
+  private boolean uncheckHiddenSubtrees;
 
   private CheckboxTreeViewer viewer;
   private FilterableTree tree;
@@ -55,6 +60,10 @@ public class TagSelectionTree {
 
   public void addCheckStateListener(final ICheckStateListener l) {
     checkedStateListener.add(l);
+  }
+
+  public void setUncheckHiddenSubtrees(boolean state) {
+    uncheckHiddenSubtrees = state;
   }
 
   /**
@@ -202,7 +211,7 @@ public class TagSelectionTree {
 
   public void checkAll() {
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
-      setItemsCheckedState(viewer.getTree().getItems(), true);
+      setVisibleItemsCheckedState(viewer.getTree().getItems(), true);
     } else {
       checkedTags.clear();
       for (var tag : tagList) {
@@ -222,7 +231,7 @@ public class TagSelectionTree {
 
   public void uncheckAll() {
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
-      setItemsCheckedState(viewer.getTree().getItems(), false);
+      setVisibleItemsCheckedState(viewer.getTree().getItems(), false);
     } else {
       checkedTags.clear();
       for (var currentlyChecked : viewer.getCheckedElements()) {
@@ -345,15 +354,24 @@ public class TagSelectionTree {
     GridDataFactory.fillDefaults().grab(true, true).hint(300, 350).applyTo(tree);
   }
 
-  private void setItemsCheckedState(final TreeItem[] items, final boolean state) {
+  private void setVisibleItemsCheckedState(final TreeItem[] items, final boolean state) {
     for (var item : items) {
+      var tag = (ITag) item.getData();
       if (state) {
-        checkedTags.add((ITag) item.getData());
+        checkedTags.add(tag);
       } else {
-        checkedTags.remove(item.getData());
-        viewer.setChecked(item.getData(), false);
+        checkedTags.remove(tag);
+        viewer.setChecked(tag, false);
       }
-      setItemsCheckedState(item.getItems(), state);
+      if (state) {
+        setVisibleItemsCheckedState(item.getItems(), true);
+      } else {
+        if (uncheckHiddenSubtrees) {
+          setTagChildrenCheckedRecursive(tag, false);
+        } else {
+          setVisibleItemsCheckedState(item.getItems(), false);
+        }
+      }
     }
   }
 
