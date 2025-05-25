@@ -109,7 +109,6 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
     try {
       getContainer().run(true, false, monitor -> {
         monitor.beginTask("Importing ABAP Tag data", -1);
-        // TODO: run import task and collect the result of the import
         importStatus.set(AdtObjTaggingServiceFactory.createTaggingService()
             .importTags(DestinationUtil.getDestinationId(getProject()), tagsContentForImport));
         monitor.done();
@@ -118,8 +117,8 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
       var status = importStatus.get();
 
       /**
-       * TODO: prepare custom dialog to show the import result i.e. list of objects that have been
-       * imported or not
+       * REVISIT: prepare custom dialog to show the import result i.e. list of objects that have
+       * been imported or not
        */
       Display.getDefault().asyncExec(() -> {
         if (status.isOK()) {

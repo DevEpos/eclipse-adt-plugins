@@ -20,10 +20,10 @@ import com.devepos.adt.base.ui.util.AdtTypeUtil;
 class TaggedObjectColumnLabelProvider extends CellLabelProvider
     implements DelegatingStyledCellLabelProvider.IStyledLabelProvider {
 
-  protected final ColumnViewerSpec colSpec;
+  protected final CheckableTgobjColumnSpec colSpec;
   private IProject project;
 
-  public TaggedObjectColumnLabelProvider(final ColumnViewerSpec colSpec, IProject project) {
+  public TaggedObjectColumnLabelProvider(final CheckableTgobjColumnSpec colSpec, IProject project) {
     this.colSpec = colSpec;
     this.project = project;
   }

@@ -23,9 +23,9 @@ import com.devepos.adt.base.ui.util.AdtTypeUtil;
 class TaggedObjectColumnLabelProvider extends CellLabelProvider
     implements DelegatingStyledCellLabelProvider.IStyledLabelProvider, IColorProvider {
 
-  protected final ColumnViewerSpec colSpec;
+  protected final DeletableTgobjColumnSpec colSpec;
 
-  public TaggedObjectColumnLabelProvider(final ColumnViewerSpec colSpec) {
+  public TaggedObjectColumnLabelProvider(final DeletableTgobjColumnSpec colSpec) {
     this.colSpec = colSpec;
   }
 
@@ -36,7 +36,7 @@ class TaggedObjectColumnLabelProvider extends CellLabelProvider
 
   @Override
   public Color getForeground(final Object element) {
-    if (colSpec != ColumnViewerSpec.ISSUES && element instanceof DeletableTaggedObject
+    if (colSpec != DeletableTgobjColumnSpec.ISSUES && element instanceof DeletableTaggedObject
         && !((DeletableTaggedObject) element).isDeletable(true)) {
       return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
     }

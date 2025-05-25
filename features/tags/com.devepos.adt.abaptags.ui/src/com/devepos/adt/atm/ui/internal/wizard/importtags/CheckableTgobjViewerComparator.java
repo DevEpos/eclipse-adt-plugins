@@ -7,7 +7,7 @@ import org.eclipse.swt.SWT;
 import com.devepos.adt.base.util.StringUtil;
 
 public class CheckableTgobjViewerComparator extends ViewerComparator {
-  private ColumnViewerSpec col;
+  private CheckableTgobjColumnSpec col;
   private boolean isDescendingSort = false;
 
   @Override
@@ -45,7 +45,7 @@ public class CheckableTgobjViewerComparator extends ViewerComparator {
     return isDescendingSort ? SWT.DOWN : SWT.UP;
   }
 
-  public void setColumn(final ColumnViewerSpec col) {
+  public void setColumn(final CheckableTgobjColumnSpec col) {
     if (this.col == col) {
       isDescendingSort = !isDescendingSort;
     } else {

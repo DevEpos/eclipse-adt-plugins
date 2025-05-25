@@ -83,7 +83,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private String selectedTagId;
   private ITag selectedTag;
   private int tableMode = OBJ_TABLE_MODE;
-  private final Map<ColumnViewerSpec, Integer> colWidths = new HashMap<>();
+  private final Map<CheckableTgobjColumnSpec, Integer> colWidths = new HashMap<>();
   private int objTableModeDefaultWidth;
 
   private TagSelectionTree tagTree;
@@ -696,7 +696,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private int getTgobjTableWidth(final int mode) {
-    return Stream.of(ColumnViewerSpec.values())
+    return Stream.of(CheckableTgobjColumnSpec.values())
         .filter(c -> mode == OBJ_TABLE_MODE ? !c.parentTagMode : true)
         .map(c -> {
           var colWidth = colWidths.getOrDefault(c, c.defaultWidth);
@@ -711,7 +711,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void cacheTableColumnWidths() {
     Stream.of(tgobjTableViewer.getTable().getColumns())
-        .forEach(c -> colWidths.put((ColumnViewerSpec) c.getData(), c.getWidth()));
+        .forEach(c -> colWidths.put((CheckableTgobjColumnSpec) c.getData(), c.getWidth()));
   }
 
   private void createColumns(final int tableMode) {
@@ -719,7 +719,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       return;
     }
 
-    for (var colSpec : ColumnViewerSpec.values()) {
+    for (var colSpec : CheckableTgobjColumnSpec.values()) {
       if (tableMode == OBJ_TABLE_MODE && colSpec.parentTagMode) {
         continue;
       }

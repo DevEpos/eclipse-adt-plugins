@@ -238,9 +238,9 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       }
     }
 
-    for (var colSpec : ColumnViewerSpec.values()) {
-      if (colSpec == ColumnViewerSpec.PARENT_OBJECT && hideParentObjectCol
-          || colSpec == ColumnViewerSpec.PARENT_TAG && hideParentTagCol) {
+    for (var colSpec : DeletableTgobjColumnSpec.values()) {
+      if (colSpec == DeletableTgobjColumnSpec.PARENT_OBJECT && hideParentObjectCol
+          || colSpec == DeletableTgobjColumnSpec.PARENT_TAG && hideParentTagCol) {
         continue;
       }
       var tableColumn = new TableViewerColumn(taggedObjectsViewer, SWT.NONE);
@@ -438,8 +438,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
     // make column adjustments
     for (var column : taggedObjectsViewer.getTable().getColumns()) {
-      var colSpec = (ColumnViewerSpec) column.getData();
-      if (colSpec == ColumnViewerSpec.ISSUES) {
+      var colSpec = (DeletableTgobjColumnSpec) column.getData();
+      if (colSpec == DeletableTgobjColumnSpec.ISSUES) {
         continue;
       }
       column.pack();
