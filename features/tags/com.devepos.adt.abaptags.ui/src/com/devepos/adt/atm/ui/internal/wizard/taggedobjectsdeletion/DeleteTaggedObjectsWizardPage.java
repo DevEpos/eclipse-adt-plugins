@@ -21,8 +21,6 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -61,7 +59,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
   private Label selectionInfo;
   private ToolBar toolBar;
   private TaggedObjectsTable taggedObjectsTable;
-  private CustomViewerComparator comparator;
+  private DeletableTgobjViewerComparator comparator;
 
   private final IAdtObjTaggingService taggingService;
   private final ITaggedObjectSearchService searchService;
@@ -83,75 +81,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     loadTaggedChildObjectsIfAvailable = AbapTagsUIPlugin.getDefault()
         .getPreferenceStore()
         .getBoolean(IObjectTaggingPrefs.DELETION_AUTO_LOAD_ASSIGNED_CHILDREN);
-  }
-
-  private static class CustomViewerComparator extends ViewerComparator {
-    private ColumnViewerSpec col;
-    private boolean isDescendingSort = true;
-
-    @Override
-    public int compare(final Viewer viewer, final Object e1, final Object e2) {
-      var obj1 = (DeletableTaggedObject) e1;
-      var obj2 = (DeletableTaggedObject) e2;
-
-      if (col != null) {
-        switch (col) {
-        case TAG:
-          return compareStrings(concatStrings(obj1.getTagType().toString(), obj1.getTagName()),
-              concatStrings(obj2.getTagType().toString(), obj2.getTagName()));
-        case OBJECT:
-          return compareStrings(
-              concatStrings(obj1.getComponentType(), obj1.getComponentName(), obj1.getObjectType(),
-                  obj1.getObjectName()),
-              concatStrings(obj2.getComponentType(), obj2.getComponentName(), obj2.getObjectType(),
-                  obj2.getObjectName()));
-        case PARENT_TAG:
-          var parentTag1 = obj1.getParentTagName();
-          var parentTag2 = obj2.getParentTagName();
-          parentTag1 = parentTag1 != null ? concatStrings(obj1.getTagType().toString(), parentTag1)
-              : null;
-          parentTag2 = parentTag2 != null ? concatStrings(obj2.getTagType().toString(), parentTag2)
-              : null;
-          return compareStrings(parentTag1, parentTag2);
-        case PARENT_OBJECT:
-          return compareStrings(
-              concatStrings(obj1.getParentObjectType(), obj1.getParentObjectName()),
-              concatStrings(obj2.getParentObjectType(), obj2.getParentObjectName()));
-        case ISSUES:
-          return compareStrings(obj1.getMessage(), obj2.getMessage());
-        }
-      }
-
-      return 0;
-    }
-
-    public int getDirection() {
-      return isDescendingSort ? SWT.DOWN : SWT.UP;
-    }
-
-    public void setColumn(final ColumnViewerSpec col) {
-      if (this.col == col) {
-        isDescendingSort = !isDescendingSort;
-      } else {
-        isDescendingSort = true;
-      }
-      this.col = col;
-    }
-
-    private int compareStrings(final String s1, final String s2) {
-      int rc = (s1 == null ? "" : s1).compareTo(s2 == null ? "" : s2); //$NON-NLS-1$ //$NON-NLS-2$
-      return isDescendingSort ? -rc : rc;
-    }
-
-    private String concatStrings(final String... values) {
-      StringBuilder buffer = new StringBuilder();
-      for (var val : values) {
-        if (val != null) {
-          buffer.append(val);
-        }
-      }
-      return buffer.toString();
-    }
   }
 
   private class TaggedObjectsTable extends FilterableTable {
@@ -400,7 +329,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     });
 
     taggedObjectsTable.addKeyListenerForFilterFocus();
-    comparator = new CustomViewerComparator();
+    comparator = new DeletableTgobjViewerComparator();
     taggedObjectsViewer.setComparator(comparator);
   }
 
