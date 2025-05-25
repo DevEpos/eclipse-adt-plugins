@@ -4,6 +4,14 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
   private static final String BUNDLE_NAME = "com.devepos.adt.atm.ui.internal.messages.messages"; //$NON-NLS-1$
+  public static String TagContentSelectionWizardPage_IncludeSharedUserInfo_xchk;
+  public static String TagContentSelectionWizardPage_InvalidTagsFileContent_xmsg;
+  public static String TagContentSelectionWizardPage_LoadTagsFromProjectJob_xmsg;
+  public static String TagContentSelectionWizardPage_ObjectSelectionInfo_xlbl;
+  public static String TagContentSelectionWizardPage_OverallObjectSelectionInfo_xlbl;
+  public static String TagContentSelectionWizardPage_SourceFileLoadingError_xmsg;
+  public static String TagContentSelectionWizardPage_TaggedObjectsTable_xgrp;
+  public static String TagContentSelectionWizardPage_Title_xmsg;
   public static String TagSelectionWizardPage_TagNameColumn_xtit;
   public static String TaggableObjectSelectionWizardPage_Description_xmsg;
   public static String TaggableObjectSelectionWizardPage_NoObjectSelectedWarning_xmsg;
@@ -94,6 +102,8 @@ public class Messages extends NLS {
   public static String AbapTagManagerView_UpdateTagJobTitle_xmsg;
   public static String AbapTagManagerView_UserTagsFolder_xlbl;
   public static String AdtObjectRefOpenActionProvider_OpenAction_xmit;
+  public static String CheckableTgobjColumnSpec_ParentTypeCol_xlbl;
+  public static String CheckableTgobjColumnSpec_TypeCol_xlbl;
   public static String ColumnViewerSpec_IssuesColumn_xtit;
   public static String ColumnViewerSpec_ObjectColumn_xtit;
   public static String ColumnViewerSpec_ParentObjectColumn_xtit;
@@ -130,6 +140,25 @@ public class Messages extends NLS {
   public static String EditTagDataDialog_hierarchyInput_xlbl;
   public static String EditTagDataDialog_MandotoryFieldsNotFilled_xmsg;
   public static String EditTagDataDialog_NameInput_xlbl;
+  public static String ExportAbapTagsWizard_ExportingDataJob_xmsg;
+  public static String ExportAbapTagsWizard_NoTagsContentReturned_xmsg;
+  public static String ExportAbapTagsWizard_OverwriteFileQuestion_xmsg;
+  public static String ExportAbapTagsWizard_OverwriteFileQuestion_xtit;
+  public static String ExportAbapTagsWizard_Title;
+  public static String ImportAbapTagsWizard_ImportStatistics_xlbl;
+  public static String ImportAbapTagsWizard_ImportSuccess_xmsg;
+  public static String ImportAbapTagsWizard_Job_xtit;
+  public static String ImportAbapTagsWizard_JobError_xmsg;
+  public static String ImportAbapTagsWizard_Title_xtit;
+  public static String ImportSourceWizardPage_FileInput_xlbl;
+  public static String ImportSourceWizardPage_NoSourceFileSpecified_xmsg;
+  public static String ImportSourceWizardPage_NoSourceProjectSpecified_xmsg;
+  public static String ImportSourceWizardPage_ProjectInput_xlbl;
+  public static String ImportSourceWizardPage_SelectImportSource_xmsg;
+  public static String ImportSourceWizardPage_SelectSourceFileDialog_xtit;
+  public static String ImportSourceWizardPage_Source_xgrp;
+  public static String ImportSourceWizardPage_SourceFileNotExisting_xmsg;
+  public static String ImportSourceWizardPage_TargetProjectEqualsSource_xmsg;
   public static String MainPreferencesPage_InfoLabel_xlbl;
   public static String ObjectLabelDecorationMenu_DisplayDescription_xckl;
   public static String ObjectLabelDecorationMenu_DisplayPackage_xckl;
@@ -168,10 +197,14 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_AddUserTag_xbut;
   public static String TagSelectionWizardPage_CollapseAll_xbut;
   public static String TagSelectionWizardPage_ExpandAll_xbut;
+  public static String TagSelectionWizardPage_IncludeSharedUserInfo_xchk;
   public static String TagSelectionWizardPage_NewTagDefaultName_xmsg;
   public static String TagSelectionWizardPage_NoTagsSelectedInfo_xmsg;
   public static String TagSelectionWizardPage_OnlyIncludeDeletedObjects_xchk;
+  public static String TagSelectionWizardPage_OverwriteExisting_xchk;
   public static String TagSelectionWizardPage_RemoveTag_xbut;
+  public static String TagSelectionWizardPage_RetrieveTagsContentJob_xmsg;
+  public static String TagSelectionWizardPage_SelectFileInfo_xmsg;
   public static String TagSelectionWizardPage_SelectionOptions_xgrp;
   public static String TagSelectionWizardPage_SelectionPage_xtit;
   public static String TagSelectionWizardPage_SelectSubTreeAction_xmit;
@@ -186,6 +219,9 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_TagSelectionFormat_xmsg;
   public static String TagSelectionWizardPage_TagSelectionNotReversable_xmsg;
   public static String TagSelectionWizardPage_TagsTreeGroup_xtit;
+  public static String TagSelectionWizardPage_Target_xgrp;
+  public static String TagSelectionWizardPage_TargetFile_xlbl;
+  public static String TagSelectionWizardPage_Title_xmsg;
   public static String TagSelectionWizardPage_Title_xtit;
   public static String TypeLabels_LocalClass_xlbl;
   public static String TypeLabels_LocalInterface_xlbl;

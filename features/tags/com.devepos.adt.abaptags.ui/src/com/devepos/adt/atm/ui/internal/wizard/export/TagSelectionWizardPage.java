@@ -77,7 +77,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   public TagSelectionWizardPage() {
     super(PAGE_NAME);
-    setTitle("Export ABAP Tags");
+    setTitle(Messages.TagSelectionWizardPage_Title_xmsg);
     tagsService = AbapTagsServiceFactory.createTagsService();
     taggingService = AdtObjTaggingServiceFactory.createTaggingService();
   }
@@ -214,19 +214,21 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createTargetFileSection(final Composite parent) {
     var group = new Group(parent, SWT.NONE);
-    group.setText("Target");
+    group.setText(Messages.TagSelectionWizardPage_Target_xgrp);
     GridLayoutFactory.swtDefaults().numColumns(3).applyTo(group);
     GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(group);
 
     var label = new Label(group, SWT.NONE);
-    label.setText("To file:");
+    label.setText(Messages.TagSelectionWizardPage_TargetFile_xlbl);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(label);
 
     fileInput = new Text(group, SWT.BORDER | SWT.READ_ONLY);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(fileInput);
 
     var browseButton = new Button(group, SWT.PUSH);
-    browseButton.setText("Bro&wse...");
+    browseButton.setText(
+        StringUtil.setMnemonic(AdtBaseUIResources.getString(IAdtBaseStrings.Browse_xbtn), "w") + //$NON-NLS-1$
+            "..."); //$NON-NLS-1$
     browseButton.addSelectionListener(widgetSelectedAdapter(l -> {
       var fileDialog = new FileDialog(getShell(), SWT.SAVE);
       if (!StringUtil.isEmpty(fileInput.getText())) {
@@ -250,7 +252,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     AdtSWTUtilFactory.getOrCreateSWTUtil().setButtonWidthHint(browseButton);
 
     overwriteFileWithoutWarning = new Button(group, SWT.CHECK);
-    overwriteFileWithoutWarning.setText("&Overwrite existing file without warning");
+    overwriteFileWithoutWarning.setText(Messages.TagSelectionWizardPage_OverwriteExisting_xchk);
     GridDataFactory.fillDefaults().span(3, 1).applyTo(overwriteFileWithoutWarning);
   }
 
@@ -385,7 +387,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     includeSharedUserInfo = new Button(group, SWT.CHECK);
     GridDataFactory.fillDefaults().applyTo(includeSharedUserInfo);
-    includeSharedUserInfo.setText("&Include information about shared tags");
+    includeSharedUserInfo.setText(Messages.TagSelectionWizardPage_IncludeSharedUserInfo_xchk);
 
   }
 
@@ -416,21 +418,22 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (tagLoadingJob != null && tagLoadingJob.getResult() == null) {
       tagLoadingJob.cancel();
     }
-    tagLoadingJob = Job.create("Retrieving ABAP Tags content...", monitor -> {
-      final var tagList = tagsService.readTags(DestinationUtil.getDestinationId(project),
-          List.of(TagSearchScope.USER, TagSearchScope.GLOBAL), true);
+    tagLoadingJob = Job.create(Messages.TagSelectionWizardPage_RetrieveTagsContentJob_xmsg,
+        monitor -> {
+          final var tagList = tagsService.readTags(DestinationUtil.getDestinationId(project),
+              List.of(TagSearchScope.USER, TagSearchScope.GLOBAL), true);
 
-      Display.getDefault().asyncExec(() -> {
-        tagSelectionTree.setTags(tagList.getTags(), true);
-        tagSelectionTree.expandAll();
-        tagSelectionTree.refresh();
-        tagSelectionTree.selectFirstItem();
-        tagSelectionTree.setFocus();
+          Display.getDefault().asyncExec(() -> {
+            tagSelectionTree.setTags(tagList.getTags(), true);
+            tagSelectionTree.expandAll();
+            tagSelectionTree.refresh();
+            tagSelectionTree.selectFirstItem();
+            tagSelectionTree.setFocus();
 
-        setToolbarEnabled(tagSelectionTree.hasViewerInput());
-      });
-      monitor.done();
-    });
+            setToolbarEnabled(tagSelectionTree.hasViewerInput());
+          });
+          monitor.done();
+        });
     tagLoadingJob.schedule();
   }
 
@@ -492,7 +495,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     if (validateFile) {
       if (StringUtil.isEmpty(fileInput.getText())) {
         pageStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, IStatus.INFO,
-            "Choose a file to export the data to", null);
+            Messages.TagSelectionWizardPage_SelectFileInfo_xmsg, null);
       } else {
         pageStatus = Status.OK_STATUS;
       }

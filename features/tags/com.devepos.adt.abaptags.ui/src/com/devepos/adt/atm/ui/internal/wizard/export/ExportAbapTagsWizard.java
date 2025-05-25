@@ -26,7 +26,10 @@ import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
 import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
@@ -43,7 +46,7 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
   private boolean overwriteFileNoWarning;
 
   public ExportAbapTagsWizard() {
-    setWindowTitle("Export ABAP Tags & Tagged Objects");
+    setWindowTitle(Messages.ExportAbapTagsWizard_Title);
     setDefaultPageImageDescriptor(
         AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.EXPORT_TAGS_WIZBAN));
     setNeedsProgressMonitor(true);
@@ -82,9 +85,9 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
     }
 
     if (new File(exportFileName).exists() && !overwriteFileNoWarning
-        && !MessageDialog.openQuestion(null, "Overwrite?",
-            MessageFormat.format(
-                "The specified file \"{0}\" already exists. Do you want to overwrite it?",
+        && !MessageDialog.openQuestion(null,
+            Messages.ExportAbapTagsWizard_OverwriteFileQuestion_xtit,
+            MessageFormat.format(Messages.ExportAbapTagsWizard_OverwriteFileQuestion_xmsg,
                 new Object[] { exportFileName }))) {
       return false;
     }
@@ -92,7 +95,7 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
     var wizardResult = new AtomicBoolean(true);
     try {
       getContainer().run(true, false, monitor -> {
-        monitor.beginTask("Exporting ABAP Tag data...", -1);
+        monitor.beginTask(Messages.ExportAbapTagsWizard_ExportingDataJob_xmsg, -1);
         var taggingSrv = AdtObjTaggingServiceFactory.createTaggingService();
         var response = taggingSrv.exportTags(DestinationUtil.getDestinationId(getProject()),
             tagExportRequest);
@@ -100,8 +103,9 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
         monitor.done();
         Display.getDefault().asyncExec(() -> {
           if (response == null || response.getTags().size() == 0) {
-            MessageDialog.openWarning(getShell(), "Warning",
-                "Backend returned no matching data for the selected ABAP Tags");
+            MessageDialog.openWarning(getShell(),
+                AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Warning_xtit),
+                Messages.ExportAbapTagsWizard_NoTagsContentReturned_xmsg);
             wizardResult.set(false);
           } else {
             saveExportToFile(response);
@@ -112,7 +116,8 @@ public class ExportAbapTagsWizard extends AbstractWizardBase implements IExportW
     } catch (final InvocationTargetException e) {
       Display.getDefault().asyncExec(() -> {
         final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
-        MessageDialog.openError(getShell(), "Error occurred", message);
+        MessageDialog.openError(getShell(),
+            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit), message);
       });
       return false;
     } catch (final InterruptedException e) {

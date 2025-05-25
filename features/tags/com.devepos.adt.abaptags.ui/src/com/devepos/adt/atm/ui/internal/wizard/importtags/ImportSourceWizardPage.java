@@ -23,7 +23,10 @@ import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.project.RadioProjectInput;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
@@ -52,16 +55,16 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
 
   public ImportSourceWizardPage() {
     super(PAGE_NAME);
-    setTitle("Select Import Source");
+    setTitle(Messages.ImportSourceWizardPage_SelectImportSource_xmsg);
     tagsService = AbapTagsServiceFactory.createTagsService();
     taggingService = AdtObjTaggingServiceFactory.createTaggingService();
 
     pageValidationStatusMap = new HashMap<>();
     pageValidationStatusMap.put(ValidationSource.PROJECT, Status.OK_STATUS);
-    pageValidationStatusMap.put(ValidationSource.SOURCE_PROJECT,
-        new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, "No Source Project specified"));
-    pageValidationStatusMap.put(ValidationSource.SOURCE_FILE,
-        new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, "No Source File specified"));
+    pageValidationStatusMap.put(ValidationSource.SOURCE_PROJECT, new Status(IStatus.ERROR,
+        AbapTagsUIPlugin.PLUGIN_ID, Messages.ImportSourceWizardPage_NoSourceProjectSpecified_xmsg));
+    pageValidationStatusMap.put(ValidationSource.SOURCE_FILE, new Status(IStatus.ERROR,
+        AbapTagsUIPlugin.PLUGIN_ID, Messages.ImportSourceWizardPage_NoSourceFileSpecified_xmsg));
   }
 
   private enum ValidationSource {
@@ -135,7 +138,7 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
     GridDataFactory.fillDefaults().grab(true, false).applyTo(projectComposite);
     GridLayoutFactory.swtDefaults().applyTo(projectComposite);
 
-    targetProjectInput.setBrowseButtonMnemonic("o");
+    targetProjectInput.setBrowseButtonMnemonic("o"); //$NON-NLS-1$
     targetProjectInput.createControl(projectComposite);
 
     targetProjectInput.addProjectValidator(p -> {
@@ -161,7 +164,7 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
 
   private void createSourceSection(final Composite parent) {
     var sourceGroup = new Group(parent, SWT.NONE);
-    sourceGroup.setText("Source");
+    sourceGroup.setText(Messages.ImportSourceWizardPage_Source_xgrp);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(sourceGroup);
     GridLayoutFactory.swtDefaults().numColumns(3).applyTo(sourceGroup);
 
@@ -175,9 +178,9 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
   private void createSourceProjectControl(final Composite parent) {
     sourceProjectInput = new RadioProjectInput(true);
     sourceProjectInput.setUseDedicatedComposite(false);
-    sourceProjectInput.setBrowseButtonMnemonic("w");
-    sourceProjectInput.setProjectLabelText("Source Project");
-    sourceProjectInput.setLabelMnemonic("j");
+    sourceProjectInput.setBrowseButtonMnemonic("w"); //$NON-NLS-1$
+    sourceProjectInput.setProjectLabelText(Messages.ImportSourceWizardPage_ProjectInput_xlbl);
+    sourceProjectInput.setLabelMnemonic("j"); //$NON-NLS-1$
 
     sourceProjectInput.createControl(parent);
     sourceProjectInput.getRadioButton().addSelectionListener(widgetSelectedAdapter(l -> {
@@ -201,7 +204,7 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
           .equals(DestinationUtil.getSystemId(DestinationUtil
               .getDestinationId(targetProjectInput.getProjectProvider().getProject())))) {
         return new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
-            "Target project must not be equal to the source project");
+            Messages.ImportSourceWizardPage_TargetProjectEqualsSource_xmsg);
       }
       return Status.OK_STATUS;
     });
@@ -221,7 +224,7 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
 
   private void createSourceFileInput(final Composite parent) {
     selectSourceFileRadio = new Button(parent, SWT.RADIO);
-    selectSourceFileRadio.setText("Source &File");
+    selectSourceFileRadio.setText(Messages.ImportSourceWizardPage_FileInput_xlbl);
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).applyTo(selectSourceFileRadio);
 
     sourceFileInput = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
@@ -231,18 +234,18 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
         .applyTo(sourceFileInput);
 
     browseSourceFileButton = new Button(parent, SWT.PUSH);
-    browseSourceFileButton.setText("Brow&se");
+    browseSourceFileButton.setText(
+        StringUtil.setMnemonic(AdtBaseUIResources.getString(IAdtBaseStrings.Browse_xbtn), "s")); //$NON-NLS-1$
     browseSourceFileButton.addSelectionListener(widgetSelectedAdapter(l -> {
       var fileDialog = new FileDialog(getShell(), SWT.OPEN);
-      fileDialog.setText("Select ABAP Tags content file");
+      fileDialog.setText(Messages.ImportSourceWizardPage_SelectSourceFileDialog_xtit);
       if (!StringUtil.isEmpty(sourceFileInput.getText())) {
         var file = new File(sourceFileInput.getText());
         fileDialog.setFileName(file.getName());
       } else {
         fileDialog.setFileName("ABAP-Tags-Export"); //$NON-NLS-1$
       }
-      fileDialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$ //$NON-NLS-2$
-                                                                // //$NON-NLS-3$
+      fileDialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
       var fileName = fileDialog.open();
       IStatus fileValidationStatus = null;
       if (fileName != null) {
@@ -250,11 +253,11 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
         var file = new File(fileName);
         if (!file.exists()) {
           fileValidationStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID,
-              IStatus.ERROR, "The specified file does not exist", null);
+              IStatus.ERROR, Messages.ImportSourceWizardPage_SourceFileNotExisting_xmsg, null);
         }
       } else {
         fileValidationStatus = new Status(IStatus.ERROR, AbapTagsUIPlugin.PLUGIN_ID, IStatus.ERROR,
-            "No source file specified", null);
+            Messages.ImportSourceWizardPage_NoSourceFileSpecified_xmsg, null);
         sourceFileInput.setText(""); //$NON-NLS-1$
       }
       validatePage(fileValidationStatus, ValidationSource.SOURCE_FILE);

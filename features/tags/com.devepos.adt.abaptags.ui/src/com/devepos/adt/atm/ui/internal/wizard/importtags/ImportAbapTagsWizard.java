@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -27,7 +28,10 @@ import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
 import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
@@ -45,7 +49,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
   private Map<String, ITag> selectedTagsMap;
 
   public ImportAbapTagsWizard() {
-    setWindowTitle("Import ABAP Tags & Tagged Objects");
+    setWindowTitle(Messages.ImportAbapTagsWizard_Title_xtit);
     setDefaultPageImageDescriptor(
         AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.IMPORT_TAGS_WIZBAN));
     setNeedsProgressMonitor(true);
@@ -87,7 +91,6 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
   public void addPages() {
     addPage(new ImportSourceWizardPage());
     addPage(new TagContentSelectionWizardPage());
-    // addPage(new TaggedObjectsSelectionWizardPage());
   }
 
   @Override
@@ -108,7 +111,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
     var importStatus = new AtomicReference<IStatus>();
     try {
       getContainer().run(true, false, monitor -> {
-        monitor.beginTask("Importing ABAP Tag data", -1);
+        monitor.beginTask(Messages.ImportAbapTagsWizard_Job_xtit, -1);
         importStatus.set(AdtObjTaggingServiceFactory.createTaggingService()
             .importTags(DestinationUtil.getDestinationId(getProject()), tagsContentForImport));
         monitor.done();
@@ -125,7 +128,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
           showImportResultDialog(status.getMessage());
         } else {
           MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-              "ABAP Tags Import Error", status.getMessage());
+              Messages.ImportAbapTagsWizard_JobError_xmsg, status.getMessage());
         }
       });
 
@@ -133,7 +136,8 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
     } catch (final InvocationTargetException e) {
       Display.getDefault().asyncExec(() -> {
         final var message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
-        MessageDialog.openError(getShell(), "Error occurred", message);
+        MessageDialog.openError(getShell(),
+            AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Error_xtit), message); // $NON-NLS-1$
       });
       return false;
     } catch (final InterruptedException e) {
@@ -143,8 +147,9 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
 
   private void showImportResultDialog(final String importStatusMessage) {
     var dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        "ABAP Tags Import", null, "ABAP Tags Import has been completed", MessageDialog.INFORMATION,
-        0, new String[] { "Ok" }) {
+        AdtBaseUIResources.getString(IAdtBaseStrings.Dialog_Information_xtit), null,
+        Messages.ImportAbapTagsWizard_ImportSuccess_xmsg, MessageDialog.INFORMATION, // $NON-NLS-1$
+        0, new String[] { IDialogConstants.OK_LABEL }) { // $NON-NLS-1$
 
       private Font boldFont;
 
@@ -164,7 +169,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
 
         var titleLabel = new Label(statsComposite, SWT.NONE);
         GridDataFactory.fillDefaults().span(2, 1).hint(SWT.DEFAULT, 30).applyTo(titleLabel);
-        titleLabel.setText("Import Statistics");
+        titleLabel.setText(Messages.ImportAbapTagsWizard_ImportStatistics_xlbl);
 
         var fontData = titleLabel.getFont().getFontData();
         for (var fd : fontData) {
@@ -175,8 +180,8 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
         titleLabel.setFont(boldFont);
 
         // create labels for statistics
-        for (var stat : importStatusMessage.split(";")) {
-          var textAndValue = stat.split("@@");
+        for (var stat : importStatusMessage.split(";")) { //$NON-NLS-1$
+          var textAndValue = stat.split("@@"); //$NON-NLS-1$
           var statNameLabel = new Label(statsComposite, SWT.NONE);
           GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(statNameLabel);
           statNameLabel.setText(textAndValue[0]);
@@ -184,7 +189,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
           var statValueLabel = new Label(statsComposite, SWT.NONE);
           GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).applyTo(statValueLabel);
           statValueLabel
-              .setText(new DecimalFormat("###,###").format(Integer.parseInt(textAndValue[1])));
+              .setText(new DecimalFormat("###,###").format(Integer.parseInt(textAndValue[1]))); //$NON-NLS-1$
         }
         return statsComposite;
       }

@@ -73,7 +73,7 @@ import com.devepos.adt.base.util.StringUtil;
 public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public static final String PAGE_NAME = TagContentSelectionWizardPage.class.getCanonicalName();
 
-  private static DecimalFormat SELECTION_FORMAT = new DecimalFormat("###,###");
+  private static DecimalFormat SELECTION_FORMAT = new DecimalFormat("###,###"); //$NON-NLS-1$
   private static int OBJ_TABLE_MODE = 1;
   private static int PARENT_OBJ_TABLE_MODE = 2;
   private static final List<CheckableTaggedObjectInfo> EMPTY_TGOBJ_LIST = new ArrayList<>();
@@ -107,7 +107,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   public TagContentSelectionWizardPage() {
     super(PAGE_NAME);
-    setTitle("Select Content for Import");
+    setTitle(Messages.TagContentSelectionWizardPage_Title_xmsg);
   }
 
   private class TreeViewerLabelProvider extends TagLabelProvider {
@@ -316,7 +316,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private void loadTagsFromProject(final IProject project) {
     try {
       getContainer().run(true, false, monitor -> {
-        monitor.beginTask("Retrieving ABAP Tags content from source project", -1);
+        monitor.beginTask(Messages.TagContentSelectionWizardPage_LoadTagsFromProjectJob_xmsg, -1);
         var taggingSrv = AdtObjTaggingServiceFactory.createTaggingService();
         var tagExportRequest = IAbapTagsFactory.eINSTANCE.createTagExportRequest();
         var response = taggingSrv.exportTags(DestinationUtil.getDestinationId(project),
@@ -353,7 +353,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       if (resourceContents != null && resourceContents.size() == 1) {
         final var root = resourceContents.get(0);
         if (!(root instanceof IAbapTagsContent)) {
-          setErrorMessage("Content in the imported file is not valid ABAP Tags content");
+          setErrorMessage(Messages.TagContentSelectionWizardPage_InvalidTagsFileContent_xmsg);
         } else {
           contentForImport = (IAbapTagsContent) root;
           var destinationOwner = DestinationUtil.getDestinationOwner(getWizard().getProject());
@@ -383,7 +383,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       }
       setToolbarEnabled(tagTree.hasViewerInput());
     } catch (IOException e) {
-      setErrorMessage(MessageFormat.format("Source file could not be loaded from {0}", filePath));
+      setErrorMessage(MessageFormat.format(Messages.TagContentSelectionWizardPage_SourceFileLoadingError_xmsg, filePath));
       e.printStackTrace();
     }
   }
@@ -646,7 +646,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createTgobjTable(final Composite parent) {
     var group = new Group(parent, SWT.NONE);
-    group.setText("Tagged &Objects");
+    group.setText(Messages.TagContentSelectionWizardPage_TaggedObjectsTable_xgrp);
     GridDataFactory.fillDefaults().grab(true, true).minSize(200, SWT.DEFAULT).applyTo(group);
     GridLayoutFactory.swtDefaults().applyTo(group);
 
@@ -856,7 +856,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     includeSharedUserInfo = new Button(group, SWT.CHECK);
     GridDataFactory.fillDefaults().applyTo(includeSharedUserInfo);
-    includeSharedUserInfo.setText("&Include information about shared tags");
+    includeSharedUserInfo.setText(Messages.TagContentSelectionWizardPage_IncludeSharedUserInfo_xchk);
   }
 
   private void createViewerContextMenu() {
@@ -907,7 +907,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
     var checkedCount = tgobjTableViewer.getCheckedElements().length;
 
-    tgobjOfCurrentTagCheckInfo.setText(String.format("%s Object%s %s",
+    tgobjOfCurrentTagCheckInfo.setText(String.format(Messages.TagContentSelectionWizardPage_ObjectSelectionInfo_xlbl,
         checkedCount == 0 ? Messages.General_No_xlbl : SELECTION_FORMAT.format(checkedCount),
         checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
         Messages.DeleteTagsWizardPage_Selected_xlbl));
@@ -917,7 +917,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         .flatMap(List::parallelStream)
         .filter(CheckableTaggedObjectInfo::isChecked)
         .count();
-    overallTgobjCheckInfo.setText(String.format("(%s Object%s %s overall)",
+    overallTgobjCheckInfo.setText(String.format(Messages.TagContentSelectionWizardPage_OverallObjectSelectionInfo_xlbl,
         overallCheckedCount == 0 ? Messages.General_No_xlbl
             : SELECTION_FORMAT.format(overallCheckedCount),
         overallCheckedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
