@@ -103,6 +103,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private TagTreeContentProvider treeContentProvider;
   private TreeViewerLabelProvider treeLabelProvider;
 
+  private CheckableTgobjViewerComparator comparator;
+
   public TagContentSelectionWizardPage() {
     super(PAGE_NAME);
     setTitle("Select Content for Import");
@@ -653,6 +655,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     tgobjTableViewer.addCheckStateListener(
         e -> onTgobjCheckStateChanged((CheckableTaggedObjectInfo) e.getElement(), e.getChecked()));
 
+    comparator = new CheckableTgobjViewerComparator();
+    tgobjTableViewer.setComparator(comparator);
     createTgobjCheckedInfoSection(group);
   }
 
@@ -694,6 +698,12 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       column.setData(colSpec);
       tableColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(
           new TaggedObjectColumnLabelProvider(colSpec, getWizard().getProject())));
+      column.addSelectionListener(widgetSelectedAdapter(l -> {
+        comparator.setColumn(colSpec);
+        tgobjTableViewer.getTable().setSortDirection(comparator.getDirection());
+        tgobjTableViewer.getTable().setSortColumn(tableColumn.getColumn());
+        tgobjTableViewer.refresh();
+      }));
     }
   }
 
