@@ -3,6 +3,8 @@ package com.devepos.adt.atm.ui.internal.wizard.export;
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -231,10 +233,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         var file = new File(fileInput.getText());
         fileDialog.setFileName(file.getName());
       } else {
-        fileDialog.setFileName("ABAP-Tags-Export"); //$NON-NLS-1$
+        fileDialog.setFileName(String.format("ABAP-Tags_%s_%s", //$NON-NLS-1$
+            DestinationUtil.getSystemId(DestinationUtil.getDestinationId(getWizard().getProject())),
+            LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))); //$NON-NLS-1$
       }
-      fileDialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$ //$NON-NLS-2$
-                                                                // //$NON-NLS-3$
+      fileDialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
       var fileName = fileDialog.open();
       if (fileName != null) {
         fileInput.setText(fileName);
