@@ -25,7 +25,9 @@ public class ViewLookup {
   public static <T extends IViewPart> T lookupView(final String id, final boolean showIfClosed,
       final Class<T> expectingViewClass) throws PartInitException {
     var view = lookupView(id, showIfClosed);
-    return expectingViewClass == view.getClass() ? expectingViewClass.cast(view) : null;
+    return view != null
+        ? (expectingViewClass == view.getClass() ? expectingViewClass.cast(view) : null)
+        : null;
   }
 
   public static IViewPart lookupView(final String id, final boolean showIfClosed)
