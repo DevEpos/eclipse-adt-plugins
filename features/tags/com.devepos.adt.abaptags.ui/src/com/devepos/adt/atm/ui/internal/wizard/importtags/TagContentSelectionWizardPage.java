@@ -357,12 +357,26 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
         } else {
           contentForImport = (IAbapTagsContent) root;
           var destinationOwner = DestinationUtil.getDestinationOwner(getWizard().getProject());
-          contentForImport.getTags()
-              .removeAll(contentForImport.getTags()
-                  .stream()
-                  .filter(t -> !StringUtil.isEmpty(t.getOwner())
-                      && !destinationOwner.equals(t.getOwner()))
-                  .collect(Collectors.toList()));
+          // filters out user tags that do not match the current destination owner
+          var invalidUserTags = contentForImport.getTags()
+              .stream()
+              .filter(
+                  t -> !StringUtil.isEmpty(t.getOwner()) && !destinationOwner.equals(t.getOwner()))
+              .collect(Collectors.toList());
+          contentForImport.getTags().removeAll(invalidUserTags);
+
+          if (!invalidUserTags.isEmpty()) {
+            // filters out tagged objects whose tags have been filtered out
+            var invalidTagIds = invalidUserTags.stream()
+                .flatMap(tag -> Stream.concat(Stream.of(tag.getId()),
+                    tag.getDeepChildTags().stream().map(ITag::getId)))
+                .collect(Collectors.toList());
+            contentForImport.getTaggedObjectInfos()
+                .removeAll(contentForImport.getTaggedObjectInfos()
+                    .stream()
+                    .filter(o -> invalidTagIds.contains(o.getTagId()))
+                    .collect(Collectors.toList()));
+          }
           setTreeInput();
           validatePage(null);
         }
@@ -487,16 +501,37 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void syncTagCheckedStateToTgObj() {
-    // FIXME: We can't just sync the checked state of all checked tags back to the tagged objects,
-    // otherwise the unchecked objects will just be checked again. We have to determine the current
-    var checkedTags = tagTree.getCheckedTags()
-        .stream()
-        .map(ITag::getId)
-        .collect(Collectors.toSet());
-    taggedObjects.values()
-        .stream()
-        .flatMap(List::parallelStream)
-        .forEach(o -> o.setChecked(checkedTags.contains(o.getTagId()), false));
+    if (tagTree.isAllCheckStatesChanged()) {
+      var checked = tagTree.hasCheckedTags();
+      taggedObjects.values()
+          .stream()
+          .flatMap(List::parallelStream)
+          .forEach(o -> o.setChecked(checked, false));
+    } else {
+      var checkedTags = tagTree.getNewCheckedTags()
+          .stream()
+          .map(ITag::getId)
+          .collect(Collectors.toSet());
+      var uncheckedTags = tagTree.getNewUncheckedTags()
+          .stream()
+          .map(ITag::getId)
+          .collect(Collectors.toSet());
+
+      for (var entry : taggedObjects.entrySet()) {
+        var key = entry.getKey();
+        var objects = entry.getValue();
+
+        if (objects == null)
+          continue;
+
+        if (checkedTags.contains(key)) {
+          objects.forEach(o -> o.setChecked(true, false));
+        } else if (uncheckedTags.contains(key)) {
+          objects.forEach(o -> o.setChecked(false, false));
+        }
+      }
+
+    }
   }
 
   private void validatePage(final IStatus status) {
@@ -581,6 +616,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       }
     };
     tagTree.setUncheckHiddenSubtrees(true);
+    tagTree.setRememberCheckedState(true);
 
     treeLabelProvider = new TreeViewerLabelProvider();
     treeLabelProvider.setMarkOwnSharedTags(true);
@@ -605,7 +641,6 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       onTagSelectionChanged();
     });
     tagTree.addKeyListenerForFilterFocus();
-
     createTagsCheckedInfoSection(group);
   }
 
@@ -879,7 +914,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     var overallCheckedCount = taggedObjects.values()
         .stream()
-        .flatMap(List::stream)
+        .flatMap(List::parallelStream)
         .filter(CheckableTaggedObjectInfo::isChecked)
         .count();
     overallTgobjCheckInfo.setText(String.format("(%s Object%s %s overall)",

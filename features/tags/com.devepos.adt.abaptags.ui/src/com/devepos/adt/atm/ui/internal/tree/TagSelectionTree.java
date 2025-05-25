@@ -48,6 +48,9 @@ public class TagSelectionTree {
   private FilterableTree tree;
 
   private final List<ITag> tagList = new ArrayList<>();
+  private Set<ITag> previouslyCheckedTags = new HashSet<>();
+  private boolean rememberCheckedstate;
+  private boolean allCheckStatesChanged;
 
   private final Set<ITag> checkedTags;
   private final List<String> checkedTagIds = new ArrayList<>();
@@ -56,6 +59,18 @@ public class TagSelectionTree {
 
   public TagSelectionTree() {
     checkedTags = new HashSet<>();
+  }
+
+  /**
+   * Returns {@code true} if the check state of all tags in the tree have been changed during the
+   * last check state operation
+   */
+  public boolean isAllCheckStatesChanged() {
+    return allCheckStatesChanged;
+  }
+
+  public void setRememberCheckedState(boolean value) {
+    rememberCheckedstate = value;
   }
 
   public void addCheckStateListener(final ICheckStateListener l) {
@@ -111,6 +126,11 @@ public class TagSelectionTree {
     tree.setBackgroundMode(SWT.INHERIT_DEFAULT);
 
     viewer.addCheckStateListener(e -> {
+      allCheckStatesChanged = false;
+      previouslyCheckedTags.clear();
+      if (rememberCheckedstate) {
+        previouslyCheckedTags.addAll(checkedTags);
+      }
       if (e.getChecked()) {
         checkedTags.add((ITag) e.getElement());
       } else {
@@ -210,9 +230,15 @@ public class TagSelectionTree {
   }
 
   public void checkAll() {
+    previouslyCheckedTags.clear();
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
+      allCheckStatesChanged = false;
+      if (rememberCheckedstate) {
+        previouslyCheckedTags.addAll(checkedTags);
+      }
       setVisibleItemsCheckedState(viewer.getTree().getItems(), true);
     } else {
+      allCheckStatesChanged = true;
       checkedTags.clear();
       for (var tag : tagList) {
         checkedTags.add(tag);
@@ -229,10 +255,41 @@ public class TagSelectionTree {
     }
   }
 
+  /**
+   * Retrieves all newly checked tags.
+   * <br>
+   * <strong>Note</strong>:
+   * If {@link #rememberCheckedstate} is not set, then this method will return only all currently
+   * checked tags
+   */
+  public Set<ITag> getNewCheckedTags() {
+    var difference = new HashSet<ITag>(checkedTags);
+    difference.removeAll(previouslyCheckedTags);
+    return difference;
+  }
+
+  /**
+   * Retrieves all newly unchecked tags.
+   * <br>
+   * <strong>Note</strong>:
+   * If {@link #rememberCheckedstate} is not set, then this method will return an empty set
+   */
+  public Set<ITag> getNewUncheckedTags() {
+    var difference = new HashSet<ITag>(previouslyCheckedTags);
+    difference.removeAll(checkedTags);
+    return difference;
+  }
+
   public void uncheckAll() {
+    previouslyCheckedTags.clear();
     if (!StringUtil.isEmpty(tree.getFilterString()) || searchScope != TagSearchScope.ALL) {
+      allCheckStatesChanged = false;
+      if (rememberCheckedstate) {
+        previouslyCheckedTags.addAll(checkedTags);
+      }
       setVisibleItemsCheckedState(viewer.getTree().getItems(), false);
     } else {
+      allCheckStatesChanged = true;
       checkedTags.clear();
       for (var currentlyChecked : viewer.getCheckedElements()) {
         viewer.setChecked(currentlyChecked, false);
