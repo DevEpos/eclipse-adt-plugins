@@ -20,6 +20,7 @@ public interface IAdtBaseStrings {
 
   String Refresh = "Refresh";
   String Menu = "Menu";
+  String Browse_xbtn = "Browse_xbtn";
   String Remove = "Remove";
   String FilterPlaceHolder_xmsg = "FilterPlaceHolder_xmsg";
 
@@ -40,6 +41,6 @@ public interface IAdtBaseStrings {
   String Dialog_Information_xtit = "Dialog_Information_xtit";
   String Dialog_Warning_xtit = "Dialog_Warning_xtit";
   String Dialog_Error_xtit = "Dialog_Error_xtit";
-  
+
   String Action_ShowElementInformation_xmsg = "Action_ShowElementInformation_xmsg";
 }

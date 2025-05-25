@@ -113,10 +113,12 @@ public class StringUtil {
    * Sets mnemonic in the given text and returns the adjusted string or the original
    * one if the mnemonic could not be found or is empty
    */
-  public static String setMnemonic(final String text, final String mnemonic) {
+  public static String setMnemonic(String text, final String mnemonic) {
     if (StringUtil.isBlank(mnemonic)) {
       return text;
     }
+    // clear existing mnemonics
+    text = text.replaceAll("&", "");
     int index = text.toLowerCase().indexOf(mnemonic.toLowerCase());
     if (index != -1) {
       return text.substring(0, index) + "&" + text.substring(index);
