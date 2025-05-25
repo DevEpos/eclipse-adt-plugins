@@ -11,6 +11,13 @@ public class StringUtil {
   public static final String NEGATION1 = "!"; //$NON-NLS-1$
 
   /**
+   * Returns empty string if the passed string is null or the string if it is not
+   */
+  public static String getOrEmpty(String s) {
+    return s != null ? s : "";
+  }
+
+  /**
    * Checks if {@code value} equals {@code value2}
    *
    * @param value  a String value
