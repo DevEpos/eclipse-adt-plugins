@@ -1,73 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html id="doc-page">
-
-<head>
+  <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ABAP Code Search - Preferences</title>
-</head>
+  </head>
 
-<body id="doc-body">
+  <body id="doc-body">
     <h2 class="heading">Workspace Preferences</h2>
 
-    <p>In the preferences menu you have the possibility to configure
-        the following settings</p>
+    <p>In the preferences menu you have the possibility to configure the following settings</p>
     <h3 class="heading">Search Dialog Settings</h3>
     <ul class="list">
-        <li>Settings for Includes
-            <ul class="list">
-                <li><em>Use from previous search</em> <br>This option
-                    controls whether the control settings for Class Includes, Function
-                    Group Includes and Program Includes are taken over from the
-                    previously executed search</li>
-            </ul>
-        </li>
-        <li>Single Pattern Mode
-            <ul class="list">
-                <li><em>Concatenate lines of the search pattern with '\n'
-                        for regular expressions</em> <br> This option is relevant if the
-                    entered pattern has multiple lines and you have activated the
-                    options: <i>Regular Expressions</i> and <i>Single Pattern Mode</i>.
-                    <br> By activating this option the system will automatically
-                    enhance the entered pattern with a new line character after each
-                    line of the pattern and consider it a single pattern for the
-                    search. <br>A recommendation to use this option deactivated is
-                    that if you structure very complex patterns you can divide them in
-                    different lines for a better overview but you still want it to be
-                    considered a single pattern
-                </li>
-            </ul>
-        </li>
-        <li>Settings for Transport Request Filter
-            <p>For convencience, the transport requests/tasks that are retrieved via content assist, can be restricted
-                by following settings:</p>
-            <ul class="list">
-                <li><em>Restrict owner to logged user</em><br>Only the tasks and requests belonging to the logged on
-                    user are shown</li>
-                <li><em>Modifiable</em><br>Tasks/requests that are not yet released are included</li>
-                <li><em>Released</em><br>Released tasks/requests are shown. Use the drop-down menu to control how far
-                    back in time the selection should be made.</li>
-            </ul>
-            <p>Additionally, the default pattern for tasks/requests - as used by <code class="code">SE09</code> - is
-                used to restrict the result (e.g in case of the system id being <code class="code">A4H</code> the
-                pattern will be <code class="code">A4H*</code>)</p>
-            <div class="alert info">
-                <div class="alert-tip__text"></div>
-                By using the integrated value help via <code class="code">F4</code>, these settings can all be
-                overridden
-            </div>
-        </li>
+      <li>
+        Settings for Includes
+        <ul class="list">
+          <li>
+            <em>Use from previous search</em> <br />This option controls whether the control settings for Class
+            Includes, Function Group Includes and Program Includes are taken over from the previously executed search
+          </li>
+        </ul>
+      </li>
+      <li>
+        Single Pattern Mode
+        <ul class="list">
+          <li>
+            <em>Concatenate lines of the search pattern with '\n' for regular expressions</em> <br />
+            This option is relevant if the entered pattern has multiple lines and you have activated the options:
+            <i>Regular Expressions</i> and <i>Single Pattern Mode</i>. <br />
+            By activating this option the system will automatically enhance the entered pattern with a new line
+            character after each line of the pattern and consider it a single pattern for the search. <br />A
+            recommendation to use this option deactivated is that if you structure very complex patterns you can divide
+            them in different lines for a better overview but you still want it to be considered a single pattern
+          </li>
+        </ul>
+      </li>
+      <li>
+        Settings for Transport Request Filter
+        <p>
+          For convencience, the transport requests/tasks that are retrieved via content assist, can be restricted by
+          following settings:
+        </p>
+        <ul class="list">
+          <li>
+            <em>Restrict owner to logged user</em><br />Only the tasks and requests belonging to the logged on user are
+            shown
+          </li>
+          <li><em>Modifiable</em><br />Tasks/requests that are not yet released are included</li>
+          <li>
+            <em>Released</em><br />Released tasks/requests are shown. Use the drop-down menu to control how far back in
+            time the selection should be made.
+          </li>
+        </ul>
+        <p>
+          Additionally, the default pattern for tasks/requests - as used by <code class="code">SE09</code> - is used to
+          restrict the result (e.g in case of the system id being <code class="code">A4H</code> the pattern will be
+          <code class="code">A4H*</code>)
+        </p>
+        <div class="alert info">
+          <div class="alert-tip__text"></div>
+          By using the integrated value help via <code class="code">F4</code>, these settings can all be overridden
+        </div>
+      </li>
     </ul>
     <h3 class="heading">Related Information</h3>
     <div>
-        <a class="link" href="properties.html">Properties</a>
+      <a class="link" href="properties.html">Properties</a>
     </div>
     <div>
-        <a class="link" href="search_dialog.html">Search Dialog</a>
+      <a class="link" href="search_dialog.html">Search Dialog</a>
     </div>
     <div>
-        <a class="link" href="search_result.html">Search Result</a>
+      <a class="link" href="search_result.html">Search Result</a>
     </div>
-</body>
-
+  </body>
 </html>

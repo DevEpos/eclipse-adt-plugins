@@ -1,257 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html id="doc-page">
-
-<head>
+  <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ABAP Object Search - Search Query Examples</title>
-</head>
+  </head>
 
-<body id="doc-body">
+  <body id="doc-body">
     <h2 class="heading">Examples for ABAP Object Search Queries</h2>
 
     <ul class="list">
-        <li><a class="link" href="#cds-samples">CDS View Search Samples</a></li>
-        <li><a class="link" href="#db-samples">Database TableSearch Samples</a></li>
-        <li><a class="link" href="#clif-samples">Class/Interface Search Samples</a></li>
-        <li><a class="link" href="#method-samples">Method Search Samples</a></li>
+      <li><a class="link" href="#cds-samples">CDS View Search Samples</a></li>
+      <li><a class="link" href="#db-samples">Database TableSearch Samples</a></li>
+      <li><a class="link" href="#clif-samples">Class/Interface Search Samples</a></li>
+      <li><a class="link" href="#method-samples">Method Search Samples</a></li>
     </ul>
 
     <h3 id="cds-samples" class="heading">Samples for CDS View Search</h3>
     <h4 class="heading">
-        Searches for all CDS views
-        that select from tables mara or marc, also the maximum result count
-        is raised to 500</h4>
+      Searches for all CDS views that select from tables mara or marc, also the maximum result count is raised to 500
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">from</span>mara,marc</td>
-        </tr>
-        <tr>
-            <td>Maximum Results</td>
-            <td>500</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">from</span>mara,marc</td>
+      </tr>
+      <tr>
+        <td>Maximum Results</td>
+        <td>500</td>
+      </tr>
     </table>
 
-    <h4 class="heading">Searches for all CDS views
-        that have an association to entities that start with "i_prod" and
-        have a released api state</h4>
+    <h4 class="heading">
+      Searches for all CDS views that have an association to entities that start with "i_prod" and have a released api
+      state
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">assoc</span>i_prod* <span class="search-filter">api</span>released</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">assoc</span>i_prod* <span class="search-filter">api</span>released</td>
+      </tr>
     </table>
 
-    <h4 class="heading">Searches for all CDS views that have parameters and are of type "hierarchy" and whose name
-        starts with "i_"</h4>
+    <h4 class="heading">
+      Searches for all CDS views that have parameters and are of type "hierarchy" and whose name starts with "i_"
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Name</td>
-            <td>i_*</td>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">params</span>true <span class="search-filter">type</span>
-                hierarchy</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Name</td>
+        <td>i_*</td>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">params</span>true <span class="search-filter">type</span> hierarchy</td>
+      </tr>
     </table>
 
     <h4 class="heading">Searches for all CDS Views whose Description contains the string "Mater"</h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">desc</span>*Mater*</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">desc</span>*Mater*</td>
+      </tr>
     </table>
 
     <h4 class="heading">Searches for all CDS Views that have an annotation like "analytics*query"</h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">anno</span>analytics*query</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">anno</span>analytics*query</td>
+      </tr>
     </table>
 
-    <h4 class="heading">Searches for all CDS Views that have an annotation @VDM.private: true or an Annotation like
-        *query*: true</h4>
+    <h4 class="heading">
+      Searches for all CDS Views that have an annotation @VDM.private: true or an Annotation like *query*: true
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">anno</span>vdm.private*=true,*query*=true</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">anno</span>vdm.private*=true,*query*=true</td>
+      </tr>
     </table>
 
     <h3 id="db-samples" class="heading">Samples for Database Table Search</h3>
-    <h4 class="heading">Searches for all database tables that have a field named "MATNR", whose description
-        contains "Cond", and are located in a development package starting with "TEST"</h4>
+    <h4 class="heading">
+      Searches for all database tables that have a field named "MATNR", whose description contains "Cond", and are
+      located in a development package starting with "TEST"
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">field</span>matnr <span class="search-filter">desc</span>*Cond*
-                <span class="search-filter">package</span>test*
-            </td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td>
+          <span class="search-filter">field</span>matnr <span class="search-filter">desc</span>*Cond*
+          <span class="search-filter">package</span>test*
+        </td>
+      </tr>
     </table>
 
-    <h4 class="heading">Searches for all database tables where the responsible person is the currently logged on
-        user and which start
-        with the name "CS"</h4>
+    <h4 class="heading">
+      Searches for all database tables where the responsible person is the currently logged on user and which start with
+      the name "CS"
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Name</td>
-            <td>cs*</td>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">owner</span>me</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Name</td>
+        <td>cs*</td>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">owner</span>me</td>
+      </tr>
     </table>
 
     <h3 id="clif-samples" class="heading">Samples for Class/Interface Search</h3>
-    <h4 class="heading">Searches for all Shared Memory Area Classes and Exception Classes, also the maximum result count
-        is raised to 500</h4>
+    <h4 class="heading">
+      Searches for all Shared Memory Area Classes and Exception Classes, also the maximum result count is raised to 500
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">cat</span>exception,area_class</td>
-        </tr>
-        <tr>
-            <td>Maximum Results</td>
-            <td>500</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">cat</span>exception,area_class</td>
+      </tr>
+      <tr>
+        <td>Maximum Results</td>
+        <td>500</td>
+      </tr>
     </table>
 
-    <h4 class="heading">Searches for all Classes/Interfaces that have attributes that starts with c_ and whose initial
-        value contains
-        constant</h4>
+    <h4 class="heading">
+      Searches for all Classes/Interfaces that have attributes that starts with c_ and whose initial value contains
+      constant
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">attr</span>c_*=*constant*</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">attr</span>c_*=*constant*</td>
+      </tr>
     </table>
 
     <h4 class="heading">Searches for all Classes/Interfaces that have the methods "get_field" and "set_field"</h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">meth</span>get_field,set_field</td>
-        </tr>
-        <tr>
-            <td>Combine Options of Filters with AND</td>
-            <td><code class="code">true</code></td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">meth</span>get_field,set_field</td>
+      </tr>
+      <tr>
+        <td>Combine Options of Filters with AND</td>
+        <td><code class="code">true</code></td>
+      </tr>
     </table>
 
     <h3 id="method-samples" class="heading">Samples for Method Search</h3>
-    <h4 class="heading">Search for all "post" methods in classes that inherit from "cl_adt_rest_resource" or one of its
-        sub classes</h4>
+    <h4 class="heading">
+      Search for all "post" methods in classes that inherit from "cl_adt_rest_resource" or one of its sub classes
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Object Filter</td>
-            <td><span class="search-filter">super</span>cl_adt_rest_resource</td>
-        </tr>
-        <tr>
-            <td>Method Name</td>
-            <td>post&lt;</td>
-        </tr>
-        <tr>
-            <td>Mode for Hierarchy Filter</td>
-            <td><em>Resolve Type Hierarchy for 'super' Filter</em></td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Object Filter</td>
+        <td><span class="search-filter">super</span>cl_adt_rest_resource</td>
+      </tr>
+      <tr>
+        <td>Method Name</td>
+        <td>post&lt;</td>
+      </tr>
+      <tr>
+        <td>Mode for Hierarchy Filter</td>
+        <td><em>Resolve Type Hierarchy for 'super' Filter</em></td>
+      </tr>
     </table>
 
-    <h4 class="heading">Search for all methods whose implementation was changed "yesterday" from the currently logged on
-        user</h4>
+    <h4 class="heading">
+      Search for all methods whose implementation was changed "yesterday" from the currently logged on user
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Method Filter</td>
-            <td><span class="search-filter">changed</span>yesterday <span class="search-filter">changedby</span>me</td>
-        </tr>
-        <tr>
-            <td>Set Focus of Admin-Data Filters to Method Include</td>
-            <td><code class="code">true</code></td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Method Filter</td>
+        <td><span class="search-filter">changed</span>yesterday <span class="search-filter">changedby</span>me</td>
+      </tr>
+      <tr>
+        <td>Set Focus of Admin-Data Filters to Method Include</td>
+        <td><code class="code">true</code></td>
+      </tr>
     </table>
 
-    <h4 class="heading">Search for all methods that start with "set_", that are "final redefined" and have visibility
-        "protected"</h4>
+    <h4 class="heading">
+      Search for all methods that start with "set_", that are "final redefined" and have visibility "protected"
+    </h4>
     <table>
-        <tr>
-            <th style="text-align: left;">Query Field / Option</th>
-            <th style="text-align: left;">Value</th>
-        </tr>
-        <tr>
-            <td>Method Name</td>
-            <td>set_</td>
-        </tr>
-        <tr>
-            <td>Method Filter</td>
-            <td><span class="search-filter">flag</span>final <span class="search-filter">status</span>redefined <span
-                    class="search-filter">visibility</span>protected</td>
-        </tr>
+      <tr>
+        <th style="text-align: left">Query Field / Option</th>
+        <th style="text-align: left">Value</th>
+      </tr>
+      <tr>
+        <td>Method Name</td>
+        <td>set_</td>
+      </tr>
+      <tr>
+        <td>Method Filter</td>
+        <td>
+          <span class="search-filter">flag</span>final <span class="search-filter">status</span>redefined
+          <span class="search-filter">visibility</span>protected
+        </td>
+      </tr>
     </table>
 
     <h3 class="heading">Related Information</h3>
     <div>
-        <a class="link" href="./search_dialog.html">Search Dialog</a>
+      <a class="link" href="./search_dialog.html">Search Dialog</a>
     </div>
     <div>
-        <a class="link" href="./search_result.html">Search Result</a>
+      <a class="link" href="./search_result.html">Search Result</a>
     </div>
-</body>
-
+  </body>
 </html>
