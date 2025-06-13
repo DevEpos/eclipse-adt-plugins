@@ -361,6 +361,12 @@ public class TagSelectionTree {
     refresh();
   }
 
+  public void setParentTagsCheckedFromSel() {
+    for (var selObj : viewer.getStructuredSelection()) {
+      setParentTagsChecked((ITag) selObj, true);
+    }
+  }
+
   public void setParentTagsChecked(final ITag tag, final boolean checked) {
     var parentTag = tag;
 
