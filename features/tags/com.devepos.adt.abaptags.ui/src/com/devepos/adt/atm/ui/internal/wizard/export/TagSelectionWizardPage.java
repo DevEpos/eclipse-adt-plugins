@@ -292,7 +292,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         } else {
           tagSelectionTree.setTagChildrenCheckedRecursive(tag, false);
         }
-        tagSelectionTree.setCheckedElementsInTree();
         tagSelectionTree.refresh();
       }
       validatePage(null, ValidationSource.TAGS);
