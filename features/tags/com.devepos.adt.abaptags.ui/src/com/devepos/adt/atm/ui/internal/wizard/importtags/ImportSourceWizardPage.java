@@ -23,6 +23,8 @@ import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
 import com.devepos.adt.atm.tags.AbapTagsServiceFactory;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
@@ -95,8 +97,7 @@ public class ImportSourceWizardPage extends AbstractBaseWizardPage {
   public void createControl(final Composite parent) {
     final var root = new Composite(parent, SWT.NONE);
 
-    // TODO: Help Context
-    // HelpUtil.setHelp(root, HelpContexts.UNASSIGN_TAGS_WIZARD_TAG_SELECTION);
+    HelpUtil.setHelp(root, HelpContexts.IMPORT_TAGS_SOURCE_SELECTION);
     GridLayoutFactory.swtDefaults().applyTo(root);
     GridDataFactory.fillDefaults().hint(400, SWT.DEFAULT);
 

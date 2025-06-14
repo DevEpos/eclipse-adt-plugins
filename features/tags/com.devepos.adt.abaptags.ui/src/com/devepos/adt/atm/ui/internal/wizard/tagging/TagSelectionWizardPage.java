@@ -397,10 +397,6 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           addTag(true);
         } else if (e.keyCode == SWT.DEL) {
           removeTag();
-          // } else if (e.keyCode == SWT.ARROW_RIGHT && e.stateMask == SWT.CTRL) {
-          // checkBoxViewer.expandAll();
-          // } else if (e.keyCode == SWT.ARROW_LEFT && e.stateMask == SWT.CTRL) {
-          // checkBoxViewer.collapseAll();
         } else if (e.keyCode == SWT.F2 && e.stateMask == SWT.NONE) {
           checkBoxViewer.editElement(checkBoxViewer.getStructuredSelection().getFirstElement(), 0);
         }

@@ -49,6 +49,8 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.model.abaptags.util.AbapTagsResourceFactory;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.help.HelpContexts;
+import com.devepos.adt.atm.ui.internal.help.HelpUtil;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
@@ -134,8 +136,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   public void createControl(final Composite parent) {
     final var root = new Composite(parent, SWT.NONE);
 
-    // TODO: Help Context
-    // HelpUtil.setHelp(root, HelpContexts.UNASSIGN_TAGS_WIZARD_TAG_SELECTION);
+    HelpUtil.setHelp(root, HelpContexts.IMPORT_TAGS_CONTENT_SELECTION);
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(root);
 
     createTagsTree(root);
