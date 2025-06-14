@@ -172,7 +172,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createActions() {
     selectSubTreeAction = new SelectTagSubtreeAction(tagSelectionTree);
-    selectSubTreeAction.setPostRunHandler(() -> validatePage(null, ValidationSource.TAGS));
+    selectSubTreeAction.setPostRunHandler(() -> {
+      tagSelectionTree.setParentTagsCheckedFromSel();
+      validatePage(null, ValidationSource.TAGS);
+    });
   }
 
   private void createProjectInput(final Composite parent) {
@@ -292,13 +295,13 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         } else {
           tagSelectionTree.setTagChildrenCheckedRecursive(tag, false);
         }
-        tagSelectionTree.setCheckedElementsInTree();
         tagSelectionTree.refresh();
       }
       validatePage(null, ValidationSource.TAGS);
     });
     tagSelectionTree.createControl(group);
     tagSelectionTree.addKeyListenerForFilterFocus();
+    tagSelectionTree.setUncheckHiddenSubtrees(true);
 
     createSelectionInfo(group);
   }

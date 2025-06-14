@@ -224,8 +224,27 @@ public class TagSelectionTree {
   }
 
   public void setCheckedElementsInTree() {
-    for (var checkedItem : checkedTags) {
-      viewer.setChecked(checkedItem, true);
+    if (checkedTags.isEmpty()) {
+      return;
+    }
+    viewer.getTree().setRedraw(false);
+    var expandedElements = viewer.getExpandedElements();
+    viewer.expandAll();
+    setCheckedElementsRecursive(viewer.getTree().getItems());
+    viewer.setExpandedElements(expandedElements);
+    viewer.getTree().setRedraw(true);
+  }
+
+  public void setCheckedElementsRecursive(TreeItem[] items) {
+
+    for (var item : items) {
+      if (checkedTags.contains(item.getData())) {
+        item.setChecked(true);
+      } else {
+        // TODO: if parent is not checked, then children can't be checked either - in certain
+        // situations
+      }
+      setCheckedElementsRecursive(item.getItems());
     }
   }
 
@@ -240,12 +259,12 @@ public class TagSelectionTree {
     } else {
       allCheckStatesChanged = true;
       checkedTags.clear();
-      for (var tag : tagList) {
-        checkedTags.add(tag);
-        setTagChildrenCheckedRecursive(tag, true);
+      for (var rootTag : tagList) {
+        viewer.setSubtreeChecked(rootTag, true);
+        checkedTags.add(rootTag);
+        checkedTags.addAll(rootTag.getDeepChildTags());
       }
     }
-    setCheckedElementsInTree();
   }
 
   public void setCheckedTagIds(final List<String> tagIds) {
@@ -291,11 +310,10 @@ public class TagSelectionTree {
     } else {
       allCheckStatesChanged = true;
       checkedTags.clear();
-      for (var currentlyChecked : viewer.getCheckedElements()) {
-        viewer.setChecked(currentlyChecked, false);
+      for (var rootTag : tagList) {
+        viewer.setSubtreeChecked(rootTag, false);
       }
     }
-    setCheckedElementsInTree();
   }
 
   /**
@@ -335,12 +353,18 @@ public class TagSelectionTree {
       viewer.setChecked(tag, false);
     }
     if (includeChildren) {
-      setTagChildrenCheckedRecursive(tag, checked);
+      viewer.setSubtreeChecked(tag, true);
+      checkedTags.addAll(tag.getDeepChildTags());
     }
 
     // update Tree
-    setCheckedElementsInTree();
     refresh();
+  }
+
+  public void setParentTagsCheckedFromSel() {
+    for (var selObj : viewer.getStructuredSelection()) {
+      setParentTagsChecked((ITag) selObj, true);
+    }
   }
 
   public void setParentTagsChecked(final ITag tag, final boolean checked) {
@@ -355,8 +379,8 @@ public class TagSelectionTree {
           checkedTags.add(parentTag);
         } else {
           checkedTags.remove(parentTag);
-          viewer.setChecked(parentTag, false);
         }
+        viewer.setChecked(parentTag, checked);
       } else {
         parentTag = null;
       }
@@ -365,15 +389,13 @@ public class TagSelectionTree {
   }
 
   public void setTagChildrenCheckedRecursive(final ITag tag, final boolean checked) {
-    for (var childTag : tag.getChildTags()) {
-      if (checked) {
-        checkedTags.add(childTag);
-      } else {
-        checkedTags.remove(childTag);
-        viewer.setChecked(childTag, false);
-      }
-      setTagChildrenCheckedRecursive(childTag, checked);
+    var allChildren = tag.getDeepChildTags();
+    if (checked) {
+      checkedTags.addAll(allChildren);
+    } else {
+      checkedTags.removeAll(allChildren);
     }
+    viewer.setSubtreeChecked(tag, checked);
   }
 
   /**
@@ -418,8 +440,8 @@ public class TagSelectionTree {
         checkedTags.add(tag);
       } else {
         checkedTags.remove(tag);
-        viewer.setChecked(tag, false);
       }
+      item.setChecked(state);
       if (state) {
         setVisibleItemsCheckedState(item.getItems(), true);
       } else {

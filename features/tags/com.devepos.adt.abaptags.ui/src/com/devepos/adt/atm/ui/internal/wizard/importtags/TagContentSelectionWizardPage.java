@@ -383,7 +383,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       }
       setToolbarEnabled(tagTree.hasViewerInput());
     } catch (IOException e) {
-      setErrorMessage(MessageFormat.format(Messages.TagContentSelectionWizardPage_SourceFileLoadingError_xmsg, filePath));
+      setErrorMessage(MessageFormat
+          .format(Messages.TagContentSelectionWizardPage_SourceFileLoadingError_xmsg, filePath));
       e.printStackTrace();
     }
   }
@@ -472,8 +473,6 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     } else {
       tagTree.setTagChildrenCheckedRecursive(tag, false);
     }
-    // adds the checked
-    tagTree.setCheckedElementsInTree();
     tagTree.refresh();
   }
 
@@ -567,6 +566,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
   private void createActions() {
     selectSubTreeAction = new SelectTagSubtreeAction(tagTree);
     selectSubTreeAction.setPostRunHandler(() -> {
+      tagTree.setParentTagsCheckedFromSel();
       tgobjTableViewer.setAllChecked(true);
       syncTagCheckedStateToTgObj();
       validatePage(null);
@@ -856,7 +856,8 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
 
     includeSharedUserInfo = new Button(group, SWT.CHECK);
     GridDataFactory.fillDefaults().applyTo(includeSharedUserInfo);
-    includeSharedUserInfo.setText(Messages.TagContentSelectionWizardPage_IncludeSharedUserInfo_xchk);
+    includeSharedUserInfo
+        .setText(Messages.TagContentSelectionWizardPage_IncludeSharedUserInfo_xchk);
   }
 
   private void createViewerContextMenu() {
@@ -907,21 +908,25 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     }
     var checkedCount = tgobjTableViewer.getCheckedElements().length;
 
-    tgobjOfCurrentTagCheckInfo.setText(String.format(Messages.TagContentSelectionWizardPage_ObjectSelectionInfo_xlbl,
-        checkedCount == 0 ? Messages.General_No_xlbl : SELECTION_FORMAT.format(checkedCount),
-        checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
-        Messages.DeleteTagsWizardPage_Selected_xlbl));
+    tgobjOfCurrentTagCheckInfo
+        .setText(
+            String.format(Messages.TagContentSelectionWizardPage_ObjectSelectionInfo_xlbl,
+                checkedCount == 0 ? Messages.General_No_xlbl
+                    : SELECTION_FORMAT.format(checkedCount),
+                checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.DeleteTagsWizardPage_Selected_xlbl));
 
     var overallCheckedCount = taggedObjects.values()
         .stream()
         .flatMap(List::parallelStream)
         .filter(CheckableTaggedObjectInfo::isChecked)
         .count();
-    overallTgobjCheckInfo.setText(String.format(Messages.TagContentSelectionWizardPage_OverallObjectSelectionInfo_xlbl,
-        overallCheckedCount == 0 ? Messages.General_No_xlbl
-            : SELECTION_FORMAT.format(overallCheckedCount),
-        overallCheckedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
-        Messages.DeleteTagsWizardPage_Selected_xlbl));
+    overallTgobjCheckInfo.setText(
+        String.format(Messages.TagContentSelectionWizardPage_OverallObjectSelectionInfo_xlbl,
+            overallCheckedCount == 0 ? Messages.General_No_xlbl
+                : SELECTION_FORMAT.format(overallCheckedCount),
+            overallCheckedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+            Messages.DeleteTagsWizardPage_Selected_xlbl));
 
     tgobjOfCurrentTagCheckInfo.getParent().layout();
   }
