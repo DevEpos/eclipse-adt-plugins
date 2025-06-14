@@ -346,19 +346,22 @@ public class TagSelectionTree {
       return;
     }
 
+    allCheckStatesChanged = false;
+    previouslyCheckedTags.clear();
+    if (rememberCheckedstate) {
+      previouslyCheckedTags.addAll(checkedTags);
+    }
+
     if (checked) {
       checkedTags.add(tag);
     } else {
       checkedTags.remove(tag);
-      viewer.setChecked(tag, false);
     }
+    viewer.setChecked(tag, checked);
     if (includeChildren) {
       viewer.setSubtreeChecked(tag, true);
       checkedTags.addAll(tag.getDeepChildTags());
     }
-
-    // update Tree
-    refresh();
   }
 
   public void setParentTagsCheckedFromSel() {

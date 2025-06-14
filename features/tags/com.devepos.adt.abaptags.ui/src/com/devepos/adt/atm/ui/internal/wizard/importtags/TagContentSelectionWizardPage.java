@@ -434,10 +434,15 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
       return;
     }
 
+    var tgobjList = ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput());
+
+    if (tgobjList.isEmpty()) {
+      return;
+    }
+
     if (StringUtil.isEmpty(tgobjTable.getFilterString())) {
       tgobjTableViewer.setAllChecked(checked);
-      ((List<CheckableTaggedObjectInfo>) tgobjTableViewer.getInput())
-          .forEach(el -> el.setChecked(checked));
+      tgobjList.forEach(el -> el.setChecked(checked));
     } else {
       // select only filtered objects
       for (var visibleRow : tgobjTableViewer.getTable().getItems()) {
@@ -833,7 +838,6 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     checkAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.CHECK_ALL));
     checkAll.addSelectionListener(widgetSelectedAdapter(l -> {
       setTgobjAllChecked(true);
-
       validatePage(null);
     }));
 
