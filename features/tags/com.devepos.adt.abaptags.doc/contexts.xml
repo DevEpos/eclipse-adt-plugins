@@ -5,18 +5,22 @@
    </context>
    <context id="import_tags_wizard">
       <description>Wizard for importing ABAP Tags and Tagged Objects from another project or a file</description>
+      <topic href="html/import_tags_wizard/index.html" label="Import ABAP Tags &amp; Tagged Objects"/>
    </context>
    <context id="import_tags_wiz_source_sel">
       <description>On this page you choose from which to import ABAP Tags / Tagged Objects</description>
+      <topic href="html/import_tags_wizard/source_selection.html" label="Select Import Source"/>
    </context>
    <context id="import_tags_wiz_content_sel">
       <description>On this page you select the ABAP Tags and Tagged Objects you want to import</description>
    </context>
    <context id="export_tags_wizard">
       <description>Wizard for exporting  ABAP Tags and Tagged Objects to a file</description>
+      <topic href="html/export_tags_wizard/index.html" label="Export ABAP Tags Wizard"/>
    </context>
    <context id="export_tags_wizard_content_sel">
       <description>On this page you select ABAP Tags you want to export</description>
+      <topic href="html/export_tags_wizard/tag_selection.html" label="Content Selection for Export"/>
    </context>
    <context id="unassign_tags_wizard_tag_selection">
       <description>On this page you select ABAP Tags to find Objects that have those Tags assigned</description>

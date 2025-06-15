@@ -19,6 +19,16 @@
            </topic>
         </topic>
       </topic>
+      <topic href="html/import_tags_wizard/index.html" label="Importing Tags">
+         <topic href="html/import_tags_wizard/source_selection.html" label="Source Selection">
+         </topic>
+         <topic href="html/import_tags_wizard/content_selection.html" label="Content Selection">
+         </topic>
+      </topic>
+      <topic href="html/export_tags_wizard/index.html" label="Exporting Tags">
+         <topic href="html/export_tags_wizard/tag_selection.html" label="Tag Selection">
+         </topic>
+      </topic>
       <topic href="html/tag_manager.html" label="Tag Manager">
       </topic>
       <topic href="html/object_tags.html" label="Object Tags">
@@ -31,7 +41,7 @@
       </topic>
    </topic>
    <topic href="html/changelog/overview.html" label="What&apos;s New">
-      <topic href="html/changelog/latest-release.html" label="Version 1.12.0">
+      <topic href="html/changelog/latest-release.html" label="Version 1.15.0">
       </topic>
    </topic>
 </toc>
