@@ -249,7 +249,6 @@ public class AbapTagsService implements IAbapTagsService {
       scopes.stream()
           .collect(Collectors.toSet())
           .forEach(s -> params.add(new QueryParameter(QUERY_PARAM_SCOPE, s.toString())));
-      params.add(new QueryParameter(QUERY_PARAM_SCOPE, TagSearchScope.SHARED.toString()));
       if (withObjectCount) {
         params.add(new QueryParameter(QUERY_PARAM_WITH_OBJECT_COUNT, "X")); //$NON-NLS-1$
       }

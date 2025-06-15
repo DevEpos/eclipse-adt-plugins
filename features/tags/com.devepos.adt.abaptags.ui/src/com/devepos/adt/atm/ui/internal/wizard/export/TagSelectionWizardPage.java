@@ -314,21 +314,18 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     final var tagScopeLabel = new Label(tagScopeContainer, SWT.NONE);
     tagScopeLabel.setText(Messages.TagSelectionWizardPage_TagScope_xlbl);
     tagTypeCombo = new Combo(tagScopeContainer, SWT.READ_ONLY);
-    tagTypeCombo.setItems(Stream.of(TagSearchScope.values())
-        .filter(s -> !s.equals(TagSearchScope.SHARED))
-        .map(scope -> {
-          switch (scope) {
-          case ALL:
-            return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
-          case GLOBAL:
-            return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
-          case USER:
-            return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
-          default:
-            return ""; //$NON-NLS-1$
-          }
-        })
-        .toArray(String[]::new));
+    tagTypeCombo.setItems(Stream.of(TagSearchScope.values()).map(scope -> {
+      switch (scope) {
+      case ALL:
+        return Messages.TagSelectionWizardPage_TagScopeAll_xlbl;
+      case GLOBAL:
+        return Messages.TagSelectionWizardPage_TagScopeGlobal_xlbl;
+      case USER:
+        return Messages.TagSelectionWizardPage_TagScopeUser_xlbl;
+      default:
+        return ""; //$NON-NLS-1$
+      }
+    }).toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
       var selectedScopeId = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
