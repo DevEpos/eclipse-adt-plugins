@@ -282,14 +282,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(toolBar, SWT.SEPARATOR);
 
     var expandAll = new ToolItem(toolBar, SWT.PUSH);
-    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setToolTipText(
+        Messages.TagSelectionWizardPage_ExpandAll_xbut + Messages.KeyBoardShortCut_ExpandAll_xtol);
     expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
     expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagSelectionTree.expandAll();
     }));
 
     final var collapseAll = new ToolItem(toolBar, SWT.PUSH);
-    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut
+        + Messages.KeyBoardShortCut_CollapseAll_xtol);
     collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
     collapseAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagSelectionTree.collapseAll();

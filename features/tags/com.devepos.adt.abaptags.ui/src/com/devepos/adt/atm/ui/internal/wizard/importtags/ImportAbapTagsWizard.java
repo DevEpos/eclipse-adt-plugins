@@ -161,11 +161,7 @@ public class ImportAbapTagsWizard extends AbstractWizardBase implements IImportW
       protected Control createCustomArea(final Composite parent) {
         var statsComposite = new Composite(parent, SWT.NONE);
         GridDataFactory.fillDefaults().grab(true, true).applyTo(statsComposite);
-        GridLayoutFactory.swtDefaults()
-            .numColumns(2)
-            .margins(0, 0)
-            .spacing(20, SWT.DEFAULT)
-            .applyTo(statsComposite);
+        GridLayoutFactory.swtDefaults().numColumns(2).spacing(20, 2).applyTo(statsComposite);
 
         var titleLabel = new Label(statsComposite, SWT.NONE);
         GridDataFactory.fillDefaults().span(2, 1).hint(SWT.DEFAULT, 30).applyTo(titleLabel);

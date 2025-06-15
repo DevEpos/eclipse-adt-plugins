@@ -276,7 +276,7 @@ public class TaggableObjectSelectionWizardPage extends AbstractBaseWizardPage {
 
     selectObjectsTbButton = new ToolItem(tableToolbar, SWT.PUSH);
     selectObjectsTbButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.OPEN_ABAP_REPO_TYPE));
-    selectObjectsTbButton.setToolTipText("Select Objects (Ctrl+o)"); //$NON-NLS-1$
+    selectObjectsTbButton.setToolTipText("Select Objects (Ctrl+O)"); //$NON-NLS-1$
     selectObjectsTbButton.addSelectionListener(widgetSelectedAdapter(l -> {
       selectObjectsViaAdtQuickSearch();
     }));

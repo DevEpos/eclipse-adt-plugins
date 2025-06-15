@@ -225,6 +225,8 @@ public class Messages extends NLS {
   public static String TagSelectionWizardPage_Title_xtit;
   public static String TypeLabels_LocalClass_xlbl;
   public static String TypeLabels_LocalInterface_xlbl;
+  public static String KeyBoardShortCut_ExpandAll_xtol;
+  public static String KeyBoardShortCut_CollapseAll_xtol;
   static {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, Messages.class);

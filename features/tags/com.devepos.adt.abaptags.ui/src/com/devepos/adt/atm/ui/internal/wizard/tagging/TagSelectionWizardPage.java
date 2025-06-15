@@ -454,14 +454,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     final var expandAll = new ToolItem(treeToolbar, SWT.PUSH);
-    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setToolTipText(
+        Messages.TagSelectionWizardPage_ExpandAll_xbut + Messages.KeyBoardShortCut_ExpandAll_xtol);
     expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
     expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
       checkBoxViewer.expandAll();
     }));
 
     final var collapseAll = new ToolItem(treeToolbar, SWT.PUSH);
-    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut
+        + Messages.KeyBoardShortCut_CollapseAll_xtol);
     collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
     collapseAll.addSelectionListener(widgetSelectedAdapter(l -> checkBoxViewer.collapseAll()));
 
@@ -476,19 +478,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     final var addTag = new ToolItem(treeToolbar, SWT.PUSH);
-    addTag.setToolTipText(Messages.TagSelectionWizardPage_AddGlobalTag_xbut);
+    addTag.setToolTipText(Messages.TagSelectionWizardPage_AddGlobalTag_xbut + " (Ctrl++)");
     addTag.setImage(AbapTagsUIPlugin.getDefault().getImage(IImages.NEW_GLOBAL_TAG));
     addTag.addSelectionListener(widgetSelectedAdapter(l -> addTag(false)));
 
     final var addUserTag = new ToolItem(treeToolbar, SWT.PUSH);
-    addUserTag.setToolTipText(Messages.TagSelectionWizardPage_AddUserTag_xbut);
+    addUserTag.setToolTipText(Messages.TagSelectionWizardPage_AddUserTag_xbut + " (Ctrl+Shift++)");
     addUserTag.setImage(AbapTagsUIPlugin.getDefault().getImage(IImages.NEW_USER_TAG));
     addUserTag.addSelectionListener(widgetSelectedAdapter(l -> addTag(true)));
 
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     removeTagButton = new ToolItem(treeToolbar, SWT.PUSH);
-    removeTagButton.setToolTipText(Messages.TagSelectionWizardPage_RemoveTag_xbut);
+    removeTagButton.setToolTipText(Messages.TagSelectionWizardPage_RemoveTag_xbut + "(DEL)");
     removeTagButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
     removeTagButton.addSelectionListener(widgetSelectedAdapter(l -> removeTag()));
     removeTagButton.setEnabled(false);
