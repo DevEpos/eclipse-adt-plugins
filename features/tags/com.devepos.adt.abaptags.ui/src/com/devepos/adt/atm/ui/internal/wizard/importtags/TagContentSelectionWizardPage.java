@@ -175,7 +175,7 @@ public class TagContentSelectionWizardPage extends AbstractBaseWizardPage {
     var includeShared = includeSharedUserInfo.getSelection();
 
     contentForImport.getTags().stream().filter(t -> checkedTags.contains(t)).forEach(t -> {
-      if (!StringUtil.isEmpty(t.getOwner())) {
+      if (!StringUtil.isEmpty(t.getOwner()) && StringUtil.isEmpty(t.getParentTagId())) {
         checkedUserTagIds.add(t.getId());
       }
       importRequest.getTags().add(cloneTagWithChkChildren(t, checkedTags, includeShared));
