@@ -13,6 +13,7 @@
    </context>
    <context id="import_tags_wiz_content_sel">
       <description>On this page you select the ABAP Tags and Tagged Objects you want to import</description>
+      <topic href="html/import_tags_wizard/content_selection.html" label="Select Content for Import" />
    </context>
    <context id="export_tags_wizard">
       <description>Wizard for exporting  ABAP Tags and Tagged Objects to a file</description>
