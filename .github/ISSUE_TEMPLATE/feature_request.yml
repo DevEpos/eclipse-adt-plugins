@@ -2,7 +2,7 @@ name: 💡 Feature Request
 description: Request a missing feature
 title: "[FEATURE] "
 labels:
-  - enhancement
+  - feature request
 assignees: stockbal
 body:
   - type: checkboxes
