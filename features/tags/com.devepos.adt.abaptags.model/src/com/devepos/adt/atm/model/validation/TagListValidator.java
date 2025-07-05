@@ -60,8 +60,8 @@ public class TagListValidator {
         return new Status(IStatus.ERROR, AbapTagsModelPlugin.PLUGIN_ID,
             NLS.bind(Messages.TagListValidator_InvalidCharactersInTag_xmsg, ">"));
       }
-      boolean tagWasAdded = false;
-      boolean addTag = false;
+      var tagWasAdded = false;
+      var addTag = false;
       if (newOnly) {
         if (!StringUtil.isEmpty(tag.getId())) {
           addTag = true;
@@ -85,7 +85,7 @@ public class TagListValidator {
     if (!rootOnly) {
       for (final ITag tag : tags) {
         if (!tag.getChildTags().isEmpty()) {
-          final IStatus childTagStatus = validateTags(tag.getChildTags(), false, newOnly);
+          final var childTagStatus = validateTags(tag.getChildTags(), false, newOnly);
           if (!childTagStatus.isOK()) {
             return childTagStatus;
           }

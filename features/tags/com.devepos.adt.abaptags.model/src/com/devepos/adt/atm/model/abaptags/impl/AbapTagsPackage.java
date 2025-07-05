@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagsContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
@@ -20,6 +21,9 @@ import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagBase;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -44,56 +48,64 @@ import com.devepos.adt.atm.model.abaptags.TagType;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  *
  * @generated
  */
 public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EClass tagBaseEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EClass tagEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  private EClass adtObjectTagEClass = null;
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EClass tagListEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass adtObjectTagEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EClass tagPreviewInfoEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EClass taggedObjectEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -108,7 +120,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private EClass taggedObjectTreeRequestEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -203,28 +216,64 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private EClass taggedObjectDeleteRequestEClass = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagExportRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass abapTagsContentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagExportResponseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  private EClass tagImportRequestEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EEnum tagSearchScopeEEnum = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EEnum tagQueryTypeEEnum = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private EEnum tagInfoTypeEEnum = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -247,7 +296,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   private EEnum tagTypeEEnum = null;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -262,8 +312,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * factory method {@link #init init()}, which also performs
    * initialization of the package, or returns the registered package,
    * if one already exists.
-   * <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @see org.eclipse.emf.ecore.EPackage.Registry
    * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage#eNS_URI
@@ -275,7 +325,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -290,8 +341,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
    * accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain
    * the package.
-   * <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @see #eNS_URI
    * @see #createPackageContents()
@@ -304,8 +355,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     }
 
     // Obtain or create and register package
-    Object registeredAbapTagsPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-    AbapTagsPackage theAbapTagsPackage = registeredAbapTagsPackage instanceof AbapTagsPackage
+    var registeredAbapTagsPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    var theAbapTagsPackage = registeredAbapTagsPackage instanceof AbapTagsPackage
         ? (AbapTagsPackage) registeredAbapTagsPackage
         : new AbapTagsPackage();
 
@@ -330,7 +381,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -340,7 +392,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -350,7 +403,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -360,7 +414,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -370,7 +425,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -380,7 +436,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -390,7 +447,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -400,7 +458,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -410,7 +469,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -420,7 +480,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -430,7 +491,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -440,7 +502,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -450,7 +513,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -460,7 +524,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -470,7 +535,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -480,7 +546,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -490,7 +557,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -500,7 +568,30 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagList() {
+    return tagListEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getTagList_Tags() {
+    return (EReference) tagListEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -510,7 +601,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -531,7 +623,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -541,7 +634,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -551,7 +645,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -561,7 +656,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -571,7 +667,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -614,27 +711,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EClass getTagList() {
-    return tagListEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public EReference getTagList_Tags() {
-    return (EReference) tagListEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -644,7 +722,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -654,7 +733,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -664,7 +744,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -674,7 +755,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -684,7 +766,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -694,7 +777,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -704,7 +788,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -758,7 +843,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -768,7 +854,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -778,7 +865,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -788,7 +876,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -798,7 +887,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -819,7 +909,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -829,7 +920,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -839,7 +931,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -849,7 +942,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -859,7 +953,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1463,7 +1558,107 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagExportRequest() {
+    return tagExportRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagExportRequest_TagIds() {
+    return (EAttribute) tagExportRequestEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EAttribute getTagExportRequest_IncludeSharedTagsInfo() {
+    return (EAttribute) tagExportRequestEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getAbapTagsContent() {
+    return abapTagsContentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagsContent_Tags() {
+    return (EReference) abapTagsContentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagsContent_TaggedObjectInfos() {
+    return (EReference) abapTagsContentEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EReference getAbapTagsContent_SharedTags() {
+    return (EReference) abapTagsContentEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagExportResponse() {
+    return tagExportResponseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EClass getTagImportRequest() {
+    return tagImportRequestEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1473,7 +1668,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1483,7 +1679,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1493,7 +1690,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1525,7 +1723,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1535,7 +1734,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1545,7 +1745,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1554,8 +1755,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   /**
    * Creates the meta-model objects for the package. This method is
    * guarded to have no affect on any invocation but its first.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1704,6 +1905,19 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     taggedObjectDeleteRequestEClass = createEClass(TAGGED_OBJECT_DELETE_REQUEST);
     createEAttribute(taggedObjectDeleteRequestEClass, TAGGED_OBJECT_DELETE_REQUEST__OBJECT_ID);
 
+    tagExportRequestEClass = createEClass(TAG_EXPORT_REQUEST);
+    createEAttribute(tagExportRequestEClass, TAG_EXPORT_REQUEST__TAG_IDS);
+    createEAttribute(tagExportRequestEClass, TAG_EXPORT_REQUEST__INCLUDE_SHARED_TAGS_INFO);
+
+    abapTagsContentEClass = createEClass(ABAP_TAGS_CONTENT);
+    createEReference(abapTagsContentEClass, ABAP_TAGS_CONTENT__TAGS);
+    createEReference(abapTagsContentEClass, ABAP_TAGS_CONTENT__TAGGED_OBJECT_INFOS);
+    createEReference(abapTagsContentEClass, ABAP_TAGS_CONTENT__SHARED_TAGS);
+
+    tagExportResponseEClass = createEClass(TAG_EXPORT_RESPONSE);
+
+    tagImportRequestEClass = createEClass(TAG_IMPORT_REQUEST);
+
     // Create enums
     tagSearchScopeEEnum = createEEnum(TAG_SEARCH_SCOPE);
     tagQueryTypeEEnum = createEEnum(TAG_QUERY_TYPE);
@@ -1717,16 +1931,18 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   private boolean isInitialized = false;
 
   /**
-   * Complete the initialization of the package and its meta-model. This method is
-   * guarded to have no affect on any invocation but its first. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Complete the initialization of the package and its meta-model. This
+   * method is guarded to have no affect on any invocation but its first.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -1742,9 +1958,9 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+    var theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
         .getEPackage(IAdtBasePackage.eNS_URI);
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+    var theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
         .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
@@ -1754,6 +1970,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
     // Add supertypes to classes
     tagEClass.getESuperTypes().add(getTagBase());
     adtObjectTagEClass.getESuperTypes().add(getTagBase());
+    tagExportResponseEClass.getESuperTypes().add(getAbapTagsContent());
+    tagImportRequestEClass.getESuperTypes().add(getAbapTagsContent());
 
     // Initialize classes, features, and operations; add parameters
     initEClass(tagBaseEClass, ITagBase.class, "TagBase", IS_ABSTRACT, !IS_INTERFACE,
@@ -1789,8 +2007,8 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
         !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTag_TaggedObjectCount(), ecorePackage.getEInt(), "taggedObjectCount", null, 0,
-        1, ITag.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-        !IS_DERIVED, IS_ORDERED);
+        1, ITag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+        IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTag_Shared(), ecorePackage.getEBoolean(), "shared", null, 0, 1, ITag.class,
         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
         IS_ORDERED);
@@ -2090,6 +2308,34 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         "objectId", null, 0, -1, ITaggedObjectDeleteRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(tagExportRequestEClass, ITagExportRequest.class, "TagExportRequest", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTagExportRequest_TagIds(), theXMLTypePackage.getString(), "tagIds", null, 0,
+        -1, ITagExportRequest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+        !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTagExportRequest_IncludeSharedTagsInfo(), theXMLTypePackage.getBoolean(),
+        "includeSharedTagsInfo", null, 0, 1, ITagExportRequest.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(abapTagsContentEClass, IAbapTagsContent.class, "AbapTagsContent", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAbapTagsContent_Tags(), getTag(), null, "tags", null, 0, -1,
+        IAbapTagsContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAbapTagsContent_TaggedObjectInfos(), getTaggedObjectInfo(), null,
+        "taggedObjectInfos", null, 0, -1, IAbapTagsContent.class, !IS_TRANSIENT, !IS_VOLATILE,
+        IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+        IS_ORDERED);
+    initEReference(getAbapTagsContent_SharedTags(), getTag(), null, "sharedTags", null, 0, -1,
+        IAbapTagsContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+        !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tagExportResponseEClass, ITagExportResponse.class, "TagExportResponse", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(tagImportRequestEClass, ITagImportRequest.class, "TagImportRequest", !IS_ABSTRACT,
+        !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     // Initialize enums and add enum literals
     initEEnum(tagSearchScopeEEnum, TagSearchScope.class, "TagSearchScope");
     addEEnumLiteral(tagSearchScopeEEnum, TagSearchScope.ALL);
@@ -2133,14 +2379,14 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
   }
 
   /**
-   * Initializes the annotations for
-   * <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   protected void createExtendedMetaDataAnnotations() {
-    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(tagBaseEClass, source, new String[] { "kind", "elementOnly", "name", "tagBase" });
     addAnnotation(getTagBase_Id(), source,
         new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
@@ -2338,6 +2584,24 @@ public class AbapTagsPackage extends EPackageImpl implements IAbapTagsPackage {
         new String[] { "kind", "elementOnly", "name", "taggedObjectDelRequest" });
     addAnnotation(getTaggedObjectDeleteRequest_ObjectId(), source, new String[] { "name",
         "taggedObjectId", "namespace", "##targetNamespace", "kind", "element" });
+    addAnnotation(tagExportRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagExportRequest" });
+    addAnnotation(getTagExportRequest_TagIds(), source,
+        new String[] { "kind", "element", "name", "tagId", "namespace", "##targetNamespace" });
+    addAnnotation(getTagExportRequest_IncludeSharedTagsInfo(), source, new String[] { "kind",
+        "attribute", "namespace", "##targetNamespace", "name", "includeSharedTagsInfo" });
+    addAnnotation(abapTagsContentEClass, source,
+        new String[] { "kind", "elementOnly", "name", "abapTagsContent" });
+    addAnnotation(getAbapTagsContent_Tags(), source,
+        new String[] { "kind", "element", "name", "tag", "namespace", "##targetNamespace" });
+    addAnnotation(getAbapTagsContent_TaggedObjectInfos(), source, new String[] { "kind", "element",
+        "name", "taggedObjectInfo", "namespace", "##targetNamespace" });
+    addAnnotation(getAbapTagsContent_SharedTags(), source,
+        new String[] { "kind", "element", "name", "sharedTag", "namespace", "##targetNamespace" });
+    addAnnotation(tagExportResponseEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagExportResponse" });
+    addAnnotation(tagImportRequestEClass, source,
+        new String[] { "kind", "elementOnly", "name", "tagImportRequest" });
   }
 
 } // AbapTagsPackage

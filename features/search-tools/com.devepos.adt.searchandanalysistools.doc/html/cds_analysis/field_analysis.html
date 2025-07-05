@@ -1,79 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html id="doc-page">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <title>CDS Analyzer - Field Analysis</title>
-</head>
+  </head>
 
-<body id="doc-body">
+  <body id="doc-body">
     <h2 class="heading">Field Analysis</h2>
-    <p>The Field Analysis provides an Analysis for a Field of a CDS
-        View (or Database Table/View).<br>
-        The user interface of the analysis is split into two controls:
+    <p>
+      The Field Analysis provides an Analysis for a Field of a CDS View (or Database Table/View).<br />
+      The user interface of the analysis is split into two controls:
     </p>
     <ul class="list">
-        <li>a viewer which shows the available fields of the chosen entity</li>
-        <li>a viewer that shows the analysis result of the currently selected field</li>
+      <li>a viewer which shows the available fields of the chosen entity</li>
+      <li>a viewer that shows the analysis result of the currently selected field</li>
     </ul>
     <p>
-        To switch the analysis of a field from <em>Top-Down</em> to <em>Bottom-up</em> you can use the radio button
-        control in the toolbar of the detail viewer.
+      To switch the analysis of a field from <em>Top-Down</em> to <em>Bottom-up</em> you can use the radio button
+      control in the toolbar of the detail viewer.
     </p>
     <div class="alert info">
-        <div class="alert-info__text"></div>
-        For obvious reasons a <em>Top-Down</em> analysis is only available for fields of CDS views
+      <div class="alert-info__text"></div>
+      For obvious reasons a <em>Top-Down</em> analysis is only available for fields of CDS views
     </div>
 
     <h3 class="heading">View Options</h3>
-    <p>The layout of the two viewers can be switched via the view menu to either <em>automatic</em>, <em>horizonal</em>
-        or <em>vertical</em>.
+    <p>
+      The layout of the two viewers can be switched via the view menu to either <em>automatic</em>,
+      <em>horizonal</em> or <em>vertical</em>.
     </p>
 
     <h3 class="heading">Field Origin (Top-Down)</h3>
     <figure id="figure6">
-        <img src="../../images/CdsAnalyzer-FieldAnalysis-TopDown.png">
-        <figcaption>
-            Example of <i>Field Analysis (Top-Down)</i>
-        </figcaption>
+      <img src="../../images/CdsAnalyzer-FieldAnalysis-TopDown.png" />
+      <figcaption>Example of <i>Field Analysis (Top-Down)</i></figcaption>
     </figure>
 
     <h3 class="heading">Usages in Fields (Bottom-Up)</h3>
     <div class="alert info">
-        <div class="alert-info__text"></div>
-        The Where-Used mode only shows the usage in fields. If a field is only
-        used inside a <strong>Join Condition</strong> or in the <strong>Where</strong>-Clause
-        the CDS view will not be listed as a usage
+      <div class="alert-info__text"></div>
+      The Where-Used mode only shows the usage in fields. If a field is only used inside a
+      <strong>Join Condition</strong> or in the <strong>Where</strong>-Clause the CDS view will not be listed as a usage
     </div>
     <figure id="figure7">
-        <img src="../../images/CdsAnalyzer-FieldAnalysis-WhereUsed.png">
-        <figcaption>
-            Example of <i>Field Analysis (Where-Used)</i>
-        </figcaption>
+      <img src="../../images/CdsAnalyzer-FieldAnalysis-WhereUsed.png" />
+      <figcaption>Example of <i>Field Analysis (Where-Used)</i></figcaption>
     </figure>
 
     <h3 class="heading">Additional options</h3>
-    <p>Per default only field usages in non-calculated fields are shown (i.e. fields whose origin can be clearly
-        associated to a concrete source entity). It is however possible to enable this via the option <em>Search in
-            calculated
-            Fields</em> (<img src="../../icons/Function.png" style="margin-bottom: -3px;">).
+    <p>
+      Per default only field usages in non-calculated fields are shown (i.e. fields whose origin can be clearly
+      associated to a concrete source entity). It is however possible to enable this via the option
+      <em>Search in calculated Fields</em> (<img src="../../icons/Function.png" style="margin-bottom: -3px" />).
     </p>
     <h3 class="heading">Related information</h3>
     <div>
-        <div>
-            <a class="link" href="../cds_analyzer.html">CDS Analyzer</a>
-        </div>
-        <div>
-            <a class="link" href="./top_down.html">Top Down Analysis</a>
-        </div>
-        <div>
-            <a class="link" href="./where_used_in_cds.html">Where-Used Analysis</a>
-        </div>
-        <div>
-            <a class="link" href="./used_entities.html">Used Entities Analysis</a>
-        </div>
+      <div>
+        <a class="link" href="../cds_analyzer.html">CDS Analyzer</a>
+      </div>
+      <div>
+        <a class="link" href="./top_down.html">Top Down Analysis</a>
+      </div>
+      <div>
+        <a class="link" href="./where_used_in_cds.html">Where-Used Analysis</a>
+      </div>
+      <div>
+        <a class="link" href="./used_entities.html">Used Entities Analysis</a>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.devepos.adt.abaptags.model/src" modelPluginID="com.devepos.adt.abaptags.model"
     modelName="ABAP Tags" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     codeFormatting="true" commentFormatting="true" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.10" usedGenPackages="platform:/plugin/com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
+    complianceLevel="17.0" copyrightFields="false" runtimeVersion="2.10" usedGenPackages="platform:/plugin/com.devepos.adt.base/model/adtbase.genmodel#//adtbase"
     interfaceNamePattern="I{0}" classNamePattern="{0}" operationReflection="true"
     importOrganizing="true" cleanup="true">
   <foreignModel>abaptags.ecore</foreignModel>
@@ -166,5 +166,16 @@
     <genClasses ecoreClass="abaptags.ecore#//TaggedObjectDeleteRequest">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TaggedObjectDeleteRequest/objectId"/>
     </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagExportRequest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagExportRequest/tagIds"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute abaptags.ecore#//TagExportRequest/includeSharedTagsInfo"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//AbapTagsContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagsContent/tags"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagsContent/taggedObjectInfos"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference abaptags.ecore#//AbapTagsContent/sharedTags"/>
+    </genClasses>
+    <genClasses ecoreClass="abaptags.ecore#//TagExportResponse"/>
+    <genClasses ecoreClass="abaptags.ecore#//TagImportRequest"/>
   </genPackages>
 </genmodel:GenModel>

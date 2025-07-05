@@ -124,7 +124,7 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container
    * @generated
    */
   public void setTaggedObjectCount(final int newTaggedObjectCount) {
-    int oldTaggedObjectCount = taggedObjectCount;
+    var oldTaggedObjectCount = taggedObjectCount;
     taggedObjectCount = newTaggedObjectCount;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -142,8 +142,8 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container
   @Override
   public EList<ITaggedObjectTreeObject> getObjects() {
     if (objects == null) {
-      objects = new EObjectContainmentEList<>(ITaggedObjectTreeObject.class, this,
-          IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS);
+      objects = new EObjectContainmentEList<>(ITaggedObjectTreeObject.class,
+          this, IAbapTagsPackage.TAGGED_OBJECT_TREE_RESULT__OBJECTS);
     }
     return objects;
   }
@@ -278,7 +278,7 @@ public class TaggedObjectTreeResult extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (taggedObjectCount: ");
     result.append(taggedObjectCount);
     result.append(')');

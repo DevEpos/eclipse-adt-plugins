@@ -152,7 +152,7 @@ public class TaggedObjectDeletionCheckRequest extends MinimalEObjectImpl.Contain
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (taggedObjectIds: ");
     result.append(taggedObjectIds);
     result.append(')');

@@ -35,6 +35,14 @@ public interface IImages {
    * Wizard banner for deleting Tags from objects
    */
   String DELETE_TAGS_FROM_OBJ_WIZBAN = "IMG_DELETE_TAGS_FROM_OBJ_WIZBAN";
+  /**
+   * Wizard banner for exporting ABAP Tags
+   */
+  String EXPORT_TAGS_WIZBAN = "IMG_EXPORT_TAGS_WIZBAN";
+  /**
+   * Wizard banner for importing ABAP Tags
+   */
+  String IMPORT_TAGS_WIZBAN = "IMG_IMPORT_TAGS_WIZBAN";
   /*
    * Image for Folder of Global Tags
    */

@@ -7,6 +7,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -21,6 +24,25 @@ import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
  * @author stockbal
  */
 public interface IAdtObjTaggingService {
+
+  /**
+   * Sends ABAP Tags export request and returns the export result
+   *
+   * @param destinationId destination Id of ABAP project
+   * @param request       request for exporting tag content
+   * @return the export result
+   */
+  ITagExportResponse exportTags(String destinationId, ITagExportRequest request);
+
+  /**
+   * Send ABAP Tags import request and returns status of the import
+   * 
+   * @param destinationId destination Id of ABAP project
+   * @param request       request for importing tag content
+   * @return status of the import
+   */
+  IStatus importTags(String destinationId, ITagImportRequest request);
+
   /**
    * Deletes a list of tagged objects
    *
@@ -79,4 +101,20 @@ public interface IAdtObjTaggingService {
    * @return Status with severity {@link IStatus#OK} if the feature is available
    */
   IStatus testTaggedObjectDeletionFeatureAvailability(IProject project);
+
+  /**
+   * Returns {@link Status#OK_STATUS} if it is possible to export tags
+   *
+   * @param project ABAP project
+   * @return Status with severity {@link IStatus#OK} if the feature is available
+   */
+  IStatus testTagsExportFeatureAvailability(IProject project);
+
+  /**
+   * Returns {@link Status#OK_STATUS} if it is possible to import tags
+   *
+   * @param project ABAP project
+   * @return Status with severity {@link IStatus#OK} if the feature is available
+   */
+  IStatus testTagsImportFeatureAvailability(IProject project);
 }

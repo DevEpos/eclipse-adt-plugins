@@ -138,7 +138,7 @@ public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container
    */
   @Override
   public void setTagId(final String newTagId) {
-    String oldTagId = tagId;
+    var oldTagId = tagId;
     tagId = newTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -165,7 +165,7 @@ public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParentObjectName(final String newParentObjectName) {
-    String oldParentObjectName = parentObjectName;
+    var oldParentObjectName = parentObjectName;
     parentObjectName = newParentObjectName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -193,7 +193,7 @@ public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParentObjectType(final String newParentObjectType) {
-    String oldParentObjectType = parentObjectType;
+    var oldParentObjectType = parentObjectType;
     parentObjectType = newParentObjectType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -298,7 +298,7 @@ public class TaggedObjectTreeRequest extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (tagId: ");
     result.append(tagId);
     result.append(", parentObjectName: ");

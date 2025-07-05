@@ -10,12 +10,16 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.swt.graphics.Image;
 
+import com.devepos.adt.atm.model.abaptags.IAbapTagsContent;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsPackage;
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckObject;
 import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
@@ -39,22 +43,23 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.model.abaptags.TagType;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  *
  * @generated
  */
 public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   /**
    * Creates the default factory implementation.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   public static IAbapTagsFactory init() {
     try {
-      IAbapTagsFactory theAbapTagsFactory = (IAbapTagsFactory) EPackage.Registry.INSTANCE
+      var theAbapTagsFactory = (IAbapTagsFactory) EPackage.Registry.INSTANCE
           .getEFactory(IAbapTagsPackage.eNS_URI);
       if (theAbapTagsFactory != null) {
         return theAbapTagsFactory;
@@ -66,8 +71,9 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * Creates an instance of the factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -76,7 +82,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -121,6 +128,14 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
       return createTaggedObjectDeletionCheckObject();
     case IAbapTagsPackage.TAGGED_OBJECT_DELETE_REQUEST:
       return createTaggedObjectDeleteRequest();
+    case IAbapTagsPackage.TAG_EXPORT_REQUEST:
+      return createTagExportRequest();
+    case IAbapTagsPackage.ABAP_TAGS_CONTENT:
+      return createAbapTagsContent();
+    case IAbapTagsPackage.TAG_EXPORT_RESPONSE:
+      return createTagExportResponse();
+    case IAbapTagsPackage.TAG_IMPORT_REQUEST:
+      return createTagImportRequest();
     default:
       throw new IllegalArgumentException(
           "The class '" + eClass.getName() + "' is not a valid classifier");
@@ -128,7 +143,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -156,7 +172,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -184,68 +201,74 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITag createTag() {
-    Tag tag = new Tag();
+    var tag = new Tag();
     return tag;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @generated
-   */
-  @Override
-  public IAdtObjectTag createAdtObjectTag() {
-    AdtObjectTag adtObjectTag = new AdtObjectTag();
-    return adtObjectTag;
-  }
-
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITagList createTagList() {
-    TagList tagList = new TagList();
+    var tagList = new TagList();
     return tagList;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAdtObjectTag createAdtObjectTag() {
+    var adtObjectTag = new AdtObjectTag();
+    return adtObjectTag;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITagPreviewInfo createTagPreviewInfo() {
-    TagPreviewInfo tagPreviewInfo = new TagPreviewInfo();
+    var tagPreviewInfo = new TagPreviewInfo();
     return tagPreviewInfo;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITaggedObject createTaggedObject() {
-    TaggedObject taggedObject = new TaggedObject();
+    var taggedObject = new TaggedObject();
     return taggedObject;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITaggedObjectList createTaggedObjectList() {
-    TaggedObjectList taggedObjectList = new TaggedObjectList();
+    var taggedObjectList = new TaggedObjectList();
     return taggedObjectList;
   }
 
@@ -257,18 +280,19 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectTreeRequest createTaggedObjectTreeRequest() {
-    TaggedObjectTreeRequest taggedObjectTreeRequest = new TaggedObjectTreeRequest();
+    var taggedObjectTreeRequest = new TaggedObjectTreeRequest();
     return taggedObjectTreeRequest;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   @Override
   public ITaggedObjectSearchParams createTaggedObjectSearchParams() {
-    TaggedObjectSearchParams taggedObjectSearchParams = new TaggedObjectSearchParams();
+    var taggedObjectSearchParams = new TaggedObjectSearchParams();
     return taggedObjectSearchParams;
   }
 
@@ -280,7 +304,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITagDeletionCheckResult createTagDeletionCheckResult() {
-    TagDeletionCheckResult tagDeletionCheckResult = new TagDeletionCheckResult();
+    var tagDeletionCheckResult = new TagDeletionCheckResult();
     return tagDeletionCheckResult;
   }
 
@@ -292,7 +316,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITagDeletionCheckObject createTagDeletionCheckObject() {
-    TagDeletionCheckObject tagDeletionCheckObject = new TagDeletionCheckObject();
+    var tagDeletionCheckObject = new TagDeletionCheckObject();
     return tagDeletionCheckObject;
   }
 
@@ -304,7 +328,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectTreeObject createTaggedObjectTreeObject() {
-    TaggedObjectTreeObject taggedObjectTreeObject = new TaggedObjectTreeObject();
+    var taggedObjectTreeObject = new TaggedObjectTreeObject();
     return taggedObjectTreeObject;
   }
 
@@ -316,7 +340,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectTreeResult createTaggedObjectTreeResult() {
-    TaggedObjectTreeResult taggedObjectTreeResult = new TaggedObjectTreeResult();
+    var taggedObjectTreeResult = new TaggedObjectTreeResult();
     return taggedObjectTreeResult;
   }
 
@@ -328,7 +352,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectListRequest createTaggedObjectListRequest() {
-    TaggedObjectListRequest taggedObjectListRequest = new TaggedObjectListRequest();
+    var taggedObjectListRequest = new TaggedObjectListRequest();
     return taggedObjectListRequest;
   }
 
@@ -340,7 +364,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectInfo createTaggedObjectInfo() {
-    TaggedObjectInfo taggedObjectInfo = new TaggedObjectInfo();
+    var taggedObjectInfo = new TaggedObjectInfo();
     return taggedObjectInfo;
   }
 
@@ -352,7 +376,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectInfoList createTaggedObjectInfoList() {
-    TaggedObjectInfoList taggedObjectInfoList = new TaggedObjectInfoList();
+    var taggedObjectInfoList = new TaggedObjectInfoList();
     return taggedObjectInfoList;
   }
 
@@ -364,7 +388,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectDeletionCheckRequest createTaggedObjectDeletionCheckRequest() {
-    TaggedObjectDeletionCheckRequest taggedObjectDeletionCheckRequest = new TaggedObjectDeletionCheckRequest();
+    var taggedObjectDeletionCheckRequest = new TaggedObjectDeletionCheckRequest();
     return taggedObjectDeletionCheckRequest;
   }
 
@@ -376,7 +400,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectDeletionCheckResult createTaggedObjectDeletionCheckResult() {
-    TaggedObjectDeletionCheckResult taggedObjectDeletionCheckResult = new TaggedObjectDeletionCheckResult();
+    var taggedObjectDeletionCheckResult = new TaggedObjectDeletionCheckResult();
     return taggedObjectDeletionCheckResult;
   }
 
@@ -388,7 +412,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectDeletionCheckObject createTaggedObjectDeletionCheckObject() {
-    TaggedObjectDeletionCheckObject taggedObjectDeletionCheckObject = new TaggedObjectDeletionCheckObject();
+    var taggedObjectDeletionCheckObject = new TaggedObjectDeletionCheckObject();
     return taggedObjectDeletionCheckObject;
   }
 
@@ -400,18 +424,67 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   @Override
   public ITaggedObjectDeleteRequest createTaggedObjectDeleteRequest() {
-    TaggedObjectDeleteRequest taggedObjectDeleteRequest = new TaggedObjectDeleteRequest();
+    var taggedObjectDeleteRequest = new TaggedObjectDeleteRequest();
     return taggedObjectDeleteRequest;
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITagExportRequest createTagExportRequest() {
+    var tagExportRequest = new TagExportRequest();
+    return tagExportRequest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public IAbapTagsContent createAbapTagsContent() {
+    var abapTagsContent = new AbapTagsContent();
+    return abapTagsContent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITagExportResponse createTagExportResponse() {
+    var tagExportResponse = new TagExportResponse();
+    return tagExportResponse;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ITagImportRequest createTagImportRequest() {
+    var tagImportRequest = new TagImportRequest();
+    return tagImportRequest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   public TagSearchScope createTagSearchScopeFromString(final EDataType eDataType,
       final String initialValue) {
-    TagSearchScope result = TagSearchScope.get(initialValue);
+    var result = TagSearchScope.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -420,7 +493,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -430,13 +504,14 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   public TagQueryType createTagQueryTypeFromString(final EDataType eDataType,
       final String initialValue) {
-    TagQueryType result = TagQueryType.get(initialValue);
+    var result = TagQueryType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -445,7 +520,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -454,13 +530,14 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   public TagInfoType createTagInfoTypeFromString(final EDataType eDataType,
       final String initialValue) {
-    TagInfoType result = TagInfoType.get(initialValue);
+    var result = TagInfoType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -469,7 +546,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -478,13 +556,14 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
   public TagQueryFocus createTagQueryFocusFromString(final EDataType eDataType,
       final String initialValue) {
-    TagQueryFocus result = TagQueryFocus.get(initialValue);
+    var result = TagQueryFocus.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -493,7 +572,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -510,7 +590,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    */
   public ResultGroupLevel createResultGroupLevelFromString(final EDataType eDataType,
       final String initialValue) {
-    ResultGroupLevel result = ResultGroupLevel.get(initialValue);
+    var result = ResultGroupLevel.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -536,7 +616,7 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
    * @generated
    */
   public TagType createTagTypeFromString(final EDataType eDataType, final String initialValue) {
-    TagType result = TagType.get(initialValue);
+    var result = TagType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -555,7 +635,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -564,7 +645,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -573,7 +655,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -583,7 +666,8 @@ public class AbapTagsFactory extends EFactoryImpl implements IAbapTagsFactory {
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @deprecated
    * @generated

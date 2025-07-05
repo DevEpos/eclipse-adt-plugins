@@ -91,10 +91,10 @@ public class TaggedObject extends MinimalEObjectImpl.Container implements ITagge
    */
   public NotificationChain basicSetObjectRef(final IAdtObjRef newObjectRef,
       NotificationChain msgs) {
-    IAdtObjRef oldObjectRef = objectRef;
+    var oldObjectRef = objectRef;
     objectRef = newObjectRef;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+      var notification = new ENotificationImpl(this, Notification.SET,
           IAbapTagsPackage.TAGGED_OBJECT__OBJECT_REF, oldObjectRef, newObjectRef);
       if (msgs == null) {
         msgs = notification;

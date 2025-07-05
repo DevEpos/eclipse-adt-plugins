@@ -251,7 +251,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentObjectName(final String newParentObjectName) {
-    String oldParentObjectName = parentObjectName;
+    var oldParentObjectName = parentObjectName;
     parentObjectName = newParentObjectName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -279,7 +279,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentObjectAltName(final String newParentObjectAltName) {
-    String oldParentObjectAltName = parentObjectAltName;
+    var oldParentObjectAltName = parentObjectAltName;
     parentObjectAltName = newParentObjectAltName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -305,7 +305,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentObjectType(final String newParentObjectType) {
-    String oldParentObjectType = parentObjectType;
+    var oldParentObjectType = parentObjectType;
     parentObjectType = newParentObjectType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -331,7 +331,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentObjectUri(final String newParentObjectUri) {
-    String oldParentObjectUri = parentObjectUri;
+    var oldParentObjectUri = parentObjectUri;
     parentObjectUri = newParentObjectUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -356,7 +356,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentTagId(final String newParentTagId) {
-    String oldParentTagId = parentTagId;
+    var oldParentTagId = parentTagId;
     parentTagId = newParentTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -381,7 +381,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setParentTagName(final String newParentTagName) {
-    String oldParentTagName = parentTagName;
+    var oldParentTagName = parentTagName;
     parentTagName = newParentTagName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -406,7 +406,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setImage(final Image newImage) {
-    Image oldImage = image;
+    var oldImage = image;
     image = newImage;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAbapTagsPackage.ADT_OBJECT_TAG__IMAGE,
@@ -438,9 +438,9 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
   @Override
   public ITag getCorrectParentTag() {
     if (correctParentTag != null && correctParentTag.eIsProxy()) {
-      InternalEObject oldCorrectParentTag = (InternalEObject) correctParentTag;
+      var oldCorrectParentTag = (InternalEObject) correctParentTag;
       correctParentTag = (ITag) eResolveProxy(oldCorrectParentTag);
-      if (correctParentTag != oldCorrectParentTag && eNotificationRequired()) {
+      if ((correctParentTag != oldCorrectParentTag) && eNotificationRequired()) {
         eNotify(new ENotificationImpl(this, Notification.RESOLVE,
             IAbapTagsPackage.ADT_OBJECT_TAG__CORRECT_PARENT_TAG, oldCorrectParentTag,
             correctParentTag));
@@ -467,7 +467,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
    */
   @Override
   public void setCorrectParentTag(final ITag newCorrectParentTag) {
-    ITag oldCorrectParentTag = correctParentTag;
+    var oldCorrectParentTag = correctParentTag;
     correctParentTag = newCorrectParentTag;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -662,7 +662,7 @@ public class AdtObjectTag extends TagBase implements IAdtObjectTag {
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (parentObjectName: ");
     result.append(parentObjectName);
     result.append(", parentObjectAltName: ");

@@ -2,17 +2,11 @@ package com.devepos.adt.searchfavorites.internal;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 
+import com.devepos.adt.base.util.EmfUtils;
 import com.devepos.adt.searchfavorites.model.searchfavorites.ISearchFavoritesFactory;
 import com.devepos.adt.searchfavorites.model.searchfavorites.util.SearchFavoritesResourceFactory;
 
@@ -56,9 +50,9 @@ public class SearchFavoriteStorage {
     // Obtain a new resource set
     final var factory = new SearchFavoritesResourceFactory();
     final var resource = factory.createResource(URI.createFileURI(filePath));
-    final var options = createEmfResourceOptions();
+    final var options = EmfUtils.createEmfResourceOptions();
     resource.load(options);
-    final EList<EObject> resourceContents = resource.getContents();
+    final var resourceContents = resource.getContents();
     // List of favorites is the root
     if (resourceContents != null && resourceContents.size() == 1) {
       final var root = resourceContents.get(0);
@@ -93,12 +87,12 @@ public class SearchFavoriteStorage {
     favorites.getFavorites().forEach(f -> eFavorites.getFavorites().add(f));
 
     // Obtain a new resource set
-    final Resource.Factory resourceFactory = new SearchFavoritesResourceFactory();
+    final var resourceFactory = new SearchFavoritesResourceFactory();
     try {
-      final Resource resource = resourceFactory.createResource(URI.createFileURI(filePath));
-      final EList<EObject> resourceContents = resource.getContents();
+      final var resource = resourceFactory.createResource(URI.createFileURI(filePath));
+      final var resourceContents = resource.getContents();
       resourceContents.add(eFavorites);
-      final Map<String, Object> options = createEmfResourceOptions();
+      final var options = EmfUtils.createEmfResourceOptions();
       resource.save(options);
     } catch (final IOException e) {
       e.printStackTrace();
@@ -106,22 +100,10 @@ public class SearchFavoriteStorage {
   }
 
   /*
-   * Creates option for loading/saving favorites via EMF
-   */
-  private static Map<String, Object> createEmfResourceOptions() {
-    final HashMap<String, Object> options = new HashMap<>();
-    options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-    options.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-    options.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
-        Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-    return options;
-  }
-
-  /*
    * Returns the favorites file location in the current workspace
    */
   private static String getFavoritesFilePath() {
-    final IPath pluginWorkspacePath = Platform.getStateLocation(Activator.getDefault().getBundle());
+    final var pluginWorkspacePath = Platform.getStateLocation(Activator.getDefault().getBundle());
     return pluginWorkspacePath.addTrailingSeparator().toOSString() + FAVORITES;
   }
 

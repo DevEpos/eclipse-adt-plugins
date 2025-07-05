@@ -3,6 +3,7 @@ package com.devepos.adt.atm.ui.internal.wizard.taggedobjectsdeletion;
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,14 +21,12 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -54,11 +53,13 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
   public static final String PAGE_NAME = DeleteTaggedObjectsWizardPage.class.getCanonicalName();
 
+  private static final DecimalFormat objectCountFormat = new DecimalFormat("###,###");
+
   private CheckboxTableViewer taggedObjectsViewer;
   private Label selectionInfo;
   private ToolBar toolBar;
   private TaggedObjectsTable taggedObjectsTable;
-  private CustomViewerComparator comparator;
+  private DeletableTgobjViewerComparator comparator;
 
   private final IAdtObjTaggingService taggingService;
   private final ITaggedObjectSearchService searchService;
@@ -71,6 +72,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
   protected DeleteTaggedObjectsWizardPage() {
     super(PAGE_NAME);
+    setAutoPreferredSize(false);
     setTitle(Messages.DeleteTaggedObjectsWizardPage_PageTitle_xtit);
     setDescription(Messages.DeleteTaggedObjectsWizardPage_PageDescription_xmsg);
 
@@ -79,75 +81,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     loadTaggedChildObjectsIfAvailable = AbapTagsUIPlugin.getDefault()
         .getPreferenceStore()
         .getBoolean(IObjectTaggingPrefs.DELETION_AUTO_LOAD_ASSIGNED_CHILDREN);
-  }
-
-  private static class CustomViewerComparator extends ViewerComparator {
-    private ColumnViewerSpec col;
-    private boolean isDescendingSort = true;
-
-    @Override
-    public int compare(final Viewer viewer, final Object e1, final Object e2) {
-      var obj1 = (DeletableTaggedObject) e1;
-      var obj2 = (DeletableTaggedObject) e2;
-
-      if (col != null) {
-        switch (col) {
-        case TAG:
-          return compareStrings(concatStrings(obj1.getTagType().toString(), obj1.getTagName()),
-              concatStrings(obj2.getTagType().toString(), obj2.getTagName()));
-        case OBJECT:
-          return compareStrings(
-              concatStrings(obj1.getComponentType(), obj1.getComponentName(), obj1.getObjectType(),
-                  obj1.getObjectName()),
-              concatStrings(obj2.getComponentType(), obj2.getComponentName(), obj2.getObjectType(),
-                  obj2.getObjectName()));
-        case PARENT_TAG:
-          var parentTag1 = obj1.getParentTagName();
-          var parentTag2 = obj2.getParentTagName();
-          parentTag1 = parentTag1 != null ? concatStrings(obj1.getTagType().toString(), parentTag1)
-              : null;
-          parentTag2 = parentTag2 != null ? concatStrings(obj2.getTagType().toString(), parentTag2)
-              : null;
-          return compareStrings(parentTag1, parentTag2);
-        case PARENT_OBJECT:
-          return compareStrings(
-              concatStrings(obj1.getParentObjectType(), obj1.getParentObjectName()),
-              concatStrings(obj2.getParentObjectType(), obj2.getParentObjectName()));
-        case ISSUES:
-          return compareStrings(obj1.getMessage(), obj2.getMessage());
-        }
-      }
-
-      return 0;
-    }
-
-    public int getDirection() {
-      return isDescendingSort ? SWT.DOWN : SWT.UP;
-    }
-
-    public void setColumn(final ColumnViewerSpec col) {
-      if (this.col == col) {
-        isDescendingSort = !isDescendingSort;
-      } else {
-        isDescendingSort = true;
-      }
-      this.col = col;
-    }
-
-    private int compareStrings(final String s1, final String s2) {
-      int rc = (s1 == null ? "" : s1).compareTo(s2 == null ? "" : s2); //$NON-NLS-1$ //$NON-NLS-2$
-      return isDescendingSort ? -rc : rc;
-    }
-
-    private String concatStrings(final String... values) {
-      StringBuilder buffer = new StringBuilder();
-      for (var val : values) {
-        if (val != null) {
-          buffer.append(val);
-        }
-      }
-      return buffer.toString();
-    }
   }
 
   private class TaggedObjectsTable extends FilterableTable {
@@ -165,8 +98,8 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
 
     @Override
-    protected void filterJobCompleted() {
-      super.filterJobCompleted();
+    protected void filterJobCompleted(boolean hasFilter) {
+      super.filterJobCompleted(hasFilter);
       setCheckedElementsInTable();
     }
 
@@ -224,6 +157,7 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       taggedObjectsViewer.getTable().setFocus();
 
       var objectListRequest = wizard.getTaggedObjectListRequest();
+      // REVISIT: is this if clause needed here?
       if (taggedObjects != null && !taggedObjects.isEmpty()) {
         setTableInput();
       } else if (!objectListRequest.getTagIds().isEmpty()
@@ -238,6 +172,10 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       validatePage();
     }
     super.setVisible(visible);
+
+    if (visible) {
+      getWizard().updateShellSize();
+    }
   }
 
   private void checkAllObjects() {
@@ -300,9 +238,9 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       }
     }
 
-    for (var colSpec : ColumnViewerSpec.values()) {
-      if (colSpec == ColumnViewerSpec.PARENT_OBJECT && hideParentObjectCol
-          || colSpec == ColumnViewerSpec.PARENT_TAG && hideParentTagCol) {
+    for (var colSpec : DeletableTgobjColumnSpec.values()) {
+      if (colSpec == DeletableTgobjColumnSpec.PARENT_OBJECT && hideParentObjectCol
+          || colSpec == DeletableTgobjColumnSpec.PARENT_TAG && hideParentTagCol) {
         continue;
       }
       var tableColumn = new TableViewerColumn(taggedObjectsViewer, SWT.NONE);
@@ -391,14 +329,12 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     });
 
     taggedObjectsTable.addKeyListenerForFilterFocus();
-    comparator = new CustomViewerComparator();
+    comparator = new DeletableTgobjViewerComparator();
     taggedObjectsViewer.setComparator(comparator);
   }
 
   private void disposeTableColumns() {
-    for (var column : taggedObjectsViewer.getTable().getColumns()) {
-      column.dispose();
-    }
+    Stream.of(taggedObjectsViewer.getTable().getColumns()).forEach(TableColumn::dispose);
   }
 
   private void runDeletionCheck() {
@@ -502,15 +438,13 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
 
     // make column adjustments
     for (var column : taggedObjectsViewer.getTable().getColumns()) {
-      var colSpec = (ColumnViewerSpec) column.getData();
-      if (colSpec == ColumnViewerSpec.ISSUES) {
+      var colSpec = (DeletableTgobjColumnSpec) column.getData();
+      if (colSpec == DeletableTgobjColumnSpec.ISSUES) {
         continue;
       }
       column.pack();
       column.setWidth(column.getWidth() + 7);
     }
-
-    updateShellSize();
 
     if (!taggedObjects.isEmpty()) {
       taggedObjectsViewer.getTable().setSelection(0);
@@ -521,9 +455,17 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
   }
 
   private void uncheckAllObjects(final boolean skipValidation) {
-    checkedTaggedObjects.clear();
-    for (var object : taggedObjects) {
-      object.uncheckChildren();
+    if (StringUtil.isEmpty(taggedObjectsTable.getFilterString())) {
+      checkedTaggedObjects.clear();
+      for (var object : taggedObjects) {
+        object.uncheckChildren();
+      }
+    } else {
+      for (var visibleRow : taggedObjectsViewer.getTable().getItems()) {
+        var rowObject = (DeletableTaggedObject) visibleRow.getData();
+        checkedTaggedObjects.remove(rowObject);
+        rowObject.uncheckChildren();
+      }
     }
     taggedObjectsViewer.setAllChecked(false);
     taggedObjectsViewer.refresh();
@@ -539,11 +481,13 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
       setErrorMessage(Messages.DeleteTagsWizardPage_NoTagsSelectedError_xmsg);
     }
 
-    selectionInfo.setText(
-        String.format(Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg,
-            checkedCount == 0 ? Messages.General_No_xlbl : String.valueOf(checkedCount),
-            checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
-            Messages.DeleteTagsWizardPage_Selected_xlbl));
+    selectionInfo
+        .setText(
+            String.format(Messages.DeleteTaggedObjectsWizardPage_TaggedObjectSelectionFormat_xmsg,
+                checkedCount == 0 ? Messages.General_No_xlbl
+                    : objectCountFormat.format(checkedCount),
+                checkedCount == 1 ? "" : "s", //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.DeleteTagsWizardPage_Selected_xlbl));
   }
 
   private void updatePageStatus(final IStatus pageStatus) {
@@ -562,11 +506,6 @@ public class DeleteTaggedObjectsWizardPage extends AbstractBaseWizardPage {
     }
     getWizard().setCanFinish(pageComplete);
     setPageComplete(pageComplete);
-  }
-
-  private void updateShellSize() {
-    var wizardDialog = (WizardDialog) getWizard().getContainer();
-    wizardDialog.updateSize();
   }
 
   private void validatePage() {

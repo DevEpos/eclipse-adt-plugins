@@ -273,7 +273,7 @@ public class ManageSearchFavoritesDialog extends SelectionDialog {
   private void createFavoritesTable(final Composite parent) {
     favoritesTable = new FilterableTable(parent, null, false, FilterableComposite.TEXT_NO_MARGIN) {
       @Override
-      protected void filterJobCompleted() {
+      protected void filterJobCompleted(boolean noFilter) {
         updateCheckedElements();
         updateFilterInfo();
       }

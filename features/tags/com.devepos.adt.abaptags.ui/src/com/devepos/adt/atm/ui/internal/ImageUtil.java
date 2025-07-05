@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.atm.model.abaptags.IAdtObjectTag;
 import com.devepos.adt.atm.model.abaptags.ITag;
+import com.devepos.adt.atm.model.abaptags.TagType;
 import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -76,6 +77,25 @@ public class ImageUtil {
       return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG_W_SHARED_OVERLAY);
     }
     return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
+  }
+
+  /**
+   * Returns image for the given tag type
+   * 
+   * @param type the type of a tag
+   * @return the found image or {@code null}
+   */
+  public static Image getImageForTagType(TagType type) {
+    switch (type) {
+    case GLOBAL:
+      return AbapTagsUIPlugin.getDefault().getImage(IImages.TAG);
+    case USER:
+      return AbapTagsUIPlugin.getDefault().getImage(IImages.USER_TAG);
+    case SHARED:
+      return AbapTagsUIPlugin.getDefault().getImage(IImages.SHARED_TAG);
+    default:
+      return null;
+    }
   }
 
   /**

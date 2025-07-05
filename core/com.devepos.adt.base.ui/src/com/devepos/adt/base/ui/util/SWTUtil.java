@@ -8,7 +8,6 @@ import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.keys.IBindingService;
 
@@ -30,7 +29,7 @@ public class SWTUtil {
       return;
     }
     control.setVisible(visible);
-    final GridData gd = (GridData) control.getLayoutData();
+    final var gd = (GridData) control.getLayoutData();
     gd.exclude = !visible;
     control.setLayoutData(gd);
     control.getParent().layout();
@@ -38,14 +37,14 @@ public class SWTUtil {
 
   /**
    * Sets focus to the given control if the label control is accessed via the
-   * menmonic letter
+   * mnemonic letter
    *
-   * @param label   the label for the control
-   * @param control the control which should be focused via the label
+   * @param labelControl the label for the control
+   * @param control      the control which should be focused via the label
    */
-  public static void setLabelForControl(final Label label, final Control control) {
+  public static void setLabelForControl(final Control labelControl, final Control control) {
     Objects.requireNonNull(control, "control must not be null"); //$NON-NLS-1$
-    label.addTraverseListener(e -> {
+    labelControl.addTraverseListener(e -> {
       if (e.detail == SWT.TRAVERSE_MNEMONIC && e.doit) {
         e.detail = SWT.TRAVERSE_NONE;
         control.setFocus();

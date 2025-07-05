@@ -5,8 +5,10 @@ package com.devepos.adt.atm.model.abaptags;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
- * create method for each non-abstract class of the model. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
  *
  * @see com.devepos.adt.atm.model.abaptags.IAbapTagsPackage
  * @generated
@@ -14,8 +16,8 @@ import org.eclipse.emf.ecore.EFactory;
 public interface IAbapTagsFactory extends EFactory {
   /**
    * The singleton instance of the factory.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @generated
    */
@@ -23,23 +25,13 @@ public interface IAbapTagsFactory extends EFactory {
 
   /**
    * Returns a new object of class '<em>Tag</em>'.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tag</em>'.
    * @generated
    */
   ITag createTag();
-
-  /**
-   * Returns a new object of class '<em>Adt Object Tag</em>'.
-   * <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
-   *
-   * @return a new object of class '<em>Adt Object Tag</em>'.
-   * @generated
-   */
-  IAdtObjectTag createAdtObjectTag();
 
   /**
    * Returns a new object of class '<em>Tag List</em>'.
@@ -52,8 +44,19 @@ public interface IAbapTagsFactory extends EFactory {
   ITagList createTagList();
 
   /**
-   * Returns a new object of class '<em>Tag Preview Info</em>'. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Returns a new object of class '<em>Adt Object Tag</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Adt Object Tag</em>'.
+   * @generated
+   */
+  IAdtObjectTag createAdtObjectTag();
+
+  /**
+   * Returns a new object of class '<em>Tag Preview Info</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tag Preview Info</em>'.
    * @generated
@@ -62,8 +65,8 @@ public interface IAbapTagsFactory extends EFactory {
 
   /**
    * Returns a new object of class '<em>Tagged Object</em>'.
-   * <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tagged Object</em>'.
    * @generated
@@ -71,8 +74,9 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObject createTaggedObject();
 
   /**
-   * Returns a new object of class '<em>Tagged Object List</em>'. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Returns a new object of class '<em>Tagged Object List</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tagged Object List</em>'.
    * @generated
@@ -90,8 +94,9 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectTreeRequest createTaggedObjectTreeRequest();
 
   /**
-   * Returns a new object of class '<em>Tagged Object Search Params</em>'. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Returns a new object of class '<em>Tagged Object Search Params</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return a new object of class '<em>Tagged Object Search Params</em>'.
    * @generated
@@ -209,9 +214,49 @@ public interface IAbapTagsFactory extends EFactory {
   ITaggedObjectDeleteRequest createTaggedObjectDeleteRequest();
 
   /**
+   * Returns a new object of class '<em>Tag Export Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Export Request</em>'.
+   * @generated
+   */
+  ITagExportRequest createTagExportRequest();
+
+  /**
+   * Returns a new object of class '<em>Content</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Content</em>'.
+   * @generated
+   */
+  IAbapTagsContent createAbapTagsContent();
+
+  /**
+   * Returns a new object of class '<em>Tag Export Response</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Export Response</em>'.
+   * @generated
+   */
+  ITagExportResponse createTagExportResponse();
+
+  /**
+   * Returns a new object of class '<em>Tag Import Request</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @return a new object of class '<em>Tag Import Request</em>'.
+   * @generated
+   */
+  ITagImportRequest createTagImportRequest();
+
+  /**
    * Returns the package supported by this factory.
-   * <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @return the package supported by this factory.
    * @generated

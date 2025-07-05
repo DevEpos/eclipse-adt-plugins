@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html id="doc-page">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <title>Content Selection</title>
+  </head>
+
+  <body id="doc-body">
+    <header>
+      <h2 class="heading">Content selection</h2>
+    </header>
+    <section>
+      <p>
+        Use this page to select the ABAP Tags and their associated tagged objects that you wish to import. This allows
+        you to efficiently manage and organize your imported content.
+      </p>
+
+      <figure>
+        <img src="../../images/import_wizard__content_page.png" />
+        <figcaption>Page to select the content for import</figcaption>
+      </figure>
+
+      <p>The page consists of two panels:</p>
+      <ul class="list">
+        <li>
+          <strong>Tree control for the available tags</strong>
+          <ul class="list">
+            <li>
+              Displays a hierarchical list of tags that have been extracted from the specified source project or file
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Table with the assigned objects to a given tag</strong>
+          <ul class="list">
+            <li>Shows the specific ABAP objects associated with the selected tags.</li>
+            <li>
+              Columns:
+              <ul>
+                <li><strong>Object:</strong> Technical name of the object</li>
+                <li><strong>Type:</strong> The type of object (e.g., Access Control).</li>
+                <li><strong>Parent Tag:</strong> The tag of the parent object</li>
+                <li><strong>Parent Object</strong>: The name of the parent object, to which this object is assigned</li>
+                <li><strong>Parent Type</strong>: The type of the parent object, to which this object is assigned</li>
+              </ul>
+            </li>
+            <li>Objects that are checked will be imported.</li>
+            <li>
+              Marking an object for import will automatically mark the corresponding tag and the tag's parent tags for
+              import
+            </li>
+            <li>
+              If an object has values in the <em>Parent Type</em> and <em>Parent Object</em> columns, marking it for
+              import will also automatically select its tagged parent for import. Conversely, if a tagged object is
+              unmarked for import, all of its dependent child objects will also be unmarked.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <section>
+        <h4>Options</h4>
+        <ul class="list">
+          <li>
+            <em>Include information about shared tags</em><br />If this option is selected, the shared users information
+            will also be imported
+            <div class="alert info">
+              <div class="alert-info__text"></div>
+              This option will not affect any shared tags that are already in the target systems
+            </div>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section>
+      <h3>Import Statistics</h3>
+      <p>When the import has been completed in the system you will see the following popup</p>
+      <figure>
+        <img src="../../images/import_wizard__result_statistics.png" />
+        <figcaption>Import statistics dialog</figcaption>
+      </figure>
+      <p>
+        This dialog gives you a quick overview on what tags have been newly imported or updated, and what objects could
+        be tagged
+      </p>
+    </section>
+
+    <section>
+      <h3>Keyboard shortcuts</h3>
+      <p>
+        You can use the following keyboard shortcuts to quickly expand or collapse all tags in the content selection
+        page:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Shortcut</th>
+            <th>Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>→</kbd></td>
+            <td>Expand All</td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl</kbd> + <kbd>←</kbd></td>
+            <td>Collapse All</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

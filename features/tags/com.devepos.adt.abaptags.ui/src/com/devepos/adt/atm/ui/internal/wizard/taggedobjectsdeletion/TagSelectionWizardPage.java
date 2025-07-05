@@ -40,7 +40,6 @@ import com.devepos.adt.atm.ui.internal.tree.SelectTagSubtreeAction;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagSelectionTree;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
-import com.devepos.adt.atm.ui.internal.wizard.tagging.TaggableObjectSelectionWizardPage;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
@@ -49,7 +48,7 @@ import com.devepos.adt.base.ui.project.ProjectInput;
 import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
+  public static final String PAGE_NAME = TagSelectionWizardPage.class.getCanonicalName();
 
   private Job tagLoadingJob;
 
@@ -131,7 +130,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     createViewerContextMenu();
     createSelectOptionsGroup(root);
 
-    var treeActionsComposite = new Composite(tagSelectionTree.getTreeFilterComposite(), SWT.NONE);
+    var treeActionsComposite = new Composite(tagSelectionTree.getFilterComposite(), SWT.NONE);
     GridLayoutFactory.swtDefaults().margins(0, 0).numColumns(2).applyTo(treeActionsComposite);
     GridDataFactory.fillDefaults().applyTo(treeActionsComposite);
 
@@ -154,7 +153,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       getWizard().completePreviousPage(this);
       refreshTags();
       validatePage(null, ValidationSource.TAGS);
-      tagSelectionTree.setFocus();
+      if (tagSelectionTree.hasViewerInput()) {
+        tagSelectionTree.setFocus();
+      }
     }
     super.setVisible(visible);
   }
@@ -166,6 +167,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
   private void createProjectInput(final Composite parent) {
     projectInput = new ProjectInput(true);
+    projectInput.setBrowseButtonMnemonic("w");
 
     var projectComposite = new Composite(parent, SWT.NONE);
     GridDataFactory.fillDefaults().span(2, 1).grab(true, false).applyTo(projectComposite);
@@ -188,7 +190,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         wizard.setProject(newProject);
         if (newProject != oldProject
             || tagSelectionTree != null && !tagSelectionTree.hasViewerInput()) {
-          tagSelectionTree.setCheckedTags(null);
+          tagSelectionTree.uncheckAll();
           refreshTags();
         }
       } else {
@@ -199,6 +201,9 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     var currentProject = getWizard().getProject();
     if (currentProject != null) {
       projectInput.setProjectName(currentProject.getName());
+    } else {
+      projectInput.setProjectName(null);
+      projectInput.setFocus();
     }
   }
 
@@ -261,8 +266,10 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     }).toArray(String[]::new));
     tagTypeCombo.select(0);
     tagTypeCombo.addModifyListener(e -> {
-      var selectedScope = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
-      treeContentProvider.setVisbleTagScope(TagSearchScope.getByName(selectedScope.toUpperCase()));
+      var selectedScopeId = tagTypeCombo.getItem(tagTypeCombo.getSelectionIndex());
+      var selectedScope = TagSearchScope.getByName(selectedScopeId.toUpperCase());
+      treeContentProvider.setVisbleTagScope(selectedScope);
+      tagSelectionTree.setTagSearchScope(selectedScope);
       tagSelectionTree.refresh();
       tagSelectionTree.setCheckedElementsInTree();
     });
@@ -275,14 +282,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(toolBar, SWT.SEPARATOR);
 
     var expandAll = new ToolItem(toolBar, SWT.PUSH);
-    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setToolTipText(
+        Messages.TagSelectionWizardPage_ExpandAll_xbut + Messages.KeyBoardShortCut_ExpandAll_xtol);
     expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
     expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagSelectionTree.expandAll();
     }));
 
     final var collapseAll = new ToolItem(toolBar, SWT.PUSH);
-    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut
+        + Messages.KeyBoardShortCut_CollapseAll_xtol);
     collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
     collapseAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagSelectionTree.collapseAll();
@@ -304,7 +313,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
 
     uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
-      tagSelectionTree.setCheckedTags(null);
+      tagSelectionTree.uncheckAll();
       validatePage(null, ValidationSource.TAGS);
     }));
 

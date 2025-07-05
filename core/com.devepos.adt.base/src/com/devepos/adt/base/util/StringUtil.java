@@ -11,6 +11,13 @@ public class StringUtil {
   public static final String NEGATION1 = "!"; //$NON-NLS-1$
 
   /**
+   * Returns empty string if the passed string is null or the string if it is not
+   */
+  public static String getOrEmpty(String s) {
+    return s != null ? s : "";
+  }
+
+  /**
    * Checks if {@code value} equals {@code value2}
    *
    * @param value  a String value
@@ -100,6 +107,23 @@ public class StringUtil {
       return value.substring(negationCharLength);
     }
     return "";
+  }
+
+  /**
+   * Sets mnemonic in the given text and returns the adjusted string or the original
+   * one if the mnemonic could not be found or is empty
+   */
+  public static String setMnemonic(String text, final String mnemonic) {
+    if (StringUtil.isBlank(mnemonic)) {
+      return text;
+    }
+    // clear existing mnemonics
+    text = text.replaceAll("&", "");
+    int index = text.toLowerCase().indexOf(mnemonic.toLowerCase());
+    if (index != -1) {
+      return text.substring(0, index) + "&" + text.substring(index);
+    }
+    return text;
   }
 
   /**

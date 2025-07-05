@@ -34,6 +34,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
@@ -60,6 +61,7 @@ import com.devepos.adt.atm.ui.internal.tree.TagFilter;
 import com.devepos.adt.atm.ui.internal.tree.TagLabelProvider;
 import com.devepos.adt.atm.ui.internal.tree.TagTreeContentProvider;
 import com.devepos.adt.atm.ui.internal.util.TagParentCollector;
+import com.devepos.adt.atm.ui.internal.util.TreeKeybindingsUtil;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRef;
@@ -72,7 +74,7 @@ import com.devepos.adt.base.ui.wizard.AbstractBaseWizardPage;
 import com.devepos.adt.base.util.StringUtil;
 
 public class TagSelectionWizardPage extends AbstractBaseWizardPage {
-  public static final String PAGE_NAME = TaggableObjectSelectionWizardPage.class.getCanonicalName();
+  public static final String PAGE_NAME = TagSelectionWizardPage.class.getCanonicalName();
 
   private final Set<ITag> checkedTags = new HashSet<>();
   private final Set<ITag> preCheckedTags = new HashSet<>();
@@ -226,9 +228,15 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     HelpUtil.setHelp(root, HelpContexts.TAG_WIZARD_TAG_SELECTION);
     GridLayoutFactory.swtDefaults().applyTo(root);
 
-    createTreeHeaderArea(root);
-    createTagsCheckBoxTree(root);
-    createSelectionInfo(root);
+    var treeGroup = new Group(root, SWT.NONE);
+    treeGroup.setText(Messages.TagSelectionWizardPage_TagsTreeGroup_xtit);
+    GridDataFactory.fillDefaults().grab(true, true).applyTo(treeGroup);
+    GridLayoutFactory.swtDefaults().applyTo(treeGroup);
+
+    createTreeHeaderArea(treeGroup);
+    createTagsCheckBoxTree(treeGroup);
+    createSelectionInfo(treeGroup);
+
     setControl(root);
     setPageComplete(false);
   }
@@ -367,6 +375,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
       setDirty(true);
       validatePage();
     });
+    TreeKeybindingsUtil.registerDefaultKeybindings(checkBoxViewer);
     tagsTree.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(final KeyEvent e) {
@@ -381,6 +390,15 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
           }
         } else if (KeyEventUtil.isDefaultFindKeyStroke(e)) {
           filterText.setFocus();
+        } else if (e.keyCode == '+' && (e.stateMask == SWT.CTRL || e.stateMask == SWT.COMMAND)) {
+          addTag(false);
+        } else if (e.keyCode == '+' && (e.stateMask == (SWT.CTRL + SWT.SHIFT)
+            || e.stateMask == (SWT.COMMAND + SWT.SHIFT))) {
+          addTag(true);
+        } else if (e.keyCode == SWT.DEL) {
+          removeTag();
+        } else if (e.keyCode == SWT.F2 && e.stateMask == SWT.NONE) {
+          checkBoxViewer.editElement(checkBoxViewer.getStructuredSelection().getFirstElement(), 0);
         }
       }
     });
@@ -436,14 +454,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     final var expandAll = new ToolItem(treeToolbar, SWT.PUSH);
-    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setToolTipText(
+        Messages.TagSelectionWizardPage_ExpandAll_xbut + Messages.KeyBoardShortCut_ExpandAll_xtol);
     expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
     expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
       checkBoxViewer.expandAll();
     }));
 
     final var collapseAll = new ToolItem(treeToolbar, SWT.PUSH);
-    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut
+        + Messages.KeyBoardShortCut_CollapseAll_xtol);
     collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
     collapseAll.addSelectionListener(widgetSelectedAdapter(l -> checkBoxViewer.collapseAll()));
 
@@ -458,19 +478,19 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     final var addTag = new ToolItem(treeToolbar, SWT.PUSH);
-    addTag.setToolTipText(Messages.TagSelectionWizardPage_AddGlobalTag_xbut);
+    addTag.setToolTipText(Messages.TagSelectionWizardPage_AddGlobalTag_xbut + " (Ctrl++)");
     addTag.setImage(AbapTagsUIPlugin.getDefault().getImage(IImages.NEW_GLOBAL_TAG));
     addTag.addSelectionListener(widgetSelectedAdapter(l -> addTag(false)));
 
     final var addUserTag = new ToolItem(treeToolbar, SWT.PUSH);
-    addUserTag.setToolTipText(Messages.TagSelectionWizardPage_AddUserTag_xbut);
+    addUserTag.setToolTipText(Messages.TagSelectionWizardPage_AddUserTag_xbut + " (Ctrl+Shift++)");
     addUserTag.setImage(AbapTagsUIPlugin.getDefault().getImage(IImages.NEW_USER_TAG));
     addUserTag.addSelectionListener(widgetSelectedAdapter(l -> addTag(true)));
 
     new ToolItem(treeToolbar, SWT.SEPARATOR);
 
     removeTagButton = new ToolItem(treeToolbar, SWT.PUSH);
-    removeTagButton.setToolTipText(Messages.TagSelectionWizardPage_RemoveTag_xbut);
+    removeTagButton.setToolTipText(Messages.TagSelectionWizardPage_RemoveTag_xbut + "(DEL)");
     removeTagButton.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.DELETE_ROW));
     removeTagButton.addSelectionListener(widgetSelectedAdapter(l -> removeTag()));
     removeTagButton.setEnabled(false);

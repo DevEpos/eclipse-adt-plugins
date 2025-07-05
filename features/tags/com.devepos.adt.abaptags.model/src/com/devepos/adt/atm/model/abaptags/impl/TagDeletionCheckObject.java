@@ -161,7 +161,7 @@ public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setTagId(final String newTagId) {
-    String oldTagId = tagId;
+    var oldTagId = tagId;
     tagId = newTagId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -188,7 +188,7 @@ public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setDeletable(final boolean newDeletable) {
-    boolean oldDeletable = deletable;
+    var oldDeletable = deletable;
     deletable = newDeletable;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -215,7 +215,7 @@ public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setMessage(final String newMessage) {
-    String oldMessage = message;
+    var oldMessage = message;
     message = newMessage;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -242,7 +242,7 @@ public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
    */
   @Override
   public void setMessageType(final MessageType newMessageType) {
-    MessageType oldMessageType = messageType;
+    var oldMessageType = messageType;
     messageType = newMessageType == null ? MESSAGE_TYPE_EDEFAULT : newMessageType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -354,7 +354,7 @@ public class TagDeletionCheckObject extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (tagId: ");
     result.append(tagId);
     result.append(", deletable: ");

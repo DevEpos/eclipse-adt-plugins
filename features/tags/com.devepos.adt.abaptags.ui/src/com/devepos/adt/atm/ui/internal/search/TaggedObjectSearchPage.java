@@ -231,12 +231,13 @@ public class TaggedObjectSearchPage extends DialogPage
   }
 
   private void createTreeToolbar() {
-    var filterComposite = tagsTree.getTreeFilterComposite();
+    var filterComposite = tagsTree.getFilterComposite();
     treeToolBar = new ToolBar(filterComposite, SWT.FLAT | SWT.HORIZONTAL);
     GridDataFactory.fillDefaults().grab(false, false).align(SWT.END, SWT.END).applyTo(treeToolBar);
 
     var expandAll = new ToolItem(treeToolBar, SWT.PUSH);
-    expandAll.setToolTipText(Messages.TagSelectionWizardPage_ExpandAll_xbut);
+    expandAll.setToolTipText(
+        Messages.TagSelectionWizardPage_ExpandAll_xbut + Messages.KeyBoardShortCut_ExpandAll_xtol);
     expandAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.EXPAND_ALL));
     expandAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagsTree.expandAll();
@@ -244,7 +245,8 @@ public class TaggedObjectSearchPage extends DialogPage
     }));
 
     final var collapseAll = new ToolItem(treeToolBar, SWT.PUSH);
-    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut);
+    collapseAll.setToolTipText(Messages.TagSelectionWizardPage_CollapseAll_xbut
+        + Messages.KeyBoardShortCut_ExpandAll_xtol);
     collapseAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.COLLAPSE_ALL));
     collapseAll.addSelectionListener(widgetSelectedAdapter(l -> {
       tagsTree.collapseAll();
@@ -257,7 +259,7 @@ public class TaggedObjectSearchPage extends DialogPage
 
     uncheckAll.setImage(AdtBaseUIResources.getImage(IAdtBaseImages.UNCHECK_ALL));
     uncheckAll.addSelectionListener(widgetSelectedAdapter(l -> {
-      tagsTree.setCheckedTags(null);
+      tagsTree.uncheckAll();
       updateOKStatus();
     }));
   }

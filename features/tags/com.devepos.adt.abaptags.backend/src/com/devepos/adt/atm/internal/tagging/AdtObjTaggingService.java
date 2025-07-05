@@ -1,6 +1,8 @@
 package com.devepos.adt.atm.internal.tagging;
 
+import java.net.URI;
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -11,6 +13,9 @@ import org.eclipse.osgi.util.NLS;
 import com.devepos.adt.atm.AbapTagsPlugin;
 import com.devepos.adt.atm.internal.messages.Messages;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
+import com.devepos.adt.atm.model.abaptags.ITagExportRequest;
+import com.devepos.adt.atm.model.abaptags.ITagExportResponse;
+import com.devepos.adt.atm.model.abaptags.ITagImportRequest;
 import com.devepos.adt.atm.model.abaptags.ITagPreviewInfo;
 import com.devepos.adt.atm.model.abaptags.ITaggedObject;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeleteRequest;
@@ -18,6 +23,7 @@ import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckRequest;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITaggedObjectList;
 import com.devepos.adt.atm.tagging.IAdtObjTaggingService;
+import com.devepos.adt.base.content.PlainTextContentHandler;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
@@ -32,6 +38,40 @@ import com.sap.adt.communication.session.ISystemSession;
  * @author stockbal
  */
 public class AdtObjTaggingService implements IAdtObjTaggingService {
+
+  @Override
+  public ITagExportResponse exportTags(final String destinationId,
+      final ITagExportRequest exportRequest) {
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(uriDiscovery.getTagExportUri(), session);
+    restResource.addContentHandler(new TagExportRequestContentHandler());
+    restResource.addContentHandler(new TagExportResponseContentHandler());
+
+    return restResource.post(null, ITagExportResponse.class, exportRequest);
+  }
+
+  @Override
+  public IStatus importTags(String destinationId, ITagImportRequest request) {
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    final var restResource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(uriDiscovery.getTagImportUri(), session);
+    restResource.addContentHandler(new TagImportRequestContentHandler());
+    restResource.addContentHandler(new PlainTextContentHandler());
+
+    try {
+      var resultInfo = restResource.post(null, String.class, request);
+      return new Status(IStatus.OK, AbapTagsPlugin.PLUGIN_ID, resultInfo);
+    } catch (ResourceException exc) {
+      return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
+    }
+  }
 
   @Override
   public IStatus deleteTaggedObjects(final String destinationId,
@@ -147,14 +187,33 @@ public class AdtObjTaggingService implements IAdtObjTaggingService {
 
   @Override
   public IStatus testTaggedObjectDeletionFeatureAvailability(final IProject project) {
-    final var destinationId = DestinationUtil.getDestinationId(project);
-    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
-    if (uriDiscovery.isResourceDiscoverySuccessful()
-        && uriDiscovery.getTaggedObjectDeletionUri() != null) {
-      return Status.OK_STATUS;
-    }
-    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, NLS.bind(
-        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg, project.getName()));
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_taggedObjectDeletionNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTaggedObjectDeletionUri());
   }
 
+  @Override
+  public IStatus testTagsExportFeatureAvailability(IProject project) {
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_tagExportNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTagExportUri());
+  }
+
+  @Override
+  public IStatus testTagsImportFeatureAvailability(IProject project) {
+    return testFeatureAvailability(project,
+        Messages.AdtObjTaggingService_tagImportNotAvailable_xmsg,
+        (uriDiscovery) -> uriDiscovery.getTagImportUri());
+  }
+
+  private IStatus testFeatureAvailability(IProject project, String errorMessage,
+      Function<AdtObjTaggingUriDiscovery, URI> uriRetriever) {
+    final var destinationId = DestinationUtil.getDestinationId(project);
+    final var uriDiscovery = new AdtObjTaggingUriDiscovery(destinationId);
+    if (uriDiscovery.isResourceDiscoverySuccessful() && uriRetriever.apply(uriDiscovery) != null) {
+      return Status.OK_STATUS;
+    }
+    return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID,
+        NLS.bind(errorMessage, project.getName()));
+  }
 }

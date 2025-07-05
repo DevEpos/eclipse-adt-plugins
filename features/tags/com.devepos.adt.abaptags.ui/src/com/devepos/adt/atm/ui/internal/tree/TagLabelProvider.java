@@ -22,6 +22,7 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
 
   private final boolean noCounterText;
   private final boolean noDescription;
+  private boolean markOwnSharedTags = false;
 
   /**
    * Creates new Label Provider for Viewer which holds instances of type
@@ -44,18 +45,27 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
     this.noDescription = noDescription;
   }
 
+  /**
+   * Enables/disables that own shared tags are specially decorated
+   *
+   * @param markOwnSharedTags
+   */
+  public void setMarkOwnSharedTags(final boolean markOwnSharedTags) {
+    this.markOwnSharedTags = markOwnSharedTags;
+  }
+
   @Override
   public Image getImage(final Object element) {
     if (element instanceof ITag) {
-      return ImageUtil.getImageForTag((ITag) element, false);
+      return ImageUtil.getImageForTag((ITag) element, markOwnSharedTags);
     }
     return null;
   }
 
   @Override
   public StyledString getStyledText(final Object element) {
-    final StyledString text = new StyledString();
-    final ITag tagNode = (ITag) element;
+    final var text = new StyledString();
+    final var tagNode = (ITag) element;
 
     appendTagName(tagNode, text);
     appendCounterText(tagNode, text);
@@ -66,7 +76,7 @@ public class TagLabelProvider extends LabelProvider implements IStyledLabelProvi
 
   @Override
   public String getText(final Object element) {
-    final ITagBase node = (ITagBase) element;
+    final var node = (ITagBase) element;
     return node.getName();
   }
 
