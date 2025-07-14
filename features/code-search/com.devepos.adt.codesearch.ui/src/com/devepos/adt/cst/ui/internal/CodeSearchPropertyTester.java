@@ -80,9 +80,8 @@ public class CodeSearchPropertyTester extends PropertyTester {
     if (project == null) {
       return false;
     }
-    return CodeSearchFactory.getCodeSearchService()
-        .testCodeSearchNamedItemAvailability(project,
-            NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+    return CodeSearchFactory.getCodeSearchService(project)
+        .testCodeSearchNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
         .isOK();
   }
 
@@ -146,7 +145,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
     }
 
     boolean isProjectValid = project != null
-        ? CodeSearchFactory.getCodeSearchService().testCodeSearchFeatureAvailability(project).isOK()
+        ? CodeSearchFactory.getCodeSearchService(project).testCodeSearchFeatureAvailability().isOK()
         : false;
 
     return folderValidation != null ? folderValidation.get() && isProjectValid : isProjectValid;

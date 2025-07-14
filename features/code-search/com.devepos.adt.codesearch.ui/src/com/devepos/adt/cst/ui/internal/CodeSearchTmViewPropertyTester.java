@@ -29,12 +29,10 @@ public class CodeSearchTmViewPropertyTester extends PropertyTester {
           return false;
         }
 
-        var codeSearchService = CodeSearchFactory.getCodeSearchService();
-        return codeSearchService.testCodeSearchFeatureAvailability(project).isOK()
-            && codeSearchService
-                .testCodeSearchNamedItemAvailability(project,
-                    NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
-                .isOK();
+        var codeSearchService = CodeSearchFactory.getCodeSearchService(project);
+        return codeSearchService.testCodeSearchFeatureAvailability().isOK() && codeSearchService
+            .testCodeSearchNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+            .isOK();
       }
     } catch (NullPointerException exc) {
     }

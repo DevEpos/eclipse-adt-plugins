@@ -84,7 +84,7 @@ public class ProjectDependentTypeAvailability {
 
   private static List<String> determineAvailableTypes(final IProject project) {
     List<String> types = new ArrayList<>();
-    var searchScopeFeatures = CodeSearchFactory.getCodeSearchService()
+    var searchScopeFeatures = CodeSearchFactory.getCodeSearchService(project)
         .getSearchScopeFeatures(DestinationUtil.getDestinationId(project));
 
     if (searchScopeFeatures.isFeatureEnabled(DB_TABLE_TYPE_FEATURE_ID)) {

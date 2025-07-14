@@ -33,8 +33,7 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
 
   public CodeSearchScopeFilters(final IAbapProjectProvider projectProvider) {
     this.projectProvider = projectProvider;
-    uriTemplateProvider = CodeSearchFactory.getCodeSearchService()
-        .getNamedItemUriTemplateProvider(projectProvider);
+    uriTemplateProvider = CodeSearchFactory.getNamedItemUriTemplateProvider(projectProvider);
   }
 
   @Override

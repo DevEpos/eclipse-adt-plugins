@@ -2,13 +2,10 @@ package com.devepos.adt.cst.search;
 
 import java.util.Map;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 
-import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
-import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
@@ -31,14 +28,6 @@ public interface ICodeSearchService {
    */
   ICodeSearchScope createScope(String destinationId, ICodeSearchScopeParameters scopeParameters,
       IProgressMonitor monitor);
-
-  /**
-   * Retrieves an URI template provider for named items in the code search context
-   *
-   * @param projectProvider provides ABAP project
-   * @return URI template provider for named items
-   */
-  IAdtUriTemplateProvider getNamedItemUriTemplateProvider(IAbapProjectProvider projectProvider);
 
   /**
    * Retrieves the list of available features for the code search scope
@@ -68,10 +57,9 @@ public interface ICodeSearchService {
    * Returns {@code true} if the parameter is supported in the Code Search API
    *
    * @param queryParameter name of a query parameter
-   * @param project        the project to use
    * @return
    */
-  boolean isCodeSearchParameterSupported(IProject project, String queryParameter);
+  boolean isCodeSearchParameterSupported(String queryParameter);
 
   /**
    * Find matches in ABAP Code
@@ -87,20 +75,17 @@ public interface ICodeSearchService {
   /**
    * Tests the availablity of the ABAP Code search feature in the given project
    *
-   * @param project project instance to be used for verifying the feature
-   *                availability
    * @return the validation status
    */
-  IStatus testCodeSearchFeatureAvailability(final IProject project);
+  IStatus testCodeSearchFeatureAvailability();
 
   /**
    * Tests the availability of transport request/task scope filter in the given project
    * 
-   * @param project       ABAP project
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */
-  IStatus testCodeSearchNamedItemAvailability(final IProject project, final String namedItemTerm);
+  IStatus testCodeSearchNamedItemAvailability(final String namedItemTerm);
 
   /**
    * Updates the given code search settings in the ABAP backend specified by the

@@ -114,7 +114,8 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
       return logonStatus;
     }
 
-    ICodeSearchService service = CodeSearchFactory.getCodeSearchService();
+    ICodeSearchService service = CodeSearchFactory
+        .getCodeSearchService(projectProvider.getProject());
 
     // create the scope to retrieve the number of objects that need / should be searched
     ICodeSearchScopeParameters scopeParameters = querySpecs.createScopeParameters();

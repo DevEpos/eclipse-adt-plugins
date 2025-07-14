@@ -69,7 +69,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private static final int MIN_MAX_OBJECTS = 500;
   private static final int MAX_MAX_OBJECTS = 10000;
 
-  private final ICodeSearchService codeSearchService;
+  private ICodeSearchService codeSearchService;
   private String destinationId;
   private boolean pageIsInvalid;
   private boolean pageIsUseable;
@@ -89,7 +89,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private Control linkToPreferencePageCtrl;
 
   public CodeSearchPropertyPage() {
-    codeSearchService = CodeSearchFactory.getCodeSearchService();
+
   }
 
   @SuppressWarnings("rawtypes")
@@ -137,6 +137,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     pageIsUseable = true;
 
     project = getElement().getAdapter(IProject.class);
+    codeSearchService = CodeSearchFactory.getCodeSearchService(project);
 
     destinationId = DestinationUtil.getDestinationId(project);
     projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
@@ -184,7 +185,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return;
     }
-    IStatus status = codeSearchService.testCodeSearchFeatureAvailability(project);
+    IStatus status = codeSearchService.testCodeSearchFeatureAvailability();
     if (!status.isOK()) {
       pageIsUseable = false;
       pageNotUseableStatus = status;
@@ -262,7 +263,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
         .applyTo(serverGroupText);
     TextControlUtil.addWordSupport(serverGroupText, "\\s+");
     ContentAssistSupport.createNamedItemContentAssist(serverGroupText, projectProvider,
-        codeSearchService.getNamedItemUriTemplateProvider(projectProvider), NamedItem.SERVER_GROUP,
+        CodeSearchFactory.getNamedItemUriTemplateProvider(projectProvider), NamedItem.SERVER_GROUP,
         null);
 
   }

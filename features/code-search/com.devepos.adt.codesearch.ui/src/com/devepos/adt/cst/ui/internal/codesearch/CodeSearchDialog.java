@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -172,7 +171,9 @@ public class CodeSearchDialog extends DialogPage
     }
     writeDialogSettings();
 
-    NewSearchUI.runQueryInBackground(new CodeSearchQuery(querySpecs));
+    NewSearchUI.runQueryInBackground(ProjectUtil.isCloudProject(projectProvider.getProject())
+        ? new ADTBasedCodeSearchQuery(querySpecs)
+        : new CodeSearchQuery(querySpecs));
     return true;
   }
 
@@ -184,7 +185,7 @@ public class CodeSearchDialog extends DialogPage
   @Override
   public void setInputFromSearchQuery(final CodeSearchQuery query) {
     var querySpecs = query.getQuerySpecs();
-    final String searchTerm = querySpecs.getPatterns();
+    final var searchTerm = querySpecs.getPatterns();
     patternsText.setText(searchTerm);
 
     final var projectProvider = querySpecs.getProjectProvider();
@@ -239,7 +240,7 @@ public class CodeSearchDialog extends DialogPage
 
   private void collectQuerySpecs() {
     querySpecs.setPatterns(patternsText.getText());
-    String objectScopeFilterText = filterInput.getText();
+    var objectScopeFilterText = filterInput.getText();
     querySpecs
         .setObjectScopeFilters(filterHandler.getSearchFiltersAsStringMap(objectScopeFilterText,
             FilterName.getContentAssistToUriParamNameMap(), ","), objectScopeFilterText);
@@ -321,7 +322,7 @@ public class CodeSearchDialog extends DialogPage
 
           @Override
           protected void createCheckComposites(final Composite parent) {
-            Composite groupsComposite = new Composite(parent, SWT.NONE);
+            var groupsComposite = new Composite(parent, SWT.NONE);
             GridDataFactory.fillDefaults().grab(true, true).applyTo(groupsComposite);
             GridLayoutFactory.swtDefaults()
                 .margins(0, 0)
@@ -469,10 +470,10 @@ public class CodeSearchDialog extends DialogPage
     projectInput = new ProjectInput(projectProvider, true);
 
     projectInput.createControl(parent, new Point(0, 5));
-    projectInput.addProjectValidator(project -> CodeSearchFactory.getCodeSearchService()
-        .testCodeSearchFeatureAvailability(project));
+    projectInput.addProjectValidator(project -> CodeSearchFactory.getCodeSearchService(project)
+        .testCodeSearchFeatureAvailability());
     projectInput.addStatusChangeListener(status -> {
-      boolean isProjectValid = false;
+      var isProjectValid = false;
       if (validateAndSetStatus(status, ValidationSource.PROJECT)) {
         isProjectValid = true;
         validateFilterPattern();
@@ -513,7 +514,7 @@ public class CodeSearchDialog extends DialogPage
     if (patternsText == null || patternsText.isDisposed()) {
       return false;
     }
-    String patterns = patternsText.getText();
+    var patterns = patternsText.getText();
     return patterns != null && !patterns.isEmpty();
   }
 
@@ -571,9 +572,10 @@ public class CodeSearchDialog extends DialogPage
 
     try {
       PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
-        validationStatusAtom.set(CodeSearchFactory.getCodeSearchService()
-            .validatePatterns(projectProvider.getDestinationId(),
-                querySpecs.getPatternForValidationCall(), uriParams));
+        validationStatusAtom
+            .set(CodeSearchFactory.getCodeSearchService(projectProvider.getProject())
+                .validatePatterns(projectProvider.getDestinationId(),
+                    querySpecs.getPatternForValidationCall(), uriParams));
       });
     } catch (InvocationTargetException e) {
       e.printStackTrace();
@@ -595,7 +597,7 @@ public class CodeSearchDialog extends DialogPage
     if (projectInput != null) {
       String projectName = null;
 
-      final IProject currentAbapProject = ProjectUtil.getCurrentAbapProject();
+      final var currentAbapProject = ProjectUtil.getCurrentAbapProject();
       if (currentAbapProject != null) {
         projectName = currentAbapProject.getName();
       }
@@ -609,7 +611,7 @@ public class CodeSearchDialog extends DialogPage
   private void setProjectInExtensionSections() {
     var project = projectProvider.getProject();
     var searchScopeFeatures = project != null
-        ? CodeSearchFactory.getCodeSearchService()
+        ? CodeSearchFactory.getCodeSearchService(projectProvider.getProject())
             .getSearchScopeFeatures(projectProvider.getDestinationId())
         : null;
 
@@ -653,10 +655,10 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void updateExtensionSectionsFromQuery(final CodeSearchQuery query) {
-    Map<String, Object> scopeFilters = query.getQuerySpecs().getExtensionObjectScopeFilters();
+    var scopeFilters = query.getQuerySpecs().getExtensionObjectScopeFilters();
 
     for (ISearchPageParameterSection section : extensionParamSections) {
-      Object scopeFilterValue = scopeFilters.get(section.getParameterId());
+      var scopeFilterValue = scopeFilters.get(section.getParameterId());
       if (scopeFilterValue instanceof String) {
         section.setParameterValues(Arrays.asList(((String) scopeFilterValue).split(",")));
       }
@@ -668,7 +670,7 @@ public class CodeSearchDialog extends DialogPage
       if (getControl().isDisposed()) {
         return;
       }
-      boolean isError = allValidationStatuses.values()
+      var isError = allValidationStatuses.values()
           .stream()
           .anyMatch(s -> s.getSeverity() == IStatus.ERROR);
       container.setPerformActionEnabled(!isError);
@@ -676,8 +678,8 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void updateOptionEnabledment() {
-    boolean isSinglePattern = singlePattern.getSelection();
-    boolean isSequentialMatching = sequentialMatchingCheck.getSelection();
+    var isSinglePattern = singlePattern.getSelection();
+    var isSequentialMatching = sequentialMatchingCheck.getSelection();
 
     singlePattern.setEnabled(!isSequentialMatching);
     sequentialMatchingCheck.setEnabled(!isSinglePattern);
@@ -712,11 +714,11 @@ public class CodeSearchDialog extends DialogPage
       expandProgIncludesButton.setEnabled(false);
       expandTablIncludesButton.setEnabled(false);
     } else {
-      var service = CodeSearchFactory.getCodeSearchService();
-      expandProgIncludesButton.setEnabled(service.isCodeSearchParameterSupported(
-          projectProvider.getProject(), SearchParameter.EXPAND_PROG_INCLUDES.getUriName()));
-      expandTablIncludesButton.setEnabled(service.isCodeSearchParameterSupported(
-          projectProvider.getProject(), SearchParameter.EXPAND_TABLE_INCLUDES.getUriName()));
+      var service = CodeSearchFactory.getCodeSearchService(projectProvider.getProject());
+      expandProgIncludesButton.setEnabled(service
+          .isCodeSearchParameterSupported(SearchParameter.EXPAND_PROG_INCLUDES.getUriName()));
+      expandTablIncludesButton.setEnabled(service
+          .isCodeSearchParameterSupported(SearchParameter.EXPAND_TABLE_INCLUDES.getUriName()));
     }
 
     if (!expandProgIncludesButton.isEnabled()) {
@@ -753,7 +755,7 @@ public class CodeSearchDialog extends DialogPage
     if (filterHandler == null || filterInput == null || filterInput.isDisposed()) {
       return;
     }
-    final String filterPattern = filterInput.getText();
+    final var filterPattern = filterInput.getText();
     try {
       filterHandler.checkSearchFiltersComplete(filterPattern);
       validateAndSetStatus(new Status(IStatus.OK, CodeSearchUIPlugin.PLUGIN_ID, null, null),

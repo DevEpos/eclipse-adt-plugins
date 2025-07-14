@@ -13,6 +13,8 @@ Require-Bundle:
  com.devepos.adt.searchfavorites,
  com.sap.adt.communication,
  com.sap.adt.project.ui,
+ com.sap.adt.ris.model,
+ com.sap.adt.ris.search,
  com.sap.adt.ris.search.ui,
  com.sap.adt.tools.core,
  com.sap.adt.tools.core.ui,

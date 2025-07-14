@@ -10,13 +10,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 
-import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
-import com.devepos.adt.base.nameditem.NamedItemServiceFactory;
 import com.devepos.adt.base.plugin.features.AdtPluginFeaturesServiceFactory;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
-import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.internal.messages.Messages;
@@ -41,6 +38,11 @@ import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
  *
  */
 public class CodeSearchService implements ICodeSearchService {
+  private IProject project;
+
+  public CodeSearchService(IProject project) {
+    this.project = project;
+  }
 
   @Override
   public ICodeSearchScope createScope(final String destinationId,
@@ -59,16 +61,6 @@ public class CodeSearchService implements ICodeSearchService {
       return restResource.post(monitor, ICodeSearchScope.class, scopeParameters);
     }
     return null;
-  }
-
-  @Override
-  public IAdtUriTemplateProvider getNamedItemUriTemplateProvider(
-      final IAbapProjectProvider projectProvider) {
-    if (projectProvider == null) {
-      throw new IllegalArgumentException("Parameter 'projectProvider' must be filled!");
-    }
-    return NamedItemServiceFactory.createNamedItemUriTemplateProvider(projectProvider,
-        CodeSearchUriDiscovery::new);
   }
 
   @Override
@@ -129,8 +121,7 @@ public class CodeSearchService implements ICodeSearchService {
   }
 
   @Override
-  public boolean isCodeSearchParameterSupported(final IProject project,
-      final String queryParameter) {
+  public boolean isCodeSearchParameterSupported(final String queryParameter) {
     final String destinationId = DestinationUtil.getDestinationId(project);
     CodeSearchUriDiscovery uriDiscovery = new CodeSearchUriDiscovery(destinationId);
     if (!uriDiscovery.isResourceDiscoverySuccessful() || uriDiscovery.getCodeSearchUri() == null) {
@@ -159,7 +150,7 @@ public class CodeSearchService implements ICodeSearchService {
   }
 
   @Override
-  public IStatus testCodeSearchFeatureAvailability(final IProject project) {
+  public IStatus testCodeSearchFeatureAvailability() {
     final String destinationId = DestinationUtil.getDestinationId(project);
     CodeSearchUriDiscovery uriDiscovery = new CodeSearchUriDiscovery(destinationId);
     if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getCodeSearchUri() != null) {
@@ -170,8 +161,7 @@ public class CodeSearchService implements ICodeSearchService {
   }
 
   @Override
-  public IStatus testCodeSearchNamedItemAvailability(final IProject project,
-      final String namedItemTerm) {
+  public IStatus testCodeSearchNamedItemAvailability(final String namedItemTerm) {
     final String destinationId = DestinationUtil.getDestinationId(project);
     var uriDiscovery = new CodeSearchUriDiscovery(destinationId);
     if (uriDiscovery.isResourceDiscoverySuccessful()
