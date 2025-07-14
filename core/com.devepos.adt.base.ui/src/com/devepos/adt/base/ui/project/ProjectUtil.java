@@ -14,6 +14,7 @@ import com.devepos.adt.base.destinations.IDestinationProvider;
 import com.devepos.adt.base.ui.internal.AdtBaseUIPlugin;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 import com.sap.adt.destinations.logon.AdtLogonServiceFactory;
+import com.sap.adt.destinations.model.http.internal.api.IHttpDestinationData;
 import com.sap.adt.destinations.ui.logon.AdtLogonServiceUIFactory;
 import com.sap.adt.project.AdtCoreProjectServiceFactory;
 import com.sap.adt.project.IAdtCoreProject;
@@ -49,6 +50,18 @@ public class ProjectUtil {
       return adaptedProject;
     }
     return null;
+  }
+
+  /**
+   * @return {@code true} if the given project is an ABAP cloud project
+   */
+  @SuppressWarnings("restriction")
+  public static boolean isCloudProject(final IProject project) {
+    var destData = DestinationUtil.getDestinationData(DestinationUtil.getDestinationId(project));
+    if (destData instanceof IHttpDestinationData) {
+      return true;
+    }
+    return false;
   }
 
   /**
