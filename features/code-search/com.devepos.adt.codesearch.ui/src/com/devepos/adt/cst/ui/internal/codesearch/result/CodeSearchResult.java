@@ -76,9 +76,9 @@ public class CodeSearchResult extends AbstractTextSearchResult {
     if (currentFlatResult != null) {
       synchronized (flatResult) {
         flatResult.addAll(currentFlatResult);
-      }
-      for (ITreeNode matchNode : currentFlatResult) {
-        addMatch(new Match(matchNode, -1, -1));
+        for (ITreeNode matchNode : currentFlatResult) {
+          addMatch(new Match(matchNode, -1, -1));
+        }
       }
     }
     resultTree.clearBuffersOfLastResult();

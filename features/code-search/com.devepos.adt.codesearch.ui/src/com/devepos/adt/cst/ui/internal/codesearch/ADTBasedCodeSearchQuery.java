@@ -18,9 +18,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.content.PlainTextContentHandler;
 import com.devepos.adt.base.destinations.DestinationUtil;
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
+import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.message.IHeaders;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
@@ -46,10 +50,15 @@ public class ADTBasedCodeSearchQuery extends CodeSearchQuery {
 
   @Override
   public IStatus run(IProgressMonitor monitor) throws OperationCanceledException {
+    ((CodeSearchResult) getSearchResult()).reset();
+
+    var startTime = System.currentTimeMillis();
+
     var destination = DestinationUtil.getDestinationId(getProject());
     var params = AdtRisVirtualFoldersServiceFactory.createVirtualFolderRequestParameters();
     params.setObjectSearchPattern("*");
     params.addPreselection("package", "/AIF/STRUC");
+    // params.addPreselection("package", "/AIF/ANALYZER");
     params.addPreselection("type", "CLAS");
     // params.setWantedFacets(Arrays.asList("type"));
     final var session = AdtSystemSessionFactory.createSystemSessionFactory()
@@ -75,7 +84,7 @@ public class ADTBasedCodeSearchQuery extends CodeSearchQuery {
     var chunks = splitList(folderContent.getObject(),
         (int) Math.ceil((double) folderContent.getObjectCount() / numJobs));
 
-    ExecutorService executor = Executors.newFixedThreadPool(numJobs);
+    ExecutorService executor = Executors.newFixedThreadPool(10);
     List<Future<IStatus>> futures = new ArrayList<>();
     monitor.beginTask("Searching", folderContent.getObjectCount());
 
@@ -91,6 +100,7 @@ public class ADTBasedCodeSearchQuery extends CodeSearchQuery {
         }
       }
 
+      System.out.println("Duration: " + (System.currentTimeMillis() - startTime) / 1000 + "s");
       return Status.OK_STATUS;
 
     } catch (InterruptedException | ExecutionException e) {
@@ -115,13 +125,27 @@ public class ADTBasedCodeSearchQuery extends CodeSearchQuery {
   }
 
   private IStatus runSearchTask(IProgressMonitor m, String destination, List<IObject> chunk) {
+    var codeSearchResult = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
+    var startTime = System.currentTimeMillis();
     try {
-      // m.beginTask("Searching code chunk with size ", chunk.size());
+
       final var session = AdtSystemSessionFactory.createSystemSessionFactory()
           .createStatelessSession(destination);
+      var pattern = Pattern.compile(getQuerySpecs().getPatterns().split(System.lineSeparator())[0]);
+
+      var matchCount = 0;
+
       for (var o : chunk) {
-        // System.out.println("Searching class include " + o.getName());
-        var pattern = Pattern.compile("DATA");
+        var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+        searchObject.setUri(
+            "/sap/bc/adt/oo/classes/" + URLEncoder.encode(o.getName(), StandardCharsets.UTF_8));
+        var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+        adtMainObj.setType(IAdtObjectTypeConstants.CLASS);
+        adtMainObj.setName(o.getName());
+        adtMainObj.setUri(
+            "/sap/bc/adt/oo/classes/" + URLEncoder.encode(o.getName(), StandardCharsets.UTF_8));
+        searchObject.setAdtMainObject(adtMainObj);
+
         var getClassContent = URI.create("/sap/bc/adt/oo/classes/" +
             URLEncoder.encode(o.getName(), StandardCharsets.UTF_8) + "/source/main");
         var resource = AdtRestResourceFactory.createRestResourceFactory()
@@ -132,13 +156,40 @@ public class ADTBasedCodeSearchQuery extends CodeSearchQuery {
         IHeaders requestHeaders = HeadersFactory.newHeaders();
         requestHeaders.addField(headerField);
         var source = resource.get(m, requestHeaders, String.class);
-        final var matcher = pattern.matcher(source);
-        while (matcher.find()) {
-          matchCount.set(matchCount.get() + 1);
+
+        var sourceLines = source.split("\r\n");
+        for (int i = 0; i < sourceLines.length; i++) {
+          var line = sourceLines[i];
+          final var matcher = pattern.matcher(line);
+          while (matcher.find()) {
+            var begin = matcher.start();
+            var endOffset = matcher.end();
+            var match = ICodeSearchFactory.eINSTANCE.createCodeSearchMatch();
+            match
+                .setUri(String.format("/sap/bc/adt/oo/classes/%s/source/main#start=%d,%d;end=%d,%d",
+                    URLEncoder.encode(o.getName(), StandardCharsets.UTF_8), i + 1, begin, i + 1,
+                    endOffset));
+            match.setSnippet(line);
+            searchObject.getMatches().add(match);
+            matchCount++;
+          }
         }
+        // final var matcher = pattern.matcher(source);
+        // while (matcher.find()) {
+        // var group = matcher.group();
+        // var begin = matcher.start();
+        // var endOffset = matcher.end();
+        // matchCount.set(matchCount.get() + 1);
+        // }
         m.worked(1);
+        if (!searchObject.getMatches().isEmpty()) {
+          codeSearchResult.getSearchObjects().add(searchObject);
+        }
       }
+      codeSearchResult.setNumberOfResults(matchCount);
     } finally {
+      ((CodeSearchResult) getSearchResult()).addResult(codeSearchResult,
+          System.currentTimeMillis() - startTime);
     }
     return Status.OK_STATUS;
   }
