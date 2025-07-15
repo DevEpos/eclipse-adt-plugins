@@ -137,8 +137,8 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
     }
 
     // Obtain or create and register package
-    Object registeredCodeSearchPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-    CodeSearchPackage theCodeSearchPackage = registeredCodeSearchPackage instanceof CodeSearchPackage
+    var registeredCodeSearchPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    var theCodeSearchPackage = registeredCodeSearchPackage instanceof CodeSearchPackage
         ? (CodeSearchPackage) registeredCodeSearchPackage
         : new CodeSearchPackage();
 
@@ -604,9 +604,9 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+    var theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
         .getEPackage(XMLTypePackage.eNS_URI);
-    IAdtBasePackage theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
+    var theAdtBasePackage = (IAdtBasePackage) EPackage.Registry.INSTANCE
         .getEPackage(IAdtBasePackage.eNS_URI);
 
     // Create type parameters
@@ -659,7 +659,7 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCodeSearchResult_NumberOfSearchedObjects(), theXMLTypePackage.getInt(),
         "numberOfSearchedObjects", null, 0, 1, ICodeSearchResult.class, !IS_TRANSIENT, !IS_VOLATILE,
-        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCodeSearchResult_NumberOfSearchedSources(), theXMLTypePackage.getInt(),
         "numberOfSearchedSources", null, 0, 1, ICodeSearchResult.class, !IS_TRANSIENT, !IS_VOLATILE,
         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -729,7 +729,7 @@ public class CodeSearchPackage extends EPackageImpl implements ICodeSearchPackag
    * @generated
    */
   protected void createExtendedMetaDataAnnotations() {
-    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(codeSearchObjectEClass, source,
         new String[] { "kind", "elementOnly", "name", "searchObject" });
     addAnnotation(getCodeSearchObject_Uri(), source,

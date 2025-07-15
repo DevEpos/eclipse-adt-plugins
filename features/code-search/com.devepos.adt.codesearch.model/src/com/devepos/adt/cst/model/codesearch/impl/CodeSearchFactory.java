@@ -35,7 +35,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   public static ICodeSearchFactory init() {
     try {
-      ICodeSearchFactory theCodeSearchFactory = (ICodeSearchFactory) EPackage.Registry.INSTANCE
+      var theCodeSearchFactory = (ICodeSearchFactory) EPackage.Registry.INSTANCE
           .getEFactory(ICodeSearchPackage.eNS_URI);
       if (theCodeSearchFactory != null) {
         return theCodeSearchFactory;
@@ -94,7 +94,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchObject createCodeSearchObject() {
-    CodeSearchObject codeSearchObject = new CodeSearchObject();
+    var codeSearchObject = new CodeSearchObject();
     return codeSearchObject;
   }
 
@@ -106,7 +106,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchMatch createCodeSearchMatch() {
-    CodeSearchMatch codeSearchMatch = new CodeSearchMatch();
+    var codeSearchMatch = new CodeSearchMatch();
     return codeSearchMatch;
   }
 
@@ -118,7 +118,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchResult createCodeSearchResult() {
-    CodeSearchResult codeSearchResult = new CodeSearchResult();
+    var codeSearchResult = new CodeSearchResult();
     return codeSearchResult;
   }
 
@@ -130,7 +130,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchSettings createCodeSearchSettings() {
-    CodeSearchSettings codeSearchSettings = new CodeSearchSettings();
+    var codeSearchSettings = new CodeSearchSettings();
     return codeSearchSettings;
   }
 
@@ -142,7 +142,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchScopeParameter createCodeSearchScopeParameter() {
-    CodeSearchScopeParameter codeSearchScopeParameter = new CodeSearchScopeParameter();
+    var codeSearchScopeParameter = new CodeSearchScopeParameter();
     return codeSearchScopeParameter;
   }
 
@@ -154,7 +154,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchScope createCodeSearchScope() {
-    CodeSearchScope codeSearchScope = new CodeSearchScope();
+    var codeSearchScope = new CodeSearchScope();
     return codeSearchScope;
   }
 
@@ -166,7 +166,7 @@ public class CodeSearchFactory extends EFactoryImpl implements ICodeSearchFactor
    */
   @Override
   public ICodeSearchScopeParameters createCodeSearchScopeParameters() {
-    CodeSearchScopeParameters codeSearchScopeParameters = new CodeSearchScopeParameters();
+    var codeSearchScopeParameters = new CodeSearchScopeParameters();
     return codeSearchScopeParameters;
   }
 

@@ -36,12 +36,25 @@ public interface ICodeSearchObject extends EObject {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Uri</em>' attribute.
+   * @see #setUri(String)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchObject_Uri()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI"
    *        extendedMetaData="kind='attribute' name='uri' namespace='##targetNamespace'"
    * @generated
    */
   String getUri();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchObject#getUri
+   * <em>Uri</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Uri</em>' attribute.
+   * @see #getUri()
+   * @generated
+   */
+  void setUri(String value);
 
   /**
    * Returns the value of the '<em><b>Parent Uri</b></em>' attribute.
@@ -49,12 +62,26 @@ public interface ICodeSearchObject extends EObject {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Parent Uri</em>' attribute.
+   * @see #setParentUri(String)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchObject_ParentUri()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI"
    *        extendedMetaData="kind='attribute' name='parentUri' namespace='##targetNamespace'"
    * @generated
    */
   String getParentUri();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchObject#getParentUri <em>Parent
+   * Uri</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Parent Uri</em>' attribute.
+   * @see #getParentUri()
+   * @generated
+   */
+  void setParentUri(String value);
 
   /**
    * Returns the value of the '<em><b>Adt Main Object</b></em>' containment reference.
@@ -62,13 +89,27 @@ public interface ICodeSearchObject extends EObject {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Adt Main Object</em>' containment reference.
+   * @see #setAdtMainObject(IAdtObjRef)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchObject_AdtMainObject()
-   * @model containment="true" suppressedSetVisibility="true"
+   * @model containment="true"
    *        extendedMetaData="kind='element' name='adtMainObject'
    *        namespace='http://www.devepos.com/adt/base'"
    * @generated
    */
   IAdtObjRef getAdtMainObject();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchObject#getAdtMainObject <em>Adt Main
+   * Object</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Adt Main Object</em>' containment reference.
+   * @see #getAdtMainObject()
+   * @generated
+   */
+  void setAdtMainObject(IAdtObjRef value);
 
   /**
    * Returns the value of the '<em><b>Matches</b></em>' containment reference list.

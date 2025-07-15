@@ -144,8 +144,9 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setUri(final String newUri) {
-    String oldUri = uri;
+    var oldUri = uri;
     uri = newUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -170,8 +171,9 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setParentUri(final String newParentUri) {
-    String oldParentUri = parentUri;
+    var oldParentUri = parentUri;
     parentUri = newParentUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -198,10 +200,10 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
    */
   public NotificationChain basicSetAdtMainObject(final IAdtObjRef newAdtMainObject,
       NotificationChain msgs) {
-    IAdtObjRef oldAdtMainObject = adtMainObject;
+    var oldAdtMainObject = adtMainObject;
     adtMainObject = newAdtMainObject;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+      var notification = new ENotificationImpl(this, Notification.SET,
           ICodeSearchPackage.CODE_SEARCH_OBJECT__ADT_MAIN_OBJECT, oldAdtMainObject,
           newAdtMainObject);
       if (msgs == null) {
@@ -219,6 +221,7 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setAdtMainObject(final IAdtObjRef newAdtMainObject) {
     if (newAdtMainObject != adtMainObject) {
       NotificationChain msgs = null;
@@ -383,7 +386,7 @@ public class CodeSearchObject extends MinimalEObjectImpl.Container implements IC
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (uri: ");
     result.append(uri);
     result.append(", parentUri: ");

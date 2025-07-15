@@ -192,7 +192,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParallelEnabled(final boolean newParallelEnabled) {
-    boolean oldParallelEnabled = parallelEnabled;
+    var oldParallelEnabled = parallelEnabled;
     parallelEnabled = newParallelEnabled;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -220,7 +220,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParallelServerGroup(final String newParallelServerGroup) {
-    String oldParallelServerGroup = parallelServerGroup;
+    var oldParallelServerGroup = parallelServerGroup;
     parallelServerGroup = newParallelServerGroup;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -248,7 +248,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
    */
   @Override
   public void setParallelPackageSize(final int newParallelPackageSize) {
-    int oldParallelPackageSize = parallelPackageSize;
+    var oldParallelPackageSize = parallelPackageSize;
     parallelPackageSize = newParallelPackageSize;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -276,7 +276,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
    */
   @Override
   public void setPcreExtendedDisabled(final boolean newPcreExtendedDisabled) {
-    boolean oldPcreExtendedDisabled = pcreExtendedDisabled;
+    var oldPcreExtendedDisabled = pcreExtendedDisabled;
     pcreExtendedDisabled = newPcreExtendedDisabled;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -304,7 +304,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
    */
   @Override
   public void setPcreSingleLineEnabled(final boolean newPcreSingleLineEnabled) {
-    boolean oldPcreSingleLineEnabled = pcreSingleLineEnabled;
+    var oldPcreSingleLineEnabled = pcreSingleLineEnabled;
     pcreSingleLineEnabled = newPcreSingleLineEnabled;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -428,7 +428,7 @@ public class CodeSearchSettings extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (parallelEnabled: ");
     result.append(parallelEnabled);
     result.append(", parallelServerGroup: ");

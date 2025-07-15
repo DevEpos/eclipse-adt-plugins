@@ -109,7 +109,7 @@ public class CodeSearchScope extends MinimalEObjectImpl.Container implements ICo
    * @generated
    */
   public void setId(final String newId) {
-    String oldId = id;
+    var oldId = id;
     id = newId;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -135,7 +135,7 @@ public class CodeSearchScope extends MinimalEObjectImpl.Container implements ICo
    * @generated
    */
   public void setObjectCount(final int newObjectCount) {
-    int oldObjectCount = objectCount;
+    var oldObjectCount = objectCount;
     objectCount = newObjectCount;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -228,7 +228,7 @@ public class CodeSearchScope extends MinimalEObjectImpl.Container implements ICo
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (id: ");
     result.append(id);
     result.append(", objectCount: ");

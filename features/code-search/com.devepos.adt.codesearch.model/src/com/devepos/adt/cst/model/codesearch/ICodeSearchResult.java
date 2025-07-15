@@ -71,12 +71,26 @@ public interface ICodeSearchResult extends EObject {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Number Of Results</em>' attribute.
+   * @see #setNumberOfResults(int)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchResult_NumberOfResults()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Int" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
    *        extendedMetaData="kind='attribute' name='numberOfResults' namespace='##targetNamespace'"
    * @generated
    */
   int getNumberOfResults();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchResult#getNumberOfResults <em>Number Of
+   * Results</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Number Of Results</em>' attribute.
+   * @see #getNumberOfResults()
+   * @generated
+   */
+  void setNumberOfResults(int value);
 
   /**
    * Returns the value of the '<em><b>Number Of Searched Objects</b></em>' attribute.
@@ -84,8 +98,9 @@ public interface ICodeSearchResult extends EObject {
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Number Of Searched Objects</em>' attribute.
+   * @see #setNumberOfSearchedObjects(int)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchResult_NumberOfSearchedObjects()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Int" suppressedSetVisibility="true"
+   * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Int"
    *        extendedMetaData="kind='attribute' name='numberOfSearchedObjects'
    *        namespace='##targetNamespace'"
    * @generated
@@ -93,13 +108,27 @@ public interface ICodeSearchResult extends EObject {
   int getNumberOfSearchedObjects();
 
   /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchResult#getNumberOfSearchedObjects
+   * <em>Number Of Searched Objects</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Number Of Searched Objects</em>' attribute.
+   * @see #getNumberOfSearchedObjects()
+   * @generated
+   */
+  void setNumberOfSearchedObjects(int value);
+
+  /**
    * Returns the value of the '<em><b>Number Of Searched Sources</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Number Of Searched Sources</em>' attribute.
+   * @see #setNumberOfSearchedSources(int)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchResult_NumberOfSearchedSources()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Int" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
    *        extendedMetaData="kind='attribute' name='numberOfSearchedSources'
    *        namespace='##targetNamespace'"
    * @generated
@@ -107,13 +136,27 @@ public interface ICodeSearchResult extends EObject {
   int getNumberOfSearchedSources();
 
   /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchResult#getNumberOfSearchedSources
+   * <em>Number Of Searched Sources</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Number Of Searched Sources</em>' attribute.
+   * @see #getNumberOfSearchedSources()
+   * @generated
+   */
+  void setNumberOfSearchedSources(int value);
+
+  /**
    * Returns the value of the '<em><b>Lines Of Searched Code</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Lines Of Searched Code</em>' attribute.
+   * @see #setLinesOfSearchedCode(float)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchResult_LinesOfSearchedCode()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Float" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Float"
    *        extendedMetaData="kind='attribute' name='linesOfSearchedCode'
    *        namespace='##targetNamespace'"
    * @generated
@@ -121,16 +164,43 @@ public interface ICodeSearchResult extends EObject {
   float getLinesOfSearchedCode();
 
   /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchResult#getLinesOfSearchedCode <em>Lines
+   * Of Searched Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Lines Of Searched Code</em>' attribute.
+   * @see #getLinesOfSearchedCode()
+   * @generated
+   */
+  void setLinesOfSearchedCode(float value);
+
+  /**
    * Returns the value of the '<em><b>Query Time In Ms</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    *
    * @return the value of the '<em>Query Time In Ms</em>' attribute.
+   * @see #setQueryTimeInMs(int)
    * @see com.devepos.adt.cst.model.codesearch.ICodeSearchPackage#getCodeSearchResult_QueryTimeInMs()
-   * @model dataType="org.eclipse.emf.ecore.xml.type.Int" suppressedSetVisibility="true"
+   * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
    *        extendedMetaData="kind='attribute' name='queryTimeInMs' namespace='##targetNamespace'"
    * @generated
    */
   int getQueryTimeInMs();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.cst.model.codesearch.ICodeSearchResult#getQueryTimeInMs <em>Query Time
+   * In Ms</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Query Time In Ms</em>' attribute.
+   * @see #getQueryTimeInMs()
+   * @generated
+   */
+  void setQueryTimeInMs(int value);
 
 } // ICodeSearchResult

@@ -79,56 +79,56 @@ public class CodeSearchSwitch<T> extends Switch<T> {
   protected T doSwitch(final int classifierID, final EObject theEObject) {
     switch (classifierID) {
     case ICodeSearchPackage.CODE_SEARCH_OBJECT: {
-      ICodeSearchObject codeSearchObject = (ICodeSearchObject) theEObject;
-      T result = caseCodeSearchObject(codeSearchObject);
+      var codeSearchObject = (ICodeSearchObject) theEObject;
+      var result = caseCodeSearchObject(codeSearchObject);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_MATCH: {
-      ICodeSearchMatch codeSearchMatch = (ICodeSearchMatch) theEObject;
-      T result = caseCodeSearchMatch(codeSearchMatch);
+      var codeSearchMatch = (ICodeSearchMatch) theEObject;
+      var result = caseCodeSearchMatch(codeSearchMatch);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_RESULT: {
-      ICodeSearchResult codeSearchResult = (ICodeSearchResult) theEObject;
-      T result = caseCodeSearchResult(codeSearchResult);
+      var codeSearchResult = (ICodeSearchResult) theEObject;
+      var result = caseCodeSearchResult(codeSearchResult);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_SETTINGS: {
-      ICodeSearchSettings codeSearchSettings = (ICodeSearchSettings) theEObject;
-      T result = caseCodeSearchSettings(codeSearchSettings);
+      var codeSearchSettings = (ICodeSearchSettings) theEObject;
+      var result = caseCodeSearchSettings(codeSearchSettings);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_SCOPE_PARAMETER: {
-      ICodeSearchScopeParameter codeSearchScopeParameter = (ICodeSearchScopeParameter) theEObject;
-      T result = caseCodeSearchScopeParameter(codeSearchScopeParameter);
+      var codeSearchScopeParameter = (ICodeSearchScopeParameter) theEObject;
+      var result = caseCodeSearchScopeParameter(codeSearchScopeParameter);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_SCOPE: {
-      ICodeSearchScope codeSearchScope = (ICodeSearchScope) theEObject;
-      T result = caseCodeSearchScope(codeSearchScope);
+      var codeSearchScope = (ICodeSearchScope) theEObject;
+      var result = caseCodeSearchScope(codeSearchScope);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case ICodeSearchPackage.CODE_SEARCH_SCOPE_PARAMETERS: {
-      ICodeSearchScopeParameters codeSearchScopeParameters = (ICodeSearchScopeParameters) theEObject;
-      T result = caseCodeSearchScopeParameters(codeSearchScopeParameters);
+      var codeSearchScopeParameters = (ICodeSearchScopeParameters) theEObject;
+      var result = caseCodeSearchScopeParameters(codeSearchScopeParameters);
       if (result == null) {
         result = defaultCase(theEObject);
       }

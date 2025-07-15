@@ -13,7 +13,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentUri" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnyURI">
@@ -23,7 +23,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="adtMainObject" eType="ecore:EClass ../../com.devepos.adt.base/model/adtbase.ecore#//AdtObjRef"
@@ -34,7 +34,7 @@
         <details key="namespace" value="http://www.devepos.com/adt/base"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="matches" upperBound="-1"
@@ -61,7 +61,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snippet" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -71,7 +71,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="longSnippet" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -81,7 +81,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -119,18 +119,18 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSearchedObjects"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
+        unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="numberOfSearchedObjects"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSearchedSources"
@@ -141,7 +141,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="linesOfSearchedCode" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float">
@@ -151,7 +151,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryTimeInMs" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
@@ -161,7 +161,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
+        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

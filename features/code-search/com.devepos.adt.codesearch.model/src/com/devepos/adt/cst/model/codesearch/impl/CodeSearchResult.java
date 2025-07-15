@@ -241,10 +241,10 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    */
   public NotificationChain basicSetResponseMessageList(
       final IResponseMessageList newResponseMessageList, NotificationChain msgs) {
-    IResponseMessageList oldResponseMessageList = responseMessageList;
+    var oldResponseMessageList = responseMessageList;
     responseMessageList = newResponseMessageList;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+      var notification = new ENotificationImpl(this, Notification.SET,
           ICodeSearchPackage.CODE_SEARCH_RESULT__RESPONSE_MESSAGE_LIST, oldResponseMessageList,
           newResponseMessageList);
       if (msgs == null) {
@@ -303,8 +303,9 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setNumberOfResults(final int newNumberOfResults) {
-    int oldNumberOfResults = numberOfResults;
+    var oldNumberOfResults = numberOfResults;
     numberOfResults = newNumberOfResults;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -330,8 +331,9 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setNumberOfSearchedObjects(final int newNumberOfSearchedObjects) {
-    int oldNumberOfSearchedObjects = numberOfSearchedObjects;
+    var oldNumberOfSearchedObjects = numberOfSearchedObjects;
     numberOfSearchedObjects = newNumberOfSearchedObjects;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -357,8 +359,9 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setNumberOfSearchedSources(final int newNumberOfSearchedSources) {
-    int oldNumberOfSearchedSources = numberOfSearchedSources;
+    var oldNumberOfSearchedSources = numberOfSearchedSources;
     numberOfSearchedSources = newNumberOfSearchedSources;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -384,8 +387,9 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setLinesOfSearchedCode(final float newLinesOfSearchedCode) {
-    float oldLinesOfSearchedCode = linesOfSearchedCode;
+    var oldLinesOfSearchedCode = linesOfSearchedCode;
     linesOfSearchedCode = newLinesOfSearchedCode;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -411,8 +415,9 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
    *
    * @generated
    */
+  @Override
   public void setQueryTimeInMs(final int newQueryTimeInMs) {
-    int oldQueryTimeInMs = queryTimeInMs;
+    var oldQueryTimeInMs = queryTimeInMs;
     queryTimeInMs = newQueryTimeInMs;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -575,7 +580,7 @@ public class CodeSearchResult extends MinimalEObjectImpl.Container implements IC
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (numberOfResults: ");
     result.append(numberOfResults);
     result.append(", numberOfSearchedObjects: ");

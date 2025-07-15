@@ -112,7 +112,7 @@ public class CodeSearchScopeParameter extends MinimalEObjectImpl.Container
    */
   @Override
   public void setName(final String newName) {
-    String oldName = name;
+    var oldName = name;
     name = newName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -139,7 +139,7 @@ public class CodeSearchScopeParameter extends MinimalEObjectImpl.Container
    */
   @Override
   public void setValue(final String newValue) {
-    String oldValue = value;
+    var oldValue = value;
     value = newValue;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -231,7 +231,7 @@ public class CodeSearchScopeParameter extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (name: ");
     result.append(name);
     result.append(", value: ");

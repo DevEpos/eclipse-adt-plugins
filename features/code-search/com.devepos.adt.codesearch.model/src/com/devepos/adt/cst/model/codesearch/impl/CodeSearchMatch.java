@@ -132,8 +132,9 @@ public class CodeSearchMatch extends MinimalEObjectImpl.Container implements ICo
    *
    * @generated
    */
+  @Override
   public void setUri(final String newUri) {
-    String oldUri = uri;
+    var oldUri = uri;
     uri = newUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -158,8 +159,9 @@ public class CodeSearchMatch extends MinimalEObjectImpl.Container implements ICo
    *
    * @generated
    */
+  @Override
   public void setSnippet(final String newSnippet) {
-    String oldSnippet = snippet;
+    var oldSnippet = snippet;
     snippet = newSnippet;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -184,8 +186,9 @@ public class CodeSearchMatch extends MinimalEObjectImpl.Container implements ICo
    *
    * @generated
    */
+  @Override
   public void setLongSnippet(final String newLongSnippet) {
-    String oldLongSnippet = longSnippet;
+    var oldLongSnippet = longSnippet;
     longSnippet = newLongSnippet;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -288,7 +291,7 @@ public class CodeSearchMatch extends MinimalEObjectImpl.Container implements ICo
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (uri: ");
     result.append(uri);
     result.append(", snippet: ");
