@@ -1,14 +1,20 @@
 package com.devepos.adt.cst.search;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
 
 import com.devepos.adt.base.IAdtUriTemplateProvider;
 import com.devepos.adt.base.nameditem.NamedItemServiceFactory;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.project.ProjectUtil;
-import com.devepos.adt.cst.internal.search.ADTBasedCodeSearchService;
-import com.devepos.adt.cst.internal.search.CodeSearchService;
-import com.devepos.adt.cst.internal.search.CodeSearchUriDiscovery;
+import com.devepos.adt.cst.internal.search.CodeSearchFeatureUtil;
+import com.devepos.adt.cst.internal.search.CodeSearchPatternValidator;
+import com.devepos.adt.cst.internal.search.CodeSearchScopeService;
+import com.devepos.adt.cst.internal.search.backend.BackendCodeSearchService;
+import com.devepos.adt.cst.internal.search.backend.CodeSearchSettingsService;
+import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
+import com.devepos.adt.cst.internal.search.client.ClientCodeSearchService;
+import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
 
 /**
  * Factory for creating instances of {@link ICodeSearchService}
@@ -19,16 +25,18 @@ import com.devepos.adt.cst.internal.search.CodeSearchUriDiscovery;
 public class CodeSearchFactory {
 
   /**
-   * Retrieves instance of {@link ICodeSearchService}
-   *
-   * @return search service instance for searching in ABAP Code
+   * Retrieves instance of code search service to perform a adt client based search
    */
-  public static ICodeSearchService getCodeSearchService(IProject project) {
-    if (ProjectUtil.isCloudProject(project)) {
-      return new ADTBasedCodeSearchService(project);
-    } else {
-      return new CodeSearchService(project);
-    }
+  public static IClientBasedCodeSearchService getClientCodeSearchService(final IProject project) {
+    return new ClientCodeSearchService(project);
+  }
+
+  /**
+   * Retrieves instance of code search service to perform a backend based search against the Code
+   * Search ABAP backend
+   */
+  public static IBackendBasedCodeSearchService getBackendCodeSearchService(final IProject project) {
+    return new BackendCodeSearchService(project);
   }
 
   public static IAdtUriTemplateProvider getNamedItemUriTemplateProvider(
@@ -38,5 +46,34 @@ public class CodeSearchFactory {
     }
     return NamedItemServiceFactory.createNamedItemUriTemplateProvider(projectProvider,
         CodeSearchUriDiscovery::new);
+  }
+
+  public static ICodeSearchFeatureUtil getCodeSearchFeatureUtil(final IProject project) {
+    return new CodeSearchFeatureUtil(project);
+  }
+
+  public static ICodeSearchSettingsService getSearchSettingsService(final IProject project) {
+    if (!ProjectUtil.isCloudProject(project)) {
+      return new CodeSearchSettingsService(project);
+    }
+    return new ICodeSearchSettingsService() {
+      @Override
+      public IStatus updateSettings(final ICodeSearchSettings settings) {
+        throw new UnsupportedOperationException();
+      }
+
+      @Override
+      public ICodeSearchSettings getSettings() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  public static ICodeSearchScopeService getSearchScopeService(final IProject project) {
+    return new CodeSearchScopeService(project);
+  }
+
+  public static ICodeSearchPatternValidator getPatternValidator(final IProject project) {
+    return new CodeSearchPatternValidator(project);
   }
 }

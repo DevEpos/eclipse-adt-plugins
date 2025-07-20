@@ -42,10 +42,6 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
       return EMPTY_FILTERS;
     }
 
-    if (transportRequestFilter == null) {
-      transportRequestFilter = new TransportRequestSearchFilter(projectProvider,
-          uriTemplateProvider, NamedItem.TRANSPORT_REQUEST);
-    }
     if (parameters == null) {
       parameters = new ArrayList<>();
       parameters.add(new ObjectTypeSearchFilter(projectProvider));
@@ -64,6 +60,10 @@ public class CodeSearchScopeFilters implements ISearchFilterProvider {
     var validParameters = new ArrayList<>(parameters);
     if (uriTemplateProvider
         .getTemplateByDiscoveryTerm(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm()) != null) {
+      if (transportRequestFilter == null) {
+        transportRequestFilter = new TransportRequestSearchFilter(projectProvider,
+            uriTemplateProvider, NamedItem.TRANSPORT_REQUEST);
+      }
       validParameters.add(transportRequestFilter);
     }
 

@@ -10,6 +10,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -75,6 +76,7 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
     linkToPropPageCtrl = linkToPropertyPage.createControl(parent,
         GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).create());
 
+    createClientSearchSettings(parent);
     createSearchDialogSettings(parent);
   }
 
@@ -107,6 +109,20 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
     GridDataFactory.fillDefaults().grab(true, false).applyTo(group);
     group.setText(label);
     return group;
+  }
+
+  private void createClientSearchSettings(Composite parent) {
+    final var group = createGroup("Client Based Search Settings", parent);
+
+    final var maxJobsEditor = new IntegerFieldEditor(ICodeSearchPrefs.MAX_CLIENT_SEARCH_JOBS,
+        "Max. number of Jobs (Threads):", createEditorParent(group), 2);
+    maxJobsEditor.setValidRange(1, 20);
+    addEditor(maxJobsEditor);
+
+    addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH, "Prefer client based search",
+        createEditorParent(group));
+
+    adjustMargins(group);
   }
 
   private void createSearchDialogSettings(final Composite parent) {

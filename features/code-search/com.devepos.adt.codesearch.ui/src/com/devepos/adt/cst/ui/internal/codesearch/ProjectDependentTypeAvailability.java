@@ -11,7 +11,6 @@ import org.eclipse.core.runtime.QualifiedName;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
-import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 
@@ -84,8 +83,8 @@ public class ProjectDependentTypeAvailability {
 
   private static List<String> determineAvailableTypes(final IProject project) {
     List<String> types = new ArrayList<>();
-    var searchScopeFeatures = CodeSearchFactory.getCodeSearchService(project)
-        .getSearchScopeFeatures(DestinationUtil.getDestinationId(project));
+    var searchScopeFeatures = CodeSearchFactory.getSearchScopeService(project)
+        .getFeaturesByProject();
 
     if (searchScopeFeatures.isFeatureEnabled(DB_TABLE_TYPE_FEATURE_ID)) {
       types.add(ITadirTypeConstants.DATABASE_TABLE);

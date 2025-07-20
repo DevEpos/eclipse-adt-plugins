@@ -2,27 +2,23 @@ package com.devepos.adt.cst.ui.internal.codesearch;
 
 import java.util.Map;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.search.ui.ISearchResult;
 
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
-import com.devepos.adt.base.ui.search.AbstractAbapProjectSearchQuery;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
 import com.devepos.adt.cst.search.CodeSearchFactory;
-import com.devepos.adt.cst.search.ICodeSearchService;
+import com.devepos.adt.cst.search.IBackendBasedCodeSearchService;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
-import com.devepos.adt.cst.ui.internal.messages.Messages;
 
 /**
  * Query for running Code Search
@@ -30,61 +26,16 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
-
-  public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.codesearch"; // $NON-NLS-N$
+public class CodeSearchQuery extends AbstractCodeSearchQuery {
 
   private static final int FALLBACK_PACKAGE_SIZE = 100;
   private static final float WORK_UNITS_PACKAGE = 10.0f;
 
-  private final CodeSearchResult searchResult;
-  private CodeSearchQuerySpecification querySpecs;
-  private boolean continueQuery;
-  private boolean isContinueForCurrentExecution;
-  private boolean finished;
   private int currentOffset;
 
   public CodeSearchQuery(final CodeSearchQuerySpecification querySpecs) {
-    searchResult = new CodeSearchResult(this);
-    this.querySpecs = querySpecs;
-  }
-
-  @Override
-  public boolean canRunInBackground() {
-    return true;
-  }
-
-  @Override
-  public String getDestinationId() {
-    return getProjectProvider().getDestinationId();
-  }
-
-  @Override
-  public IProject getProject() {
-    var pp = getProjectProvider();
-    return pp != null && pp.hasProject() ? pp.getProject() : null;
-  }
-
-  @Override
-  public String getLabel() {
-    return Messages.CodeSearchQuery_queryName_xlbl;
-  }
-
-  public IAbapProjectProvider getProjectProvider() {
-    return querySpecs.getProjectProvider();
-  }
-
-  public CodeSearchQuerySpecification getQuerySpecs() {
-    return querySpecs;
-  }
-
-  @Override
-  public ISearchResult getSearchResult() {
-    return searchResult;
-  }
-
-  public boolean isFinished() {
-    return finished;
+    super(querySpecs);
+    this.searchResult = new CodeSearchResult(this);
   }
 
   @Override
@@ -114,12 +65,11 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
       return logonStatus;
     }
 
-    ICodeSearchService service = CodeSearchFactory
-        .getCodeSearchService(projectProvider.getProject());
+    var service = CodeSearchFactory.getBackendCodeSearchService(projectProvider.getProject());
 
     // create the scope to retrieve the number of objects that need / should be searched
     ICodeSearchScopeParameters scopeParameters = querySpecs.createScopeParameters();
-    ICodeSearchScope scope = service.createScope(destinationId, scopeParameters, monitor);
+    ICodeSearchScope scope = service.createScope(scopeParameters, monitor);
 
     if (scope == null || scope.getObjectCount() <= 0) {
       searchResult.setNoObjectsInScope();
@@ -129,14 +79,6 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
     }
     finished = true;
     return Status.OK_STATUS;
-  }
-
-  public void setContinue(final boolean continueQuery) {
-    this.continueQuery = continueQuery;
-  }
-
-  public void setQuerySpecs(final CodeSearchQuerySpecification querySpecs) {
-    this.querySpecs = querySpecs;
   }
 
   private void setInitialWorkedValue(final IProgressMonitor monitor, final ICodeSearchScope scope,
@@ -150,7 +92,7 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
   }
 
   private void startSearchingWithScope(final IProgressMonitor monitor, final ICodeSearchScope scope,
-      final ICodeSearchService service, final String destinationId) {
+      final IBackendBasedCodeSearchService service, final String destinationId) {
 
     Map<String, Object> uriParams = querySpecs.buildSearchUriParameters();
     uriParams.put(SearchParameter.SCOPE_ID.getUriName(), scope.getId());
@@ -171,7 +113,7 @@ public class CodeSearchQuery extends AbstractAbapProjectSearchQuery {
 
       // determine overall client runtime
       var startTime = System.currentTimeMillis();
-      ICodeSearchResult serviceSearchResult = service.search(destinationId, uriParams, monitor);
+      ICodeSearchResult serviceSearchResult = service.search(uriParams, monitor);
       searchResult.addResult(serviceSearchResult, System.currentTimeMillis() - startTime);
 
       monitor.worked(

@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PropertyPage;
-import org.eclipse.ui.progress.IProgressService;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
@@ -43,13 +42,15 @@ import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.util.TextControlUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
 import com.devepos.adt.cst.search.CodeSearchFactory;
-import com.devepos.adt.cst.search.ICodeSearchService;
+import com.devepos.adt.cst.search.ICodeSearchFeatureUtil;
+import com.devepos.adt.cst.search.ICodeSearchSettingsService;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.CodeSearchPreferencesPage;
+import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
  * Describes project specific settings of the Code Search
@@ -69,7 +70,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private static final int MIN_MAX_OBJECTS = 500;
   private static final int MAX_MAX_OBJECTS = 10000;
 
-  private ICodeSearchService codeSearchService;
+  private ICodeSearchSettingsService searchSettingsService;
   private String destinationId;
   private boolean pageIsInvalid;
   private boolean pageIsUseable;
@@ -87,6 +88,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   private ICodeSearchSettings searchSettings;
   private boolean pcreAvailable;
   private Control linkToPreferencePageCtrl;
+  private ICodeSearchFeatureUtil featureUtil;
 
   public CodeSearchPropertyPage() {
 
@@ -97,8 +99,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   public void applyData(final Object data) {
     if (data instanceof Map) {
       Map<?, ?> options = (Map) data;
-      boolean omit = Boolean.TRUE
-          .equals(options.get(LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY));
+      var omit = Boolean.TRUE.equals(options.get(LinkToAdtPageBlocksFactory.NO_PREF_PAGE_LINK_KEY));
       if (omit && linkToPreferencePageCtrl != null && !linkToPreferencePageCtrl.isDisposed()) {
         linkToPreferencePageCtrl.setVisible(false);
         ((GridData) linkToPreferencePageCtrl.getLayoutData()).exclude = true;
@@ -113,7 +114,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return true;
     }
-    boolean dirty = isPageDirty();
+    var dirty = isPageDirty();
     if (!dirty && !pageIsInvalid) {
       return true;
     }
@@ -137,7 +138,8 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     pageIsUseable = true;
 
     project = getElement().getAdapter(IProject.class);
-    codeSearchService = CodeSearchFactory.getCodeSearchService(project);
+    featureUtil = CodeSearchFactory.getCodeSearchFeatureUtil(project);
+    searchSettingsService = CodeSearchFactory.getSearchSettingsService(project);
 
     destinationId = DestinationUtil.getDestinationId(project);
     projectProvider = AbapProjectProviderAccessor.getProviderForDestination(destinationId);
@@ -154,7 +156,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   @Override
   protected Control createContents(final Composite parent) {
     HelpUtil.setHelp(parent, HelpContexts.CODE_SEARCH_PROPERTIES);
-    Composite main = new Composite(parent, SWT.NONE);
+    var main = new Composite(parent, SWT.NONE);
     GridDataFactory.fillDefaults().grab(true, true).applyTo(main);
     GridLayoutFactory.swtDefaults().applyTo(main);
 
@@ -185,7 +187,9 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return;
     }
-    IStatus status = codeSearchService.testCodeSearchFeatureAvailability();
+    var status = featureUtil.testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
+        .getPreferenceStore()
+        .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH));
     if (!status.isOK()) {
       pageIsUseable = false;
       pageNotUseableStatus = status;
@@ -196,7 +200,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return;
     }
-    IStatus loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
+    var loggedOnStatus = ProjectUtil.ensureLoggedOnToProject(project);
     if (!loggedOnStatus.isOK()) {
       pageIsUseable = false;
       pageNotUseableStatus = loggedOnStatus;
@@ -204,7 +208,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   }
 
   private void createErrorControl(final Composite parent) {
-    MessageLine error = new MessageLine(parent);
+    var error = new MessageLine(parent);
     GridDataFactory.fillDefaults().grab(true, false).applyTo(error);
     error.setStatus(pageNotUseableStatus);
   }
@@ -215,7 +219,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
 
   private Group createGroup(final String label, final Composite parent,
       final boolean createDefaultLayout) {
-    final Group group = new Group(parent, SWT.NONE);
+    final var group = new Group(parent, SWT.NONE);
     if (createDefaultLayout) {
       GridLayoutFactory.swtDefaults().applyTo(group);
     }
@@ -225,20 +229,20 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   }
 
   private void createParallelSettings(final Composite parent) {
-    Group group = createGroup(Messages.CodeSearchPropertyPage_parallelProcessingGroup_xlbl, parent,
+    var group = createGroup(Messages.CodeSearchPropertyPage_parallelProcessingGroup_xlbl, parent,
         false);
     GridLayoutFactory.swtDefaults().numColumns(2).applyTo(group);
 
     parallelEnabled = new Button(group, SWT.CHECK);
     parallelEnabled.setText(Messages.CodeSearchPropertyPage_parallelProcessingPref_xchk);
     parallelEnabled.addSelectionListener(widgetSelectedAdapter(e -> {
-      boolean isParallelEnabled = parallelEnabled.getSelection();
+      var isParallelEnabled = parallelEnabled.getSelection();
       serverGroupText.setEnabled(isParallelEnabled);
       parlPackageSize.setEnabled(isParallelEnabled);
     }));
     GridDataFactory.fillDefaults().span(2, 1).applyTo(parallelEnabled);
 
-    Label maxObjectsInRequestLabel = new Label(group, SWT.NONE);
+    var maxObjectsInRequestLabel = new Label(group, SWT.NONE);
     maxObjectsInRequestLabel.setText(Messages.CodeSearchPropertyPage_parallelPackageSizePref_xlbl);
 
     parlPackageSize = new Text(group, SWT.NONE | SWT.BORDER);
@@ -251,7 +255,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
         .hint(convertWidthInCharsToPixels(5), SWT.DEFAULT)
         .applyTo(parlPackageSize);
 
-    Label serverGroupLabel = new Label(group, SWT.NONE);
+    var serverGroupLabel = new Label(group, SWT.NONE);
     serverGroupLabel.setText(Messages.CodeSearchPropertyPage_serverGroupPref_xlbl);
     serverGroupLabel.setToolTipText(Messages.CodeSearchPropertyPage_serverGroupPref_xtol);
 
@@ -269,11 +273,11 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   }
 
   private void createRegexSettings(final Composite parent) {
-    Group group = createGroup(Messages.CodeSearchPropertyPage_pcreRegexEngineSettingsGroup_xlbl,
+    var group = createGroup(Messages.CodeSearchPropertyPage_pcreRegexEngineSettingsGroup_xlbl,
         parent);
 
     if (!pcreAvailable) {
-      MessageLine pcreNotAvailableInfo = new MessageLine(group);
+      var pcreNotAvailableInfo = new MessageLine(group);
       pcreNotAvailableInfo.setStatus(new Status(IStatus.INFO, CodeSearchUIPlugin.PLUGIN_ID,
           Messages.CodeSearchPropertyPage_pcreNotAvailableInfo_xmsg));
     }
@@ -297,7 +301,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return;
     }
-    searchFeatures = codeSearchService.getSearchSettingsFeatures(destinationId);
+    searchFeatures = featureUtil.getSearchSettingsFeatures();
     pcreAvailable = searchFeatures != null
         && searchFeatures.isFeatureEnabled(PCRE_AVAILABLE_FEATURE);
   }
@@ -327,7 +331,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     Job getSettingsJob = new Job("Retrieve Code Search Settings") {
       @Override
       protected IStatus run(final IProgressMonitor monitor) {
-        searchSettings = codeSearchService.getSettings(destinationId);
+        searchSettings = searchSettingsService.getSettings();
         return Status.OK_STATUS;
       }
 
@@ -336,7 +340,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
       @Override
       public void done(final IJobChangeEvent event) {
         Display.getDefault().asyncExec(() -> {
-          Control pageControl = getControl();
+          var pageControl = getControl();
           if (pageControl != null && !pageControl.isDisposed()) {
             updateInputFromModel();
           }
@@ -385,13 +389,12 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
   }
 
   private void updateSettings() {
-    IProgressService progressService = PlatformUI.getWorkbench().getProgressService();
-    AtomicReference<String> errorMessage = new AtomicReference<>();
+    var progressService = PlatformUI.getWorkbench().getProgressService();
+    var errorMessage = new AtomicReference<String>();
 
     try {
       progressService.busyCursorWhile(monitor -> {
-        IStatus updateOperationStatus = codeSearchService.updateSettings(destinationId,
-            searchSettings);
+        var updateOperationStatus = searchSettingsService.updateSettings(searchSettings);
         if (!updateOperationStatus.isOK()) {
           pageIsInvalid = true;
           errorMessage.set(updateOperationStatus.getMessage());
@@ -413,7 +416,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     }
     setErrorMessage(null);
     try {
-      int maxObjects = Integer.parseInt(parlPackageSize.getText());
+      var maxObjects = Integer.parseInt(parlPackageSize.getText());
       if (maxObjects < MIN_MAX_OBJECTS || maxObjects > MAX_MAX_OBJECTS) {
         pageIsInvalid = true;
         setErrorMessage(

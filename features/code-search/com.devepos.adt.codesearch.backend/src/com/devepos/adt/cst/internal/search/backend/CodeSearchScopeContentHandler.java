@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.internal.search;
+package com.devepos.adt.cst.internal.search.backend;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;

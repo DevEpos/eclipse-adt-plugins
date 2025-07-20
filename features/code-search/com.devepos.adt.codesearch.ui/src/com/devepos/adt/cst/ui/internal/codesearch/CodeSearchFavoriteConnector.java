@@ -52,7 +52,7 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
   private static final String SINGLE_PATTERN = "singlePattern";
   private static final String USE_REGEX = "useRegex";
 
-  private CodeSearchQuery currentQuery;
+  private AbstractCodeSearchQuery currentQuery;
 
   private static CodeSearchQuerySpecification createQuerySpecsFromFavorite(
       final ISearchFavorite favorite) {

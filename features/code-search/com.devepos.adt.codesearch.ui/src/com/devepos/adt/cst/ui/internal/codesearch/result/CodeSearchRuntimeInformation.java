@@ -8,7 +8,7 @@ import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
 
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
-import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
+import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 
 /**
  * Holds runtime information of a code search query
@@ -30,9 +30,9 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private String systemId;
   private int overallServerTimeInMs;
   private long overallClientTimeInMs;
-  private final CodeSearchQuery searchQuery;
+  private final AbstractCodeSearchQuery searchQuery;
 
-  public CodeSearchRuntimeInformation(final CodeSearchQuery searchQuery) {
+  public CodeSearchRuntimeInformation(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
   }
 
@@ -103,7 +103,9 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   }
 
   public void increaseOverallClientTimeInMs(final long overallClientTimeInMs) {
-    this.overallClientTimeInMs += overallClientTimeInMs;
+    if (overallClientTimeInMs > -1) {
+      this.overallClientTimeInMs += overallClientTimeInMs;
+    }
   }
 
   public boolean isQueryFinished() {
@@ -134,9 +136,9 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   }
 
   public void reset() {
-    averageDuration = 0;
-    overallServerTimeInMs = 0;
-    overallClientTimeInMs = 0;
+    averageDuration = -1;
+    overallServerTimeInMs = -1;
+    overallClientTimeInMs = -1;
     resultCount = 0;
     requestCount = 0;
     searchedLinesOfCode = 0;
@@ -155,6 +157,9 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     searchedObjectsCount += result.getNumberOfSearchedObjects();
     searchedSourcesCount += result.getNumberOfSearchedSources();
     searchedLinesOfCode += result.getLinesOfSearchedCode();
+    if (result.getQueryTimeInMs() == -1) {
+
+    }
     averageDuration = overallServerTimeInMs / ++requestCount;
 
     fireUpdated();

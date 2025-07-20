@@ -21,7 +21,7 @@ import com.devepos.adt.base.ui.tree.PackageNode;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.IImages;
-import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
+import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 
 /**
@@ -37,12 +37,12 @@ public class CodeSearchResult extends AbstractTextSearchResult {
   private final FileMatchesCache fileMatchesCache = new FileMatchesCache();
   private final CodeSearchRuntimeInformation runtimeInfo;
   private ResultTreeBuilder resultTree;
-  private final CodeSearchQuery searchQuery;
+  private final AbstractCodeSearchQuery searchQuery;
   private ICollectionTreeNode searchResultRootNode;
   private int resultCount;
   private boolean noObjectsInScope;
 
-  public CodeSearchResult(final CodeSearchQuery searchQuery) {
+  public CodeSearchResult(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
     runtimeInfo = new CodeSearchRuntimeInformation(searchQuery);
   }

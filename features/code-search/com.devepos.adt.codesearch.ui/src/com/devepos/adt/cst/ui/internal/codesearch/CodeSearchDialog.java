@@ -46,6 +46,7 @@ import com.devepos.adt.base.ui.util.StatusUtil;
 import com.devepos.adt.base.ui.util.TextControlUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.search.CodeSearchFactory;
+import com.devepos.adt.cst.search.ICodeSearchFeatureUtil;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
@@ -54,7 +55,7 @@ import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 import com.sap.adt.util.ui.swt.AdtSWTUtilFactory;
 
 public class CodeSearchDialog extends DialogPage
-    implements ISearchPage, IChangeableSearchPage<CodeSearchQuery> {
+    implements ISearchPage, IChangeableSearchPage<AbstractCodeSearchQuery> {
   public static final String PAGE_ID = "com.devepos.adt.codesearch.ui.searchpage.codeSearch"; //$NON-NLS-1$
 
   private static final String LAST_PROJECT_PREF = "lastProject"; //$NON-NLS-1$
@@ -91,6 +92,8 @@ public class CodeSearchDialog extends DialogPage
   private Text objectNameInput;
   private Text filterInput;
   private ProjectInput projectInput;
+  private boolean preferClientBasedSearch;
+  private boolean clientSearchTargeted;
 
   private final IAbapProjectProvider projectProvider;
   private final CodeSearchQuerySpecification querySpecs;
@@ -99,6 +102,9 @@ public class CodeSearchDialog extends DialogPage
 
   public CodeSearchDialog() {
     projectProvider = new AbapProjectProxy(null);
+    preferClientBasedSearch = CodeSearchUIPlugin.getDefault()
+        .getPreferenceStore()
+        .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH);
     querySpecs = new CodeSearchQuerySpecification();
     querySpecs.setProjectProvider(projectProvider);
 
@@ -171,9 +177,9 @@ public class CodeSearchDialog extends DialogPage
     }
     writeDialogSettings();
 
-    NewSearchUI.runQueryInBackground(ProjectUtil.isCloudProject(projectProvider.getProject())
-        ? new ADTBasedCodeSearchQuery(querySpecs)
-        : new CodeSearchQuery(querySpecs));
+    NewSearchUI
+        .runQueryInBackground(clientSearchTargeted ? new ClientBasedCodeSearchQuery(querySpecs)
+            : new CodeSearchQuery(querySpecs));
     return true;
   }
 
@@ -183,7 +189,7 @@ public class CodeSearchDialog extends DialogPage
   }
 
   @Override
-  public void setInputFromSearchQuery(final CodeSearchQuery query) {
+  public void setInputFromSearchQuery(final AbstractCodeSearchQuery query) {
     var querySpecs = query.getQuerySpecs();
     final var searchTerm = querySpecs.getPatterns();
     patternsText.setText(searchTerm);
@@ -470,8 +476,13 @@ public class CodeSearchDialog extends DialogPage
     projectInput = new ProjectInput(projectProvider, true);
 
     projectInput.createControl(parent, new Point(0, 5));
-    projectInput.addProjectValidator(project -> CodeSearchFactory.getCodeSearchService(project)
-        .testCodeSearchFeatureAvailability());
+    projectInput.addProjectValidator(project -> {
+      var status = CodeSearchFactory.getCodeSearchFeatureUtil(project)
+          .testSearchAvailabilityByProject(preferClientBasedSearch);
+      clientSearchTargeted = status.isOK()
+          && status.getCode() == ICodeSearchFeatureUtil.SEARCH_TARGET_CLIENT;
+      return status;
+    });
     projectInput.addStatusChangeListener(status -> {
       var isProjectValid = false;
       if (validateAndSetStatus(status, ValidationSource.PROJECT)) {
@@ -572,10 +583,8 @@ public class CodeSearchDialog extends DialogPage
 
     try {
       PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
-        validationStatusAtom
-            .set(CodeSearchFactory.getCodeSearchService(projectProvider.getProject())
-                .validatePatterns(projectProvider.getDestinationId(),
-                    querySpecs.getPatternForValidationCall(), uriParams));
+        validationStatusAtom.set(CodeSearchFactory.getPatternValidator(projectProvider.getProject())
+            .validatePatternsByProject(querySpecs.getPatternForValidationCall(), uriParams));
       });
     } catch (InvocationTargetException e) {
       e.printStackTrace();
@@ -610,9 +619,10 @@ public class CodeSearchDialog extends DialogPage
 
   private void setProjectInExtensionSections() {
     var project = projectProvider.getProject();
+    var scopeService = CodeSearchFactory.getSearchScopeService(projectProvider.getProject());
     var searchScopeFeatures = project != null
-        ? CodeSearchFactory.getCodeSearchService(projectProvider.getProject())
-            .getSearchScopeFeatures(projectProvider.getDestinationId())
+        ? (clientSearchTargeted ? scopeService.getClientFeatures()
+            : scopeService.getBackendFeatures())
         : null;
 
     for (ISearchPageParameterSection section : extensionParamSections) {
@@ -654,7 +664,7 @@ public class CodeSearchDialog extends DialogPage
     });
   }
 
-  private void updateExtensionSectionsFromQuery(final CodeSearchQuery query) {
+  private void updateExtensionSectionsFromQuery(final AbstractCodeSearchQuery query) {
     var scopeFilters = query.getQuerySpecs().getExtensionObjectScopeFilters();
 
     for (ISearchPageParameterSection section : extensionParamSections) {
@@ -710,14 +720,14 @@ public class CodeSearchDialog extends DialogPage
       return;
     }
 
-    if (!isProjectValid) {
+    if (!isProjectValid || clientSearchTargeted) {
       expandProgIncludesButton.setEnabled(false);
       expandTablIncludesButton.setEnabled(false);
     } else {
-      var service = CodeSearchFactory.getCodeSearchService(projectProvider.getProject());
-      expandProgIncludesButton.setEnabled(service
+      var featureUtil = CodeSearchFactory.getCodeSearchFeatureUtil(projectProvider.getProject());
+      expandProgIncludesButton.setEnabled(featureUtil
           .isCodeSearchParameterSupported(SearchParameter.EXPAND_PROG_INCLUDES.getUriName()));
-      expandTablIncludesButton.setEnabled(service
+      expandTablIncludesButton.setEnabled(featureUtil
           .isCodeSearchParameterSupported(SearchParameter.EXPAND_TABLE_INCLUDES.getUriName()));
     }
 

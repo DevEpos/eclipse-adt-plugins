@@ -8,6 +8,14 @@ package com.devepos.adt.cst.ui.internal.preferences;
  */
 public interface ICodeSearchPrefs {
   /**
+   * Maximum number of jobs when using the client based Code Search
+   */
+  String MAX_CLIENT_SEARCH_JOBS = "codeSearch.clientBasedSearch.maxJobs";
+  /**
+   * Settings to prioritize the ADT client based search over the backend one
+   */
+  String PREFER_CLIENT_BASED_SEARCH = "codeSearch.clientBasedSearch.prefer";
+  /**
    * Removes the limit on the maximum number of objects that are searched
    */
   String ALL_OBJECTS_ENABLED = "codeSearch.searchAllObjectsEnabled";

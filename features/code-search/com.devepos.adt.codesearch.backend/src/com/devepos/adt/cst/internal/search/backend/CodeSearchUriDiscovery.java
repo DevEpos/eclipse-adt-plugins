@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.internal.search;
+package com.devepos.adt.cst.internal.search.backend;
 
 import java.net.URI;
 import java.util.Map;

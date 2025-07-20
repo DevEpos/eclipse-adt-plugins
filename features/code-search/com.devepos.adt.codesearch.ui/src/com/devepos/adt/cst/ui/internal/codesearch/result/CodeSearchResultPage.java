@@ -65,8 +65,8 @@ import com.devepos.adt.base.ui.tree.ITreeNode;
 import com.devepos.adt.base.ui.tree.PackageNode;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
+import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog;
-import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.export.ExportSearchResultsDialog;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -82,8 +82,8 @@ import com.sap.adt.tools.core.ui.navigation.AdtNavigationServiceFactory;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchResultPage extends AbstractTextSearchViewPage
-    implements ISearchResultPageExtension<CodeSearchQuery>, IQueryListener, IFilterableView {
+public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
+    ISearchResultPageExtension<AbstractCodeSearchQuery>, IQueryListener, IFilterableView {
 
   private static final String GROUP_BY_PACKAGE_PREF = "codeSearch.result.groupByPackageEnabled"; //$NON-NLS-1$
 
@@ -176,9 +176,9 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
   }
 
   @Override
-  public CodeSearchQuery getSearchQuery() {
+  public AbstractCodeSearchQuery getSearchQuery() {
     var searchResult = getInput();
-    return searchResult != null ? (CodeSearchQuery) searchResult.getQuery() : null;
+    return searchResult != null ? (AbstractCodeSearchQuery) searchResult.getQuery() : null;
   }
 
   @Override
@@ -517,7 +517,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     }
     var exportResultsDialog = new ExportSearchResultsDialog(getSite().getShell(),
         searchResult.getResultTree(),
-        ((CodeSearchQuery) getInput().getQuery()).getProjectProvider().getProject());
+        ((AbstractCodeSearchQuery) getInput().getQuery()).getProjectProvider().getProject());
     exportResultsDialog.open();
   }
 
@@ -530,7 +530,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
 
   private void initializeActions() {
     searchFavoritesAction = SearchFavoritesActionFactory
-        .createSearchFavoritesAction(CodeSearchQuery.SEARCH_FAVORITE_TYPE);
+        .createSearchFavoritesAction(AbstractCodeSearchQuery.SEARCH_FAVORITE_TYPE);
     continueSearchAction = new ContinueCodeSearchAction(this);
     continueSearchAction.setEnabled(false);
     openPreferencesAction = ActionFactory
@@ -588,7 +588,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage
     }
 
     if (adtObjRef != null) {
-      IProject project = ((CodeSearchQuery) getInput().getQuery()).getProjectProvider()
+      IProject project = ((AbstractCodeSearchQuery) getInput().getQuery()).getProjectProvider()
           .getProject();
       AdtNavigationServiceFactory.createNavigationService().navigate(project, adtObjRef, activate);
       return true;

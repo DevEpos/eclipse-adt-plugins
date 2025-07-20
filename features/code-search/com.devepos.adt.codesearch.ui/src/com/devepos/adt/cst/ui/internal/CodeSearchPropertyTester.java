@@ -18,6 +18,7 @@ import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
+import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 import com.sap.adt.ris.search.ui.internal.contentassist.AdtRisObjectTypeRegistry;
 
 /**
@@ -80,8 +81,8 @@ public class CodeSearchPropertyTester extends PropertyTester {
     if (project == null) {
       return false;
     }
-    return CodeSearchFactory.getCodeSearchService(project)
-        .testCodeSearchNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+    return CodeSearchFactory.getCodeSearchFeatureUtil(project)
+        .testNamedItemAvailabilityByProject(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
         .isOK();
   }
 
@@ -145,7 +146,11 @@ public class CodeSearchPropertyTester extends PropertyTester {
     }
 
     boolean isProjectValid = project != null
-        ? CodeSearchFactory.getCodeSearchService(project).testCodeSearchFeatureAvailability().isOK()
+        ? CodeSearchFactory.getCodeSearchFeatureUtil(project)
+            .testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
+                .getPreferenceStore()
+                .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH))
+            .isOK()
         : false;
 
     return folderValidation != null ? folderValidation.get() && isProjectValid : isProjectValid;

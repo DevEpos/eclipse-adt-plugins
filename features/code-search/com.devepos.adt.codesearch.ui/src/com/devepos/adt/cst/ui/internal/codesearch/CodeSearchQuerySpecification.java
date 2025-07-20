@@ -20,7 +20,7 @@ import com.sap.adt.destinations.model.IDestinationData;
 
 /**
  * Describes all the options that are needed to execute a
- * {@link CodeSearchQuery}
+ * {@link AbstractCodeSearchQuery}
  *
  * @author Ludwig Stockbauer-Muhr
  *

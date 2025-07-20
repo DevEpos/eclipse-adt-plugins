@@ -5,6 +5,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
+import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
  * Property Tester to check enablement of code search actions inside the ADT transport view
@@ -29,10 +30,15 @@ public class CodeSearchTmViewPropertyTester extends PropertyTester {
           return false;
         }
 
-        var codeSearchService = CodeSearchFactory.getCodeSearchService(project);
-        return codeSearchService.testCodeSearchFeatureAvailability().isOK() && codeSearchService
-            .testCodeSearchNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
-            .isOK();
+        var featureUtil = CodeSearchFactory.getCodeSearchFeatureUtil(project);
+        return featureUtil
+            .testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
+                .getPreferenceStore()
+                .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH))
+            .isOK()
+            && featureUtil
+                .testNamedItemAvailabilityByProject(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+                .isOK();
       }
     } catch (NullPointerException exc) {
     }

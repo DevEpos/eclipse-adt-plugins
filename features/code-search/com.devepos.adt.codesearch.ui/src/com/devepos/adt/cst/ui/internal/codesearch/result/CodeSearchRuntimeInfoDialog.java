@@ -259,6 +259,12 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     String durationUnit = UNIT_MILLISECOND;
     var numberFormat = defaultFormat;
 
+    if (duration == -1) {
+      durationLabel.setText(" - ");
+      durationUnitLabel.setText("");
+      return;
+    }
+
     if (duration >= HOUR_DENOMINATOR) {
       durationUnit = UNIT_HOUR;
       duration /= HOUR_DENOMINATOR;
