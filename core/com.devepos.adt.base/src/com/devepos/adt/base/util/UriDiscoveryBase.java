@@ -84,6 +84,17 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
    * @return the found collection member or {@code null}
    */
   protected IAdtDiscoveryCollectionMember getCollectionMember(final String term) {
+    return getCollectionMember(discoveryScheme, term);
+  }
+
+  /**
+   * Retrieves the collection member for the given category term
+   *
+   * @param term category term
+   * @return the found collection member or {@code null}
+   */
+  protected IAdtDiscoveryCollectionMember getCollectionMember(final String discoveryScheme,
+      final String term) {
     return discovery.getCollectionMember(discoveryScheme, term, new NullProgressMonitor());
   }
 
@@ -104,6 +115,20 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
    * @return
    */
   protected IAdtUriTemplate getTemplate(final String term, final String relation) {
+    return getTemplate(discoveryScheme, term, relation);
+  }
+
+  /**
+   * Retrieves an {@link IAdtUriTemplate} for the given <b>scheme</b>, <b>term</b>
+   * and <b>relation</b>
+   * 
+   * @param discoveryScheme the discoveryScheme to be used
+   * @param term            the term used to get the collection member
+   * @param relation        the URL relation to get the correct template link
+   * @return
+   */
+  protected IAdtUriTemplate getTemplate(final String discoveryScheme, final String term,
+      final String relation) {
     IAdtUriTemplate template = null;
     final IAdtDiscoveryCollectionMember collectionMember = discovery
         .getCollectionMember(discoveryScheme, term, new NullProgressMonitor());
@@ -123,6 +148,18 @@ public abstract class UriDiscoveryBase implements IUriDiscovery {
    * @return
    */
   protected URI getUriFromCollectionMember(final String discoveryTerm) {
+    return getUriFromCollectionMember(discoveryScheme, discoveryTerm);
+  }
+
+  /**
+   * Retrieves URI of a collection member for the given term
+   * 
+   * @param discoveryScheme discovery scheme to be used
+   * @param discoveryTerm   the term to be used to find the collection member
+   * @return
+   */
+  protected URI getUriFromCollectionMember(final String discoveryScheme,
+      final String discoveryTerm) {
     URI uri = null;
     try {
       final IAdtDiscoveryCollectionMember collectionMember = discovery
