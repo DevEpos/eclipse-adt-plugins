@@ -63,7 +63,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public static IAdtBaseFactory init() {
     try {
-      IAdtBaseFactory theAdtBaseFactory = (IAdtBaseFactory) EPackage.Registry.INSTANCE
+      var theAdtBaseFactory = (IAdtBaseFactory) EPackage.Registry.INSTANCE
           .getEFactory(IAdtBasePackage.eNS_URI);
       if (theAdtBaseFactory != null) {
         return theAdtBaseFactory;
@@ -185,7 +185,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IAdtObjRef createAdtObjRef() {
-    AdtObjRef adtObjRef = new AdtObjRef();
+    var adtObjRef = new AdtObjRef();
     return adtObjRef;
   }
 
@@ -196,7 +196,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IAdtObjRefList createAdtObjRefList() {
-    AdtObjRefList adtObjRefList = new AdtObjRefList();
+    var adtObjRefList = new AdtObjRefList();
     return adtObjRefList;
   }
 
@@ -207,7 +207,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IAdtPluginFeature createAdtPluginFeature() {
-    AdtPluginFeature adtPluginFeature = new AdtPluginFeature();
+    var adtPluginFeature = new AdtPluginFeature();
     return adtPluginFeature;
   }
 
@@ -218,7 +218,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public AdtPluginFeatureCategory createAdtPluginFeatureCategoryFromString(
       final EDataType eDataType, final String initialValue) {
-    AdtPluginFeatureCategory result = AdtPluginFeatureCategory.get(initialValue);
+    var result = AdtPluginFeatureCategory.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -233,7 +233,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IAdtPluginFeatureList createAdtPluginFeatureList() {
-    AdtPluginFeatureList adtPluginFeatureList = new AdtPluginFeatureList();
+    var adtPluginFeatureList = new AdtPluginFeatureList();
     return adtPluginFeatureList;
   }
 
@@ -244,7 +244,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public AdtPluginFeatureType createAdtPluginFeatureTypeFromString(final EDataType eDataType,
       final String initialValue) {
-    AdtPluginFeatureType result = AdtPluginFeatureType.get(initialValue);
+    var result = AdtPluginFeatureType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -304,7 +304,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   public MessageType createMessageTypeFromString(final EDataType eDataType,
       final String initialValue) {
-    MessageType result = MessageType.get(initialValue);
+    var result = MessageType.get(initialValue);
     if (result == null) {
       throw new IllegalArgumentException("The value '" + initialValue +
           "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -320,7 +320,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IResponseMessage createResponseMessage() {
-    ResponseMessage responseMessage = new ResponseMessage();
+    var responseMessage = new ResponseMessage();
     return responseMessage;
   }
 
@@ -332,7 +332,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IResponseMessageList createResponseMessageList() {
-    ResponseMessageList responseMessageList = new ResponseMessageList();
+    var responseMessageList = new ResponseMessageList();
     return responseMessageList;
   }
 
@@ -343,7 +343,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    * @generated
    */
   public Map.Entry<String, String> createStringToStringMapEntry() {
-    com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry stringToStringMapEntry = new com.devepos.adt.base.model.adtbase.impl.StringToStringMapEntry();
+    var stringToStringMapEntry = new StringToStringMapEntry();
     return stringToStringMapEntry;
   }
 
@@ -354,7 +354,7 @@ public class AdtBaseFactory extends EFactoryImpl implements IAdtBaseFactory {
    */
   @Override
   public IUser createUser() {
-    User user = new User();
+    var user = new User();
     return user;
   }
 

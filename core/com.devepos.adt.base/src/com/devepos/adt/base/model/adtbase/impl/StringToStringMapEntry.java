@@ -6,7 +6,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -42,17 +41,6 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
   protected static final String KEY_EDEFAULT = null;
 
   /**
-   * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getTypedValue()
-   * @generated
-   * @ordered
-   */
-  protected static final String VALUE_EDEFAULT = null;
-
-  /**
    * The cached value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -62,6 +50,17 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
    * @ordered
    */
   protected String key = KEY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getTypedValue()
+   * @generated
+   * @ordered
+   */
+  protected static final String VALUE_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
@@ -172,7 +171,7 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
    */
   @SuppressWarnings("unchecked")
   public EMap<String, String> getEMap() {
-    EObject container = eContainer();
+    var container = eContainer();
     return container == null ? null : (EMap<String, String>) container.eGet(eContainmentFeature());
   }
 
@@ -262,7 +261,7 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
    * @generated
    */
   public void setTypedKey(final String newKey) {
-    String oldKey = key;
+    var oldKey = key;
     key = newKey;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -277,7 +276,7 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
    * @generated
    */
   public void setTypedValue(final String newValue) {
-    String oldValue = value;
+    var oldValue = value;
     value = newValue;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -293,7 +292,7 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
    */
   @Override
   public String setValue(final String value) {
-    String oldValue = getValue();
+    var oldValue = getValue();
     setTypedValue(value);
     return oldValue;
   }
@@ -310,7 +309,7 @@ public class StringToStringMapEntry extends MinimalEObjectImpl.Container
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (key: ");
     result.append(key);
     result.append(", value: ");

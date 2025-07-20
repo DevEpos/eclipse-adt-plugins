@@ -204,56 +204,56 @@ public class AdtBaseSwitch<T> extends Switch<T> {
   protected T doSwitch(final int classifierID, final EObject theEObject) {
     switch (classifierID) {
     case IAdtBasePackage.ADT_OBJ_REF: {
-      IAdtObjRef adtObjRef = (IAdtObjRef) theEObject;
-      T result = caseAdtObjRef(adtObjRef);
+      var adtObjRef = (IAdtObjRef) theEObject;
+      var result = caseAdtObjRef(adtObjRef);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.ADT_OBJ_REF_LIST: {
-      IAdtObjRefList adtObjRefList = (IAdtObjRefList) theEObject;
-      T result = caseAdtObjRefList(adtObjRefList);
+      var adtObjRefList = (IAdtObjRefList) theEObject;
+      var result = caseAdtObjRefList(adtObjRefList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.USER: {
-      IUser user = (IUser) theEObject;
-      T result = caseUser(user);
+      var user = (IUser) theEObject;
+      var result = caseUser(user);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.ADT_PLUGIN_FEATURE: {
-      IAdtPluginFeature adtPluginFeature = (IAdtPluginFeature) theEObject;
-      T result = caseAdtPluginFeature(adtPluginFeature);
+      var adtPluginFeature = (IAdtPluginFeature) theEObject;
+      var result = caseAdtPluginFeature(adtPluginFeature);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.ADT_PLUGIN_FEATURE_LIST: {
-      IAdtPluginFeatureList adtPluginFeatureList = (IAdtPluginFeatureList) theEObject;
-      T result = caseAdtPluginFeatureList(adtPluginFeatureList);
+      var adtPluginFeatureList = (IAdtPluginFeatureList) theEObject;
+      var result = caseAdtPluginFeatureList(adtPluginFeatureList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.RESPONSE_MESSAGE: {
-      IResponseMessage responseMessage = (IResponseMessage) theEObject;
-      T result = caseResponseMessage(responseMessage);
+      var responseMessage = (IResponseMessage) theEObject;
+      var result = caseResponseMessage(responseMessage);
       if (result == null) {
         result = defaultCase(theEObject);
       }
       return result;
     }
     case IAdtBasePackage.RESPONSE_MESSAGE_LIST: {
-      IResponseMessageList responseMessageList = (IResponseMessageList) theEObject;
-      T result = caseResponseMessageList(responseMessageList);
+      var responseMessageList = (IResponseMessageList) theEObject;
+      var result = caseResponseMessageList(responseMessageList);
       if (result == null) {
         result = defaultCase(theEObject);
       }
@@ -261,8 +261,8 @@ public class AdtBaseSwitch<T> extends Switch<T> {
     }
     case IAdtBasePackage.STRING_TO_STRING_MAP_ENTRY: {
       @SuppressWarnings("unchecked")
-      Map.Entry<String, String> stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
-      T result = caseStringToStringMapEntry(stringToStringMapEntry);
+      var stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
+      var result = caseStringToStringMapEntry(stringToStringMapEntry);
       if (result == null) {
         result = defaultCase(theEObject);
       }

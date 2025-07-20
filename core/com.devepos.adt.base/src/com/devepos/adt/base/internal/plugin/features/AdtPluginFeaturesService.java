@@ -7,7 +7,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import com.devepos.adt.base.model.adtbase.IAdtPluginFeatureList;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeaturesService;
 import com.sap.adt.communication.exceptions.CommunicationException;
-import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
@@ -21,7 +20,7 @@ import com.sap.adt.communication.session.AdtSystemSessionFactory;
 public class AdtPluginFeaturesService implements IAdtPluginFeaturesService {
 
   @Override
-  public IAdtPluginFeatureList getFeatures(String destinationId, String uri) {
+  public IAdtPluginFeatureList getFeatures(final String destinationId, final String uri) {
     if (destinationId == null || destinationId.isEmpty()) {
       throw new IllegalArgumentException("Parameter 'destinationId' must not be empty");
     }
@@ -32,7 +31,7 @@ public class AdtPluginFeaturesService implements IAdtPluginFeaturesService {
     return getFeatureList(destinationId, uri);
   }
 
-  protected IAdtPluginFeatureList getFeatureList(String destinationId, String uri) {
+  protected IAdtPluginFeatureList getFeatureList(final String destinationId, final String uri) {
     final var session = AdtSystemSessionFactory.createSystemSessionFactory()
         .createStatelessSession(destinationId);
 

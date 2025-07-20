@@ -45,56 +45,6 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The default value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getEndpoint()
-   * @generated
-   * @ordered
-   */
-  protected static final String ENDPOINT_EDEFAULT = null;
-
-  /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected static final AdtPluginFeatureType TYPE_EDEFAULT = AdtPluginFeatureType.BOOLEAN;
-
-  /**
-   * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #isEnabled()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean ENABLED_EDEFAULT = false;
-
-  /**
-   * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getCategory()
-   * @generated
-   * @ordered
-   */
-  protected static final AdtPluginFeatureCategory CATEGORY_EDEFAULT = AdtPluginFeatureCategory.NO_CATEGORY;
-
-  /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected static final String DESCRIPTION_EDEFAULT = null;
-
-  /**
    * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -103,6 +53,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getEndpoint()
+   * @generated
+   * @ordered
+   */
+  protected static final String ENDPOINT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getEndpoint() <em>Endpoint</em>}' attribute.
@@ -115,6 +75,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected String endpoint = ENDPOINT_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected static final AdtPluginFeatureType TYPE_EDEFAULT = AdtPluginFeatureType.BOOLEAN;
+
+  /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -123,6 +93,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected AdtPluginFeatureType type = TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #isEnabled()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ENABLED_EDEFAULT = false;
 
   /**
    * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
@@ -135,6 +115,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
   protected boolean enabled = ENABLED_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected static final AdtPluginFeatureCategory CATEGORY_EDEFAULT = AdtPluginFeatureCategory.NO_CATEGORY;
+
+  /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -143,6 +133,16 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    * @ordered
    */
   protected AdtPluginFeatureCategory category = CATEGORY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -337,8 +337,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setCategory(final AdtPluginFeatureCategory newCategory) {
-    AdtPluginFeatureCategory oldCategory = category;
+    var oldCategory = category;
     category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -351,8 +352,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setDescription(final String newDescription) {
-    String oldDescription = description;
+    var oldDescription = description;
     description = newDescription;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -365,8 +367,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setEnabled(final boolean newEnabled) {
-    boolean oldEnabled = enabled;
+    var oldEnabled = enabled;
     enabled = newEnabled;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -379,8 +382,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setEndpoint(final String newEndpoint) {
-    String oldEndpoint = endpoint;
+    var oldEndpoint = endpoint;
     endpoint = newEndpoint;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -393,8 +397,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setName(final String newName) {
-    String oldName = name;
+    var oldName = name;
     name = newName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -407,8 +412,9 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
    *
    * @generated
    */
+  @Override
   public void setType(final AdtPluginFeatureType newType) {
-    AdtPluginFeatureType oldType = type;
+    var oldType = type;
     type = newType == null ? TYPE_EDEFAULT : newType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -427,7 +433,7 @@ public class AdtPluginFeature extends MinimalEObjectImpl.Container implements IA
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (name: ");
     result.append(name);
     result.append(", endpoint: ");

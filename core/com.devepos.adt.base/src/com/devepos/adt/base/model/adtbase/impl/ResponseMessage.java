@@ -45,28 +45,6 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   protected static final MessageType TYPE_EDEFAULT = MessageType.NONE;
 
   /**
-   * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getContent()
-   * @generated
-   * @ordered
-   */
-  protected static final String CONTENT_EDEFAULT = null;
-
-  /**
-   * The default value of the '{@link #getOccurrences() <em>Occurrences</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getOccurrences()
-   * @generated
-   * @ordered
-   */
-  protected static final int OCCURRENCES_EDEFAULT = 0;
-
-  /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -78,6 +56,17 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   protected MessageType type = TYPE_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getContent() <em>Content</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getContent()
+   * @generated
+   * @ordered
+   */
+  protected static final String CONTENT_EDEFAULT = null;
+
+  /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -87,6 +76,17 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @ordered
    */
   protected String content = CONTENT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getOccurrences() <em>Occurrences</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getOccurrences()
+   * @generated
+   * @ordered
+   */
+  protected static final int OCCURRENCES_EDEFAULT = 0;
 
   /**
    * The cached value of the '{@link #getOccurrences() <em>Occurrences</em>}' attribute.
@@ -261,7 +261,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   public void setContent(final String newContent) {
-    String oldContent = content;
+    var oldContent = content;
     content = newContent;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -276,7 +276,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   public void setOccurrences(final int newOccurrences) {
-    int oldOccurrences = occurrences;
+    var oldOccurrences = occurrences;
     occurrences = newOccurrences;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -291,7 +291,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    * @generated
    */
   public void setType(final MessageType newType) {
-    MessageType oldType = type;
+    var oldType = type;
     type = newType == null ? TYPE_EDEFAULT : newType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.RESPONSE_MESSAGE__TYPE,
@@ -311,7 +311,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (type: ");
     result.append(type);
     result.append(", content: ");

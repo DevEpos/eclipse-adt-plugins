@@ -175,7 +175,7 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container
       return null;
     }
     return new MultiStatus(pluginId, 0, messages.stream().map(m -> {
-      String occurrenceIndicator = "";
+      var occurrenceIndicator = "";
       if (m.getOccurrences() > 1) {
         occurrenceIndicator = String.format(Messages.ResponseMessageList_MessageMultiplierText_xmsg,
             m.getOccurrences());

@@ -35,16 +35,6 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
   protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getText()
-   * @generated
-   * @ordered
-   */
-  protected static final String TEXT_EDEFAULT = null;
-
-  /**
    * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -53,6 +43,16 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getText() <em>Text</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getText()
+   * @generated
+   * @ordered
+   */
+  protected static final String TEXT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getText() <em>Text</em>}' attribute. <!--
@@ -168,7 +168,7 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    */
   @Override
   public void setName(final String newName) {
-    String oldName = name;
+    var oldName = name;
     name = newName;
     if (eNotificationRequired()) {
       eNotify(
@@ -183,7 +183,7 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
    */
   @Override
   public void setText(final String newText) {
-    String oldText = text;
+    var oldText = text;
     text = newText;
     if (eNotificationRequired()) {
       eNotify(
@@ -202,7 +202,7 @@ public class User extends MinimalEObjectImpl.Container implements IUser {
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (name: ");
     result.append(name);
     result.append(", text: ");

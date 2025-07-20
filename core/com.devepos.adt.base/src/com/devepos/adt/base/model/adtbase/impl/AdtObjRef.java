@@ -68,6 +68,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String DESCRIPTION_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -76,6 +86,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getAlternativeName() <em>Alternative Name</em>}' attribute.
@@ -89,6 +109,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String ALTERNATIVE_NAME_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getAlternativeName() <em>Alternative Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getAlternativeName()
+   * @generated
+   * @ordered
+   */
+  protected String alternativeName = ALTERNATIVE_NAME_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -97,6 +128,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected static final String PACKAGE_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getPackageName()
+   * @generated
+   * @ordered
+   */
+  protected String packageName = PACKAGE_NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!--
@@ -109,6 +150,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String TYPE_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected String type = TYPE_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getTadirType() <em>Tadir Type</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -117,6 +168,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected static final String TADIR_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getTadirType()
+   * @generated
+   * @ordered
+   */
+  protected String tadirType = TADIR_TYPE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
@@ -129,6 +190,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String URI_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getUri()
+   * @generated
+   * @ordered
+   */
+  protected String uri = URI_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getParentUri() <em>Parent Uri</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
@@ -137,6 +208,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected static final String PARENT_URI_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getParentUri() <em>Parent Uri</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getParentUri()
+   * @generated
+   * @ordered
+   */
+  protected String parentUri = PARENT_URI_EDEFAULT;
 
   /**
    * The default value of the '{@link #getParentName() <em>Parent Name</em>}' attribute.
@@ -150,6 +231,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final String PARENT_NAME_EDEFAULT = null;
 
   /**
+   * The cached value of the '{@link #getParentName() <em>Parent Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getParentName()
+   * @generated
+   * @ordered
+   */
+  protected String parentName = PARENT_NAME_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getOwner() <em>Owner</em>}' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    *
@@ -158,6 +250,16 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected static final String OWNER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOwner() <em>Owner</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getOwner()
+   * @generated
+   * @ordered
+   */
+  protected String owner = OWNER_EDEFAULT;
 
   /**
    * The default value of the '{@link #getCreatedOn() <em>Created On</em>}' attribute.
@@ -171,130 +273,6 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected static final XMLGregorianCalendar CREATED_ON_EDEFAULT = null;
 
   /**
-   * The default value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getChangedBy()
-   * @generated
-   * @ordered
-   */
-  protected static final String CHANGED_BY_EDEFAULT = null;
-
-  /**
-   * The default value of the '{@link #getChangedOn() <em>Changed On</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getChangedOn()
-   * @generated
-   * @ordered
-   */
-  protected static final XMLGregorianCalendar CHANGED_ON_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getAlternativeName() <em>Alternative Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getAlternativeName()
-   * @generated
-   * @ordered
-   */
-  protected String alternativeName = ALTERNATIVE_NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getPackageName()
-   * @generated
-   * @ordered
-   */
-  protected String packageName = PACKAGE_NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getTadirType() <em>Tadir Type</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getTadirType()
-   * @generated
-   * @ordered
-   */
-  protected String tadirType = TADIR_TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getUri() <em>Uri</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getUri()
-   * @generated
-   * @ordered
-   */
-  protected String uri = URI_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getParentUri() <em>Parent Uri</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getParentUri()
-   * @generated
-   * @ordered
-   */
-  protected String parentUri = PARENT_URI_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getParentName() <em>Parent Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   *
-   * @see #getParentName()
-   * @generated
-   * @ordered
-   */
-  protected String parentName = PARENT_NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getOwner() <em>Owner</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   *
-   * @see #getOwner()
-   * @generated
-   * @ordered
-   */
-  protected String owner = OWNER_EDEFAULT;
-
-  /**
    * The cached value of the '{@link #getCreatedOn() <em>Created On</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -306,6 +284,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   protected XMLGregorianCalendar createdOn = CREATED_ON_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedBy()
+   * @generated
+   * @ordered
+   */
+  protected static final String CHANGED_BY_EDEFAULT = null;
+
+  /**
    * The cached value of the '{@link #getChangedBy() <em>Changed By</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -315,6 +304,17 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    * @ordered
    */
   protected String changedBy = CHANGED_BY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getChangedOn() <em>Changed On</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @see #getChangedOn()
+   * @generated
+   * @ordered
+   */
+  protected static final XMLGregorianCalendar CHANGED_ON_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getChangedOn() <em>Changed On</em>}' attribute.
@@ -703,8 +703,9 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
   @Override
   public EMap<String, String> getProperties() {
     if (properties == null) {
-      properties = new EcoreEMap<>(IAdtBasePackage.Literals.STRING_TO_STRING_MAP_ENTRY,
-          StringToStringMapEntry.class, this, IAdtBasePackage.ADT_OBJ_REF__PROPERTIES);
+      properties = new EcoreEMap<>(
+          IAdtBasePackage.Literals.STRING_TO_STRING_MAP_ENTRY, StringToStringMapEntry.class, this,
+          IAdtBasePackage.ADT_OBJ_REF__PROPERTIES);
     }
     return properties;
   }
@@ -747,7 +748,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setAlternativeName(final String newAlternativeName) {
-    String oldAlternativeName = alternativeName;
+    var oldAlternativeName = alternativeName;
     alternativeName = newAlternativeName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -763,7 +764,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setChangedBy(final String newChangedBy) {
-    String oldChangedBy = changedBy;
+    var oldChangedBy = changedBy;
     changedBy = newChangedBy;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CHANGED_BY,
@@ -779,7 +780,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setChangedOn(final XMLGregorianCalendar newChangedOn) {
-    XMLGregorianCalendar oldChangedOn = changedOn;
+    var oldChangedOn = changedOn;
     changedOn = newChangedOn;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CHANGED_ON,
@@ -795,7 +796,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setCreatedOn(final XMLGregorianCalendar newCreatedOn) {
-    XMLGregorianCalendar oldCreatedOn = createdOn;
+    var oldCreatedOn = createdOn;
     createdOn = newCreatedOn;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__CREATED_ON,
@@ -810,7 +811,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setDescription(final String newDescription) {
-    String oldDescription = description;
+    var oldDescription = description;
     description = newDescription;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -825,7 +826,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setName(final String newName) {
-    String oldName = name;
+    var oldName = name;
     name = newName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__NAME,
@@ -840,7 +841,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setOwner(final String newOwner) {
-    String oldOwner = owner;
+    var oldOwner = owner;
     owner = newOwner;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__OWNER,
@@ -855,7 +856,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setPackageName(final String newPackageName) {
-    String oldPackageName = packageName;
+    var oldPackageName = packageName;
     packageName = newPackageName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -871,7 +872,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setParentName(final String newParentName) {
-    String oldParentName = parentName;
+    var oldParentName = parentName;
     parentName = newParentName;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET,
@@ -886,7 +887,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setParentUri(final String newParentUri) {
-    String oldParentUri = parentUri;
+    var oldParentUri = parentUri;
     parentUri = newParentUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__PARENT_URI,
@@ -901,7 +902,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setTadirType(final String newTadirType) {
-    String oldTadirType = tadirType;
+    var oldTadirType = tadirType;
     tadirType = newTadirType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__TADIR_TYPE,
@@ -916,7 +917,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setType(final String newType) {
-    String oldType = type;
+    var oldType = type;
     type = newType;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__TYPE,
@@ -931,7 +932,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
    */
   @Override
   public void setUri(final String newUri) {
-    String oldUri = uri;
+    var oldUri = uri;
     uri = newUri;
     if (eNotificationRequired()) {
       eNotify(new ENotificationImpl(this, Notification.SET, IAdtBasePackage.ADT_OBJ_REF__URI,
@@ -950,7 +951,7 @@ public class AdtObjRef extends MinimalEObjectImpl.Container implements IAdtObjRe
       return super.toString();
     }
 
-    StringBuilder result = new StringBuilder(super.toString());
+    var result = new StringBuilder(super.toString());
     result.append(" (description: ");
     result.append(description);
     result.append(", name: ");

@@ -53,6 +53,11 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     }
 
     @Override
+    public Adapter caseUser(final IUser object) {
+      return createUserAdapter();
+    }
+
+    @Override
     public Adapter caseAdtPluginFeature(final IAdtPluginFeature object) {
       return createAdtPluginFeatureAdapter();
     }
@@ -75,11 +80,6 @@ public class AdtBaseAdapterFactory extends AdapterFactoryImpl {
     @Override
     public Adapter caseStringToStringMapEntry(final Map.Entry<String, String> object) {
       return createStringToStringMapEntryAdapter();
-    }
-
-    @Override
-    public Adapter caseUser(final IUser object) {
-      return createUserAdapter();
     }
 
     @Override

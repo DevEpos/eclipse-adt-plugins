@@ -46,6 +46,19 @@ public interface IAdtPluginFeature extends EObject {
   AdtPluginFeatureCategory getCategory();
 
   /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getCategory
+   * <em>Category</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Category</em>' attribute.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureCategory
+   * @see #getCategory()
+   * @generated
+   */
+  void setCategory(AdtPluginFeatureCategory value);
+
+  /**
    * Returns the value of the '<em><b>Description</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Optional
    * description of the feature <!-- end-model-doc -->
@@ -58,6 +71,19 @@ public interface IAdtPluginFeature extends EObject {
    * @generated
    */
   String getDescription();
+
+  /**
+   * Sets the value of the
+   * '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getDescription
+   * <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
 
   /**
    * Returns the value of the '<em><b>Endpoint</b></em>' attribute. <!--
@@ -73,6 +99,18 @@ public interface IAdtPluginFeature extends EObject {
   String getEndpoint();
 
   /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getEndpoint
+   * <em>Endpoint</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Endpoint</em>' attribute.
+   * @see #getEndpoint()
+   * @generated
+   */
+  void setEndpoint(String value);
+
+  /**
    * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> The name of
    * the feature <!-- end-model-doc -->
@@ -85,6 +123,18 @@ public interface IAdtPluginFeature extends EObject {
    * @generated
    */
   String getName();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getName
+   * <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute. The literals are
@@ -104,6 +154,19 @@ public interface IAdtPluginFeature extends EObject {
   AdtPluginFeatureType getType();
 
   /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#getType
+   * <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Type</em>' attribute.
+   * @see com.devepos.adt.base.model.adtbase.AdtPluginFeatureType
+   * @see #getType()
+   * @generated
+   */
+  void setType(AdtPluginFeatureType value);
+
+  /**
    * Returns the value of the '<em><b>Enabled</b></em>' attribute. <!--
    * begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> Enabled
    * status of the feature <!-- end-model-doc -->
@@ -115,5 +178,17 @@ public interface IAdtPluginFeature extends EObject {
    * @generated
    */
   boolean isEnabled();
+
+  /**
+   * Sets the value of the '{@link com.devepos.adt.base.model.adtbase.IAdtPluginFeature#isEnabled
+   * <em>Enabled</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   *
+   * @param value the new value of the '<em>Enabled</em>' attribute.
+   * @see #isEnabled()
+   * @generated
+   */
+  void setEnabled(boolean value);
 
 } // IAdtPluginFeature

@@ -197,8 +197,8 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     }
 
     // Obtain or create and register package
-    Object registeredAdtBasePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-    AdtBasePackage theAdtBasePackage = registeredAdtBasePackage instanceof AdtBasePackage
+    var registeredAdtBasePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    var theAdtBasePackage = registeredAdtBasePackage instanceof AdtBasePackage
         ? (AdtBasePackage) registeredAdtBasePackage
         : new AdtBasePackage();
 
@@ -816,7 +816,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+    var theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
         .getEPackage(XMLTypePackage.eNS_URI);
 
     // Create type parameters
@@ -916,7 +916,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
         null, 0, -1, IAdtPluginFeatureList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
         IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    EOperation op = initEOperation(getAdtPluginFeatureList__GetFeaturesByEndpoint__String(),
+    var op = initEOperation(getAdtPluginFeatureList__GetFeaturesByEndpoint__String(),
         getIAdtPluginFeatures(), "getFeaturesByEndpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEString(), "endpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -995,7 +995,7 @@ public class AdtBasePackage extends EPackageImpl implements IAdtBasePackage {
    * @generated
    */
   protected void createExtendedMetaDataAnnotations() {
-    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+    var source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
     addAnnotation(adtObjRefEClass, source,
         new String[] { "name", "adtObjRef", "kind", "elementOnly" });
     addAnnotation(getAdtObjRef_Description(), source, new String[] { "kind", "attribute", "name",
