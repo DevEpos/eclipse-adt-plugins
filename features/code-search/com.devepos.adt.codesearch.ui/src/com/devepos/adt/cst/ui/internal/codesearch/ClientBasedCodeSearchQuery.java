@@ -1,10 +1,12 @@
 package com.devepos.adt.cst.ui.internal.codesearch;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -19,6 +21,7 @@ import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
+import com.devepos.adt.cst.search.client.SearchableObject;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
@@ -29,8 +32,10 @@ import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     implements ISearchResultReporter {
 
+  private static final DecimalFormat DEFAULT_FORMAT = new DecimalFormat("###,###");
   private final IClientBasedCodeSearchService searchService;
   private final IClientCodeSearchConfig searchConfig;
+  private Set<SearchableObject> searchableObjects;
 
   public ClientBasedCodeSearchQuery(final CodeSearchQuerySpecification querySpecs) {
     super(querySpecs);
@@ -47,57 +52,53 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
   @Override
   public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
-    ((CodeSearchResult) getSearchResult()).reset();
+    searchResult.reset();
+    searchableObjects = new HashSet<>();
+    start();
     finished = false;
 
     monitor.beginTask("", 100);
-    var startTime = System.currentTimeMillis();
 
     // fetch packages for current scope
     var packageSearchMonitor = monitor.slice(5);
     packageSearchMonitor.beginTask("", 5);
     monitor.setTaskName("Determine Scope...");
-    var folders = searchService.findFolders(monitor, searchConfig);
-    System.out.println("Found the following folders");
-    for (var f : folders) {
-      System.out.printf("Folder %s with object count %d\n", f.getName(), f.getObjectCount());
-    }
+    var folders = searchService.findFolders(packageSearchMonitor, searchConfig);
+    logDeterminedFolders(folders);
+
     packageSearchMonitor.worked(5);
-    int objectCount = folders.stream()
-        .reduce(0, (subTotal, p) -> subTotal + p.getObjectCount(), Integer::sum);
-    searchResult.setObjectScopeCount(objectCount);
 
     var numJobs = CodeSearchUIPlugin.getDefault()
         .getPreferenceStore()
         .getInt(ICodeSearchPrefs.MAX_CLIENT_SEARCH_JOBS);
-    // var chunks = splitList(folders, (int) Math.ceil((double) folders.size() / numJobs));
 
     var executor = Executors.newFixedThreadPool(numJobs);
-    List<Future<IStatus>> futures = new ArrayList<>();
-    // monitor.beginTask("Searching Objects", objectCount);
-
-    var objectMonitor = monitor.slice(95);
-    objectMonitor.beginTask("", objectCount);
-    // monitor.setTaskName(String.format("Searching objects... (%d packages)", chunks.size()));
-    monitor.setTaskName(String.format("Searching objects... (%d packages)", folders.size()));
 
     try {
-      // for (var chunk : chunks) {
-      for (var chunk : folders) {
-        futures.add(executor.submit(
-            () -> searchService.searchFolder(objectMonitor, List.of(chunk), searchConfig, this)));
+      var expandMonitor = monitor.slice(5);
+      expandMonitor.beginTask("", 5);
+      monitor.setTaskName(
+          String.format("Expanding %s folders...", DEFAULT_FORMAT.format(folders.size())));
+      var expandStatus = getObjectsInFolders(folders, executor, expandMonitor);
+      if (!expandStatus.isOK()) {
+        return expandStatus;
+      }
+      // expandMonitor.worked(5);
+      if (searchableObjects.size() == 0) {
+        finished = true;
+        searchResult.setNoObjectsInScope();
+        return Status.OK_STATUS;
       }
 
-      System.out.printf("%d pending tasks\n", futures.size());
-
-      for (Future<IStatus> future : futures) {
-        var result = future.get(); // Wait for each to finish
-        if (!result.isOK()) {
-          return result; // Fail fast
-        }
+      var objectMonitor = monitor.slice(90);
+      objectMonitor.beginTask("", searchableObjects.size());
+      monitor.setTaskName(String.format("Searching %s objects...",
+          DEFAULT_FORMAT.format(searchableObjects.size())));
+      searchResult.setObjectScopeCount(searchableObjects.size());
+      var searchStatus = searchObjects(executor, objectMonitor);
+      if (!searchStatus.isOK()) {
+        return searchStatus;
       }
-
-      System.out.println("Duration: " + (System.currentTimeMillis() - startTime) / 1000 + "s");
       finished = true;
       return Status.OK_STATUS;
     } catch (InterruptedException | ExecutionException e) {
@@ -105,8 +106,6 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       if (e.getCause() instanceof OperationCanceledException) {
         return Status.CANCEL_STATUS;
       }
-      System.out.println("Error during parallel execution");
-
       return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
           "Error during parallel execution", e);
     } finally {
@@ -115,55 +114,68 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
   }
 
-  private static List<SearchChunk> splitList(final List<SearchObjectFolder> list,
-      final int chunkSize) {
-    // List<List<T>> chunks = new ArrayList<>();
-    // for (var i = 0; i < list.size(); i += chunkSize) {
-    // chunks.add(list.subList(i, Math.min(list.size(), i + chunkSize)));
-    // }
-    // return chunks;
-    // Sort items in descending order by size
-    list.sort((a, b) -> Integer.compare(b.getObjectCount(), a.getObjectCount()));
+  private IStatus getObjectsInFolders(List<SearchObjectFolder> folders, ExecutorService executor,
+      IProgressMonitor monitor) throws InterruptedException, ExecutionException {
+    var futures = new ArrayList<Future<IStatus>>();
 
-    // Initialize chunks
-    var minHeap = new PriorityQueue<SearchChunk>(
-        Comparator.comparingInt(SearchChunk::getTotalSize));
-    for (int i = 0; i < chunkSize; i++) {
-      minHeap.add(new SearchChunk());
+    for (var chunk : folders) {
+      futures.add(executor.submit(() -> {
+        var objects = searchService.expandFolder(chunk, searchConfig, monitor);
+        monitor.worked(1);
+        synchronized (searchableObjects) {
+          searchableObjects.addAll(objects);
+        }
+        return Status.OK_STATUS;
+      }));
     }
 
-    // Greedily assign each item to the chunk with the smallest total size
-    for (var folder : list) {
-      var smallestChunk = minHeap.poll();
-      smallestChunk.addFolder(folder);
-      minHeap.add(smallestChunk);
+    for (var future : futures) {
+      var result = future.get(); // Wait for each to finish
+      if (!result.isOK()) {
+        return result; // Fail fast
+      }
+    }
+    return Status.OK_STATUS;
+  }
+
+  private IStatus searchObjects(ExecutorService executor, IProgressMonitor monitor)
+      throws InterruptedException, ExecutionException {
+    var chunks = splitList(new ArrayList<>(searchableObjects), 50);
+    var futures = new ArrayList<Future<IStatus>>();
+    for (var chunk : chunks) {
+      futures.add(
+          executor.submit(() -> searchService.searchObjects(monitor, chunk, searchConfig, this)));
     }
 
-    return new ArrayList<>(minHeap);
+    System.out.printf("%d pending tasks\n", futures.size());
+
+    for (var future : futures) {
+      var result = future.get(); // Wait for each to finish
+      if (!result.isOK()) {
+        return result; // Fail fast
+      }
+    }
+    return Status.OK_STATUS;
+  }
+
+  private void logDeterminedFolders(List<SearchObjectFolder> folders) {
+    System.out.println("Found the following folders");
+    for (var f : folders) {
+      System.out.printf("Folder %s with object count %d\n", f.getName(), f.getObjectCount());
+    }
+  }
+
+  public static <T> List<List<T>> splitList(List<T> list, int chunkSize) {
+    List<List<T>> chunks = new ArrayList<>();
+    for (int i = 0; i < list.size(); i += chunkSize) {
+      chunks.add(list.subList(i, Math.min(list.size(), i + chunkSize)));
+    }
+    return chunks;
   }
 
   @Override
   public void notify(final ICodeSearchResult result) {
-    searchResult.addResult(result, -1);
+    searchResult.addResult(result);
   }
 
-  private static class SearchChunk {
-    private List<SearchObjectFolder> folders = new ArrayList<>();
-    private int totalSize = 0;
-
-    public void addFolder(SearchObjectFolder f) {
-      folders.add(f);
-      totalSize += f.getObjectCount();
-
-    }
-
-    public List<SearchObjectFolder> getFolders() {
-      return folders;
-    }
-
-    public int getTotalSize() {
-      return totalSize;
-    }
-
-  }
 }

@@ -13,6 +13,7 @@ public abstract class AbstractCodeSearchQuery extends AbstractAbapProjectSearchQ
   public static final String SEARCH_FAVORITE_TYPE = "com.devepos.adt.codesearch";
 
   protected CodeSearchResult searchResult;
+  protected long startTime;
   protected CodeSearchQuerySpecification querySpecs;
   protected boolean continueQuery;
   protected boolean isContinueForCurrentExecution;
@@ -69,4 +70,11 @@ public abstract class AbstractCodeSearchQuery extends AbstractAbapProjectSearchQ
     this.querySpecs = querySpecs;
   }
 
+  protected void start() {
+    startTime = System.currentTimeMillis();
+  }
+
+  public long getStartTime() {
+    return startTime;
+  }
 }

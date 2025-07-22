@@ -19,10 +19,12 @@ import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
+import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
+import com.sap.adt.communication.session.IStatelessSystemSession;
 import com.sap.adt.tools.core.atom.AdtAtomUtilFactory;
 import com.sap.adt.tools.core.atom.IAdtAtomUtil;
 
@@ -50,106 +52,209 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
   }
 
   @Override
-  public IStatus searchFolder(final IProgressMonitor m, final List<SearchObjectFolder> chunk,
-      final IClientCodeSearchConfig searchConfig, final ISearchResultReporter reporter) {
-    try {
+  public List<SearchableObject> expandFolder(SearchObjectFolder folder,
+      final IClientCodeSearchConfig config, final IProgressMonitor monitor) {
+    return new FolderContentLoader(destinationId, monitor, config).run(folder);
+  }
 
-      final var session = AdtSystemSessionFactory.createSystemSessionFactory()
-          .createStatelessSession(destinationId);
-      var pattern = Pattern.compile(searchConfig.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
+  @Override
+  public IStatus searchFolders(final IProgressMonitor m, final List<SearchObjectFolder> chunk,
+      final IClientCodeSearchConfig config, final ISearchResultReporter reporter) {
 
-      for (var f : chunk) {
-        var codeSearchResult = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
-        var matchCount = 0;
-        var searchedLines = 0;
-        var searchedObjects = 0;
-        var searchedSources = 0;
-        var objects = new PackageContentLoader(destinationId, m, searchConfig).loadObjects(f);
-        for (var o : objects) {
-          var uri = atomUtil.findAtomLinkAsUri(o.getLinks(),
-              "http://www.sap.com/adt/relations/objects");
-          var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
-          searchObject.setUri(uri.toString());
-          var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-          adtMainObj.setType(o.getType());
-          adtMainObj.setName(o.getName());
-          adtMainObj.setUri(uri.toString());
-          searchObject.setParentUri(f.getUri());
-          searchObject.setAdtMainObject(adtMainObj);
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+    var pattern = Pattern.compile(config.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
 
-          var getClassContent = URI.create(uri.toString() + "/source/main");
-          var resource = AdtRestResourceFactory.createRestResourceFactory()
-              .createRestResource(getClassContent, session);
-          resource.addContentHandler(new PlainTextContentHandler());
-          var headerField = HeadersFactory.newField("Accept", new String[] { "text/plain" });
-          var requestHeaders = HeadersFactory.newHeaders();
-          requestHeaders.addField(headerField);
-          try {
-            var source = resource.get(m, requestHeaders, String.class);
+    for (var f : chunk) {
+      var codeSearchResult = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
+      var matchCount = 0;
+      var searchedLines = 0;
+      var searchedObjects = 0;
+      var searchedSources = 0;
+      var objects = new FolderContentLoader(destinationId, m, config).run(f);
+      for (var o : objects) {
+        var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+        searchObject.setUri(o.getURI());
+        var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+        adtMainObj.setType(o.getType());
+        adtMainObj.setName(o.getName());
+        adtMainObj.setUri(o.getURI());
+        searchObject.setParentUri(f.getURI());
+        searchObject.setAdtMainObject(adtMainObj);
 
-            // var sourceLines = source.split("\r\n");
-            var sourceLines = source.split(source.indexOf("\r\n") != -1 ? "\r\n" : "\n");
-            for (var i = 0; i < sourceLines.length; i++) {
-              var line = sourceLines[i];
-              final var matcher = pattern.matcher(line);
-              while (matcher.find()) {
-                var begin = matcher.start();
-                var endOffset = matcher.end();
-                var match = ICodeSearchFactory.eINSTANCE.createCodeSearchMatch();
-                match.setUri(String.format("%s#start=%d,%d;end=%d,%d", getClassContent.toString(),
-                    i + 1, begin, i + 1, endOffset));
-                match.setSnippet(line);
-                searchObject.getMatches().add(match);
-                matchCount++;
-              }
+        var getClassContent = URI.create(o.getURI() + "/source/main");
+        var resource = AdtRestResourceFactory.createRestResourceFactory()
+            .createRestResource(getClassContent, session);
+        resource.addContentHandler(new PlainTextContentHandler());
+        var headerField = HeadersFactory.newField("Accept", new String[] { "text/plain" });
+        var requestHeaders = HeadersFactory.newHeaders();
+        requestHeaders.addField(headerField);
+        try {
+          var source = resource.get(m, requestHeaders, String.class);
+
+          var sourceLines = source.split(source.indexOf("\r\n") != -1 ? "\r\n" : "\n");
+          for (var i = 0; i < sourceLines.length; i++) {
+            var line = sourceLines[i];
+            final var matcher = pattern.matcher(line);
+            while (matcher.find()) {
+              var begin = matcher.start();
+              var endOffset = matcher.end();
+              var match = ICodeSearchFactory.eINSTANCE.createCodeSearchMatch();
+              match.setUri(String.format("%s#start=%d,%d;end=%d,%d", getClassContent.toString(),
+                  i + 1, begin, i + 1, endOffset));
+              match.setSnippet(line);
+              searchObject.getMatches().add(match);
+              matchCount++;
             }
-            searchedObjects++;
-            searchedSources++;
-            searchedLines += sourceLines.length;
-            if (!searchObject.getMatches().isEmpty()) {
-              codeSearchResult.getSearchObjects().add(searchObject);
-            }
-          } catch (ResourceException exc) {
-            CodeSearchPlugin.getDefault()
-                .getLog()
-                .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, String.format(
-                    "Error during search of object [%s]: %s", o.getType(), o.getName()), exc));
           }
-          // final var matcher = pattern.matcher(source);
-          // while (matcher.find()) {
-          // var group = matcher.group();
-          // var begin = matcher.start();
-          // var endOffset = matcher.end();
-          // matchCount.set(matchCount.get() + 1);
-          // }
-          m.worked(1);
-        }
-
-        if (matchCount > 0) {
-          if (f.getUri() != null) {
-            var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
-            packageObject.setUri(f.getUri());
-            var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-            packageMainObj.setUri(f.getUri());
-            if (f.getFacet().equals(IFacetConstants.PACKAGE)) {
-              packageMainObj.setName(f.getName());
-              packageMainObj.setDescription(f.getDisplayName());
-            } else {
-              packageMainObj.setName(f.getPackageName());
-            }
-            packageMainObj.setType(IAdtObjectTypeConstants.PACKAGE);
-            packageObject.setAdtMainObject(packageMainObj);
-            codeSearchResult.getSearchObjects().add(packageObject);
+          searchedObjects++;
+          searchedSources++;
+          searchedLines += sourceLines.length;
+          if (!searchObject.getMatches().isEmpty()) {
+            codeSearchResult.getSearchObjects().add(searchObject);
           }
+        } catch (ResourceException exc) {
+          CodeSearchPlugin.getDefault()
+              .getLog()
+              .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+                  String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
+                  exc));
         }
-        codeSearchResult.setNumberOfResults(matchCount);
-        codeSearchResult.setLinesOfSearchedCode(searchedLines);
-        codeSearchResult.setNumberOfSearchedObjects(searchedObjects);
-        codeSearchResult.setNumberOfSearchedSources(searchedSources);
-        reporter.notify(codeSearchResult);
+        // final var matcher = pattern.matcher(source);
+        // while (matcher.find()) {
+        // var group = matcher.group();
+        // var begin = matcher.start();
+        // var endOffset = matcher.end();
+        // matchCount.set(matchCount.get() + 1);
+        // }
+        m.worked(1);
       }
-    } finally {
+
+      if (matchCount > 0) {
+        if (f.getURI() != null) {
+          var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+          packageObject.setUri(f.getURI());
+          var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+          packageMainObj.setUri(f.getURI());
+          if (f.getFacet().equals(IFacetConstants.PACKAGE)) {
+            packageMainObj.setName(f.getName());
+            packageMainObj.setDescription(f.getDisplayName());
+          } else {
+            packageMainObj.setName(f.getPackageName());
+          }
+          packageMainObj.setType(IAdtObjectTypeConstants.PACKAGE);
+          packageObject.setAdtMainObject(packageMainObj);
+          codeSearchResult.getSearchObjects().add(packageObject);
+        }
+      }
+      codeSearchResult.setNumberOfResults(matchCount);
+      codeSearchResult.setLinesOfSearchedCode(searchedLines);
+      codeSearchResult.setNumberOfSearchedObjects(searchedObjects);
+      codeSearchResult.setNumberOfSearchedSources(searchedSources);
+      reporter.notify(codeSearchResult);
     }
     return Status.OK_STATUS;
+  }
+
+  @Override
+  public IStatus searchObjects(IProgressMonitor monitor, List<SearchableObject> objects,
+      IClientCodeSearchConfig searchConfig, ISearchResultReporter reporter) {
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
+        .createStatelessSession(destinationId);
+
+    // var codeSearchResult = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
+    for (var o : objects) {
+      try {
+        // searchObject(monitor, o, searchConfig, session, codeSearchResult);
+        searchObject(monitor, o, searchConfig, session, reporter);
+      } catch (ResourceException exc) {
+        CodeSearchPlugin.getDefault()
+            .getLog()
+            .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+                String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
+                exc));
+      }
+    }
+    // reporter.notify(codeSearchResult);
+    return Status.OK_STATUS;
+  }
+
+  // private void searchObject(IProgressMonitor m, SearchableObject o,
+  // IClientCodeSearchConfig searchConfig, IStatelessSystemSession session,
+  // ICodeSearchResult result) {
+  private void searchObject(IProgressMonitor m, SearchableObject o,
+      IClientCodeSearchConfig searchConfig, IStatelessSystemSession session,
+      ISearchResultReporter reporter) {
+    var pattern = Pattern.compile(searchConfig.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
+
+    var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
+    var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+    searchObject.setUri(o.getURI());
+    var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+    adtMainObj.setType(o.getType());
+    adtMainObj.setName(o.getName());
+    adtMainObj.setUri(o.getURI());
+    searchObject.setParentUri(o.getFolder().getURI());
+    searchObject.setAdtMainObject(adtMainObj);
+
+    var getMainSource = URI.create(o.getURI() + "/source/main");
+    var resource = AdtRestResourceFactory.createRestResourceFactory()
+        .createRestResource(getMainSource, session);
+    resource.addContentHandler(new PlainTextContentHandler());
+    var headerField = HeadersFactory.newField("Accept", new String[] { "text/plain" });
+    var requestHeaders = HeadersFactory.newHeaders();
+    requestHeaders.addField(headerField);
+    try {
+      var source = resource.get(m, requestHeaders, String.class);
+
+      var sourceLines = source.split(source.indexOf("\r\n") != -1 ? "\r\n" : "\n");
+      var matchCount = 0;
+      for (var i = 0; i < sourceLines.length; i++) {
+        var line = sourceLines[i];
+        final var matcher = pattern.matcher(line);
+        while (matcher.find()) {
+          var begin = matcher.start();
+          var endOffset = matcher.end();
+          var match = ICodeSearchFactory.eINSTANCE.createCodeSearchMatch();
+          match.setUri(String.format("%s#start=%d,%d;end=%d,%d", getMainSource.toString(), i + 1,
+              begin, i + 1, endOffset));
+          match.setSnippet(line);
+          searchObject.getMatches().add(match);
+          matchCount++;
+        }
+      }
+      result.setNumberOfResults(matchCount);
+      result.setLinesOfSearchedCode(sourceLines.length);
+      if (matchCount > 0) {
+        var folder = o.getFolder();
+        var folderURI = folder.getURI();
+        if (folderURI != null) {
+          var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+          packageObject.setUri(folderURI);
+          var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+          packageMainObj.setUri(folderURI);
+          if (IFacetConstants.PACKAGE.equals(folder.getFacet())) {
+            packageMainObj.setName(folder.getName());
+            packageMainObj.setDescription(folder.getDisplayName());
+          } else {
+            packageMainObj.setName(folder.getPackageName());
+          }
+          packageMainObj.setType(IAdtObjectTypeConstants.PACKAGE);
+          packageObject.setAdtMainObject(packageMainObj);
+          result.getSearchObjects().add(packageObject);
+          result.getSearchObjects().add(searchObject);
+        }
+      }
+    } catch (ResourceException exc) {
+      CodeSearchPlugin.getDefault()
+          .getLog()
+          .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+              String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
+              exc));
+    }
+    result.setNumberOfSearchedObjects(1);
+    result.setNumberOfSearchedSources(1);
+    reporter.notify(result);
+    m.worked(1);
   }
 }

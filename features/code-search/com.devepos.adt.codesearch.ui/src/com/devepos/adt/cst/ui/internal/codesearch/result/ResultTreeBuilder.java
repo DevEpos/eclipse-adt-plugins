@@ -37,7 +37,6 @@ class ResultTreeBuilder {
   private List<ITreeNode> nodesWithMatches;
   private final Map<String, PackageNode> packageNodeCache = new HashMap<>();
   private final FileMatchesCache fileMatchesCache;
-  private final Object lock = new Object();
 
   /**
    * Creates new result tree instance
@@ -59,18 +58,16 @@ class ResultTreeBuilder {
    * @param searchResult result object from the code search
    */
   public void addResultToTree(final ICodeSearchResult searchResult) {
-    synchronized (lock) {
-      flatResult = Collections.synchronizedList(new ArrayList<>());
-      urisInCorrectTreeOrder = new ArrayList<>();
-      urisToNodes = new HashMap<>();
-      nodesWithMatches = new ArrayList<>();
-      newPackagesToAddToTree = new ArrayList<>();
+    flatResult = Collections.synchronizedList(new ArrayList<>());
+    urisInCorrectTreeOrder = new ArrayList<>();
+    urisToNodes = new HashMap<>();
+    nodesWithMatches = new ArrayList<>();
+    newPackagesToAddToTree = new ArrayList<>();
 
-      createTreeNodes(searchResult);
-      connectPackageNodes();
-      connectTreeNodes();
-      propagateMatchCountsToRoot();
-    }
+    createTreeNodes(searchResult);
+    connectPackageNodes();
+    connectTreeNodes();
+    propagateMatchCountsToRoot();
   }
 
   /**
@@ -186,7 +183,8 @@ class ResultTreeBuilder {
 
       if (parentNode instanceof PackageNode) {
         /*
-         * check if node has already been added to package (could happen during searches of requests
+         * check if node has already been added to package (could happen during searches of
+         * requests
          * with big methods)
          */
         var existingChild = parentNode.getChildren()

@@ -42,7 +42,7 @@ public class ScopeService {
 
   public IVirtualFoldersResult fetchFolderContent(IAdtRisVirtualFoldersRequestParameters params) {
     try {
-      System.out.println("Fetching virtual folder content " + params.toString());
+      // System.out.println("Fetching virtual folder content " + params.toString());
       var service = AdtRisVirtualFoldersServiceFactory
           .createVirtualFoldersSearchService(destination);
       // var info = service.getInfo(params, monitor);

@@ -27,7 +27,7 @@ public class SearchObjectFolder {
     this.displayName = displayName;
   }
 
-  public String getUri() {
+  public String getURI() {
     return uri;
   }
 

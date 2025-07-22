@@ -34,6 +34,7 @@ import com.devepos.adt.searchfavorites.model.searchfavorites.IStringAttribute;
 public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, ISearchPageListener {
   private static final String SCOPE_FILTERS_STRING = "scopeFiltersString";
   private static final String SCOPE_FILTERS = "scopeFilters";
+  private static final String CLIENT_BASED_QUERY = "clientBasedQuery";
   private static final String EXTENSION_FILTERS = "extensionFilters";
   private static final String OBJECT_NAMES = "objectNames";
   private static final String QUERY_INPUT = "queryInput";
@@ -143,11 +144,11 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
   @Override
   public void populateFavoriteFromQuery(final List<IBaseAttribute> attributes,
       final ISearchQuery searchQuery) {
-    if (!(searchQuery instanceof CodeSearchQuery)) {
+    if (!(searchQuery instanceof AbstractCodeSearchQuery)) {
       return;
     }
 
-    var codeSearchQuery = (CodeSearchQuery) searchQuery;
+    var codeSearchQuery = (AbstractCodeSearchQuery) searchQuery;
     var querySpecs = codeSearchQuery.getQuerySpecs();
 
     addFavAttribute(attributes, QUERY_INPUT, querySpecs.getPatterns(), true);
@@ -181,6 +182,8 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
     addFavAttribute(attributes, EXPAND_TABLE_INCLUDES, querySpecs.isExpandTableIncludes());
     addFavAttribute(attributes, SINGLE_PATTERN, querySpecs.isSinglePattern());
     addFavAttribute(attributes, USE_REGEX, querySpecs.isUseRegExp());
+    addFavAttribute(attributes, CLIENT_BASED_QUERY,
+        searchQuery instanceof ClientBasedCodeSearchQuery);
   }
 
   @Override
@@ -207,9 +210,10 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
         return;
       }
 
-      NewSearchUI.runQueryInBackground(new CodeSearchQuery(specs));
+      NewSearchUI.runQueryInBackground(
+          favorite.getAttribute(CLIENT_BASED_QUERY, false) ? new ClientBasedCodeSearchQuery(specs)
+              : new CodeSearchQuery(specs));
     }
-
   }
 
   private void addFavAttribute(final List<IBaseAttribute> attributes, final String name,

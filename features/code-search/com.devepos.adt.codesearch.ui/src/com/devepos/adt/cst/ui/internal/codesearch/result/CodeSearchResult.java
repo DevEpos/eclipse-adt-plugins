@@ -41,6 +41,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
   private ICollectionTreeNode searchResultRootNode;
   private int resultCount;
   private boolean noObjectsInScope;
+  private Object lock = new Object();
 
   public CodeSearchResult(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
@@ -51,37 +52,37 @@ public class CodeSearchResult extends AbstractTextSearchResult {
    * Take query result and convert it into a flat and tree like result for the
    * search view
    */
-  public void addResult(final ICodeSearchResult result, final long clientSearchDuration) {
+  public void addResult(final ICodeSearchResult result) {
     if (result == null) {
       return;
     }
-    logMessages(result);
-    resultCount += result.getNumberOfResults();
-    runtimeInfo.increaseOverallClientTimeInMs(clientSearchDuration);
-    runtimeInfo.updateWithNewResult(result);
+    synchronized (lock) {
+      logMessages(result);
+      resultCount += result.getNumberOfResults();
+      runtimeInfo.updateOverallClientTime();
+      runtimeInfo.updateWithNewResult(result);
 
-    if (result.getNumberOfResults() <= 0) {
-      return;
-    }
+      if (result.getNumberOfResults() <= 0) {
+        return;
+      }
 
-    if (resultTree == null) {
-      resultTree = new ResultTreeBuilder(fileMatchesCache,
-          searchQuery.getProjectProvider().getDestinationId());
-    }
-    if (searchResultRootNode == null) {
-      searchResultRootNode = resultTree.getRootNode();
-    }
-    resultTree.addResultToTree(result);
-    List<ITreeNode> currentFlatResult = resultTree.getFlatResult();
-    if (currentFlatResult != null) {
-      synchronized (flatResult) {
+      if (resultTree == null) {
+        resultTree = new ResultTreeBuilder(fileMatchesCache,
+            searchQuery.getProjectProvider().getDestinationId());
+      }
+      if (searchResultRootNode == null) {
+        searchResultRootNode = resultTree.getRootNode();
+      }
+      resultTree.addResultToTree(result);
+      List<ITreeNode> currentFlatResult = resultTree.getFlatResult();
+      if (currentFlatResult != null) {
         flatResult.addAll(currentFlatResult);
         for (ITreeNode matchNode : currentFlatResult) {
           addMatch(new Match(matchNode, -1, -1));
         }
       }
+      resultTree.clearBuffersOfLastResult();
     }
-    resultTree.clearBuffersOfLastResult();
   }
 
   @Override

@@ -8,6 +8,11 @@ import org.eclipse.core.runtime.IStatus;
 public interface IClientBasedCodeSearchService {
 
   /**
+   * Creates configuration instance for running the client based code search
+   */
+  IClientCodeSearchConfig createConfig();
+
+  /**
    * Loads all packages relevant for the given config
    * 
    * @param monitor the progress monitor
@@ -20,16 +25,34 @@ public interface IClientBasedCodeSearchService {
    * Find matches in ABAP Code
    *
    * @param monitor      the progress monitor
-   * @param devPackage   the package that should be searched
+   * @param folders      the package that should be searched
    * @param searchConfig search configuration
    * @param reporter     result reporter
    */
-  IStatus searchFolder(IProgressMonitor monitor, List<SearchObjectFolder> devPackage,
+  IStatus searchFolders(IProgressMonitor monitor, List<SearchObjectFolder> folders,
       IClientCodeSearchConfig searchConfig, ISearchResultReporter reporter);
 
   /**
-   * Creates configuration instance for running the client based code search
+   * Find matches in ABAP Code
+   *
+   * @param monitor      the progress monitor
+   * @param objects      list of objects that should be searched
+   * @param searchConfig search configuration
+   * @param reporter     result reporter
    */
-  IClientCodeSearchConfig createConfig();
+  IStatus searchObjects(IProgressMonitor monitor, List<SearchableObject> objects,
+      IClientCodeSearchConfig searchConfig, ISearchResultReporter reporter);
+
+  /**
+   * Expands the given folder and returns the contained objects according to passed folder and
+   * search configuration
+   * 
+   * @param folder  the folder to expand
+   * @param config  the search configuration
+   * @param monitor the progress monitor
+   * @return the contained objects in the folder
+   */
+  List<SearchableObject> expandFolder(SearchObjectFolder folder,
+      final IClientCodeSearchConfig config, final IProgressMonitor monitor);
 
 }

@@ -108,18 +108,12 @@
         <details key="name" value="responseMessages"/>
         <details key="namespace" value="http://www.devepos.com/adt/base"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="true"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfResults" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="numberOfResults"/>
         <details key="namespace" value="##targetNamespace"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSearchedObjects"
@@ -129,9 +123,6 @@
         <details key="name" value="numberOfSearchedObjects"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="false"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSearchedSources"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
@@ -140,9 +131,6 @@
         <details key="name" value="numberOfSearchedSources"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="false"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="linesOfSearchedCode" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Float">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -150,18 +138,12 @@
         <details key="name" value="linesOfSearchedCode"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="false"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queryTimeInMs" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="queryTimeInMs"/>
         <details key="namespace" value="##targetNamespace"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="suppressedSetVisibility" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

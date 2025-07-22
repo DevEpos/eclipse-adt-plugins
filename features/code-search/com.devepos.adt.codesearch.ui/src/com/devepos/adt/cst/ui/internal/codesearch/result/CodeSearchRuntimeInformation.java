@@ -9,6 +9,7 @@ import org.eclipse.search.ui.NewSearchUI;
 
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
+import com.devepos.adt.cst.ui.internal.codesearch.ClientBasedCodeSearchQuery;
 
 /**
  * Holds runtime information of a code search query
@@ -31,9 +32,11 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private int overallServerTimeInMs;
   private long overallClientTimeInMs;
   private final AbstractCodeSearchQuery searchQuery;
+  private boolean isClientApiTargeted;
 
   public CodeSearchRuntimeInformation(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
+    isClientApiTargeted = searchQuery instanceof ClientBasedCodeSearchQuery;
   }
 
   interface IRuntimeInfoListener {
@@ -102,9 +105,9 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     return systemId;
   }
 
-  public void increaseOverallClientTimeInMs(final long overallClientTimeInMs) {
-    if (overallClientTimeInMs > -1) {
-      this.overallClientTimeInMs += overallClientTimeInMs;
+  public void updateOverallClientTime() {
+    synchronized (searchQuery) {
+      overallClientTimeInMs = System.currentTimeMillis() - searchQuery.getStartTime();
     }
   }
 
@@ -152,15 +155,14 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   }
 
   public void updateWithNewResult(final ICodeSearchResult result) {
-    overallServerTimeInMs += result.getQueryTimeInMs();
     resultCount += result.getNumberOfResults();
     searchedObjectsCount += result.getNumberOfSearchedObjects();
     searchedSourcesCount += result.getNumberOfSearchedSources();
     searchedLinesOfCode += result.getLinesOfSearchedCode();
-    if (result.getQueryTimeInMs() == -1) {
-
+    if (!isClientApiTargeted) {
+      overallServerTimeInMs += result.getQueryTimeInMs();
+      averageDuration = overallServerTimeInMs / ++requestCount;
     }
-    averageDuration = overallServerTimeInMs / ++requestCount;
 
     fireUpdated();
   }
