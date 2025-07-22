@@ -19,4 +19,5 @@ Require-Bundle:
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.devepos.adt.codesearch.backend
 Bundle-ActivationPolicy: lazy
-Export-Package: com.devepos.adt.cst.search;x-friends:="com.devepos.adt.codesearch.ui"
+Export-Package: com.devepos.adt.cst.search;x-friends:="com.devepos.adt.codesearch.ui",
+ com.devepos.adt.cst.search.client

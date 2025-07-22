@@ -16,6 +16,9 @@ import com.devepos.adt.base.ui.search.contentassist.PackageSearchFilter;
 public enum FilterName {
   APPLICATION_COMPONENT(ApplicationComponentSearchFilter.FILTER_NAME, "applComp"),
   CREATED_DATE("created", "createdDate"),
+  CREATED_FACET_YEAR("created", "created"),
+  CREATED_FACET_MONTH("month", "month"),
+  CREATED_FACET_DATE("date", "date"),
   OWNER("owner", "owner"),
   OBJECT_NAME(null, "objectName"),
   OBJECT_TYPE("type", "objectType"),

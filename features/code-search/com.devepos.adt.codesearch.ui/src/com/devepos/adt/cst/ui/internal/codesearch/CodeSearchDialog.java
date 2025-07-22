@@ -247,9 +247,10 @@ public class CodeSearchDialog extends DialogPage
   private void collectQuerySpecs() {
     querySpecs.setPatterns(patternsText.getText());
     var objectScopeFilterText = filterInput.getText();
-    querySpecs
-        .setObjectScopeFilters(filterHandler.getSearchFiltersAsStringMap(objectScopeFilterText,
-            FilterName.getContentAssistToUriParamNameMap(), ","), objectScopeFilterText);
+    querySpecs.setObjectScopeFilters(
+        filterHandler.getSearchFiltersAsStringMap(objectScopeFilterText,
+            clientSearchTargeted ? null : FilterName.getContentAssistToUriParamNameMap(), ","),
+        objectScopeFilterText);
     querySpecs.setIgnoreCaseCheck(ignoreCaseCheck.getSelection());
     querySpecs.setIgnoreCommentLines(ignoreCommentLinesCheck.getSelection());
     querySpecs.setObjectNames(objectNameInput.getText());

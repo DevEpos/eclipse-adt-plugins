@@ -1,6 +1,7 @@
 package com.devepos.adt.cst.ui.internal.codesearch;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameter;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
+import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
@@ -39,12 +41,10 @@ public class CodeSearchQuerySpecification {
   private boolean multilineSearchOption;
   private boolean expandProgIncludes;
   private boolean expandTableIncludes;
+  private boolean singlePattern;
+  private boolean useRegExp;
 
   private boolean readPackageHierarchy;
-
-  private boolean singlePattern;
-
-  private boolean useRegExp;
 
   private String patterns = "";
   private String objectNames = "";
@@ -102,6 +102,43 @@ public class CodeSearchQuerySpecification {
       uriParameters.put(SearchParameter.EXPAND_TABLE_INCLUDES.getUriName(), true);
     }
     return uriParameters;
+  }
+
+  public void convertToClientSearchConfig(IClientCodeSearchConfig config) {
+    config.setUseRegExp(useRegExp);
+    config.setExpandProgIncludes(expandProgIncludes);
+    config.setExpandTableIncludes(expandTableIncludes);
+    config.setIgnoreCaseCheck(ignoreCaseCheck);
+    config.setIgnoreCommentLines(ignoreCommentLines);
+    config.setMatchAllPatterns(matchAllPatterns);
+    config.setSequentialMatching(sequentialMatching);
+    config.setReadPackageHierarchy(readPackageHierarchy);
+    config.setMultilineSearchOption(multilineSearchOption);
+    config.setSinglePattern(singlePattern);
+    if (singlePattern) {
+      config.setPatterns(List.of(getSinglePatternModePattern()));
+    } else {
+      config.setPatterns(Stream.of(patterns.split(Text.DELIMITER))
+          .filter(pattern -> !pattern.isBlank())
+          .collect(Collectors.toList()));
+    }
+    if (!StringUtil.isBlank(objectNames)) {
+      config.setObjectName(objectNames.split(" ")[0]);
+    }
+    Map<String, List<String>> facetFilterMap = new HashMap<>();
+
+    getObjectScopeFilters().entrySet().forEach(entry -> {
+      var valueList = ((String) entry.getValue()).split(",");
+      facetFilterMap.put(entry.getKey(), List.of(valueList));
+    });
+
+    if (!getObjectScopeFilters().containsKey(FilterName.OBJECT_TYPE.getContentAssistName())) {
+      // fill default types, to ignore all other non code search relevant types
+      facetFilterMap.put(FilterName.OBJECT_TYPE.getContentAssistName(),
+          CodeSearchRelevantWbTypesUtil
+              .getPossibleValuesForTypeFilter(projectProvider.getProject()));
+    }
+    config.setFacets(facetFilterMap);
   }
 
   public ICodeSearchScopeParameters createScopeParameters() {

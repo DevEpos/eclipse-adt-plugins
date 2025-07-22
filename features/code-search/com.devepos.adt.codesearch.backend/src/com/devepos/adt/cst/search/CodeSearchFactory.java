@@ -15,6 +15,7 @@ import com.devepos.adt.cst.internal.search.backend.CodeSearchSettingsService;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
 import com.devepos.adt.cst.internal.search.client.ClientCodeSearchService;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
+import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
 
 /**
  * Factory for creating instances of {@link ICodeSearchService}
