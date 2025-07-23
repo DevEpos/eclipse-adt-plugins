@@ -12,18 +12,18 @@ import com.sap.adt.ris.search.objectproperties.AdtRisVfsObjectPropertiesServiceF
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 
 @SuppressWarnings("restriction")
-public class PackageUtils {
+public class PackageUtil {
 
-  public static List<AdtPackage> getPackageHierarchy(String uri, IProgressMonitor m,
-      String destination) {
+  public static List<AdtPackage> getPackageHierarchy(final String uri, final IProgressMonitor m,
+      final String destination) {
     try {
       var objectPropertiesService = AdtRisVfsObjectPropertiesServiceFactory
           .createVfsObjectPropertiesService(destination);
       var packageFacet = IFacetsFactory.eINSTANCE.createFacet();
-      packageFacet.setKey("package");
+      packageFacet.setKey(IFacetConstants.PACKAGE);
       var objProperties = objectPropertiesService.readObjectProperties(URI.create(uri),
           List.of(packageFacet), m);
-      return objProperties.getObjectPropertiesForFacet("package")
+      return objProperties.getObjectPropertiesForFacet(IFacetConstants.PACKAGE)
           .stream()
           .map(p -> new AdtPackage(p.uri.toString(), p.name, p.displayName, 0, null))
           .collect(Collectors.toList());

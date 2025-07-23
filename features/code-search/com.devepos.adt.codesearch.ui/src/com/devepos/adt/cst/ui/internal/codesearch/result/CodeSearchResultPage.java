@@ -190,7 +190,10 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   }
 
   public boolean isPackageGroupingEnabled() {
-    return groupByPackageAction != null ? groupByPackageAction.isChecked() : false;
+    if (groupByPackageAction == null || !groupByPackageAction.isEnabled()) {
+      return false;
+    }
+    return groupByPackageAction.isChecked();
   }
 
   @Override
@@ -240,6 +243,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
         viewState instanceof UiState ? ((UiState) viewState).getSelection() : viewState);
 
     updateContinueAction();
+    updateGroupingActions();
 
     if (filterableComposite == null || filterableComposite.isDisposed()) {
       return;
@@ -630,10 +634,20 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
   private void updateContinueAction() {
     boolean enabled = false;
     var query = getSearchQuery();
-    if (query != null && !query.isFinished() && !NewSearchUI.isQueryRunning(query)) {
+    if (query != null && query.canContinue() && !query.isFinished()
+        && !NewSearchUI.isQueryRunning(query)) {
       enabled = true;
     }
 
     continueSearchAction.setEnabled(enabled);
   }
+
+  private void updateGroupingActions() {
+    var query = getSearchQuery();
+    if (query == null) {
+      return;
+    }
+    groupByPackageAction.setEnabled(query.getQuerySpecs().isReadPackageHierarchy());
+  }
+
 }

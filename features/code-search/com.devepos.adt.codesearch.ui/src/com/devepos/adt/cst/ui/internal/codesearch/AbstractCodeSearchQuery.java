@@ -77,4 +77,6 @@ public abstract class AbstractCodeSearchQuery extends AbstractAbapProjectSearchQ
   public long getStartTime() {
     return startTime;
   }
+
+  public abstract boolean canContinue();
 }

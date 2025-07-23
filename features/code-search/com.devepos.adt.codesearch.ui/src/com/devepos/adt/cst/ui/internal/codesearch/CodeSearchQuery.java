@@ -34,6 +34,11 @@ public class CodeSearchQuery extends AbstractCodeSearchQuery {
   }
 
   @Override
+  public boolean canContinue() {
+    return true;
+  }
+
+  @Override
   public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
     finished = false;
     isContinueForCurrentExecution = continueQuery;

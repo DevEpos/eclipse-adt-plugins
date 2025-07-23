@@ -2,6 +2,7 @@ package com.devepos.adt.cst.search.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -9,29 +10,29 @@ import com.devepos.adt.cst.internal.search.client.Facet;
 
 public class SearchObjectFolder {
   private String uri;
-  private String displayName;
-  private String name;
+  private final String displayName;
+  private final String name;
   private String facet;
   private String packageName;
   private List<Facet> facets;
-  private int objectCount;
+  private final int objectCount;
   private boolean hasChildrenOfSameFacet;
 
   public interface ISubObjectLoader {
     void load(IProgressMonitor monitor, String destination, IClientCodeSearchConfig specs);
   }
 
-  public SearchObjectFolder(String name, String displayName, int objectCount) {
+  public SearchObjectFolder(final String name, final String displayName, final int objectCount) {
     this.objectCount = objectCount;
     this.name = name;
     this.displayName = displayName;
   }
 
-  public String getURI() {
+  public String getUri() {
     return uri;
   }
 
-  public void setUri(String uri) {
+  public void setUri(final String uri) {
     this.uri = uri;
   }
 
@@ -58,7 +59,7 @@ public class SearchObjectFolder {
     return hasChildrenOfSameFacet;
   }
 
-  public void setHasChildrenOfSameFacet(boolean hasChildrenOfSameFacet) {
+  public void setHasChildrenOfSameFacet(final boolean hasChildrenOfSameFacet) {
     this.hasChildrenOfSameFacet = hasChildrenOfSameFacet;
   }
 
@@ -66,7 +67,7 @@ public class SearchObjectFolder {
     return packageName;
   }
 
-  public void setPackageName(String packageName) {
+  public void setPackageName(final String packageName) {
     this.packageName = packageName;
   }
 
@@ -74,8 +75,26 @@ public class SearchObjectFolder {
     return facet;
   }
 
-  public void setFacet(String facet) {
+  public void setFacet(final String facet) {
     this.facet = facet;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(packageName, facet, name);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof SearchObjectFolder)) {
+      return false;
+    }
+    var other = (SearchObjectFolder) obj;
+    return Objects.equals(packageName, other.packageName) && Objects.equals(facet, other.facet)
+        && Objects.equals(name, other.name);
   }
 
 }

@@ -2,30 +2,36 @@ package com.devepos.adt.cst.internal.search.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.devepos.adt.cst.search.client.AdtPackage;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
-import com.sap.adt.ris.model.virtualfolders.IVirtualFolder;
-import com.sap.adt.tools.core.atom.AdtAtomUtilFactory;
-import com.sap.adt.tools.core.atom.IAdtAtomUtil;
 
 @SuppressWarnings("restriction")
 class SearchFolderLoader {
   private final ScopeService scopeService;
-  private final IAdtAtomUtil atomUtil;
+  private List<Facet> facets;
 
   public SearchFolderLoader(final String destinationId, final IProgressMonitor monitor,
       final IClientCodeSearchConfig specs) {
     scopeService = new ScopeService(destinationId, monitor, specs);
-    atomUtil = AdtAtomUtilFactory.createAtomUtil();
+  }
+
+  public void setFacets(Facet... facets) {
+    this.facets = List.of(facets);
   }
 
   public List<SearchObjectFolder> run() {
-    var packageExpandRequestParams = scopeService.buildFolderRequestParams(null);
+    var packageExpandRequestParams = scopeService.buildFolderRequestParams(getExcludedFacets());
     packageExpandRequestParams.setWantedFacets(List.of(IFacetConstants.PACKAGE));
+    if (facets != null) {
+      for (var facet : facets) {
+        packageExpandRequestParams.addPreselection(facet.getType(), facet.getName());
+      }
+    }
     var packageResponse = scopeService.fetchFolderContent(packageExpandRequestParams);
     List<SearchObjectFolder> folders = new ArrayList<>();
     if (packageResponse == null) {
@@ -34,14 +40,14 @@ class SearchFolderLoader {
     var objectCountInExpandedPackages = 0;
     AdtPackage relativePackage = null;
     for (var f : packageResponse.getVirtualFolder()) {
+      var uri = AtomLinkUtil.getPackageUri(f);
       // REVISIT: why is this contained in the result???
       if (f.getName().startsWith("..")) {
-        relativePackage = new AdtPackage(getPackageUri(f), f.getName().substring(2),
+        relativePackage = new AdtPackage(uri, f.getName().substring(2),
             f.getDisplayName().substring(2), f.getCounter(), null);
         continue;
       }
       objectCountInExpandedPackages += f.getCounter();
-      var uri = getPackageUri(f);
       var packageFolder = new SearchObjectFolder(f.getName(), f.getDisplayName(), f.getCounter());
       packageFolder.getFacets().add(new Facet(IFacetConstants.PACKAGE, f.getName()));
       packageFolder.setHasChildrenOfSameFacet(f.isHasChildrenOfSameFacet());
@@ -79,9 +85,10 @@ class SearchFolderLoader {
     return folders;
   }
 
-  private String getPackageUri(final IVirtualFolder f) {
-    var uri = atomUtil.findAtomLinkAsUri(f.getLinks(), "http://www.sap.com/adt/relations/packages",
-        "application/vnd.sap.sapgui");
-    return uri != null ? uri.toString() : null;
+  private List<String> getExcludedFacets() {
+    if (facets == null) {
+      return null;
+    }
+    return facets.stream().map(Facet::getType).collect(Collectors.toList());
   }
 }

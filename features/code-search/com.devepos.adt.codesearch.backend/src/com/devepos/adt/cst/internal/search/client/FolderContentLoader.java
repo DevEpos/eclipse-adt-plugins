@@ -9,18 +9,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
 import com.devepos.adt.cst.search.client.SearchableObject;
-import com.sap.adt.tools.core.atom.AdtAtomUtilFactory;
 
 @SuppressWarnings("restriction")
 public class FolderContentLoader {
-  private ScopeService scopeService;
+  private final ScopeService scopeService;
 
-  public FolderContentLoader(String destination, IProgressMonitor monitor,
-      IClientCodeSearchConfig config) {
+  public FolderContentLoader(final String destination, final IProgressMonitor monitor,
+      final IClientCodeSearchConfig config) {
     scopeService = new ScopeService(destination, monitor, config);
   }
 
-  public List<SearchableObject> run(SearchObjectFolder folder) {
+  public List<SearchableObject> run(final SearchObjectFolder folder) {
     var folderSearchParams = scopeService.buildFolderRequestParams(
         folder.getFacets().stream().map(Facet::getType).collect(Collectors.toList()));
     folder.getFacets()
@@ -29,12 +28,9 @@ public class FolderContentLoader {
     var objectResponse = scopeService.fetchFolderContent(folderSearchParams);
     if (objectResponse != null) {
       List<SearchableObject> searchableObjects = new ArrayList<>();
-      var atomUtil = AdtAtomUtilFactory.createAtomUtil();
       for (var o : objectResponse.getObject()) {
-        var uri = atomUtil.findAtomLinkAsUri(o.getLinks(),
-            "http://www.sap.com/adt/relations/objects");
-        searchableObjects.add(
-            new SearchableObject(o.getName(), o.getText(), o.getType(), uri.toString(), folder));
+        searchableObjects.add(new SearchableObject(o.getName(), o.getText(), o.getType(),
+            AtomLinkUtil.getObjectUri(o), folder));
       }
       return searchableObjects;
     }

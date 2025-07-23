@@ -59,5 +59,4 @@ public class AdtPackage extends AdtObject {
   public List<AdtPackage> getHierarchy() {
     return hierarchy;
   }
-
 }

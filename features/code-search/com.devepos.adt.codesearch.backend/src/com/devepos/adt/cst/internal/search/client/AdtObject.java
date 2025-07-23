@@ -28,4 +28,13 @@ public class AdtObject {
   public AdtPackage getParent() {
     return parent;
   }
+
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public String getType() {
+    return type;
+  }
+
 }

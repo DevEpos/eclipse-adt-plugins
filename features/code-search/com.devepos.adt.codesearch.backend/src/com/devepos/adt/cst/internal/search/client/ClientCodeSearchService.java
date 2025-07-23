@@ -15,6 +15,8 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
+import com.devepos.adt.cst.model.codesearch.ICodeSearchObject;
+import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
@@ -52,9 +54,17 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
   }
 
   @Override
-  public List<SearchableObject> expandFolder(SearchObjectFolder folder,
+  public List<SearchableObject> getObjectsInFolder(SearchObjectFolder folder,
       final IClientCodeSearchConfig config, final IProgressMonitor monitor) {
     return new FolderContentLoader(destinationId, monitor, config).run(folder);
+  }
+
+  @Override
+  public List<SearchObjectFolder> expandFolder(SearchObjectFolder folder,
+      IClientCodeSearchConfig config, IProgressMonitor monitor) {
+    var folderLoader = new SearchFolderLoader(destinationId, monitor, config);
+    folderLoader.setFacets(new Facet(IFacetConstants.PACKAGE, folder.getName()));
+    return folderLoader.run();
   }
 
   @Override
@@ -79,7 +89,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         adtMainObj.setType(o.getType());
         adtMainObj.setName(o.getName());
         adtMainObj.setUri(o.getURI());
-        searchObject.setParentUri(f.getURI());
+        searchObject.setParentUri(f.getUri());
         searchObject.setAdtMainObject(adtMainObj);
 
         var getClassContent = URI.create(o.getURI() + "/source/main");
@@ -120,22 +130,15 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
                   String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
                   exc));
         }
-        // final var matcher = pattern.matcher(source);
-        // while (matcher.find()) {
-        // var group = matcher.group();
-        // var begin = matcher.start();
-        // var endOffset = matcher.end();
-        // matchCount.set(matchCount.get() + 1);
-        // }
         m.worked(1);
       }
 
       if (matchCount > 0) {
-        if (f.getURI() != null) {
+        if (f.getUri() != null) {
           var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
-          packageObject.setUri(f.getURI());
+          packageObject.setUri(f.getUri());
           var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-          packageMainObj.setUri(f.getURI());
+          packageMainObj.setUri(f.getUri());
           if (f.getFacet().equals(IFacetConstants.PACKAGE)) {
             packageMainObj.setName(f.getName());
             packageMainObj.setDescription(f.getDisplayName());
@@ -165,8 +168,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
     // var codeSearchResult = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
     for (var o : objects) {
       try {
-        // searchObject(monitor, o, searchConfig, session, codeSearchResult);
-        searchObject(monitor, o, searchConfig, session, reporter);
+        searchObject(monitor, o, searchConfig, session, monitor, reporter);
       } catch (ResourceException exc) {
         CodeSearchPlugin.getDefault()
             .getLog()
@@ -184,7 +186,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
   // ICodeSearchResult result) {
   private void searchObject(IProgressMonitor m, SearchableObject o,
       IClientCodeSearchConfig searchConfig, IStatelessSystemSession session,
-      ISearchResultReporter reporter) {
+      IProgressMonitor monitor, ISearchResultReporter reporter) {
     var pattern = Pattern.compile(searchConfig.getPatterns().get(0), Pattern.CASE_INSENSITIVE);
 
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
@@ -194,7 +196,6 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
     adtMainObj.setType(o.getType());
     adtMainObj.setName(o.getName());
     adtMainObj.setUri(o.getURI());
-    searchObject.setParentUri(o.getFolder().getURI());
     searchObject.setAdtMainObject(adtMainObj);
 
     var getMainSource = URI.create(o.getURI() + "/source/main");
@@ -226,24 +227,11 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
       result.setNumberOfResults(matchCount);
       result.setLinesOfSearchedCode(sourceLines.length);
       if (matchCount > 0) {
-        var folder = o.getFolder();
-        var folderURI = folder.getURI();
-        if (folderURI != null) {
-          var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
-          packageObject.setUri(folderURI);
-          var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-          packageMainObj.setUri(folderURI);
-          if (IFacetConstants.PACKAGE.equals(folder.getFacet())) {
-            packageMainObj.setName(folder.getName());
-            packageMainObj.setDescription(folder.getDisplayName());
-          } else {
-            packageMainObj.setName(folder.getPackageName());
-          }
-          packageMainObj.setType(IAdtObjectTypeConstants.PACKAGE);
-          packageObject.setAdtMainObject(packageMainObj);
-          result.getSearchObjects().add(packageObject);
-          result.getSearchObjects().add(searchObject);
+        // addPackagesForObject(o, result, searchObject);
+        if (searchConfig.isReadPackageHierarchy()) {
+          addPackagesForObject2(o, result, searchObject, monitor);
         }
+        result.getSearchObjects().add(searchObject);
       }
     } catch (ResourceException exc) {
       CodeSearchPlugin.getDefault()
@@ -257,4 +245,51 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
     reporter.notify(result);
     m.worked(1);
   }
+
+  private void addPackagesForObject(SearchableObject o, ICodeSearchResult result,
+      ICodeSearchObject searchObject) {
+    var folder = o.getFolder();
+    var folderURI = folder.getUri();
+    if (folderURI != null) {
+      searchObject.setParentUri(folderURI);
+      var packageObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+      packageObject.setUri(folderURI);
+      var packageMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+      packageMainObj.setUri(folderURI);
+      if (IFacetConstants.PACKAGE.equals(folder.getFacet())) {
+        packageMainObj.setName(folder.getName());
+        packageMainObj.setDescription(folder.getDisplayName());
+      } else {
+        packageMainObj.setName(folder.getPackageName());
+      }
+      packageMainObj.setType(IAdtObjectTypeConstants.PACKAGE);
+      packageObject.setAdtMainObject(packageMainObj);
+      result.getSearchObjects().add(packageObject);
+    }
+  }
+
+  private void addPackagesForObject2(SearchableObject o, ICodeSearchResult result,
+      ICodeSearchObject searchObject, IProgressMonitor m) {
+    var packages = PackageUtil.getPackageHierarchy(o.getURI(), m, destinationId);
+    if (packages == null) {
+      return;
+    }
+
+    String previousPackURI = null;
+    searchObject.setParentUri(packages.getLast().getUri());
+    for (var pack : packages) {
+      var packageObj = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+      var packageAdtObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+      packageAdtObj.setUri(pack.getUri());
+      packageAdtObj.setName(pack.getName());
+      packageAdtObj.setDescription(pack.getDisplayName());
+      packageAdtObj.setType(pack.getType());
+      packageObj.setAdtMainObject(packageAdtObj);
+      packageObj.setParentUri(previousPackURI);
+      packageObj.setUri(pack.getUri());
+      result.getSearchObjects().add(packageObj);
+      previousPackURI = pack.getUri();
+    }
+  }
+
 }

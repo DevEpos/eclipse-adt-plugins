@@ -41,7 +41,7 @@ public class SearchableObject {
 
   @Override
   public int hashCode() {
-    return uri != null ? uri.hashCode() : name.hashCode() + type.hashCode();
+    return uri != null ? uri.hashCode() : Objects.hash(name, type);
   }
 
   @Override
@@ -53,7 +53,8 @@ public class SearchableObject {
       return false;
     }
     var other = (SearchableObject) obj;
-    return Objects.equals(uri, other.uri);
+    return Objects.equals(uri, other.uri) && Objects.equals(name, other.name)
+        && Objects.equals(type, other.type);
   }
 
 }

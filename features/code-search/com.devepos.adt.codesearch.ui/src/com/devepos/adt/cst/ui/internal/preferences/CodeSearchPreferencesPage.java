@@ -121,6 +121,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
 
     addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH, "Prefer client based search",
         createEditorParent(group));
+    addBooleanEditor(ICodeSearchPrefs.CLIENT_SEARCH_READ_PACKAGE_HIERARCHY,
+        "Determine Package Hierarchy for Results", createEditorParent(group));
 
     adjustMargins(group);
   }

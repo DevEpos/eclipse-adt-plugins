@@ -177,6 +177,12 @@ public class CodeSearchDialog extends DialogPage
     }
     writeDialogSettings();
 
+    if (clientSearchTargeted) {
+      querySpecs.setReadPackageHierarchy(CodeSearchUIPlugin.getDefault()
+          .getPreferenceStore()
+          .getBoolean(ICodeSearchPrefs.CLIENT_SEARCH_READ_PACKAGE_HIERARCHY));
+    }
+
     NewSearchUI
         .runQueryInBackground(clientSearchTargeted ? new ClientBasedCodeSearchQuery(querySpecs)
             : new CodeSearchQuery(querySpecs));

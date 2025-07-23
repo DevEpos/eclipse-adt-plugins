@@ -8,6 +8,10 @@ package com.devepos.adt.cst.ui.internal.preferences;
  */
 public interface ICodeSearchPrefs {
   /**
+   * Enables the package hierarchy determination during client based search
+   */
+  String CLIENT_SEARCH_READ_PACKAGE_HIERARCHY = "codeSearch.clientBasedSearch.readPackageHierarchy";
+  /**
    * Maximum number of jobs when using the client based Code Search
    */
   String MAX_CLIENT_SEARCH_JOBS = "codeSearch.clientBasedSearch.maxJobs";

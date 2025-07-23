@@ -52,7 +52,18 @@ public interface IClientBasedCodeSearchService {
    * @param monitor the progress monitor
    * @return the contained objects in the folder
    */
-  List<SearchableObject> expandFolder(SearchObjectFolder folder,
+  List<SearchableObject> getObjectsInFolder(SearchObjectFolder folder,
+      final IClientCodeSearchConfig config, final IProgressMonitor monitor);
+
+  /**
+   * Expands the given folder and returns the contained sub folders
+   * 
+   * @param folder  the folder to expand
+   * @param config  the search configuration
+   * @param monitor the progress monitor
+   * @return the sub folders of the folder
+   */
+  List<SearchObjectFolder> expandFolder(SearchObjectFolder folder,
       final IClientCodeSearchConfig config, final IProgressMonitor monitor);
 
 }
