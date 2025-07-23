@@ -27,19 +27,15 @@ import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 import com.sap.adt.communication.session.IStatelessSystemSession;
-import com.sap.adt.tools.core.atom.AdtAtomUtilFactory;
-import com.sap.adt.tools.core.atom.IAdtAtomUtil;
 
 @SuppressWarnings("restriction")
 public class ClientCodeSearchService implements IClientBasedCodeSearchService {
   private IProject project;
   private final String destinationId;
-  private final IAdtAtomUtil atomUtil;
 
   public ClientCodeSearchService(final IProject project) {
     this.project = project;
     destinationId = DestinationUtil.getDestinationId(project);
-    atomUtil = AdtAtomUtilFactory.createAtomUtil();
   }
 
   @Override
@@ -276,7 +272,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
     }
 
     String previousPackURI = null;
-    searchObject.setParentUri(packages.getLast().getUri());
+    searchObject.setParentUri(packages.get(packages.size() - 1).getUri());
     for (var pack : packages) {
       var packageObj = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
       var packageAdtObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
