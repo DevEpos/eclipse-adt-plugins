@@ -35,8 +35,10 @@ public class CodeSearchFeatureUtil implements ICodeSearchFeatureUtil {
     if (preferClient) {
       var status = testClientBasedSearchAvailability();
       return status.isOK() ? status : testBackendBasedSearchAvailability();
+    } else {
+      var status = testBackendBasedSearchAvailability();
+      return status.isOK() ? status : testClientBasedSearchAvailability();
     }
-    return testBackendBasedSearchAvailability();
   }
 
   @Override
