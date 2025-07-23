@@ -349,8 +349,12 @@ public class AbapObjectTagsView extends ViewPart {
     @Override
     public boolean equals(final Object o) {
       if (o instanceof TagKey) {
-        TagKey key2 = (TagKey) o;
-        return hashCode() == key2.hashCode();
+        var other = (TagKey) o;
+        var idEqual = Objects.equals(tag.getId(), other.tag.getId());
+        if (!idEqual) {
+          return false;
+        }
+        return Objects.equals(tag.getParentTagId(), other.tag.getParentTagId());
       }
       return super.equals(o);
     }
