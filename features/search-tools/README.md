@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Java-SE17+-green) ![](https://img.shields.io/badge/eclipse-2020--09+-green)
+![](https://img.shields.io/badge/Java-SE17+-green) ![](https://img.shields.io/badge/eclipse-2021--06+-green)
 
 # ABAP Search and Analysis Tools Plug-in
 
