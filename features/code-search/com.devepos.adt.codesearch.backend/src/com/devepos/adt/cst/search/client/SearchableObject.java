@@ -31,7 +31,7 @@ public class SearchableObject {
     return displayName;
   }
 
-  public String getURI() {
+  public String getUri() {
     return uri;
   }
 

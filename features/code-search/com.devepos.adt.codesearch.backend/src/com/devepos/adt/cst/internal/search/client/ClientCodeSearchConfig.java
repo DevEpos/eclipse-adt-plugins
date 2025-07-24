@@ -1,5 +1,6 @@
 package com.devepos.adt.cst.internal.search.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -152,7 +153,10 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
 
   @Override
   public void setPatterns(List<String> patterns) {
-    this.patterns = patterns;
+    this.patterns = new ArrayList<>();
+    for (var p : patterns) {
+      this.patterns.add(p.replaceAll("\r\n", "\n"));
+    }
   }
 
 }

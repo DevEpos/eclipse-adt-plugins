@@ -30,6 +30,7 @@ public class ScopeService {
   public IAdtRisVirtualFoldersRequestParameters buildFolderRequestParams(
       final List<String> excludedFacets) {
     var params = AdtRisVirtualFoldersServiceFactory.createVirtualFolderRequestParameters();
+    params.setIgnoreShortDescriptions(true);
     if (config.getObjectName() != null) {
       params.setObjectSearchPattern(config.getObjectName());
     } else {

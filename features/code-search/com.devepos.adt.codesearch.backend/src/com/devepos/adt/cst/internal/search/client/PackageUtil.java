@@ -21,6 +21,7 @@ public class PackageUtil {
           .createVfsObjectPropertiesService(destination);
       var packageFacet = IFacetsFactory.eINSTANCE.createFacet();
       packageFacet.setKey(IFacetConstants.PACKAGE);
+      // REVISIT: does not exist in ADT 2021-06
       var objProperties = objectPropertiesService.readObjectProperties(URI.create(uri),
           List.of(packageFacet), m);
       return objProperties.getObjectPropertiesForFacet(IFacetConstants.PACKAGE)
