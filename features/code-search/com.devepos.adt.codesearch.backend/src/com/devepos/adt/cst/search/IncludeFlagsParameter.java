@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.ui.internal.codesearch;
+package com.devepos.adt.cst.search;
 
 /**
  * Search parameter which indicates what includes of a repository object
@@ -36,6 +36,22 @@ public class IncludeFlagsParameter {
   }
 
   /**
+   * Returns all active flags (considering state of {@link #isAllIncludes()}.
+   * 
+   */
+  public int getActiveIncludeFlags() {
+    if (allIncludes) {
+      var flags = 0;
+      for (var include : possibleIncludes) {
+        flags |= include.getBit();
+      }
+      return flags;
+    } else {
+      return includeFlags;
+    }
+  }
+
+  /**
    * Returns the count of the selected includes
    *
    * @return count of the selected includes
@@ -60,6 +76,9 @@ public class IncludeFlagsParameter {
         : IncludeFlagsUtil.convertFlagsToString(includeFlags, possibleIncludes);
   }
 
+  /**
+   * @return {@code true} if all includes should be considered
+   */
   public boolean isAllIncludes() {
     return allIncludes;
   }

@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.ui.internal.codesearch;
+package com.devepos.adt.cst.search;
 
 /**
  * Source include that shall be considered during a ABAP Code search
@@ -27,4 +27,15 @@ public interface IIncludeToSearch {
    * @return the label of the include to be used in the UI
    */
   String getLabel();
+
+  /**
+   * Returns the name of the include as specified in the ADT class API
+   * 
+   */
+  String getAdtApiInclName();
+
+  /**
+   * Returns label of an include without the mnemonic for the UI
+   */
+  String getLabelWoMnemonic();
 }

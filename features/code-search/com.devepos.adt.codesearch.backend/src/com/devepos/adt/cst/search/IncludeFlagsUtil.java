@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.ui.internal.codesearch;
+package com.devepos.adt.cst.search;
 
 import java.util.ArrayList;
 import java.util.List;

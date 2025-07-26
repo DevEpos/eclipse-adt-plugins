@@ -1,6 +1,6 @@
-package com.devepos.adt.cst.ui.internal.codesearch;
+package com.devepos.adt.cst.search;
 
-import com.devepos.adt.cst.ui.internal.messages.Messages;
+import com.devepos.adt.cst.internal.messages.Messages;
 
 /**
  * Defines an include of an ABAP function group
@@ -15,11 +15,13 @@ public enum FunctionGroupInclude implements IIncludeToSearch {
   private final String apiName;
   private final int bit;
   private final String label;
+  private final String labelWoMnemonic;
 
   FunctionGroupInclude(final String apiName, final String label, final int bit) {
     this.apiName = apiName;
     this.label = label;
     this.bit = bit;
+    this.labelWoMnemonic = label.replace("&", "");
   }
 
   @Override
@@ -35,5 +37,15 @@ public enum FunctionGroupInclude implements IIncludeToSearch {
   @Override
   public String getLabel() {
     return label;
+  }
+
+  @Override
+  public String getAdtApiInclName() {
+    return null;
+  }
+
+  @Override
+  public String getLabelWoMnemonic() {
+    return labelWoMnemonic;
   }
 }

@@ -14,6 +14,9 @@ import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameter;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
+import com.devepos.adt.cst.search.ClassInclude;
+import com.devepos.adt.cst.search.FunctionGroupInclude;
+import com.devepos.adt.cst.search.IncludeFlagsParameter;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -139,6 +142,8 @@ public class CodeSearchQuerySpecification {
               .getPossibleValuesForTypeFilter(projectProvider.getProject()));
     }
     config.setFacets(facetFilterMap);
+    config.setClassIncludeFlags(getClassIncludesParam().getActiveIncludeFlags());
+    config.setFugrIncludeFlags(getFugrIncludesParam().getActiveIncludeFlags());
   }
 
   public ICodeSearchScopeParameters createScopeParameters() {

@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Link;
 
+import com.devepos.adt.cst.search.IncludeFlagsParameter;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 
 /**
