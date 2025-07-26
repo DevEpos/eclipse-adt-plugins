@@ -16,6 +16,8 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   private boolean expandTableIncludes;
   private boolean singlePattern;
   private boolean useRegExp;
+  private int classIncludeFlags;
+  private int fugrIncludeFlags;
 
   private boolean readPackageHierarchy;
 
@@ -159,4 +161,23 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
     }
   }
 
+  @Override
+  public void setClassIncludeFlags(int includeFlags) {
+    classIncludeFlags = includeFlags;
+  }
+
+  @Override
+  public int getClassIncludeFlags() {
+    return classIncludeFlags;
+  }
+
+  @Override
+  public void setFugrIncludeFlags(int includeFlags) {
+    fugrIncludeFlags = includeFlags;
+  }
+
+  @Override
+  public int getFugrIncludeFlags() {
+    return fugrIncludeFlags;
+  }
 }

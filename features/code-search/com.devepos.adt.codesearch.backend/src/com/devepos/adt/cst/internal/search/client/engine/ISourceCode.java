@@ -10,4 +10,6 @@ public interface ISourceCode {
   int lineCount();
 
   String commentRegex();
+
+  ISourceCode extract(int fromLine, int toLine);
 }

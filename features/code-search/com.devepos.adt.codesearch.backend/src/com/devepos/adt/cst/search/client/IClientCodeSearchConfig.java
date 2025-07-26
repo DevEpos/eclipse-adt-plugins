@@ -57,4 +57,12 @@ public interface IClientCodeSearchConfig {
 
   void setFacets(Map<String, List<String>> facets);
 
+  void setClassIncludeFlags(int includeFlags);
+
+  void setFugrIncludeFlags(int includeFlags);
+
+  int getFugrIncludeFlags();
+
+  int getClassIncludeFlags();
+
 }

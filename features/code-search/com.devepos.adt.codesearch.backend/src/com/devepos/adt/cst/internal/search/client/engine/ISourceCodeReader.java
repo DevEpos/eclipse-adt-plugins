@@ -5,5 +5,7 @@ public interface ISourceCodeReader {
   String BDEF_COMMENT_REGEX = "^\\s*(//|/\\*)";
   String DEFAULT_COMMENT_REGEX = "^(\\*|\\s*\")";
 
+  String MAIN_SOURCE_PATH = "/source/main";
+
   ISourceCode getSourceCode(String uri);
 }

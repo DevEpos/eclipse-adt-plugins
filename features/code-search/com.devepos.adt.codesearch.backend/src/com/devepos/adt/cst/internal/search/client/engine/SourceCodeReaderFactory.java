@@ -14,15 +14,28 @@ public class SourceCodeReaderFactory {
 
   public static ISourceCodeReader getReader(final String type,
       final IStatelessSystemSession session, final IProgressMonitor m, final boolean multiLine) {
-    return uri -> {
-      var contentResource = URI.create(uri);
-      var resource = AdtRestResourceFactory.createRestResourceFactory()
-          .createRestResource(contentResource, session);
-      resource.addContentHandler(new PlainTextContentHandler());
-      var headerField = HeadersFactory.newField("Accept", new String[] { "text/plain" });
-      var requestHeaders = HeadersFactory.newHeaders();
-      requestHeaders.addField(headerField);
-      var source = resource.get(m, requestHeaders, String.class);
+    if (IAdtObjectTypeConstants.CLASS.equals(type)) {
+      return new AbapClassSourceCodeReader(session, m, multiLine);
+    }
+    return new StandardSourceCodeReader(type, session, m, multiLine);
+  }
+
+  static class StandardSourceCodeReader extends AbstractSourceCodeReader
+      implements ISourceCodeReader {
+
+    private final boolean multiLine;
+    private final String type;
+
+    public StandardSourceCodeReader(final String type, final IStatelessSystemSession session,
+        final IProgressMonitor m, final boolean multiLine) {
+      super(session, m);
+      this.type = type;
+      this.multiLine = multiLine;
+    }
+
+    @Override
+    public ISourceCode getSourceCode(final String uri) {
+      var source = readSource(uri);
 
       // remove any CRLF line breaks in favor of LF
       source = SourceContentUtil.adjustLineEndings(source);
@@ -50,6 +63,58 @@ public class SourceCodeReaderFactory {
         sourceLines = source.split("\n");
       }
       return new SourceCode(sourceLines, indexes, commentRegex);
-    };
+    }
+
+  }
+
+  private static class AbapClassSourceCodeReader extends AbstractSourceCodeReader
+      implements ISourceCodeReader {
+    private final boolean multiLine;
+
+    public AbapClassSourceCodeReader(final IStatelessSystemSession session,
+        final IProgressMonitor m, final boolean multiLine) {
+      super(session, m);
+      this.multiLine = multiLine;
+    }
+
+    @Override
+    public ISourceCode getSourceCode(final String uri) {
+      var source = readSource(uri);
+      source = SourceContentUtil.adjustLineEndings(source);
+      if (uri.endsWith("/source/main")) {
+        return new SourceCode(new String[] { source },
+            SourceContentUtil.determineLineIndexes(source),
+            ISourceCodeReader.DEFAULT_COMMENT_REGEX);
+      }
+      // no further modifications after creation required
+      return new SourceCode(multiLine ? new String[] { source } : source.split("\n"),
+          multiLine ? SourceContentUtil.determineLineIndexes(source) : null,
+          ISourceCodeReader.DEFAULT_COMMENT_REGEX);
+    }
+
+  }
+
+  private static class AbstractSourceCodeReader {
+    private final IStatelessSystemSession session;
+    private final IProgressMonitor m;
+
+    protected AbstractSourceCodeReader(final IStatelessSystemSession session,
+        final IProgressMonitor m) {
+      this.session = session;
+      this.m = m;
+    }
+
+    protected String readSource(final String uri) {
+      var contentResource = URI.create(uri);
+      var resource = AdtRestResourceFactory.createRestResourceFactory()
+          .createRestResource(contentResource, session);
+      resource.addContentHandler(new PlainTextContentHandler());
+      var headerField = HeadersFactory.newField("Accept", new String[] { "text/plain" });
+      var requestHeaders = HeadersFactory.newHeaders();
+      requestHeaders.addField(headerField);
+      var source = resource.get(m, requestHeaders, String.class);
+      return source;
+    }
+
   }
 }

@@ -6,10 +6,10 @@ import java.util.List;
 public class StandardSourceCodeSearcher extends AbstractSourceCodeSearcher
     implements ISourceCodeSearcher {
 
-  private boolean matchAll;
+  private final boolean matchAll;
 
-  public StandardSourceCodeSearcher(List<IPatternMatcher> matchers, ISourceCode sourceCode,
-      boolean ignoreCommentLines, boolean matchAll) {
+  public StandardSourceCodeSearcher(final List<IPatternMatcher> matchers,
+      final ISourceCode sourceCode, final boolean ignoreCommentLines, final boolean matchAll) {
     super(matchers, sourceCode, ignoreCommentLines);
     this.matchAll = matchAll;
   }
@@ -20,14 +20,17 @@ public class StandardSourceCodeSearcher extends AbstractSourceCodeSearcher
     for (var matcher : matchers) {
       var rawMatches = matcher.findMatches(sourceCode.content());
 
-      if (rawMatches != null) {
+      if (rawMatches != null && !rawMatches.isEmpty()) {
         var enhancedMatches = enhanceMatches(rawMatches);
 
         if (!enhancedMatches.isEmpty()) {
           matches.addAll(enhancedMatches);
-        } else if (matchAll) {
-          return null;
+          continue;
         }
+      }
+
+      if (matchAll) {
+        return null;
       }
     }
     return matches;

@@ -17,7 +17,8 @@ public class StringSourceSearchProvider implements ISearchProvider {
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
 
     try {
-      var code = srcCodeReader.getSourceCode(o.getUri() + "/source/main");
+      var sourceUri = o.getUri() + ISourceCodeReader.MAIN_SOURCE_PATH;
+      var code = srcCodeReader.getSourceCode(sourceUri);
       var matches = searcherFactory.createSearcher(code).search();
 
       if (matches != null && !matches.isEmpty()) {
@@ -32,9 +33,8 @@ public class StringSourceSearchProvider implements ISearchProvider {
           var match = ICodeSearchFactory.eINSTANCE.createCodeSearchMatch();
           match.setSnippet(plainMatch.snippet());
           match.setLongSnippet(plainMatch.longSnippet());
-          match.setUri(String.format("%s/source/main#start=%d,%d;end=%d,%d", o.getUri(),
-              plainMatch.line() + 1, plainMatch.offset(), plainMatch.endLine() + 1,
-              plainMatch.endOffset()));
+          match.setUri(sourceUri + String.format(MATCH_SUFFIX_FORMAT, plainMatch.line() + 1,
+              plainMatch.offset(), plainMatch.endLine() + 1, plainMatch.endOffset()));
           searchObject.getMatches().add(match);
         });
 

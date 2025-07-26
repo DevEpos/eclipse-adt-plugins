@@ -41,4 +41,13 @@ public class SourceCode implements ISourceCode {
     return content;
   }
 
+  @Override
+  public ISourceCode extract(int fromLine, int toLine) {
+    var begin = indexes[fromLine];
+    var end = indexes[toLine];
+    var contentExtract = content[0].substring(begin.offset(), end.offset() + end.length());
+    return new SourceCode(new String[] { contentExtract },
+        SourceContentUtil.determineLineIndexes(contentExtract), commentRegex);
+  }
+
 }
