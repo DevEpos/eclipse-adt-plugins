@@ -40,6 +40,8 @@ class CodeSearchResultLabelProvider extends LabelProvider
       if (adtType.equals(IAdtObjectTypeConstants.CLASS_INCLUDE)) {
         return AdtBaseUIResources.getImage(IAdtBaseImages.NEUTRAL_METHOD);
       }
+      // TODO: use DATA DEFINITION type in Client based search as we do not return the entity name
+      // as in the backend based search
       if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(adtType)) {
         adtType = IAdtObjectTypeConstants.CDS_VIEW;
       }

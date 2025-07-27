@@ -27,15 +27,14 @@ public class ScopeService {
     this.config = config;
   }
 
+  public IAdtRisVirtualFoldersRequestParameters buildFolderRequestParams() {
+    return buildFolderRequestParams(null);
+  }
+
   public IAdtRisVirtualFoldersRequestParameters buildFolderRequestParams(
       final List<String> excludedFacets) {
     var params = AdtRisVirtualFoldersServiceFactory.createVirtualFolderRequestParameters();
     params.setIgnoreShortDescriptions(true);
-    if (config.getObjectName() != null) {
-      params.setObjectSearchPattern(config.getObjectName());
-    } else {
-      params.setObjectSearchPattern("*");
-    }
     config.getFacets().forEach((key, value) -> {
       if (excludedFacets != null && excludedFacets.contains(key)) {
         return;

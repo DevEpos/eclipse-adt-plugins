@@ -14,9 +14,11 @@ import com.devepos.adt.cst.search.client.SearchObjectFolder;
 class SearchFolderLoader {
   private final ScopeService scopeService;
   private List<Facet> facets;
+  private String objectPattern;
 
   public SearchFolderLoader(final String destinationId, final IProgressMonitor monitor,
-      final IClientCodeSearchConfig specs) {
+      final IClientCodeSearchConfig specs, String objectPattern) {
+    this.objectPattern = objectPattern;
     scopeService = new ScopeService(destinationId, monitor, specs);
   }
 
@@ -26,11 +28,10 @@ class SearchFolderLoader {
 
   public List<SearchObjectFolder> run() {
     var packageExpandRequestParams = scopeService.buildFolderRequestParams(getExcludedFacets());
+    packageExpandRequestParams.setObjectSearchPattern(objectPattern);
     packageExpandRequestParams.setWantedFacets(List.of(IFacetConstants.PACKAGE));
     if (facets != null) {
-      for (var facet : facets) {
-        packageExpandRequestParams.addPreselection(facet.getType(), facet.getName());
-      }
+      facets.forEach(f -> packageExpandRequestParams.addPreselection(f.getType(), f.getName()));
     }
     var packageResponse = scopeService.fetchFolderContent(packageExpandRequestParams);
     List<SearchObjectFolder> folders = new ArrayList<>();
@@ -49,6 +50,7 @@ class SearchFolderLoader {
       }
       objectCountInExpandedPackages += f.getCounter();
       var packageFolder = new SearchObjectFolder(f.getName(), f.getDisplayName(), f.getCounter());
+      packageFolder.setObjectPattern(objectPattern);
       packageFolder.getFacets().add(new Facet(IFacetConstants.PACKAGE, f.getName()));
       packageFolder.setHasChildrenOfSameFacet(f.isHasChildrenOfSameFacet());
       packageFolder.setUri(uri);
@@ -74,6 +76,7 @@ class SearchFolderLoader {
     if (typeFolderResponse != null) {
       for (var f : typeFolderResponse.getVirtualFolder()) {
         var typeFolder = new SearchObjectFolder(f.getName(), f.getDisplayName(), f.getCounter());
+        typeFolder.setObjectPattern(objectPattern);
         typeFolder.getFacets().add(new Facet(IFacetConstants.PACKAGE, relativePackage.getName()));
         typeFolder.getFacets().add(new Facet(IFacetConstants.TYPE, f.getName()));
         typeFolder.setUri(relativePackage.getUri());

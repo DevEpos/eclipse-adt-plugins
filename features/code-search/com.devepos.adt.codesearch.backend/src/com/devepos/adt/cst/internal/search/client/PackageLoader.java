@@ -47,7 +47,7 @@ class PackageLoader {
   }
 
   private void getSubPackages(AdtPackage pack, ScopeService scopeService) {
-    var subPackageReqParams = scopeService.buildFolderRequestParams(null);
+    var subPackageReqParams = scopeService.buildFolderRequestParams();
     subPackageReqParams.addPreselection(IFacetConstants.PACKAGE, pack.getName());
     subPackageReqParams.setWantedFacets(List.of(IFacetConstants.PACKAGE));
     var subFoldersResponse = scopeService.fetchFolderContent(subPackageReqParams);
@@ -65,7 +65,7 @@ class PackageLoader {
   }
 
   private List<AdtPackage> getRootPackages() {
-    var folderSearchParams = scopeService.buildFolderRequestParams(null);
+    var folderSearchParams = scopeService.buildFolderRequestParams();
     folderSearchParams.setWantedFacets(List.of(IFacetConstants.PACKAGE));
     var packageResponse = scopeService.fetchFolderContent(folderSearchParams);
     List<AdtPackage> packages = new ArrayList<>();

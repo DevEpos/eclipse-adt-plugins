@@ -39,7 +39,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   private final IClientBasedCodeSearchService searchService;
   private final IClientCodeSearchConfig searchConfig;
   private Set<SearchableObject> searchableObjects;
-  private Set<SearchObjectFolder> folderSet;
+  private Set<SearchObjectFolder> folderSet = Collections.synchronizedSet(new HashSet<>());
   private final Set<SearchObjectFolder> tmpBigFolders = Collections
       .synchronizedSet(new HashSet<>());
 
@@ -70,8 +70,6 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
     monitor.beginTask("", 100);
 
-    findFolders(monitor);
-
     var numJobs = CodeSearchUIPlugin.getDefault()
         .getPreferenceStore()
         .getInt(ICodeSearchPrefs.MAX_CLIENT_SEARCH_JOBS);
@@ -79,6 +77,10 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     var executor = Executors.newFixedThreadPool(numJobs);
 
     try {
+      var findFoldersStatus = findFolders(monitor, executor);
+      if (!findFoldersStatus.isOK()) {
+        return findFoldersStatus;
+      }
       var expandBigFoldersStatus = expandBigFolders(monitor, executor);
       if (!expandBigFoldersStatus.isOK()) {
         return expandBigFoldersStatus;
@@ -111,29 +113,42 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
   }
 
-  private void findFolders(final IProgressMonitor monitor) {
+  private IStatus findFolders(final IProgressMonitor monitor, ExecutorService executor)
+      throws InterruptedException, ExecutionException {
     // fetch packages for current scope
     var packageSearchMonitor = monitor.slice(5);
     packageSearchMonitor.beginTask("", 5);
     monitor.setTaskName("Determine Scope...");
-    var folders = searchService.findFolders(packageSearchMonitor, searchConfig);
-    if (folders != null) {
-      folderSet = new HashSet<>(folders);
+    if (searchConfig.getObjectNames().length > 1) {
+      var status = runFindFoldersJob(packageSearchMonitor, executor);
+      if (!status.isOK()) {
+        return status;
+      }
+    } else {
+      var folders = searchService.findFolders(packageSearchMonitor, searchConfig);
+      if (folders != null) {
+        folderSet = new HashSet<>(folders);
+      }
     }
-    // logDeterminedFolders(folders);
-
     packageSearchMonitor.worked(5);
+    return Status.OK_STATUS;
   }
 
-  private IStatus searchObjects(final IProgressMonitor monitor, final ExecutorService executor)
+  private IStatus runFindFoldersJob(final IProgressMonitor monitor, ExecutorService executor)
       throws InterruptedException, ExecutionException {
-    var objectMonitor = monitor.slice(85);
-    objectMonitor.beginTask("", searchableObjects.size());
-    monitor.setTaskName(
-        String.format("Searching %s objects...", DEFAULT_FORMAT.format(searchableObjects.size())));
-    searchResult.setObjectScopeCount(searchableObjects.size());
-    var searchStatus = searchObjects(executor, objectMonitor);
-    return searchStatus;
+    var job = new ParallelJob();
+    for (var objectPattern : searchConfig.getObjectNames()) {
+      job.addTask(executor.submit(() -> {
+        var foundFolders = searchService.findFolders(monitor, searchConfig, objectPattern);
+        if (foundFolders != null) {
+          folderSet.addAll(foundFolders);
+          return Status.OK_STATUS;
+        }
+        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+            String.format("Folder search for pattern %s failed", objectPattern));
+      }));
+    }
+    return job.awaitResult();
   }
 
   private IStatus expandBigFolders(final IProgressMonitor monitor, final ExecutorService executor)
@@ -188,6 +203,33 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     return null;
   }
 
+  private IStatus searchObjects(final IProgressMonitor monitor, final ExecutorService executor)
+      throws InterruptedException, ExecutionException {
+    var objectMonitor = monitor.slice(85);
+    objectMonitor.beginTask("", searchableObjects.size());
+    monitor.setTaskName(
+        String.format("Searching %s objects...", DEFAULT_FORMAT.format(searchableObjects.size())));
+    searchResult.setObjectScopeCount(searchableObjects.size());
+    var searchStatus = runSearchObjectsJob(executor, objectMonitor);
+    return searchStatus;
+  }
+
+  private IStatus runSearchObjectsJob(final ExecutorService executor,
+      final IProgressMonitor monitor) throws InterruptedException, ExecutionException {
+    var objectsCount = searchableObjects.size();
+    var chunks = splitList(new ArrayList<>(searchableObjects),
+        objectsCount > 1000 ? 50 : (objectsCount > 500 ? 20 : 5));
+    var job = new ParallelJob();
+    for (var chunk : chunks) {
+      job.addTask(
+          executor.submit(() -> searchService.searchObjects(monitor, chunk, searchConfig, this)));
+    }
+
+    System.out.printf("%d pending tasks\n", job.size());
+
+    return job.awaitResult();
+  }
+
   private IStatus getObjectsInFolders(final IProgressMonitor monitor,
       final ExecutorService executor) throws InterruptedException, ExecutionException {
 
@@ -210,20 +252,6 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
         return Status.OK_STATUS;
       }));
     }
-
-    return job.awaitResult();
-  }
-
-  private IStatus searchObjects(final ExecutorService executor, final IProgressMonitor monitor)
-      throws InterruptedException, ExecutionException {
-    var chunks = splitList(new ArrayList<>(searchableObjects), 50);
-    var job = new ParallelJob();
-    for (var chunk : chunks) {
-      job.addTask(
-          executor.submit(() -> searchService.searchObjects(monitor, chunk, searchConfig, this)));
-    }
-
-    System.out.printf("%d pending tasks\n", job.size());
 
     return job.awaitResult();
   }

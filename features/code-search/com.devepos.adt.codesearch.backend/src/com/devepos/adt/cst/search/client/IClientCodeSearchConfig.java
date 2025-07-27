@@ -51,8 +51,6 @@ public interface IClientCodeSearchConfig {
 
   String getObjectName();
 
-  void setObjectName(String objectName);
-
   Map<String, List<String>> getFacets();
 
   void setFacets(Map<String, List<String>> facets);
@@ -64,5 +62,9 @@ public interface IClientCodeSearchConfig {
   int getFugrIncludeFlags();
 
   int getClassIncludeFlags();
+
+  void setObjectNames(String objectNames);
+
+  String[] getObjectNames();
 
 }

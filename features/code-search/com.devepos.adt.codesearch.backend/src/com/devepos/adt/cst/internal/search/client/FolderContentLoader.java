@@ -20,12 +20,19 @@ public class FolderContentLoader {
   }
 
   public List<SearchableObject> run(final SearchObjectFolder folder) {
-    var folderSearchParams = scopeService.buildFolderRequestParams(
-        folder.getFacets().stream().map(Facet::getType).collect(Collectors.toList()));
-    folder.getFacets()
-        .forEach(facet -> folderSearchParams.addPreselection(facet.getType(), facet.getName()));
+    return run(folder, folder.getObjectPattern());
+  }
 
-    var objectResponse = scopeService.fetchFolderContent(folderSearchParams);
+  public List<SearchableObject> run(final SearchObjectFolder folder, final String objectPattern) {
+    var objectSearchParams = scopeService.buildFolderRequestParams(
+        folder.getFacets().stream().map(Facet::getType).collect(Collectors.toList()));
+    if (objectPattern != null) {
+      objectSearchParams.setObjectSearchPattern(objectPattern);
+    }
+    folder.getFacets()
+        .forEach(facet -> objectSearchParams.addPreselection(facet.getType(), facet.getName()));
+
+    var objectResponse = scopeService.fetchFolderContent(objectSearchParams);
     if (objectResponse != null) {
       List<SearchableObject> searchableObjects = new ArrayList<>();
       for (var o : objectResponse.getObject()) {

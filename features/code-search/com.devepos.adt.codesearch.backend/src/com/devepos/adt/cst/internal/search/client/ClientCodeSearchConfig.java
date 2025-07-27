@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 
 public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
@@ -21,7 +22,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
 
   private boolean readPackageHierarchy;
 
-  private String objectName;
+  private String[] objectNames;
   private List<String> patterns;
   private Map<String, List<String>> facets;
 
@@ -34,7 +35,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setIgnoreCaseCheck(boolean ignoreCaseCheck) {
+  public void setIgnoreCaseCheck(final boolean ignoreCaseCheck) {
     this.ignoreCaseCheck = ignoreCaseCheck;
   }
 
@@ -44,7 +45,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setIgnoreCommentLines(boolean ignoreCommentLines) {
+  public void setIgnoreCommentLines(final boolean ignoreCommentLines) {
     this.ignoreCommentLines = ignoreCommentLines;
   }
 
@@ -54,7 +55,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setMatchAllPatterns(boolean matchAllPatterns) {
+  public void setMatchAllPatterns(final boolean matchAllPatterns) {
     this.matchAllPatterns = matchAllPatterns;
   }
 
@@ -64,7 +65,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setSequentialMatching(boolean sequentialMatching) {
+  public void setSequentialMatching(final boolean sequentialMatching) {
     this.sequentialMatching = sequentialMatching;
   }
 
@@ -74,7 +75,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setMultilineSearchOption(boolean multilineSearchOption) {
+  public void setMultilineSearchOption(final boolean multilineSearchOption) {
     this.multilineSearchOption = multilineSearchOption;
   }
 
@@ -84,7 +85,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setExpandProgIncludes(boolean expandProgIncludes) {
+  public void setExpandProgIncludes(final boolean expandProgIncludes) {
     this.expandProgIncludes = expandProgIncludes;
   }
 
@@ -94,7 +95,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setExpandTableIncludes(boolean expandTableIncludes) {
+  public void setExpandTableIncludes(final boolean expandTableIncludes) {
     this.expandTableIncludes = expandTableIncludes;
   }
 
@@ -104,7 +105,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setReadPackageHierarchy(boolean readPackageHierarchy) {
+  public void setReadPackageHierarchy(final boolean readPackageHierarchy) {
     this.readPackageHierarchy = readPackageHierarchy;
   }
 
@@ -114,7 +115,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setSinglePattern(boolean singlePattern) {
+  public void setSinglePattern(final boolean singlePattern) {
     this.singlePattern = singlePattern;
   }
 
@@ -124,18 +125,13 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setUseRegExp(boolean useRegExp) {
+  public void setUseRegExp(final boolean useRegExp) {
     this.useRegExp = useRegExp;
   }
 
   @Override
   public String getObjectName() {
-    return objectName;
-  }
-
-  @Override
-  public void setObjectName(String objectName) {
-    this.objectName = objectName;
+    return objectNames.length == 1 ? objectNames[0] : null;
   }
 
   @Override
@@ -144,7 +140,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setFacets(Map<String, List<String>> facets) {
+  public void setFacets(final Map<String, List<String>> facets) {
     this.facets = facets;
   }
 
@@ -154,7 +150,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setPatterns(List<String> patterns) {
+  public void setPatterns(final List<String> patterns) {
     this.patterns = new ArrayList<>();
     for (var p : patterns) {
       this.patterns.add(p.replaceAll("\r\n", "\n"));
@@ -162,7 +158,7 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setClassIncludeFlags(int includeFlags) {
+  public void setClassIncludeFlags(final int includeFlags) {
     classIncludeFlags = includeFlags;
   }
 
@@ -172,12 +168,22 @@ public class ClientCodeSearchConfig implements IClientCodeSearchConfig {
   }
 
   @Override
-  public void setFugrIncludeFlags(int includeFlags) {
+  public void setFugrIncludeFlags(final int includeFlags) {
     fugrIncludeFlags = includeFlags;
   }
 
   @Override
   public int getFugrIncludeFlags() {
     return fugrIncludeFlags;
+  }
+
+  @Override
+  public void setObjectNames(final String objectNames) {
+    this.objectNames = !StringUtil.isBlank(objectNames) ? objectNames.split(" ") : new String[0];
+  }
+
+  @Override
+  public String[] getObjectNames() {
+    return objectNames;
   }
 }

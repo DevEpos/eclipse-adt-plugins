@@ -22,15 +22,15 @@ public interface IClientBasedCodeSearchService {
   List<SearchObjectFolder> findFolders(IProgressMonitor monitor, IClientCodeSearchConfig config);
 
   /**
-   * Find matches in ABAP Code
-   *
-   * @param monitor      the progress monitor
-   * @param folders      the package that should be searched
-   * @param searchConfig search configuration
-   * @param reporter     result reporter
+   * Loads all packages relevant for the given config and object pattern
+   * 
+   * @param monitor       the progress monitor
+   * @param config        search configuration
+   * @param objectPattern the object pattern to be used
+   * @return the found packages
    */
-  IStatus searchFolders(IProgressMonitor monitor, List<SearchObjectFolder> folders,
-      IClientCodeSearchConfig searchConfig, ISearchResultReporter reporter);
+  List<SearchObjectFolder> findFolders(IProgressMonitor monitor, IClientCodeSearchConfig config,
+      String objectPattern);
 
   /**
    * Find matches in ABAP Code

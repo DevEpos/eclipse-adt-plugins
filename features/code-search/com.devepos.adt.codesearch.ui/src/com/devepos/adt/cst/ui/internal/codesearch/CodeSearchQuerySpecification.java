@@ -125,9 +125,7 @@ public class CodeSearchQuerySpecification {
           .filter(pattern -> !pattern.isBlank())
           .collect(Collectors.toList()));
     }
-    if (!StringUtil.isBlank(objectNames)) {
-      config.setObjectName(objectNames.split(" ")[0]);
-    }
+    config.setObjectNames(objectNames);
     Map<String, List<String>> facetFilterMap = new HashMap<>();
 
     getObjectScopeFilters().entrySet().forEach(entry -> {

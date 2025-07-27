@@ -13,6 +13,7 @@ public class SearchObjectFolder {
   private final String displayName;
   private final String name;
   private String facet;
+  private String objectPattern;
   private String packageName;
   private List<Facet> facets;
   private final int objectCount;
@@ -26,6 +27,14 @@ public class SearchObjectFolder {
     this.objectCount = objectCount;
     this.name = name;
     this.displayName = displayName;
+  }
+
+  public String getObjectPattern() {
+    return objectPattern;
+  }
+
+  public void setObjectPattern(final String objectPattern) {
+    this.objectPattern = objectPattern;
   }
 
   public String getUri() {
@@ -81,11 +90,11 @@ public class SearchObjectFolder {
 
   @Override
   public int hashCode() {
-    return Objects.hash(packageName, facet, name);
+    return Objects.hash(packageName, facet, name, objectPattern);
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (obj == this) {
       return true;
     }
@@ -94,7 +103,7 @@ public class SearchObjectFolder {
     }
     var other = (SearchObjectFolder) obj;
     return Objects.equals(packageName, other.packageName) && Objects.equals(facet, other.facet)
-        && Objects.equals(name, other.name);
+        && Objects.equals(name, other.name) && Objects.equals(objectPattern, other.objectPattern);
   }
 
 }
