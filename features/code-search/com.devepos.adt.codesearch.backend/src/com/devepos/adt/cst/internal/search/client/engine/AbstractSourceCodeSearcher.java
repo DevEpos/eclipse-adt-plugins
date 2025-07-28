@@ -109,6 +109,7 @@ public class AbstractSourceCodeSearcher {
     var off = startLine.offset();
     var len = endLine.offset() + endLine.length() - startLine.offset();
     var range = val.substring(off, off + len);
+    // REVISIT: use .region() to restrict matcher instead of creating a substring
     return rangeCommentPattern.matcher(range).matches();
   }
 
@@ -119,6 +120,7 @@ public class AbstractSourceCodeSearcher {
     var pattern = COMMENT_PATTERNS.get(commentRegex);
     if (pattern == null) {
       pattern = Pattern.compile(commentRegex);
+      COMMENT_PATTERNS.put(commentRegex, commentPattern);
     }
     return pattern;
   }
