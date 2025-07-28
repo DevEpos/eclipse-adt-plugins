@@ -67,6 +67,7 @@ import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog;
+import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.export.ExportSearchResultsDialog;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -647,7 +648,8 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
     if (query == null) {
       return;
     }
-    groupByPackageAction.setEnabled(query.getQuerySpecs().isReadPackageHierarchy());
+    groupByPackageAction.setEnabled(
+        query instanceof CodeSearchQuery || query.getQuerySpecs().isReadPackageHierarchy());
   }
 
 }
