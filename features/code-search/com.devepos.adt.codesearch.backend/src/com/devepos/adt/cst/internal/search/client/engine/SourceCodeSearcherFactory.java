@@ -18,8 +18,13 @@ public class SourceCodeSearcherFactory {
 
       @Override
       public ISourceCodeSearcher createSearcher(ISourceCode sourceCode) {
-        return new StandardSourceCodeSearcher(matchers, sourceCode, config.isIgnoreCommentLines(),
-            config.isMatchAllPatterns());
+        if (config.isSequentialMatching()) {
+          return new SequentialSourceCodeSearcher(matchers, sourceCode,
+              config.isIgnoreCommentLines());
+        } else {
+          return new StandardSourceCodeSearcher(matchers, sourceCode, config.isIgnoreCommentLines(),
+              config.isMatchAllPatterns());
+        }
       }
     };
   }

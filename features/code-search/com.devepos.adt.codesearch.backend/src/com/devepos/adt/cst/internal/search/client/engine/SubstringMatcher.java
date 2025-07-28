@@ -41,7 +41,21 @@ public class SubstringMatcher implements IPatternMatcher {
 
   @Override
   public RawMatch findNextMatch(String[] source, int startLine, int offset) {
-    throw new UnsupportedOperationException();
+    for (int i = startLine; i < source.length; i++) {
+      var line = source[i];
+      if (i == startLine) {
+        line = line.substring(offset);
+      }
+      if (ignoreCase) {
+        line = line.toLowerCase();
+      }
+
+      var index = line.indexOf(pattern);
+      if (index != -1) {
+        return new RawMatch(i, i == startLine ? index + offset : index, patternLength);
+      }
+    }
+    return null;
   }
 
 }

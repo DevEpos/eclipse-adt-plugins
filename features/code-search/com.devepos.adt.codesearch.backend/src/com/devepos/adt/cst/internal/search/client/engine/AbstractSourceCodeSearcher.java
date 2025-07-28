@@ -13,7 +13,7 @@ public class AbstractSourceCodeSearcher {
       .synchronizedMap(new HashMap<>());
   protected List<IPatternMatcher> matchers;
   protected final ISourceCode sourceCode;
-  private boolean ignoreCommentLines;
+  protected boolean ignoreCommentLines;
   private Pattern commentPattern;
   private Pattern rangeCommentPattern;
 
