@@ -145,8 +145,8 @@ public class AbapClassSearchProvider implements ISearchProvider {
         });
         result.getSearchObjects().add(searchObject);
         result.setNumberOfResults(matches.size());
-        result.setLinesOfSearchedCode(code.lineCount());
       }
+      result.setLinesOfSearchedCode(code.lineCount());
     } catch (Exception exc) {
       if (exc instanceof ResourceNotFoundException && ClassInclude.TESTS.equals(include)) {
         return;
@@ -205,8 +205,8 @@ public class AbapClassSearchProvider implements ISearchProvider {
 
       result.getSearchObjects().add(searchObject);
       result.setNumberOfResults(result.getNumberOfResults() + matches.size());
-      result.setLinesOfSearchedCode(result.getLinesOfSearchedCode() + sectionCode.lineCount());
     }
+    result.setLinesOfSearchedCode(result.getLinesOfSearchedCode() + sectionCode.lineCount());
   }
 
   /*
