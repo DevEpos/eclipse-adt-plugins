@@ -11,6 +11,7 @@
         <module>com.devepos.adt.codesearch.ui</module>
         <module>com.devepos.adt.codesearch.doc</module>
         <module>com.devepos.adt.codesearch.feature</module>
+        <module>tests</module>
     </modules>
     <parent>
         <artifactId>com.devepos.adt.parent</artifactId>

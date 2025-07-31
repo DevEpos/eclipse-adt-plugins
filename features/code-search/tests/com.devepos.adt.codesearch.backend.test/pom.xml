@@ -1,0 +1,26 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>com.devepos.adt.codesearch.backend.test</artifactId>
+    <name>com.devepos.adt.codesearch.backend.test</name>
+    <packaging>eclipse-test-plugin</packaging>
+
+    <parent>
+        <artifactId>com.devepos.adt.codesearch.tests</artifactId>
+        <groupId>com.devepos.adt</groupId>
+        <version>1.12.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-surefire-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <application>org.eclipse.pde.junit.runtime.nonuithreadtestapplication</application>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

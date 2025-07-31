@@ -7,10 +7,12 @@ public class StandardSourceCodeSearcher extends AbstractSourceCodeSearcher
     implements ISourceCodeSearcher {
 
   private final boolean matchAll;
+  private final List<IPatternMatcher> matchers;
 
   public StandardSourceCodeSearcher(final List<IPatternMatcher> matchers,
       final ISourceCode sourceCode, final boolean ignoreCommentLines, final boolean matchAll) {
-    super(matchers, sourceCode, ignoreCommentLines);
+    super(sourceCode, ignoreCommentLines);
+    this.matchers = matchers;
     this.matchAll = matchAll;
   }
 

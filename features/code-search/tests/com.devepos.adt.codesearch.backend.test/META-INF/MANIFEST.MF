@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests for ADT Codesearch Backend Plugin
+Bundle-SymbolicName: com.devepos.adt.codesearch.backend.test
+Bundle-Version: 1.12.1.qualifier
+Bundle-Vendor: DevEpos
+Fragment-Host: com.devepos.adt.codesearch.backend
+Automatic-Module-Name: com.devepos.adt.codesearch.backend.test
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.junit,
+ org.junit.jupiter.api

@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.devepos.adt</groupId>
+    <artifactId>com.devepos.adt.codesearch.tests</artifactId>
+    <name>com.devepos.adt.codesearch.tests</name>
+    <packaging>pom</packaging>
+
+    <parent>
+        <artifactId>com.devepos.adt.codesearch.parent</artifactId>
+        <groupId>com.devepos.adt</groupId>
+        <version>1.12.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <modules>
+        <module>com.devepos.adt.codesearch.backend.test</module>
+    </modules>
+</project>

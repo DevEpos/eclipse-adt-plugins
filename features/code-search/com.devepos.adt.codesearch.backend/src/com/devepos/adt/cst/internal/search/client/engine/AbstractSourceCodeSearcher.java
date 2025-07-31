@@ -11,15 +11,13 @@ public class AbstractSourceCodeSearcher {
 
   private static final Map<String, Pattern> COMMENT_PATTERNS = Collections
       .synchronizedMap(new HashMap<>());
-  protected List<IPatternMatcher> matchers;
   protected final ISourceCode sourceCode;
   protected boolean ignoreCommentLines;
   private Pattern commentPattern;
   private Pattern rangeCommentPattern;
 
-  protected AbstractSourceCodeSearcher(final List<IPatternMatcher> matchers,
-      final ISourceCode sourceCode, final boolean ignoreCommentLines) {
-    this.matchers = matchers;
+  protected AbstractSourceCodeSearcher(final ISourceCode sourceCode,
+      final boolean ignoreCommentLines) {
     this.sourceCode = sourceCode;
     var commentRegex = sourceCode.commentRegex();
     if (ignoreCommentLines && commentRegex != null) {

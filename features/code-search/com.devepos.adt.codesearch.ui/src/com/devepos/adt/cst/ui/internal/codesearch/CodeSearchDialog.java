@@ -591,9 +591,13 @@ public class CodeSearchDialog extends DialogPage
     var validationStatusAtom = new AtomicReference<>(Status.OK_STATUS);
 
     try {
+      var patternValidator = CodeSearchFactory.getPatternValidator(projectProvider.getProject());
       PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
-        validationStatusAtom.set(CodeSearchFactory.getPatternValidator(projectProvider.getProject())
-            .validatePatternsByProject(querySpecs.getPatternForValidationCall(), uriParams));
+        validationStatusAtom.set(clientSearchTargeted
+            ? patternValidator.validatePatternsForClient(querySpecs.getPatternForValidationCall(),
+                uriParams)
+            : patternValidator.validatePatternsForBackend(querySpecs.getPatternForValidationCall(),
+                uriParams));
       });
     } catch (InvocationTargetException e) {
       e.printStackTrace();

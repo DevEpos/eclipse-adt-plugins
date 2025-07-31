@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 
 import com.devepos.adt.base.destinations.DestinationUtil;
@@ -14,6 +13,8 @@ import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.internal.search.client.engine.IPatternMatcher;
 import com.devepos.adt.cst.internal.search.client.engine.MatcherFactory;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.StaticError;
 import com.devepos.adt.cst.internal.search.client.engine.SearchProviderFactory;
 import com.devepos.adt.cst.internal.search.client.engine.SourceCodeReaderFactory;
 import com.devepos.adt.cst.internal.search.client.engine.SourceCodeSearcherFactory;
@@ -25,6 +26,7 @@ import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 
 public class ClientCodeSearchService implements IClientBasedCodeSearchService {
@@ -76,8 +78,18 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         .createStatelessSession(destinationId);
     // create matchers
     List<IPatternMatcher> matchers = new ArrayList<>();
-    for (var pattern : searchConfig.getPatterns()) {
-      matchers.add(MatcherFactory.createMatcher(pattern, searchConfig.isIgnoreCaseCheck()));
+    if (searchConfig.isSequentialMatching()) {
+      try {
+        PatternUtil.parsePatternSequence(searchConfig.getPatterns())
+            .forEach(p -> matchers.add(MatcherFactory.createMatcher(p.pattern(),
+                searchConfig.isUseRegExp(), searchConfig.isIgnoreCaseCheck(), p.flags())));
+      } catch (StaticError e) {
+        return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, e.getMessage(), e);
+      }
+    } else {
+      searchConfig.getPatterns()
+          .forEach(p -> matchers.add(MatcherFactory.createMatcher(p,
+              searchConfig.isIgnoreCaseCheck(), searchConfig.isUseRegExp(), 0)));
     }
 
     var searcherFactory = SourceCodeSearcherFactory.createFactory(matchers, searchConfig);
@@ -98,10 +110,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
           }
         }
         reporter.notify(result);
-      } catch (Exception exc) {
-        if (exc instanceof OperationCanceledException) {
-          throw exc;
-        }
+      } catch (ResourceException exc) {
         CodeSearchPlugin.getDefault()
             .getLog()
             .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,

@@ -3,6 +3,11 @@ package com.devepos.adt.cst.internal.search.client.engine;
 import java.util.List;
 
 public interface IPatternMatcher {
+  /**
+   * @return the control flags for this matcher
+   */
+  int getControlFlags();
+
   List<RawMatch> findMatches(String[] source);
 
   List<RawMatch> findMatchesInRange(String[] source, int startLine, int offset, int endLine,

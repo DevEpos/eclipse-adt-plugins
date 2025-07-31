@@ -1,6 +1,9 @@
 package com.devepos.adt.cst.internal.search;
 
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -12,18 +15,19 @@ import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.StaticError;
 import com.devepos.adt.cst.search.ICodeSearchPatternValidator;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IQueryParameter;
 import com.sap.adt.communication.resources.QueryParameter;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
-import com.sap.adt.communication.session.ISystemSession;
 
 public class CodeSearchPatternValidator implements ICodeSearchPatternValidator {
 
   private final String destinationId;
-  private boolean isCloudProject;
+  private final boolean isCloudProject;
 
   public CodeSearchPatternValidator(final IProject project) {
     destinationId = DestinationUtil.getDestinationId(project);
@@ -38,13 +42,49 @@ public class CodeSearchPatternValidator implements ICodeSearchPatternValidator {
   }
 
   @Override
-  public IStatus validatePatternsForClient(String patterns, Map<String, String> uriParameters) {
-    // TODO Auto-generated method stub
+  public IStatus validatePatternsForClient(final String patterns,
+      final Map<String, String> uriParameters) {
+    var isSeqMatching = uriParameters.containsKey("seqMatching");
+    var useRegex = uriParameters.containsKey("useRegex");
+
+    if (!useRegex && !isSeqMatching) {
+      return Status.OK_STATUS;
+    }
+
+    var patternList = patterns.split(patterns.contains("\r\n") ? "\r\n" : "\n");
+    if (isSeqMatching) {
+      try {
+        var sequentialPatterns = PatternUtil.parsePatternSequence(List.of(patternList));
+        if (useRegex) {
+          for (var p : sequentialPatterns) {
+            try {
+              Pattern.compile(p.pattern());
+            } catch (PatternSyntaxException e) {
+              throw new StaticError(
+                  String.format("Invalid pattern '%s': %s", p.pattern(), e.getMessage()));
+            }
+          }
+        }
+      } catch (StaticError e) {
+        return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, e.getMessage(), e);
+      }
+    } else {
+      for (var p : patternList) {
+        try {
+          Pattern.compile(p);
+        } catch (PatternSyntaxException e) {
+          return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+              String.format("Invalid pattern '%s': %s", p, e.getMessage()));
+        }
+      }
+
+    }
     return Status.OK_STATUS;
   }
 
   @Override
-  public IStatus validatePatternsForBackend(String patterns, Map<String, String> uriParameters) {
+  public IStatus validatePatternsForBackend(final String patterns,
+      final Map<String, String> uriParameters) {
     if (patterns == null || StringUtil.isBlank(patterns)) {
       throw new IllegalArgumentException("Parameter 'patterns' must not be empty or null");
     }
@@ -53,7 +93,7 @@ public class CodeSearchPatternValidator implements ICodeSearchPatternValidator {
     if (settingsUri == null) {
       return null;
     }
-    final ISystemSession session = AdtSystemSessionFactory.createSystemSessionFactory()
+    final var session = AdtSystemSessionFactory.createSystemSessionFactory()
         .createStatelessSession(destinationId);
 
     final var restResource = AdtRestResourceFactory.createRestResourceFactory()

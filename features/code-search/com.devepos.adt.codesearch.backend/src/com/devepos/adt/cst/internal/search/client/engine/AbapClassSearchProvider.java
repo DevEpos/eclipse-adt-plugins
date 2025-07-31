@@ -17,6 +17,7 @@ import com.devepos.adt.cst.search.ClassInclude;
 import com.devepos.adt.cst.search.IIncludeToSearch;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
 public class AbapClassSearchProvider implements ISearchProvider {
@@ -83,6 +84,8 @@ public class AbapClassSearchProvider implements ISearchProvider {
       result.getSearchObjects().add(0, searchObject);
     }
     result.setNumberOfSearchedObjects(1);
+
+    System.out.println("-----------------------------------------------------");
     return result;
   }
 
@@ -108,7 +111,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
           isMethods).forEach(section -> {
             try {
               searchMainIncludeSection(object, section, main, codeLines, searcherFactory, result);
-            } catch (Exception exc) {
+            } catch (ResourceException exc) {
               exc.printStackTrace();
             }
             result.setNumberOfSearchedSources(result.getNumberOfSearchedSources() + 1);
@@ -147,7 +150,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
         result.setNumberOfResults(matches.size());
       }
       result.setLinesOfSearchedCode(code.lineCount());
-    } catch (Exception exc) {
+    } catch (ResourceException exc) {
       if (exc instanceof ResourceNotFoundException && ClassInclude.TESTS.equals(include)) {
         return;
       }

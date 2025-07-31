@@ -14,13 +14,17 @@ public class SourceCodeSearcherFactory {
    */
   public static ISourceCodeSearcherFactory createFactory(List<IPatternMatcher> matchers,
       IClientCodeSearchConfig config) {
+    final var containsControlFlags = matchers.stream().anyMatch(m -> m.getControlFlags() > 0);
     return new ISourceCodeSearcherFactory() {
 
       @Override
       public ISourceCodeSearcher createSearcher(ISourceCode sourceCode) {
         if (config.isSequentialMatching()) {
-          return new SequentialSourceCodeSearcher(matchers, sourceCode,
-              config.isIgnoreCommentLines());
+          return containsControlFlags
+              ? new ExtendedSequentialSourceCodeSearcher(matchers, sourceCode,
+                  config.isIgnoreCommentLines())
+              : new SequentialSourceCodeSearcher(matchers, sourceCode,
+                  config.isIgnoreCommentLines());
         } else {
           return new StandardSourceCodeSearcher(matchers, sourceCode, config.isIgnoreCommentLines(),
               config.isMatchAllPatterns());

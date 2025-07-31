@@ -2,6 +2,7 @@ package com.devepos.adt.cst.internal.search.client.engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
  * Sequential Source Code Searcher
@@ -13,12 +14,13 @@ import java.util.List;
 public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
     implements ISourceCodeSearcher {
 
-  private boolean hasMoreMatches;
-  private int currentLineOffset;
-  private int currentColOffset;
-  private RawMatch currentMatch;
-  private RawMatch matchStart;
-  private RawMatch matchEnd;
+  protected boolean hasMoreMatches;
+  protected int currentLineOffset;
+  protected int currentColOffset;
+  protected RawMatch currentMatch;
+  protected RawMatch matchStart;
+  protected RawMatch matchEnd;
+  protected List<IPatternMatcher> matchers;
 
   /**
    * Constructor
@@ -29,7 +31,9 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
    */
   public SequentialSourceCodeSearcher(final List<IPatternMatcher> matchers,
       final ISourceCode sourceCode, final boolean ignoreCommentLines) {
-    super(matchers, sourceCode, ignoreCommentLines);
+    super(sourceCode, ignoreCommentLines);
+    this.matchers = matchers;
+
   }
 
   /**
@@ -56,26 +60,17 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
     return result;
   }
 
-  private void findNextFullMatch(final List<Match> matches) {
-    var i = 0;
-
-    for (var matcher : matchers) {
-      i++;
-      var match = findNextPartialMatch(matcher);
-      if (!hasMoreMatches) {
-        return;
-      }
-
-      if (i == 1) {
-        matchStart = match;
-      }
-    }
-
-    matchEnd = currentMatch;
-    collectSequentialMatch(matches);
+  protected void setCurrentOffsets(final int col, final int line) {
+    currentColOffset = col;
+    currentLineOffset = line;
   }
 
-  private RawMatch findNextPartialMatch(final IPatternMatcher matcher) {
+  protected RawMatch findNextPartialMatch(final IPatternMatcher matcher) {
+    return findNextPartialMatch(matcher, null);
+  }
+
+  protected RawMatch findNextPartialMatch(final IPatternMatcher matcher,
+      final BiConsumer<Integer, Integer> offsetWriter) {
     RawMatch match = null;
 
     try {
@@ -97,20 +92,23 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
       var recursiveMatch = findNextPartialMatch(matcher);
       if (recursiveMatch == null) {
         hasMoreMatches = false;
+        if (offsetWriter != null) {
+          offsetWriter.accept(0, 0);
+        }
         return null;
       }
 
       return recursiveMatch;
     }
 
-    currentLineOffset = match.line();
-    currentColOffset = match.offset() + match.length();
-    currentMatch = match;
+    if (offsetWriter != null) {
+      offsetWriter.accept(match.offset() + match.length(), match.line());
+    }
 
     return match;
   }
 
-  private void collectSequentialMatch(final List<Match> matches) {
+  protected void collectSequentialMatch(final List<Match> matches) {
     if (matchStart == null || matchEnd == null) {
       return;
     }
@@ -121,6 +119,25 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
         getLongSnippet(matchStart, matchEnd, snippet));
 
     matches.add(seqMatch);
+  }
+
+  private void findNextFullMatch(final List<Match> matches) {
+    var i = 0;
+
+    for (var matcher : matchers) {
+      i++;
+      var match = findNextPartialMatch(matcher);
+      if (!hasMoreMatches) {
+        return;
+      }
+
+      if (i == 1) {
+        matchStart = match;
+      }
+    }
+
+    matchEnd = currentMatch;
+    collectSequentialMatch(matches);
   }
 
   private String getLongSnippet(final RawMatch start, final RawMatch end, final String snippet) {
@@ -137,4 +154,5 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
     }
     return longSnippet.toString();
   }
+
 }
