@@ -100,6 +100,9 @@ public class FugrSearchProvider implements ISearchProvider {
     }
 
     for (var subObject : subObjects) {
+      if (monitor.isCanceled()) {
+        return;
+      }
       try {
         var sourceUri = subObject.getUri() + ISourceCodeReader.MAIN_SOURCE_PATH;
         var code = srcCodeReader.getSourceCode(sourceUri);
