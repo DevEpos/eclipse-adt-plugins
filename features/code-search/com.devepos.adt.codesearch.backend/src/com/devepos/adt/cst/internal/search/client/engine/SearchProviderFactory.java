@@ -1,45 +1,31 @@
 package com.devepos.adt.cst.internal.search.client.engine;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 
 public class SearchProviderFactory {
-  private static final Map<String, ISearchProvider> PROVIDERS = Collections
-      .synchronizedMap(new HashMap<>());
   private static final String STRING_SRC_PROVIDER_TYPE = "$STRSRC";
 
-  public static ISearchProvider getProvider(final String type,
-      final IClientCodeSearchConfig config) {
+  public static ISearchProvider createProvider(final String type,
+      final IClientCodeSearchConfig config, IProgressMonitor monitor, String destinationId) {
     var mappedType = mapType(type);
 
-    return createProvider(mappedType, config);
-    // var provider = PROVIDERS.get(mappedType);
-    // if (provider == null) {
-    // provider = createProvider(mappedType, config);
-    // PROVIDERS.put(mappedType, provider);
-    // }
-    // return provider;
-  }
-
-  private static ISearchProvider createProvider(final String mappedType,
-      final IClientCodeSearchConfig config) {
     switch (mappedType) {
     case IAdtObjectTypeConstants.CLASS:
       return new AbapClassSearchProvider(config);
+    case IAdtObjectTypeConstants.FUNCTION_GROUP:
+      return new FugrSearchProvider(config, monitor, destinationId);
     default:
       return new StringSourceSearchProvider();
     }
-    // return new StringSourceSearchProvider();
   }
 
   private static String mapType(final String type) {
-    // return STRING_SRC_PROVIDER_TYPE;
     switch (type) {
     case IAdtObjectTypeConstants.CLASS:
+    case IAdtObjectTypeConstants.FUNCTION_GROUP:
       return type;
     default:
       return STRING_SRC_PROVIDER_TYPE;

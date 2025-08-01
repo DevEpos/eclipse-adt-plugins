@@ -86,8 +86,8 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
       }
     } else {
       searchConfig.getPatterns()
-          .forEach(p -> matchers.add(MatcherFactory.createMatcher(p,
-              searchConfig.isIgnoreCaseCheck(), searchConfig.isUseRegExp(), 0)));
+          .forEach(p -> matchers.add(MatcherFactory.createMatcher(p, searchConfig.isUseRegExp(),
+              searchConfig.isIgnoreCaseCheck(), 0)));
     }
 
     var searcherFactory = SourceCodeSearcherFactory.createFactory(matchers, searchConfig);
@@ -97,12 +97,13 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         return Status.CANCEL_STATUS;
       }
       try {
-        var sourceCodeProvider = SearchProviderFactory.getProvider(o.getType(), searchConfig);
+        var sourceCodeProvider = SearchProviderFactory.createProvider(o.getType(), searchConfig,
+            monitor, destinationId);
         var sourceCodeReader = SourceCodeReaderFactory.getReader(o.getType(), session, monitor,
             searchConfig.isMultilineSearchOption());
 
         var result = sourceCodeProvider.search(o, sourceCodeReader, searcherFactory);
-        if ((result.getNumberOfResults() > 0) && searchConfig.isReadPackageHierarchy()) {
+        if (result.getNumberOfResults() > 0 && searchConfig.isReadPackageHierarchy()) {
           addPackagesForObject(o, result, result.getSearchObjects().get(0), monitor);
         }
         reporter.notify(result);
@@ -132,7 +133,6 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
       var packageAdtObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
       packageAdtObj.setUri(pack.getUri());
       packageAdtObj.setName(pack.getName());
-      packageAdtObj.setDescription(pack.getDisplayName());
       packageAdtObj.setType(pack.getType());
       packageObj.setAdtMainObject(packageAdtObj);
       packageObj.setParentUri(previousPackURI);
