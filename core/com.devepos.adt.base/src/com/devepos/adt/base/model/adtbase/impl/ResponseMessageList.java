@@ -180,7 +180,8 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container
         occurrenceIndicator = String.format(Messages.ResponseMessageList_MessageMultiplierText_xmsg,
             m.getOccurrences());
       }
-      return new Status(m.getStatusType(), pluginId, m.getContent() + occurrenceIndicator);
+      return new Status(m.getStatusType(), pluginId, m.getContent() + occurrenceIndicator,
+          m.getExeption());
     }).toArray(IStatus[]::new), message, null);
   }
 

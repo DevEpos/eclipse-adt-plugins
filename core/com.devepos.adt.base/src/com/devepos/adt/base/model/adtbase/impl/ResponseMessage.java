@@ -99,6 +99,8 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    */
   protected int occurrences = OCCURRENCES_EDEFAULT;
 
+  private Throwable exception;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -260,6 +262,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    *
    * @generated
    */
+  @Override
   public void setContent(final String newContent) {
     var oldContent = content;
     content = newContent;
@@ -275,6 +278,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    *
    * @generated
    */
+  @Override
   public void setOccurrences(final int newOccurrences) {
     var oldOccurrences = occurrences;
     occurrences = newOccurrences;
@@ -290,6 +294,7 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
    *
    * @generated
    */
+  @Override
   public void setType(final MessageType newType) {
     var oldType = type;
     type = newType == null ? TYPE_EDEFAULT : newType;
@@ -331,6 +336,16 @@ public class ResponseMessage extends MinimalEObjectImpl.Container implements IRe
   @Override
   protected EClass eStaticClass() {
     return IAdtBasePackage.Literals.RESPONSE_MESSAGE;
+  }
+
+  @Override
+  public Throwable getExeption() {
+    return exception;
+  }
+
+  @Override
+  public void setException(final Throwable exception) {
+    this.exception = exception;
   }
 
 } // ResponseMessage
