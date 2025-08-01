@@ -5,7 +5,9 @@ package com.devepos.adt.cst.model.codesearch;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
 import com.devepos.adt.base.model.adtbase.IResponseMessageList;
+import com.devepos.adt.base.model.adtbase.MessageType;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,6 +39,21 @@ import com.devepos.adt.base.model.adtbase.IResponseMessageList;
  * @generated
  */
 public interface ICodeSearchResult extends EObject {
+
+  void increaseNumberOfSearchedSources(int n);
+
+  void increaseNumberOfSearchedObjects(int n);
+
+  void increaseNumberOfResults(int n);
+
+  void increaseLinesSearchedCode(int n);
+
+  void addResponseMessage(IResponseMessage message);
+
+  void addResponseMessage(String content, int occurence, MessageType type, Throwable exception);
+
+  void addResponseMessage(String content, MessageType type, Throwable exception);
+
   /**
    * Returns the value of the '<em><b>Search Objects</b></em>' containment reference list.
    * The list contents are of type {@link com.devepos.adt.cst.model.codesearch.ICodeSearchObject}.

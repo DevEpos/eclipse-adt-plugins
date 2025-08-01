@@ -5,12 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.cst.internal.CodeSearchPlugin;
+import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.ClassInclude;
@@ -47,6 +44,14 @@ public class AbapClassSearchProvider implements ISearchProvider {
       String name) {
   }
 
+  private static final class ClassSectionException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    public ClassSectionException(final String message) {
+      super(message);
+    }
+  }
+
   public AbapClassSearchProvider(final IClientCodeSearchConfig config) {
     this.config = config;
   }
@@ -74,18 +79,9 @@ public class AbapClassSearchProvider implements ISearchProvider {
     }
 
     if (!result.getSearchObjects().isEmpty()) {
-      var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
-      searchObject.setUri(object.getUri());
-      var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-      adtMainObj.setType(object.getType());
-      adtMainObj.setName(object.getName());
-      adtMainObj.setUri(object.getUri());
-      searchObject.setAdtMainObject(adtMainObj);
-      result.getSearchObjects().add(0, searchObject);
+      insertClassResultObject(object, result);
     }
     result.setNumberOfSearchedObjects(1);
-
-    System.out.println("-----------------------------------------------------");
     return result;
   }
 
@@ -111,13 +107,15 @@ public class AbapClassSearchProvider implements ISearchProvider {
           isMethods).forEach(section -> {
             try {
               searchMainIncludeSection(object, section, main, codeLines, searcherFactory, result);
-            } catch (ResourceException exc) {
+            } catch (Exception exc) {
               exc.printStackTrace();
             }
-            result.setNumberOfSearchedSources(result.getNumberOfSearchedSources() + 1);
+            result.increaseNumberOfSearchedSources(1);
           });
-    } catch (Exception exc) {
-      exc.printStackTrace();
+    } catch (ClassSectionException | ResourceException exc) {
+      result.addResponseMessage(
+          String.format("Error during search of global class include of %s", object.getName()),
+          MessageType.ERROR, exc);
     }
   }
 
@@ -127,7 +125,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
     try {
       var uri = o.getUri() + INCLUDES_PATH_SEGMENT + include.getAdtApiInclName();
       var code = srcCodeReader.getSourceCode(uri);
-      result.setNumberOfSearchedSources(result.getNumberOfSearchedSources() + 1);
+      result.increaseNumberOfSearchedSources(1);
       var matches = searcherFactory.createSearcher(code).search();
 
       if (matches != null && !matches.isEmpty()) {
@@ -147,19 +145,17 @@ public class AbapClassSearchProvider implements ISearchProvider {
           searchObject.getMatches().add(match);
         });
         result.getSearchObjects().add(searchObject);
-        result.setNumberOfResults(matches.size());
+        result.increaseNumberOfResults(matches.size());
       }
       result.setLinesOfSearchedCode(code.lineCount());
     } catch (ResourceException exc) {
       if (exc instanceof ResourceNotFoundException && ClassInclude.TESTS.equals(include)) {
         return;
       }
-      CodeSearchPlugin.getDefault()
-          .getLog()
-          .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
-              String.format("Error during search of include '%s' of object [%s]: %s",
-                  include.getLabelWoMnemonic(), o.getType(), o.getName()),
-              exc));
+      result.addResponseMessage(
+          String.format("Error during search of include '%s' of object [%s]: %s",
+              include.getLabelWoMnemonic(), o.getType(), o.getName()),
+          MessageType.ERROR, exc);
     }
   }
 
@@ -207,9 +203,9 @@ public class AbapClassSearchProvider implements ISearchProvider {
       });
 
       result.getSearchObjects().add(searchObject);
-      result.setNumberOfResults(result.getNumberOfResults() + matches.size());
+      result.increaseNumberOfResults(matches.size());
     }
-    result.setLinesOfSearchedCode(result.getLinesOfSearchedCode() + sectionCode.lineCount());
+    result.increaseLinesSearchedCode(sectionCode.lineCount());
   }
 
   /*
@@ -217,14 +213,14 @@ public class AbapClassSearchProvider implements ISearchProvider {
    */
   private List<SourceSection> getRelevantSections(final String[] codeLines, final String className,
       final boolean pubSec, final boolean protSec, final boolean privSec, final boolean methodSecs)
-      throws Exception {
+      throws ClassSectionException {
     List<SourceSection> sections = new ArrayList<>();
 
     var methodStartIndex = 0;
     if (pubSec || protSec || privSec) {
       var endClassLine = findEndClassLine(codeLines);
       if (endClassLine == -1) {
-        throw new Exception("End of class definition not found");
+        throw new ClassSectionException("End of class definition not found");
       }
 
       var privIndex = -1;
@@ -313,6 +309,18 @@ public class AbapClassSearchProvider implements ISearchProvider {
 
   private boolean isMethodEnd(final String codeLine) {
     return METHOD_IMPL_END_PATTERN.matcher(codeLine).find();
+  }
+
+  private void insertClassResultObject(final SearchableObject object,
+      final ICodeSearchResult result) {
+    var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
+    searchObject.setUri(object.getUri());
+    var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
+    adtMainObj.setType(object.getType());
+    adtMainObj.setName(object.getName());
+    adtMainObj.setUri(object.getUri());
+    searchObject.setAdtMainObject(adtMainObj);
+    result.getSearchObjects().add(0, searchObject);
   }
 
 }

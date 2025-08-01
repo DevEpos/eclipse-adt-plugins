@@ -1,10 +1,7 @@
 package com.devepos.adt.cst.internal.search.client.engine;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
-import com.devepos.adt.cst.internal.CodeSearchPlugin;
+import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.client.SearchableObject;
@@ -44,11 +41,9 @@ public class StringSourceSearchProvider implements ISearchProvider {
         result.setLinesOfSearchedCode(code.lineCount());
       }
     } catch (ResourceException exc) {
-      CodeSearchPlugin.getDefault()
-          .getLog()
-          .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
-              String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
-              exc));
+      result.addResponseMessage(
+          String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
+          MessageType.ERROR, exc);
     }
     result.setNumberOfSearchedObjects(1);
     result.setNumberOfSearchedSources(1);

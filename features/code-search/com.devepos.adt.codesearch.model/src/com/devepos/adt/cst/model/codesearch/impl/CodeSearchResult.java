@@ -14,7 +14,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
 import com.devepos.adt.base.model.adtbase.IResponseMessageList;
+import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchObject;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchPackage;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
@@ -46,6 +49,52 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
  * @generated
  */
 public class CodeSearchResult extends MinimalEObjectImpl.Container implements ICodeSearchResult {
+
+  @Override
+  public void increaseNumberOfSearchedSources(final int n) {
+    numberOfSearchedSources += n;
+  }
+
+  @Override
+  public void increaseNumberOfSearchedObjects(final int n) {
+    numberOfSearchedObjects += n;
+  }
+
+  @Override
+  public void increaseNumberOfResults(final int n) {
+    numberOfResults += n;
+  }
+
+  @Override
+  public void increaseLinesSearchedCode(final int n) {
+    linesOfSearchedCode += n;
+  }
+
+  @Override
+  public void addResponseMessage(final String content, final MessageType type,
+      final Throwable exception) {
+    addResponseMessage(content, 0, type, exception);
+  }
+
+  @Override
+  public void addResponseMessage(final String content, final int occurence, final MessageType type,
+      final Throwable exception) {
+    var message = IAdtBaseFactory.eINSTANCE.createResponseMessage();
+    message.setContent(content);
+    message.setOccurrences(occurence);
+    message.setType(type);
+    message.setException(exception);
+    addResponseMessage(message);
+  }
+
+  @Override
+  public void addResponseMessage(final IResponseMessage message) {
+    if (responseMessageList == null) {
+      responseMessageList = IAdtBaseFactory.eINSTANCE.createResponseMessageList();
+    }
+    responseMessageList.getMessages().add(message);
+  }
+
   /**
    * The cached value of the '{@link #getSearchObjects() <em>Search Objects</em>}' containment
    * reference list.
