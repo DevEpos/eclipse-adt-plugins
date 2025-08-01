@@ -64,7 +64,7 @@ public class CodeSearchFavoriteConnector implements ISearchFavoriteConnector, IS
         specs.setIgnoreCaseCheck(((IBooleanAttribute) favAttribute).isValue());
         break;
       case IGNORE_COMMENT_LINES:
-        specs.setIgnoreCaseCheck(((IBooleanAttribute) favAttribute).isValue());
+        specs.setIgnoreCommentLines(((IBooleanAttribute) favAttribute).isValue());
         break;
       case MATCH_ALL_PATTERNS:
         specs.setMatchAllPatterns(((IBooleanAttribute) favAttribute).isValue());
