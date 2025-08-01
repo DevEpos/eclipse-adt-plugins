@@ -8,27 +8,25 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.MessageType;
-import com.devepos.adt.cst.internal.search.client.AdtObject;
+import com.devepos.adt.cst.internal.search.client.engine.AdtRepoTreeContent.AdtRepoTreeObjectNode;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.FunctionGroupInclude;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.resources.ResourceException;
-import com.sap.adt.ris.search.repositoryservice.RepositoryTreeService;
 
-@SuppressWarnings("restriction")
 public class FugrSearchProvider implements ISearchProvider {
 
   private final IClientCodeSearchConfig config;
-  private final RepositoryTreeService treeService;
-  private IProgressMonitor monitor;
+  private final IProgressMonitor monitor;
+  private final AdtRepoTreeService repoTreeSrv;
 
-  public FugrSearchProvider(final IClientCodeSearchConfig config, IProgressMonitor monitor,
+  public FugrSearchProvider(final IClientCodeSearchConfig config, final IProgressMonitor monitor,
       final String destinationId) {
     this.config = config;
     this.monitor = monitor;
-    treeService = new RepositoryTreeService(destinationId);
+    repoTreeSrv = new AdtRepoTreeService(destinationId);
   }
 
   @Override
@@ -37,37 +35,26 @@ public class FugrSearchProvider implements ISearchProvider {
 
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
 
-    // we need to determine the correct node id's as they are not the same for all function groups
-    var fugrTreeContent = treeService.readTreeContent(monitor,
-        IAdtObjectTypeConstants.FUNCTION_GROUP, object.getName(), object.getName(), null,
-        new String[] { "000000" }, false, false, false, false);
+    // we need to determine the correct node id's as they are not the same for all function
+    // groups
+    var fugrTreeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
+        IAdtObjectTypeConstants.FUNCTION_GROUP, "000000");
 
-    String functionModulesNodeId = null;
-    String fugrIncludeNodeId = null;
+    var relevantNodeIds = new ArrayList<String>();
     for (var objectType : fugrTreeContent.getObjectTypes()) {
-      if (functionModulesNodeId != null && fugrIncludeNodeId != null) {
-        break;
-      }
-      if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getType())) {
-        fugrIncludeNodeId = objectType.getNodeId();
-        continue;
-      }
-      if (IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getType())) {
-        functionModulesNodeId = objectType.getNodeId();
+      if ((IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getObjectType())
+          && (config.getFugrIncludeFlags()
+              & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0)
+          || (IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getObjectType())
+              && (config.getFugrIncludeFlags()
+                  & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0)) {
+        relevantNodeIds.add(objectType.getNodeId());
         continue;
       }
     }
 
-    if (functionModulesNodeId != null
-        && (config.getFugrIncludeFlags() & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0) {
-      searchSubObjects(object, functionModulesNodeId, IAdtObjectTypeConstants.FUNCTION_MODULE,
-          srcCodeReader, searcherFactory, result);
-    }
-
-    if (fugrIncludeNodeId != null && (config.getFugrIncludeFlags()
-        & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0) {
-      searchSubObjects(object, fugrIncludeNodeId, IAdtObjectTypeConstants.FUNCTION_INCLUDE,
-          srcCodeReader, searcherFactory, result);
+    if (!relevantNodeIds.isEmpty()) {
+      searchSubObjects(object, relevantNodeIds, srcCodeReader, searcherFactory, result);
     }
 
     if (!result.getSearchObjects().isEmpty()) {
@@ -90,11 +77,11 @@ public class FugrSearchProvider implements ISearchProvider {
     result.getSearchObjects().add(0, searchObject);
   }
 
-  private void searchSubObjects(final SearchableObject object, final String nodeId,
-      final String relevantType, final ISourceCodeReader srcCodeReader,
-      final ISourceCodeSearcherFactory searcherFactory, final ICodeSearchResult result) {
+  private void searchSubObjects(final SearchableObject object, final List<String> nodeIds,
+      final ISourceCodeReader srcCodeReader, final ISourceCodeSearcherFactory searcherFactory,
+      final ICodeSearchResult result) {
 
-    var subObjects = determineSubObjects(object, relevantType, nodeId, result);
+    var subObjects = determineSubObjects(object, nodeIds, result);
     if (subObjects == null) {
       return;
     }
@@ -115,26 +102,18 @@ public class FugrSearchProvider implements ISearchProvider {
         result.increaseNumberOfSearchedSources(1);
       } catch (ResourceException exc) {
         result.addResponseMessage(String.format("Error during source retrieval of [%] %s",
-            subObject.getType(), object.getName()), MessageType.ERROR, exc);
+            subObject.getObjectType(), object.getName()), MessageType.ERROR, exc);
       }
     }
 
   }
 
-  private List<AdtObject> determineSubObjects(final SearchableObject object,
-      final String relevantType, final String nodeId, final ICodeSearchResult result) {
+  private List<AdtRepoTreeObjectNode> determineSubObjects(final SearchableObject object,
+      final List<String> nodeIds, final ICodeSearchResult result) {
     try {
-      var treeContent = treeService.readTreeContent(monitor, IAdtObjectTypeConstants.FUNCTION_GROUP,
-          object.getName(), object.getName(), null, new String[] { nodeId }, false, false, false,
-          false);
-      var searchableNodes = new ArrayList<AdtObject>();
-      treeContent.forEach(c -> {
-        if (relevantType.equals(c.getType())) {
-          searchableNodes
-              .add(new AdtObject(c.getUri().toString(), c.getName(), null, c.getType(), null));
-        }
-      });
-      return searchableNodes;
+      var treeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
+          IAdtObjectTypeConstants.FUNCTION_GROUP, nodeIds.toArray(String[]::new));
+      return treeContent != null ? treeContent.getObjectNodes() : null;
     } catch (ResourceException exc) {
       result.addResponseMessage(
           String.format("Error during determination of tree nodes of function group '%s'",
@@ -145,12 +124,12 @@ public class FugrSearchProvider implements ISearchProvider {
   }
 
   private void insertSubObjResult(final SearchableObject object, final ICodeSearchResult result,
-      final AdtObject subObject, final String sourceUri, final List<Match> matches) {
+      final AdtRepoTreeObjectNode subObject, final String sourceUri, final List<Match> matches) {
     var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
     searchObject.setUri(subObject.getUri());
     var adtMainObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
-    adtMainObj.setType(subObject.getType());
-    adtMainObj.setName(subObject.getName());
+    adtMainObj.setType(subObject.getObjectType());
+    adtMainObj.setName(subObject.getObjectName());
     searchObject.setAdtMainObject(adtMainObj);
     searchObject.setParentUri(object.getUri());
     matches.forEach(plainMatch -> {
