@@ -14,7 +14,7 @@ public interface IClientBasedCodeSearchService {
 
   /**
    * Loads all packages relevant for the given config
-   * 
+   *
    * @param monitor the progress monitor
    * @param config  search configuration
    * @return the found packages
@@ -23,7 +23,7 @@ public interface IClientBasedCodeSearchService {
 
   /**
    * Loads all packages relevant for the given config and object pattern
-   * 
+   *
    * @param monitor       the progress monitor
    * @param config        search configuration
    * @param objectPattern the object pattern to be used
@@ -46,7 +46,7 @@ public interface IClientBasedCodeSearchService {
   /**
    * Expands the given folder and returns the contained objects according to passed folder and
    * search configuration
-   * 
+   *
    * @param folder  the folder to expand
    * @param config  the search configuration
    * @param monitor the progress monitor
@@ -57,7 +57,7 @@ public interface IClientBasedCodeSearchService {
 
   /**
    * Expands the given folder and returns the contained sub folders
-   * 
+   *
    * @param folder  the folder to expand
    * @param config  the search configuration
    * @param monitor the progress monitor

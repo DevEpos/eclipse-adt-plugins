@@ -12,7 +12,8 @@ public class SearchProviderFactory {
       .synchronizedMap(new HashMap<>());
   private static final String STRING_SRC_PROVIDER_TYPE = "$STRSRC";
 
-  public static ISearchProvider getProvider(String type, IClientCodeSearchConfig config) {
+  public static ISearchProvider getProvider(final String type,
+      final IClientCodeSearchConfig config) {
     var mappedType = mapType(type);
 
     return createProvider(mappedType, config);
@@ -24,7 +25,8 @@ public class SearchProviderFactory {
     // return provider;
   }
 
-  private static ISearchProvider createProvider(String mappedType, IClientCodeSearchConfig config) {
+  private static ISearchProvider createProvider(final String mappedType,
+      final IClientCodeSearchConfig config) {
     switch (mappedType) {
     case IAdtObjectTypeConstants.CLASS:
       return new AbapClassSearchProvider(config);
@@ -34,7 +36,7 @@ public class SearchProviderFactory {
     // return new StringSourceSearchProvider();
   }
 
-  private static String mapType(String type) {
+  private static String mapType(final String type) {
     // return STRING_SRC_PROVIDER_TYPE;
     switch (type) {
     case IAdtObjectTypeConstants.CLASS:

@@ -34,7 +34,7 @@ public class CodeSearchUriDiscovery extends CodeSearchToolsUriDiscoveryBase {
    * @return REST resource URI for Code Search
    */
   public URI createCodeSearchUriFromTemplate(final Map<String, Object> parameterMap) {
-    final IAdtUriTemplate template = getCodeSearchTemplate();
+    final var template = getCodeSearchTemplate();
     URI uri = null;
     if (template != null) {
       fillTemplateWithParams(template, parameterMap);

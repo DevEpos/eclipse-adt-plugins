@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class SearchableObject {
 
-  private String name;
-  private String displayName;
-  private String uri;
-  private String type;
-  private SearchObjectFolder folder;
+  private final String name;
+  private final String displayName;
+  private final String uri;
+  private final String type;
+  private final SearchObjectFolder folder;
 
-  public SearchableObject(String name, String displayName, String type, String uri,
-      SearchObjectFolder folder) {
+  public SearchableObject(final String name, final String displayName, final String type,
+      final String uri, final SearchObjectFolder folder) {
     this.name = name;
     this.displayName = displayName;
     this.type = type;
@@ -45,7 +45,7 @@ public class SearchableObject {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }

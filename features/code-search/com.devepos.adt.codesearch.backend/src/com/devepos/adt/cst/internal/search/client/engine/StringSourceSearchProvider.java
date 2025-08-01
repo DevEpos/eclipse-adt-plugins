@@ -13,8 +13,8 @@ import com.sap.adt.communication.resources.ResourceException;
 public class StringSourceSearchProvider implements ISearchProvider {
 
   @Override
-  public ICodeSearchResult search(SearchableObject o, ISourceCodeReader srcCodeReader,
-      ISourceCodeSearcherFactory searcherFactory) {
+  public ICodeSearchResult search(final SearchableObject o, final ISourceCodeReader srcCodeReader,
+      final ISourceCodeSearcherFactory searcherFactory) {
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
 
     try {

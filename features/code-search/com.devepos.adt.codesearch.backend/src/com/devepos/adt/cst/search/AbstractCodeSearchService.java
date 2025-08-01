@@ -15,13 +15,13 @@ public abstract class AbstractCodeSearchService {
   protected IProject project;
   protected String destinationId;
 
-  public AbstractCodeSearchService(IProject project) {
+  public AbstractCodeSearchService(final IProject project) {
     this.project = project;
-    this.destinationId = DestinationUtil.getDestinationId(project);
+    destinationId = DestinationUtil.getDestinationId(project);
   }
 
   public IStatus testCodeSearchFeatureAvailability() {
-    CodeSearchUriDiscovery uriDiscovery = new CodeSearchUriDiscovery(destinationId);
+    var uriDiscovery = new CodeSearchUriDiscovery(destinationId);
     if (uriDiscovery.isResourceDiscoverySuccessful() && uriDiscovery.getCodeSearchUri() != null) {
       return Status.OK_STATUS;
     }

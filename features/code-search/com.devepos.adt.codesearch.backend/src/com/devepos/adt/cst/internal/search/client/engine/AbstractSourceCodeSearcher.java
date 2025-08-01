@@ -48,7 +48,7 @@ public class AbstractSourceCodeSearcher {
   }
 
   protected LineIndex getLineIndex(final int offset) {
-    for (int i = 0; i < sourceCode.lineCount(); i++) {
+    for (var i = 0; i < sourceCode.lineCount(); i++) {
       var lineIndex = sourceCode.indexes()[i];
       if (lineIndex.offset() > offset) {
         return sourceCode.indexes()[i - 1];
@@ -67,9 +67,8 @@ public class AbstractSourceCodeSearcher {
     var nextLine = sourceCode.indexes()[startLine.number()];
     if (matchEnd <= nextLine.offset()) {
       return startLine;
-    } else {
-      return getLineIndex(matchEnd);
     }
+    return getLineIndex(matchEnd);
   }
 
   protected Match getSingleLineMatch(final RawMatch rawMatch) {

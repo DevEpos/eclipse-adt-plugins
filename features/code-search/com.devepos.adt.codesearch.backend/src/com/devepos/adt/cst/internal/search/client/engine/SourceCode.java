@@ -42,7 +42,7 @@ public class SourceCode implements ISourceCode {
   }
 
   @Override
-  public ISourceCode extract(int fromLine, int toLine) {
+  public ISourceCode extract(final int fromLine, final int toLine) {
     var begin = indexes[fromLine];
     var end = indexes[toLine];
     var contentExtract = content[0].substring(begin.offset(), end.offset() + end.length());

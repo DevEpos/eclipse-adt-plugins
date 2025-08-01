@@ -30,7 +30,7 @@ public interface IIncludeToSearch {
 
   /**
    * Returns the name of the include as specified in the ADT class API
-   * 
+   *
    */
   String getAdtApiInclName();
 

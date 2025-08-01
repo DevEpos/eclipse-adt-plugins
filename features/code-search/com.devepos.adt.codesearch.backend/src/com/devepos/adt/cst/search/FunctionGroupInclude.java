@@ -21,7 +21,7 @@ public enum FunctionGroupInclude implements IIncludeToSearch {
     this.apiName = apiName;
     this.label = label;
     this.bit = bit;
-    this.labelWoMnemonic = label.replace("&", "");
+    labelWoMnemonic = label.replace("&", "");
   }
 
   @Override

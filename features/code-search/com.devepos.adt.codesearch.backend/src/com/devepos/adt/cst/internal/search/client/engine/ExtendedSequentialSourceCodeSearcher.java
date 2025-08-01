@@ -14,15 +14,14 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
 
   private boolean hasCustomMatchBoundary;
   private RawMatch previousMatch;
-  private RawMatch boundaryStart;
   private RawMatch boundaryEnd;
-  private List<IPatternMatcher> exclusionMatchers = new ArrayList<>();
+  private final List<IPatternMatcher> exclusionMatchers = new ArrayList<>();
 
-  public ExtendedSequentialSourceCodeSearcher(List<IPatternMatcher> matchers,
-      ISourceCode sourceCode, boolean ignoreCommentLines) {
+  public ExtendedSequentialSourceCodeSearcher(final List<IPatternMatcher> matchers,
+      final ISourceCode sourceCode, final boolean ignoreCommentLines) {
     super(matchers, sourceCode, ignoreCommentLines);
     for (var matcher : matchers) {
-      int flags = matcher.getControlFlags();
+      var flags = matcher.getControlFlags();
       if ((flags & FLAG_MATCH_START) == FLAG_MATCH_START || (flags & FLAG_MATCH) == FLAG_MATCH) {
         hasCustomMatchBoundary = true;
         break;
@@ -32,7 +31,7 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
 
   @Override
   public List<Match> search() {
-    this.hasMoreMatches = true;
+    hasMoreMatches = true;
 
     currentLineOffset = 0;
     currentColOffset = 0;
@@ -44,7 +43,6 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
       previousMatch = null;
       matchStart = null;
       matchEnd = null;
-      boundaryStart = null;
       boundaryEnd = null;
       exclusionMatchers.clear();
 
@@ -54,24 +52,24 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
     return result;
   }
 
-  private void findNextFullMatch(List<Match> matches) {
+  private void findNextFullMatch(final List<Match> matches) {
     boolean skipMatchSearch;
 
-    for (int i = 0; i < matchers.size(); i++) {
+    for (var i = 0; i < matchers.size(); i++) {
       var matcher = matchers.get(i);
       skipMatchSearch = false;
 
-      int flags = matcher.getControlFlags();
+      var flags = matcher.getControlFlags();
       if ((flags & FLAG_EXCLUDE) == FLAG_EXCLUDE) {
         exclusionMatchers.add(matcher);
         continue;
-      } else if ((flags & FLAG_BOUNDARY_END) == FLAG_BOUNDARY_END) {
+      }
+      if ((flags & FLAG_BOUNDARY_END) == FLAG_BOUNDARY_END) {
         previousMatch = currentMatch;
         currentMatch = boundaryEnd;
         currentLineOffset = boundaryEnd.line();
         currentColOffset = boundaryEnd.offset();
 
-        boundaryStart = null;
         boundaryEnd = null;
         skipMatchSearch = true;
       }
@@ -81,30 +79,30 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
 
         currentMatch = findNextPartialMatch(matcher, this::setCurrentOffsets);
 
-        if (!hasMoreMatches)
+        if (!hasMoreMatches) {
           return;
+        }
       }
 
       if (!exclusionMatchers.isEmpty()) {
-        if (hasMatchesForExclusions(false))
+        if (hasMatchesForExclusions(false)) {
           return;
+        }
         exclusionMatchers.clear();
       }
 
       if (boundaryEnd != null
-          && (currentMatch.line() > boundaryEnd.line() || (currentMatch.line() == boundaryEnd.line()
-              && currentMatch.offset() >= boundaryEnd.offset()))) {
+          && (currentMatch.line() > boundaryEnd.line() || currentMatch.line() == boundaryEnd.line()
+              && currentMatch.offset() >= boundaryEnd.offset())) {
         currentLineOffset = boundaryEnd.line();
         currentColOffset = boundaryEnd.offset() + boundaryEnd.length();
         return;
       }
 
-      if ((flags & FLAG_BOUNDARY_START) == FLAG_BOUNDARY_START) {
-        boundaryStart = currentMatch;
-        if (!findNextBoundaryEnd(i + 1)) {
-          hasMoreMatches = false;
-          return;
-        }
+      // NOTE: it is not required right now to store the boundary start
+      if ((flags & FLAG_BOUNDARY_START) == FLAG_BOUNDARY_START && !findNextBoundaryEnd(i + 1)) {
+        hasMoreMatches = false;
+        return;
       }
 
       if (!hasCustomMatchBoundary && matchStart == null) {
@@ -121,9 +119,8 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
       }
     }
 
-    if (!exclusionMatchers.isEmpty()) {
-      if (hasMatchesForExclusions(true))
-        return;
+    if (!exclusionMatchers.isEmpty() && hasMatchesForExclusions(true)) {
+      return;
     }
 
     if (!hasCustomMatchBoundary) {
@@ -133,7 +130,7 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
     collectSequentialMatch(matches);
   }
 
-  private boolean hasMatchesForExclusions(boolean lookahead) {
+  private boolean hasMatchesForExclusions(final boolean lookahead) {
     var rangeMatchStart = lookahead ? currentMatch : previousMatch;
     var rangeMatchEnd = lookahead
         ? new RawMatch(sourceCode.lineCount() - 1,
@@ -150,8 +147,8 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
     return false;
   }
 
-  private boolean findNextBoundaryEnd(int startIndex) {
-    for (int i = startIndex; i < matchers.size(); i++) {
+  private boolean findNextBoundaryEnd(final int startIndex) {
+    for (var i = startIndex; i < matchers.size(); i++) {
       var matcher = matchers.get(i);
       if ((matcher.getControlFlags() & FLAG_BOUNDARY_END) == FLAG_BOUNDARY_END) {
         boundaryEnd = findNextPartialMatch(matcher);
@@ -161,13 +158,14 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
     return false;
   }
 
-  private boolean isAnyMatchInRange(IPatternMatcher matcher, int startLine, int offset, int endLine,
-      int endOffset) {
+  private boolean isAnyMatchInRange(final IPatternMatcher matcher, final int startLine,
+      final int offset, final int endLine, final int endOffset) {
     try {
-      List<RawMatch> matches = matcher.findMatchesInRange(sourceCode.content(), startLine, offset,
-          endLine, endOffset);
-      if (matches.isEmpty())
+      var matches = matcher.findMatchesInRange(sourceCode.content(), startLine, offset, endLine,
+          endOffset);
+      if (matches.isEmpty()) {
         return false;
+      }
 
       for (RawMatch match : matches) {
         if (ignoreCommentLines && isCommentLine(sourceCode.content()[match.line()])) {

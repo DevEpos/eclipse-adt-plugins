@@ -9,7 +9,7 @@ import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.cst.internal.search.client.AdtObject;
 
 public class AdtPackage extends AdtObject {
-  private int objectCount;
+  private final int objectCount;
   private List<AdtPackage> subPackages;
   private boolean hasSubPackages;
   private List<AdtPackage> hierarchy;
@@ -19,8 +19,8 @@ public class AdtPackage extends AdtObject {
     void load(IProgressMonitor monitor, String destination, IClientCodeSearchConfig specs);
   }
 
-  public AdtPackage(String uri, String name, String displayName, int objectCount,
-      AdtPackage parent) {
+  public AdtPackage(final String uri, final String name, final String displayName,
+      final int objectCount, final AdtPackage parent) {
     super(uri, name, displayName, IAdtObjectTypeConstants.PACKAGE, parent);
     this.objectCount = objectCount;
   }
@@ -29,12 +29,12 @@ public class AdtPackage extends AdtObject {
     return hasSubPackages;
   }
 
-  public void setHasSubPackages(boolean hasSubPackages) {
+  public void setHasSubPackages(final boolean hasSubPackages) {
     this.hasSubPackages = hasSubPackages;
   }
 
-  public void setSubPackageLoader(ISubObjectLoader loader) {
-    this.subPackageLoader = loader;
+  public void setSubPackageLoader(final ISubObjectLoader loader) {
+    subPackageLoader = loader;
   }
 
   public ISubObjectLoader getSubPackageLoader() {
@@ -52,7 +52,7 @@ public class AdtPackage extends AdtObject {
     return subPackages;
   }
 
-  public void setHierarchy(List<AdtPackage> hierarchy) {
+  public void setHierarchy(final List<AdtPackage> hierarchy) {
     this.hierarchy = hierarchy;
   }
 

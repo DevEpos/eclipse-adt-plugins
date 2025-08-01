@@ -37,18 +37,17 @@ public class IncludeFlagsParameter {
 
   /**
    * Returns all active flags (considering state of {@link #isAllIncludes()}.
-   * 
+   *
    */
   public int getActiveIncludeFlags() {
-    if (allIncludes) {
-      var flags = 0;
-      for (var include : possibleIncludes) {
-        flags |= include.getBit();
-      }
-      return flags;
-    } else {
+    if (!allIncludes) {
       return includeFlags;
     }
+    var flags = 0;
+    for (var include : possibleIncludes) {
+      flags |= include.getBit();
+    }
+    return flags;
   }
 
   /**
@@ -57,7 +56,7 @@ public class IncludeFlagsParameter {
    * @return count of the selected includes
    */
   public int getSelectedIncludeCount() {
-    int bitCount = 0;
+    var bitCount = 0;
     for (IIncludeToSearch incl : possibleIncludes) {
       if ((incl.getBit() & includeFlags) != 0) {
         bitCount++;

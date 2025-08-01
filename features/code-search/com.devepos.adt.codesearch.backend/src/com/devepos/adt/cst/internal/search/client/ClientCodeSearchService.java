@@ -30,11 +30,9 @@ import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 
 public class ClientCodeSearchService implements IClientBasedCodeSearchService {
-  private IProject project;
   private final String destinationId;
 
   public ClientCodeSearchService(final IProject project) {
-    this.project = project;
     destinationId = DestinationUtil.getDestinationId(project);
   }
 
@@ -51,19 +49,19 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
 
   @Override
   public List<SearchObjectFolder> findFolders(final IProgressMonitor monitor,
-      final IClientCodeSearchConfig config, String objectPattern) {
+      final IClientCodeSearchConfig config, final String objectPattern) {
     return new SearchFolderLoader(destinationId, monitor, config, objectPattern).run();
   }
 
   @Override
-  public List<SearchableObject> getObjectsInFolder(SearchObjectFolder folder,
+  public List<SearchableObject> getObjectsInFolder(final SearchObjectFolder folder,
       final IClientCodeSearchConfig config, final IProgressMonitor monitor) {
     return new FolderContentLoader(destinationId, monitor, config).run(folder);
   }
 
   @Override
-  public List<SearchObjectFolder> expandFolder(SearchObjectFolder folder,
-      IClientCodeSearchConfig config, IProgressMonitor monitor) {
+  public List<SearchObjectFolder> expandFolder(final SearchObjectFolder folder,
+      final IClientCodeSearchConfig config, final IProgressMonitor monitor) {
     var folderLoader = new SearchFolderLoader(destinationId, monitor, config,
         folder.getObjectPattern());
     folderLoader.setFacets(new Facet(IFacetConstants.PACKAGE, folder.getName()));
@@ -71,8 +69,8 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
   }
 
   @Override
-  public IStatus searchObjects(IProgressMonitor monitor, List<SearchableObject> objects,
-      IClientCodeSearchConfig searchConfig, ISearchResultReporter reporter) {
+  public IStatus searchObjects(final IProgressMonitor monitor, final List<SearchableObject> objects,
+      final IClientCodeSearchConfig searchConfig, final ISearchResultReporter reporter) {
 
     final var session = AdtSystemSessionFactory.createSystemSessionFactory()
         .createStatelessSession(destinationId);
@@ -104,10 +102,8 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
             searchConfig.isMultilineSearchOption());
 
         var result = sourceCodeProvider.search(o, sourceCodeReader, searcherFactory);
-        if (result.getNumberOfResults() > 0) {
-          if (searchConfig.isReadPackageHierarchy()) {
-            addPackagesForObject(o, result, result.getSearchObjects().get(0), monitor);
-          }
+        if ((result.getNumberOfResults() > 0) && searchConfig.isReadPackageHierarchy()) {
+          addPackagesForObject(o, result, result.getSearchObjects().get(0), monitor);
         }
         reporter.notify(result);
       } catch (ResourceException exc) {
@@ -122,8 +118,8 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
     return Status.OK_STATUS;
   }
 
-  private void addPackagesForObject(SearchableObject o, ICodeSearchResult result,
-      ICodeSearchObject searchObject, IProgressMonitor m) {
+  private void addPackagesForObject(final SearchableObject o, final ICodeSearchResult result,
+      final ICodeSearchObject searchObject, final IProgressMonitor m) {
     var packages = PackageUtil.getPackageHierarchy(o.getUri(), m, destinationId);
     if (packages == null) {
       return;

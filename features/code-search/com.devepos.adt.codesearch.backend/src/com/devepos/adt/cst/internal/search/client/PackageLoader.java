@@ -13,17 +13,13 @@ import com.sap.adt.tools.core.atom.IAdtAtomUtil;
 
 @SuppressWarnings("restriction")
 class PackageLoader {
-  private ScopeService scopeService;
-  private IProgressMonitor monitor;
-  private String destination;
-  private IAdtAtomUtil atomUtil;
+  private final ScopeService scopeService;
+  private final IAdtAtomUtil atomUtil;
 
-  public PackageLoader(String destinationId, IProgressMonitor monitor,
-      IClientCodeSearchConfig specs) {
+  public PackageLoader(final String destinationId, final IProgressMonitor monitor,
+      final IClientCodeSearchConfig specs) {
     scopeService = new ScopeService(destinationId, monitor, specs);
-    this.monitor = monitor;
-    this.destination = destinationId;
-    this.atomUtil = AdtAtomUtilFactory.createAtomUtil();
+    atomUtil = AdtAtomUtilFactory.createAtomUtil();
   }
 
   public List<AdtPackage> run() {
@@ -42,11 +38,11 @@ class PackageLoader {
     return rootPackages;
   }
 
-  private void filterDuplicatePackages(List<AdtPackage> rootPackages) {
+  private void filterDuplicatePackages(final List<AdtPackage> rootPackages) {
     // TODO: Ignore for now and live with potential redundant object searches
   }
 
-  private void getSubPackages(AdtPackage pack, ScopeService scopeService) {
+  private void getSubPackages(final AdtPackage pack, final ScopeService scopeService) {
     var subPackageReqParams = scopeService.buildFolderRequestParams();
     subPackageReqParams.addPreselection(IFacetConstants.PACKAGE, pack.getName());
     subPackageReqParams.setWantedFacets(List.of(IFacetConstants.PACKAGE));
@@ -88,7 +84,7 @@ class PackageLoader {
     return packages;
   }
 
-  private String getPackageUri(IVirtualFolder f) {
+  private String getPackageUri(final IVirtualFolder f) {
     var uri = atomUtil.findAtomLinkAsUri(f.getLinks(), "http://www.sap.com/adt/relations/packages",
         "application/vnd.sap.sapgui");
     return uri != null ? uri.toString() : null;

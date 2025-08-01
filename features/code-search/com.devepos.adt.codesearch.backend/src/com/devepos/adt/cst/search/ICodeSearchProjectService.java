@@ -13,7 +13,7 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
 
 /**
  * Service
- * 
+ *
  * @author stockbal
  */
 public interface ICodeSearchProjectService {
@@ -76,7 +76,7 @@ public interface ICodeSearchProjectService {
 
   /**
    * Tests the availability of transport request/task scope filter in the given project
-   * 
+   *
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */

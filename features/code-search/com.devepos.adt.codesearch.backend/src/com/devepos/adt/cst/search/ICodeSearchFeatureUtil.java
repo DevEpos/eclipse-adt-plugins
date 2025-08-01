@@ -28,14 +28,14 @@ public interface ICodeSearchFeatureUtil {
 
   /**
    * Tests the availibility of the ABAP Code search feature via ADT client
-   * 
+   *
    * @return the validation status
    */
   IStatus testClientBasedSearchAvailability();
 
   /**
    * Tests the availibility of the ABAP Code search feature depending on the project
-   * 
+   *
    * @param preferClient if {@code true} client side search will be used prioritized
    * @return the validation status
    */
@@ -43,7 +43,7 @@ public interface ICodeSearchFeatureUtil {
 
   /**
    * Tests availability of named item by the given term
-   * 
+   *
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */
@@ -52,7 +52,7 @@ public interface ICodeSearchFeatureUtil {
 
   /**
    * Tests availability of named item by the given term via ADT client
-   * 
+   *
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */
@@ -60,7 +60,7 @@ public interface ICodeSearchFeatureUtil {
 
   /**
    * Tests availability of named item by the given term by project
-   * 
+   *
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */

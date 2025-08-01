@@ -5,7 +5,7 @@ import com.sap.adt.compatibility.discovery.AdtDiscoveryFactory;
 
 public class ClientCodeSearchUriDiscovery extends UriDiscoveryBase {
 
-  public ClientCodeSearchUriDiscovery(String destinationId) {
+  public ClientCodeSearchUriDiscovery(final String destinationId) {
     super(destinationId, AdtDiscoveryFactory.RESOURCE_URI.toString(), "");
   }
 

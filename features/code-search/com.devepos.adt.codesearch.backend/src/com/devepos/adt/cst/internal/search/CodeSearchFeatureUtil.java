@@ -28,17 +28,16 @@ public class CodeSearchFeatureUtil implements ICodeSearchFeatureUtil {
   }
 
   @Override
-  public IStatus testSearchAvailabilityByProject(boolean preferClient) {
+  public IStatus testSearchAvailabilityByProject(final boolean preferClient) {
     if (isCloudProject) {
       return testClientBasedSearchAvailability();
     }
     if (preferClient) {
       var status = testClientBasedSearchAvailability();
       return status.isOK() ? status : testBackendBasedSearchAvailability();
-    } else {
-      var status = testBackendBasedSearchAvailability();
-      return status.isOK() ? status : testClientBasedSearchAvailability();
     }
+    var status = testBackendBasedSearchAvailability();
+    return status.isOK() ? status : testClientBasedSearchAvailability();
   }
 
   @Override

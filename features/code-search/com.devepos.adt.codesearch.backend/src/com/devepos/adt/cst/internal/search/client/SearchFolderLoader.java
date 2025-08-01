@@ -14,15 +14,15 @@ import com.devepos.adt.cst.search.client.SearchObjectFolder;
 class SearchFolderLoader {
   private final ScopeService scopeService;
   private List<Facet> facets;
-  private String objectPattern;
+  private final String objectPattern;
 
   public SearchFolderLoader(final String destinationId, final IProgressMonitor monitor,
-      final IClientCodeSearchConfig specs, String objectPattern) {
+      final IClientCodeSearchConfig specs, final String objectPattern) {
     this.objectPattern = objectPattern;
     scopeService = new ScopeService(destinationId, monitor, specs);
   }
 
-  public void setFacets(Facet... facets) {
+  public void setFacets(final Facet... facets) {
     this.facets = List.of(facets);
   }
 
