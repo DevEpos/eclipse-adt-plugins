@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.devepos.adt.cst.internal.search.client.engine.ExtendedSequentialSourceCodeSearcher;
@@ -21,10 +20,6 @@ import com.devepos.adt.cst.internal.search.client.engine.SubstringMatcher;
 
 public class ExtendedSequentialSourceCodeSearcherTest {
   private ExtendedSequentialSourceCodeSearcher cut;
-
-  @BeforeEach
-  public void setUp() throws Exception {
-  }
 
   @Test
   void testExclude1() throws StaticError {
@@ -151,5 +146,75 @@ public class ExtendedSequentialSourceCodeSearcherTest {
     assertEquals(30, match.offset());
     assertEquals(22, match.endLine());
     assertEquals(38, match.endOffset());
+  }
+
+  @Test
+  void testLookAheadExclusion() throws Exception {
+    List<IPatternMatcher> matchers = PatternUtil
+        .parsePatternSequence(
+            Arrays.asList("(#b-start) loop ", " select ", "(#b-end) endloop", "(#exclude) loop "))
+        .stream()
+        .map(p -> new SubstringMatcher(true, p.pattern(), p.flags()))
+        .collect(Collectors.toList());
+
+    // @formatter:off
+    var sourceCode = 
+        "    DATA materials TYPE TABLE OF mara.\r\n" + 
+        "    DATA plants TYPE TABLE OF marc.\r\n" + 
+        "    data plant type marc.\r\n" + 
+        "    data material like line of materials.\r\n" + 
+        "    data excl_result type mara.\r\n" + 
+        "    data uuid_x16 type sysuuid_x16.\r\n" + 
+        "\r\n" + 
+        "    LOOP AT materials INTO material.\r\n" + 
+        "\r\n" + 
+        "        loop at materials into material.\r\n" + 
+        "        endLOOP.\r\n" + 
+        "\r\n" + 
+        "        select single * from marc into @plant.\r\n" + 
+        "\r\n" + 
+        "    enDLOOP.\r\n" + 
+        "\r\n" + 
+        "\r\n" + 
+        "    LOOP AT materials INTO material.\r\n" + 
+        "    ENDLOOP.\r\n" + 
+        "\r\n" + 
+        "\r\n" + 
+        "    LOOP AT materials INTO material.\r\n" + 
+        "      \" do some other processing\r\n" + 
+        "\r\n" + 
+        "      CALL FUNCTION 'NUMBER_GET_NEXT'.\r\n" + 
+        "\r\n" + 
+        "      \" now we do a SELECT :-O\r\n" + 
+        "      SELECT SINGLE * FROM mara\r\n" + 
+        "        WHERE matnr = @plant-matnr\r\n" + 
+        "        INTO @excl_result.\r\n" + 
+        "\r\n" + 
+        "      CALL METHOD cl_system_uuid=>convert_uuid_c22_static\r\n" + 
+        "        EXPORTING\r\n" + 
+        "          uuid     = ''\r\n" + 
+        "        IMPORTING\r\n" + 
+        "          uuid_x16 = uuid_x16\r\n" + 
+        "*         uuid_c32 =\r\n" + 
+        "*         uuid_c26 =\r\n" + 
+        "*         uuid_c36 =\r\n" + 
+        "        .\r\n" + 
+        "    ENDLOOP.";
+    // @formatter:on
+
+    var code = new SourceCode(sourceCode.split("\r\n"), null,
+        ISourceCodeReader.DEFAULT_COMMENT_REGEX);
+
+    cut = new ExtendedSequentialSourceCodeSearcher(matchers, code, true);
+
+    var matches = cut.search();
+
+    assertEquals(1, matches.size());
+    var match = matches.get(0);
+
+    assertEquals(21, match.line());
+    assertEquals(3, match.offset());
+    assertEquals(40, match.endLine());
+    assertEquals(11, match.endOffset());
   }
 }

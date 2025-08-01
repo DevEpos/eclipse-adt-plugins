@@ -137,7 +137,7 @@ public class ExtendedSequentialSourceCodeSearcher extends SequentialSourceCodeSe
     var rangeMatchStart = lookahead ? currentMatch : previousMatch;
     var rangeMatchEnd = lookahead
         ? new RawMatch(sourceCode.lineCount() - 1,
-            sourceCode.content()[sourceCode.lineCount()].length(), 0)
+            sourceCode.content()[sourceCode.lineCount() - 1].length(), 0)
         : currentMatch;
 
     for (var matcher : exclusionMatchers) {
