@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html id="doc-page">
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
@@ -12,6 +12,8 @@
       To enable more complex search queries in the <em>ABAP Code Search</em>
       you can enable the regular expression in the search dialog.
     </p>
+
+    <h3 class="heading">Backend based search</h3>
     <p>
       Depending on the Release of the targeted ABAP system one of the following regular expression engines will be used
     </p>
@@ -67,6 +69,20 @@
         </li>
       </ul>
     </div>
+
+    <h3 class="heading">Client Based Search</h3>
+    <p>
+      If the client based search is enabled, the regular expressions engine of Java runtime will be used. Java uses a
+      perl like syntax for regular expressions, simular to PCRE<br />
+      For more information about the Java regular expressions see the documentation of the Java
+      <a
+        class="link external"
+        href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html"
+        target="_blank"
+        >Pattern</a
+      >
+      class.
+    </p>
 
     <h3 class="heading">Related Information</h3>
     <div>
