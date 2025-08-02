@@ -38,9 +38,13 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
   private String description;
   private Image image;
   private final IAbapProjectProvider projectProvider;
+  private final boolean negation;
 
-  public ObjectTypeSearchFilter(final IAbapProjectProvider projectProvider) {
+  public ObjectTypeSearchFilter(final IAbapProjectProvider projectProvider,
+      final boolean negation) {
     this.projectProvider = projectProvider;
+    this.negation = negation;
+
   }
 
   @Override
@@ -89,13 +93,13 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
             .getImage()));
       });
     } else {
-      SearchPattern searchPattern = createPattern(query.toLowerCase());
+      var searchPattern = createPattern(query.toLowerCase());
       for (String typeName : adtTypeMap.keySet()) {
         if (searchPattern.matches(typeName)) {
           if (!ProjectDependentTypeAvailability.isTypeAvailable(typeName, typesForProject)) {
             continue;
           }
-          IAdtObjectTypeProxy adtType = adtTypeMap.get(typeName);
+          var adtType = adtTypeMap.get(typeName);
           proposals.add(new SearchFilterValueProposal(typeName, this, adtType.getDescription(),
               query, adtType.getImage()));
         }
@@ -117,7 +121,7 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
 
   @Override
   public boolean supportsNegatedValues() {
-    return true;
+    return negation;
   }
 
   @Override
@@ -134,13 +138,13 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
     } else {
       patternString = query;
     }
-    SearchPattern pattern = new SearchPattern();
+    var pattern = new SearchPattern();
     pattern.setPattern(patternString);
     return pattern;
   }
 
   private void initAdtTypes() {
-    AdtTypeUtil typeUtil = AdtTypeUtil.getInstance();
+    var typeUtil = AdtTypeUtil.getInstance();
     adtTypeMap.put(ITadirTypeConstants.CLASS, typeUtil.getType(IAdtObjectTypeConstants.CLASS));
     adtTypeMap.put(ITadirTypeConstants.INTERFACE,
         typeUtil.getType(IAdtObjectTypeConstants.INTERFACE));

@@ -9,7 +9,7 @@ import org.eclipse.search.ui.NewSearchUI;
 
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
-import com.devepos.adt.cst.ui.internal.codesearch.ClientBasedCodeSearchQuery;
+import com.devepos.adt.cst.ui.internal.codesearch.client.ClientBasedCodeSearchQuery;
 
 /**
  * Holds runtime information of a code search query
@@ -32,7 +32,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private int overallServerTimeInMs;
   private long overallClientTimeInMs;
   private final AbstractCodeSearchQuery searchQuery;
-  private boolean isClientApiTargeted;
+  private final boolean isClientApiTargeted;
 
   public CodeSearchRuntimeInformation(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;

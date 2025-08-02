@@ -50,6 +50,7 @@ import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.search.ICodeSearchFeatureUtil;
 import com.devepos.adt.cst.search.IIncludeToSearch;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
+import com.devepos.adt.cst.ui.internal.codesearch.client.ClientBasedCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -101,6 +102,8 @@ public class CodeSearchDialog extends DialogPage
   private final CodeSearchQuerySpecification querySpecs;
 
   private IDialogSettings dialogSettings;
+
+  private SearchScopeFiltersProxy filterProvider;
 
   public CodeSearchDialog() {
     projectProvider = new AbapProjectProxy(null);
@@ -568,8 +571,7 @@ public class CodeSearchDialog extends DialogPage
   }
 
   private void registerContentAssist() {
-    // set up content assist for the filters text
-    var filterProvider = new CodeSearchScopeFilters(projectProvider);
+    filterProvider = new SearchScopeFiltersProxy(projectProvider);
     filterHandler = new SearchFilterHandler(filterProvider);
     filterHandler.addContentAssist(filterInput);
   }
@@ -632,7 +634,7 @@ public class CodeSearchDialog extends DialogPage
 
   private void setProjectInExtensionSections() {
     var project = projectProvider.getProject();
-    var scopeService = CodeSearchFactory.getSearchScopeService(projectProvider.getProject());
+    var scopeService = CodeSearchFactory.getSearchScopeService(project);
     var searchScopeFeatures = project != null
         ? (clientSearchTargeted ? scopeService.getClientFeatures()
             : scopeService.getBackendFeatures())
@@ -652,7 +654,8 @@ public class CodeSearchDialog extends DialogPage
         }
       } else {
         section.setProject(null);
-        section.setEnabledStatus(Status.OK_STATUS);
+        section.setEnabledStatus(new Status(IStatus.INFO, CodeSearchUIPlugin.PLUGIN_ID,
+            "Extension is not usable without a project"));
       }
     }
   }
@@ -778,6 +781,7 @@ public class CodeSearchDialog extends DialogPage
     if (filterHandler == null || filterInput == null || filterInput.isDisposed()) {
       return;
     }
+    filterProvider.setClientSearchMode(clientSearchTargeted);
     final var filterPattern = filterInput.getText();
     try {
       filterHandler.checkSearchFiltersComplete(filterPattern);

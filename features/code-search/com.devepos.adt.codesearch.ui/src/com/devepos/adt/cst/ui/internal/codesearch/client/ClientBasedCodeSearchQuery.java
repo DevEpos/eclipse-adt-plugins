@@ -1,4 +1,4 @@
-package com.devepos.adt.cst.ui.internal.codesearch;
+package com.devepos.adt.cst.ui.internal.codesearch.client;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ import com.devepos.adt.cst.search.client.ISearchResultReporter;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
 import com.devepos.adt.cst.search.client.SearchableObject;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
+import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
+import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 

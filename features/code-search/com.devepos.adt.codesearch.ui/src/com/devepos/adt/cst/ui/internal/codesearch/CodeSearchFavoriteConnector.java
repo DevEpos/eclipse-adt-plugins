@@ -21,6 +21,7 @@ import com.devepos.adt.base.ui.search.IChangeableSearchPage;
 import com.devepos.adt.base.ui.search.ISearchPageListener;
 import com.devepos.adt.base.ui.search.SearchPageUtil;
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.cst.ui.internal.codesearch.client.ClientBasedCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.searchfavorites.ISearchFavoriteConnector;
 import com.devepos.adt.searchfavorites.model.searchfavorites.IBaseAttribute;

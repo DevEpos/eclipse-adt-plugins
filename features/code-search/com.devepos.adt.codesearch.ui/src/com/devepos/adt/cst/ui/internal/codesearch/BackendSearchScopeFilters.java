@@ -24,27 +24,22 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class CodeSearchScopeFilters implements ISearchFilterProvider {
-  private static final List<ISearchFilter> EMPTY_FILTERS = new ArrayList<>();
+public class BackendSearchScopeFilters implements ISearchFilterProvider {
   private List<ISearchFilter> parameters;
   private ISearchFilter transportRequestFilter;
   private final IAbapProjectProvider projectProvider;
   private final IAdtUriTemplateProvider uriTemplateProvider;
 
-  public CodeSearchScopeFilters(final IAbapProjectProvider projectProvider) {
+  public BackendSearchScopeFilters(final IAbapProjectProvider projectProvider) {
     this.projectProvider = projectProvider;
     uriTemplateProvider = CodeSearchFactory.getNamedItemUriTemplateProvider(projectProvider);
   }
 
   @Override
   public List<ISearchFilter> getFilters() {
-    if (!projectProvider.ensureLoggedOn()) {
-      return EMPTY_FILTERS;
-    }
-
     if (parameters == null) {
       parameters = new ArrayList<>();
-      parameters.add(new ObjectTypeSearchFilter(projectProvider));
+      parameters.add(new ObjectTypeSearchFilter(projectProvider, true));
       parameters.add(new UserSearchFilter(projectProvider, FilterName.OWNER.getContentAssistName(),
           Messages.CodeSearchScopeFilters_ownerFilterShortDescription_xmsg, null));
       parameters.add(new PackageSearchFilter(projectProvider));
