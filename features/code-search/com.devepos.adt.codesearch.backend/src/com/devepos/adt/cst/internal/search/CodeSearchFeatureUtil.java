@@ -64,11 +64,17 @@ public class CodeSearchFeatureUtil implements ICodeSearchFeatureUtil {
   }
 
   @Override
-  public IStatus testNamedItemAvailabilityByProject(final String namedItemTerm) {
+  public IStatus testNamedItemAvailabilityByProject(final boolean preferClient,
+      final String namedItemTerm) {
     if (isCloudProject) {
       return testClientNamedItemAvailability(namedItemTerm);
     }
-    return testBackendNamedItemAvailability(namedItemTerm);
+    if (preferClient) {
+      var status = testClientNamedItemAvailability(namedItemTerm);
+      return status.isOK() ? status : testBackendNamedItemAvailability(namedItemTerm);
+    }
+    var status = testBackendNamedItemAvailability(namedItemTerm);
+    return status.isOK() ? status : testClientNamedItemAvailability(namedItemTerm);
   }
 
   @Override

@@ -4,6 +4,7 @@ import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.devepos.adt.cst.search.CodeSearchFactory;
+import com.devepos.adt.cst.search.ICodeSearchFeatureUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
@@ -31,14 +32,21 @@ public class CodeSearchTmViewPropertyTester extends PropertyTester {
         }
 
         var featureUtil = CodeSearchFactory.getCodeSearchFeatureUtil(project);
-        return featureUtil
-            .testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
-                .getPreferenceStore()
-                .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH))
-            .isOK()
-            && featureUtil
-                .testNamedItemAvailabilityByProject(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+        var isPreferClient = CodeSearchUIPlugin.getDefault()
+            .getPreferenceStore()
+            .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH);
+        var featureStatus = featureUtil.testSearchAvailabilityByProject(isPreferClient);
+        if (featureStatus.isOK()) {
+          if (featureStatus.getCode() == ICodeSearchFeatureUtil.SEARCH_TARGET_CLIENT) {
+            return featureUtil
+                .testClientNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
                 .isOK();
+          }
+          return featureUtil
+              .testBackendNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+              .isOK();
+        }
+        return false;
       }
     } catch (NullPointerException exc) {
     }

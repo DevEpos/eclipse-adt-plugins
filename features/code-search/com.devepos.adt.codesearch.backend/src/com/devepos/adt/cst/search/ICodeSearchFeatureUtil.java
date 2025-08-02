@@ -61,10 +61,11 @@ public interface ICodeSearchFeatureUtil {
   /**
    * Tests availability of named item by the given term by project
    *
+   * @param preferClient  if {@code true} client side search will be used prioritized
    * @param namedItemTerm identifies named item resource
    * @return the validation status of the test
    */
-  IStatus testNamedItemAvailabilityByProject(final String namedItemTerm);
+  IStatus testNamedItemAvailabilityByProject(boolean preferClient, final String namedItemTerm);
 
   /**
    * Returns {@code true} if the parameter is supported in the Code Search API

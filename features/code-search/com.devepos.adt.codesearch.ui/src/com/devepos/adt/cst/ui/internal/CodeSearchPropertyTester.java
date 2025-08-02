@@ -15,6 +15,7 @@ import com.devepos.adt.base.ui.projectexplorer.node.IAbapRepositoryFolderNode;
 import com.devepos.adt.base.ui.projectexplorer.virtualfolders.IVirtualFolderNode;
 import com.devepos.adt.base.ui.util.AdtTypeUtil;
 import com.devepos.adt.cst.search.CodeSearchFactory;
+import com.devepos.adt.cst.search.ICodeSearchFeatureUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.codesearch.ProjectDependentTypeAvailability;
@@ -44,6 +45,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
       IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES,
       IAbapRepositoryFolderNode.CATEGORY_ACCESS_CONTROL_MGMT,
       IAbapRepositoryFolderNode.CATEGORY_DICTIONARY, IAbapRepositoryFolderNode.CATEGORY_SOURCE_LIB);
+  private boolean isPreferClientSearch = false;
 
   static {
     VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_CORE_DATA_SERVICES);
@@ -53,6 +55,13 @@ public class CodeSearchPropertyTester extends PropertyTester {
   }
 
   public CodeSearchPropertyTester() {
+    var prefStore = CodeSearchUIPlugin.getDefault().getPreferenceStore();
+    isPreferClientSearch = prefStore.getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH);
+    prefStore.addPropertyChangeListener(p -> {
+      if (ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH.equals(p.getProperty())) {
+        isPreferClientSearch = (boolean) p.getNewValue();
+      }
+    });
   }
 
   @Override
@@ -81,9 +90,19 @@ public class CodeSearchPropertyTester extends PropertyTester {
     if (project == null) {
       return false;
     }
-    return CodeSearchFactory.getCodeSearchFeatureUtil(project)
-        .testNamedItemAvailabilityByProject(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
-        .isOK();
+    var featureUtil = CodeSearchFactory.getCodeSearchFeatureUtil(project);
+    var status = featureUtil.testSearchAvailabilityByProject(isPreferClientSearch);
+    if (status.isOK()) {
+      if (status.getCode() == ICodeSearchFeatureUtil.SEARCH_TARGET_CLIENT) {
+        return featureUtil
+            .testClientNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+            .isOK();
+      }
+      return featureUtil
+          .testBackendNamedItemAvailability(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm())
+          .isOK();
+    }
+    return false;
   }
 
   private boolean isCodeSearchAvailable(final Object receiver) {
@@ -93,7 +112,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
     if (receiver instanceof IAdtObject) {
       project = ((IAdtObject) receiver).getProject();
     } else if (receiver instanceof IVirtualFolderNode) {
-      IVirtualFolderNode virtualFolder = (IVirtualFolderNode) receiver;
+      var virtualFolder = (IVirtualFolderNode) receiver;
       project = virtualFolder.getProject();
       folderValidation = () -> {
         if (virtualFolder.isTree()) {
@@ -112,12 +131,12 @@ public class CodeSearchPropertyTester extends PropertyTester {
     } else if (receiver instanceof IAbapRepositoryFolderNode) {
       // should only be relevant for 7.40-7.50 as Repository Trees and therefore Virtual Folders
       // are available starting with 7.51
-      final IAbapRepositoryFolderNode folder = (IAbapRepositoryFolderNode) receiver;
+      final var folder = (IAbapRepositoryFolderNode) receiver;
       project = folder.getProject();
       var projectDependentTypes = ProjectDependentTypeAvailability.getTypesForProject(project);
-      String destinationId = DestinationUtil.getDestinationId(project);
+      var destinationId = DestinationUtil.getDestinationId(project);
       folderValidation = () -> {
-        String category = folder.getCategory();
+        var category = folder.getCategory();
         if (category != null) {
           if (!VALID_ABAP_REPO_FOLDER_TYPE_KEYS.contains(category)) {
             return false;
@@ -135,7 +154,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
           }
           return !AdtTypeUtil.getInstance().isCdsCategoryAvailable(destinationId);
         }
-        String type = folder.getType();
+        var type = folder.getType();
         if (type != null) {
           return CodeSearchRelevantWbTypesUtil.getRelevantTypesForHandler(folder.getProject())
               .contains(type);
@@ -145,7 +164,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
       };
     }
 
-    boolean isProjectValid = project != null
+    var isProjectValid = project != null
         ? CodeSearchFactory.getCodeSearchFeatureUtil(project)
             .testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
                 .getPreferenceStore()
@@ -166,7 +185,7 @@ public class CodeSearchPropertyTester extends PropertyTester {
   }
 
   private boolean isObjectSearchable(final IAdtObject adtObj) {
-    String adtType = adtObj.getReference().getType();
+    var adtType = adtObj.getReference().getType();
     if (adtType == null) {
       return false;
     }
