@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.swt.graphics.Image;
 
@@ -18,6 +21,8 @@ import com.devepos.adt.base.ui.search.ISearchFilterProvider;
 import com.devepos.adt.base.ui.search.contentassist.PackageSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterValueProposal;
 import com.devepos.adt.base.ui.search.contentassist.UserSearchFilter;
+import com.devepos.adt.base.util.IValidator;
+import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
 import com.devepos.adt.cst.ui.internal.codesearch.contentassist.ObjectTypeSearchFilter;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
@@ -67,7 +72,7 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
 
   private void addAvailableFacetFilters(final ArrayList<ISearchFilter> validParameters) {
     var destinationId = projectProvider.getDestinationId();
-    var facetFilters = FACET_FILTERS_CACHE.get(projectProvider.getProject());
+    List<ISearchFilter> facetFilters = null;// FACET_FILTERS_CACHE.get(projectProvider.getProject());
     if (facetFilters == null) {
       facetFilters = createFacetFilters(destinationId);
       FACET_FILTERS_CACHE.put(projectProvider.getProject(), facetFilters);
@@ -81,18 +86,21 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
       var facetProvider = FacetProviderFactory.getInstance(projectProvider.getProject(),
           new NullProgressMonitor());
       if (facetProvider.getApplicationComponentFacet() != null) {
-        facetFilters.add(
-            new FacetSearchFilter(facetProvider.getApplicationComponentFacet(), destinationId));
+        facetFilters.add(new FacetSearchFilter(facetProvider.getApplicationComponentFacet(),
+            destinationId, null));
       }
       if (facetProvider.getCreatedYearFacet() != null) {
-        facetFilters.add(new FacetSearchFilter(facetProvider.getCreatedYearFacet(), destinationId));
+        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedYearFacet(),
+            "1\\d{3}", "%s is not a valid year (e.g. 2025)"));
       }
       if (facetProvider.getCreatedMonthFacet() != null) {
-        facetFilters
-            .add(new FacetSearchFilter(facetProvider.getCreatedMonthFacet(), destinationId));
+        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedMonthFacet(),
+            "(0[1-9]|1[0-2])", "%s is not a valid month (e.g. 05)"));
       }
       if (facetProvider.getCreatedFacet() != null) {
-        facetFilters.add(new FacetSearchFilter(facetProvider.getCreatedFacet(), destinationId));
+        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedFacet(),
+            "[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
+            "%s is not a date pattern (e.g. 20250515)"));
       }
     } catch (ServiceNotAvailableException | CoreException e) {
       e.printStackTrace();
@@ -100,14 +108,28 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
     return facetFilters;
   }
 
-  private static class FacetSearchFilter implements ISearchFilter, ITextQueryProposalProvider {
+  private ISearchFilter createDateFacetFilter(final String destinationId, final IFacet facet,
+      final String validationPattern, final String validationErrMsg) {
+    return new FacetSearchFilter(facet, destinationId, value -> {
+      if (!Pattern.matches(validationPattern, String.valueOf(value))) {
+        throw new CoreException(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+            String.format(validationErrMsg, value)));
+      }
+    });
+  }
+
+  private static class FacetSearchFilter
+      implements ISearchFilter, ITextQueryProposalProvider, IValidator {
 
     private final IFacet facet;
     private final String destinationId;
+    private final IValidator validator;
 
-    public FacetSearchFilter(final IFacet facet, final String destinationId) {
+    public FacetSearchFilter(final IFacet facet, final String destinationId,
+        final IValidator validator) {
       this.facet = facet;
       this.destinationId = destinationId;
+      this.validator = validator;
     }
 
     @Override
@@ -169,6 +191,13 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
         return proposals;
       }
       return null;
+    }
+
+    @Override
+    public void validate(final Object value) throws CoreException {
+      if (validator != null) {
+        validator.validate(value);
+      }
     }
   }
 }
