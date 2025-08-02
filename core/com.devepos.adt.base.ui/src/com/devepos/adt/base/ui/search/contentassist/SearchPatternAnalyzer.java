@@ -358,6 +358,8 @@ public class SearchPatternAnalyzer implements ISearchPatternAnalyzer {
       // excluded during the determination of relevant proposals
       currentQuery = removeNegation(searchFilter, currentQuery);
       proposals = ((ITextQueryProposalProvider) searchFilter).getProposalList(currentQuery);
+      // we have the proposals, no need to look further
+      break;
     }
     return proposals;
   }

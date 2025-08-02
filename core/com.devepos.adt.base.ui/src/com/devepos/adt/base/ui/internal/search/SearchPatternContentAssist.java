@@ -103,7 +103,7 @@ public class SearchPatternContentAssist extends AsyncContentAssist {
           return;
         }
         var searchFilter = patternAnalyzer.getFilterFromQuery(content);
-        if (searchFilter instanceof BooleanSearchFilter
+        if (searchFilter == null || searchFilter instanceof BooleanSearchFilter
             || searchFilter instanceof DateSearchFilter) {
           return;
         }

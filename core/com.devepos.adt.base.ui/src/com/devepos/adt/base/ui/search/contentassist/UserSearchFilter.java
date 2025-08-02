@@ -107,7 +107,7 @@ public class UserSearchFilter implements ISearchFilter, ITextQueryProposalProvid
         for (final var user : users) {
           proposals.add(new SearchFilterValueProposal(user.getId(), this, user.getText(), query,
               proposalImage));
-          if (proposals.size() >= 50) {
+          if (proposals.size() > 50) {
             break;
           }
         }
