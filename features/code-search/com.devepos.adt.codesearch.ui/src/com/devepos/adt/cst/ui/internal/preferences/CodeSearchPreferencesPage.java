@@ -76,8 +76,8 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
     linkToPropPageCtrl = linkToPropertyPage.createControl(parent,
         GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).create());
 
-    createClientSearchSettings(parent);
     createSearchDialogSettings(parent);
+    createClientSearchSettings(parent);
   }
 
   @Override
@@ -112,17 +112,17 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
   }
 
   private void createClientSearchSettings(Composite parent) {
-    final var group = createGroup("Client Based Search Settings", parent);
+    final var group = createGroup("Client Based Search", parent);
 
     final var maxJobsEditor = new IntegerFieldEditor(ICodeSearchPrefs.MAX_CLIENT_SEARCH_JOBS,
-        "Max. number of Jobs (Threads):", createEditorParent(group), 2);
+        "Max. number of &Jobs (Threads):", createEditorParent(group), 2);
     maxJobsEditor.setValidRange(1, 20);
     addEditor(maxJobsEditor);
 
-    addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH, "Prefer client based search",
+    addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH, "Prefer &client based search",
         createEditorParent(group));
     addBooleanEditor(ICodeSearchPrefs.CLIENT_SEARCH_READ_PACKAGE_HIERARCHY,
-        "Determine Package Hierarchy for Results", createEditorParent(group));
+        "Determine Package &Hierarchy for Results", createEditorParent(group));
 
     adjustMargins(group);
   }

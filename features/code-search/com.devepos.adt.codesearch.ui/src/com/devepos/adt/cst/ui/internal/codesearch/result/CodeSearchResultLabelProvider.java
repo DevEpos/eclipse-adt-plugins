@@ -28,6 +28,11 @@ class CodeSearchResultLabelProvider extends LabelProvider
     implements ILabelProvider, IStyledLabelProvider, IToolTipProvider {
 
   private final NumberFormat matchCountFormat = new DecimalFormat("###,###");
+  private boolean useEntityTypeForDDLS = true;
+
+  public void setUseEntityTypeForDDLS(boolean useEntityType) {
+    this.useEntityTypeForDDLS = useEntityType;
+  }
 
   @Override
   public Image getImage(final Object element) {
@@ -40,9 +45,7 @@ class CodeSearchResultLabelProvider extends LabelProvider
       if (adtType.equals(IAdtObjectTypeConstants.CLASS_INCLUDE)) {
         return AdtBaseUIResources.getImage(IAdtBaseImages.NEUTRAL_METHOD);
       }
-      // TODO: use DATA DEFINITION type in Client based search as we do not return the entity name
-      // as in the backend based search
-      if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(adtType)) {
+      if (IAdtObjectTypeConstants.DATA_DEFINITION.equals(adtType) && useEntityTypeForDDLS) {
         adtType = IAdtObjectTypeConstants.CDS_VIEW;
       }
       image = AdtTypeUtil.getInstance().getTypeImage(adtType);
