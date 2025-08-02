@@ -227,8 +227,6 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
           executor.submit(() -> searchService.searchObjects(monitor, chunk, searchConfig, this)));
     }
 
-    System.out.printf("%d pending tasks\n", job.size());
-
     return job.awaitResult();
   }
 

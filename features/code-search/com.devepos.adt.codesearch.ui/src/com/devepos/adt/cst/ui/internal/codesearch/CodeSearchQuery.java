@@ -16,7 +16,7 @@ import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 
 /**
- * Query for running Code Search
+ * Query for running Code Search in the custom ABAP Code Search ABAP implementation
  *
  * @author Ludwig Stockbauer-Muhr
  *

@@ -650,7 +650,8 @@ public class CodeSearchDialog extends DialogPage
         } else {
           section.setProject(null);
           section.setEnabledStatus(new Status(IStatus.INFO, CodeSearchUIPlugin.PLUGIN_ID,
-              Messages.CodeSearchDialog_extensionNotAvailableError_xmsg));
+              clientSearchTargeted ? "Extension is not available in client based search"
+                  : Messages.CodeSearchDialog_extensionNotAvailableError_xmsg));
         }
       } else {
         section.setProject(null);
