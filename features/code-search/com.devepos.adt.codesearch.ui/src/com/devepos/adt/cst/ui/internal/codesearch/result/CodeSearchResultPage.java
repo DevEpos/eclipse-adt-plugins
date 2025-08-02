@@ -69,7 +69,6 @@ import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchDialog;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
-import com.devepos.adt.cst.ui.internal.codesearch.client.ClientBasedCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.export.ExportSearchResultsDialog;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.CodeSearchPreferencesPage;
@@ -246,8 +245,7 @@ public class CodeSearchResultPage extends AbstractTextSearchViewPage implements
         viewState instanceof UiState ? ((UiState) viewState).getSelection() : viewState);
 
     if (labelProvider != null) {
-      labelProvider
-          .setUseEntityTypeForDDLS(getSearchQuery() instanceof ClientBasedCodeSearchQuery);
+      labelProvider.setUseEntityTypeForDDLS(getSearchQuery() instanceof CodeSearchQuery);
     }
     updateContinueAction();
     updateGroupingActions();
