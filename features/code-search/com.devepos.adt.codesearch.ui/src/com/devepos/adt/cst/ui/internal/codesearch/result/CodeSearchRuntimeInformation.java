@@ -167,6 +167,10 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     fireUpdated();
   }
 
+  public boolean isClientSearch() {
+    return searchQuery instanceof ClientBasedCodeSearchQuery;
+  }
+
   void addRuntimeInfoListener(final IRuntimeInfoListener l) {
     runtimeListeners.add(l);
   }

@@ -184,6 +184,12 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     queryStatus = new Label(group, SWT.NONE);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(queryStatus);
 
+    var searchTypeLabel = new Label(group, SWT.NONE);
+    searchTypeLabel.setText("Search Type:");
+    var searchType = new Label(group, SWT.NONE);
+    searchType.setText(runtimeInfo.isClientSearch() ? "Client" : "Backend");
+    GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(searchType);
+
     if (runtimeInfo.isSearchRunning()) {
       queryStatus.setText(Messages.CodeSearchRuntimeInfoDialog_queryStatusRunning_xlbl);
     } else {
@@ -223,13 +229,15 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
         Messages.CodeSearchRuntimeInfoDialog_clientQueryRuntime_xlbl);
     clientQueryDurationUnit = createDurationUnitOutput(group);
 
-    queryDuration = createDurationOutput(group,
-        Messages.CodeSearchRuntimeInfoDialog_queryRuntime_xlbl);
-    queryDurationUnit = createDurationUnitOutput(group);
+    if (!runtimeInfo.isClientSearch()) {
+      queryDuration = createDurationOutput(group,
+          Messages.CodeSearchRuntimeInfoDialog_queryRuntime_xlbl);
+      queryDurationUnit = createDurationUnitOutput(group);
 
-    averageRequestDuration = createDurationOutput(group,
-        Messages.CodeSearchRuntimeInfoDialog_averageRequestRuntimeLabel_xlbl);
-    averageRequestDurationUnit = createDurationUnitOutput(group);
+      averageRequestDuration = createDurationOutput(group,
+          Messages.CodeSearchRuntimeInfoDialog_averageRequestRuntimeLabel_xlbl);
+      averageRequestDurationUnit = createDurationUnitOutput(group);
+    }
   }
 
   private void updateControlsFromResult() {
@@ -251,11 +259,14 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     updateDurationLabels();
 
     searchedObjects.getParent().layout();
-    queryDuration.getParent().layout();
+    clientQueryDuration.getParent().layout();
   }
 
   private void updateDurationLabel(float duration, final Label durationLabel,
       final Label durationUnitLabel) {
+    if (durationLabel == null) {
+      return;
+    }
     String durationUnit = UNIT_MILLISECOND;
     var numberFormat = defaultFormat;
 
@@ -284,9 +295,9 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
   }
 
   private void updateDurationLabels() {
-    updateDurationLabel(runtimeInfo.getOverallServerTimeInMs(), queryDuration, queryDurationUnit);
     updateDurationLabel(runtimeInfo.getOverallClientTimeInMs(), clientQueryDuration,
         clientQueryDurationUnit);
+    updateDurationLabel(runtimeInfo.getOverallServerTimeInMs(), queryDuration, queryDurationUnit);
     updateDurationLabel(runtimeInfo.getAverageDuration(), averageRequestDuration,
         averageRequestDurationUnit);
   }
