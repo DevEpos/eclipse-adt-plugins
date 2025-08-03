@@ -52,6 +52,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
   private Label averageRequestDuration;
   private Label averageRequestDurationUnit;
   private Label queryStatus;
+  private Label querySubTask;
   private Button updateButton;
   private boolean isUpdatesOn;
 
@@ -101,6 +102,14 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
   }
 
   @Override
+  public void subTaskChanged(final String subTask) {
+    Display.getDefault().asyncExec(() -> {
+      querySubTask.setText(subTask);
+      querySubTask.getParent().layout();
+    });
+  }
+
+  @Override
   protected void buttonPressed(final int buttonId) {
     if (buttonId == UPDATE_BUTTON_ID) {
       if (isUpdatesOn) {
@@ -127,7 +136,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
 
   @Override
   protected Control createDialogArea(final Composite parent) {
-    Control dialogArea = super.createDialogArea(parent);
+    var dialogArea = super.createDialogArea(parent);
 
     var main = new Composite((Composite) dialogArea, SWT.NONE);
     GridDataFactory.fillDefaults()
@@ -185,10 +194,20 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(queryStatus);
 
     var searchTypeLabel = new Label(group, SWT.NONE);
-    searchTypeLabel.setText("Search Type:");
+    searchTypeLabel.setText(Messages.CodeSearchRuntimeInfoDialog_SearchType_xlbl);
     var searchType = new Label(group, SWT.NONE);
-    searchType.setText(runtimeInfo.isClientSearch() ? "Client" : "Backend");
+    searchType.setText(
+        runtimeInfo.isClientSearch() ? Messages.CodeSearchRuntimeInfoDialog_SearchTypeClient_xlbl
+            : Messages.CodeSearchRuntimeInfoDialog_SearchTypeBackend_xlbl);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(searchType);
+
+    if (runtimeInfo.isClientSearch()) {
+      var subTasklabel = new Label(group, SWT.NONE);
+      subTasklabel.setText(Messages.CodeSearchRuntimeInfoDialog_CurrentSubTask_xlbl);
+      querySubTask = new Label(group, SWT.NONE);
+      GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(querySubTask);
+      querySubTask.setText("-");
+    }
 
     if (runtimeInfo.isSearchRunning()) {
       queryStatus.setText(Messages.CodeSearchRuntimeInfoDialog_queryStatusRunning_xlbl);
@@ -244,7 +263,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     if (searchedObjects == null || searchedObjects.isDisposed()) {
       return;
     }
-    float percentage = (float) runtimeInfo.getSearchedObjectsCount()
+    var percentage = (float) runtimeInfo.getSearchedObjectsCount()
         / runtimeInfo.getObjectScopeCount() * 100;
 
     searchedObjects
@@ -255,6 +274,10 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     searchedSources.setText(defaultFormat.format(runtimeInfo.getSearchedSourcesCount()));
     searchedLoC.setText(defaultFormat.format(runtimeInfo.getSearchedLinesOfCode()));
     foundMatches.setText(defaultFormat.format(runtimeInfo.getResultCount()));
+
+    if (querySubTask != null) {
+      querySubTask.setText(runtimeInfo.getQuerySubTaskName());
+    }
 
     updateDurationLabels();
 
@@ -267,7 +290,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     if (durationLabel == null) {
       return;
     }
-    String durationUnit = UNIT_MILLISECOND;
+    var durationUnit = UNIT_MILLISECOND;
     var numberFormat = defaultFormat;
 
     if (duration == -1) {

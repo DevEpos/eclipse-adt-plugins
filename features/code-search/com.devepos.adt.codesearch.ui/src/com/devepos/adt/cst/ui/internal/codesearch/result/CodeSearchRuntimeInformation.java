@@ -29,6 +29,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private int searchedObjectsCount;
 
   private String systemId;
+  private String subTask;
   private int overallServerTimeInMs;
   private long overallClientTimeInMs;
   private final AbstractCodeSearchQuery searchQuery;
@@ -43,6 +44,8 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     void queryFinished();
 
     void updated();
+
+    void subTaskChanged(String subTask);
   }
 
   /**
@@ -50,6 +53,15 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
    */
   public int getAverageDuration() {
     return averageDuration;
+  }
+
+  public void setQuerySubTaskName(final String subTask) {
+    this.subTask = subTask;
+    fireSubTaskChanged(subTask);
+  }
+
+  public String getQuerySubTaskName() {
+    return subTask;
   }
 
   /**
@@ -109,6 +121,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     synchronized (searchQuery) {
       overallClientTimeInMs = System.currentTimeMillis() - searchQuery.getStartTime();
     }
+    fireUpdated();
   }
 
   public boolean isQueryFinished() {
@@ -196,6 +209,12 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private void fireUpdated() {
     for (IRuntimeInfoListener l : runtimeListeners) {
       l.updated();
+    }
+  }
+
+  private void fireSubTaskChanged(final String subTask) {
+    for (IRuntimeInfoListener l : runtimeListeners) {
+      l.subTaskChanged(subTask);
     }
   }
 }

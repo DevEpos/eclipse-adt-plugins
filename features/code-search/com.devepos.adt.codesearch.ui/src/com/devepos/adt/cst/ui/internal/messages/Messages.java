@@ -3,6 +3,17 @@ package com.devepos.adt.cst.ui.internal.messages;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
+  public static String ClientBasedCodeSearchQuery_DetermineScopeJob_xmsg;
+  public static String ClientBasedCodeSearchQuery_DetermineScopeSubTask_xmsg;
+  public static String ClientBasedCodeSearchQuery_ExpandingFoldersJob_xmsg;
+  public static String ClientBasedCodeSearchQuery_ExpandingFoldersSubTask_xmsg;
+  public static String ClientBasedCodeSearchQuery_FolderExpansionFailed_xmsg;
+  public static String ClientBasedCodeSearchQuery_FolderSearchFailed_xmsg;
+  public static String ClientBasedCodeSearchQuery_ObjectRetrievalJob_xmsg;
+  public static String ClientBasedCodeSearchQuery_ObjectRetrievalSubTask_xmsg;
+  public static String ClientBasedCodeSearchQuery_ObjectSearchJob_xmsg;
+  public static String ClientBasedCodeSearchQuery_ObjectSearchSubTask_xmsg;
+  public static String ClientBasedCodeSearchQuery_UnknownSearchError_xmsg;
   public static String CodeSearchDialog_additionalSettingsGroup_xlbl;
   public static String CodeSearchDialog_checkSequenceBoundsOption_xchk;
   public static String CodeSearchDialog_checkSequenceBoundsOption_xtol;
@@ -87,6 +98,7 @@ public class Messages extends NLS {
   public static String CodeSearchResultPage_showRuntimInfoDialogAction_xlbl;
   public static String CodeSearchRuntimeInfoDialog_averageRequestRuntimeLabel_xlbl;
   public static String CodeSearchRuntimeInfoDialog_clientQueryRuntime_xlbl;
+  public static String CodeSearchRuntimeInfoDialog_CurrentSubTask_xlbl;
   public static String CodeSearchRuntimeInfoDialog_dialogTitle_xtit;
   public static String CodeSearchRuntimeInfoDialog_foundMatchesLabel_xlbl;
   public static String CodeSearchRuntimeInfoDialog_linesOfCode_xlbl;
@@ -101,6 +113,9 @@ public class Messages extends NLS {
   public static String CodeSearchRuntimeInfoDialog_searchedObjects_xlbl;
   public static String CodeSearchRuntimeInfoDialog_searchedSources_xlbl;
   public static String CodeSearchRuntimeInfoDialog_searchProgressGroup_xtit;
+  public static String CodeSearchRuntimeInfoDialog_SearchType_xlbl;
+  public static String CodeSearchRuntimeInfoDialog_SearchTypeBackend_xlbl;
+  public static String CodeSearchRuntimeInfoDialog_SearchTypeClient_xlbl;
   public static String CodeSearchRuntimeInfoDialog_startUpdatesAction_xbtn;
   public static String CodeSearchRuntimeInfoDialog_stopUpdatesAction_xbtn;
   public static String CodeSearchScopeFilters_createdOnFilterShortDescription_xmsg;

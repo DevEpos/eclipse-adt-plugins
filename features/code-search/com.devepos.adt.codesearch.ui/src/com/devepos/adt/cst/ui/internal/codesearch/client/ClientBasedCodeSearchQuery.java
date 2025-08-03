@@ -29,6 +29,7 @@ import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.AbstractCodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
+import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
@@ -80,9 +81,11 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
     try {
       var findFoldersStatus = findFolders(monitor, executor);
+      updateClientRuntime();
       if (!findFoldersStatus.isOK()) {
         return findFoldersStatus;
       }
+
       var expandBigFoldersStatus = expandBigFolders(monitor, executor);
       if (!expandBigFoldersStatus.isOK()) {
         return expandBigFoldersStatus;
@@ -108,19 +111,22 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       if (e.getCause() instanceof OperationCanceledException) {
         return Status.CANCEL_STATUS;
       }
-      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, "ABAP Code Search failed", e);
+      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+          Messages.ClientBasedCodeSearchQuery_UnknownSearchError_xmsg, e);
     } finally {
       executor.shutdownNow();
     }
 
   }
 
-  private IStatus findFolders(final IProgressMonitor monitor, ExecutorService executor)
+  private IStatus findFolders(final IProgressMonitor monitor, final ExecutorService executor)
       throws InterruptedException, ExecutionException {
     // fetch packages for current scope
     var packageSearchMonitor = monitor.slice(5);
     packageSearchMonitor.beginTask("", 5);
-    monitor.setTaskName("Determine Scope...");
+    monitor.setTaskName(Messages.ClientBasedCodeSearchQuery_DetermineScopeJob_xmsg);
+    searchResult.getRuntimeInfo()
+        .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_DetermineScopeSubTask_xmsg);
     if (searchConfig.getObjectNames().length > 1) {
       var status = runFindFoldersJob(packageSearchMonitor, executor);
       if (!status.isOK()) {
@@ -136,18 +142,19 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     return Status.OK_STATUS;
   }
 
-  private IStatus runFindFoldersJob(final IProgressMonitor monitor, ExecutorService executor)
+  private IStatus runFindFoldersJob(final IProgressMonitor monitor, final ExecutorService executor)
       throws InterruptedException, ExecutionException {
     var job = new ParallelJob();
     for (var objectPattern : searchConfig.getObjectNames()) {
       job.addTask(executor.submit(() -> {
         var foundFolders = searchService.findFolders(monitor, searchConfig, objectPattern);
+        updateClientRuntime();
         if (foundFolders != null) {
           folderSet.addAll(foundFolders);
           return Status.OK_STATUS;
         }
-        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-            String.format("Folder search for pattern %s failed", objectPattern));
+        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, String
+            .format(Messages.ClientBasedCodeSearchQuery_FolderSearchFailed_xmsg, objectPattern));
       }));
     }
     return job.awaitResult();
@@ -158,7 +165,9 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
     var expandMonitor = monitor.slice(5);
     expandMonitor.beginTask("", 5);
-    monitor.setTaskName("Expanding folders...");
+    monitor.setTaskName(Messages.ClientBasedCodeSearchQuery_ExpandingFoldersJob_xmsg);
+    searchResult.getRuntimeInfo()
+        .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ExpandingFoldersSubTask_xmsg);
     var bigFolders = extractBigFolders(folderSet);
     while (bigFolders != null && !bigFolders.isEmpty()) {
       var status = runExpandFoldersJob(bigFolders, expandMonitor, executor);
@@ -182,12 +191,13 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     for (var f : folderToExpand) {
       job.addTask(executor.submit(() -> {
         var expandedFolders = searchService.expandFolder(f, searchConfig, expandMonitor);
+        updateClientRuntime();
         if (expandedFolders != null) {
           tmpBigFolders.addAll(expandedFolders);
           return Status.OK_STATUS;
         }
-        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-            String.format("Expansion of folder %s failed", f.getName()));
+        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, String
+            .format(Messages.ClientBasedCodeSearchQuery_FolderExpansionFailed_xmsg, f.getName()));
       }));
     }
     return job.awaitResult();
@@ -209,8 +219,10 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       throws InterruptedException, ExecutionException {
     var objectMonitor = monitor.slice(85);
     objectMonitor.beginTask("", searchableObjects.size());
-    monitor.setTaskName(
-        String.format("Searching %s objects...", DEFAULT_FORMAT.format(searchableObjects.size())));
+    monitor.setTaskName(String.format(Messages.ClientBasedCodeSearchQuery_ObjectSearchJob_xmsg,
+        DEFAULT_FORMAT.format(searchableObjects.size())));
+    searchResult.getRuntimeInfo()
+        .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ObjectSearchSubTask_xmsg);
     searchResult.setObjectScopeCount(searchableObjects.size());
     var searchStatus = runSearchObjectsJob(executor, objectMonitor);
     return searchStatus;
@@ -220,11 +232,14 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       final IProgressMonitor monitor) throws InterruptedException, ExecutionException {
     var objectsCount = searchableObjects.size();
     var chunks = splitList(new ArrayList<>(searchableObjects),
-        objectsCount > 1000 ? 50 : (objectsCount > 500 ? 20 : 5));
+        objectsCount > 1000 ? 50 : objectsCount > 500 ? 20 : 5);
     var job = new ParallelJob();
     for (var chunk : chunks) {
-      job.addTask(
-          executor.submit(() -> searchService.searchObjects(monitor, chunk, searchConfig, this)));
+      job.addTask(executor.submit(() -> {
+        var objectStatus = searchService.searchObjects(monitor, chunk, searchConfig, this);
+        updateClientRuntime();
+        return objectStatus;
+      }));
     }
 
     return job.awaitResult();
@@ -235,14 +250,17 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
     var loadObjMonitor = monitor.slice(5);
     loadObjMonitor.beginTask("", folderSet.size());
-    monitor.setTaskName(String.format("Retrieving objects in %s folders...",
+    monitor.setTaskName(String.format(Messages.ClientBasedCodeSearchQuery_ObjectRetrievalJob_xmsg,
         DEFAULT_FORMAT.format(folderSet.size())));
+    searchResult.getRuntimeInfo()
+        .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ObjectRetrievalSubTask_xmsg);
 
     var job = new ParallelJob();
 
     for (var chunk : folderSet) {
       job.addTask(executor.submit(() -> {
         var objects = searchService.getObjectsInFolder(chunk, searchConfig, loadObjMonitor);
+        updateClientRuntime();
         loadObjMonitor.worked(1);
         synchronized (searchableObjects) {
           if (objects != null) {
@@ -269,15 +287,15 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     searchResult.addResult(result);
   }
 
+  private void updateClientRuntime() {
+    searchResult.getRuntimeInfo().updateOverallClientTime();
+  }
+
   private static class ParallelJob {
     private final List<Future<IStatus>> futures = new ArrayList<>();
 
     public void addTask(final Future<IStatus> task) {
       futures.add(task);
-    }
-
-    public int size() {
-      return futures.size();
     }
 
     public IStatus awaitResult() throws InterruptedException, ExecutionException {
