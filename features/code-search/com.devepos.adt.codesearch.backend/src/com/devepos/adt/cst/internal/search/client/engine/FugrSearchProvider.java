@@ -14,7 +14,9 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.FunctionGroupInclude;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.resources.ResourceException;
+import com.sap.adt.communication.resources.ResourceNotFoundException;
 
 public class FugrSearchProvider implements ISearchProvider {
 
@@ -42,12 +44,12 @@ public class FugrSearchProvider implements ISearchProvider {
 
     var relevantNodeIds = new ArrayList<String>();
     for (var objectType : fugrTreeContent.getObjectTypes()) {
-      if ((IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getObjectType())
+      if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getObjectType())
           && (config.getFugrIncludeFlags()
-              & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0)
-          || (IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getObjectType())
+              & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0
+          || IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getObjectType())
               && (config.getFugrIncludeFlags()
-                  & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0)) {
+                  & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0) {
         relevantNodeIds.add(objectType.getNodeId());
         continue;
       }
@@ -104,8 +106,10 @@ public class FugrSearchProvider implements ISearchProvider {
           insertSubObjResult(object, result, subObject, sourceUri, matches);
         }
         result.increaseNumberOfSearchedSources(1);
-      } catch (ResourceException exc) {
-        result.addResponseMessage(String.format("Error during source retrieval of [%] %s",
+      } catch (ResourceNotFoundException exc) {
+        continue;
+      } catch (CommunicationException | ResourceException exc) {
+        result.addResponseMessage(String.format("Error during source retrieval of [%s] %s",
             subObject.getObjectType(), object.getName()), MessageType.ERROR, exc);
       }
     }

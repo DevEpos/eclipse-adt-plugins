@@ -14,6 +14,7 @@ import com.devepos.adt.cst.search.ClassInclude;
 import com.devepos.adt.cst.search.IIncludeToSearch;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
@@ -112,7 +113,9 @@ public class AbapClassSearchProvider implements ISearchProvider {
             }
             result.increaseNumberOfSearchedSources(1);
           });
-    } catch (ClassSectionException | ResourceException exc) {
+    } catch (ResourceNotFoundException exc) {
+      return;
+    } catch (ClassSectionException | ResourceException | CommunicationException exc) {
       result.addResponseMessage(
           String.format("Error during search of global class include of %s", object.getName()),
           MessageType.ERROR, exc);
@@ -148,10 +151,9 @@ public class AbapClassSearchProvider implements ISearchProvider {
         result.increaseNumberOfResults(matches.size());
       }
       result.setLinesOfSearchedCode(code.lineCount());
-    } catch (ResourceException exc) {
-      if (exc instanceof ResourceNotFoundException && ClassInclude.TESTS.equals(include)) {
-        return;
-      }
+    } catch (ResourceNotFoundException exc) {
+      return;
+    } catch (CommunicationException | ResourceException exc) {
       result.addResponseMessage(
           String.format("Error during search of include '%s' of object [%s]: %s",
               include.getLabelWoMnemonic(), o.getType(), o.getName()),

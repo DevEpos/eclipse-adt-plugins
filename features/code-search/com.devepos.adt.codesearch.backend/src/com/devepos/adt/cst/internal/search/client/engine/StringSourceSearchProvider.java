@@ -5,7 +5,9 @@ import com.devepos.adt.base.model.adtbase.MessageType;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.resources.ResourceException;
+import com.sap.adt.communication.resources.ResourceNotFoundException;
 
 public class StringSourceSearchProvider implements ISearchProvider {
 
@@ -40,7 +42,9 @@ public class StringSourceSearchProvider implements ISearchProvider {
         result.setNumberOfResults(matches.size());
         result.setLinesOfSearchedCode(code.lineCount());
       }
-    } catch (ResourceException exc) {
+    } catch (ResourceNotFoundException exc) {
+      // do nothing
+    } catch (CommunicationException | ResourceException exc) {
       result.addResponseMessage(
           String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
           MessageType.ERROR, exc);

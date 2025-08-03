@@ -26,6 +26,7 @@ import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
 import com.devepos.adt.cst.search.client.SearchableObject;
+import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
 
@@ -107,7 +108,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
           addPackagesForObject(o, result, result.getSearchObjects().get(0), monitor);
         }
         reporter.notify(result);
-      } catch (ResourceException exc) {
+      } catch (ResourceException | CommunicationException exc) {
         CodeSearchPlugin.getDefault()
             .getLog()
             .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
