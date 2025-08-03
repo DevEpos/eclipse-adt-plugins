@@ -8,13 +8,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.internal.search.client.engine.IPatternMatcher;
 import com.devepos.adt.cst.internal.search.client.engine.MatcherFactory;
 import com.devepos.adt.cst.internal.search.client.engine.PatternUtil;
-import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.StaticError;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.PatternParseException;
 import com.devepos.adt.cst.internal.search.client.engine.SearchProviderFactory;
 import com.devepos.adt.cst.internal.search.client.engine.SourceCodeReaderFactory;
 import com.devepos.adt.cst.internal.search.client.engine.SourceCodeSearcherFactory;
@@ -82,7 +83,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         PatternUtil.parsePatternSequence(searchConfig.getPatterns())
             .forEach(p -> matchers.add(MatcherFactory.createMatcher(p.pattern(),
                 searchConfig.isUseRegExp(), searchConfig.isIgnoreCaseCheck(), p.flags())));
-      } catch (StaticError e) {
+      } catch (PatternParseException e) {
         return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, e.getMessage(), e);
       }
     } else {
@@ -134,7 +135,7 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
       var packageAdtObj = IAdtBaseFactory.eINSTANCE.createAdtObjRef();
       packageAdtObj.setUri(pack.getUri());
       packageAdtObj.setName(pack.getName());
-      packageAdtObj.setType(pack.getType());
+      packageAdtObj.setType(IAdtObjectTypeConstants.PACKAGE);
       packageObj.setAdtMainObject(packageAdtObj);
       packageObj.setParentUri(previousPackURI);
       packageObj.setUri(pack.getUri());

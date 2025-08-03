@@ -16,7 +16,7 @@ import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
 import com.devepos.adt.cst.internal.search.client.engine.PatternUtil;
-import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.StaticError;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.PatternParseException;
 import com.devepos.adt.cst.search.ICodeSearchPatternValidator;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.resources.IQueryParameter;
@@ -60,12 +60,12 @@ public class CodeSearchPatternValidator implements ICodeSearchPatternValidator {
             try {
               Pattern.compile(p.pattern());
             } catch (PatternSyntaxException e) {
-              throw new StaticError(
+              throw new PatternParseException(
                   String.format("Invalid pattern '%s': %s", p.pattern(), e.getMessage()));
             }
           }
         }
-      } catch (StaticError e) {
+      } catch (PatternParseException e) {
         return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, e.getMessage(), e);
       }
     } else {

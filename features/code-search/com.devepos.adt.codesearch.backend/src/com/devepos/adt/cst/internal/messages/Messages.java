@@ -17,6 +17,17 @@ public class Messages extends NLS {
   public static String FunctionGroupInclude_functionsIncludes_xchk;
   public static String FunctionGroupInclude_otherIncludes_xchk;
 
+  public static String PatternUtil_ErrBoundaryNotClosed_xmsg;
+  public static String PatternUtil_ErrCtrlSequWithoutPattern_xmsg;
+  public static String PatternUtil_ErrInvalidControlSequCombo_xmsg;
+  public static String PatternUtil_ErrInvalidControlSequInPattern_xmsg;
+  public static String PatternUtil_ErrMatchControlSequViolated_xmsg;
+  public static String PatternUtil_ErrNoMatchSequStart_xmsg;
+  public static String PatternUtil_ErrNoUnopenedBoundarySequence_xmsg;
+  public static String PatternUtil_ErrOnlyExcludesFound_xmsg;
+  public static String PatternUtil_ErrUnclosedBoundarySequence_xmsg;
+  public static String PatternUtil_ErrUnclosedMatchSequence_xmsg;
+
   private Messages() {
   }
 

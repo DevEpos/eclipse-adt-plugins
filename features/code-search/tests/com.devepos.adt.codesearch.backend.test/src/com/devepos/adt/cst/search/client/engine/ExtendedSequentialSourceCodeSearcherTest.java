@@ -13,7 +13,7 @@ import com.devepos.adt.cst.internal.search.client.engine.ExtendedSequentialSourc
 import com.devepos.adt.cst.internal.search.client.engine.IPatternMatcher;
 import com.devepos.adt.cst.internal.search.client.engine.ISourceCodeReader;
 import com.devepos.adt.cst.internal.search.client.engine.PatternUtil;
-import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.StaticError;
+import com.devepos.adt.cst.internal.search.client.engine.PatternUtil.PatternParseException;
 import com.devepos.adt.cst.internal.search.client.engine.RegexMatcher;
 import com.devepos.adt.cst.internal.search.client.engine.SourceCode;
 import com.devepos.adt.cst.internal.search.client.engine.SubstringMatcher;
@@ -22,7 +22,7 @@ public class ExtendedSequentialSourceCodeSearcherTest {
   private ExtendedSequentialSourceCodeSearcher cut;
 
   @Test
-  void testExclude1() throws StaticError {
+  void testExclude1() throws PatternParseException {
     List<IPatternMatcher> matchers = PatternUtil
         .parsePatternSequence(Arrays.asList("(#b-start) loop ", "(#exclude) loop ",
             "(#match) select ", "(#b-end) endloop."))
@@ -89,7 +89,7 @@ public class ExtendedSequentialSourceCodeSearcherTest {
   }
 
   @Test
-  void testBoundaries() throws StaticError {
+  void testBoundaries() throws PatternParseException {
     List<IPatternMatcher> matchers = PatternUtil
         .parsePatternSequence(
             Arrays.asList("(#b-start) loop ", "(#match) data(lv", "(#b-end) endloop."))

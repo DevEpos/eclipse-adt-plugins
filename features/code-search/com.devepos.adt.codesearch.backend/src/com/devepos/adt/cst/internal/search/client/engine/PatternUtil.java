@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.devepos.adt.base.util.StringUtil;
+import com.devepos.adt.cst.internal.messages.Messages;
 
 /**
  * Utility class for handling pattern sequences and their control flags.
@@ -48,7 +49,7 @@ public final class PatternUtil {
    * Parses a full pattern sequence.
    */
   public static List<SequentialPattern> parsePatternSequence(final List<String> patterns)
-      throws StaticError {
+      throws PatternParseException {
     var parsedPatterns = parsePatterns(patterns);
     validateSequence(parsedPatterns);
     return parsedPatterns;
@@ -58,7 +59,7 @@ public final class PatternUtil {
    * Parses a list of patterns.
    */
   private static List<SequentialPattern> parsePatterns(final List<String> patterns)
-      throws StaticError {
+      throws PatternParseException {
     var result = new ArrayList<SequentialPattern>();
     var isSequenceFound = false;
 
@@ -83,14 +84,14 @@ public final class PatternUtil {
   /**
    * Parses a single pattern to detect and assign control flags.
    */
-  private static SequentialPattern parsePattern(final String pattern) throws StaticError {
+  private static SequentialPattern parsePattern(final String pattern) throws PatternParseException {
     var matcher = CTRL_SEQ_PATTERN.matcher(pattern);
     if (!matcher.find()) {
       // check if pattern has invalid control sequence
       var invalidSeqMatcher = ANY_CTRL_SEQ_PATTERN.matcher(pattern);
       if (invalidSeqMatcher.find()) {
-        throw new StaticError(
-            String.format("Invalid control sequence in pattern '%s' detected", pattern));
+        throw new PatternParseException(
+            String.format(Messages.PatternUtil_ErrInvalidControlSequInPattern_xmsg, pattern));
       }
       return new SequentialPattern(pattern, 0);
     }
@@ -107,8 +108,8 @@ public final class PatternUtil {
     }
 
     if (StringUtil.isEmpty(patternWithoutSeq)) {
-      throw new StaticError(
-          String.format("Control sequence %s without a pattern is not possible", ctrlSequence));
+      throw new PatternParseException(
+          String.format(Messages.PatternUtil_ErrCtrlSequWithoutPattern_xmsg, ctrlSequence));
     }
     return new SequentialPattern(patternWithoutSeq, flags);
   }
@@ -116,7 +117,7 @@ public final class PatternUtil {
   /**
    * Validates the structure and rules of a pattern sequence.
    */
-  private static void validateSequence(final List<SequentialPattern> patterns) throws StaticError {
+  private static void validateSequence(final List<SequentialPattern> patterns) throws PatternParseException {
     var excludesCount = 0;
     var boundaryStartIndex = 0;
     var matchStartIndex = 0;
@@ -129,7 +130,7 @@ public final class PatternUtil {
 
       if ((flags & PatternCtrlSequence.BOUNDARY_START.getFlag()) != 0) {
         if (boundaryStartIndex > 0) {
-          throw new StaticError(String.format("Previous boundary sequence not closed with '%s'",
+          throw new PatternParseException(String.format(Messages.PatternUtil_ErrUnclosedBoundarySequence_xmsg,
               PatternCtrlSequence.BOUNDARY_END));
         }
         boundaryStartIndex = i + 1;
@@ -137,28 +138,27 @@ public final class PatternUtil {
         excludesCount++;
       } else if ((flags & PatternCtrlSequence.BOUNDARY_END.getFlag()) != 0) {
         if (boundaryStartIndex == 0) {
-          throw new StaticError(
-              "No boundary sequence started with '" + PatternCtrlSequence.BOUNDARY_START + "'");
+          throw new PatternParseException(
+              String.format(Messages.PatternUtil_ErrNoUnopenedBoundarySequence_xmsg,
+                  PatternCtrlSequence.BOUNDARY_START));
         }
         boundaryStartIndex = 0;
       } else if ((flags & PatternCtrlSequence.MATCH.getFlag()) != 0) {
         if (matchFound || singleMatchSeqFound) {
-          throw new StaticError(
-              "MATCH and MATCH_START/MATCH_END are exclusive and can not occur together");
+          throw new PatternParseException(Messages.PatternUtil_ErrMatchControlSequViolated_xmsg);
         }
         singleMatchSeqFound = true;
       }
 
       if ((flags & PatternCtrlSequence.MATCH_START.getFlag()) != 0) {
         if (matchFound || singleMatchSeqFound) {
-          throw new StaticError(
-              "MATCH and MATCH_START/MATCH_END are exclusive and can not occur together");
+          throw new PatternParseException(Messages.PatternUtil_ErrMatchControlSequViolated_xmsg);
         }
         matchStartIndex = i + 1;
         matchFound = true;
       } else if ((flags & PatternCtrlSequence.MATCH_END.getFlag()) != 0) {
         if (!matchFound) {
-          throw new StaticError(String.format("No match sequence started with '%s'",
+          throw new PatternParseException(String.format(Messages.PatternUtil_ErrNoMatchSequStart_xmsg,
               PatternCtrlSequence.MATCH_START));
         }
         matchStartIndex = 0;
@@ -166,14 +166,14 @@ public final class PatternUtil {
     }
 
     if (matchFound && matchStartIndex > 0) {
-      throw new StaticError(
-          "Match sequence not closed with '" + PatternCtrlSequence.MATCH_END + "'");
+      throw new PatternParseException(String.format(Messages.PatternUtil_ErrUnclosedMatchSequence_xmsg,
+          PatternCtrlSequence.MATCH_END));
     }
     if (patterns.size() == excludesCount) {
-      throw new StaticError("The sequence can not contain only excludes");
+      throw new PatternParseException(Messages.PatternUtil_ErrOnlyExcludesFound_xmsg);
     }
     if (boundaryStartIndex > 0) {
-      throw new StaticError(String.format("Boundary sequence not closed with '%s'",
+      throw new PatternParseException(String.format(Messages.PatternUtil_ErrBoundaryNotClosed_xmsg,
           PatternCtrlSequence.BOUNDARY_END));
     }
   }
@@ -181,7 +181,7 @@ public final class PatternUtil {
   /**
    * Parses multiple control flags from a combined control sequence.
    */
-  private static int parseSequences(final String ctrlSequence) throws StaticError {
+  private static int parseSequences(final String ctrlSequence) throws PatternParseException {
     var result = 0;
     var rest = ctrlSequence;
 
@@ -196,19 +196,17 @@ public final class PatternUtil {
     }
 
     if (!POSSIBLE_CTRL_SEQ_RANGE.contains(result)) {
-      throw new StaticError("Invalid control sequence combination in " + ctrlSequence);
+      throw new PatternParseException(
+          String.format(Messages.PatternUtil_ErrInvalidControlSequCombo_xmsg, ctrlSequence));
     }
 
     return result;
   }
 
-  public static class StaticError extends Exception {
-    /**
-     *
-     */
+  public static class PatternParseException extends Exception {
     private static final long serialVersionUID = 1L;
 
-    public StaticError(final String message) {
+    public PatternParseException(final String message) {
       super(message);
     }
   }
