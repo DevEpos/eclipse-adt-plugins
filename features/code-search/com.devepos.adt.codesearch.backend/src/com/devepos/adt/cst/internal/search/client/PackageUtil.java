@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import com.devepos.adt.cst.search.client.AdtPackage;
+import com.devepos.adt.cst.search.client.SearchObjectFolder;
 import com.sap.adt.ris.model.facets.IFacetsFactory;
 import com.sap.adt.ris.search.objectproperties.AdtRisVfsObjectPropertiesServiceFactory;
 import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
@@ -14,19 +14,19 @@ import com.sap.adt.tools.core.model.util.ServiceNotAvailableException;
 @SuppressWarnings("restriction")
 public class PackageUtil {
 
-  public static List<AdtPackage> getPackageHierarchy(final String uri, final IProgressMonitor m,
-      final String destination) {
+  public static List<SearchObjectFolder> getPackageHierarchy(final String uri,
+      final IProgressMonitor m, final String destination) {
     try {
       var objectPropertiesService = AdtRisVfsObjectPropertiesServiceFactory
           .createVfsObjectPropertiesService(destination);
       var packageFacet = IFacetsFactory.eINSTANCE.createFacet();
       packageFacet.setKey(IFacetConstants.PACKAGE);
-      // REVISIT: does not exist in ADT 2021-06
+      // Note: requires ADT 3.28 (2022-03)
       var objProperties = objectPropertiesService.readObjectProperties(URI.create(uri),
           List.of(packageFacet), m);
       return objProperties.getObjectPropertiesForFacet(IFacetConstants.PACKAGE)
           .stream()
-          .map(p -> new AdtPackage(p.uri.toString(), p.name, p.displayName, 0, null))
+          .map(p -> new SearchObjectFolder(p.uri.toString(), p.name, null, 0))
           .collect(Collectors.toList());
 
     } catch (ServiceNotAvailableException e) {

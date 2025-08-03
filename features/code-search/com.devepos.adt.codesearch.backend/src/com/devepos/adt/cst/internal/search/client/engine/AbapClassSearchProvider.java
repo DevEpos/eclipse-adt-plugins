@@ -222,7 +222,8 @@ public class AbapClassSearchProvider implements ISearchProvider {
     if (pubSec || protSec || privSec) {
       var endClassLine = findEndClassLine(codeLines);
       if (endClassLine == -1) {
-        throw new ClassSectionException("End of class definition not found");
+        throw new ClassSectionException(
+            String.format("End of class definition of %s not found", className));
       }
 
       var privIndex = -1;

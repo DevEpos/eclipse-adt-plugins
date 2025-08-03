@@ -9,7 +9,8 @@ public class SearchProviderFactory {
   private static final String STRING_SRC_PROVIDER_TYPE = "$STRSRC";
 
   public static ISearchProvider createProvider(final String type,
-      final IClientCodeSearchConfig config, IProgressMonitor monitor, String destinationId) {
+      final IClientCodeSearchConfig config, final IProgressMonitor monitor,
+      final String destinationId) {
     var mappedType = mapType(type);
 
     switch (mappedType) {

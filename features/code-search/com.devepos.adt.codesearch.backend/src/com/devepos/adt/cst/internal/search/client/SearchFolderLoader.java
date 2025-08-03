@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import com.devepos.adt.cst.search.client.AdtPackage;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchObjectFolder;
 
@@ -39,13 +38,12 @@ class SearchFolderLoader {
       return folders;
     }
     var objectCountInExpandedPackages = 0;
-    AdtPackage relativePackage = null;
+    SearchObjectFolder relativePackage = null;
     for (var f : packageResponse.getVirtualFolder()) {
       var uri = AtomLinkUtil.getPackageUri(f);
       // REVISIT: why is this contained in the result???
       if (f.getName().startsWith("..")) {
-        relativePackage = new AdtPackage(uri, f.getName().substring(2),
-            f.getDisplayName().substring(2), f.getCounter(), null);
+        relativePackage = new SearchObjectFolder(f.getName().substring(2), null, f.getCounter());
         continue;
       }
       objectCountInExpandedPackages += f.getCounter();
@@ -65,7 +63,7 @@ class SearchFolderLoader {
     return folders;
   }
 
-  private List<SearchObjectFolder> getTypeFolders(final AdtPackage relativePackage) {
+  private List<SearchObjectFolder> getTypeFolders(final SearchObjectFolder relativePackage) {
     var packageDirectContentReqParams = scopeService
         .buildFolderRequestParams(List.of(IFacetConstants.PACKAGE));
     packageDirectContentReqParams.setWantedFacets(List.of(IFacetConstants.TYPE));

@@ -23,6 +23,12 @@ public class SearchObjectFolder {
     void load(IProgressMonitor monitor, String destination, IClientCodeSearchConfig specs);
   }
 
+  public SearchObjectFolder(final String uri, final String name, final String displayName,
+      final int objectCount) {
+    this(name, displayName, objectCount);
+    this.uri = uri;
+  }
+
   public SearchObjectFolder(final String name, final String displayName, final int objectCount) {
     this.objectCount = objectCount;
     this.name = name;
