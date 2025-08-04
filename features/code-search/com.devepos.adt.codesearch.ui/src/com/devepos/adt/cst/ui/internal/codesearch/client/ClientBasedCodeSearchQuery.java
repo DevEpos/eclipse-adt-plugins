@@ -115,6 +115,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
           Messages.ClientBasedCodeSearchQuery_UnknownSearchError_xmsg, e);
     } finally {
       executor.shutdownNow();
+      searchResult.getRuntimeInfo().setQuerySubTaskName("-");
     }
 
   }
