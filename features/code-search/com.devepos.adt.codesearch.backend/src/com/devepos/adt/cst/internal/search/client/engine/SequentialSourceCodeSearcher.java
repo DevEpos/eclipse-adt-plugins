@@ -126,7 +126,7 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
 
     for (var matcher : matchers) {
       i++;
-      var match = findNextPartialMatch(matcher);
+      var match = findNextPartialMatch(matcher, this::setCurrentOffsets);
       if (!hasMoreMatches) {
         return;
       }
