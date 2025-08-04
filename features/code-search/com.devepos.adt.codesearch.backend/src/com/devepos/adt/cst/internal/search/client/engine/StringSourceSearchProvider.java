@@ -40,8 +40,8 @@ public class StringSourceSearchProvider implements ISearchProvider {
 
         result.getSearchObjects().add(searchObject);
         result.setNumberOfResults(matches.size());
-        result.setLinesOfSearchedCode(code.lineCount());
       }
+      result.setLinesOfSearchedCode(code.lineCount());
     } catch (ResourceNotFoundException exc) {
       // do nothing
     } catch (CommunicationException | ResourceException exc) {
