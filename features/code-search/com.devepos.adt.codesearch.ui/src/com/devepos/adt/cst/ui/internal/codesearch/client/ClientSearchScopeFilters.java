@@ -1,5 +1,7 @@
 package com.devepos.adt.cst.ui.internal.codesearch.client;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,21 +93,40 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
       }
       if (facetProvider.getCreatedYearFacet() != null) {
         facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedYearFacet(),
-            "1\\d{3}", "%s is not a valid year (e.g. 2025)"));
+            "(19\\d{2}|2\\d{3})", "%s is not a valid year (e.g. 2025)"));
       }
       if (facetProvider.getCreatedMonthFacet() != null) {
         facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedMonthFacet(),
             "(0[1-9]|1[0-2])", "%s is not a valid month (e.g. 05)"));
       }
       if (facetProvider.getCreatedFacet() != null) {
-        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedFacet(),
-            "[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
-            "%s is not a date pattern (e.g. 20250515)"));
+        facetFilters
+            .add(createDateFacetFilter(destinationId, facetProvider.getCreatedFacet(), val -> {
+              createDateRegexValidator("[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
+                  "%s is not a date pattern (e.g. 20250515)").validate(val);
+
+              var dateStr = String.valueOf(val);
+              // check if the pattern is a valid date (e.g. 20230230)
+              var year = Integer.parseInt(dateStr.substring(0, 4));
+              var month = Integer.parseInt(dateStr.substring(4, 6));
+              var day = Integer.parseInt(dateStr.substring(6, 8));
+              try {
+                LocalDate.of(year, month, day);
+              } catch (DateTimeException e) {
+                throw new CoreException(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+                    String.format("%d/%d/%d is not a valid date", year, month, day)));
+              }
+            }));
       }
     } catch (ServiceNotAvailableException | CoreException e) {
       e.printStackTrace();
     }
     return facetFilters;
+  }
+
+  private ISearchFilter createDateFacetFilter(final String destinationId, final IFacet facet,
+      final IValidator validator) {
+    return new FacetSearchFilter(facet, destinationId, validator);
   }
 
   private ISearchFilter createDateFacetFilter(final String destinationId, final IFacet facet,
@@ -116,6 +137,15 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
             String.format(validationErrMsg, value)));
       }
     });
+  }
+
+  private IValidator createDateRegexValidator(final String pattern, final String message) {
+    return value -> {
+      if (!Pattern.matches(pattern, String.valueOf(value))) {
+        throw new CoreException(
+            new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, String.format(message, value)));
+      }
+    };
   }
 
   private static class FacetSearchFilter
