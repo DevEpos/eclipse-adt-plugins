@@ -129,7 +129,10 @@ public class AbapClassSearchProvider implements ISearchProvider {
       var uri = o.getUri() + INCLUDES_PATH_SEGMENT + include.getAdtApiInclName();
       var code = srcCodeReader.getSourceCode(uri);
       result.increaseNumberOfSearchedSources(1);
+
       var matches = searcherFactory.createSearcher(code).search();
+
+      result.increaseLinesSearchedCode(code.lineCount());
 
       if (matches != null && !matches.isEmpty()) {
         var searchObject = ICodeSearchFactory.eINSTANCE.createCodeSearchObject();
@@ -150,7 +153,6 @@ public class AbapClassSearchProvider implements ISearchProvider {
         result.getSearchObjects().add(searchObject);
         result.increaseNumberOfResults(matches.size());
       }
-      result.setLinesOfSearchedCode(code.lineCount());
     } catch (ResourceNotFoundException exc) {
       return;
     } catch (CommunicationException | ResourceException exc) {
