@@ -13,6 +13,7 @@ Require-Bundle:
  com.sap.adt.communication,
  com.sap.adt.ris.search;bundle-version="[3.28.3,4.0.0)",
  com.sap.adt.ris.model,
+ com.sap.conn.jco,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  com.devepos.adt.base.ui

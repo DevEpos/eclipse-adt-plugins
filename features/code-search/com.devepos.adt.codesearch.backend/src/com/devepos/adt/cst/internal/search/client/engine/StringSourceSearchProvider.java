@@ -45,6 +45,7 @@ public class StringSourceSearchProvider implements ISearchProvider {
     } catch (ResourceNotFoundException exc) {
       // do nothing
     } catch (CommunicationException | ResourceException exc) {
+      AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
           String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
           MessageType.ERROR, exc);

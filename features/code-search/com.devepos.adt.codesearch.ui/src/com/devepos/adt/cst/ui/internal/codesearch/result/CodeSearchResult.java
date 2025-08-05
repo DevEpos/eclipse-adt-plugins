@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.NewSearchUI;
@@ -41,7 +40,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
   private ICollectionTreeNode searchResultRootNode;
   private int resultCount;
   private boolean noObjectsInScope;
-  private Object lock = new Object();
+  private final Object lock = new Object();
 
   public CodeSearchResult(final AbstractCodeSearchQuery searchQuery) {
     this.searchQuery = searchQuery;
@@ -59,7 +58,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
     synchronized (lock) {
       logMessages(result);
       resultCount += result.getNumberOfResults();
-      runtimeInfo.updateOverallClientTime();
+      runtimeInfo.updateClientTime();
       runtimeInfo.updateWithNewResult(result);
 
       if (result.getNumberOfResults() <= 0) {
@@ -74,7 +73,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
         searchResultRootNode = resultTree.getRootNode();
       }
       resultTree.addResultToTree(result);
-      List<ITreeNode> currentFlatResult = resultTree.getFlatResult();
+      var currentFlatResult = resultTree.getFlatResult();
       if (currentFlatResult != null) {
         flatResult.addAll(currentFlatResult);
         for (ITreeNode matchNode : currentFlatResult) {
@@ -113,7 +112,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
     if (searchQuery == null) {
       return buildLabel();
     }
-    String label = buildLabel();
+    var label = buildLabel();
     if (!searchQuery.isFinished() && !NewSearchUI.isQueryRunning(searchQuery)) {
       label += Messages.CodeSearchResult_cancelledQueryStatus_xlbl;
     }
@@ -244,7 +243,7 @@ public class CodeSearchResult extends AbstractTextSearchResult {
 
   private void logMessages(final ICodeSearchResult result) {
     if (result.getResponseMessageList() != null) {
-      IStatus searchStatus = result.getResponseMessageList()
+      var searchStatus = result.getResponseMessageList()
           .toStatus(CodeSearchUIPlugin.PLUGIN_ID,
               Messages.CodeSearchResult_codeSearchProblemsLogTitle_xmsg);
       if (searchStatus != null) {

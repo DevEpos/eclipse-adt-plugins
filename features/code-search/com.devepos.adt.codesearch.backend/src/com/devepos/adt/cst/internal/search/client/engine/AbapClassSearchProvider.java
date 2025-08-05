@@ -116,6 +116,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
     } catch (ResourceNotFoundException exc) {
       return;
     } catch (ClassSectionException | ResourceException | CommunicationException exc) {
+      AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
           String.format("Error during search of global class include of %s", object.getName()),
           MessageType.ERROR, exc);
@@ -156,6 +157,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
     } catch (ResourceNotFoundException exc) {
       return;
     } catch (CommunicationException | ResourceException exc) {
+      AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
           String.format("Error during search of include '%s' of object [%s]: %s",
               include.getLabelWoMnemonic(), o.getType(), o.getName()),

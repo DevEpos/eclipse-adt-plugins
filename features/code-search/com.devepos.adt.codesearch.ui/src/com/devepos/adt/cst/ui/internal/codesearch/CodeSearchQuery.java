@@ -46,6 +46,8 @@ public class CodeSearchQuery extends AbstractCodeSearchQuery {
 
     if (!isContinueForCurrentExecution) {
       searchResult.reset();
+    } else {
+      searchResult.getRuntimeInfo().updateOverallClientTime();
     }
 
     start();

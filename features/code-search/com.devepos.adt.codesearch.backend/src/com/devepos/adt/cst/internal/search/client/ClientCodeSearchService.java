@@ -108,14 +108,15 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         if (result.getNumberOfResults() > 0 && searchConfig.isReadPackageHierarchy()) {
           addPackagesForObject(o, result, result.getSearchObjects().get(0), monitor);
         }
-        reporter.notify(result);
+        reporter.reportResult(result);
       } catch (ResourceException | CommunicationException exc) {
-        CodeSearchPlugin.getDefault()
-            .getLog()
-            .log(new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
-                String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
-                exc));
+        var message = IAdtBaseFactory.eINSTANCE.createResponseMessage();
+        message.setContent(
+            String.format("Search of Object [%s]: %s failed", o.getType(), o.getName()));
+        message.setException(exc);
+        reporter.logMessage(message);
       }
+      o.setSearched(true);
       monitor.worked(1);
     }
     return Status.OK_STATUS;

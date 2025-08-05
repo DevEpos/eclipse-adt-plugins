@@ -32,6 +32,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private String subTask;
   private int overallServerTimeInMs;
   private long overallClientTimeInMs;
+  private long clientTimeInMs;
   private final AbstractCodeSearchQuery searchQuery;
   private final boolean isClientApiTargeted;
 
@@ -72,13 +73,13 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   }
 
   public long getOverallClientTimeInMs() {
-    return overallClientTimeInMs;
+    return overallClientTimeInMs + clientTimeInMs;
   }
 
   /**
    * Returns the overall net server time of the query, i.e. the pure search duration
    */
-  public int getOverallServerTimeInMs() {
+  public long getOverallServerTimeInMs() {
     return overallServerTimeInMs;
   }
 
@@ -118,8 +119,12 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   }
 
   public void updateOverallClientTime() {
+    overallClientTimeInMs += clientTimeInMs;
+  }
+
+  public void updateClientTime() {
     synchronized (searchQuery) {
-      overallClientTimeInMs = System.currentTimeMillis() - searchQuery.getStartTime();
+      clientTimeInMs = System.currentTimeMillis() - searchQuery.getStartTime();
     }
     fireUpdated();
   }
@@ -155,6 +160,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
     averageDuration = -1;
     overallServerTimeInMs = -1;
     overallClientTimeInMs = -1;
+    clientTimeInMs = -1;
     resultCount = 0;
     requestCount = 0;
     searchedLinesOfCode = 0;

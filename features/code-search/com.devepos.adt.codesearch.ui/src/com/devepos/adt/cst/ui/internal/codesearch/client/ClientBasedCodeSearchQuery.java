@@ -18,8 +18,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 
+import com.devepos.adt.base.model.adtbase.IResponseMessage;
+import com.devepos.adt.base.util.ResponseMessageUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.CodeSearchFactory;
+import com.devepos.adt.cst.search.NetworkException;
 import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.ISearchResultReporter;
@@ -41,8 +44,9 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   private static final DecimalFormat DEFAULT_FORMAT = new DecimalFormat("###,###");
   private final IClientBasedCodeSearchService searchService;
   private final IClientCodeSearchConfig searchConfig;
-  private Set<SearchableObject> searchableObjects;
+  private Set<SearchableObject> searchableObjects = Collections.synchronizedSet(new HashSet<>());;
   private Set<SearchObjectFolder> folderSet = Collections.synchronizedSet(new HashSet<>());
+  private List<IResponseMessage> searchErrors = Collections.synchronizedList(new ArrayList<>());
   private final Set<SearchObjectFolder> tmpBigFolders = Collections
       .synchronizedSet(new HashSet<>());
 
@@ -61,15 +65,27 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
   @Override
   public boolean canContinue() {
-    return false;
+    return folderSet.isEmpty() && !searchableObjects.isEmpty();
   }
 
   @Override
   public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
-    searchResult.reset();
-    searchableObjects = new HashSet<>();
-    start();
     finished = false;
+    isContinueForCurrentExecution = continueQuery;
+    continueQuery = false;
+
+    if (!isContinueForCurrentExecution) {
+      searchResult.reset();
+      searchableObjects.clear();
+      tmpBigFolders.clear();
+      folderSet.clear();
+    } else {
+      searchResult.getRuntimeInfo().updateOverallClientTime();
+    }
+
+    searchErrors.clear();
+
+    start();
 
     monitor.beginTask("", 100);
 
@@ -80,24 +96,29 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     var executor = Executors.newFixedThreadPool(numJobs);
 
     try {
-      var findFoldersStatus = findFolders(monitor, executor);
-      updateClientRuntime();
-      if (!findFoldersStatus.isOK()) {
-        return findFoldersStatus;
-      }
+      if (searchableObjects.isEmpty()) {
+        var findFoldersStatus = findFolders(monitor, executor);
+        updateClientRuntime();
+        if (!findFoldersStatus.isOK()) {
+          return findFoldersStatus;
+        }
 
-      var expandBigFoldersStatus = expandBigFolders(monitor, executor);
-      if (!expandBigFoldersStatus.isOK()) {
-        return expandBigFoldersStatus;
-      }
-      var getObjectsStatus = getObjectsInFolders(monitor, executor);
-      if (!getObjectsStatus.isOK()) {
-        return getObjectsStatus;
-      }
-      if (searchableObjects.size() == 0) {
-        finished = true;
-        searchResult.setNoObjectsInScope();
-        return Status.OK_STATUS;
+        var expandBigFoldersStatus = expandBigFolders(monitor, executor);
+        if (!expandBigFoldersStatus.isOK()) {
+          return expandBigFoldersStatus;
+        }
+        var getObjectsStatus = getObjectsInFolders(monitor, executor);
+        if (!getObjectsStatus.isOK()) {
+          return getObjectsStatus;
+        }
+        if (searchableObjects.size() == 0) {
+          finished = true;
+          searchResult.setNoObjectsInScope();
+          return Status.OK_STATUS;
+        }
+      } else {
+        // initial worked as previous steps are not required
+        monitor.worked(15);
       }
 
       var searchStatus = searchObjects(monitor, executor);
@@ -106,7 +127,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       }
       finished = true;
       return Status.OK_STATUS;
-    } catch (InterruptedException | ExecutionException e) {
+    } catch (InterruptedException | ExecutionException | NetworkException e) {
       Thread.currentThread().interrupt();
       if (e.getCause() instanceof OperationCanceledException) {
         return Status.CANCEL_STATUS;
@@ -114,15 +135,31 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
       return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
           Messages.ClientBasedCodeSearchQuery_UnknownSearchError_xmsg, e);
     } finally {
+      updateClientRuntime();
       executor.shutdownNow();
+      writeLogs();
+      removeSearchedObjects();
       searchResult.getRuntimeInfo().setQuerySubTaskName("-");
     }
+  }
 
+  @Override
+  public void reportResult(final ICodeSearchResult result) {
+    var logs = result.getResponseMessageList();
+    if (logs != null) {
+      searchErrors.addAll(logs.getMessages());
+      logs.getMessages().clear();
+    }
+    searchResult.addResult(result);
+  }
+
+  @Override
+  public void logMessage(IResponseMessage message) {
+    searchErrors.add(message);
   }
 
   private IStatus findFolders(final IProgressMonitor monitor, final ExecutorService executor)
       throws InterruptedException, ExecutionException {
-    // fetch packages for current scope
     var packageSearchMonitor = monitor.slice(5);
     packageSearchMonitor.beginTask("", 5);
     monitor.setTaskName(Messages.ClientBasedCodeSearchQuery_DetermineScopeJob_xmsg);
@@ -136,7 +173,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     } else {
       var folders = searchService.findFolders(packageSearchMonitor, searchConfig);
       if (folders != null) {
-        folderSet = new HashSet<>(folders);
+        folderSet.addAll(folders);
       }
     }
     packageSearchMonitor.worked(5);
@@ -169,6 +206,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     monitor.setTaskName(Messages.ClientBasedCodeSearchQuery_ExpandingFoldersJob_xmsg);
     searchResult.getRuntimeInfo()
         .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ExpandingFoldersSubTask_xmsg);
+
     var bigFolders = extractBigFolders(folderSet);
     while (bigFolders != null && !bigFolders.isEmpty()) {
       var status = runExpandFoldersJob(bigFolders, expandMonitor, executor);
@@ -205,7 +243,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   }
 
   private List<SearchObjectFolder> extractBigFolders(final Collection<SearchObjectFolder> folders) {
-    var maxFolderSize = 20000;
+    var maxFolderSize = 15000;
     var bigFolders = folders.stream()
         .filter(f -> f.getObjectCount() >= maxFolderSize)
         .collect(Collectors.toList());
@@ -218,14 +256,26 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
   private IStatus searchObjects(final IProgressMonitor monitor, final ExecutorService executor)
       throws InterruptedException, ExecutionException {
+    folderSet.clear();
+    tmpBigFolders.clear();
+
+    var runtimeInfo = searchResult.getRuntimeInfo();
     var objectMonitor = monitor.slice(85);
-    objectMonitor.beginTask("", searchableObjects.size());
+    if (isContinueForCurrentExecution) {
+      removeSearchedObjects();
+      objectMonitor.beginTask("", runtimeInfo.getObjectScopeCount());
+      objectMonitor.worked(runtimeInfo.getObjectScopeCount() - searchableObjects.size());
+    } else {
+      searchResult.setObjectScopeCount(searchableObjects.size());
+      objectMonitor.beginTask("", searchableObjects.size());
+    }
+
     monitor.setTaskName(String.format(Messages.ClientBasedCodeSearchQuery_ObjectSearchJob_xmsg,
         DEFAULT_FORMAT.format(searchableObjects.size())));
-    searchResult.getRuntimeInfo()
-        .setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ObjectSearchSubTask_xmsg);
-    searchResult.setObjectScopeCount(searchableObjects.size());
+    runtimeInfo.setQuerySubTaskName(Messages.ClientBasedCodeSearchQuery_ObjectSearchSubTask_xmsg);
+
     var searchStatus = runSearchObjectsJob(executor, objectMonitor);
+
     return searchStatus;
   }
 
@@ -237,6 +287,9 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     var job = new ParallelJob();
     for (var chunk : chunks) {
       job.addTask(executor.submit(() -> {
+        if (monitor.isCanceled()) {
+          return Status.CANCEL_STATUS;
+        }
         var objectStatus = searchService.searchObjects(monitor, chunk, searchConfig, this);
         updateClientRuntime();
         return objectStatus;
@@ -275,7 +328,13 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     return job.awaitResult();
   }
 
-  public static <T> List<List<T>> splitList(final List<T> list, final int chunkSize) {
+  private void removeSearchedObjects() {
+    searchableObjects.removeAll(searchableObjects.stream()
+        .filter(SearchableObject::isSearched)
+        .collect(Collectors.toList()));
+  }
+
+  private <T> List<List<T>> splitList(final List<T> list, final int chunkSize) {
     List<List<T>> chunks = new ArrayList<>();
     for (var i = 0; i < list.size(); i += chunkSize) {
       chunks.add(list.subList(i, Math.min(list.size(), i + chunkSize)));
@@ -283,13 +342,8 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     return chunks;
   }
 
-  @Override
-  public void notify(final ICodeSearchResult result) {
-    searchResult.addResult(result);
-  }
-
   private void updateClientRuntime() {
-    searchResult.getRuntimeInfo().updateOverallClientTime();
+    searchResult.getRuntimeInfo().updateClientTime();
   }
 
   private static class ParallelJob {
@@ -307,6 +361,14 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
         }
       }
       return Status.OK_STATUS;
+    }
+  }
+
+  private void writeLogs() {
+    var searchStatus = ResponseMessageUtil.toStatus(CodeSearchUIPlugin.PLUGIN_ID,
+        Messages.CodeSearchResult_codeSearchProblemsLogTitle_xmsg, searchErrors);
+    if (searchStatus != null) {
+      CodeSearchUIPlugin.getDefault().getLog().log(searchStatus);
     }
   }
 

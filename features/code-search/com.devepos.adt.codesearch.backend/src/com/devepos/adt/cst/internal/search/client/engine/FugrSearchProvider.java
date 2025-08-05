@@ -36,35 +36,41 @@ public class FugrSearchProvider implements ISearchProvider {
       final ISourceCodeReader srcCodeReader, final ISourceCodeSearcherFactory searcherFactory) {
 
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
+    try {
+      // we need to determine the correct node id's as they are not the same for all function
+      // groups
+      var fugrTreeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
+          IAdtObjectTypeConstants.FUNCTION_GROUP, "000000");
 
-    // we need to determine the correct node id's as they are not the same for all function
-    // groups
-    var fugrTreeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
-        IAdtObjectTypeConstants.FUNCTION_GROUP, "000000");
-
-    var relevantNodeIds = new ArrayList<String>();
-    for (var objectType : fugrTreeContent.getObjectTypes()) {
-      if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getObjectType())
-          && (config.getFugrIncludeFlags()
-              & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0
-          || IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getObjectType())
-              && (config.getFugrIncludeFlags()
-                  & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0) {
-        relevantNodeIds.add(objectType.getNodeId());
-        continue;
+      var relevantNodeIds = new ArrayList<String>();
+      for (var objectType : fugrTreeContent.getObjectTypes()) {
+        if (IAdtObjectTypeConstants.FUNCTION_INCLUDE.equals(objectType.getObjectType())
+            && (config.getFugrIncludeFlags()
+                & FunctionGroupInclude.NON_FUNCTION_INCLUDE.getBit()) != 0
+            || IAdtObjectTypeConstants.FUNCTION_MODULE.equals(objectType.getObjectType())
+                && (config.getFugrIncludeFlags()
+                    & FunctionGroupInclude.FUNCTION_INCLUDE.getBit()) != 0) {
+          relevantNodeIds.add(objectType.getNodeId());
+          continue;
+        }
       }
+
+      if (!relevantNodeIds.isEmpty()) {
+        searchSubObjects(object, relevantNodeIds, srcCodeReader, searcherFactory, result);
+      }
+
+      if (!result.getSearchObjects().isEmpty()) {
+        insertFugrObject(object, result);
+      }
+
+      result.setNumberOfSearchedObjects(1);
+    } catch (CommunicationException | ResourceException exc) {
+      AdtResourceUtil.handleNetworkError(exc);
+      result.addResponseMessage(
+          String.format("Error during determination of repository tree of function group '%s'",
+              object.getName()),
+          MessageType.ERROR, exc);
     }
-
-    if (!relevantNodeIds.isEmpty()) {
-      searchSubObjects(object, relevantNodeIds, srcCodeReader, searcherFactory, result);
-    }
-
-    if (!result.getSearchObjects().isEmpty()) {
-      insertFugrObject(object, result);
-    }
-
-    result.setNumberOfSearchedObjects(1);
-
     return result;
   }
 
@@ -109,6 +115,7 @@ public class FugrSearchProvider implements ISearchProvider {
       } catch (ResourceNotFoundException exc) {
         continue;
       } catch (CommunicationException | ResourceException exc) {
+        AdtResourceUtil.handleNetworkError(exc);
         result.addResponseMessage(String.format("Error during source retrieval of [%s] %s",
             subObject.getObjectType(), object.getName()), MessageType.ERROR, exc);
       }
@@ -122,9 +129,10 @@ public class FugrSearchProvider implements ISearchProvider {
       var treeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
           IAdtObjectTypeConstants.FUNCTION_GROUP, nodeIds.toArray(String[]::new));
       return treeContent != null ? treeContent.getObjectNodes() : null;
-    } catch (ResourceException exc) {
+    } catch (ResourceException | CommunicationException exc) {
+      AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
-          String.format("Error during determination of tree nodes of function group '%s'",
+          String.format("Error during determination of functions/includes of function group '%s'",
               object.getName()),
           MessageType.ERROR, exc);
     }

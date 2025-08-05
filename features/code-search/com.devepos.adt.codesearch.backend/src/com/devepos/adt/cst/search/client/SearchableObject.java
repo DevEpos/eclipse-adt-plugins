@@ -9,6 +9,7 @@ public class SearchableObject {
   private final String uri;
   private final String type;
   private final SearchObjectFolder folder;
+  private boolean isSearched = false;
 
   public SearchableObject(final String name, final String displayName, final String type,
       final String uri, final SearchObjectFolder folder) {
@@ -37,6 +38,14 @@ public class SearchableObject {
 
   public SearchObjectFolder getFolder() {
     return folder;
+  }
+
+  public boolean isSearched() {
+    return isSearched;
+  }
+
+  public void setSearched(final boolean isSearched) {
+    this.isSearched = isSearched;
   }
 
   @Override
