@@ -122,17 +122,14 @@ public class SequentialSourceCodeSearcher extends AbstractSourceCodeSearcher
   }
 
   private void findNextFullMatch(final List<Match> matches) {
-    var i = 0;
-
     for (var matcher : matchers) {
-      i++;
-      var match = findNextPartialMatch(matcher, this::setCurrentOffsets);
+      currentMatch = findNextPartialMatch(matcher, this::setCurrentOffsets);
       if (!hasMoreMatches) {
         return;
       }
 
-      if (i == 1) {
-        matchStart = match;
+      if (matchStart == null) {
+        matchStart = currentMatch;
       }
     }
 
