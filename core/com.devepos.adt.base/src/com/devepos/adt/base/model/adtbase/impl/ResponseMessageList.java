@@ -6,8 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -16,10 +14,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import com.devepos.adt.base.internal.messages.Messages;
 import com.devepos.adt.base.model.adtbase.IAdtBasePackage;
 import com.devepos.adt.base.model.adtbase.IResponseMessage;
 import com.devepos.adt.base.model.adtbase.IResponseMessageList;
+import com.devepos.adt.base.util.ResponseMessageUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -171,18 +169,7 @@ public class ResponseMessageList extends MinimalEObjectImpl.Container
 
   @Override
   public IStatus toStatus(final String pluginId, final String message) {
-    if (messages == null || messages.size() <= 0) {
-      return null;
-    }
-    return new MultiStatus(pluginId, 0, messages.stream().map(m -> {
-      var occurrenceIndicator = "";
-      if (m.getOccurrences() > 1) {
-        occurrenceIndicator = String.format(Messages.ResponseMessageList_MessageMultiplierText_xmsg,
-            m.getOccurrences());
-      }
-      return new Status(m.getStatusType(), pluginId, m.getContent() + occurrenceIndicator,
-          m.getExeption());
-    }).toArray(IStatus[]::new), message, null);
+    return ResponseMessageUtil.toStatus(pluginId, message, getMessages());
   }
 
   /**
