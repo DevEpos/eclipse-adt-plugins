@@ -111,8 +111,8 @@ public class ClientCodeSearchService implements IClientBasedCodeSearchService {
         reporter.reportResult(result);
       } catch (ResourceException | CommunicationException exc) {
         var message = IAdtBaseFactory.eINSTANCE.createResponseMessage();
-        message.setContent(
-            String.format("Search of Object [%s]: %s failed", o.getType(), o.getName()));
+        message
+            .setContent(String.format("Search of Object %s (%s) failed", o.getName(), o.getType()));
         message.setException(exc);
         reporter.logMessage(message);
       }

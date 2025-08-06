@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.MessageType;
+import com.devepos.adt.cst.internal.messages.Messages;
 import com.devepos.adt.cst.internal.search.client.engine.AdtRepoTreeContent.AdtRepoTreeObjectNode;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
@@ -15,9 +16,15 @@ import com.devepos.adt.cst.search.FunctionGroupInclude;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.exceptions.CommunicationException;
+import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
+/**
+ * Search provider for searching in function groups and their includes
+ *
+ * @author stockbal
+ */
 public class FugrSearchProvider implements ISearchProvider {
 
   private final IClientCodeSearchConfig config;
@@ -64,11 +71,12 @@ public class FugrSearchProvider implements ISearchProvider {
       }
 
       result.setNumberOfSearchedObjects(1);
+    } catch (SystemFailureException exc) {
+      // already handled in searchSubObjects
     } catch (CommunicationException | ResourceException exc) {
       AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
-          String.format("Error during determination of repository tree of function group '%s'",
-              object.getName()),
+          String.format(Messages.FugrSearchProvider_RepoTreeLoadError_xmsg, object.getName()),
           MessageType.ERROR, exc);
     }
     return result;
@@ -112,12 +120,25 @@ public class FugrSearchProvider implements ISearchProvider {
           insertSubObjResult(object, result, subObject, sourceUri, matches);
         }
         result.increaseNumberOfSearchedSources(1);
+      } catch (SystemFailureException exc) {
+        result.addResponseMessage(
+            String.format(Messages.FugrSearchProvider_SubObjectSystemFailure_xmsg,
+                subObject.getObjectName(), subObject.getObjectType(), object.getName()),
+            MessageType.ERROR, exc);
+        throw exc;
       } catch (ResourceNotFoundException exc) {
+        result.addResponseMessage(String.format(
+            subObject.getObjectType().equals(IAdtObjectTypeConstants.FUNCTION_INCLUDE)
+                ? Messages.FugrSearchProvider_IncludeNotFound_xmsg
+                : Messages.FugrSearchProvider_FunctionNotFound_xmsg,
+            subObject.getObjectName(), object.getName()), MessageType.ERROR, exc);
         continue;
       } catch (CommunicationException | ResourceException exc) {
         AdtResourceUtil.handleNetworkError(exc);
-        result.addResponseMessage(String.format("Error during source retrieval of [%s] %s",
-            subObject.getObjectType(), object.getName()), MessageType.ERROR, exc);
+        result.addResponseMessage(
+            String.format(Messages.FugrSearchProvider_UnknownSubObjectError_xmsg,
+                subObject.getObjectName(), subObject.getObjectType(), object.getName()),
+            MessageType.ERROR, exc);
       }
     }
 
@@ -132,8 +153,7 @@ public class FugrSearchProvider implements ISearchProvider {
     } catch (ResourceException | CommunicationException exc) {
       AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
-          String.format("Error during determination of functions/includes of function group '%s'",
-              object.getName()),
+          String.format(Messages.FugrSearchProvider_SubObjectTreeLoadError_xmsg, object.getName()),
           MessageType.ERROR, exc);
     }
     return null;

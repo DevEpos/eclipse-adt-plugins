@@ -2,13 +2,20 @@ package com.devepos.adt.cst.internal.search.client.engine;
 
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.MessageType;
+import com.devepos.adt.cst.internal.messages.Messages;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.exceptions.CommunicationException;
+import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
+/**
+ * Generic search provider for searching in string-based source code
+ *
+ * @author stockbal
+ */
 public class StringSourceSearchProvider implements ISearchProvider {
 
   @Override
@@ -42,13 +49,17 @@ public class StringSourceSearchProvider implements ISearchProvider {
         result.setNumberOfResults(matches.size());
       }
       result.setLinesOfSearchedCode(code.lineCount());
+    } catch (SystemFailureException exc) {
+      result.addResponseMessage(String.format(Messages.StringSourceSearchProvider_SystemError_xmsg,
+          o.getName(), o.getType()), MessageType.ERROR, exc);
     } catch (ResourceNotFoundException exc) {
-      // do nothing
+      result
+          .addResponseMessage(String.format(Messages.StringSourceSearchProvider_ObjectNotFound_xmsg,
+              o.getName(), o.getType()), MessageType.ERROR, exc);
     } catch (CommunicationException | ResourceException exc) {
       AdtResourceUtil.handleNetworkError(exc);
-      result.addResponseMessage(
-          String.format("Error during search of object [%s]: %s", o.getType(), o.getName()),
-          MessageType.ERROR, exc);
+      result.addResponseMessage(String.format(Messages.StringSourceSearchProvider_UnknownError_xmsg,
+          o.getType(), o.getName()), MessageType.ERROR, exc);
     }
     result.setNumberOfSearchedObjects(1);
     result.setNumberOfSearchedSources(1);

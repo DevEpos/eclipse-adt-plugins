@@ -37,6 +37,8 @@ import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
  * Code search query that is using only available ADT API's from SAP
+ *
+ * @author stockbal
  */
 public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
     implements ISearchResultReporter {
@@ -44,9 +46,11 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   private static final DecimalFormat DEFAULT_FORMAT = new DecimalFormat("###,###");
   private final IClientBasedCodeSearchService searchService;
   private final IClientCodeSearchConfig searchConfig;
-  private Set<SearchableObject> searchableObjects = Collections.synchronizedSet(new HashSet<>());;
-  private Set<SearchObjectFolder> folderSet = Collections.synchronizedSet(new HashSet<>());
-  private List<IResponseMessage> searchErrors = Collections.synchronizedList(new ArrayList<>());
+  private final Set<SearchableObject> searchableObjects = Collections
+      .synchronizedSet(new HashSet<>());
+  private final Set<SearchObjectFolder> folderSet = Collections.synchronizedSet(new HashSet<>());
+  private final List<IResponseMessage> searchErrors = Collections
+      .synchronizedList(new ArrayList<>());
   private final Set<SearchObjectFolder> tmpBigFolders = Collections
       .synchronizedSet(new HashSet<>());
 
@@ -154,7 +158,7 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   }
 
   @Override
-  public void logMessage(IResponseMessage message) {
+  public void logMessage(final IResponseMessage message) {
     searchErrors.add(message);
   }
 
@@ -365,8 +369,10 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   }
 
   private void writeLogs() {
-    var searchStatus = ResponseMessageUtil.toStatus(CodeSearchUIPlugin.PLUGIN_ID,
-        Messages.CodeSearchResult_codeSearchProblemsLogTitle_xmsg, searchErrors);
+    var searchStatus = ResponseMessageUtil.toStatus(
+        CodeSearchUIPlugin.PLUGIN_ID, String.format("%s: %s",
+            Messages.CodeSearchResult_codeSearchProblemsLogTitle_xmsg, getQuerySpecs()),
+        searchErrors);
     if (searchStatus != null) {
       CodeSearchUIPlugin.getDefault().getLog().log(searchStatus);
     }

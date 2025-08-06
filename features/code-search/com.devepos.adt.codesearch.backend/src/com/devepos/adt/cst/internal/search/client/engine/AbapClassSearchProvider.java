@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.MessageType;
+import com.devepos.adt.cst.internal.messages.Messages;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchFactory;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.search.ClassInclude;
@@ -15,9 +16,15 @@ import com.devepos.adt.cst.search.IIncludeToSearch;
 import com.devepos.adt.cst.search.client.IClientCodeSearchConfig;
 import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.exceptions.CommunicationException;
+import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.ResourceException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
+/**
+ * Search provider for searching in ABAP class source code
+ *
+ * @author stockbal
+ */
 public class AbapClassSearchProvider implements ISearchProvider {
   private static final String METHOD_URI_SEGMENT = "#type=CLAS%2FOM;name=";
   private static final String PUB_SEC_URI_SEGMENT = "#type=CLAS%2FOSU;name=";
@@ -63,20 +70,24 @@ public class AbapClassSearchProvider implements ISearchProvider {
 
     var result = ICodeSearchFactory.eINSTANCE.createCodeSearchResult();
 
-    searchMainInclude(object, srcCodeReader, searcherFactory, result);
-    if ((config.getClassIncludeFlags() & ClassInclude.LOCAL_DEFINITIONS.getBit()) != 0) {
-      searchInclude(ClassInclude.LOCAL_DEFINITIONS, object, srcCodeReader, searcherFactory, result);
-    }
-    if ((config.getClassIncludeFlags() & ClassInclude.LOCAL_IMPLEMENTATIONS.getBit()) != 0) {
-      searchInclude(ClassInclude.LOCAL_IMPLEMENTATIONS, object, srcCodeReader, searcherFactory,
-          result);
-    }
-    if ((config.getClassIncludeFlags() & ClassInclude.MACROS.getBit()) != 0) {
-      searchInclude(ClassInclude.MACROS, object, srcCodeReader, searcherFactory, result);
-    }
-    if ((config.getClassIncludeFlags() & ClassInclude.TESTS.getBit()) != 0) {
-      searchInclude(ClassInclude.TESTS, object, srcCodeReader, searcherFactory, result);
-
+    try {
+      searchMainInclude(object, srcCodeReader, searcherFactory, result);
+      if ((config.getClassIncludeFlags() & ClassInclude.LOCAL_DEFINITIONS.getBit()) != 0) {
+        searchInclude(ClassInclude.LOCAL_DEFINITIONS, object, srcCodeReader, searcherFactory,
+            result);
+      }
+      if ((config.getClassIncludeFlags() & ClassInclude.LOCAL_IMPLEMENTATIONS.getBit()) != 0) {
+        searchInclude(ClassInclude.LOCAL_IMPLEMENTATIONS, object, srcCodeReader, searcherFactory,
+            result);
+      }
+      if ((config.getClassIncludeFlags() & ClassInclude.MACROS.getBit()) != 0) {
+        searchInclude(ClassInclude.MACROS, object, srcCodeReader, searcherFactory, result);
+      }
+      if ((config.getClassIncludeFlags() & ClassInclude.TESTS.getBit()) != 0) {
+        searchInclude(ClassInclude.TESTS, object, srcCodeReader, searcherFactory, result);
+      }
+    } catch (SystemFailureException | ResourceNotFoundException exc) {
+      // already handled in searchInclude
     }
 
     if (!result.getSearchObjects().isEmpty()) {
@@ -113,12 +124,20 @@ public class AbapClassSearchProvider implements ISearchProvider {
             }
             result.increaseNumberOfSearchedSources(1);
           });
+    } catch (SystemFailureException exc) {
+      result.addResponseMessage(
+          String.format(Messages.AbapClassSearchProvider_ClassSystemError_xmsg, object.getName()),
+          MessageType.ERROR, exc);
+      throw exc;
     } catch (ResourceNotFoundException exc) {
-      return;
+      result.addResponseMessage(String
+          .format(Messages.AbapClassSearchProvider_GlobalClassNotFound_xmsg, object.getName()),
+          MessageType.ERROR, exc);
+      throw exc;
     } catch (ClassSectionException | ResourceException | CommunicationException exc) {
       AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
-          String.format("Error during search of global class include of %s", object.getName()),
+          String.format(Messages.AbapClassSearchProvider_UnknownClassError_xmsg, object.getName()),
           MessageType.ERROR, exc);
     }
   }
@@ -154,13 +173,19 @@ public class AbapClassSearchProvider implements ISearchProvider {
         result.getSearchObjects().add(searchObject);
         result.increaseNumberOfResults(matches.size());
       }
+    } catch (SystemFailureException exc) {
+      result.addResponseMessage(
+          String.format(Messages.AbapClassSearchProvider_IncludeSystemError_xmsg,
+              include.getLabelWoMnemonic(), o.getName(), o.getName()),
+          MessageType.ERROR, exc);
+      throw exc;
     } catch (ResourceNotFoundException exc) {
-      return;
+      // ignore this error, as this could be a common case that the include does not exist
     } catch (CommunicationException | ResourceException exc) {
       AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
-          String.format("Error during search of include '%s' of object [%s]: %s",
-              include.getLabelWoMnemonic(), o.getType(), o.getName()),
+          String.format(Messages.AbapClassSearchProvider_UnknownIncludeError_xmsg,
+              include.getLabelWoMnemonic(), o.getName()),
           MessageType.ERROR, exc);
     }
   }
@@ -227,7 +252,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
       var endClassLine = findEndClassLine(codeLines);
       if (endClassLine == -1) {
         throw new ClassSectionException(
-            String.format("End of class definition of %s not found", className));
+            String.format(Messages.AbapClassSearchProvider_NoEndOfClassDefFound_xmsg, className));
       }
 
       var privIndex = -1;

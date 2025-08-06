@@ -59,8 +59,9 @@ public class CodeSearchFeatureUtil implements ICodeSearchFeatureUtil {
       return new Status(IStatus.OK, CodeSearchPlugin.PLUGIN_ID,
           ICodeSearchFeatureUtil.SEARCH_TARGET_CLIENT, "", null);
     }
-    return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID, NLS.bind(
-        Messages.CodeSearchSearchService_searchNotAvailableInProjectError_xmsg, project.getName()));
+    return new Status(IStatus.ERROR, CodeSearchPlugin.PLUGIN_ID,
+        NLS.bind(Messages.CodeSearchSearchService_clientSearchNotAvailableInProjectError_xmsg,
+            project.getName()));
   }
 
   @Override

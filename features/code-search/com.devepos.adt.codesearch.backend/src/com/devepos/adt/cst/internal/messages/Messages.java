@@ -4,7 +4,14 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 
+  public static String AbapClassSearchProvider_ClassSystemError_xmsg;
+  public static String AbapClassSearchProvider_GlobalClassNotFound_xmsg;
+  public static String AbapClassSearchProvider_IncludeSystemError_xmsg;
+  public static String AbapClassSearchProvider_NoEndOfClassDefFound_xmsg;
+  public static String AbapClassSearchProvider_UnknownClassError_xmsg;
+  public static String AbapClassSearchProvider_UnknownIncludeError_xmsg;
   public static String CodeSearchSearchService_searchNotAvailableInProjectError_xmsg;
+  public static String CodeSearchSearchService_clientSearchNotAvailableInProjectError_xmsg;
   public static String CodeSearchSearchService_namedItemNotAvailableInProject_xmsg;
   public static String ClassInclude_localClassDefinitionsInclude_xlbl;
   public static String ClassInclude_localClassTypesInclude_xlbl;
@@ -14,6 +21,12 @@ public class Messages extends NLS {
   public static String ClassInclude_protectedSectionInclude_xlbl;
   public static String ClassInclude_publicSectionInclude_xlbl;
   public static String ClassInclude_testClassesInclude_xlbl;
+  public static String FugrSearchProvider_FunctionNotFound_xmsg;
+  public static String FugrSearchProvider_IncludeNotFound_xmsg;
+  public static String FugrSearchProvider_RepoTreeLoadError_xmsg;
+  public static String FugrSearchProvider_SubObjectSystemFailure_xmsg;
+  public static String FugrSearchProvider_SubObjectTreeLoadError_xmsg;
+  public static String FugrSearchProvider_UnknownSubObjectError_xmsg;
   public static String FunctionGroupInclude_functionsIncludes_xchk;
   public static String FunctionGroupInclude_otherIncludes_xchk;
 
@@ -27,6 +40,10 @@ public class Messages extends NLS {
   public static String PatternUtil_ErrOnlyExcludesFound_xmsg;
   public static String PatternUtil_ErrUnclosedBoundarySequence_xmsg;
   public static String PatternUtil_ErrUnclosedMatchSequence_xmsg;
+
+  public static String StringSourceSearchProvider_ObjectNotFound_xmsg;
+  public static String StringSourceSearchProvider_SystemError_xmsg;
+  public static String StringSourceSearchProvider_UnknownError_xmsg;
 
   private Messages() {
   }
