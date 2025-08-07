@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.devepos.adt.cst.internal.search.client.Facet;
+import com.devepos.adt.cst.internal.search.client.IFacetConstants;
 
 public class SearchObjectFolder {
   private String uri;
@@ -64,6 +65,10 @@ public class SearchObjectFolder {
       facets = new ArrayList<>();
     }
     return facets;
+  }
+
+  public boolean isPackageFacet() {
+    return IFacetConstants.PACKAGE.equals(facet);
   }
 
   public int getObjectCount() {

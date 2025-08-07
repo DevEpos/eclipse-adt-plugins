@@ -249,7 +249,10 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
   private List<SearchObjectFolder> extractBigFolders(final Collection<SearchObjectFolder> folders) {
     var maxFolderSize = 15000;
     var bigFolders = folders.stream()
-        .filter(f -> f.getObjectCount() >= maxFolderSize)
+        // we cannot reduce non package folders (i.e. type/package facet combinations
+        // greater than
+        // max folder size
+        .filter(f -> f.getObjectCount() >= maxFolderSize && !f.isPackageFacet())
         .collect(Collectors.toList());
     if (bigFolders.size() > 0) {
       folders.removeAll(bigFolders);
