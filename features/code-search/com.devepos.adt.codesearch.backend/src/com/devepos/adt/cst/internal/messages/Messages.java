@@ -21,6 +21,7 @@ public class Messages extends NLS {
   public static String ClassInclude_protectedSectionInclude_xlbl;
   public static String ClassInclude_publicSectionInclude_xlbl;
   public static String ClassInclude_testClassesInclude_xlbl;
+  public static String FugrSearchProvider_FunctionGroupNotFound_xmsg;
   public static String FugrSearchProvider_FunctionNotFound_xmsg;
   public static String FugrSearchProvider_IncludeNotFound_xmsg;
   public static String FugrSearchProvider_RepoTreeLoadError_xmsg;

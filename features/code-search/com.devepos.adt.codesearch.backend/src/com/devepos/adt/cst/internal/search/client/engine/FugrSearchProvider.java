@@ -48,6 +48,13 @@ public class FugrSearchProvider implements ISearchProvider {
       // groups
       var fugrTreeContent = repoTreeSrv.loadTreeContent(monitor, object.getName(),
           IAdtObjectTypeConstants.FUNCTION_GROUP, "000000");
+      if (fugrTreeContent == null) {
+        result.addResponseMessage(
+            String.format(Messages.FugrSearchProvider_FunctionGroupNotFound_xmsg, object.getName()),
+            MessageType.ERROR, null);
+        result.setNumberOfSearchedObjects(1);
+        return result;
+      }
 
       var relevantNodeIds = new ArrayList<String>();
       for (var objectType : fugrTreeContent.getObjectTypes()) {
