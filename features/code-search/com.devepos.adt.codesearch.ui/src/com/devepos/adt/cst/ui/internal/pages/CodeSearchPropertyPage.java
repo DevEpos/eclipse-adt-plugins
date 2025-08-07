@@ -50,7 +50,6 @@ import com.devepos.adt.cst.ui.internal.help.HelpContexts;
 import com.devepos.adt.cst.ui.internal.help.HelpUtil;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.CodeSearchPreferencesPage;
-import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 /**
  * Describes project specific settings of the Code Search
@@ -187,9 +186,7 @@ public class CodeSearchPropertyPage extends PropertyPage implements IWorkbenchPr
     if (!pageIsUseable) {
       return;
     }
-    var status = featureUtil.testSearchAvailabilityByProject(CodeSearchUIPlugin.getDefault()
-        .getPreferenceStore()
-        .getBoolean(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH));
+    var status = featureUtil.testBackendBasedSearchAvailability();
     if (!status.isOK()) {
       pageIsUseable = false;
       pageNotUseableStatus = status;
