@@ -34,6 +34,7 @@ import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 import com.devepos.adt.cst.ui.internal.messages.Messages;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
+import com.sap.adt.communication.resources.ResourceException;
 
 /**
  * Code search query that is using only available ADT API's from SAP
@@ -126,13 +127,15 @@ public class ClientBasedCodeSearchQuery extends AbstractCodeSearchQuery
 
       finished = true;
       return Status.OK_STATUS;
-    } catch (InterruptedException | ExecutionException | NetworkException e) {
+    } catch (InterruptedException | ExecutionException | NetworkException | ResourceException e) {
       Thread.currentThread().interrupt();
       if (e.getCause() instanceof OperationCanceledException) {
         return Status.CANCEL_STATUS;
+      } else if (e instanceof ExecutionException || e instanceof InterruptedException) {
+        return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, e.getCause().getMessage(),
+            e.getCause());
       }
-      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-          Messages.ClientBasedCodeSearchQuery_UnknownSearchError_xmsg, e);
+      return new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, e.getMessage(), e);
     } finally {
       updateClientRuntime();
       executor.shutdownNow();

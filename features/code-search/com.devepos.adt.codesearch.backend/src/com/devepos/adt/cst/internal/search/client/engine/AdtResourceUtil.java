@@ -11,7 +11,7 @@ public class AdtResourceUtil {
   public static void handleNetworkError(final Throwable exc) {
     if (exc instanceof CommunicationException
         && (exc.getCause() instanceof JCoException || exc.getCause() instanceof IOException)) {
-      throw new NetworkException(exc.getCause().getMessage());
+      throw new NetworkException("Network connection interrupted", exc.getCause());
     }
   }
 }
