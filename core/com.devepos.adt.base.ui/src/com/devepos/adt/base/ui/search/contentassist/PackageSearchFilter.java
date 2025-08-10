@@ -72,7 +72,7 @@ public class PackageSearchFilter implements ISearchFilter, ITextQueryProposalPro
       getPackageProvider();
       if (packageProvider != null) {
         List<IAdtObjectReference> packageList = new ArrayList<>();
-        packageList = packageProvider.execute(String.valueOf(query) + "*", 50, false, true,
+        packageList = packageProvider.execute(String.valueOf(query) + "*", 51, false, true,
             IAdtObjectTypeConstants.PACKAGE);
         if (packageList != null) {
           for (final IAdtObjectReference objRef : packageList) {

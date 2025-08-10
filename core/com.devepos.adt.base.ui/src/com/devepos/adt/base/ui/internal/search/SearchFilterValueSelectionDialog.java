@@ -112,7 +112,7 @@ public class SearchFilterValueSelectionDialog
 
     if (proposals != null && !proposals.isEmpty()) {
       var isComplete = true;
-      if (proposals.size() > 50) {
+      if (proposals.size() > 50 && proposals.size() < 52) {
         proposals.remove(50);
         isComplete = false;
       }
