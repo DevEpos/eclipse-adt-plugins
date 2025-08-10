@@ -33,9 +33,9 @@
     </div>
     <p>
       Let's assume you want to look for
-      <code class="code">SELECT</code>
+      <kbd>SELECT</kbd>
       statements that reside in a nested
-      <code class="code">LOOP</code>
+      <kbd>LOOP</kbd>
       .
     </p>
 
@@ -59,7 +59,7 @@
 
     <p>
       To find such
-      <code class="code">SELECT</code>
+      <kbd>SELECT</kbd>
       s in your source code you would enter the following pattern <em>sequence</em>
       in the pattern input of the Code Search dialog:
     </p>
@@ -196,7 +196,7 @@
       <li>
         The following pattern can be used to exclude matches like in
         <a href="#snippet4" class="link">Snippet 4</a>.<br />In this example (#exclude) is used to make sure the
-        <code class="code">SELECT</code> really occurs inside a nested <code class="code">LOOP</code>.
+        <kbd>SELECT</kbd> really occurs inside a nested <kbd>LOOP</kbd>.
         <pre class="code-block light">
 <span class="code-line">&#183;loop&#183;</span>
 <span class="code-line"><strong>(#exclude)</strong>&#183;endloop</span>
@@ -204,8 +204,8 @@
 <span class="code-line"><strong>(#exclude)</strong>&#183;endloop</span>
 <span class="code-line">&#183;select&#183;</span>		
 </pre>
-        Write now the match spans from the first <code class="code">LOOP</code> to the
-        <code class="code">SELECT</code> statement. If you want only the <code class="code">SELECT</code> statement to
+        Write now the match spans from the first <kbd>LOOP</kbd> to the
+        <kbd>SELECT</kbd> statement. If you want only the <kbd>SELECT</kbd> statement to
         be marked, the sequence can be modified in the following way
         <pre class="code-block light">
 <span class="code-line">&#183;loop&#183;</span>
@@ -217,10 +217,10 @@
 </pre>
       </li>
       <li>
-        Let's assume you want to look for <code class="code">SELECT</code> statements with certain keywords inside.<br />Some
-        keywords like <code class="code">GROUP</code> or <code class="code">WHERE</code> can also occur in other
-        statements like e.g. <code class="code">LOOP</code>. To prevent the sequence to skip outside the bounds of the
-        <code class="code">SELECT</code> statement into the <code class="code">LOOP</code>
+        Let's assume you want to look for <kbd>SELECT</kbd> statements with certain keywords inside.<br />Some
+        keywords like <kbd>GROUP</kbd> or <kbd>WHERE</kbd> can also occur in other
+        statements like e.g. <kbd>LOOP</kbd>. To prevent the sequence to skip outside the bounds of the
+        <kbd>SELECT</kbd> statement into the <kbd>LOOP</kbd>
         you can use boundaries.
         <pre class="code-block light">
 <span class="code-line"><strong>(#b-start)</strong>&#183;select&#183;</span>        
@@ -228,10 +228,10 @@
 <span class="code-line">&#183;group&#183;</span>       
 <span class="code-line"><strong>(#b-end)</strong>.</span>       
 </pre>
-        In this example the search will look first for a <code class="code">SELECT</code> statement. After that it will
-        look for the first <code class="code">.</code> to mark the end of the boundary.<br />Then the search continues
+        In this example the search will look first for a <kbd>SELECT</kbd> statement. After that it will
+        look for the first <kbd>.</kbd> to mark the end of the boundary.<br />Then the search continues
         with the patterns that follow the (#b-start) patterns. Only if the matches for these patterns occur before the
-        found <code class="code">.</code> at (#b-end) will the match be considered a <em>full</em> match.
+        found <kbd>.</kbd> at (#b-end) will the match be considered a <em>full</em> match.
       </li>
     </ul>
 

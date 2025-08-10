@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html id="doc-page">
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
@@ -45,15 +45,19 @@
       <li>
         <em>Object Name</em> <br />
         A text input control to enter one or multiple object names to restrict the scope. Wildcards are supported. The
-        end of each object name is automatically expanded by a <code class="code">*</code> if it does not end with
-        <code class="code">&lt;</code>. Multiple object names are split by a space<br />
-        You can also exclude name patterns with <code class="code">!</code>.
+        end of each object name is automatically expanded by a <kbd>*</kbd> if it does not end with <kbd>&lt;</kbd>.
+        Multiple object names are split by a space<br />
+        You can also exclude name patterns with <kbd>!</kbd>.
+        <div class="alert warning">
+          <div class="alert-info__text"></div>
+          The exclusion with <kbd>!</kbd> does only work in the <em>Server-Based</em> Search.
+        </div>
       </li>
       <li>
         <em>Filters</em><br />
         A text control for entering the filters which will restrict the scope. This field provides assistance for the
         following criteria:<br />
-        <br />
+        <p><strong>Filters for Server-Based Search</strong></p>
         <table>
           <tr>
             <th>Filter</th>
@@ -71,8 +75,8 @@
             <td>
               <ul class="list">
                 <li>Fixed values</li>
-                <li><code class="code">me</code> as abbreviation for the currently logged on user</li>
-                <li>Supports <code class="code">*</code></li>
+                <li><kbd>me</kbd> as abbreviation for the currently logged on user</li>
+                <li>Supports <kbd>*</kbd></li>
               </ul>
             </td>
           </tr>
@@ -82,7 +86,7 @@
             <td>
               <ul class="list">
                 <li>Fixed values</li>
-                <li>Supports <code class="code">*</code></li>
+                <li>Supports <kbd>*</kbd></li>
                 <li>Sub packages are considered automatically</li>
               </ul>
             </td>
@@ -93,14 +97,14 @@
             <td>
               <ul class="list">
                 <li>Fixed values</li>
-                <li>Supports <code class="code">*</code></li>
+                <li>Supports <kbd>*</kbd></li>
                 <li>Application hierarchies are resolved as well</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td>created</td>
-            <td>Date of Creation</td>
+            <td>Creation Date</td>
             <td>
               <ul class="list">
                 <li>
@@ -111,24 +115,20 @@
                   Numeric Relative dates<br />e.g. <em>2-weeks-ago</em>,
                   <em>15-days-ago</em>
                 </li>
+                <li>Date pattern <kbd>dd.mm.yyyy</kbd><br />e.g. <em>16.4.2021</em>, <em>1.1.1999</em></li>
+                <li>Date pattern <kbd>dd.mm</kbd><br />e.g. <em>1.2</em>, <em>10.11</em></li>
+                <li>Date pattern <kbd>mm.yyyy</kbd><br />e.g. <em>4.2020</em>, <em>10.2021</em></li>
                 <li>
-                  Date pattern <code class="code">dd.mm.yyyy</code><br />e.g. <em>16.4.2021</em>, <em>1.1.1999</em>
-                </li>
-                <li>Date pattern <code class="code">dd.mm</code><br />e.g. <em>1.2</em>, <em>10.11</em></li>
-                <li>Date pattern <code class="code">mm.yyyy</code><br />e.g. <em>4.2020</em>, <em>10.2021</em></li>
-                <li>
-                  Date pattern <code class="code">yyyy</code><br />
+                  Date pattern <kbd>yyyy</kbd><br />
                   e.g. <em>2021</em>, <em>2007</em>
                 </li>
                 <li>
-                  Date range pattern <code class="code">pattern1...pattern2</code> <br />e.g. 1.1...yesterday,
-                  15.12...3-weeks-ago
+                  Date range pattern <kbd>pattern1...pattern2</kbd> <br />e.g. 1.1...yesterday, 15.12...3-weeks-ago
                 </li>
               </ul>
               <p>
-                Additionally the modifiers <code class="code">&lt;</code>, <code class="code">&lt;=</code>,
-                <code class="code">&gt;</code> and <code class="code">&gt;=</code> can be used to prefix the date
-                patterns (this excludes range patterns)<br />
+                Additionally the modifiers <kbd>&lt;</kbd>, <kbd>&lt;=</kbd>, <kbd>&gt;</kbd> and <kbd>&gt;=</kbd> can
+                be used to prefix the date patterns (this excludes range patterns)<br />
                 e.g. &lt;=today, &gt;11.1
               </p>
             </td>
@@ -150,6 +150,65 @@
             </td>
           </tr>
         </table>
+
+        <p><strong>Filters for Client-Based Search </strong></p>
+        <table>
+          <tr>
+            <th>Filter</th>
+            <th>Description</th>
+            <th>Notes about input</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Object Type</td>
+            <td>Fixed values only</td>
+          </tr>
+          <tr>
+            <td>owner</td>
+            <td>Author of an object</td>
+            <td>Fixed values only</td>
+          </tr>
+          <tr>
+            <td>comp</td>
+            <td>Software Component</td>
+            <td>Fixed values only</td>
+          </tr>
+          <tr>
+            <td>package</td>
+            <td>Development Package</td>
+            <td>
+              <ul class="list">
+                <li>Fixed values</li>
+                <li>Sub packages are considered automatically</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>appl</td>
+            <td>Application Component</td>
+            <td>
+              <ul class="list">
+                <li>Fixed values</li>
+                <li>Application hierarchies are resolved as well</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>created</td>
+            <td>Creation Year of the Object</td>
+            <td>e.g. 2024, 2020</td>
+          </tr>
+          <tr>
+            <td>month</td>
+            <td>Creation Month of the Object</td>
+            <td>e.g. 01, 12</td>
+          </tr>
+          <tr>
+            <td>date</td>
+            <td>Creation Date of the Object</td>
+            <td>e.g. 20240120, 20251025</td>
+          </tr>
+        </table>
         <p>
           All filters also provide further content assistance to see which options are available (see the following
           image)
@@ -164,14 +223,13 @@
       <div class="alert-tip__text"></div>
       The filter control can also be used to exclude objects from the scope by using ! as the negation sign. <br />e.g.
       You can exclude objects of type class by using by using
-      <code class="code">type: !clas</code>
+      <kbd>type: !clas</kbd>
     </div>
 
     <h4 class="heading">Detailed Value Help Dialog</h4>
     <p>
-      All filters also provide an additional value help by pressing <code class="code">F4</code>. The new dialog allows
-      a more precise search for filter values by restricting the list of possible values with custom filters (see the
-      following image)
+      All filters also provide an additional value help by pressing <kbd>F4</kbd>. The new dialog allows a more precise
+      search for filter values by restricting the list of possible values with custom filters (see the following image)
     </p>
 
     <figure>
@@ -193,22 +251,21 @@
     <h4 class="heading">Examples for Object Selection</h4>
     <ul class="list">
       <li class="p-b-m">
-        Object Name: <code class="code">!/ z</code><br />All objects <em>not</em> starting with "/" and all objects
-        starting with "Z"
+        Object Name: <kbd>!/ z</kbd><br />All objects <em>not</em> starting with "/" and all objects starting with "Z"
       </li>
-      <li class="p-b-m">Object Name: <code class="code">zadt&lt;</code> <br />Objects with the exact name "ZADT"</li>
-      <li class="p-b-m">Object Name: <code class="code">*dbbr*</code><br />Objects containing "DBBR"</li>
+      <li class="p-b-m">Object Name: <kbd>zadt&lt;</kbd> <br />Objects with the exact name "ZADT"</li>
+      <li class="p-b-m">Object Name: <kbd>*dbbr*</kbd><br />Objects containing "DBBR"</li>
       <li class="p-b-m">
-        Search Filters: <code class="code">package: z_abap, $*</code><br />Objects in packages "Z_ABAP" and all its sub
-        packages or objects in packages that start with "$"
-      </li>
-      <li class="p-b-m">
-        Search Filters: <code class="code">created: >last-week type:!clas,!intf</code><br />All objects that were
-        created a week ago and whose type is not equal to "CLAS" and "INTF"
+        Search Filters: <kbd>package: z_abap, $*</kbd><br />Objects in packages "Z_ABAP" and all its sub packages or
+        objects in packages that start with "$"
       </li>
       <li class="p-b-m">
-        Search Filters: <code class="code">owner:me, ext*</code><br />All objects that were created by currently logged
-        on user or by users whose name starts with "EXT"
+        Search Filters: <kbd>created: >last-week type:!clas,!intf</kbd><br />All objects that were created a week ago
+        and whose type is not equal to "CLAS" and "INTF"
+      </li>
+      <li class="p-b-m">
+        Search Filters: <kbd>owner:me, ext*</kbd><br />All objects that were created by currently logged on user or by
+        users whose name starts with "EXT"
       </li>
     </ul>
 
@@ -225,54 +282,66 @@
       <figcaption>Content Assist for options for a filter</figcaption>
     </figure>
 
-    <h4 id="program-expand-includes" class="heading">Settings for Programs</h4>
-    <p>
-      Sometimes the source code of a program can be structured into one or several includes. For an easy
-      <em>deep</em> search of such programs, there is the option <em>Expand Includes</em>.
-    </p>
-    <figure>
-      <img src="../../images/CodeSearchView-ExpandIncludes-Setting.png" />
-      <figcaption>Expand includes in programs</figcaption>
-    </figure>
-    <p>
-      If this setting is active the program itself and all includes of the program are searched. The results of the
-      includes are conveniently structured as child nodes of the program
-    </p>
-    <figure>
-      <img src="../../images/CodeSearch-Result-ExpandedReport.png" />
-      <figcaption>Result in Include of Program</figcaption>
-    </figure>
+    <section>
+      <h4 id="program-expand-includes" class="heading">Settings for Programs</h4>
+      <p>
+        Sometimes the source code of a program can be structured into one or several includes. For an easy
+        <em>deep</em> search of such programs, there is the option <em>Expand Includes</em>.
+      </p>
+      <figure>
+        <img src="../../images/CodeSearchView-ExpandIncludes-Setting.png" />
+        <figcaption>Expand includes in programs</figcaption>
+      </figure>
+      <p>
+        If this setting is active the program itself and all includes of the program are searched. The results of the
+        includes are conveniently structured as child nodes of the program
+      </p>
+      <figure>
+        <img src="../../images/CodeSearch-Result-ExpandedReport.png" />
+        <figcaption>Result in Include of Program</figcaption>
+      </figure>
 
-    <div class="alert warning">
-      <div class="alert-info__text"></div>
-      For this feature you have to install at least Version <strong>v1.2.0</strong> of the ADT Backend
-      <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank" class="link external"
-        >abap-code-search-tools</a
-      >
-    </div>
+      <div class="alert warning">
+        <div class="alert-info__text"></div>
+        For this feature you have to install at least Version <strong>v1.2.0</strong> of the ADT Backend
+        <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank" class="link external"
+          >abap-code-search-tools</a
+        >
+      </div>
+      <div class="alert warning">
+        <div class="alert-info__text"></div>
+        Not yet supported in Client-Based Search
+      </div>
+    </section>
 
-    <h4 id="table-expand-includes" class="heading">Settings for Tables</h4>
-    <p>
-      Structures or database tables can contain includes as well. This setting will consider referenced includes and
-      also search those.
-    </p>
-    <figure>
-      <img src="../../images/CodeSearchView-ExpandIncludes-Tables-Setting.png" />
-      <figcaption>Expand includes in tables</figcaption>
-    </figure>
-    <p>If this setting is active the table/structure itself and all includes are searched.</p>
-    <figure>
-      <img src="../../images/CodeSearch-Result-ExpandedTable.png" />
-      <figcaption>Result in include of database table</figcaption>
-    </figure>
+    <section>
+      <h4 id="table-expand-includes" class="heading">Settings for Tables</h4>
+      <p>
+        Structures or database tables can contain includes as well. This setting will consider referenced includes and
+        also search those.
+      </p>
+      <figure>
+        <img src="../../images/CodeSearchView-ExpandIncludes-Tables-Setting.png" />
+        <figcaption>Expand includes in tables</figcaption>
+      </figure>
+      <p>If this setting is active the table/structure itself and all includes are searched.</p>
+      <figure>
+        <img src="../../images/CodeSearch-Result-ExpandedTable.png" />
+        <figcaption>Result in include of database table</figcaption>
+      </figure>
 
-    <div class="alert warning">
-      <div class="alert-info__text"></div>
-      For this feature you have to install at least Version <strong>v1.6.0</strong> of the ADT Backend
-      <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank" class="link external"
-        >abap-code-search-tools</a
-      >
-    </div>
+      <div class="alert warning">
+        <div class="alert-info__text"></div>
+        For this feature you have to install at least Version <strong>v1.6.0</strong> of the ADT Backend
+        <a href="https://github.com/DevEpos/abap-code-search-tools" target="_blank" class="link external"
+          >abap-code-search-tools</a
+        >
+      </div>
+      <div class="alert warning">
+        <div class="alert-info__text"></div>
+        Not yet supported in Client-Based Search
+      </div>
+    </section>
 
     <h3 class="heading">Additional Settings</h3>
     <p>Additionally you have the following options to configure the behavior of the search:</p>

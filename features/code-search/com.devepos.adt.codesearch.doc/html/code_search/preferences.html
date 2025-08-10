@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html id="doc-page">
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
@@ -53,16 +53,43 @@
           </li>
         </ul>
         <p>
-          Additionally, the default pattern for tasks/requests - as used by <code class="code">SE09</code> - is used to
-          restrict the result (e.g in case of the system id being <code class="code">A4H</code> the pattern will be
-          <code class="code">A4H*</code>)
+          Additionally, the default pattern for tasks/requests - as used by <kbd>SE09</kbd> - is used to restrict the
+          result (e.g in case of the system id being <kbd>A4H</kbd> the pattern will be <kbd>A4H*</kbd>)
         </p>
         <div class="alert info">
           <div class="alert-tip__text"></div>
-          By using the integrated value help via <code class="code">F4</code>, these settings can all be overridden
+          By using the integrated value help via <kbd>F4</kbd>, these settings can all be overridden
         </div>
       </li>
     </ul>
+
+    <h3 class="heading">Client-Based Search</h3>
+    <ul class="list">
+      <li>
+        <em>Maximum Number of parallel jobs</em><br />This setting controls the maximum number of parallel jobs that can
+        be used for client-based searches.
+        <div class="alert warning">
+          <div class="alert-warning__text"></div>
+          Be careful about this setting. Depending on the available resources this setting may have a performance impact
+          on both the client and the targeted ABAP system.
+        </div>
+      </li>
+      <li>
+        <em>Determine Package Hierarchy</em><br />If active this settings determines the package hierarchy of each main
+        object in the search result
+        <div class="alert info">
+          <div class="alert-tip__text"></div>
+          In comparison with the server-based search the package hierarchy is determined on a per-object basis. If you
+          you do not care about the hierarchy at all it may be better to deactivate this setting to improve the
+          performance of the search.
+        </div>
+      </li>
+      <li>
+        <em>Prefer Client-Based Search</em><br />If active this setting prefers client-based search over server-based
+        Search. This is only relevant for ABAP systems where the ADT backend for the ABAP Code Search is installed
+      </li>
+    </ul>
+
     <h3 class="heading">Related Information</h3>
     <div>
       <a class="link" href="properties.html">Properties</a>
