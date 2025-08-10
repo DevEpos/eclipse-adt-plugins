@@ -17,4 +17,15 @@ public class Facet {
     return name;
   }
 
+  @Override
+  public String toString() {
+    var result = new StringBuilder();
+    result.append("(name: ");
+    result.append(name);
+    result.append(", type: ");
+    result.append(type);
+    result.append(")");
+    return result.toString();
+  }
+
 }

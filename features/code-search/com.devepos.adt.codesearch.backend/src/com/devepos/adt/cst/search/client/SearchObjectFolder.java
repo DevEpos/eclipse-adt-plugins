@@ -105,6 +105,17 @@ public class SearchObjectFolder {
   }
 
   @Override
+  public String toString() {
+    var result = new StringBuilder();
+    result.append("(name: ");
+    result.append(name);
+    result.append(", facets: ");
+    result.append(facets);
+    result.append(")");
+    return result.toString();
+  }
+
+  @Override
   public boolean equals(final Object obj) {
     if (obj == this) {
       return true;

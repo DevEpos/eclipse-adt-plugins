@@ -7,6 +7,7 @@ public class Messages extends NLS {
   public static String AbapClassSearchProvider_ClassSystemError_xmsg;
   public static String AbapClassSearchProvider_GlobalClassNotFound_xmsg;
   public static String AbapClassSearchProvider_IncludeSystemError_xmsg;
+  public static String AbapClassSearchProvider_MissingAuthorizationError_xmsg;
   public static String AbapClassSearchProvider_NoEndOfClassDefFound_xmsg;
   public static String AbapClassSearchProvider_UnknownClassError_xmsg;
   public static String AbapClassSearchProvider_UnknownIncludeError_xmsg;
@@ -24,6 +25,7 @@ public class Messages extends NLS {
   public static String FugrSearchProvider_FunctionGroupNotFound_xmsg;
   public static String FugrSearchProvider_FunctionNotFound_xmsg;
   public static String FugrSearchProvider_IncludeNotFound_xmsg;
+  public static String FugrSearchProvider_MissingAuthorizationError_xmsg;
   public static String FugrSearchProvider_RepoTreeLoadError_xmsg;
   public static String FugrSearchProvider_SubObjectSystemFailure_xmsg;
   public static String FugrSearchProvider_SubObjectTreeLoadError_xmsg;
@@ -42,6 +44,7 @@ public class Messages extends NLS {
   public static String PatternUtil_ErrUnclosedBoundarySequence_xmsg;
   public static String PatternUtil_ErrUnclosedMatchSequence_xmsg;
 
+  public static String StringSourceSearchProvider_MissingAuthorizationError_xmsg;
   public static String StringSourceSearchProvider_ObjectNotFound_xmsg;
   public static String StringSourceSearchProvider_SystemError_xmsg;
   public static String StringSourceSearchProvider_UnknownError_xmsg;

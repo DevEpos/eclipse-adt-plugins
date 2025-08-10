@@ -18,6 +18,7 @@ import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.ResourceException;
+import com.sap.adt.communication.resources.ResourceForbiddenException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
 /**
@@ -86,7 +87,7 @@ public class AbapClassSearchProvider implements ISearchProvider {
       if ((config.getClassIncludeFlags() & ClassInclude.TESTS.getBit()) != 0) {
         searchInclude(ClassInclude.TESTS, object, srcCodeReader, searcherFactory, result);
       }
-    } catch (SystemFailureException | ResourceNotFoundException exc) {
+    } catch (SystemFailureException | ResourceNotFoundException | ResourceForbiddenException exc) {
       // already handled in searchInclude
     }
 
@@ -134,6 +135,12 @@ public class AbapClassSearchProvider implements ISearchProvider {
           .format(Messages.AbapClassSearchProvider_GlobalClassNotFound_xmsg, object.getName()),
           MessageType.ERROR, exc);
       throw exc;
+    } catch (ResourceForbiddenException exc) {
+      result.addResponseMessage(
+          String.format(Messages.AbapClassSearchProvider_MissingAuthorizationError_xmsg,
+              object.getName()),
+          MessageType.ERROR, exc);
+      throw exc;
     } catch (ClassSectionException | ResourceException | CommunicationException exc) {
       AdtResourceUtil.handleNetworkError(exc);
       result.addResponseMessage(
@@ -177,6 +184,11 @@ public class AbapClassSearchProvider implements ISearchProvider {
       result.addResponseMessage(
           String.format(Messages.AbapClassSearchProvider_IncludeSystemError_xmsg,
               include.getLabelWoMnemonic(), o.getName(), o.getName()),
+          MessageType.ERROR, exc);
+      throw exc;
+    } catch (ResourceForbiddenException exc) {
+      result.addResponseMessage(String
+          .format(Messages.AbapClassSearchProvider_MissingAuthorizationError_xmsg, o.getName()),
           MessageType.ERROR, exc);
       throw exc;
     } catch (ResourceNotFoundException exc) {

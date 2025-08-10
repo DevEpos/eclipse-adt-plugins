@@ -6,8 +6,8 @@ public class SearchableObject {
 
   private final String name;
   private final String displayName;
-  private final String uri;
-  private final String type;
+  private String uri;
+  private String type;
   private final SearchObjectFolder folder;
   private boolean isSearched = false;
 
@@ -24,6 +24,10 @@ public class SearchableObject {
     return type;
   }
 
+  public void setType(String type) {
+    this.type = type;
+  }
+
   public String getName() {
     return name;
   }
@@ -34,6 +38,10 @@ public class SearchableObject {
 
   public String getUri() {
     return uri;
+  }
+
+  public void setUri(String uri) {
+    this.uri = uri;
   }
 
   public SearchObjectFolder getFolder() {

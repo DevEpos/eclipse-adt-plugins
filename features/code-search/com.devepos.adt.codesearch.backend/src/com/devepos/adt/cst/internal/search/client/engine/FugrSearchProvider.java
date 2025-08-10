@@ -18,6 +18,7 @@ import com.devepos.adt.cst.search.client.SearchableObject;
 import com.sap.adt.communication.exceptions.CommunicationException;
 import com.sap.adt.communication.exceptions.SystemFailureException;
 import com.sap.adt.communication.resources.ResourceException;
+import com.sap.adt.communication.resources.ResourceForbiddenException;
 import com.sap.adt.communication.resources.ResourceNotFoundException;
 
 /**
@@ -133,6 +134,13 @@ public class FugrSearchProvider implements ISearchProvider {
                 subObject.getObjectName(), subObject.getObjectType(), object.getName()),
             MessageType.ERROR, exc);
         throw exc;
+      } catch (ResourceForbiddenException exc) {
+        result.addResponseMessage(
+            String.format(Messages.FugrSearchProvider_MissingAuthorizationError_xmsg,
+                subObject.getObjectName(), subObject.getObjectType(), object.getName()),
+            MessageType.ERROR, exc);
+        // REVISIT: not sure if we should not rather skip all further executions
+        continue;
       } catch (ResourceNotFoundException exc) {
         result.addResponseMessage(String.format(
             subObject.getObjectType().equals(IAdtObjectTypeConstants.FUNCTION_INCLUDE)
