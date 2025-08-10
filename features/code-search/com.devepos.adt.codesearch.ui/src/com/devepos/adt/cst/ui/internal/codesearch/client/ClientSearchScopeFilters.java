@@ -66,7 +66,7 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
 
   private void addAvailableFacetFilters(final ArrayList<ISearchFilter> validParameters) {
     var destinationId = projectProvider.getDestinationId();
-    List<ISearchFilter> facetFilters = null;// FACET_FILTERS_CACHE.get(projectProvider.getProject());
+    var facetFilters = FACET_FILTERS_CACHE.get(projectProvider.getProject());
     if (facetFilters == null) {
       facetFilters = createFacetFilters(destinationId);
       FACET_FILTERS_CACHE.put(projectProvider.getProject(), facetFilters);
@@ -79,41 +79,36 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
     try {
       var facetProvider = FacetProviderFactory.getInstance(projectProvider.getProject(),
           new NullProgressMonitor());
-      if (facetProvider.getApplicationComponentFacet() != null) {
-        facetFilters.add(new FacetSearchFilter(facetProvider.getApplicationComponentFacet(),
-            destinationId, null));
-      }
-      if (facetProvider.getCreatedYearFacet() != null) {
-        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedYearFacet(),
-            "(19\\d{2}|2\\d{3})", "%s is not a valid year (e.g. 2025)"));
-      }
-      if (facetProvider.getCreatedMonthFacet() != null) {
-        facetFilters.add(createDateFacetFilter(destinationId, facetProvider.getCreatedMonthFacet(),
-            "(0[1-9]|1[0-2])", "%s is not a valid month (e.g. 05)"));
-      }
-      if (facetProvider.getCreatedFacet() != null) {
-        facetFilters
-            .add(createDateFacetFilter(destinationId, facetProvider.getCreatedFacet(), val -> {
-              var dateStr = StringUtil.removeNegationCharacter((String) val);
-              createDateRegexValidator("[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
-                  "%s is not a date pattern (e.g. 20250515)").validate(dateStr);
+      facetProvider.getFacets().forEach(facet -> {
+        if (facet.getKey().equals(FilterName.SOFTWARE_COMPONENT.getContentAssistName())) {
+          facetFilters.add(new FacetSearchFilter(facet, destinationId, null));
+        } else if (facet.getKey().equals(FilterName.APPLICATION_COMPONENT.getContentAssistName())) {
+          facetFilters.add(new FacetSearchFilter(facet, destinationId, null));
+        } else if (facet.getKey().equals(FilterName.CREATED_FACET_DATE.getContentAssistName())) {
+          facetFilters.add(createDateFacetFilter(destinationId, facet, val -> {
+            var dateStr = StringUtil.removeNegationCharacter((String) val);
+            createDateRegexValidator("[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
+                "%s is not a date pattern (e.g. 20250515)").validate(dateStr);
 
-              // check if the pattern is a valid date (e.g. 20230230)
-              var year = Integer.parseInt(dateStr.substring(0, 4));
-              var month = Integer.parseInt(dateStr.substring(4, 6));
-              var day = Integer.parseInt(dateStr.substring(6, 8));
-              try {
-                LocalDate.of(year, month, day);
-              } catch (DateTimeException e) {
-                throw new CoreException(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-                    String.format("%d/%d/%d is not a valid date", year, month, day)));
-              }
-            }));
-      }
-      if (facetProvider.getSoftwareComponentFacet() != null) {
-        facetFilters.add(
-            new FacetSearchFilter(facetProvider.getSoftwareComponentFacet(), destinationId, null));
-      }
+            // check if the pattern is a valid date (e.g. 20230230)
+            var year = Integer.parseInt(dateStr.substring(0, 4));
+            var month = Integer.parseInt(dateStr.substring(4, 6));
+            var day = Integer.parseInt(dateStr.substring(6, 8));
+            try {
+              LocalDate.of(year, month, day);
+            } catch (DateTimeException e) {
+              throw new CoreException(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
+                  String.format("%d/%d/%d is not a valid date", year, month, day)));
+            }
+          }));
+        } else if (facet.getKey().equals(FilterName.CREATED_FACET_MONTH.getContentAssistName())) {
+          facetFilters.add(createDateFacetFilter(destinationId, facet, "(0[1-9]|1[0-2])",
+              "%s is not a valid month (e.g. 05)"));
+        } else if (facet.getKey().equals(FilterName.CREATED_FACET_YEAR.getContentAssistName())) {
+          facetFilters.add(createDateFacetFilter(destinationId, facet, "(19\\d{2}|2\\d{3})",
+              "%s is not a valid year (e.g. 2025)"));
+        }
+      });
     } catch (ServiceNotAvailableException | CoreException e) {
       e.printStackTrace();
     }
