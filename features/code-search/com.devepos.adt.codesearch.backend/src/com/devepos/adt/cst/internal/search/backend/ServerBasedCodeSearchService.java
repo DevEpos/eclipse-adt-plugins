@@ -9,7 +9,7 @@ import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
-import com.devepos.adt.cst.search.IBackendBasedCodeSearchService;
+import com.devepos.adt.cst.search.IServerBasedCodeSearchService;
 import com.devepos.adt.cst.search.ICodeSearchService;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.session.AdtSystemSessionFactory;
@@ -21,10 +21,10 @@ import com.sap.adt.communication.session.ISystemSession;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class BackendCodeSearchService implements IBackendBasedCodeSearchService {
+public class ServerBasedCodeSearchService implements IServerBasedCodeSearchService {
   private final String destinationId;
 
-  public BackendCodeSearchService(final IProject project) {
+  public ServerBasedCodeSearchService(final IProject project) {
     destinationId = DestinationUtil.getDestinationId(project);
   }
 

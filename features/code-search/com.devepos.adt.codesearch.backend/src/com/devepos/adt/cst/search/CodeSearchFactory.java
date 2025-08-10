@@ -10,7 +10,7 @@ import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.cst.internal.search.CodeSearchFeatureUtil;
 import com.devepos.adt.cst.internal.search.CodeSearchPatternValidator;
 import com.devepos.adt.cst.internal.search.CodeSearchScopeService;
-import com.devepos.adt.cst.internal.search.backend.BackendCodeSearchService;
+import com.devepos.adt.cst.internal.search.backend.ServerBasedCodeSearchService;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchSettingsService;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
 import com.devepos.adt.cst.internal.search.client.ClientCodeSearchService;
@@ -36,8 +36,8 @@ public class CodeSearchFactory {
    * Retrieves instance of code search service to perform a backend based search against the Code
    * Search ABAP backend
    */
-  public static IBackendBasedCodeSearchService getBackendCodeSearchService(final IProject project) {
-    return new BackendCodeSearchService(project);
+  public static IServerBasedCodeSearchService getBackendCodeSearchService(final IProject project) {
+    return new ServerBasedCodeSearchService(project);
   }
 
   public static IAdtUriTemplateProvider getNamedItemUriTemplateProvider(

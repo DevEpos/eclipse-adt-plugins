@@ -118,7 +118,7 @@ public class Messages extends NLS {
   public static String CodeSearchRuntimeInfoDialog_searchedSources_xlbl;
   public static String CodeSearchRuntimeInfoDialog_searchProgressGroup_xtit;
   public static String CodeSearchRuntimeInfoDialog_SearchType_xlbl;
-  public static String CodeSearchRuntimeInfoDialog_SearchTypeBackend_xlbl;
+  public static String CodeSearchRuntimeInfoDialog_SearchTypeServer_xlbl;
   public static String CodeSearchRuntimeInfoDialog_SearchTypeClient_xlbl;
   public static String CodeSearchRuntimeInfoDialog_startUpdatesAction_xbtn;
   public static String CodeSearchRuntimeInfoDialog_stopUpdatesAction_xbtn;

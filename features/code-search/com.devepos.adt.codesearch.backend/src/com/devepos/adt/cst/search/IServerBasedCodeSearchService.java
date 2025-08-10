@@ -8,7 +8,7 @@ import com.devepos.adt.cst.model.codesearch.ICodeSearchResult;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScopeParameters;
 
-public interface IBackendBasedCodeSearchService {
+public interface IServerBasedCodeSearchService {
   /**
    * Creates the passed search scope in the ABAP project of the given destination id
    *

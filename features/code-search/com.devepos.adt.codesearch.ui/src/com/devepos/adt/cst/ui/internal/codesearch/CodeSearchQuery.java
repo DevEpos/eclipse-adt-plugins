@@ -11,7 +11,7 @@ import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchScope;
 import com.devepos.adt.cst.search.CodeSearchFactory;
-import com.devepos.adt.cst.search.IBackendBasedCodeSearchService;
+import com.devepos.adt.cst.search.IServerBasedCodeSearchService;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.result.CodeSearchResult;
 
@@ -96,7 +96,7 @@ public class CodeSearchQuery extends AbstractCodeSearchQuery {
   }
 
   private void startSearchingWithScope(final IProgressMonitor monitor, final ICodeSearchScope scope,
-      final IBackendBasedCodeSearchService service, final String destinationId) {
+      final IServerBasedCodeSearchService service, final String destinationId) {
 
     var uriParams = querySpecs.buildSearchUriParameters();
     uriParams.put(SearchParameter.SCOPE_ID.getUriName(), scope.getId());

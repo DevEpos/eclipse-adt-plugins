@@ -198,7 +198,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     var searchType = new Label(group, SWT.NONE);
     searchType.setText(
         runtimeInfo.isClientSearch() ? Messages.CodeSearchRuntimeInfoDialog_SearchTypeClient_xlbl
-            : Messages.CodeSearchRuntimeInfoDialog_SearchTypeBackend_xlbl);
+            : Messages.CodeSearchRuntimeInfoDialog_SearchTypeServer_xlbl);
     GridDataFactory.fillDefaults().align(SWT.END, SWT.FILL).applyTo(searchType);
 
     if (runtimeInfo.isClientSearch()) {

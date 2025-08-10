@@ -36,7 +36,7 @@ public class SearchScopeFiltersProxy implements ISearchFilterProvider {
       return clientSearchFilterProvider;
     } else {
       if (backendSearchFilterProvider == null) {
-        backendSearchFilterProvider = new BackendSearchScopeFilters(projectProvider);
+        backendSearchFilterProvider = new ServerBasedSearchScopeFilters(projectProvider);
       }
       return backendSearchFilterProvider;
     }

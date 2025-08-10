@@ -24,13 +24,13 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
  * @author Ludwig Stockbauer-Muhr
  *
  */
-public class BackendSearchScopeFilters implements ISearchFilterProvider {
+public class ServerBasedSearchScopeFilters implements ISearchFilterProvider {
   private List<ISearchFilter> parameters;
   private ISearchFilter transportRequestFilter;
   private final IAbapProjectProvider projectProvider;
   private final IAdtUriTemplateProvider uriTemplateProvider;
 
-  public BackendSearchScopeFilters(final IAbapProjectProvider projectProvider) {
+  public ServerBasedSearchScopeFilters(final IAbapProjectProvider projectProvider) {
     this.projectProvider = projectProvider;
     uriTemplateProvider = CodeSearchFactory.getNamedItemUriTemplateProvider(projectProvider);
   }
