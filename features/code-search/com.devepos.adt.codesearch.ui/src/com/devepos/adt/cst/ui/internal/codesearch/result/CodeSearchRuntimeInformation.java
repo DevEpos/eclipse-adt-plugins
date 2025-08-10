@@ -24,8 +24,7 @@ public class CodeSearchRuntimeInformation implements IQueryListener {
   private int resultCount;
   private int objectScopeCount;
   private int searchedSourcesCount;
-  private float searchedLinesOfCode;
-
+  private long searchedLinesOfCode;
   private int searchedObjectsCount;
 
   private String systemId;

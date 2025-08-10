@@ -38,8 +38,8 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
   private static final float SECONDS_DENOMINATOR = 1000f;
 
   private final CodeSearchRuntimeInformation runtimeInfo;
-  private final NumberFormat defaultFormat;
-  private final NumberFormat formatWithDecimals;
+  private static final NumberFormat INT_FORMAT = new DecimalFormat("###,###"); //$NON-NLS-1$ ;
+  private static final NumberFormat FLOAT_FORMAT = new DecimalFormat("###,###.00"); //$NON-NLS-1$
 
   private Label searchedObjects;
   private Label searchedSources;
@@ -62,8 +62,6 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     this.runtimeInfo = runtimeInfo;
     setTitle(Messages.CodeSearchRuntimeInfoDialog_dialogTitle_xtit + " [" + runtimeInfo //$NON-NLS-1$
         .getSystemId() + "]"); //$NON-NLS-1$
-    defaultFormat = new DecimalFormat("###,###"); //$NON-NLS-1$
-    formatWithDecimals = new DecimalFormat("###,###.00"); //$NON-NLS-1$
 
     if (runtimeInfo.isSearchRunning()) {
       runtimeInfo.addRuntimeInfoListener(this);
@@ -104,8 +102,10 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
   @Override
   public void subTaskChanged(final String subTask) {
     Display.getDefault().asyncExec(() -> {
-      querySubTask.setText(subTask);
-      querySubTask.getParent().layout();
+      if (querySubTask != null && !querySubTask.isDisposed()) {
+        querySubTask.setText(subTask);
+        querySubTask.getParent().layout();
+      }
     });
   }
 
@@ -268,12 +268,12 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
 
     searchedObjects
         .setText(String.format(Messages.CodeSearchRuntimeInfoDialog_searchedObjectCountPattern_xtxt,
-            defaultFormat.format(runtimeInfo.getSearchedObjectsCount()),
-            defaultFormat.format(runtimeInfo.getObjectScopeCount()), (int) percentage));
+            INT_FORMAT.format(runtimeInfo.getSearchedObjectsCount()),
+            INT_FORMAT.format(runtimeInfo.getObjectScopeCount()), (int) percentage));
 
-    searchedSources.setText(defaultFormat.format(runtimeInfo.getSearchedSourcesCount()));
-    searchedLoC.setText(defaultFormat.format(runtimeInfo.getSearchedLinesOfCode()));
-    foundMatches.setText(defaultFormat.format(runtimeInfo.getResultCount()));
+    searchedSources.setText(INT_FORMAT.format(runtimeInfo.getSearchedSourcesCount()));
+    searchedLoC.setText(INT_FORMAT.format(runtimeInfo.getSearchedLinesOfCode()));
+    foundMatches.setText(INT_FORMAT.format(runtimeInfo.getResultCount()));
 
     if (querySubTask != null) {
       querySubTask.setText(runtimeInfo.getQuerySubTaskName());
@@ -291,7 +291,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
       return;
     }
     var durationUnit = UNIT_MILLISECOND;
-    var numberFormat = defaultFormat;
+    var numberFormat = INT_FORMAT;
 
     if (duration == -1) {
       durationLabel.setText(" - ");
@@ -302,15 +302,15 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     if (duration >= HOUR_DENOMINATOR) {
       durationUnit = UNIT_HOUR;
       duration /= HOUR_DENOMINATOR;
-      numberFormat = formatWithDecimals;
+      numberFormat = FLOAT_FORMAT;
     } else if (duration >= MINUTE_DENOMINATOR) {
       durationUnit = UNIT_MINUTE;
       duration /= MINUTE_DENOMINATOR;
-      numberFormat = formatWithDecimals;
+      numberFormat = FLOAT_FORMAT;
     } else if (duration >= SECONDS_DENOMINATOR) {
       durationUnit = UNIT_SECOND;
       duration /= SECONDS_DENOMINATOR;
-      numberFormat = formatWithDecimals;
+      numberFormat = FLOAT_FORMAT;
     }
 
     durationLabel.setText(numberFormat.format(duration));
