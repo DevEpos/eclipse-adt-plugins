@@ -3,6 +3,7 @@ package com.devepos.adt.cst.ui.internal.codesearch.client;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.devepos.adt.base.ui.search.contentassist.PackageSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.SearchFilterValueProposal;
 import com.devepos.adt.base.ui.search.contentassist.UserSearchFilter;
 import com.devepos.adt.base.util.IValidator;
+import com.devepos.adt.base.util.StringUtil;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
 import com.devepos.adt.cst.ui.internal.codesearch.contentassist.ObjectTypeSearchFilter;
@@ -46,20 +48,10 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
   public List<ISearchFilter> getFilters() {
     if (parameters == null) {
       parameters = new ArrayList<>();
-      parameters.add(new ObjectTypeSearchFilter(projectProvider, false));
+      parameters.add(new ObjectTypeSearchFilter(projectProvider, true));
       parameters.add(new UserSearchFilter(projectProvider, FilterName.OWNER.getContentAssistName(),
-          Messages.CodeSearchScopeFilters_ownerFilterShortDescription_xmsg, null, false) {
-        @Override
-        public boolean supportsNegatedValues() {
-          return false;
-        }
-      });
+          Messages.CodeSearchScopeFilters_ownerFilterShortDescription_xmsg, null, false));
       parameters.add(new PackageSearchFilter(projectProvider) {
-        @Override
-        public boolean supportsNegatedValues() {
-          return false;
-        }
-
         @Override
         public boolean supportsPatternValues() {
           return false;
@@ -102,10 +94,10 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
       if (facetProvider.getCreatedFacet() != null) {
         facetFilters
             .add(createDateFacetFilter(destinationId, facetProvider.getCreatedFacet(), val -> {
+              var dateStr = StringUtil.removeNegationCharacter((String) val);
               createDateRegexValidator("[1-9]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)",
-                  "%s is not a date pattern (e.g. 20250515)").validate(val);
+                  "%s is not a date pattern (e.g. 20250515)").validate(dateStr);
 
-              var dateStr = String.valueOf(val);
               // check if the pattern is a valid date (e.g. 20230230)
               var year = Integer.parseInt(dateStr.substring(0, 4));
               var month = Integer.parseInt(dateStr.substring(4, 6));
@@ -117,6 +109,10 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
                     String.format("%d/%d/%d is not a valid date", year, month, day)));
               }
             }));
+      }
+      if (facetProvider.getSoftwareComponentFacet() != null) {
+        facetFilters.add(
+            new FacetSearchFilter(facetProvider.getSoftwareComponentFacet(), destinationId, null));
       }
     } catch (ServiceNotAvailableException | CoreException e) {
       e.printStackTrace();
@@ -131,16 +127,13 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
 
   private ISearchFilter createDateFacetFilter(final String destinationId, final IFacet facet,
       final String validationPattern, final String validationErrMsg) {
-    return new FacetSearchFilter(facet, destinationId, value -> {
-      if (!Pattern.matches(validationPattern, String.valueOf(value))) {
-        throw new CoreException(new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID,
-            String.format(validationErrMsg, value)));
-      }
-    });
+    return new FacetSearchFilter(facet, destinationId,
+        createDateRegexValidator(validationPattern, validationErrMsg));
   }
 
   private IValidator createDateRegexValidator(final String pattern, final String message) {
     return value -> {
+      value = StringUtil.removeNegationCharacter((String) value);
       if (!Pattern.matches(pattern, String.valueOf(value))) {
         throw new CoreException(
             new Status(IStatus.ERROR, CodeSearchUIPlugin.PLUGIN_ID, String.format(message, value)));
@@ -194,7 +187,7 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
 
     @Override
     public boolean supportsNegatedValues() {
-      return false;
+      return true;
     }
 
     @Override
@@ -202,6 +195,7 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
       return false;
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<IContentProposal> getProposalList(final String query) throws CoreException {
       var service = facet.createNamedItemService(destinationId);
@@ -212,12 +206,13 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
         queryStr += "*";
       }
       var entryList = service.getNamedItemList(50, queryStr, null, null, new NullProgressMonitor());
-      if (entryList != null) {
+      if (entryList != null && !entryList.getNamedItem().isEmpty()) {
         var proposals = new ArrayList<IContentProposal>();
         for (var item : entryList.getNamedItem()) {
           proposals.add(new SearchFilterValueProposal(item.getName(), this, item.getDescription(),
               query, this));
         }
+        Collections.sort((List) proposals);
         return proposals;
       }
       return null;

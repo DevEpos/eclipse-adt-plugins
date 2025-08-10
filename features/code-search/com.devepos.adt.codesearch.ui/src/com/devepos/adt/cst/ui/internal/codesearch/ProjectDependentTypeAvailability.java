@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.QualifiedName;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.ITadirTypeConstants;
@@ -22,8 +21,6 @@ public class ProjectDependentTypeAvailability {
   private static final String DB_TABLE_TYPE_FEATURE_ID = "parameters.type.dbTable";
   private static final String STRUCTURE_TYPE_FEATURE_ID = "parameters.type.structure";
 
-  private static final QualifiedName TABLE_TYPES_SESSION_PROP = new QualifiedName(
-      CodeSearchUIPlugin.PLUGIN_ID, "taggedObjectTrees"); //$NON-NLS-1$
   private static final List<String> EMPTY_LIST = Arrays.asList();
   private static boolean PREFER_CLIENT_SEARCH;
   private static final Map<IProject, List<String>> PROJECT_DEPENDENT_TYPES = new HashMap<>();

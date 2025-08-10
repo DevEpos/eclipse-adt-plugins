@@ -17,34 +17,6 @@ public class CodeSearchRelevantWbTypesUtil {
   private static List<String> SEARCHABLE_ADT_TYPES;
 
   /**
-   * Extracts valid type filters by checking against the valid filters for the Code Search
-   *
-   * @param types list of types
-   * @return a valid List of type filters
-   */
-  public static List<String> extractValidTypeFilters(final IProject project,
-      final List<String> types) {
-    if (types == null || types.isEmpty()) {
-      return null;
-    }
-    List<String> validTypes = new ArrayList<>();
-    List<String> possibleTypes = CodeSearchRelevantWbTypesUtil
-        .getPossibleValuesForTypeFilter(project);
-
-    for (String filter : types) {
-      if (possibleTypes.stream().anyMatch(f -> f.equalsIgnoreCase(filter))) {
-        if (filter.equals(ITadirTypeConstants.EXECUTABLE_REPORT)
-            || filter.equals(ITadirTypeConstants.INCLUDE)) {
-          validTypes.add(ITadirTypeConstants.PROGRAM);
-        } else {
-          validTypes.add(filter);
-        }
-      }
-    }
-    return validTypes;
-  }
-
-  /**
    * Returns a list of types of ADT objects that can be searched by the ABAP Code search
    *
    * @return list of ADT types

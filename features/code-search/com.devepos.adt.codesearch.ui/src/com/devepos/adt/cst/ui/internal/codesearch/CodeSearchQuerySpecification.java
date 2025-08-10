@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -126,20 +127,8 @@ public class CodeSearchQuerySpecification {
           .collect(Collectors.toList()));
     }
     config.setObjectNames(objectNames);
-    Map<String, List<String>> facetFilterMap = new HashMap<>();
 
-    getObjectScopeFilters().entrySet().forEach(entry -> {
-      var valueList = ((String) entry.getValue()).split(",");
-      facetFilterMap.put(entry.getKey(), List.of(valueList));
-    });
-
-    if (!getObjectScopeFilters().containsKey(FilterName.OBJECT_TYPE.getContentAssistName())) {
-      // fill default types, to ignore all other non code search relevant types
-      facetFilterMap.put(FilterName.OBJECT_TYPE.getContentAssistName(),
-          CodeSearchRelevantWbTypesUtil
-              .getPossibleValuesForTypeFilter(projectProvider.getProject()));
-    }
-    config.setFacets(facetFilterMap);
+    config.setFacets(getFacetFilters());
     config.setClassIncludeFlags(getClassIncludesParam().getActiveIncludeFlags());
     config.setFugrIncludeFlags(getFugrIncludesParam().getActiveIncludeFlags());
   }
@@ -463,5 +452,59 @@ public class CodeSearchQuerySpecification {
       lineBreakReplacement = System.lineSeparator();
     }
     return patterns.replaceAll(Text.DELIMITER, lineBreakReplacement);
+  }
+
+  private Map<String, List<String>> getFacetFilters() {
+    Map<String, List<String>> facetFilterMap = new HashMap<>();
+    getObjectScopeFilters().entrySet().forEach(entry -> {
+      if (FilterName.OBJECT_TYPE.getContentAssistName().equalsIgnoreCase(entry.getKey())) {
+        return;
+      }
+      facetFilterMap.put(entry.getKey(),
+          Stream.of(((String) entry.getValue()).split(",")).map(val -> {
+            if (StringUtil.startsWithNegationCharacter(val)) {
+              return "-" + StringUtil.removeNegationCharacter(val);
+            }
+            return val;
+          }).toList());
+    });
+
+    if (!getObjectScopeFilters().containsKey(FilterName.OBJECT_TYPE.getContentAssistName())) {
+      // fill default types, to ignore all other non code search relevant types
+      facetFilterMap.put(FilterName.OBJECT_TYPE.getContentAssistName(),
+          CodeSearchRelevantWbTypesUtil
+              .getPossibleValuesForTypeFilter(projectProvider.getProject()));
+    } else {
+      /*
+       * custom handling of type required, as exclusion would result in finding non searchable types
+       * as well
+       */
+      var allTypeFilters = Stream
+          .of(((String) getObjectScopeFilters().get(FilterName.OBJECT_TYPE.getContentAssistName()))
+              .split(","))
+          .toList();
+      var inclusionFilters = allTypeFilters.stream()
+          .filter(Predicate.not((StringUtil::startsWithNegationCharacter)))
+          .toList();
+      if (!inclusionFilters.isEmpty()) {
+        // if inclusions are there we can ignore any exclusion filters
+        facetFilterMap.put(FilterName.OBJECT_TYPE.getContentAssistName(), inclusionFilters);
+      } else {
+        var exclusionFilters = allTypeFilters.stream()
+            .filter((StringUtil::startsWithNegationCharacter))
+            .map(StringUtil::removeNegationCharacter)
+            .map(String::toUpperCase)
+            .toList();
+        if (!exclusionFilters.isEmpty()) {
+          var possibleFilters = CodeSearchRelevantWbTypesUtil
+              .getPossibleValuesForTypeFilter(projectProvider.getProject());
+          possibleFilters.removeAll(exclusionFilters);
+          if (!possibleFilters.isEmpty()) {
+            facetFilterMap.put(FilterName.OBJECT_TYPE.getContentAssistName(), possibleFilters);
+          }
+        }
+      }
+    }
+    return facetFilterMap;
   }
 }
