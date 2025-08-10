@@ -47,13 +47,17 @@ public class Messages extends NLS {
   public static String CodeSearchDialog_singlePatternModeOption_xtol;
   public static String CodeSearchDialog_tableSettingsGroup_xtit;
   public static String CodeSearchFavoriteConnector_noProjectFound_xmsg;
+  public static String CodeSearchPreferencesPage_ClientBasedSearchSettings_xgrp;
   public static String CodeSearchPreferencesPage_concatLinesWithLfRegexSinglePatternPref_xlbl;
+  public static String CodeSearchPreferencesPage_DeterminePackHierInClientSearch_xchk;
   public static String CodeSearchPreferencesPage_dialogIncludeSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_generalSettingsGroup_xlbl;
   public static String CodeSearchPreferencesPage_LoggedOnUserRestriction_xchk;
   public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xlbl;
   public static String CodeSearchPreferencesPage_maxNumberOfRequestObjectsPref_xtol;
+  public static String CodeSearchPreferencesPage_MaxJobsInClientSearch_xlbl;
   public static String CodeSearchPreferencesPage_ModifiableStatus_xchk;
+  public static String CodeSearchPreferencesPage_PreferClientBasedSearch_xchk;
   public static String CodeSearchPreferencesPage_ReleasedStatus_xchk;
   public static String CodeSearchPreferencesPage_RequestStatus_xgrp;
   public static String CodeSearchPreferencesPage_reuseSearchQueryPref_xchk;

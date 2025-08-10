@@ -47,7 +47,7 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
   public void applyData(final Object data) {
     if (data instanceof Map) {
       var options = (Map) data;
-      boolean omit = Boolean.TRUE
+      var omit = Boolean.TRUE
           .equals(options.get(LinkToAdtPageBlocksFactory.NO_PROP_PAGE_LINK_KEY));
       if (omit && linkToPropPageCtrl != null && !linkToPropPageCtrl.isDisposed()) {
         linkToPropPageCtrl.setVisible(false);
@@ -111,18 +111,21 @@ public class CodeSearchPreferencesPage extends FieldEditorPrefPageBase
     return group;
   }
 
-  private void createClientSearchSettings(Composite parent) {
-    final var group = createGroup("Client Based Search", parent);
+  private void createClientSearchSettings(final Composite parent) {
+    final var group = createGroup(Messages.CodeSearchPreferencesPage_ClientBasedSearchSettings_xgrp,
+        parent);
 
     final var maxJobsEditor = new IntegerFieldEditor(ICodeSearchPrefs.MAX_CLIENT_SEARCH_JOBS,
-        "Max. number of &Jobs (Threads):", createEditorParent(group), 2);
+        Messages.CodeSearchPreferencesPage_MaxJobsInClientSearch_xlbl, createEditorParent(group),
+        2);
     maxJobsEditor.setValidRange(1, 20);
     addEditor(maxJobsEditor);
 
-    addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH, "Prefer &client based search",
-        createEditorParent(group));
+    addBooleanEditor(ICodeSearchPrefs.PREFER_CLIENT_BASED_SEARCH,
+        Messages.CodeSearchPreferencesPage_PreferClientBasedSearch_xchk, createEditorParent(group));
     addBooleanEditor(ICodeSearchPrefs.CLIENT_SEARCH_READ_PACKAGE_HIERARCHY,
-        "Determine Package &Hierarchy for Results", createEditorParent(group));
+        Messages.CodeSearchPreferencesPage_DeterminePackHierInClientSearch_xchk,
+        createEditorParent(group));
 
     adjustMargins(group);
   }
