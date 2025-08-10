@@ -94,11 +94,22 @@ public class StringUtil {
    * @return the passed String value without any leading negation characters
    */
   public static String removeNegationCharacter(final String value) {
+    return removeNegationCharacter(value, NEGATION1);
+  }
+
+  /**
+   * Removes the specified negation characters from the start of the given string.
+   *
+   * @param value        the String to be adjusted
+   * @param negationSign the negation character to look for
+   * @return the passed String value without any leading negation characters
+   */
+  public static String removeNegationCharacter(final String value, final String negationSign) {
     if (value == null || value.isEmpty()) {
       return value;
     }
     int negationCharLength;
-    if (!value.startsWith(NEGATION1)) {
+    if (!value.startsWith(negationSign)) {
       return value;
     }
     negationCharLength = 1;
