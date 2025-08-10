@@ -13,7 +13,8 @@ import com.devepos.adt.base.ui.search.ISearchFilter;
  *
  * @author Ludwig Stockbauer-Muhr
  */
-public class SearchFilterValueProposal implements IContentProposal, IImageProvider {
+public class SearchFilterValueProposal
+    implements IContentProposal, IImageProvider, Comparable<IContentProposal> {
   private final String key;
   private final ISearchFilter filter;
   private final String description;
@@ -181,4 +182,13 @@ public class SearchFilterValueProposal implements IContentProposal, IImageProvid
   public final void setImageProvider(final IImageProvider imageProvider) {
     this.imageProvider = imageProvider;
   }
+
+  @Override
+  public int compareTo(IContentProposal o) {
+    if (o instanceof SearchFilterValueProposal) {
+      return getKey().compareTo(((SearchFilterValueProposal) o).getKey());
+    }
+    return getContent().compareTo(o.getContent());
+  }
+
 }
