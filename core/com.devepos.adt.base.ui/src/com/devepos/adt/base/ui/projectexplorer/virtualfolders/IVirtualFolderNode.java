@@ -19,6 +19,7 @@ public interface IVirtualFolderNode {
   String FOLDER_TYPE_DATE = "date";
   String FOLDER_TYPE_TYPE = "type";
   String FOLDER_TYPE_GROUP = "group";
+  String FOLDER_TYPE_COMP = "comp";
 
   String FOLDER_KEY_SOURCE_LIBRARY = "source_library";
   String FOLDER_KEY_CORE_DATA_SERVICES = "core_data_services";
@@ -33,6 +34,13 @@ public interface IVirtualFolderNode {
   List<String> getApplicationComponentFilters();
 
   /**
+   * Retrieves the filter values of the <code>comp</code> filter facet of this virtual folder
+   *
+   * @return filter values
+   */
+  List<String> getSoftwareComponentFilters();
+
+  /**
    * Retrieves the filter values of the <code>date</code> filter facet of this virtual folder
    *
    * @return filter values
@@ -44,14 +52,14 @@ public interface IVirtualFolderNode {
    *
    * @return filter values
    */
-  List<Integer> getCreatedMonthFilters();
+  List<String> getCreatedMonthFilters();
 
   /**
    * Retrieves the filter values of the <code>created</code> filter facet of this virtual folder
    *
    * @return filter values
    */
-  List<Integer> getCreatedYearFilters();
+  List<String> getCreatedYearFilters();
 
   /**
    * Returns the key of the folder, e.g. "CLAS"

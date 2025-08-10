@@ -29,6 +29,7 @@ class VirtualFolderProxy implements IVirtualFolderNode {
   private static final String CREATED_MONTH_FACET_FILTER = "month";
   private static final String CREATED_DATE_FACET_FILTER = "date";
   private static final String APPL_COMP_FACET_FILTER = "appl";
+  private static final String SOFTWARE_COMP_FACET_FILTER = "comp";
   private static final String TYPE_FACET_FILTER = "type";
   private static final String OWNER_FACET_FILTER = "user";
 
@@ -54,25 +55,23 @@ class VirtualFolderProxy implements IVirtualFolderNode {
   }
 
   @Override
+  public List<String> getSoftwareComponentFilters() {
+    return facetFilter.getValues(SOFTWARE_COMP_FACET_FILTER);
+  }
+
+  @Override
   public List<String> getCreatedDateFilters() {
-    // return Arrays.asList("20220105");
     return facetFilter.getValues(CREATED_DATE_FACET_FILTER);
   }
 
   @Override
-  public List<Integer> getCreatedMonthFilters() {
-    return facetFilter.getValues(CREATED_MONTH_FACET_FILTER)
-        .stream()
-        .map(Integer::parseInt)
-        .collect(Collectors.toList());
+  public List<String> getCreatedMonthFilters() {
+    return facetFilter.getValues(CREATED_MONTH_FACET_FILTER);
   }
 
   @Override
-  public List<Integer> getCreatedYearFilters() {
-    return facetFilter.getValues(CREATED_YEAR_FACET_FILTER)
-        .stream()
-        .map(Integer::parseInt)
-        .collect(Collectors.toList());
+  public List<String> getCreatedYearFilters() {
+    return facetFilter.getValues(CREATED_YEAR_FACET_FILTER);
   }
 
   @Override
