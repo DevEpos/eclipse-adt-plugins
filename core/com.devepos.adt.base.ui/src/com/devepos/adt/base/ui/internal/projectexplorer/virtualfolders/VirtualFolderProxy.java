@@ -32,6 +32,7 @@ class VirtualFolderProxy implements IVirtualFolderNode {
   private static final String SOFTWARE_COMP_FACET_FILTER = "comp";
   private static final String TYPE_FACET_FILTER = "type";
   private static final String OWNER_FACET_FILTER = "user";
+  private static final String API_STATE_FACET_FILTER = "api";
 
   private final VirtualFolderNode originalFolderNode;
   private final FacetFilter facetFilter;
@@ -72,6 +73,11 @@ class VirtualFolderProxy implements IVirtualFolderNode {
   @Override
   public List<String> getCreatedYearFilters() {
     return facetFilter.getValues(CREATED_YEAR_FACET_FILTER);
+  }
+
+  @Override
+  public List<String> getApiStateFilters() {
+    return facetFilter.getValues(API_STATE_FACET_FILTER);
   }
 
   @Override
