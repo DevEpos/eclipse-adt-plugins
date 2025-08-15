@@ -13,6 +13,7 @@ import com.devepos.adt.cst.search.ICodeSearchScopeService;
 
 public class CodeSearchScopeService implements ICodeSearchScopeService {
 
+  private static final String DUMMY_ENDPOINT = "/dummy";
   private final String destinationId;
   private final boolean isCloudProject;
 
@@ -27,17 +28,23 @@ public class CodeSearchScopeService implements ICodeSearchScopeService {
     var pluginFeatureList = IAdtBaseFactory.eINSTANCE.createAdtPluginFeatureList();
     var dbEditorFeature = IAdtBaseFactory.eINSTANCE.createAdtPluginFeature();
     dbEditorFeature.setEnabled(adtDiscovery.isDatabaseEditorAvailable());
-    dbEditorFeature.setEndpoint("/dummy");
-    dbEditorFeature.setName("parameters.type.dbTable");
+    dbEditorFeature.setEndpoint(DUMMY_ENDPOINT);
+    dbEditorFeature.setName(ICodeSearchScopeService.DB_TABLE_TYPE_FEATURE_ID);
     pluginFeatureList.getFeatures().add(dbEditorFeature);
 
     var structureFeature = IAdtBaseFactory.eINSTANCE.createAdtPluginFeature();
     structureFeature.setEnabled(adtDiscovery.isStructureEditorAvailable());
-    structureFeature.setEndpoint("/dummy");
-    structureFeature.setName("parameters.type.structure");
+    structureFeature.setEndpoint(DUMMY_ENDPOINT);
+    structureFeature.setName(ICodeSearchScopeService.STRUCTURE_TYPE_FEATURE_ID);
     pluginFeatureList.getFeatures().add(structureFeature);
 
-    return pluginFeatureList.getFeaturesByEndpoint("/dummy");
+    var serviceDefFeature = IAdtBaseFactory.eINSTANCE.createAdtPluginFeature();
+    serviceDefFeature.setEnabled(adtDiscovery.isServiceDefinitionAvailable());
+    serviceDefFeature.setEndpoint(DUMMY_ENDPOINT);
+    serviceDefFeature.setName(ICodeSearchScopeService.SERVICE_DEF_TYPE_FEATURE_ID);
+    pluginFeatureList.getFeatures().add(serviceDefFeature);
+
+    return pluginFeatureList.getFeaturesByEndpoint(DUMMY_ENDPOINT);
   }
 
   @Override

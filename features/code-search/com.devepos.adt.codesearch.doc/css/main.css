@@ -1,3 +1,7 @@
+:root {
+  --link-color: #C43C6C;
+}
+
 #doc-page,
 html,
 #doc-body,
@@ -27,6 +31,21 @@ p,
 .param-image {
   vertical-align: middle;
   padding-right: 5px;
+}
+
+.badge {
+  display: inline;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background-color: rgb(74, 74, 74);
+  color: white;
+}
+
+.badge__green {
+  background-color: #42b983;
+  color: white;
+  text-shadow: 1px 1px 2px #18573a;
 }
 
 .tag {
@@ -94,8 +113,8 @@ figure img {
 }
 
 .alert.info {
-  border-left: 5px solid rgb(133, 165, 205);
-  background: rgba(63, 117, 215, 0.15);
+  border-left: 5px solid #4cb3d4;
+  background: #eef9fd;
 }
 
 .alert.warning {
@@ -103,23 +122,48 @@ figure img {
   background: rgba(255, 177, 0, 0.12);
 }
 
+.alert.important {
+  border-left: 5px solid #a371f7;
+  background: #f4eefe;
+}
+
+.alert.tip {
+  border-left: 5px solid #18794e;
+  background: #10b98124;
+}
+
+.alert-tip__text {
+  color: #18794e;
+}
+
 .alert-tip__text::after {
-  content: "TIP";
+  color: #18794e;
+  content: "Tip";
+  font-weight: bold;
+}
+
+.alert-important__text::after {
+  content: "Important";
   font-weight: bold;
 }
 
 .alert-warning__text::after {
-  content: "WARNING";
+  content: "Warning";
   font-weight: bold;
 }
 
+.alert-info__text {
+  color: #4cb3d4;
+}
+
 .alert-info__text::after {
-  content: "INFO";
+  color: #4cb3d4;
+  content: "Info";
   font-weight: bold;
 }
 
 .alert-attention__text::after {
-  content: "ATTENTION";
+  content: "Attention";
   font-weight: bold;
 }
 
@@ -178,22 +222,22 @@ kbd,
 }
 
 a.link:link {
-  color: #0063a4;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 a.link:visited {
-  color: #0063a4;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 a.link:active {
-  color: #0063a4;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 a.link:hover {
-  color: #0063a4;
+  color: var(--link-color);
   text-decoration: underline;
 }
 

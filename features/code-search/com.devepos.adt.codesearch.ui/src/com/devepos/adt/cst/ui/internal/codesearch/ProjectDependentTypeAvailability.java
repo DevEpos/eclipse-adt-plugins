@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 
@@ -14,13 +13,11 @@ import com.devepos.adt.base.ITadirTypeConstants;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.cst.search.CodeSearchFactory;
+import com.devepos.adt.cst.search.ICodeSearchScopeService;
 import com.devepos.adt.cst.ui.internal.CodeSearchUIPlugin;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 public class ProjectDependentTypeAvailability {
-  private static final String DB_TABLE_TYPE_FEATURE_ID = "parameters.type.dbTable";
-  private static final String STRUCTURE_TYPE_FEATURE_ID = "parameters.type.structure";
-
   private static final List<String> EMPTY_LIST = Arrays.asList();
   private static boolean PREFER_CLIENT_SEARCH;
   private static final Map<IProject, List<String>> PROJECT_DEPENDENT_TYPES = new HashMap<>();
@@ -53,27 +50,17 @@ public class ProjectDependentTypeAvailability {
       if (t.equals(ITadirTypeConstants.STRUCTURE)) {
         return IAdtObjectTypeConstants.STRUCTURE;
       }
+      if (t.equals(ITadirTypeConstants.SERVICE_DEFINITION)) {
+        return IAdtObjectTypeConstants.SERVICE_DEFINITION;
+      }
       return t;
-    }).collect(Collectors.toList());
-  }
-
-  public static boolean isStructureTypeAvailable(final IProject project) {
-    if (project == null) {
-      return false;
-    }
-    return getTypesFromCache(project).contains(ITadirTypeConstants.STRUCTURE);
-  }
-
-  public static boolean isDbTableTypeAvailable(final IProject project) {
-    if (project == null) {
-      return false;
-    }
-    return getTypesFromCache(project).contains(ITadirTypeConstants.DATABASE_TABLE);
+    }).toList();
   }
 
   public static boolean isTypeAvailable(final String type, final List<String> typesForProject) {
     if (!ITadirTypeConstants.DATABASE_TABLE.equals(type)
-        && !ITadirTypeConstants.STRUCTURE.equals(type)) {
+        && !ITadirTypeConstants.STRUCTURE.equals(type)
+        && !ITadirTypeConstants.SERVICE_DEFINITION.equals(type)) {
       return true;
     }
     return typesForProject.contains(type);
@@ -108,12 +95,16 @@ public class ProjectDependentTypeAvailability {
       }
     }
 
-    if (searchScopeFeatures.isFeatureEnabled(DB_TABLE_TYPE_FEATURE_ID)) {
+    if (searchScopeFeatures.isFeatureEnabled(ICodeSearchScopeService.DB_TABLE_TYPE_FEATURE_ID)) {
       types.add(ITadirTypeConstants.DATABASE_TABLE);
     }
 
-    if (searchScopeFeatures.isFeatureEnabled(STRUCTURE_TYPE_FEATURE_ID)) {
+    if (searchScopeFeatures.isFeatureEnabled(ICodeSearchScopeService.STRUCTURE_TYPE_FEATURE_ID)) {
       types.add(ITadirTypeConstants.STRUCTURE);
+    }
+
+    if (searchScopeFeatures.isFeatureEnabled(ICodeSearchScopeService.SERVICE_DEF_TYPE_FEATURE_ID)) {
+      types.add(ITadirTypeConstants.SERVICE_DEFINITION);
     }
 
     return types;

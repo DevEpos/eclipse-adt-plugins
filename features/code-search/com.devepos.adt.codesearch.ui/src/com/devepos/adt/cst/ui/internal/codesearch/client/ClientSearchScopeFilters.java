@@ -84,6 +84,8 @@ public class ClientSearchScopeFilters implements ISearchFilterProvider {
           facetFilters.add(new FacetSearchFilter(facet, destinationId, null));
         } else if (facet.getKey().equals(FilterName.APPLICATION_COMPONENT.getContentAssistName())) {
           facetFilters.add(new FacetSearchFilter(facet, destinationId, null));
+        } else if (facet.getKey().equals(FilterName.API_STATE.getContentAssistName())) {
+          facetFilters.add(new FacetSearchFilter(facet, destinationId, null));
         } else if (facet.getKey().equals(FilterName.CREATED_FACET_DATE.getContentAssistName())) {
           facetFilters.add(createDateFacetFilter(destinationId, facet, val -> {
             var dateStr = StringUtil.removeNegationCharacter((String) val);

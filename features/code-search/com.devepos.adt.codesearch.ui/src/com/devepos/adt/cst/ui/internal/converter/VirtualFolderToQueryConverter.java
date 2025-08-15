@@ -54,6 +54,8 @@ public class VirtualFolderToQueryConverter {
           FilterName.CREATED_FACET_MONTH.getContentAssistName());
       addFiltersToFilterString(node.getCreatedDateFilters(),
           FilterName.CREATED_FACET_DATE.getContentAssistName());
+      addFiltersToFilterString(node.getApiStateFilters(),
+          FilterName.API_STATE.getContentAssistName());
     } else {
       addCreatedFilters();
     }

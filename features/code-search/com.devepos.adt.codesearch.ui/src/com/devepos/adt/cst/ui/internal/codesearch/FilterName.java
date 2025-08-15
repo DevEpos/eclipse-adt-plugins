@@ -15,25 +15,30 @@ import com.devepos.adt.base.ui.search.contentassist.PackageSearchFilter;
  */
 public enum FilterName {
   APPLICATION_COMPONENT(ApplicationComponentSearchFilter.FILTER_NAME, "applComp"),
-  SOFTWARE_COMPONENT("comp", "comp"),
+  SOFTWARE_COMPONENT("comp"),
+  API_STATE("api"),
   CREATED_DATE("created", "createdDate"),
-  CREATED_FACET_YEAR("created", "created"),
-  CREATED_FACET_MONTH("month", "month"),
-  CREATED_FACET_DATE("date", "date"),
-  OWNER("owner", "owner"),
+  CREATED_FACET_YEAR("created"),
+  CREATED_FACET_MONTH("month"),
+  CREATED_FACET_DATE("date"),
+  OWNER("owner"),
   OBJECT_NAME(null, "objectName"),
   OBJECT_TYPE("type", "objectType"),
   PACKAGE(PackageSearchFilter.FILTER_NAME, "packageName"),
   TRANSPORT_REQUEST("trreq", "transportRequest"),
-  TR_OWNER("owner", "owner"),
-  TR_CHANGED_DATE("changed", "changed"),
-  TR_TYPE("type", "type"),
-  TR_STATUS("status", "status"),
+  TR_OWNER("owner"),
+  TR_CHANGED_DATE("changed"),
+  TR_TYPE("type"),
+  TR_STATUS("status"),
   SEARCH_PATTERN(null, "searchPattern");
 
   private final String contentAssistName;
   private final String uriParamName;
   private static Map<String, String> CONTENT_ASSIST_TO_URI_PARAM_MAP;
+
+  FilterName(final String contentAssistName) {
+    this(contentAssistName, contentAssistName);
+  }
 
   FilterName(final String contentAssistName, final String uriParamName) {
     this.contentAssistName = contentAssistName;

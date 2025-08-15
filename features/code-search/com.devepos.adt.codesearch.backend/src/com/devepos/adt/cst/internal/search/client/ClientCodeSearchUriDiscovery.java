@@ -22,4 +22,7 @@ public class ClientCodeSearchUriDiscovery extends UriDiscoveryBase {
     return getCollectionMember("http://www.sap.com/wbobj/dictionary", "tablds") != null;
   }
 
+  public boolean isServiceDefinitionAvailable() {
+    return getCollectionMember("http://www.sap.com/wbobj/raps", "srvdsrv") != null;
+  }
 }

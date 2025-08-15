@@ -167,5 +167,7 @@ public class ObjectTypeSearchFilter implements ISearchFilter, ITextQueryProposal
         typeUtil.getType(IAdtObjectTypeConstants.TABLE_DEFINITION_TYPE));
     adtTypeMap.put(ITadirTypeConstants.STRUCTURE,
         typeUtil.getType(IAdtObjectTypeConstants.STRUCTURE));
+    adtTypeMap.put(ITadirTypeConstants.SERVICE_DEFINITION,
+        typeUtil.getType(IAdtObjectTypeConstants.SERVICE_DEFINITION));
   }
 }

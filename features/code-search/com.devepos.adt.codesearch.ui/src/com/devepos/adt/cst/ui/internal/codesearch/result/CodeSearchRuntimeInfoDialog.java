@@ -80,6 +80,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
 
   @Override
   public void queryFinished() {
+    // TODO: check for disposed status of a single control
     Display.getDefault().asyncExec(() -> {
       updateControlsFromResult();
       if (updateButton != null) {

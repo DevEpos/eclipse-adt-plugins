@@ -36,23 +36,20 @@ public class CodeSearchPropertyTester extends PropertyTester {
 
   private static final List<String> VALID_VIRT_FOLDER_TYPES = Arrays.asList(
       IVirtualFolderNode.FOLDER_TYPE_APPL_COMP, IVirtualFolderNode.FOLDER_TYPE_CREATED,
-      IVirtualFolderNode.FOLDER_TYPE_DATE, IVirtualFolderNode.FOLDER_TYPE_MONTH,
-      IVirtualFolderNode.FOLDER_TYPE_PACKAGE, IVirtualFolderNode.FOLDER_TYPE_TYPE,
-      IVirtualFolderNode.FOLDER_TYPE_GROUP, IVirtualFolderNode.FOLDER_TYPE_OWNER);
+      IVirtualFolderNode.FOLDER_TYPE_API, IVirtualFolderNode.FOLDER_TYPE_DATE,
+      IVirtualFolderNode.FOLDER_TYPE_MONTH, IVirtualFolderNode.FOLDER_TYPE_PACKAGE,
+      IVirtualFolderNode.FOLDER_TYPE_TYPE, IVirtualFolderNode.FOLDER_TYPE_GROUP,
+      IVirtualFolderNode.FOLDER_TYPE_OWNER);
 
-  private static final List<String> VALID_VIRT_FOLDER_TYPE_KEYS = new ArrayList<>();
+  private static final List<String> VALID_VIRT_FOLDER_TYPE_KEYS = Arrays.asList(
+      IVirtualFolderNode.FOLDER_KEY_CORE_DATA_SERVICES, IVirtualFolderNode.FOLDER_KEY_DICTIONARY,
+      IVirtualFolderNode.FOLDER_KEY_BUSINESS_SERVICES,
+      IVirtualFolderNode.FOLDER_KEY_TRANSFORMATIONS, IVirtualFolderNode.FOLDER_KEY_SOURCE_LIBRARY);
   private static final List<String> VALID_ABAP_REPO_FOLDER_TYPE_KEYS = Arrays.asList(
       IAbapRepositoryFolderNode.CATEGORY_CORE_DATA_SERVICES,
       IAbapRepositoryFolderNode.CATEGORY_ACCESS_CONTROL_MGMT,
       IAbapRepositoryFolderNode.CATEGORY_DICTIONARY, IAbapRepositoryFolderNode.CATEGORY_SOURCE_LIB);
   private boolean isPreferClientSearch = false;
-
-  static {
-    VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_CORE_DATA_SERVICES);
-    VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_DICTIONARY);
-    VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_TRANSFORMATIONS);
-    VALID_VIRT_FOLDER_TYPE_KEYS.add(IVirtualFolderNode.FOLDER_KEY_SOURCE_LIBRARY);
-  }
 
   public CodeSearchPropertyTester() {
     var prefStore = CodeSearchUIPlugin.getDefault().getPreferenceStore();

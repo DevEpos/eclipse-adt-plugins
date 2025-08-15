@@ -3,6 +3,9 @@ package com.devepos.adt.cst.search;
 import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 public interface ICodeSearchScopeService {
+  String DB_TABLE_TYPE_FEATURE_ID = "parameters.type.dbTable";
+  String STRUCTURE_TYPE_FEATURE_ID = "parameters.type.structure";
+  String SERVICE_DEF_TYPE_FEATURE_ID = "parameters.type.serviceDefinition";
 
   /**
    * Retrieves the list of available features via ADT client for the code search scope

@@ -14,7 +14,7 @@
       The search comes in two flavors:
     </p>
 
-    <h3 class="heading">Client-Based</h3>
+    <h3 id="client-based" class="heading">Client-Based</h3>
     <p>
       In the client-based approach, the existing ADT REST API is used to search for relevant objects in the ABAP system.
       Once the source code is retrieved, the search is performed in the client. Due to the used APIs the client-based
@@ -30,7 +30,7 @@
       <li>BTP ABAP Environment</li>
     </ul>
 
-    <h3 class="heading">Server-Based</h3>
+    <h3 id="server-based" class="heading">Server-Based</h3>
     <p>
       The ABAP Code Search plug-in communicates with the corresponding ABAP backend to perform the search completely in
       the ABAP system. Only the match results are reported back to the client.
@@ -41,8 +41,8 @@
       <li>S/4HANA</li>
       <li>S/4HANA Private Cloud Edition</li>
     </ul>
-    <div class="alert default">
-      <div class="alert-attention__text"></div>
+    <div class="alert important">
+      <div class="alert-important__text"></div>
       The Server-Based search is only usable if the necessary ABAP Coding is available in the ABAP Project you are
       working on. For detailed installing instructions look here:
       <a class="link external" target="_blank" href="https://github.com/DevEpos/abap-code-search-tools"
