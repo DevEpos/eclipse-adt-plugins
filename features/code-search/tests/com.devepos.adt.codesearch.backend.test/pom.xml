@@ -7,7 +7,7 @@
     <parent>
         <artifactId>com.devepos.adt.codesearch.tests</artifactId>
         <groupId>com.devepos.adt</groupId>
-        <version>1.15.0-SNAPSHOT</version>
+        <version>1.16.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
