@@ -126,4 +126,8 @@ public interface IAdtObjectTypeConstants {
    * Local Interface in Function Group Include
    */
   String FUNCTION_GROUP_LOCAL_INTERFACE = "FUGR/PN";
+  /**
+   * Global Workbench Type for Service Definition
+   */
+  String SERVICE_DEFINITION = "SRVD/SRV";
 }

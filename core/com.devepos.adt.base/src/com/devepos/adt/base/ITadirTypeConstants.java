@@ -25,4 +25,5 @@ public interface ITadirTypeConstants {
   String VIEW = "VIEW";
   String DATABASE_TABLE = "DTAB";
   String STRUCTURE = "STRU";
+  String SERVICE_DEFINITION = "SRVD";
 }
