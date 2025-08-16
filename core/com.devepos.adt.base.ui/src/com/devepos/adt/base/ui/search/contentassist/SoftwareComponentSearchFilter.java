@@ -8,23 +8,23 @@ import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 
-public class ApplicationComponentSearchFilter extends NamedItemFilter {
+public class SoftwareComponentSearchFilter extends NamedItemFilter {
 
-  public static final String FILTER_NAME = "appl"; //$NON-NLS-1$
+  public static final String FILTER_NAME = "comp"; //$NON-NLS-1$
 
   /**
-   * Creates new search filter for Application Component
+   * Creates new search filter for Software Component
    *
    * @param projectProvider     provider for ABAP project
    * @param uriTemplateProvider URI template provider
    * @param namedItemType       the named item type for the search filter
    */
-  public ApplicationComponentSearchFilter(final IAbapProjectProvider projectProvider,
+  public SoftwareComponentSearchFilter(final IAbapProjectProvider projectProvider,
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType) {
     super(projectProvider, uriTemplateProvider, namedItemType, FILTER_NAME, null);
     setProposalImageProvider(new ProposalImageProvider());
-    setDescription(Messages.ApplicationComponentSearchFilter_filterDescription_xmsg);
-    setLongDescription(Messages.SearchFilter_DescriptionApplCompSearchFilter_xmsg);
+    setDescription(Messages.SoftwareComponentSearchFilter_Description_xlbl);
+    setLongDescription(Messages.SearchFilter_DescriptionSoftwareCompSearchFilter_xmsg);
     setSupportsNegatedValues(true);
     setSupportsPatternValues(false);
   }
@@ -33,7 +33,7 @@ public class ApplicationComponentSearchFilter extends NamedItemFilter {
 
     @Override
     public Image getImage() {
-      return ApplicationComponentSearchFilter.this.getImage();
+      return SoftwareComponentSearchFilter.this.getImage();
     }
 
   }

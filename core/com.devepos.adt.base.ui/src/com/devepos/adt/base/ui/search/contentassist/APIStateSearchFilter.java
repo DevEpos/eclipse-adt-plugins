@@ -1,5 +1,7 @@
 package com.devepos.adt.base.ui.search.contentassist;
 
+import java.text.MessageFormat;
+
 import org.eclipse.swt.graphics.Image;
 
 import com.devepos.adt.base.IAdtUriTemplateProvider;
@@ -8,23 +10,25 @@ import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.ui.IImageProvider;
 import com.devepos.adt.base.ui.internal.messages.Messages;
 
-public class ApplicationComponentSearchFilter extends NamedItemFilter {
+public class APIStateSearchFilter extends NamedItemFilter {
 
-  public static final String FILTER_NAME = "appl"; //$NON-NLS-1$
+  public static final String FILTER_NAME = "api"; //$NON-NLS-1$
 
   /**
-   * Creates new search filter for Application Component
+   * Creates new search filter for API State
    *
    * @param projectProvider     provider for ABAP project
    * @param uriTemplateProvider URI template provider
    * @param namedItemType       the named item type for the search filter
    */
-  public ApplicationComponentSearchFilter(final IAbapProjectProvider projectProvider,
+  public APIStateSearchFilter(final IAbapProjectProvider projectProvider,
       final IAdtUriTemplateProvider uriTemplateProvider, final INamedItemType namedItemType) {
     super(projectProvider, uriTemplateProvider, namedItemType, FILTER_NAME, null);
     setProposalImageProvider(new ProposalImageProvider());
-    setDescription(Messages.ApplicationComponentSearchFilter_filterDescription_xmsg);
-    setLongDescription(Messages.SearchFilter_DescriptionApplCompSearchFilter_xmsg);
+    setDescription(Messages.APIStateSearchFilter_Description_xlbl);
+    setLongDescription(
+        MessageFormat.format(Messages.SearchFilter_DescriptionRisQuickSearchFilter_xmsg, getLabel(),
+            Messages.APIStateSearchFilter_Description_xlbl, "released")); //$NON-NLS-1$
     setSupportsNegatedValues(true);
     setSupportsPatternValues(false);
   }
@@ -33,7 +37,7 @@ public class ApplicationComponentSearchFilter extends NamedItemFilter {
 
     @Override
     public Image getImage() {
-      return ApplicationComponentSearchFilter.this.getImage();
+      return APIStateSearchFilter.this.getImage();
     }
 
   }

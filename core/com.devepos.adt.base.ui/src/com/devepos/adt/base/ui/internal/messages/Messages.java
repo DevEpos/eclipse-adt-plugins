@@ -17,6 +17,7 @@ public class Messages extends NLS {
   public static String Actions_CollapseNode_xtol;
   public static String Actions_ToggleViewerTextFilter_xmit;
   public static String Actions_CollapseAllNodes_xmit;
+  public static String APIStateSearchFilter_Description_xlbl;
   public static String ApplicationComponentSearchFilter_filterDescription_xmsg;
   public static String LazyLoadingNode_ErrorDuringLoading_xmsg;
   public static String LazyLoadingTreeContentProvider_LoadingChildNodes_xmsg;
@@ -55,6 +56,7 @@ public class Messages extends NLS {
   public static String SearchPatternAnalyzer_NoValuePartPossibleIfKeyIsNegated_xmsg;
   public static String SearchPatternContentAssist_ContentAssistDecorator_xtol;
   public static String SearchFilter_DescriptionApplCompSearchFilter_xmsg;
+  public static String SearchFilter_DescriptionSoftwareCompSearchFilter_xmsg;
   public static String SearchFilter_DescriptionDateSearchFilter_xmsg;
   public static String SearchFilter_DescriptionPackageFilter_xmsg;
   public static String SearchFilter_DescriptionRisQuickSearchFilter_xmsg;
@@ -63,6 +65,7 @@ public class Messages extends NLS {
   public static String SearchFilterValueSelectionDialog_DialogTitle_xtit;
   public static String SearchFilterValueSelectionDialog_Negation_xchk;
   public static String SearchFilterValueSelectionDialog_SimpleFilterLabel_xlbl;
+  public static String SoftwareComponentSearchFilter_Description_xlbl;
   public static String SplitResultSelectionViewer_AddItemButton;
   public static String SplitResultSelectionViewer_RemoveItemButton;
   public static String ToggleViewLayoutAction_AutomaticOrientation_xmit;

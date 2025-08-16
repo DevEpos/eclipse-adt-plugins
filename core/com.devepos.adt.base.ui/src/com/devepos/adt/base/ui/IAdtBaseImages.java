@@ -7,6 +7,10 @@ package com.devepos.adt.base.ui;
  */
 public interface IAdtBaseImages {
   /**
+   * Image for API State
+   */
+  String API_STATE = "IMG_API_STATE";
+  /**
    * Image for filtering
    */
   String FILTER = "IMG_FILTER";
@@ -140,6 +144,10 @@ public interface IAdtBaseImages {
    * Identifies the image for an application component
    */
   String APPLICATION_COMPONENT = "IMG_APPL_COMP";
+  /**
+   * Identifies the image for a software component
+   */
+  String SOFTWARE_COMPONENT = "IMG_SOFTW_COMP";
   /**
    * Identifies the image for a workbench object type (Folder with a 'T')
    */

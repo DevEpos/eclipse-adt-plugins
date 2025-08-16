@@ -47,6 +47,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
 
   @Override
   protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
+    registerImage(imageRegistry, IAdtBaseImages.API_STATE, "icons/APIState.png");
     registerImage(imageRegistry, IAdtBaseImages.CHECK, "icons/full/obj16/check.png",
         "org.eclipse.debug.ui");
     registerImage(imageRegistry, IAdtBaseImages.CHECK_ALL, "icons/CheckAll.png");
@@ -104,6 +105,7 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IAdtBaseImages.APPLICATION_COMPONENT,
         "icons/obj/facet_application_component.png", "com.sap.adt.ris.search.ui");
+    registerImage(imageRegistry, IAdtBaseImages.SOFTWARE_COMPONENT, "icons/SoftwareComponent.png");
     registerImage(imageRegistry, IAdtBaseImages.WB_OBJECT_TYPE, "icons/obj/facet_object_type.png",
         "com.sap.adt.ris.search.ui");
     registerImage(imageRegistry, IAdtBaseImages.TYPE_GROUP, "icons/obj/typegroup.png",
