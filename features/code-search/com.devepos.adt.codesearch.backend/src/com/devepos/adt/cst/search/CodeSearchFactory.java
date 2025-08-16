@@ -10,9 +10,9 @@ import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.cst.internal.search.CodeSearchFeatureUtil;
 import com.devepos.adt.cst.internal.search.CodeSearchPatternValidator;
 import com.devepos.adt.cst.internal.search.CodeSearchScopeService;
-import com.devepos.adt.cst.internal.search.backend.ServerBasedCodeSearchService;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchSettingsService;
 import com.devepos.adt.cst.internal.search.backend.CodeSearchUriDiscovery;
+import com.devepos.adt.cst.internal.search.backend.ServerBasedCodeSearchService;
 import com.devepos.adt.cst.internal.search.client.ClientCodeSearchService;
 import com.devepos.adt.cst.model.codesearch.ICodeSearchSettings;
 import com.devepos.adt.cst.search.client.IClientBasedCodeSearchService;
@@ -46,6 +46,14 @@ public class CodeSearchFactory {
       throw new IllegalArgumentException("Parameter 'projectProvider' must be filled!");
     }
     return NamedItemServiceFactory.createNamedItemUriTemplateProvider(projectProvider,
+        CodeSearchUriDiscovery::new);
+  }
+
+  public static IAdtUriTemplateProvider getNamedItemUriTemplateProvider(final IProject project) {
+    if (project == null) {
+      throw new IllegalArgumentException("Parameter 'project' must be filled!");
+    }
+    return NamedItemServiceFactory.createNamedItemUriTemplateProvider(project,
         CodeSearchUriDiscovery::new);
   }
 

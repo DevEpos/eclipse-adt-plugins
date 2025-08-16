@@ -80,12 +80,12 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
 
   @Override
   public void queryFinished() {
-    // TODO: check for disposed status of a single control
     Display.getDefault().asyncExec(() -> {
-      updateControlsFromResult();
-      if (updateButton != null) {
-        updateButton.setEnabled(false);
+      if (updateButton == null || updateButton.isDisposed()) {
+        return;
       }
+      updateControlsFromResult();
+      updateButton.setEnabled(false);
       queryStatus.setText(Messages.CodeSearchRuntimeInfoDialog_queryStatusFinished_xlbl);
     });
   }
@@ -294,7 +294,7 @@ public class CodeSearchRuntimeInfoDialog extends StatusDialog implements IRuntim
     var durationUnit = UNIT_MILLISECOND;
     var numberFormat = INT_FORMAT;
 
-    if (duration == -1) {
+    if (duration < 0) {
       durationLabel.setText(" - ");
       durationUnitLabel.setText("");
       return;

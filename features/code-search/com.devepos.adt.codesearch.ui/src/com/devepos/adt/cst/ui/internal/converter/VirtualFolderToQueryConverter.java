@@ -16,6 +16,7 @@ import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuery;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchQuerySpecification;
 import com.devepos.adt.cst.ui.internal.codesearch.CodeSearchRelevantWbTypesUtil;
 import com.devepos.adt.cst.ui.internal.codesearch.FilterName;
+import com.devepos.adt.cst.ui.internal.codesearch.NamedItem;
 import com.devepos.adt.cst.ui.internal.preferences.ICodeSearchPrefs;
 
 public class VirtualFolderToQueryConverter {
@@ -57,6 +58,18 @@ public class VirtualFolderToQueryConverter {
       addFiltersToFilterString(node.getApiStateFilters(),
           FilterName.API_STATE.getContentAssistName());
     } else {
+      var uriTemplateProvider = CodeSearchFactory
+          .getNamedItemUriTemplateProvider(node.getProject());
+      if (uriTemplateProvider
+          .getTemplateByDiscoveryTerm(NamedItem.SOFTWARE_COMPONENT.getDiscoveryTerm()) != null) {
+        addFiltersToFilterString(node.getSoftwareComponentFilters(),
+            FilterName.SOFTWARE_COMPONENT.getContentAssistName());
+      }
+      if (uriTemplateProvider
+          .getTemplateByDiscoveryTerm(NamedItem.API_STATE.getDiscoveryTerm()) != null) {
+        addFiltersToFilterString(node.getApiStateFilters(),
+            FilterName.API_STATE.getContentAssistName());
+      }
       addCreatedFilters();
     }
     addTypeFilters();

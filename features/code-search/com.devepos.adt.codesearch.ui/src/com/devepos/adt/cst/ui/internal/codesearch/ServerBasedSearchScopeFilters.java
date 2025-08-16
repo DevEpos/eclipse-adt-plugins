@@ -9,9 +9,11 @@ import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseStrings;
 import com.devepos.adt.base.ui.search.ISearchFilter;
 import com.devepos.adt.base.ui.search.ISearchFilterProvider;
+import com.devepos.adt.base.ui.search.contentassist.APIStateSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.ApplicationComponentSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.DateSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.PackageSearchFilter;
+import com.devepos.adt.base.ui.search.contentassist.SoftwareComponentSearchFilter;
 import com.devepos.adt.base.ui.search.contentassist.UserSearchFilter;
 import com.devepos.adt.cst.search.CodeSearchFactory;
 import com.devepos.adt.cst.ui.internal.codesearch.contentassist.ObjectTypeSearchFilter;
@@ -27,6 +29,8 @@ import com.devepos.adt.cst.ui.internal.messages.Messages;
 public class ServerBasedSearchScopeFilters implements ISearchFilterProvider {
   private List<ISearchFilter> parameters;
   private ISearchFilter transportRequestFilter;
+  private ISearchFilter softwareCompFilter;
+  private ISearchFilter apiStateFilter;
   private final IAbapProjectProvider projectProvider;
   private final IAdtUriTemplateProvider uriTemplateProvider;
 
@@ -53,6 +57,25 @@ public class ServerBasedSearchScopeFilters implements ISearchFilterProvider {
     }
 
     var validParameters = new ArrayList<>(parameters);
+
+    if (uriTemplateProvider
+        .getTemplateByDiscoveryTerm(NamedItem.SOFTWARE_COMPONENT.getDiscoveryTerm()) != null) {
+      if (softwareCompFilter == null) {
+        softwareCompFilter = new SoftwareComponentSearchFilter(projectProvider, uriTemplateProvider,
+            NamedItem.SOFTWARE_COMPONENT);
+      }
+      validParameters.add(softwareCompFilter);
+    }
+
+    if (uriTemplateProvider
+        .getTemplateByDiscoveryTerm(NamedItem.API_STATE.getDiscoveryTerm()) != null) {
+      if (apiStateFilter == null) {
+        apiStateFilter = new APIStateSearchFilter(projectProvider, uriTemplateProvider,
+            NamedItem.API_STATE);
+      }
+      validParameters.add(apiStateFilter);
+    }
+
     if (uriTemplateProvider
         .getTemplateByDiscoveryTerm(NamedItem.TRANSPORT_REQUEST.getDiscoveryTerm()) != null) {
       if (transportRequestFilter == null) {

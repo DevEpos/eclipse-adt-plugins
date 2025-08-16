@@ -52,6 +52,8 @@ public class CodeSearchQuery extends AbstractCodeSearchQuery {
 
     start();
 
+    searchResult.getRuntimeInfo().updateClientTime();
+
     // check project availability
     var projectProvider = querySpecs.getProjectProvider();
     if (projectProvider == null) {

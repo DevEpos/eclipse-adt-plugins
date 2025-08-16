@@ -14,8 +14,11 @@ import com.devepos.adt.base.ui.IImageProvider;
  *
  */
 public enum NamedItem implements INamedItemType, IImageProvider {
+  API_STATE("releaseState", AdtBaseUIResources.getImage(IAdtBaseImages.API_STATE), false, true),
   APPLICATION_COMPONENT("applcomp",
       AdtBaseUIResources.getImage(IAdtBaseImages.APPLICATION_COMPONENT)),
+  SOFTWARE_COMPONENT("softwarecomp",
+      AdtBaseUIResources.getImage(IAdtBaseImages.SOFTWARE_COMPONENT)),
   TRANSPORT_REQUEST("transportRequest", AdtBaseUIResources.getImage(IAdtBaseImages.TRANSPORT)),
   TRANSPORT_REQ_TYPE("transportRequestType",
       AdtBaseUIResources.getImage(IAdtBaseImages.WB_OBJECT_TYPE), false, true),
