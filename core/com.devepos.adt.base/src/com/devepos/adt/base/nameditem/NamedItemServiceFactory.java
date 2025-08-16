@@ -2,10 +2,14 @@ package com.devepos.adt.base.nameditem;
 
 import java.util.function.Function;
 
+import org.eclipse.core.resources.IProject;
+
 import com.devepos.adt.base.IAdtUriTemplateProvider;
+import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.internal.nameditem.NamedItemService;
 import com.devepos.adt.base.project.IAbapProjectProvider;
 import com.devepos.adt.base.util.IUriDiscovery;
+import com.sap.adt.compatibility.uritemplate.IAdtUriTemplate;
 
 /**
  * Factory to create instances of the {@link INamedItemService}
@@ -20,12 +24,29 @@ public class NamedItemServiceFactory {
    *
    * @param projectProvider     ABAP project provider
    * @param uriDiscoveryCreator supplier for URI discovery
-   * @return
    */
   public static IAdtUriTemplateProvider createNamedItemUriTemplateProvider(
       final IAbapProjectProvider projectProvider,
       final Function<String, IUriDiscovery> uriDiscoveryCreator) {
     return new NamedItemUriTemplateProvider(projectProvider, uriDiscoveryCreator);
+  }
+
+  /**
+   * Creates new template provider for named items
+   * 
+   * @param project             ABAP project
+   * @param uriDiscoveryCreator supplier for URI discovery
+   */
+  public static IAdtUriTemplateProvider createNamedItemUriTemplateProvider(IProject project,
+      final Function<String, IUriDiscovery> uriDiscoveryCreator) {
+    final var uriDiscovery = uriDiscoveryCreator.apply(DestinationUtil.getDestinationId(project));
+    return new IAdtUriTemplateProvider() {
+
+      @Override
+      public IAdtUriTemplate getTemplateByDiscoveryTerm(String discoveryTerm) {
+        return uriDiscovery.getNamedItemTemplate(discoveryTerm);
+      }
+    };
   }
 
   /**
