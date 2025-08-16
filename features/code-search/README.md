@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Java-SE17+-green) ![](https://img.shields.io/badge/eclipse-2021--06+-green)
+![](https://img.shields.io/badge/Java-SE17+-green) ![](https://img.shields.io/badge/eclipse-2022--03+-green)
 
 # ABAP Code Search Plug-in
 
