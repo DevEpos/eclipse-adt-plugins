@@ -31,10 +31,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
 import com.devepos.adt.saat.ui.internal.preferences.IPreferences;
-import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
  * This dialog is for managing the currently open analysis pages
@@ -154,7 +155,7 @@ public class ManageCdsAnalysesDialog extends StatusDialog {
   protected Control createDialogArea(final Composite container) {
     final Composite ancestor = (Composite) super.createDialogArea(container);
     // image has to be set at this position as it has no effect in constructor
-    setImage(SearchAndAnalysisPlugin.getDefault().getImage(IImages.HISTORY_LIST));
+    setImage(AdtBaseUIResources.getImage(IAdtBaseImages.HISTORY_LIST));
 
     createMessageArea(ancestor);
 

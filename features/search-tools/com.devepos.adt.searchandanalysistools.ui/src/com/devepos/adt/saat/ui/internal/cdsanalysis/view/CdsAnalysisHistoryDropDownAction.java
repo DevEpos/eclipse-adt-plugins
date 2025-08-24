@@ -15,10 +15,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 
+import com.devepos.adt.base.ui.AdtBaseUIResources;
+import com.devepos.adt.base.ui.IAdtBaseImages;
 import com.devepos.adt.base.ui.action.ActionFactory;
-import com.devepos.adt.saat.ui.internal.SearchAndAnalysisPlugin;
 import com.devepos.adt.saat.ui.internal.messages.Messages;
-import com.devepos.adt.saat.ui.internal.util.IImages;
 
 /**
  * History drop down action for all CDS analyses in the history buffer
@@ -32,7 +32,7 @@ class CdsAnalysisHistoryDropDownAction extends Action implements IMenuCreator {
 
   public CdsAnalysisHistoryDropDownAction(final CdsAnalysisView analysisView) {
     super(Messages.CdsAnalysis_SwitchAnalysisPages_xtol,
-        SearchAndAnalysisPlugin.getDefault().getImageDescriptor(IImages.HISTORY_LIST));
+        AdtBaseUIResources.getImageDescriptor(IAdtBaseImages.HISTORY_LIST));
     setMenuCreator(this);
     this.analysisView = analysisView;
   }

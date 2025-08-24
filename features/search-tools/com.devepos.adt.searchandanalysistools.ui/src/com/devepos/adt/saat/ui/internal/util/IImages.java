@@ -19,10 +19,6 @@ public interface IImages {
    */
   String VIEW_DEFINITION = "IMG_SELECT";
   /**
-   * Icon for a list of history entries
-   */
-  String HISTORY_LIST = "IMG_HISTORY_LIST";
-  /**
    * Identifies the image for the API Release state parameter
    */
   String API_PARAM = "IMG_API";

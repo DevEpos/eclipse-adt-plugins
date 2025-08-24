@@ -89,9 +89,10 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
   protected void initializeImageRegistry(final ImageRegistry imageRegistry) {
     // register all kinds of images
     registerImage(imageRegistry, IImages.DB_BROWSER_DATA_PREVIEW, "icons/DBBrowser.png");
-    registerImage(imageRegistry, IImages.CDS_VIEW, "icons/CDSEntity.png");
-    registerImage(imageRegistry, IImages.VIEW_DEFINITION, "icons/ViewDefinition.png");
-    registerImage(imageRegistry, IImages.HISTORY_LIST, "icons/HistoryList.png");
+    registerImage(imageRegistry, IImages.CDS_VIEW, "icons/obj/entity.png",
+        "com.sap.adt.cds.base.ddl.ui");
+    registerImage(imageRegistry, IImages.VIEW_DEFINITION, "icons/obj/viewDefinition.png",
+        "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IImages.EXCEL_APPLICATION, "icons/Excel.png");
     registerImage(imageRegistry, IImages.ANALYTICAL_QUERY, "icons/AnalyticalQuery.png");
     registerImage(imageRegistry, IImages.EXTERNAL_TOOLS, "icons/ExternalTools.png");
@@ -108,7 +109,8 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IImages.KEY_COLUMN, "icons/KeyColumn.png");
     registerImage(imageRegistry, IImages.FIELD_TOP_DOWN, "icons/FieldTopDown.png");
     registerImage(imageRegistry, IImages.FIELD_WHERE_USED, "icons/FieldWhereUsed.png");
-    registerImage(imageRegistry, IImages.FUNCTION, "icons/Function.png");
+    registerImage(imageRegistry, IImages.FUNCTION, "icons/obj/Function.png",
+        "com.sap.adt.cds.base.ddl.ui");
 
     // register overlay images
     registerImage(imageRegistry, IImages.RELEASED_API_OVR, "icons/ovr/Released.png");
@@ -129,7 +131,7 @@ public class SearchAndAnalysisPlugin extends AbstractAdtUIPlugin {
     registerImage(imageRegistry, IImages.SELECT_FROM_PARAM, "icons/SelectFromSource.png");
     registerImage(imageRegistry, IImages.COLUMN, "icons/Column.png");
     registerImage(imageRegistry, IImages.USED_AS_ASSOCICATION_PARAM,
-        "icons/AssociationDeclaration.png");
+        "icons/obj/AssociationDeclaration.png", "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IImages.RUN_NEW_ANALYSIS, "icons/RunCdsAnalysis.png");
     registerImage(imageRegistry, IImages.CDS_ANALYSIS_MODE_SWITCH, "icons/OtherAnalysis.png");
     registerImage(imageRegistry, IImages.NEW_CDS_ANALYSIS_VIEW, "icons/NewCdsAnalyzerView.png");
