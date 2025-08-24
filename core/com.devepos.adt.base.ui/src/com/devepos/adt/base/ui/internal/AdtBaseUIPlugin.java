@@ -68,10 +68,13 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.COLLAPSE_ALL, "icons/full/elcl16/collapseall.png",
         "org.eclipse.search");
-    registerImage(imageRegistry, IAdtBaseImages.WAITING_INDICATOR, "icons/WaitingIndicator.png");
+    registerImage(imageRegistry, IAdtBaseImages.WAITING_INDICATOR, "icons/etool/waiting_13x13.png",
+        "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IAdtBaseImages.EDIT_ACTION, "icons/EditMode.png");
-    registerImage(imageRegistry, IAdtBaseImages.UNLOCK_ACTION, "icons/Unlock.png");
-    registerImage(imageRegistry, IAdtBaseImages.SAP_GUI_OBJECT, "icons/SAPGUIObject.png");
+    registerImage(imageRegistry, IAdtBaseImages.UNLOCK_ACTION, "icons/etool/unlock.png",
+        "com.sap.adt.tools.core.ui");
+    registerImage(imageRegistry, IAdtBaseImages.SAP_GUI_OBJECT, "icons/obj/sapgui_obj.png",
+        "com.sap.adt.tools.core.ui");
     registerImage(imageRegistry, IAdtBaseImages.DATA_PREVIEW, "icons/DataPreview.png");
     registerImage(imageRegistry, IAdtBaseImages.WHERE_USED_LIST, "icons/etool/where_used.png",
         "com.sap.adt.ris.whereused.ui");
