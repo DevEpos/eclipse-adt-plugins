@@ -82,7 +82,8 @@ public class AdtBaseUIPlugin extends AbstractAdtUIPlugin {
         "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.RUN_OBJECT, "icons/full/obj16/lrun_obj.png",
         "org.eclipse.debug.ui");
-    registerImage(imageRegistry, IAdtBaseImages.OTHER_OBJECT, "icons/OtherObject.png");
+    registerImage(imageRegistry, IAdtBaseImages.OTHER_OBJECT, "icons/etool/other_object.png",
+        "com.sap.adt.objectrelations.ui");
     registerImage(imageRegistry, IAdtBaseImages.AUTOMATIC_LAYOUT,
         "icons/full/elcl16/automaticOrientation.png", "org.eclipse.search");
     registerImage(imageRegistry, IAdtBaseImages.HORIZONTAL_LAYOUT,
