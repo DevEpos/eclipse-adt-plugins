@@ -20,6 +20,14 @@ public interface ICodeSearchPrefs {
    */
   String PREFER_CLIENT_BASED_SEARCH = "codeSearch.clientBasedSearch.prefer";
   /**
+   * Controls the state of the cache of the client based search
+   */
+  String CLIENT_BASED_SEARCH_CACHING_ACTIVE = "codeSearch.clientBasedSearch.caching";
+  /**
+   * Maximum size for the file cache for the client based
+   */
+  String CLIENT_BASED_SEARCH_MAX_CACHE_SIZE = "codeSearch.clientBasedSearch.maxCacheSize";
+  /**
    * Removes the limit on the maximum number of objects that are searched
    */
   String ALL_OBJECTS_ENABLED = "codeSearch.searchAllObjectsEnabled";

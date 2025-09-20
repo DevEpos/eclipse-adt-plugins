@@ -1,11 +1,21 @@
 package com.devepos.adt.cst.internal.search.client.engine;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 
 import com.devepos.adt.base.IAdtObjectTypeConstants;
 import com.devepos.adt.base.content.PlainTextContentHandler;
+import com.devepos.adt.cst.internal.CodeSearchPlugin;
 import com.sap.adt.communication.message.HeadersFactory;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
 import com.sap.adt.communication.session.IStatelessSystemSession;
@@ -97,6 +107,12 @@ public class SourceCodeReaderFactory {
   private static class AbstractSourceCodeReader {
     private final IStatelessSystemSession session;
     private final IProgressMonitor m;
+    private static final String CACHE_BASE_PATH = Platform
+        .getStateLocation(CodeSearchPlugin.getDefault().getBundle())
+        .addTrailingSeparator()
+        .append("cache")
+        .addTrailingSeparator()
+        .toOSString();
 
     protected AbstractSourceCodeReader(final IStatelessSystemSession session,
         final IProgressMonitor m) {
@@ -105,6 +121,10 @@ public class SourceCodeReaderFactory {
     }
 
     protected String readSource(final String uri) {
+      var filePath = uriToFilePath(uri);
+      if (isSourceCached(filePath)) {
+        return getCodeFromFile(filePath);
+      }
       var contentResource = URI.create(uri);
       var resource = AdtRestResourceFactory.createRestResourceFactory()
           .createRestResource(contentResource, session);
@@ -113,8 +133,54 @@ public class SourceCodeReaderFactory {
       var requestHeaders = HeadersFactory.newHeaders();
       requestHeaders.addField(headerField);
       var source = resource.get(m, requestHeaders, String.class);
+      writeCodeToFile(source, filePath);
       return source;
     }
 
+    private void writeCodeToFile(String source, String filePath) {
+      try {
+        Files.createDirectories(Paths.get(filePath).getParent());
+        var fos = new FileOutputStream(filePath);
+        var gzipOS = new GZIPOutputStream(fos);
+        gzipOS.write(source.getBytes());
+        gzipOS.close();
+        fos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    }
+
+    private String getCodeFromFile(String filePath) {
+      try {
+        var gzipInputStream = new GZIPInputStream(new FileInputStream(filePath));
+        var compressedContent = gzipInputStream.readAllBytes();
+        gzipInputStream.close();
+        return new String(compressedContent);
+      } catch (IOException e) {
+
+      }
+      return null;
+    }
+
+    private boolean isSourceCached(String filePath) {
+      return new File(filePath).exists();
+    }
+
+    private String uriToFilePath(String uri) {
+      var relativeFilePath = uri.substring("/sap/bc/adt/".length());
+      var mainSourceIndex = relativeFilePath.indexOf("/source/main");
+      if (mainSourceIndex != -1) {
+        relativeFilePath = relativeFilePath.substring(0, mainSourceIndex);
+      } else {
+        // check include name
+        var includesIndex = relativeFilePath.indexOf("/includes/");
+        if (includesIndex != -1) {
+          relativeFilePath = relativeFilePath.substring(0, includesIndex) + "." +
+              relativeFilePath.substring(includesIndex + "/includes/".length());
+        }
+      }
+      return CACHE_BASE_PATH + relativeFilePath + ".abap";
+    }
   }
 }
