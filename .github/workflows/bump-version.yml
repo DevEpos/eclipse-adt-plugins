@@ -5,6 +5,9 @@ on:
       version:
         description: "Version to release (e.g. 1.1.1)"
         required: true
+      commitScope:
+        description: "Commit scope (e.g. core, tags, codesearch)"
+        required: true
       projectPath:
         description: "Path to root of project"
         required: true
@@ -26,4 +29,19 @@ jobs:
     - name: Bump version of project
       shell: pwsh
       run: |
-        .\scripts\set-version.ps1 -ProjectPath .\${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"  
+        .\scripts\set-version.ps1 -ProjectPath .\${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"
+
+    - name: Commit and Push Changes
+      run: |
+        # configure user
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+        # stage any file changes to be committed
+        git add .
+
+        # make commit with staged changes
+        git commit -m "chore(${{ github.event.inputs.commitScope }}): bump version to v${{ github.event.inputs.version }}"
+
+        # push the commit back up to source GitHub repository
+        git push        
