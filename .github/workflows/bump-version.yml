@@ -1,0 +1,31 @@
+name: Bump Version
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g. 1.1.1)"
+        required: true
+      projectPath:
+        description: "Path to root of project"
+        required: true
+
+permissions:
+  contents: write
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Bump version of project
+      shell: pwsh
+      run: |
+        .\scripts\set-version.ps1 -ProjectPath \.${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"  
