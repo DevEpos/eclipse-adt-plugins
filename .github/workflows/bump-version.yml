@@ -12,10 +12,8 @@ on:
 permissions:
   contents: write
 jobs:
-  build:
-
+  bump-version:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -28,4 +26,4 @@ jobs:
     - name: Bump version of project
       shell: pwsh
       run: |
-        .\scripts\set-version.ps1 -ProjectPath \.${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"  
+        .\scripts\set-version.ps1 -ProjectPath .\${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"  
