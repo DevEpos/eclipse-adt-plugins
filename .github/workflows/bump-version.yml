@@ -27,11 +27,23 @@ jobs:
         cache: maven
 
     - name: Bump version of project
-      shell: pwsh
       run: |
-        .\scripts\set-version.ps1 -ProjectPath .\${{ github.event.inputs.projectPath }} -NewVersion "${{ github.event.inputs.version }}"
+        cd ./${{ github.event.inputs.projectPath }}
+        mvn tycho-versions:set-version -DnewVersion="${{ github.event.inputs.version }}-SNAPSHOT" -q
+
+    - name: Check for Changes
+      id: check_changes
+      run: |
+        if [[ -n "$(git diff --exit-code)" ]]; then
+          echo "Changes detected."
+          echo "::set-output name=has_changes::true"
+        else
+          echo "No changes detected."
+          echo "::set-output name=has_changes::false"
+        fi
 
     - name: Commit and Push Changes
+      if: steps.check_changes.outputs.has_changes == 'true'
       run: |
         # configure user
         git config --global user.name "${{ github.actor }}"
