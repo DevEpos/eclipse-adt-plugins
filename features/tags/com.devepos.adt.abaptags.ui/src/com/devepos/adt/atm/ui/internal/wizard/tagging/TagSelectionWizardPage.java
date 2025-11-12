@@ -523,6 +523,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
             + previewInfo.getAdtObjectRefs().get(0).getName());
       }
       determinePreCheckedTags(previewInfo.getTags());
+      // TODO: create new "recents" Tag and copy the values from the recents - need to be stored on
+      // a per project basis
+      // - if recent tag gets checked a sync to the tag in the actual tree needs to happen
+      var tags = previewInfo.getTags();
+      // create new
       checkBoxViewer.setInput(previewInfo.getTags());
       if (AbapTagsUIPlugin.getDefault()
           .getPreferenceStore()
