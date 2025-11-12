@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -21,6 +20,9 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 
 import com.devepos.adt.atm.model.abaptags.ITag;
+import com.devepos.adt.atm.ui.AbapTagsUIPlugin;
+import com.devepos.adt.atm.ui.internal.IImages;
+import com.devepos.adt.atm.ui.internal.handlers.ShowTagManagerHandler;
 import com.devepos.adt.atm.ui.internal.messages.Messages;
 import com.devepos.adt.base.ui.AdtBaseUIResources;
 import com.devepos.adt.base.ui.IAdtBaseImages;
@@ -96,11 +98,12 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
     // check if selected nodes support collapsing
     addCollapseAction(menu);
 
-    boolean tagSelected = isTagNodeSelected(selection);
+    var tagSelected = isTagNodeSelected(selection);
 
     // delete menu groups if at least one tag node is selected
     if (tagSelected) {
       deleteUnusedMenuGroups(menu);
+      addShowInTagManager(selection, menu);
     } else if (Stream.of(selection).anyMatch(IAdtObjectReferenceNode.class::isInstance)) {
       menu.appendToGroup(ICommonMenuConstants.GROUP_EDIT,
           new RemoveAssignedTagsAction(getActionSite()));
@@ -130,6 +133,24 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
       }
     }
 
+  }
+
+  private void addShowInTagManager(final Object[] selection, final IMenuManager menu) {
+    if (selection.length != 1) {
+      return;
+    }
+    var node = (ITreeNode) selection[0];
+    var tag = node.getAdapter(ITag.class);
+    menu.add(new Separator(IGeneralMenuConstants.GROUP_ADDITIONS));
+    var params = tag != null
+        ? new String[][] { { ShowTagManagerHandler.PARAMETER_TAG_ID, tag.getId() } }
+        : null;
+    var label = tag != null ? Messages.TaggedObjectTreeNodeActionProvider_ShowInTagManager_xlbl
+        : Messages.TaggedObjectTreeNodeActionProvider_ShowTagManager_xlbl;
+    MenuItemFactory.addCommandItem(menu, IGeneralMenuConstants.GROUP_ADDITIONS,
+        ShowTagManagerHandler.COMMAND_ID,
+        AbapTagsUIPlugin.getDefault().getImageDescriptor(IImages.GLOBAL_TAGS_FOLDER), label,
+        params);
   }
 
   private void addElementInfoAction(final IMenuManager menu) {
@@ -173,7 +194,7 @@ public class TaggedObjectTreeNodeActionProvider extends CommonActionProvider {
   }
 
   private void deleteUnusedMenuGroups(final IMenuManager menu) {
-    IContributionItem[] items = menu.getItems();
+    var items = menu.getItems();
     if (items == null || items.length == 0) {
       return;
     }

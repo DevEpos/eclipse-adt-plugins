@@ -36,6 +36,8 @@ public class Messages extends NLS {
   public static String TaggedObjectTreeNodeActionProvider_DeleteCommand_xlbl;
   public static String TaggedObjectTreeNodeActionProvider_DuplicateCommand_xlbl;
   public static String TaggedObjectTreeNodeActionProvider_RefreshAction_xmit;
+  public static String TaggedObjectTreeNodeActionProvider_ShowInTagManager_xlbl;
+  public static String TaggedObjectTreeNodeActionProvider_ShowTagManager_xlbl;
   public static String TaggedObjectTreePreferencePage_TreeSettingsGroup_xlbl;
   public static String TaggingObjectWizard_NoTagsAvailableMessage_xmsg;
   public static String TaggingObjectWizard_TagsServiceError_xtit;

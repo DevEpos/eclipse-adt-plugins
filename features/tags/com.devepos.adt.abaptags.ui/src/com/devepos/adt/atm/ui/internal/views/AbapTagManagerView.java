@@ -14,10 +14,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -47,9 +45,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISelectionListener;
@@ -63,7 +59,6 @@ import org.eclipse.ui.part.ViewPart;
 import com.devepos.adt.atm.model.abaptags.IAbapTagsFactory;
 import com.devepos.adt.atm.model.abaptags.ITag;
 import com.devepos.adt.atm.model.abaptags.ITagList;
-import com.devepos.adt.atm.model.abaptags.ITaggedObjectSearchParams;
 import com.devepos.adt.atm.model.abaptags.TagInfoType;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tagging.AdtObjTaggingServiceFactory;
@@ -106,7 +101,6 @@ import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.ui.project.ProjectUtil;
 import com.devepos.adt.base.ui.tree.FilterableTree;
 import com.devepos.adt.base.ui.tree.IFilterableView;
-import com.devepos.adt.base.ui.userinfo.IUserServiceUI;
 import com.devepos.adt.base.ui.userinfo.UserServiceUIFactory;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.tools.core.project.AdtProjectServiceFactory;
@@ -157,6 +151,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   private boolean tagDeletionCheckPossible;
   private ContextHelper contextHelper;
   private ISelection newSelectionAfterDelete;
+  private Runnable afterTagLoadingJob;
 
   private final ISelectionListener selectionListener = new ISelectionListener() {
     private boolean isUpdatingSelection = false;
@@ -218,25 +213,25 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     }
 
     private void afterFetchingUsersOfSharedTag() {
-      final IUserServiceUI userService = UserServiceUIFactory.createUserService();
+      final var userService = UserServiceUIFactory.createUserService();
 
-      final List<String> usersForSharing = userService.showUserSelectionDialog(getSite().getShell(),
+      final var usersForSharing = userService.showUserSelectionDialog(getSite().getShell(),
           Messages.AbapTagManagerView_SharedUserSelectionDialog_xtit, true, usersOfSharedTag,
           List.of(lastDestinationOwner), destinationId);
       if (usersForSharing == null || usersForSharing.isEmpty()) {
         return;
       }
-      final ITagList sharedTagList = IAbapTagsFactory.eINSTANCE.createTagList();
-      final ITag sharedTag = IAbapTagsFactory.eINSTANCE.createTag();
+      final var sharedTagList = IAbapTagsFactory.eINSTANCE.createTagList();
+      final var sharedTag = IAbapTagsFactory.eINSTANCE.createTag();
       sharedTag.setId(tag.getId());
       sharedTagList.getTags().add(sharedTag);
       usersForSharing.forEach(u -> {
-        final IUser user = IAdtBaseFactory.eINSTANCE.createUser();
+        final var user = IAdtBaseFactory.eINSTANCE.createUser();
         user.setName(u);
         sharedTag.getSharedUsers().add(user);
       });
-      final Job job = Job.create(Messages.AbapTagManagerView_ShareTagsJob_xmsg, monitor -> {
-        final IStatus serviceStatus = tagsService
+      final var job = Job.create(Messages.AbapTagManagerView_ShareTagsJob_xmsg, monitor -> {
+        final var serviceStatus = tagsService
             .shareTags(DestinationUtil.getDestinationId(lastProject), sharedTagList);
         if (!serviceStatus.isOK()) {
           Display.getDefault().asyncExec(() -> {
@@ -307,7 +302,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     @Override
     public Object getParent(final Object element) {
       if (element instanceof ITag) {
-        final EObject container = ((ITag) element).eContainer();
+        final var container = ((ITag) element).eContainer();
         if (container instanceof ITag) {
           return container;
         }
@@ -346,12 +341,11 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     @Override
     public void run() {
-      List<ITag> selectedTags = getSelectedTags();
+      var selectedTags = getSelectedTags();
       if (selectedTags.isEmpty()) {
         return;
       }
-      final ITaggedObjectSearchParams searchParams = IAbapTagsFactory.eINSTANCE
-          .createTaggedObjectSearchParams();
+      final var searchParams = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
       searchParams.setMaxResults(prefStore.getInt(ITaggedObjectSearchPrefs.MAX_RESULTS));
       searchParams.setWithTagInfo(true);
       searchParams.setTagInfoType(TagInfoType.CHILDREN);
@@ -359,7 +353,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       selectedTags.forEach(tag -> searchParams.addTag(tag));
       searchParams.setMatchesAllTags(matchAllTags);
 
-      final TaggedObjectSearchQuery searchQuery = new TaggedObjectSearchQuery(searchParams);
+      final var searchQuery = new TaggedObjectSearchQuery(searchParams);
       searchQuery.setProjectProvider(AbapProjectProviderAccessor
           .getProviderForDestination(DestinationUtil.getDestinationId(lastProject)));
 
@@ -399,19 +393,19 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     @Override
     public StyledString getStyledText(final Object element) {
-      final StyledString text = new StyledString();
+      final var text = new StyledString();
 
       if (element instanceof TagFolder) {
         text.append(((TagFolder) element).getName());
       } else if (element instanceof ITag) {
-        final ITag tag = (ITag) element;
+        final var tag = (ITag) element;
         text.append(tag.getName());
 
         if (tag.getTaggedObjectCount() > 0) {
           text.append(" (" + tag.getTaggedObjectCount() + ")", StyledString.COUNTER_STYLER); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        final String description = tag.getDescription();
+        final var description = tag.getDescription();
         if (!StringUtil.isEmpty(description)) {
           text.append("  " + description + "  ", //$NON-NLS-1$ //$NON-NLS-2$
               StylerFactory.createCustomStyler(SWT.ITALIC, JFacePreferences.DECORATIONS_COLOR,
@@ -441,6 +435,26 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       }
     }
     return null;
+  }
+
+  public void activate() {
+    showTagsOfLastSelectedProject();
+  }
+
+  public void activate(final IProject project, final String tagId) {
+    lastProject = project;
+    if (tagLoadingJob == null || tagLoadingJob.getState() != Job.RUNNING) {
+      loadViewInput();
+    }
+    afterTagLoadingJob = () -> {
+      for (var folder : tagFolders.getFolders(true)) {
+        var tag = selectTag(tagId, folder.getTags());
+        if (tag != null) {
+          treeViewer.setSelection(new StructuredSelection(tag), true);
+          return;
+        }
+      }
+    };
   }
 
   @Override
@@ -524,7 +538,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private ITagList buildNewTagListFromSelection(final Predicate<ITag> tagConditionCheck,
       final boolean includeBasicTagProperties) {
-    ITagList newTagList = IAbapTagsFactory.eINSTANCE.createTagList();
+    var newTagList = IAbapTagsFactory.eINSTANCE.createTagList();
     final IStructuredSelection sel = treeViewer.getStructuredSelection();
     if (sel == null || sel.isEmpty()) {
       return newTagList;
@@ -551,7 +565,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private boolean checkProjectStatus(final boolean ensureLogon) {
-    boolean tagsFeatureStatusUnknown = false;
+    var tagsFeatureStatusUnknown = false;
     if (lastProject == null) {
       viewLabel.updateLabel(Messages.AbapTagManagerView_NoProjectAvailable_xmsg);
       clearInput();
@@ -585,7 +599,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       setControlsEnabled(true);
       return false;
     }
-    final IStatus tagFeatureStatus = tagsService.testTagsFeatureAvailability(lastProject);
+    final var tagFeatureStatus = tagsService.testTagsFeatureAvailability(lastProject);
     if (!tagFeatureStatus.isOK()) {
       viewLabel.updateLabel(tagFeatureStatus.getMessage());
       clearInput();
@@ -609,15 +623,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void createOrUpdateTag(final ITag newTag, final boolean isUserTag) {
-    final ITagList updateList = IAbapTagsFactory.eINSTANCE.createTagList();
+    final var updateList = IAbapTagsFactory.eINSTANCE.createTagList();
     updateList.getTags().add(newTag);
 
     if (!ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
       return;
     }
-    final Job updateJob = Job.create(Messages.AbapTagManagerView_UpdateTagJobTitle_xmsg,
+    final var updateJob = Job.create(Messages.AbapTagManagerView_UpdateTagJobTitle_xmsg,
         monitor -> {
-          final IStatus status = tagsService.updateTags(updateList,
+          final var status = tagsService.updateTags(updateList,
               DestinationUtil.getDestinationId(lastProject),
               isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
           if (!status.isOK()) {
@@ -637,7 +651,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     tree = new FilterableTree(parent, null, true, FilterableComposite.TEXT_SMALL_H_MARGIN);
     tree.setElementMatcher(element -> {
       if (element instanceof ITag) {
-        final ITag tag = (ITag) element;
+        final var tag = (ITag) element;
 
         return tree.getWordMatcher().matchesWord(tag.getName())
             || tree.getWordMatcher().matchesWord(tag.getDescription());
@@ -650,15 +664,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     treeViewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new ViewLabelProvider()));
     treeViewer.setUseHashlookup(true);
     treeViewer.addOpenListener(e -> {
-      final ISelection sel = e.getSelection();
+      final var sel = e.getSelection();
       if (sel == null || sel.isEmpty() || !(sel instanceof IStructuredSelection)) {
         return;
       }
-      final IStructuredSelection structeredSel = (IStructuredSelection) sel;
+      final var structeredSel = (IStructuredSelection) sel;
       if (structeredSel.size() > 1) {
         return;
       }
-      final Object selObj = structeredSel.getFirstElement();
+      final var selObj = structeredSel.getFirstElement();
       if (selObj instanceof ITag && ((ITag) selObj).isEditable()) {
         handleEditTag((ITag) selObj);
       }
@@ -715,11 +729,11 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     menu.add(new Separator(MENU_SEP_GROUP_SHARE));
     menu.add(new Separator(IGeneralMenuConstants.GROUP_SEARCH));
 
-    int selectedTagCount = 0;
+    var selectedTagCount = 0;
     if (sel.size() == 1) {
-      final Object selObj = sel.getFirstElement();
+      final var selObj = sel.getFirstElement();
       if (selObj instanceof TagFolder) {
-        final TagFolder folder = (TagFolder) selObj;
+        final var folder = (TagFolder) selObj;
         if (folder.getType() == TagFolderType.USER) {
           menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createUserTagAction);
         } else if (folder.getType() == TagFolderType.GLOBAL) {
@@ -727,7 +741,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         }
         return;
       }
-      final ITag tag = (ITag) selObj;
+      final var tag = (ITag) selObj;
       selectedTagCount += 1;
       if (tag.isEditable()) {
         menu.appendToGroup(IGeneralMenuConstants.GROUP_EDIT, editTagAction);
@@ -750,8 +764,8 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         menu.appendToGroup(IGeneralMenuConstants.GROUP_NEW, createSubTagAction);
       }
     } else {
-      boolean massEditingPossible = true;
-      boolean atLeastOneSharedTag = false;
+      var massEditingPossible = true;
+      var atLeastOneSharedTag = false;
       for (final Object selObj : sel.toList()) {
         if (selObj instanceof TagFolderType) {
           massEditingPossible = false;
@@ -759,7 +773,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         }
         if (selObj instanceof ITag) {
           selectedTagCount += 1;
-          ITag selectedTag = (ITag) selObj;
+          var selectedTag = (ITag) selObj;
           if (!selectedTag.isEditable()) {
             massEditingPossible = false;
             break;
@@ -797,7 +811,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleConvertTag() {
-    final ITag tag = getSelectedTag();
+    final var tag = getSelectedTag();
     if (tag == null
         || !MessageDialog.openQuestion(getSite().getShell(),
             Messages.AbapTagManagerView_ConvertToGlobalTagAction_xmit,
@@ -805,11 +819,11 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
         || !ProjectUtil.ensureLoggedOnToProject(lastProject).isOK()) {
       return;
     }
-    final ITagList userTagList = IAbapTagsFactory.eINSTANCE.createTagList();
+    final var userTagList = IAbapTagsFactory.eINSTANCE.createTagList();
     userTagList.getTags().add(tag);
-    final Job job = Job.create(Messages.AbapTagManagerView_ConvertToGlobalTagJobTitle_xmsg,
+    final var job = Job.create(Messages.AbapTagManagerView_ConvertToGlobalTagJobTitle_xmsg,
         monitor -> {
-          final IStatus serviceStatus = tagsService
+          final var serviceStatus = tagsService
               .makeTagsGlobal(DestinationUtil.getDestinationId(lastProject), userTagList);
           if (!serviceStatus.isOK()) {
             Display.getDefault().asyncExec(() -> {
@@ -829,16 +843,16 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     if (treeViewer.getInput() == null) {
       return;
     }
-    final ITag newTag = IAbapTagsFactory.eINSTANCE.createTag();
-    final List<ITag> tagList = tagFolders
+    final var newTag = IAbapTagsFactory.eINSTANCE.createTag();
+    final var tagList = tagFolders
         .getFolderByType(isUserTag ? TagFolderType.USER : TagFolderType.GLOBAL)
         .getTags();
     if (isUserTag) {
       newTag.setOwner(DestinationUtil.getDestinationOwner(lastProject));
     }
     tagList.add(newTag);
-    final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), newTag,
-        tagList, isUserTag);
+    final var createDialog = new EditTagDataDialog(getSite().getShell(), newTag, tagList,
+        isUserTag);
     if (createDialog.open() == Window.OK) {
       createOrUpdateTag(newTag, isUserTag);
     } else {
@@ -848,18 +862,18 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleCreateTagOnSelectedNode() {
-    final ITag tag = getSelectedTag();
+    final var tag = getSelectedTag();
     if (tag == null) {
       return;
     }
-    final ITag newTag = IAbapTagsFactory.eINSTANCE.createTag();
+    final var newTag = IAbapTagsFactory.eINSTANCE.createTag();
     newTag.setParentTagId(tag.getId());
     newTag.setOwner(tag.getOwner());
-    final boolean isUserTag = !StringUtil.isEmpty(tag.getOwner());
+    final var isUserTag = !StringUtil.isEmpty(tag.getOwner());
     final List<ITag> tagList = tag.getChildTags();
     tagList.add(newTag);
-    final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), newTag,
-        tagList, isUserTag);
+    final var createDialog = new EditTagDataDialog(getSite().getShell(), newTag, tagList,
+        isUserTag);
     if (createDialog.open() == Window.OK) {
       createOrUpdateTag(newTag, isUserTag);
     } else {
@@ -893,9 +907,9 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
           new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }) != 0) {
         return;
       }
-      final Job deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
+      final var deleteJob = Job.create(Messages.AbapTagManagerView_DeleteTagsJobTitle_xmsg,
           monitor -> {
-            final IStatus status = tagsService.deleteTags(tagList,
+            final var status = tagsService.deleteTags(tagList,
                 DestinationUtil.getDestinationId(lastProject), TagSearchScope.ALL);
             if (!status.isOK()) {
               MessageDialog.openError(getSite().getShell(),
@@ -910,11 +924,11 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleEditTag(final ITag t) {
-    final ITag tag = t != null ? t : getSelectedTag();
+    final var tag = t != null ? t : getSelectedTag();
     if (tag == null) {
       return;
     }
-    final boolean isUserTag = !StringUtil.isEmpty(tag.getOwner());
+    final var isUserTag = !StringUtil.isEmpty(tag.getOwner());
     List<ITag> tagList = null;
     if (tag.eContainer() instanceof ITag) {
       tagList = ((ITag) tag.eContainer()).getChildTags();
@@ -922,8 +936,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       tagList = tagFolders.getFolderByType(isUserTag ? TagFolderType.USER : TagFolderType.GLOBAL)
           .getTags();
     }
-    final EditTagDataDialog createDialog = new EditTagDataDialog(getSite().getShell(), tag, tagList,
-        isUserTag);
+    final var createDialog = new EditTagDataDialog(getSite().getShell(), tag, tagList, isUserTag);
     if (createDialog.open() == Window.OK) {
       createOrUpdateTag(tag, isUserTag);
     }
@@ -966,10 +979,10 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void handleUnshareTag() {
-    final ITagList sharedTagList = buildNewTagListFromSelection(t -> t.isShared() && t.isEditable(),
+    final var sharedTagList = buildNewTagListFromSelection(t -> t.isShared() && t.isEditable(),
         false);
-    final Job job = Job.create(Messages.AbapTagManagerView_UnshareTagsJob_xmsg, monitor -> {
-      final IStatus serviceStatus = tagsService
+    final var job = Job.create(Messages.AbapTagManagerView_UnshareTagsJob_xmsg, monitor -> {
+      final var serviceStatus = tagsService
           .unshareTags(DestinationUtil.getDestinationId(lastProject), sharedTagList);
       if (!serviceStatus.isOK()) {
         Display.getDefault().asyncExec(() -> {
@@ -985,14 +998,14 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void hookContextMenu() {
-    final MenuManager menuMgr = new MenuManager();
+    final var menuMgr = new MenuManager();
     menuMgr.setRemoveAllWhenShown(true);
 
     menuMgr.addMenuListener(menu -> {
       fillContextMenu(menu);
     });
-    final Control viewerControl = treeViewer.getControl();
-    final Menu menu = menuMgr.createContextMenu(viewerControl);
+    final var viewerControl = treeViewer.getControl();
+    final var menu = menuMgr.createContextMenu(viewerControl);
     viewerControl.setMenu(menu);
     getSite().registerContextMenu(getViewSite().getId(), menuMgr, treeViewer);
   }
@@ -1047,7 +1060,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     actionBars.setGlobalActionHandler(org.eclipse.ui.actions.ActionFactory.REFRESH.getId(),
         refreshAction);
 
-    final IToolBarManager tbm = actionBars.getToolBarManager();
+    final var tbm = actionBars.getToolBarManager();
     tbm.add(refreshAction);
     tbm.add(new Separator());
     tbm.add(expandAllAction);
@@ -1063,6 +1076,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
   private void loadViewInput() {
     if (!checkProjectStatus(false)) {
+      afterTagLoadingJob = null;
       return;
     }
     refreshTags(false);
@@ -1077,7 +1091,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       tagLoadingJob.cancel();
     }
     tagLoadingJob = Job.create(Messages.AbapTagManagerView_TagsLoadingJobTitle_xmsg, monitor -> {
-      final ITagList tagList = tagsService.readTags(DestinationUtil.getDestinationId(lastProject),
+      final var tagList = tagsService.readTags(DestinationUtil.getDestinationId(lastProject),
           TagSearchScope.ALL, true);
 
       tagFolders.clearTags();
@@ -1096,6 +1110,10 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
       }
       Display.getDefault().asyncExec(() -> {
         updateViewerInput(actionTrigger);
+        if (afterTagLoadingJob != null) {
+          afterTagLoadingJob.run();
+          afterTagLoadingJob = null;
+        }
       });
       monitor.done();
     });
@@ -1121,7 +1139,7 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
 
     // Is there a previous sibling ??
     var tagParent = firstSelectedTag.eContainer();
-    boolean startAtNearestFolder = false;
+    var startAtNearestFolder = false;
     if (tagParent instanceof ITag) {
       ITag previousSibling = null;
       for (var tag : ((ITag) tagParent).getChildTags()) {
@@ -1165,19 +1183,37 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
   }
 
   private void showTagsOfLastSelectedProject() {
-    final IProject project = ProjectUtil.getCurrentAbapProject(lastSelection);
+    showTagsOfProject(ProjectUtil.getCurrentAbapProject(lastSelection));
+    lastSelection = null;
+  }
+
+  private void showTagsOfProject(final IProject project) {
     if (project != lastProject && project != null) {
       lastProject = project;
       loadViewInput();
+    } else if (treeViewer.getInput() == null) {
+      loadViewInput();
     }
-    lastSelection = null;
+  }
+
+  private ITag selectTag(final String tagId, final List<ITag> tags) {
+    for (var tag : tags) {
+      if (tagId.equals(tag.getId())) {
+        return tag;
+      }
+      var selectedChildTag = selectTag(tagId, tag.getDeepChildTags());
+      if (selectedChildTag != null) {
+        return selectedChildTag;
+      }
+    }
+    return null;
   }
 
   private void updateViewerInput(final boolean actionTrigger) {
     var oldSelection = treeViewer.getSelection();
     var expandedPaths = treeViewer.getExpandedElements();
     var folders = tagFolders.getFolders(tagsSharingPossible);
-    boolean noPreviousInput = treeViewer.getInput() == null;
+    var noPreviousInput = treeViewer.getInput() == null;
 
     treeViewer.setInput(folders);
     treeViewer.getTree().setRedraw(false);

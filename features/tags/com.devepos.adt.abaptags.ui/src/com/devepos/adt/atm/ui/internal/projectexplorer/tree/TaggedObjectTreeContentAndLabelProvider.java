@@ -226,7 +226,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       for (var t : treeResult.getTags()) {
         // find objects with that tag id
         var objectsForTag = objectsByTagMap.get(t.getId());
-        boolean hasObjectsForTag = objectsForTag != null && !objectsForTag.isEmpty();
+        var hasObjectsForTag = objectsForTag != null && !objectsForTag.isEmpty();
 
         if (hasObjectsForTag || !t.getChildTags().isEmpty()) {
           // lazy loading of tag is not required
@@ -315,7 +315,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
       // CHECK: move "shared" information to next request so the tag already returns with the
       // information
       if (nodeTag != null) {
-        ITreeNode lastParentBeforeRoot = (ITreeNode) element;
+        var lastParentBeforeRoot = (ITreeNode) element;
         while (lastParentBeforeRoot != null) {
           if (lastParentBeforeRoot.getParent() != null
               && lastParentBeforeRoot.getParent().getParent() == null) {

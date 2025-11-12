@@ -27,6 +27,16 @@
             id="com.devepos.adt.atm.ui.command.removeTagsFromObjects"
             name="%command.unassignTags.label">
       </command>
+      <command
+            categoryId="com.devepos.adt.atm.ui.general.commands.category"
+            id="com.devepos.adt.atm.ui.command.showTagManager"
+            name="%command.showTagManager.label">
+         <commandParameter
+               id="com.devepos.adt.atm.ui.showTagManager.tagId"
+               name="tagId"
+               optional="true">
+         </commandParameter>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -45,6 +55,10 @@
       <handler
             class="com.devepos.adt.atm.ui.internal.handlers.RemoveTagsFromObjectsHandler"
             commandId="com.devepos.adt.atm.ui.command.removeTagsFromObjects">
+      </handler>
+      <handler
+            class="com.devepos.adt.atm.ui.internal.handlers.ShowTagManagerHandler"
+            commandId="com.devepos.adt.atm.ui.command.showTagManager">
       </handler>
     </extension>
    <extension
@@ -73,6 +87,18 @@
                   icon="icons/UnassignTag.png"
                   label="%command.unassignTags.label"
                   mnemonic="r"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="com.sap.adt.tools.core.ui.toolsActive">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="com.devepos.adt.atm.ui.command.showTagManager"
+                  icon="icons/TagsFolder.png"
+                  label="%command.showTagManager.label"
                   style="push">
                <visibleWhen
                      checkEnabled="false">
