@@ -214,10 +214,16 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
         protected Object openDialogBox(final Control cellEditorWindow) {
           final IProject project = getWizard().getProject();
           final String destinationId = DestinationUtil.getDestinationId(project);
-
           final IAdtObjectTag tag = (IAdtObjectTag) element;
+          var possibleParentTags = tag.getPossibleParentTags()
+              .stream()
+              .filter(t -> t != null && !t.startsWith("::"))
+              .collect(Collectors.toList());
+          if (possibleParentTags.isEmpty()) {
+            return null;
+          }
           final ParentObjectFilterDialog filterDialog = new ParentObjectFilterDialog(getShell(),
-              destinationId, tag.getPossibleParentTags());
+              destinationId, possibleParentTags);
           filterDialog.open();
           final ITaggedObject selectedObj = filterDialog.getFirstResult();
           if (selectedObj != null) {

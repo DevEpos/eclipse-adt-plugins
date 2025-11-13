@@ -65,11 +65,7 @@ public class ParentObjectFilterDialog extends SearchSelectionDialog<ITaggedObjec
 
     parameters = IAbapTagsFactory.eINSTANCE.createTaggedObjectSearchParams();
 
-    possibleParentTags.forEach(parentTag -> {
-      if (!StringUtil.isEmpty(parentTag) && !parentTag.startsWith("::")) { //$NON-NLS-1$
-        parameters.getTagIds().add(parentTag);
-      }
-    });
+    parameters.getTagIds().addAll(possibleParentTags);
     parameters.setWithTagInfo(true);
     parameters.setResultGroupLevel(ResultGroupLevel.BY_TAG_AND_OBJECT);
     parameters.setTagInfoType(TagInfoType.SEARCH_FOCUS);
