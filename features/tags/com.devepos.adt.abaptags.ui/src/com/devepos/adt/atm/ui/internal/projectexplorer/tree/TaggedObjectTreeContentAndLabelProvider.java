@@ -233,6 +233,7 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           var tagNode = new ElementInfoCollection(t.getName(), t.getName(), null,
               t.getDescription());
           tagNode.setAdditionalInfo(t);
+          tagNode.getProperties().put(ITreeNode.PROP_KEY__ABAP_PROJECT_DESTINATION, destinationId);
           if (!t.getChildTags().isEmpty()) {
             processChildNodes(tagNode, t.getChildTags());
           }
@@ -261,6 +262,8 @@ public class TaggedObjectTreeContentAndLabelProvider extends LazyLoadingTreeCont
           var childFolderNode = new ElementInfoCollection(childTag.getName(), childTag.getName(),
               null, childTag.getDescription());
           childFolderNode.setAdditionalInfo(childTag);
+          childFolderNode.getProperties()
+              .put(ITreeNode.PROP_KEY__ABAP_PROJECT_DESTINATION, destinationId);
           collection.getChildren().add(childFolderNode);
           processChildNodes(childFolderNode, childTag.getChildTags());
         }
