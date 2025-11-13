@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
@@ -17,6 +18,8 @@ import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.atm.tags.IAbapTagsService;
 import com.devepos.adt.base.destinations.DestinationUtil;
 import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.plugin.features.AdtPluginFeaturesServiceFactory;
+import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 import com.devepos.adt.base.ui.project.AbapProjectProviderAccessor;
 import com.devepos.adt.base.util.StringUtil;
 import com.sap.adt.communication.resources.AdtRestResourceFactory;
@@ -76,15 +79,15 @@ public class AbapTagsService implements IAbapTagsService {
   }
 
   @Override
-  public IStatus updateTags(final ITagList tags, final String destinationId,
-      final TagSearchScope scope) {
+  public ITagList updateTags(final ITagList tags, final String destinationId,
+      final TagSearchScope scope) throws CoreException {
     if (tags == null || tags.getTags().isEmpty()) {
-      return Status.OK_STATUS;
+      throw new CoreException(Status.CANCEL_STATUS);
     }
     final var projectProvider = AbapProjectProviderAccessor
         .getProviderForDestination(destinationId);
     if (projectProvider == null) {
-      return Status.CANCEL_STATUS;
+      throw new CoreException(Status.CANCEL_STATUS);
     }
 
     try {
@@ -96,12 +99,12 @@ public class AbapTagsService implements IAbapTagsService {
           .createRestResource(uriDiscovery.getTagsUri(), session);
       restResource.addContentHandler(new AbapTagsContentHandler());
 
-      restResource.post(null, ITagList.class, tags,
+      return restResource.post(null, ITagList.class, tags,
           new QueryParameter(QUERY_PARAM_SCOPE, scope.toString()));
-      return Status.OK_STATUS;
     } catch (final ResourceException exc) {
       exc.printStackTrace();
-      return new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage());
+      throw new CoreException(
+          new Status(IStatus.ERROR, AbapTagsPlugin.PLUGIN_ID, exc.getMessage(), exc));
     }
   }
 
@@ -363,4 +366,21 @@ public class AbapTagsService implements IAbapTagsService {
     return restResource.post(null, ITagDeletionCheckResult.class, tagList);
   }
 
+  @Override
+  public IAdtPluginFeatures getTaggingFeatures(final String destinationId) {
+    var uriDiscovery = new AbapTagsUriDiscovery(destinationId);
+    var pluginFeaturesUri = uriDiscovery.getPluginFeaturesUri();
+    if (pluginFeaturesUri == null) {
+      return null;
+    }
+    var tagsUri = uriDiscovery.getTagsUri();
+    if (tagsUri == null) {
+      return null;
+    }
+
+    var featureList = AdtPluginFeaturesServiceFactory.createService()
+        .getFeatures(destinationId, pluginFeaturesUri.toString());
+
+    return featureList != null ? featureList.getFeaturesByEndpoint(tagsUri.toString()) : null;
+  }
 }
