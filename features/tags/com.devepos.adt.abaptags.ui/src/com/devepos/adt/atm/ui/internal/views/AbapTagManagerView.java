@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -631,14 +632,15 @@ public class AbapTagManagerView extends ViewPart implements IFilterableView {
     }
     final var updateJob = Job.create(Messages.AbapTagManagerView_UpdateTagJobTitle_xmsg,
         monitor -> {
-          final var status = tagsService.updateTags(updateList,
-              DestinationUtil.getDestinationId(lastProject),
-              isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
-          if (!status.isOK()) {
+          try {
+            tagsService.updateTags(updateList, DestinationUtil.getDestinationId(lastProject),
+                isUserTag ? TagSearchScope.USER : TagSearchScope.GLOBAL);
+          } catch (CoreException e) {
             Display.getDefault().asyncExec(() -> {
               MessageDialog.openError(getSite().getShell(),
                   Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
-                  Messages.AbapTagManagerView_ErrorDuringTagUpdate_xmsg + status.getMessage());
+                  Messages.AbapTagManagerView_ErrorDuringTagUpdate_xmsg
+                      + e.getStatus().getMessage());
             });
           }
           refreshTags();

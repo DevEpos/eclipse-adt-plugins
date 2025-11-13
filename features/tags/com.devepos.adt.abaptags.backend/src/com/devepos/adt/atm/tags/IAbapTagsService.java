@@ -3,6 +3,7 @@ package com.devepos.adt.atm.tags;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
@@ -10,6 +11,7 @@ import com.devepos.adt.atm.model.abaptags.ITagDeletionCheckResult;
 import com.devepos.adt.atm.model.abaptags.ITagList;
 import com.devepos.adt.atm.model.abaptags.TagSearchScope;
 import com.devepos.adt.base.model.adtbase.IUser;
+import com.devepos.adt.base.plugin.features.IAdtPluginFeatures;
 
 /**
  * Public interface for ABAP Tags service
@@ -54,7 +56,8 @@ public interface IAbapTagsService {
    * @param scope         the scope of the tags
    * @return the status of the update operation
    */
-  IStatus updateTags(ITagList tags, final String destinationId, TagSearchScope scope);
+  ITagList updateTags(ITagList tags, final String destinationId, TagSearchScope scope)
+      throws CoreException;
 
   /**
    * Reads ABAP Tags for the given destination ID
@@ -148,4 +151,6 @@ public interface IAbapTagsService {
    * @return deletion check result
    */
   ITagDeletionCheckResult runTagDeletionCheck(String destinationId, ITagList tagList);
+
+  IAdtPluginFeatures getTaggingFeatures(final String destinationId);
 }
