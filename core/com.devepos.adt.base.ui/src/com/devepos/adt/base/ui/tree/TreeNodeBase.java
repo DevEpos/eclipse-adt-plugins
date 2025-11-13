@@ -3,6 +3,9 @@ package com.devepos.adt.base.ui.tree;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.devepos.adt.base.ui.project.ProjectProviderAdapterFactory;
+import com.sap.adt.project.IProjectProvider;
+
 /**
  * Base Tree node which has a view basic attributes like a name, a separate
  * display name and an optional description
@@ -10,7 +13,6 @@ import java.util.Map;
  * @author stockbal
  */
 public abstract class TreeNodeBase implements ITreeNode {
-
   protected String name;
   protected String displayName;
   protected String description;
@@ -33,6 +35,10 @@ public abstract class TreeNodeBase implements ITreeNode {
 
   @Override
   public <T> T getAdapter(final Class<T> adapter) {
+    if (adapter == IProjectProvider.class && properties.containsKey(PROP_KEY__ABAP_PROJECT_DESTINATION)) {
+      return adapter.cast(ProjectProviderAdapterFactory
+          .adaptToProjectProvider(properties.get(PROP_KEY__ABAP_PROJECT_DESTINATION)));
+    }
     try {
       return adapter.cast(nodeValue);
     } catch (final ClassCastException exc) {

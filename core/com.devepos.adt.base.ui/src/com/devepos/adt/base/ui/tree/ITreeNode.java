@@ -17,6 +17,11 @@ import com.devepos.adt.base.util.IPropertyBag;
  */
 public interface ITreeNode extends IPropertyBag, IAdaptable {
   /**
+   * Property key to hold destination id to ABAP project
+   */
+  String PROP_KEY__ABAP_PROJECT_DESTINATION = "ABAP_PROJECT_DESTINATION";
+
+  /**
    * @return the description for the node
    */
   String getDescription();

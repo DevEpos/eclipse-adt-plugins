@@ -31,6 +31,14 @@ public class ProjectProviderAdapterFactory {
   }
 
   /**
+   * @return project provider for destination
+   */
+  public static IProjectProvider adaptToProjectProvider(final String destination) {
+    var project = ProjectUtil.getProjectForDestination(destination);
+    return project != null ? new ProjectProvider(project) : null;
+  }
+
+  /**
    * Adapts destination provider to project provider
    *
    * @param adtObjectRef EMF ADT Object Reference
