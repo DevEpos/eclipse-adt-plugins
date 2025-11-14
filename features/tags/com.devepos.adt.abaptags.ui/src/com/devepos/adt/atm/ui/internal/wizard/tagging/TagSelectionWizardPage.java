@@ -311,6 +311,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     var selectedTag = (ITag) checkBoxViewer.getStructuredSelection().getFirstElement();
     final var newTag = IAbapTagsFactory.eINSTANCE.createTag();
 
+    newTag.setName(Messages.TagSelectionWizardPage_NewTagDefaultName_xmsg + " " +
+        (selectedTag.getChildTags().size() + 1));
     newTag.setOwner(selectedTag.getOwner());
     newTag.setParentTagId(selectedTag.getId());
     newTag.setId("::" + UUID.randomUUID());
@@ -328,14 +330,16 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   private void addTag(final boolean userTag) {
     resetAllFilters();
     final var newTag = IAbapTagsFactory.eINSTANCE.createTag();
-    newTag.setName(Messages.TagSelectionWizardPage_NewTagDefaultName_xmsg);
+    var tags = getWizard().getCurrentTagPreviewInfo().getTags();
+    newTag
+        .setName(Messages.TagSelectionWizardPage_NewTagDefaultName_xmsg + " " + (tags.size() + 1));
     if (userTag) {
       newTag.setOwner(getDestinationOwner());
     }
     if (getWizard().isNewTagsViaClientEnabled()) {
       newTag.setId("::" + UUID.randomUUID());
     }
-    getWizard().getCurrentTagPreviewInfo().getTags().add(newTag);
+    tags.add(newTag);
     newTags.add(newTag);
     checkBoxViewer.refresh();
     checkBoxViewer.setChecked(newTag, true);
@@ -621,10 +625,11 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
   }
 
   private void initializeActions() {
-    newSubTagAction = ActionFactory.createAction(Messages.AbapTagManagerView_AddSubTagAction_xmit + " (INS)",
+    newSubTagAction = ActionFactory.createAction(
+        Messages.AbapTagManagerView_AddSubTagAction_xmit + " (INS)",
         PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD),
         this::addSubTag);
-    deleteTagAction = ActionFactory.createAction("&Remove Tag (ENTF)",
+    deleteTagAction = ActionFactory.createAction("&Remove Tag (DEL)",
         PlatformUI.getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
