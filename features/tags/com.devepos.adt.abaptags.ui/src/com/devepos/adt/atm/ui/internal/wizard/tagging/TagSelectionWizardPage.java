@@ -322,7 +322,7 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
     checkBoxViewer.setSelection(new StructuredSelection(newTag));
     checkBoxViewer.editElement(newTag, 0);
     deselectAll.setEnabled(true);
-    setMessage(null);
+    validatePage();
   }
 
   private void addTag(final boolean userTag) {
