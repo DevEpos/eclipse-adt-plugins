@@ -27,6 +27,7 @@ import com.devepos.adt.base.model.adtbase.IAdtBaseFactory;
 import com.devepos.adt.base.model.adtbase.IAdtObjRefList;
 import com.devepos.adt.base.ui.wizard.AbstractWizardBase;
 import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
+import com.devepos.adt.base.util.StringUtil;
 
 /**
  * Wizard for managing the tags of one or several ADT Objects
@@ -193,33 +194,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
   }
 
   private void persistTransientTags(final IProject project) throws CoreException {
-    // Collect all transient tags and their parent relationships
-    List<ITag> sortedTags = new ArrayList<>();
-    List<ITag> unsortedTags = new ArrayList<>(transientTag2ObjTags.keySet());
-    // Topological sort: parents before children
-    while (!unsortedTags.isEmpty()) {
-      var progress = false;
-      for (var i = 0; i < unsortedTags.size();) {
-        var tag = unsortedTags.get(i);
-        var parent = tag.eContainer() instanceof ITag ? (ITag) tag.eContainer() : null;
-        if (parent == null || !transientTag2ObjTags.containsKey(parent)
-            || sortedTags.contains(parent)) {
-          addTransientParentTags(tag, parent, sortedTags);
-          if (!sortedTags.contains(tag)) {
-            sortedTags.add(tag);
-          }
-          unsortedTags.remove(i);
-          progress = true;
-        } else {
-          i++;
-        }
-      }
-      if (!progress) {
-        // Circular dependency or missing parent, break to avoid infinite loop
-        break;
-      }
-    }
-    // Create tags in sorted order
+    var sortedTags = getSortedTransientTags();
     for (var transientTag : sortedTags) {
       var updateList = IAbapTagsFactory.eINSTANCE.createTagList();
       var updateTag = IAbapTagsFactory.eINSTANCE.createTag();
@@ -229,41 +204,53 @@ public class TagObjectsWizard extends AbstractWizardBase {
       updateList.getTags().add(updateTag);
       var updatedTagsList = AbapTagsServiceFactory.createTagsService()
           .updateTags(updateList, DestinationUtil.getDestinationId(project),
-              transientTag.getOwner() == null ? TagSearchScope.GLOBAL : TagSearchScope.USER);
+              StringUtil.isEmpty(transientTag.getOwner()) ? TagSearchScope.GLOBAL
+                  : TagSearchScope.USER);
       var updatedTag = updatedTagsList.getTags().get(0);
       // update the IAdtObjectTags with the new tag ID
       var objectTags = transientTag2ObjTags.get(transientTag);
       if (objectTags != null) {
-        for (var objTag : objectTags) {
-          objTag.setId(updatedTag.getId());
-        }
+        objectTags.forEach(objTag -> objTag.setId(updatedTag.getId()));
       }
-      // we also have to update the child tags in transientTag2ObjTags map
-      for (var entry : transientTag2ObjTags.entrySet()) {
-        var childTag = entry.getKey();
-        if (childTag.eContainer() == transientTag) {
-          childTag.setParentTagId(updatedTag.getId());
-          for (var objTag : entry.getValue()) {
-            if (objTag.getParentTagId().equals(transientTag.getId())) {
-              objTag.setParentTagId(updatedTag.getId());
-            }
-          }
-          break;
-        }
-      }
+      // update child tags' parentTagId and their objectTags' parentTagId
+      transientTag2ObjTags.keySet()
+          .stream()
+          .filter(childTag -> childTag.eContainer() == transientTag)
+          .forEach(childTag -> {
+            childTag.setParentTagId(updatedTag.getId());
+            transientTag2ObjTags.get(childTag).forEach(objTag -> {
+              if (objTag.getParentTagId().equals(transientTag.getId())) {
+                objTag.setParentTagId(updatedTag.getId());
+              }
+            });
+          });
     }
+  }
+
+  private List<ITag> getSortedTransientTags() {
+    List<ITag> sortedTags = new ArrayList<>();
+    List<ITag> unsortedTags = new ArrayList<>(transientTag2ObjTags.keySet());
+    while (!unsortedTags.isEmpty()) {
+      var tag = unsortedTags.get(0);
+      if (!sortedTags.contains(tag)) {
+        addTransientParentTags(tag,
+            tag.eContainer() instanceof ITag ? (ITag) tag.eContainer() : null, sortedTags);
+        sortedTags.add(tag);
+      }
+      unsortedTags.remove(0);
+    }
+    return sortedTags;
   }
 
   private void addTransientParentTags(final ITag tag, final ITag parent,
       final List<ITag> sortedTags) {
-    if (parent == null || !parent.isTransient()) {
+    if (parent == null || !parent.isTransient() || sortedTags.contains(parent)) {
       return;
     }
-
-    if (!sortedTags.contains(parent)) {
-      var grandParent = parent.eContainer() instanceof ITag ? (ITag) parent.eContainer() : null;
-      addTransientParentTags(parent, grandParent, sortedTags);
-      sortedTags.add(parent);
+    var grandParent = parent.eContainer() instanceof ITag ? (ITag) parent.eContainer() : null;
+    addTransientParentTags(parent, grandParent, sortedTags);
+    sortedTags.add(parent);
+    if (!transientTag2ObjTags.containsKey(parent)) {
       transientTag2ObjTags.put(parent, new ArrayList<>());
     }
   }
