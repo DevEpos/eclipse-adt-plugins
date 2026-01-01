@@ -310,6 +310,11 @@ public class Tag extends TagBase implements ITag {
   }
 
   @Override
+  public boolean isTransient() {
+    return id == null || StringUtil.isEmpty(createdDateTime);
+  }
+
+  @Override
   public List<ITag> getDeepChildTags() {
     List<ITag> children = new ArrayList<>();
     var current = new ArrayList<ITag>(getChildTags());

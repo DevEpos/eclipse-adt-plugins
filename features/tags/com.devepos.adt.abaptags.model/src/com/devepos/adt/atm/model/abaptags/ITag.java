@@ -47,6 +47,11 @@ public interface ITag extends ITagBase {
   boolean isEditable();
 
   /**
+   * @return {@code true} if the tag is not yet created
+   */
+  boolean isTransient();
+
+  /**
    * Retrieves children in a recursive manner
    * 
    * @return all children of this tag including
