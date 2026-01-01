@@ -215,10 +215,7 @@ public class TagParentObjectSelectionWizardPage extends AbstractBaseWizardPage {
           final IProject project = getWizard().getProject();
           final String destinationId = DestinationUtil.getDestinationId(project);
           final IAdtObjectTag tag = (IAdtObjectTag) element;
-          var possibleParentTags = tag.getPossibleParentTags()
-              .stream()
-              .filter(t -> t != null && !t.startsWith("::"))
-              .collect(Collectors.toList());
+          var possibleParentTags = tag.getPossibleParentTags();
           if (possibleParentTags.isEmpty()) {
             return null;
           }

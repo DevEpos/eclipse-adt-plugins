@@ -8,7 +8,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
@@ -35,7 +34,7 @@ import com.devepos.adt.base.ui.wizard.IBaseWizardPage;
  * @author stockbal
  */
 /**
- * 
+ *
  */
 public class TagObjectsWizard extends AbstractWizardBase {
 
@@ -74,7 +73,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
     taggedObjectList.getTaggedObjects().clear();
   }
 
-  public void setTransientTag2ObjTags(Map<ITag, List<IAdtObjectTag>> transientTag2ObjTags) {
+  public void setTransientTag2ObjTags(final Map<ITag, List<IAdtObjectTag>> transientTag2ObjTags) {
     this.transientTag2ObjTags = transientTag2ObjTags;
   }
 
@@ -113,7 +112,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
       return false;
     }
     // complete current page
-    final IWizardPage currentPage = getContainer().getCurrentPage();
+    final var currentPage = getContainer().getCurrentPage();
     if (currentPage instanceof IBaseWizardPage) {
       ((IBaseWizardPage) currentPage).completePage();
     }
@@ -129,7 +128,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
       });
     } catch (final InvocationTargetException e) {
       Display.getDefault().asyncExec(() -> {
-        final String message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
+        final var message = e.getCause() == null ? e.getMessage() : e.getCause().getMessage();
         MessageDialog.openError(getShell(), Messages.AbapTagManagerView_ErrorMessageTitle_xtit,
             message);
       });
@@ -159,7 +158,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
   }
 
   @Override
-  public void setProject(IProject project) {
+  public void setProject(final IProject project) {
     super.setProject(project);
     var features = AbapTagsServiceFactory.createTagsService()
         .getTaggingFeatures(DestinationUtil.getDestinationId(getProject()));
@@ -185,11 +184,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
     return success;
   }
 
-  private boolean isTagTransient(ITag tag) {
-    return tag != null && tag.getId() != null && tag.getId().startsWith("::");
-  }
-
-  private void persistChanges(IProject project) throws CoreException {
+  private void persistChanges(final IProject project) throws CoreException {
     if (transientTag2ObjTags != null && !transientTag2ObjTags.isEmpty()) {
       persistTransientTags(project);
     }
@@ -197,17 +192,17 @@ public class TagObjectsWizard extends AbstractWizardBase {
         .saveTaggedObjects(DestinationUtil.getDestinationId(project), taggedObjectList);
   }
 
-  private void persistTransientTags(IProject project) throws CoreException {
+  private void persistTransientTags(final IProject project) throws CoreException {
     // Collect all transient tags and their parent relationships
     List<ITag> sortedTags = new ArrayList<>();
     List<ITag> unsortedTags = new ArrayList<>(transientTag2ObjTags.keySet());
     // Topological sort: parents before children
     while (!unsortedTags.isEmpty()) {
-      boolean progress = false;
-      for (int i = 0; i < unsortedTags.size();) {
+      var progress = false;
+      for (var i = 0; i < unsortedTags.size();) {
         var tag = unsortedTags.get(i);
         var parent = tag.eContainer() instanceof ITag ? (ITag) tag.eContainer() : null;
-        if (parent == null || !transientTag2ObjTags.keySet().contains(parent)
+        if (parent == null || !transientTag2ObjTags.containsKey(parent)
             || sortedTags.contains(parent)) {
           addTransientParentTags(tag, parent, sortedTags);
           if (!sortedTags.contains(tag)) {
@@ -249,7 +244,7 @@ public class TagObjectsWizard extends AbstractWizardBase {
         if (childTag.eContainer() == transientTag) {
           childTag.setParentTagId(updatedTag.getId());
           for (var objTag : entry.getValue()) {
-            if (objTag.getParentTagId().startsWith("::")) {
+            if (objTag.getParentTagId().equals(transientTag.getId())) {
               objTag.setParentTagId(updatedTag.getId());
             }
           }
@@ -259,8 +254,9 @@ public class TagObjectsWizard extends AbstractWizardBase {
     }
   }
 
-  private void addTransientParentTags(ITag tag, ITag parent, List<ITag> sortedTags) {
-    if (!isTagTransient(parent)) {
+  private void addTransientParentTags(final ITag tag, final ITag parent,
+      final List<ITag> sortedTags) {
+    if (parent == null || !parent.isTransient()) {
       return;
     }
 
