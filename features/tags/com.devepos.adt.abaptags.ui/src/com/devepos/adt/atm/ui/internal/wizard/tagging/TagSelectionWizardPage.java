@@ -623,7 +623,8 @@ public class TagSelectionWizardPage extends AbstractBaseWizardPage {
         Messages.AbapTagManagerView_AddSubTagAction_xmit + " (INS)",
         PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ADD),
         this::addSubTag);
-    deleteTagAction = ActionFactory.createAction("&Remove Tag (DEL)",
+    deleteTagAction = ActionFactory.createAction(
+        Messages.TagSelectionWizardPage_RemoveTag_xbut + " (DEL)",
         PlatformUI.getWorkbench()
             .getSharedImages()
             .getImageDescriptor(ISharedImages.IMG_ETOOL_DELETE),
