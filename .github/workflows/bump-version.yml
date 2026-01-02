@@ -45,6 +45,7 @@ jobs:
         cache: maven
 
     - name: Bump version of project
+      id: bump_version
       shell: pwsh
       run: |
         .\scripts\bump-version.ps1 -ProjectPath ".\${{ github.event.inputs.projectPath }}" -NewVersion "${{ github.event.inputs.version }}"
@@ -71,7 +72,7 @@ jobs:
         git add .
 
         # make commit with staged changes
-        git commit -m "chore(${{ github.event.inputs.commitScope }}): bump version to v${{ github.event.inputs.version }}"
+        git commit -m "chore(${{ github.event.inputs.commitScope }}): bump version to v${{ steps.bump_version.outputs.NEW_VERSION }}"
 
         # push the commit back up to source GitHub repository
-        git push        
+        git push

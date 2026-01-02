@@ -11,26 +11,29 @@ param(
     [string]$NewVersion
 )
 
-$cwd = Get-Location
-
 Function updatePomVersion([string]$ProjectPath, [string]$OldVersion, [string]$NewVersion) {
-    Set-Location $ProjectPath
-    Write-Host "Updating version from $OldVersion to $NewVersion"
-    if (!$TestMode) {
-        mvn tycho-versions:set-version -DnewVersion="$NewVersion" -q
+    $fqv = $NewVersion + "-SNAPSHOT"
+    if ($fqv -eq $OldVersion) {
+        Write-Host -ForegroundColor Yellow "Version already matches $fqv"
+        return
     }
-    Set-Location $cwd
+    Set-Location $ProjectPath
+    Write-Host "Updating version from $OldVersion to $fqv"
+    mvn tycho-versions:set-version -DnewVersion="$fqv" -q
+
+    # set output variable for github actions
+    "NEW_VERSION=$NewVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 }
 
 if (!(Test-Path $ProjectPath)) {
-    Write-Error "RepoPath does not exist"
+    Write-Error "Given ProjectPath '$ProjectPath' does not exist"
     return
 }
 
 $ProjectPath = (Resolve-Path $ProjectPath)
 
 if (!(Test-Path "$ProjectPath\pom.xml")) {
-    Write-Error "Folder does not contain a pom.xml file"
+    Write-Error "Folder '$ProjectPath' does not contain a pom.xml file"
     return
 }
 
@@ -40,12 +43,7 @@ if (!(Test-Path "$ProjectPath\pom.xml")) {
 $version = $pom.project.version
 
 if ($NewVersion -match "^\d+\.\d+\.\d+$") {
-    $NewVersion += "-SNAPSHOT"
-    if ($NewVersion -eq $version) {
-        Write-Host -ForegroundColor Yellow "Version already matches $NewVersion"
-        return
-    }
-    updatePomVersion -RepoPath $ProjectPath -OldVersion $version -NewVersion $NewVersion
+    updatePomVersion -ProjectPath $ProjectPath -OldVersion $version -NewVersion $NewVersion
 }
 else {
 
@@ -80,12 +78,5 @@ else {
         }
     }
 
-    $NewVersion = "$majorNumber.$minorNumber.$patchNumber-SNAPSHOT"
-
-    if ($NewVersion -eq $version) {
-        Write-Host -ForegroundColor Yellow "Version already matches $NewVersion"
-        return
-    }
-
-    updatePomVersion -RepoPath $ProjectPath -OldVersion $pom.project.version -NewVersion $NewVersion
+    updatePomVersion -ProjectPath $ProjectPath -OldVersion $pom.project.version -NewVersion "$majorNumber.$minorNumber.$patchNumber"
 }
