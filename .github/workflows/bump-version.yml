@@ -3,14 +3,32 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to release (e.g. 1.1.1)"
+        description: "Version to release (e.g. 1.1.1 or patch, minor, major)"
         required: true
       commitScope:
         description: "Commit scope (e.g. core, tags, codesearch)"
+        type: choice
+        options:
+          - core
+          - tags
+          - codesearch
+          - saat
+          - favs
+          - pdt-tools
+          - call-hier
         required: true
       projectPath:
         description: "Path to root of project"
         required: true
+        type: choice
+        options:
+          - core
+          - features\call-hierarchy
+          - features\code-search
+          - features\search-favorites
+          - features\search-tools
+          - features\pdt-tools
+          - features\tags
 
 permissions:
   contents: write
@@ -27,9 +45,9 @@ jobs:
         cache: maven
 
     - name: Bump version of project
+      shell: pwsh
       run: |
-        cd ./${{ github.event.inputs.projectPath }}
-        mvn tycho-versions:set-version -DnewVersion="${{ github.event.inputs.version }}-SNAPSHOT" -q
+        .\scripts\bump-version.ps1 -ProjectPath ".\${{ github.event.inputs.projectPath }}" -NewVersion "${{ github.event.inputs.version }}"
 
     - name: Check for Changes
       id: check_changes
